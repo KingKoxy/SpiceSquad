@@ -1,0 +1,276 @@
+\documentclass[parskip=full]{scrartcl}
+\usepackage[top=2.54cm, bottom=2.54cm, left=2.54cm, right=2.54cm]{geometry}
+\usepackage[utf8]{inputenc} % use utf8 file encoding for TeX sources
+\usepackage[T1]{fontenc}    % avoid garbled Unicode text in pdf
+\usepackage[german]{babel}  % german hyphenation, quotes, etc
+\usepackage{hyperref}
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+\usepackage[dvipsnames]{xcolor}
+
+\usepackage[headsepline, footsepline]{scrlayer-scrpage}
+\addtokomafont{headsepline}{\color{ForestGreen}}
+\addtokomafont{footsepline}{\color{ForestGreen}}
+\KOMAoptions{headsepline=1.25pt:\textwidth}
+\KOMAoptions{footsepline=1.25pt:\textwidth}
+\clearpairofpagestyles
+\rofoot{\thepage}
+\ihead{Title description}
+
+\hypersetup{
+    pdftitle={PSE: Pflichtenheft},
+    colorlinks,
+    linkcolor={black!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+\usepackage{csquotes}
+% detailed hyperlink/pdf configuration
+% ‘texdoc hyperref‘ for options
+% provides \enquote{} macro for "quotes"
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+        \begin{Huge}
+            {\textbf{Lorem ipsum: Lorem ipsum dolor sit amet}}
+        \end{Huge}
+        \vspace{12px}
+
+        Praxis der Softwareentwicklung (PSE)\\
+        Sommersemester 2023\\
+        \vspace{170px}
+        
+        \begin{huge}
+            {\textbf{Pflichtenheft}}
+        \end{huge}
+        \vspace{12px}
+
+        Auftraggeber\\
+        Karlsruher Institut für Technologie\\
+        KASTEL — Institut für Informationssicherheit und Verlässlichkeit\\
+        \vspace{310px}
+
+        Auftragnehmer\\
+        Karlsruher Intellektuelle\\
+        Henri Becker, Konrad Knappe, Lukas Schwarz, Raphael Zipperer\\
+    \end{center}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{Zielbestimmung}
+
+\subsection{Musskriterien}
+Musskriterien: unabdingbare Leistungen der Software.
+
+\begin{enumerate}[start=1,label={$\langle$\bfseries RM\arabic*$\rangle$}, leftmargin = 5em, itemsep=4pt, parsep=4pt]
+    \item Die App besitzt eine Login Funktionen.
+    \item Der Nutzer muss Gruppe erstellen/beitreten können.
+    \item Der Nutzer muss ein Rezepte erstellen und hochladen können.
+    \item Es müssen erstellte Rezepte angeschaut werden können.
+    \item Erstellte Rezepte müssen seperat verwalten und geändert werden können.
+    \item Der Nutzer muss Gruppen nach dem beitreten wieder verlassen können.
+\end{enumerate}
+
+\subsection{Sollkriterien}
+Sollkriterien: erstrebenswerte Leistungen.
+
+\begin{enumerate}[start=1,label={$\langle$\bfseries RS\arabic*$\rangle$}, leftmargin = 5em, itemsep=4pt, parsep=4pt]
+    \item Der Nutzer soll Rezepte bewerten können
+    \item Der Nutzer sol bei Rezepten Portionen skalieren können.
+    \item Zu jedem Rezept soll die Kochzeit, Schwierigkeit hinzugefügt werden können
+    \item Das Hinzufügedatum eines Rezept soll einsehbar sein.
+\end{enumerate}
+
+\subsection{Kannkriterien}
+Kannkriterien: Leistungen, die enthalten sein können.
+
+\begin{enumerate}[start=1,label={$\langle$\bfseries RC\arabic*$\rangle$}, leftmargin = 5em, itemsep=4pt, parsep=4pt]
+    \item Rezepte können in Form von PDFs exportiert werden.
+    \item Es kann ein Bild zum Rezept hochladen werden.
+    \item Ein Nutzer kann Rezepte abspeichern oder favoritisieren
+    \item Kalorienrechner
+    \item Lebensmittelpicker
+    \item Einkaufsliste mit Zutaten von Rezepten erstellen
+\end{enumerate}
+
+\subsection{Abgrenzungskriterien}
+Abgrenzungskriterien: Leistungen die explizit nicht umgesetzt werden.
+
+\begin{enumerate}[start=1,label={$\langle$\bfseries RW\arabic*$\rangle$}, leftmargin = 5em, itemsep=4pt, parsep=4pt]
+    \item Es können keine Lebensmittel bestellt werden
+    \item Es können keine Kommentare zu Rezepten hinzugefügt werden
+    \item Es gibt keine integrierte Chatfunktion
+    \item Es können keine Videos den Rezepten hinzugefügt werden
+    \item Es gibt keine Moderationsrolle in Gruppen 
+\end{enumerate}
+
+\section{Produkteinsatz}
+Dieses Kapitel dient dazu, den Einsatzbereich, die Zielgruppen und die Betriebsbedingungen der zu entwickelnden Software aufzuführen.
+
+\subsection{Anwendungsbereiche}
+In diesem Abschnitt wird erläutert, in welchen Bereichen die Software eingesetzt werden soll.
+
+\subsection{Zielgruppen}
+Im Folgenden wird aufgezählt, für welche Anwender die Software im Wesentlichen gedacht ist.
+
+\subsection{Betriebsbedingungen}
+In diesem Unterkapitel wird auf die unterschiedlichen Bedürfnisse und Anforderungen an die Software eingegangen.
+
+\section{Produktübersicht}
+In diesem Kapitel werden die Produktfunktionen beschrieben und in einem Use-Case-Diagramm visualisiert. Das Use-Case-Diagramm zeigt mittels Verbindungslininen, wie die einzelnen Use- Cases zueinander stehen.
+
+\section{Produktfunktion}
+
+\section{Produktdaten}
+Um die App nutzen zu können, ist es erforderlich einige Daten zu speichern. Diese werden auf unterschiedlichen Geräten gespeichert:
+
+\textbf{Smartphone-Daten $\langle$D10$\rangle$}
+\begin{itemize}
+    \item Lorem
+    \item Lorem
+\end{itemize}
+
+\textbf{Server-Daten $\langle$D20$\rangle$}
+\begin{itemize}
+    \item Lorem
+    \item Lorem
+\end{itemize}
+
+\textbf{Sender-Daten $\langle$D30$\rangle$}
+\begin{itemize}
+    \item Lorem
+    \item Lorem
+\end{itemize}
+
+\section{Nichtfunktionale Anforderungen}
+Im folgenden Kapitel werden die nichtfunktionalen Anforderungen und Qualitätsmerkmale der App definiert.
+Anschließend werden die wichtigsten Qualitätsmerkmale operationalisiert und, falls diese nicht als allgemeine Richtlinie (z.B. Standard, Norm usw.) zu Verfügung gestellt werden, 
+als konkrete Produktanforderungen konkretisiert.
+
+\subsection{Funktinalität}
+\begin{tabular}{| c | c | c | c | c |}
+    \hline
+    \textbf{Pruduktqualität} & \textbf{sehr gut} & \textbf{gut} & \textbf{normal} & \textbf{nicht relevant} \\ \hline
+    Angemessenheit &  &  &  & \\ \hline
+    Richtigkeit &  &  &  & \\ \hline
+    Interoperabilität &  &  &  &  \\ \hline
+    Ordnungsmäßigkeit &  &  &  &  \\ \hline
+\end{tabular}
+
+\textbf{Angemessenheit}\\
+Da jede Softwarekomponente und das Spiel als Ganzes für die zugeschriebene Funktion geeignet sein muss, ist die Angemessenheit als gut einzustufen.
+
+\textbf{Richtigkeit und Ordnungsmäßigkeit}
+
+\textbf{Interoperabilität}\\
+Da die App mit Schnittstellen wie bspw. dem Server oder Android-Betriebssystem fehlerfrei kommunizieren muss, um korrekt zu arbeiten, ist eine sehr gute Interoperabilität wichtig.
+
+\subsection{Sicherheit}
+\begin{tabular}{| c | c | c | c | c |}
+    \hline
+    \textbf{Pruduktqualität} & \textbf{sehr gut} & \textbf{gut} & \textbf{normal} & \textbf{nicht relevant} \\ \hline
+    Zuverlässligkeit &  &  &  & \\ \hline
+    Reife &  &  &  & \\ \hline
+    Fehlertoleranz &  &  &  &  \\ \hline
+    Wiederherstellbarkeit &  &  &  &  \\ \hline
+\end{tabular}
+
+\textbf{Zuverlässigkeit und Reife}\\
+Durch das Durchführen von Tests während der Implementierung können Fehler früh gefunden werden und der fehlerhafte Code verbessert werden.
+Durch die zahlreichen Testfälle können wir eine gute Zuverlässigkeit und Reife der App gewährleisten.
+
+\textbf{Fehlertoleranz}\\
+Trotz kontinuierlichen Testens während des Entwicklungsprozesses, kann es zur Laufzeit des Spiels zu Fehlern kommen.
+Das Ausmaß ist dabei von Fall zu Fall unterschiedlich. 
+Folglich wird die Fehlertoleranz der App als normal eingestuft.
+
+\subsection{Wiederherstellbarkeit}
+
+
+\subsection{Benutzbarkeit}
+\begin{tabular}{| c | c | c | c | c |}
+    \hline
+    \textbf{Pruduktqualität} & \textbf{sehr gut} & \textbf{gut} & \textbf{normal} & \textbf{nicht relevant} \\ \hline
+    Verständlichkeit & X &  &  & \\ \hline
+    Erlernbarkeit & X &  &  & \\ \hline
+    Bedienbarkeit &  & X &  &  \\ \hline
+    Effizienz &  & X &  &  \\ \hline
+    Zeitverhalten &  & X &  &  \\ \hline
+    Verbrauchsverhalten &  & X &  &  \\ \hline
+\end{tabular}
+
+\textbf{Verständlichkeit, Erlernbarkeit und Bedienbarkeit}\\
+Die App soll intuitiv zugänglich sein, um ein hürdenfreie User Experience zu garantieren.
+
+\textbf{Effizienz, Zeitverhalten und Verbraucherverhalten}\\
+Die Effizienz der App muss als gut eingestuft werden, um ein möglichst langes Nutzererlebnis trotz des begrenzen Energiespeichers des Endgerätes zu realisieren.
+Um dieses Ziel zu erreichen, soll die App ein relativ geringes Verbrauchs- und Zeitverhalten haben.
+
+
+\subsection{Änderbarkeit}
+\begin{tabular}{| c | c | c | c | c |}
+    \hline
+    \textbf{Pruduktqualität} & \textbf{sehr gut} & \textbf{gut} & \textbf{normal} & \textbf{nicht relevant} \\ \hline
+    Analysierbarkeit &  &  &  & \\ \hline
+    Modifizierbarkeit &  &  &  & \\ \hline
+    Stabilität &  &  &  &  \\ \hline
+    Prüfbarkeit &  &  &  &  \\ \hline
+    Übertragbarkeit &  &  &  &  \\ \hline
+    Anpassbarkeit &  &  &  &  \\ \hline
+    Installierbarkeit &  &  &  &  \\ \hline
+    Konformität &  &  &  &  \\ \hline
+    Austauschbarkeit &  &  &  &  \\ \hline
+\end{tabular}
+
+\textbf{Analysierbarkeit, Modifizierbarkeit, Anpassbarkeit und Austauschbarkeit}
+
+\textbf{Stabilität}
+Inhaltliche und designtechnische Änderungen der App dürfen keine Beeinträchtigung auf die Funktionalität der App haben.
+Dadurch muss die Stabilität der App mit gut eingestuft werden.
+
+\textbf{Installierbarkeit}
+Um die App spielen zu können, muss die App auf dem Android-Smartphone des Nutzers installiert werden.
+Dadurch ist eine gute Installierbarkeit unerlässlich.
+
+\textbf{Konformität}
+
+
+\subsection{Qualitätsanforderungen}
+Die oben als am wichtigsten bezeichneten Qualitätsmerkmale werden im Folgenden operatio- nalisiert, d.h. in konkreten Produktanforderungen konkretisiert oder es wird angegeben, welche Richtlinie (z. B. Standard, Norm) einzuhalten ist.
+
+\begin{enumerate}[start=1,label={$\langle$\bfseries Q\arabic*$\rangle$}, leftmargin = 5em, itemsep=4pt, parsep=4pt]
+    \item Lorem
+    \item Lorem
+    \item Lorem
+\end{enumerate}
+
+\section{Benutzeroberfläche/Schnittstellen}
+In diesem Kapitel wird die Benutzeroberfläche erläutert. Es wird auf die Darstellung der einzel- nen Funktionen sowie die Navigation zwischen diesen eingegangen.
+
+\textbf{Benutzeroberfläche:}
+
+\section{Technische Produktumgebung}
+In diesem Kapitel wird die technische Umgebung des Produktes beschrieben.
+
+\subsection{Software}
+\begin{itemize}
+    \item Entwicklungsumgebung - Android Studio
+    \item Implementierungssprache der App - Dart
+    \item Client-Betriebssystem - Android 10 oder eine neuere Androidversion
+\end{itemize}
+
+\subsection{Hardware}
+\begin{itemize}
+    \item Standard Smartphone mit Android Betriebssystem
+\end{itemize}
+
+\subsection{Produktschnittstellen}
+Die Benutzerschnittstelle wird über ein GUI zur Verfügung gestellt.
+
+\section{Glossar}
+
+\end{document}
