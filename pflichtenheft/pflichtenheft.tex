@@ -7,6 +7,9 @@
 \usepackage{enumerate}
 \usepackage[shortlabels]{enumitem}
 \usepackage[dvipsnames]{xcolor}
+\usepackage{graphicx}
+\usepackage{mwe}
+\usepackage{caption}
 
 \usepackage[headsepline, footsepline]{scrlayer-scrpage}
 \addtokomafont{headsepline}{\color{ForestGreen}}
@@ -59,7 +62,12 @@
 \end{titlepage}
 
 \tableofcontents
+
+\vspace{32px}
+\section*{Gender-Hinweis}
+Zur besseren Lesbarkeit wird in diesem Pflichtenheft das generische Maskulinum verwendet. Die in dieser Arbeit verwendeten Personenbezeichnungen beziehen sich – sofern nicht anders kenntlich gemacht – auf alle Geschlechter.
 \newpage
+
 
 \section{Zielbestimmung}
 
@@ -121,7 +129,71 @@ Im Folgenden wird aufgezählt, für welche Anwender die Software im Wesentlichen
 In diesem Unterkapitel wird auf die unterschiedlichen Bedürfnisse und Anforderungen an die Software eingegangen.
 
 \section{Produktübersicht}
-In diesem Kapitel werden die Produktfunktionen beschrieben und in einem Use-Case-Diagramm visualisiert. Das Use-Case-Diagramm zeigt mittels Verbindungslininen, wie die einzelnen Use- Cases zueinander stehen.
+In diesem Kapitel werden die Produktfunktionen beschrieben und in einem Use-Case-Diagramm visualisiert.
+Das Use-Case-Diagramm zeigt mittels Verbindungslininen, wie die einzelnen Use-Cases zueinander stehen.
+Der Abschnitt „Gruppenverwaltung“ und "Rezepte Liste" werden genauer in jeweils einem Aktivitätsdiagramm abgebildet.
+Dadurch können die einzelnen Schritte, die durchlaufen werden, besser beschrieben werden.
+
+\textbf{Abbildung 3.1}\\
+In dem Use-Case-Diagramm „Aufbau der App“ sieht man die allgemeine Struktur der App.
+Bei der erstmaligen Nutzung muss der Nutzer sich registrieren oder einlogen, sofern er schon ein Konto.
+Dafür muss er seinen Namen, seine E-Mail-Adresse und ein Passwort eingeben.
+Nachdem dies geschehen ist, kann der Nutzer auf der Startseite zwischen drei verschiedenen Menüpunkten wählen.
+
+Der Nutzer kann sich die Liste von Rezepten anschauen, dort sind alle Rezepte zu finden, die der Nutzer oder andere Nutzer in beigetretenen Gruppen erstellt haben.
+Ein weiterer Menüpunkt sind die Favorieten.
+Hier werden alle fovorisierten Rezepte hinterlegt.
+Unter dem Menüpunkt "Verwaltung" kann der Nutzer Gruppen erstellen, beitreten oder austreten, sofern er in einer Gruppe ist.
+Das bearbeiten von eigenen Rezepten ist hier möglich.
+Zudem kann der Nutzer sich hier wieder ausloggen.
+
+\textbf{Abbildung 3.2}\\
+Im Aktivitätsdiagramm „Rezepte Liste“ werden die verschiedenen Möglichkeiten unter dem Menüpunkt aufgeführt.
+Der Nutzer hat die Möglichkeite Rezepte durch eine Suchfeld zu suchen.
+Der Nutzer hat die Möglichkeit die Rezepteliste durch vorgegebene Sortierungen zu sortieren.
+Beim Auswählen eines Rezepts öffnet sich das zugehörige Rezeptfenster.
+Im Rezeptfenster kann der Nutzer die Portionsgröße anpassen, das Rezept bewerten und das Rezept fovorisieren.
+Im Fenster Rezeptliste kann der Nutzer Rezepte erstellen.
+Es öffnet sich ein leeres Rezepttemplate Fenster.
+Der Nutzer kann die Zutaten und die Kochanleitung in diesem Fenster eingeben.
+Nach Bestätigung der Eingabe kommt der Nutzer wieder auf die Rezept Liste.
+
+\textbf{Abbildung 3.3}\\
+Im Aktivitätsdiagramm Verwaltung  möchte der Nutzer seine Gruppen verwalten.
+Es besteht die Wahl eine Gruppe zu erstellen, eine Gruppe hinzuzufügen oder bestehende Gruppen zu verwalten.
+Beim erstellen einer Gruppe kann der Nutzer einen Gruppennamen und ein Passwort wählen.
+Nach Bestätigung wird der Nutzer der Gruppe hinzugefügt.
+Die Gruppe ist daraufhin unter Verwaltung zu finden.
+Beim hinzufügen einer Gruppe muss der Nutzer das Gruppen-Kürzel und Passwort eingeben.
+Bei erfolgreicher Eingabe wird der Nutzer der Gruppe hinzugefügt.
+Bei fehlerhafter Eingabe erscheint eine Fehlermeldung.
+Falls der Nutzer schon in einer Gruppe beigetreten ist, kann er der Gruppe austreten oder das Gruppen-Kürzel und Passwort der Gruppe kopieren.
+Beim Austreten muss der Nutzer noch nachträglich bestätigen, dass er aus der austreten möchte.
+\newpage
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics{example-image-a}\\
+    Abbildung 3.1: Use-Case-Diagramm: Aufbau der App
+    \label{fig:A31}
+\end{figure}
+\newpage
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[]{example-image-a}\\
+    Abbildung 3.2: Aktivitätsdiagramm: Rezepte Liste
+    \label{fig:A32}
+\end{figure}
+\newpage
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[]{example-image-a}\\
+    Abbildung 3.3: Aktivitätsdiagramm: Gruppenverwaltung
+    \label{fig:A33}
+\end{figure}
+\newpage
 
 \section{Produktfunktion}
 
