@@ -196,6 +196,221 @@ Beim Austreten muss der Nutzer noch nachträglich bestätigen, dass er aus der a
 \newpage
 
 \section{Produktfunktion}
+\textbf{Einloggen $\langle$F10$\rangle$}\\
+\textbf{Anwendungsfall:} Der Nutzer möchte sich in der App anmelden um alle Features der App nutzen zu können.\\
+\textbf{Anforderungen:} RM1\\
+\textbf{Ziel:} Der Nutzer erhält Zugang zu seinem Profil in der App indem eine Verbindung zum Server hergestellt wird.\\
+\textbf{Vorbedingung:} Der Nutzer hat bereits ein Konto erstellt.\\
+\textbf{Nachbedingung Erfolg:} Der Nutzer ist erfolgreich eingeloggt und wird zur Home View der App weitergeleitet.\\
+\textbf{Nachbedingung Fehlschlag:} Das Passwort oder der Nutzername ist falsch, sodass ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Akteure:} Nutzer, Server\\
+\textbf{Auslösendes Ereignis:} Der Nutzer startet die App.\\
+\textbf{Beschreibung:} 
+\begin{enumerate}
+    \item Start der App.
+    \item Login View erscheint
+    \item Eingabe des Nutzernamens.
+    \item Eingabe des Passworts.
+    \item Auf "Weiter" Button klicken, um Anmeldung abzuschließen.
+\end{enumerate}
+\textbf{Erweiterung:} -\\
+\textbf{Alternativen:} Mit Klick auf den "Registrieren" Button kann ein Nutzer Konto angelegt werden.\\
+\newpage
+
+\textbf{Registrierung $\langle$F20$\rangle$}\\
+\textbf{Anwendungsfall:} Der Nutzer möchte ein Nutzer Konto anlegen.\\
+\textbf{Anforderungen:} - \\
+\textbf{Ziel:} Der Nutzer legt ein Nutzer Konto an um die all Features der App nutzen zu können.\\
+\textbf{Vorbedingung:} Die App muss bereits gestartet worden sein.
+\textbf{Nachbedingung Erfolg:} Der Nutzer wird zum Login Screen weitergeleitet und mit einem Pop-up-Fenster erfolgt die Bestätigung zur erfolgreichen Registrierung.\\
+\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Akteure:} Nutzer, Server\\
+\textbf{Auslösendes Ereignis:} Der Nutzer muss auf den "Registrieren" Button in der Login View klicken.\\
+\textbf{Beschreibung:}
+\begin{enumerate}
+    \item Klick auf den "Registrieren" Button.
+    \item Eingabe des Nutzernamens.
+    \item Eingabe eines Passworts.
+    \item Wiederholen des Passworts.
+    \item Klick auf den "Weiter" Button.
+\end{enumerate}
+\textbf{Erweiterung:} -\\
+\textbf{Alternativen:} Durch das klicken auf den "Login" Button wird der Nutzer zurück zur Login View geleitet.\\
+\newpage
+
+\textbf{Rezept erstellen $\langle$F30$\rangle$}\\
+\textbf{Anwendungsfall:} Der Nutzer möchte ein neues Rezept erstellen.\\
+\textbf{Anforderungen:} RM3, RS3, RC2\\
+\textbf{Ziel:} Der Nutzer erstellt ein Rezept, welches er mit seinen Gruppe teilen möchte, oder auch nur für sich sichtbar macht.\\
+\textbf{Vorbedingung:} Der Nutzer muss in der App angemeldet sein.\\
+\textbf{Nachbedingung Erfolg:} Das neue Rezept kann bei den eigenen Rezepten gefunden werden und kann mit seinen Gruppen geteilt werden.\\
+\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Akteure:} Nutzer, Server\\
+\textbf{Auslösendes Ereignis:} In der Home View klickt der Nutzer auf den Button für ein neues Rezept anlegen Button.\\
+\textbf{Beschreibung:}
+\begin{enumerate}
+    \item Der Nutzer klickt auf den Button für ein neues Rezept.
+    \item Der Name des Rezepts wird eingeben.
+    \item Der gesamten Zeitaufwand wird eingeben.
+    \item Der Schwierigkeitsgrad wird auswählen.
+    \item Die Zutaten mit Mengenangaben werden ausgewählt.
+    \item Der Text mit Schritt für Schritt Anleitung wird eingeben.
+    \item Die Sichtbarkeit wird auswählen.
+    \item Es wird ausgewählt für wie viele Personen das Rezept ist.
+    \item Der Nutzer klickt auf den Button und das Rezept wird abgespeichert.   
+\end{enumerate}
+\textbf{Erweiterung:} Der Nutzer kann ein Bild vom fertigen Gericht hochladen.\\
+\textbf{Alternativen:} Der Nutzer kann auf den Verlassen Button klicken und das Rezept erstellen wird abgebrochen.\\
+\newpage 
+
+\textbf{Rezept ändern $\langle$F40$\rangle$}\\
+\textbf{Anwendungsfall:} Der Nutzer möchte den Inhalt seines Rezepts nachträglich ändern.\\
+\textbf{Anforderungen:} RM5, RS3\\
+\textbf{Ziel:} Der Nutzer will sein Rezept anpassen um es an nach seinen Vorstellungen umzugestalten.\\
+\textbf{Vorbedingung:} Der Nutzer hat bereits ein eigenes Rezept erstellt.\\
+\textbf{Nachbedingung Erfolg:} Das aktualisierte Rezept wird wieder auf den Server geladen und den eingestellten Nutzern aktualisiert angezeigt. \\
+\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Akteure:} Nutzer, Server\\
+\textbf{Auslösendes Ereignis:} Ein Klick auf den Button zum Rezept ändern in der Recipe View von einem selbst erstellten Rezept.\\
+\textbf{Beschreibung:}
+\begin{enumerate}
+    \item Weiterleitung zum Recipe Creation View, welche bereits mit allen Angaben des Rezepts gefüllt sind.
+    \item Änderung des Rezeptnamens, des gesamten Zeitaufwandes, des Schwierigkeitsgrad, der Zutaten zuzüglichen der Mengenangeben, die Anleitung, die Sichtbarkeit oder die Angabe für wie viele Personen das Rezept ist.
+    \item Klick auf den Button werden die Änderungen am Rezept gespeichert.
+\end{enumerate}
+\textbf{Erweiterung:} -\\
+\textbf{Alternativen:} Mit einem Klick auf den Verlassen Button kann das Rezept ändern abgebrochen werden, wobei alle Änderungen verloren gehen.\\
+\newpage
+
+\textbf{Rezept anschauen $\langle$F50$\rangle$}\\
+\textbf{Anwendungsfall:} Der Nutzer möchte sich das Rezepte genauer betrachten.\\
+\textbf{Anforderungen:} RM4, RS2, RS4, RC1\\
+\textbf{Ziel:} Der Nutzer kann mithilfe der Anleitung und den Mengenangaben das Rezept nachvollziehen.\\
+\textbf{Vorbedingung:} Der Nutzer muss Rezepte in der Home View angezeigt bekommen.\\
+\textbf{Nachbedingung Erfolg:} Das Rezept wird mit all seinen Details angezeigt in der Recipe View.\\
+\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Akteure:} Nutzer, Server\\
+\textbf{Auslösendes Ereignis:} Klick auf ein Rezept in der Home View.\\
+\textbf{Beschreibung:}
+\begin{enumerate}
+    \item Durch das Rezept scrollen um die gesamte Anleitung zu sehen, falls diese nicht auf den Screen passt.
+\end{enumerate}
+\textbf{Erweiterung:} Der Nutzer kann die voreingestellte Portionsgröße auf die gewünschte Anzahl ändern. werden. Des Weiter kann ein Rezept auch in der Form eines PDFs exportiert werden.\\
+\textbf{Alternativen:} Mit dem "zurück" Button kann der Nutzer zur Home View zurückkehren.\\
+\newpage
+
+\textbf{Rezept favorisieren $\langle$F60$\rangle$}\\
+\textbf{Anwendungsfall:} Der Nutzer möchte ein Rezept zu seinen Favoriten hinzugefügen.\\
+\textbf{Anforderungen:} RC3
+\textbf{Ziel:} Der Nutzer kann ein Rezept zu den Favoriten hinzugefügt werden um einen schnelleren Zugriff auf das Rezept zu ermöglcihen.\\
+\textbf{Vorbedingung:} Es müssen dem Nutzer Rezepte in der Home View angezeigt werden.\\
+\textbf{Nachbedingung Erfolg:} Der Nutzer kann das Rezept in seiner Favorites View finden.\\
+\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Akteure:}Nutzer, Server\\
+\textbf{Auslösendes Ereignis:} Klick auf den Favorisieren Button.\\
+\textbf{Beschreibung:}
+\begin{enumerate}
+    \item Klick auf den Favorisieren Button.
+\end{enumerate}
+\textbf{Erweiterung:} Das Favorisieren kann auch wieder entfernt werden durch das erneute klicken auf den favorisieren Button. Des Weiteren kann die Favoriten List auch nach Autor, Rezeptname und Hinzufüge Datum sortiert werden.
+\textbf{Alternativen:} Das Favorisieren kann auch in der Home View durch geführt werden durch das Klicken auf den Stern neben dem Rezept.\\
+\newpage
+
+\textbf{Rezept suchen $\langle$F70$\rangle$}\\
+\textbf{Anwendungsfall:} Der Nutzer möchte alle Rezepte von allen Gruppen in der Home View durchsuchen.\\
+\textbf{Anforderungen:} \\
+\textbf{Ziel:} Dem Nutzer werden alle Rezepte mit bestimmten Namen in der Home View angezeigt.\\
+\textbf{Vorbedingung:} Vom Nutzer selbst oder in seinen Gruppen wurden bereits Rezepte hochgeladen.\\
+\textbf{Nachbedingung Erfolg:} Zum eingegeben Begriff passende Rezepte werden in der Home View angezigt.\\
+\textbf{Nachbedingung Fehlschlag:} Keine Rezepte werden in der Home View angezeigt, stattdessen eine Fehlermeldung.\\
+\textbf{Akteure:} Nutzer, Server\\
+\textbf{Auslösendes Ereignis:} Klick auf die Suchzeile.\\
+\textbf{Beschreibung:}
+\begin{enumerate}
+    \item Klick auf die Suchzeile in der Home View.
+    \item Eingabe des Suchbegriffs.
+    \item Passende Rezepte werden angezeigt und es kann durch die Ergebnisse gescrollt werden.
+\end{enumerate}
+\textbf{Erweiterung:} Der Nutzer kann die Ergebnisse auch sortieren nach zuletzt hinzugefügt oder alphabetisch nach dem Rezept Namen oder dem Autornamen.\\
+\textbf{Alternativen:} Mit dem Klick auf den Button neben dem eingegebenen Suchwort kann das Suchwort entfernt werden und es wird die normale Home View angezeigt.\\
+\newpage
+
+\textbf{Gruppe erstellen $\langle$F80$\rangle$}\\
+\textbf{Anwendungsfall:} Der Nutzer möchte eine neue Gruppe erstellen mit der die Rezepte geteilt werden können. \\
+\textbf{Anforderungen:} RM2 \\
+\textbf{Ziel:} Der Nutzer kann mit der neuen Gruppe seine Rezepte teilen.\\
+\textbf{Vorbedingung:} Ein Nutzerprofil ist angemeldet und der Nutzer befindet sich in der Settings View.\\
+\textbf{Nachbedingung Erfolg:} Neue Gruppe wird in der Settings View angezeigt.\\
+\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Akteure:} Nutzer, Server\\
+\textbf{Auslösendes Ereignis:} Ein klick auf den Gruppen erstellen Button.\\
+\textbf{Beschreibung:}
+\begin{enumerate}
+    \item Klick auf den neue Gruppe erstellen Button.
+    \item Eingabe des Gruppen Namens.
+    \item Eingabe des Gruppen Passworts.
+    \item Klick auf den speichern Button wird die Gruppe gespeichert.
+\end{enumerate}
+\textbf{Erweiterung:} -\\
+\textbf{Alternativen:} Mit dem Exit Button kann der Gruppen-erstellungs-Prozess abgebrochen werden, dabei werden keine Daten gespeichert.\\
+\newpage
+
+\textbf{Gruppe beitreten $\langle$F90$\rangle$}\\
+\textbf{Anwendungsfall:} Der Nutzer möchte einer neuen Gruppe beitreten.\\
+\textbf{Anforderungen:} RM2 \\
+\textbf{Ziel:} Der Nutzer ist der Gruppe beigetreten und kann alle in der Gruppe geteilten Rezepte ansehen.\\
+\textbf{Vorbedingung:} Der Nutzer befindet sich in der Settings View.\\
+\textbf{Nachbedingung Erfolg:} Ein Gruppe wird in der Liste der Gruppen angezeigt.\\
+\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Akteure:} Nutzer, Server\\
+\textbf{Auslösendes Ereignis:} Klick auf den Gruppe beitreten Button.\\
+\textbf{Beschreibung:}\\
+\begin{enumerate}
+    \item Klick auf den Gruppe-beitreten Button.
+    \item Eingabe des Kürzels der Gruppe.
+    \item Eingabe des Passworts der Gruppe.
+    \item Klick auf der Gruppe beitreten Button.
+\end{enumerate}
+\textbf{Erweiterung:} -\\
+\textbf{Alternativen:} Mit dem Exit Button kann der Gruppenbeitritts Prozess abgebrochen werden, alle eingegebene Daten gehen verloren.\\
+\newpage
+
+\textbf{Gruppe verlassen $\langle$F100$\rangle$}\\
+\textbf{Anwendungsfall:} Der Nutzer möchte seine Gruppenmitgliedschaft beenden.\\
+\textbf{Anforderungen:} RM6\\
+\textbf{Ziel:} Der Nutzer möchte die Rezepte der Gruppe in der Home View nicht mehr angezeigt bekommen.\\
+\textbf{Vorbedingung:} Der Nutzer ist Mitglied in einer Gruppe. \\
+\textbf{Nachbedingung Erfolg:} Die Gruppe wird nicht mehr in der Settings View angezeigt.\\
+\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Akteure:} Nutzer, Server\\
+\textbf{Auslösendes Ereignis:} Der Nutzer befindet sich in der Settings View.\\
+\textbf{Beschreibung:}
+\begin{enumerate}
+    \item Klick auf Gruppe verlassen Button.
+    \item Pop-up-Fenster erscheint zur Bestätigung des Verlassens.
+    \item Mit Klick auf Ja Button wird Gruppe verlassen.
+\end{enumerate}
+\textbf{Erweiterung:} -\\
+\textbf{Alternativen:} Mit dem Exit Button kann der Gruppen verlassen Prozess abgebrochen werden.\\
+\newpage
+
+\textbf{Gruppenkürzel und -passwort ausgeben $\langle$F110$\rangle$}\\
+\textbf{Anwendungsfall:}  Der Nutzer möchte das Gruppenkürzel und das Gruppenpasswort erhalten.\\
+\textbf{Anforderungen:} \\
+\textbf{Ziel:} Der Nutzer kann die Daten der Gruppe mit anderen Nutzern teilen um diese die Möglichkeit zu geben der Gruppe beizutreten..\\
+\textbf{Vorbedingung:} Der Nutzer ist in einer Gruppe Mitglied.\\
+\textbf{Nachbedingung Erfolg:} Ein Pop-up-Fenster erscheint mit den Daten der Gruppe.\\
+\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Akteure:} Nutzer, Server \\
+\textbf{Auslösendes Ereignis:} Klick auf den Gruppen Information Button.\\
+\textbf{Beschreibung:}
+\begin{enumerate}
+    \item Klick auf den Gruppen Informations Button.
+    \item Ein Pop-up-Fenster erscheint mit dem Gruppenkürzel und dem Gruppenpasswort.
+\end{enumerate}
+\textbf{Erweiterung:} -\\
+\textbf{Alternativen:} Mit dem Exit Button kann der Prozess abgebrochen werden.\\
+\newpage
 
 \section{Produktdaten}
 Um die App nutzen zu können, ist es erforderlich einige Daten zu speichern. Diese werden auf unterschiedlichen Geräten gespeichert:
