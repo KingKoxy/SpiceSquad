@@ -10,6 +10,7 @@
 \usepackage{graphicx}
 \usepackage{mwe}
 \usepackage{caption}
+\usepackage{adjustbox}
 
 \usepackage[headsepline, footsepline]{scrlayer-scrpage}
 \addtokomafont{headsepline}{\color{ForestGreen}}
@@ -37,7 +38,7 @@
 \begin{titlepage}
     \begin{center}
         \begin{Huge}
-            {\textbf{Lorem ipsum: Lorem ipsum dolor sit amet}}
+            {\textbf{Recishare ()}}
         \end{Huge}
         \vspace{12px}
 
@@ -65,7 +66,8 @@
 
 \vspace{32px}
 \section*{Gender-Hinweis}
-Zur besseren Lesbarkeit wird in diesem Pflichtenheft das generische Maskulinum verwendet. Die in dieser Arbeit verwendeten Personenbezeichnungen beziehen sich – sofern nicht anders kenntlich gemacht – auf alle Geschlechter.
+Zur besseren Lesbarkeit wird in diesem Pflichtenheft das generische Maskulinum verwendet.
+Die in diesem Heft verwendeten Personenbezeichnungen beziehen sich – sofern nicht anders kenntlich gemacht – auf alle Geschlechter.
 \newpage
 
 
@@ -81,6 +83,7 @@ Musskriterien: unabdingbare Leistungen der Software.
     \item Es müssen erstellte Rezepte angeschaut werden können.
     \item Erstellte Rezepte müssen seperat verwalten und geändert werden können.
     \item Der Nutzer muss Gruppen nach dem beitreten wieder verlassen können.
+    \item Der Nutzer muss sich wieder ausloggen können
 \end{enumerate}
 
 \subsection{Sollkriterien}
@@ -91,6 +94,7 @@ Sollkriterien: erstrebenswerte Leistungen.
     \item Der Nutzer sol bei Rezepten Portionen skalieren können.
     \item Zu jedem Rezept soll die Kochzeit, Schwierigkeit hinzugefügt werden können
     \item Das Hinzufügedatum eines Rezept soll einsehbar sein.
+    \item Man soll zwischen Dark Mode und Light Mode wechseln können.
 \end{enumerate}
 
 \subsection{Kannkriterien}
@@ -171,25 +175,27 @@ Falls der Nutzer schon in einer Gruppe beigetreten ist, kann er der Gruppe austr
 Beim Austreten muss der Nutzer noch nachträglich bestätigen, dass er aus der austreten möchte.
 \newpage
 
-\begin{figure}[htp]
+\begin{figure}[!htp]
     \centering
-    \includegraphics{example-image-a}\\
+    \begin{adjustbox}{right=160mm}
+        \includegraphics[height=220mm]{images/section3/Use-Case-Diagramm Aufbau App.png}
+    \end{adjustbox}
     Abbildung 3.1: Use-Case-Diagramm: Aufbau der App
     \label{fig:A31}
 \end{figure}
 \newpage
 
-\begin{figure}[htp]
+\begin{figure}[!htp]
     \centering
-    \includegraphics[]{example-image-a}\\
+    \includegraphics{images/section3/Aktivitaetsdiagramm Gruppenverwaltung.png}\\
     Abbildung 3.2: Aktivitätsdiagramm: Rezepte Liste
     \label{fig:A32}
 \end{figure}
 \newpage
 
-\begin{figure}[htp]
+\begin{figure}[!htp]
     \centering
-    \includegraphics[]{example-image-a}\\
+    \includegraphics{images/section3/Aktivitaetsdiagramm Rezepte Liste.png}\\
     Abbildung 3.3: Aktivitätsdiagramm: Gruppenverwaltung
     \label{fig:A33}
 \end{figure}
