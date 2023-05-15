@@ -264,7 +264,26 @@ Beim Austreten muss der Nutzer noch nachträglich bestätigen, dass er aus der a
 \textbf{Alternativen:} Durch das Klicken auf den Verlassen Button wird der Nutzer zurück zur Loginansicht geleitet.\\
 \newpage
 
-\textbf{Rezept erstellen $\langle$F30$\rangle$}\\
+\textbf{Benutzernamen ändern $\langle$F30$\rangle$}\\
+\textbf{Anwendungsfall:} Der Nutzer möchte seinen Benutzernamen ändern.\\
+\textbf{Anforderungen:} \\
+\textbf{Ziel:} Der Nutzer kann seinen Benutzernamen an seine wünsche anpassen.\\
+\textbf{Vorbedingung:} Der Nutzer muss einen Nutzerkonto haben.\\
+\textbf{Nachbedingung Erfolg:} Der aktualisiete Nutzername wird anderen Nutzern angezeigt.\\
+\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Akteure:} Nutzer, Server\\
+\textbf{Auslösendes Ereignis:} In der verwaltungsansicht klickt der Nutzer auf den Nutzernamen bearbeiten Button.\\
+\textbf{Beschreibung:}
+\begin{enumerate}
+    \item Der Nutzer klickt auf den Nutzernamen bearbeiten Button.
+    \item Der neue Benutzername wird eingegeben.
+    \item Der Nutzer klickt auf den speichern Button.
+\end{enumerate}
+\textbf{Erweiterung:} -\\
+\textbf{Alternativen:} Der Nutzer kann auf den Exit Button klicken und der Prozess wird abgebrochen und der Nutzer gelangt zurück zur Verwaltungsansicht.\\
+\newpage
+
+\textbf{Rezept erstellen $\langle$F40$\rangle$}\\
 \textbf{Anwendungsfall:} Der Nutzer möchte ein neues Rezept erstellen.\\
 \textbf{Anforderungen:} RM3, RS3, RC2\\
 \textbf{Ziel:} Der Nutzer erstellt ein Rezept, welches er mit seinen Gruppen teilen möchte, oder auch nur für sich sichtbar macht.\\
@@ -288,7 +307,7 @@ Beim Austreten muss der Nutzer noch nachträglich bestätigen, dass er aus der a
 \textbf{Alternativen:} Der Nutzer kann auf den Exit Button klicken und das Rezept erstellen wird abgebrochen und der Nutzer gelangt zurück zur Hauptansicht.\\
 \newpage
 
-\textbf{Rezept ändern $\langle$F40$\rangle$}\\
+\textbf{Rezept ändern $\langle$F50$\rangle$}\\
 \textbf{Anwendungsfall:} Der Nutzer möchte den Inhalt seines Rezepts nachträglich ändern.\\
 \textbf{Anforderungen:} RM5, RS3\\
 \textbf{Ziel:} Der Nutzer will sein Rezept anpassen um es an nach seinen Vorstellungen umzugestalten.\\
@@ -307,7 +326,7 @@ Beim Austreten muss der Nutzer noch nachträglich bestätigen, dass er aus der a
 \textbf{Alternativen:} Mit einem Klick auf den Exit Button kann das Rezept ändern abgebrochen werden, wobei alle Änderungen verloren gehen.\\
 \newpage
 
-\textbf{Rezept anschauen $\langle$F50$\rangle$}\\
+\textbf{Rezept anschauen $\langle$F60$\rangle$}\\
 \textbf{Anwendungsfall:} Der Nutzer möchte sich das Rezepte genauer betrachten.\\
 \textbf{Anforderungen:} RM4, RS2, RS4, RC1\\
 \textbf{Ziel:} Der Nutzer kann mithilfe der Anleitung und den Mengenangaben das Rezept nachvollziehen.\\
@@ -324,7 +343,7 @@ Beim Austreten muss der Nutzer noch nachträglich bestätigen, dass er aus der a
 \textbf{Alternativen:} Mit dem zurück Button kann der Nutzer zur Hauptsansicht oder in der Gruppendetailsansicht zurückkehren abhängig davon wie man in die Rezeptansicht gekommen ist.\\
 \newpage
 
-\textbf{Rezept favorisieren $\langle$F60$\rangle$}\\
+\textbf{Rezept favorisieren $\langle$F70$\rangle$}\\
 \textbf{Anwendungsfall:} Der Nutzer möchte ein Rezept zu seinen Favoriten hinzugefügen.\\
 \textbf{Anforderungen:} RC3\\
 \textbf{Ziel:} Der Nutzer kann ein Rezept zu den Favoriten hinzugefügen, um einen schnelleren Zugriff auf das Rezept zu haben.\\
@@ -341,7 +360,7 @@ Beim Austreten muss der Nutzer noch nachträglich bestätigen, dass er aus der a
 \textbf{Alternativen:} Das Favorisieren kann auch in der Hauptansicht durchgeführt werden durch das Klicken auf den Stern neben dem Rezept.\\
 \newpage
 
-\textbf{Rezept suchen $\langle$F70$\rangle$}\\
+\textbf{Rezept suchen $\langle$F80$\rangle$}\\
 \textbf{Anwendungsfall:} Der Nutzer möchte alle Rezepte von allen Gruppen in der Hauptansicht durchsuchen.\\
 \textbf{Anforderungen:} \\
 \textbf{Ziel:} Dem Nutzer werden alle Rezepte mit bestimmten Namen in der Hauptansicht angezeigt.\\
@@ -360,7 +379,7 @@ Beim Austreten muss der Nutzer noch nachträglich bestätigen, dass er aus der a
 \textbf{Alternativen:} Mit dem Klick auf den Button neben dem eingegebenen Suchwort kann das Suchwort entfernt werden und es wird die normale Hauptansicht angezeigt.\\
 \newpage
 
-\textbf{Gruppe erstellen $\langle$F80$\rangle$}\\
+\textbf{Gruppe erstellen $\langle$F90$\rangle$}\\
 \textbf{Anwendungsfall:} Der Nutzer möchte eine neue Gruppe erstellen mit der die Rezepte geteilt werden können. \\
 \textbf{Anforderungen:} RM2 \\
 \textbf{Ziel:} Der Nutzer kann mit der neuen Gruppe seine Rezepte teilen.\\
@@ -381,7 +400,7 @@ Beim Austreten muss der Nutzer noch nachträglich bestätigen, dass er aus der a
 \textbf{Alternativen:} Mit dem Exit Button kann der Gruppenerstellungs-Prozess abgebrochen werden, dabei werden keine Daten gespeichert. Des Weiteren kann mit dem Gruppe beitreten Button einer Gruppe beigetreten werden.\\
 \newpage
 
-\textbf{Gruppe beitreten $\langle$F90$\rangle$}\\
+\textbf{Gruppe beitreten $\langle$F100$\rangle$}\\
 \textbf{Anwendungsfall:} Der Nutzer möchte einer neuen Gruppe beitreten.\\
 \textbf{Anforderungen:} RM2 \\
 \textbf{Ziel:} Der Nutzer ist der Gruppe beigetreten und kann alle in der Gruppe geteilten Rezepte ansehen.\\
@@ -401,7 +420,7 @@ Beim Austreten muss der Nutzer noch nachträglich bestätigen, dass er aus der a
 \textbf{Alternativen:} Mit dem Exit Button kann der Gruppenbeitritts Prozess abgebrochen werden, alle eingegebene Daten gehen verloren.\\
 \newpage
 
-\textbf{Gruppe verlassen $\langle$F100$\rangle$}\\
+\textbf{Gruppe verlassen $\langle$F110$\rangle$}\\
 \textbf{Anwendungsfall:} Der Nutzer möchte seine Gruppenmitgliedschaft beenden.\\
 \textbf{Anforderungen:} RM6\\
 \textbf{Ziel:} Der Nutzer möchte die Rezepte der Gruppe in der Hauptansicht nicht mehr angezeigt bekommen.\\
@@ -420,7 +439,7 @@ Beim Austreten muss der Nutzer noch nachträglich bestätigen, dass er aus der a
 \textbf{Alternativen:} Mit dem Exit Button kann der Gruppen verlassen Prozess abgebrochen werden.\\
 \newpage
 
-\textbf{Gruppenkürzel und -passwort ausgeben $\langle$F110$\rangle$}\\
+\textbf{Gruppenkürzel und -passwort ausgeben $\langle$F120$\rangle$}\\
 \textbf{Anwendungsfall:} Der Nutzer möchte den Gruppennamen und das Gruppenpasswort erhalten.\\
 \textbf{Anforderungen:} \\
 \textbf{Ziel:} Der Nutzer kann die Daten der Gruppe mit anderen Nutzern teilen um diese die Möglichkeit zu geben der Gruppe beizutreten.\\
@@ -439,7 +458,7 @@ Beim Austreten muss der Nutzer noch nachträglich bestätigen, dass er aus der a
 \textbf{Alternativen:} Mit dem Exit Button kann der Prozess abgebrochen werden.\\
 \newpage
 
-\textbf{Gruppe auflösen $\langle$F120$\rangle$}\\
+\textbf{Gruppe auflösen $\langle$F130$\rangle$}\\
 \textbf{Anwendungsfall:} Der Nutzer möchte eine Gruppe auflösen.\\
 \textbf{Anforderungen:} \\
 \textbf{Ziel:} Der Nutzer kann die Gruppe auflösen damit keine Rezepte mehr geteilt werden können.\\
@@ -459,7 +478,7 @@ Beim Austreten muss der Nutzer noch nachträglich bestätigen, dass er aus der a
 \textbf{Alternativen:} Die Bestätigung zur Auflösung der Gruppe kann auch nicht erteilt werden, wodurch der der Nutzer zur Verwaltungsansicht zurückkehrt.\\
 \newpage
 
-\textbf{Admin ernennen $\langle$F130$\rangle$}\\
+\textbf{Admin ernennen $\langle$F140$\rangle$}\\
 \textbf{Anwendungsfall:} Der Nutzer möchte ein weiteres Mitglied der Gruppe zu einem Admin der Gruppe ernennen.\\
 \textbf{Anforderungen:} \\
 \textbf{Ziel:} Der Nutzer kann seine Rechte für die Gruppe mit anderen Mitgliedern teilen.\\
@@ -478,7 +497,7 @@ Beim Austreten muss der Nutzer noch nachträglich bestätigen, dass er aus der a
 \textbf{Alternativen:} Der Prozess kann durch das Klicken auf den Exit Button abgebrochen werden. Der Nutzer kehrt zur Gruppendetailansicht zurück.\\
 \newpage
 
-\textbf{Rezepte verwalten für die Gruppen $\langle$F140$\rangle$}\\
+\textbf{Rezepte verwalten für die Gruppen $\langle$F150$\rangle$}\\
 \textbf{Anwendungsfall:} Der Nutzer will ein Rezept, welches mit der Gruppe von einem Nutzer geteilt wird, ausblenden.\\
 \textbf{Anforderungen:} \\
 \textbf{Ziel:} Der Nutzer kann bestimmen welche Rezepte den Mitglieder und ihm selbst angeziegt werden.\\
@@ -499,7 +518,7 @@ Beim Austreten muss der Nutzer noch nachträglich bestätigen, dass er aus der a
 \textbf{Alternativen:} Mit dem Exit Button kann die Bestätigung nicht gegeben werden und somit wird das Rezept nicht ausgeblendet.\\
 \newpage
 
-\textbf{Gruppenpasswort und -namen ändern $\langle$F150$\rangle$}\\
+\textbf{Gruppenpasswort und -namen ändern $\langle$F160$\rangle$}\\
 \textbf{Anwendungsfall:} Der Nutzer möchte den Gruppennamen oder das Gruppenpasswort ändern.\\
 \textbf{Anforderungen:} \\
 \textbf{Ziel:} Der Nutzer kann den Gruppennamen und -passwort nach seinen Vorstellungen anpassen.\\
