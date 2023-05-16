@@ -12,14 +12,15 @@
 \usepackage{caption}
 \usepackage{adjustbox}
 
+% Set footer and header bar
 \usepackage[headsepline, footsepline]{scrlayer-scrpage}
-\addtokomafont{headsepline}{\color{ForestGreen}}
-\addtokomafont{footsepline}{\color{ForestGreen}}
+\addtokomafont{headsepline}{\color{BlueViolet}}
+\addtokomafont{footsepline}{\color{BlueViolet}}
 \KOMAoptions{headsepline=1.25pt:\textwidth}
 \KOMAoptions{footsepline=1.25pt:\textwidth}
 \clearpairofpagestyles
 \rofoot{\thepage}
-\ihead{Title description}
+\ihead{Write your own Android App: Recishare}
 
 \hypersetup{
     pdftitle={PSE: Pflichtenheft},
@@ -33,28 +34,28 @@
 % ‘texdoc hyperref‘ for options
 % provides \enquote{} macro for "quotes"
 
-\begin{document}
 
+\begin{document}
 \begin{titlepage}
     \begin{center}
         \begin{Huge}
-            {\textbf{Recishare ()}}
+            {\textbf{Write your own Android App: Recishare}}
         \end{Huge}
         \vspace{12px}
 
         Praxis der Softwareentwicklung (PSE)\\
         Sommersemester 2023\\
-        \vspace{170px}
+        \vspace{150px}
 
-        \begin{huge}
+        \begin{Huge}
             {\textbf{Pflichtenheft}}
-        \end{huge}
+        \end{Huge}
         \vspace{12px}
 
         Auftraggeber\\
         Karlsruher Institut für Technologie\\
         KASTEL — Institut für Informationssicherheit und Verlässlichkeit\\
-        \vspace{310px}
+        \vspace{330px}
 
         Auftragnehmer\\
         Karlsruher Intellektuelle\\
@@ -77,24 +78,33 @@ Die in diesem Heft verwendeten Personenbezeichnungen beziehen sich – sofern ni
 Musskriterien: unabdingbare Leistungen der Software.
 
 \begin{enumerate}[start=1,label={$\langle$\bfseries RM\arabic*$\rangle$}, leftmargin = 5em, itemsep=4pt, parsep=4pt]
-    \item Die App besitzt eine Login Funktionen.
-    \item Der Nutzer muss Gruppe erstellen/beitreten können.
-    \item Der Nutzer muss ein Rezepte erstellen und hochladen können.
-    \item Es müssen erstellte Rezepte angeschaut werden können.
-    \item Erstellte Rezepte müssen seperat verwalten und geändert werden können.
-    \item Der Nutzer muss Gruppen nach dem beitreten wieder verlassen können.
-    \item Der Nutzer muss sich wieder ausloggen können
+    \item Die App besitzt eine Nutzerverwaltung.
+    \item Der Nutzer muss sich registrieren, einloggen und ausloggen können.
+    \item Der Nutzer muss eine Gruppe erstellen und beitreten können.
+    \item Der Nutzer muss Gruppen nach dem Beitreten wieder verlassen können.
+    \item Es muss in jeder Gruppe mindestens ein Gruppenadmin sein.
+    \item Der Nutzer muss Rezepte erstellen und hochladen können.
+    \item Es müssen erstellte Rezepte von anderen Nutzern in der gleichen Gruppe angeschaut werden können.
+    \item Erstellte Rezepte müssen vom Ersteller seperat verwaltet und geändert werden können.
+    
+   
 \end{enumerate}
 
 \subsection{Sollkriterien}
 Sollkriterien: erstrebenswerte Leistungen.
 
 \begin{enumerate}[start=1,label={$\langle$\bfseries RS\arabic*$\rangle$}, leftmargin = 5em, itemsep=4pt, parsep=4pt]
-    \item Der Nutzer soll Rezepte bewerten können
-    \item Der Nutzer sol bei Rezepten Portionen skalieren können.
-    \item Zu jedem Rezept soll die Kochzeit, Schwierigkeit hinzugefügt werden können
+    
+    \item Der Nutzer soll bei Rezepten Portionen skalieren können.
+    \item Der Nutzer kann Rezepte favoritisieren.
+    \item In jeder Gruppe soll es einen Gruppenadmin geben.
+    \item Admins sollen Nutzer aus Gruppen entfernen können.
+    \item Admins sollen Rezepte von Nutzern vor anderen Nutzern in der Gruppe ausblenden können.
+    \item Zu jedem Rezept soll die Kochzeit, Schwierigkeit hinzugefügt werden können.
     \item Das Hinzufügedatum eines Rezept soll einsehbar sein.
-    \item Man soll zwischen Dark Mode und Light Mode wechseln können.
+    \item Der Nutzer soll sein Passwort wieder zurücksetzen können.
+    \item Der Nutzer soll sein Konto nach erstellen wieder löschen können.
+    
 \end{enumerate}
 
 \subsection{Kannkriterien}
@@ -102,22 +112,21 @@ Kannkriterien: Leistungen, die enthalten sein können.
 
 \begin{enumerate}[start=1,label={$\langle$\bfseries RC\arabic*$\rangle$}, leftmargin = 5em, itemsep=4pt, parsep=4pt]
     \item Rezepte können in Form von PDFs exportiert werden.
-    \item Es kann ein Bild zum Rezept hochladen werden.
-    \item Ein Nutzer kann Rezepte abspeichern oder favoritisieren
-    \item Kalorienrechner
-    \item Lebensmittelpicker
-    \item Einkaufsliste mit Zutaten von Rezepten erstellen
+    \item Man kann zwischen Dark Mode und Light Mode wechseln können.
+    \item Es kann genau ein Bild zum Rezept hochladen werden.
+    \item Der Nutzer soll Rezepte bewerten können. %Noch Aktuell?
+    \item Der Nutzer kann Zutaten aus einer Liste auswählen.
 \end{enumerate}
 
 \subsection{Abgrenzungskriterien}
 Abgrenzungskriterien: Leistungen die explizit nicht umgesetzt werden.
 
 \begin{enumerate}[start=1,label={$\langle$\bfseries RW\arabic*$\rangle$}, leftmargin = 5em, itemsep=4pt, parsep=4pt]
-    \item Es können keine Lebensmittel bestellt werden
-    \item Es können keine Kommentare zu Rezepten hinzugefügt werden
-    \item Es gibt keine integrierte Chatfunktion
-    \item Es können keine Videos den Rezepten hinzugefügt werden
-    \item Es gibt keine Moderationsrolle in Gruppen
+    \item Es können keine Lebensmittel über die App bestellt werden.
+    \item Es können keine Kommentare zu Rezepten hinzugefügt werden.
+    \item Es gibt keine integrierte Chatfunktion.
+    \item Es können keine Videos den Rezepten hinzugefügt werden.
+    \item Es können keine Nutzer direkt über die App gesucht werden.
 \end{enumerate}
 
 \section{Produkteinsatz}
@@ -150,20 +159,30 @@ Das Use-Case-Diagramm zeigt mittels Verbindungslininen, wie die einzelnen Use-Ca
 Der Abschnitt „Gruppenverwaltung“ und "Rezepte Liste" werden genauer in jeweils einem Aktivitätsdiagramm abgebildet.
 Dadurch können die einzelnen Schritte, die durchlaufen werden, besser beschrieben werden.
 
-\textbf{Abbildung 3.1}\\
-In dem Use-Case-Diagramm „Aufbau der App“ sieht man die allgemeine Struktur der App.
-Bei der erstmaligen Nutzung muss der Nutzer sich registrieren oder einlogen, sofern er schon ein Konto.
-Dafür muss er seinen Namen, seine E-Mail-Adresse und ein Passwort eingeben.
-Nachdem dies geschehen ist, kann der Nutzer auf der Startseite zwischen drei verschiedenen Menüpunkten wählen.
+\paragraph{Abbildung 3.1}
+In dem Use-Case-Diagramm „Aufbau der App“ sieht man die allgemeine Struktur der App.\\
+Bei der erstmaligen Nutzung muss der Nutzer sich registrieren.
+Dazu muss er seinen Namen, seine E-Mail-Adresse und ein Passwort eingeben.
+Das Passwort muss durch eine erneute Eingabe berstätigt werden.
+Falls der Nutzer schon einen Nutzerkonto besitzt kann er sich einloggen.
+Dazu muss er seine E-Mail-Adresse und sein Passwort eingeben.
+Hat der Nutzer sein Passwort vergessen besteht die Möglichkeit das Passwort zurückzusetzen.
+Ein eingeloggter Nutzer muss sich nicht erneut einloggen.\\
+Nach dem Einloggen gelangt der Nutzer auf die Rezept-Ansicht.
+Hier hat er die Möglichkeit, Rezepte zu filtern, suchen oder zu sortieren.
+Durch klicken auf ein Rezept kann der Nutzer das Rezept ansehen, favorisieren und die Portionsgrößen ändern.\\
+Durch klicken auf die Schaltfläche "Rezept erstellen" kann der Nutzer ein neues Rezept erstellen.
+Es können Zutaten, Kochanleitung, Schwierigkeit und Kochzeit ƒür das neue Rezept angegeben werden.
+Im Anschluss kann das Rezept veröffentlicht werden.\\
+Durch klicken auf die Schaltfläche "Verwaltungs-Ansicht" gelangt der Nutzer auf die "Verwaltungs-Ansicht".
+In dieser Ansicht kann der Nutzer sich ausloggen, sein Nutzerkonto löschen, seinen Nutzernamen ändern, 
+erstellte Rezepte bearbeiten, eine Gruppe verlassen und Gruppen-Kürzel und das dazugehörige Passwort kopieren.\\
+Durch das drücken der Schaltfläche "Gruppe hinzufügen" kann der Nutzer eine neue Gruppe erstellen oder beitreten.
+Eine Gruppe kann durch Eingabe eines Gruppennamen und Passwort erstellt werden.\\ %Passiv
+Von der Verwaltungsansicht-
 
-Der Nutzer kann sich die Liste von Rezepten anschauen, dort sind alle Rezepte zu finden, die der Nutzer oder andere Nutzer in beigetretenen Gruppen erstellt haben.
-Ein weiterer Menüpunkt sind die Favoriten.
-Hier werden alle fovorisierten Rezepte hinterlegt.
-Unter dem Menüpunkt "Verwaltung" kann der Nutzer Gruppen erstellen, beitreten oder austreten, sofern er in einer Gruppe ist.
-Das bearbeiten von eigenen Rezepten ist hier möglich.
-Zudem kann der Nutzer sich hier wieder ausloggen.
 
-\textbf{Abbildung 3.2}\\
+\paragraph{Abbildung 3.2}
 Im Aktivitätsdiagramm „Rezepte Liste“ werden die verschiedenen Möglichkeiten unter dem Menüpunkt aufgeführt.
 Der Nutzer hat die Möglichkeite Rezepte durch eine Suchfeld zu suchen.
 Der Nutzer hat die Möglichkeit die Rezepteliste durch vorgegebene Sortierungen zu sortieren.
@@ -174,7 +193,7 @@ Es öffnet sich ein leeres Rezepttemplate Fenster.
 Der Nutzer kann die Zutaten und die Kochanleitung in diesem Fenster eingeben.
 Nach Bestätigung der Eingabe kommt der Nutzer wieder auf die Rezept Liste.
 
-\textbf{Abbildung 3.3}\\
+\paragraph{Abbildung 3.3}
 Im Aktivitätsdiagramm Verwaltung  möchte der Nutzer seine Gruppen verwalten.
 Es besteht die Wahl eine Gruppe zu erstellen, eine Gruppe hinzuzufügen oder bestehende Gruppen zu verwalten.
 Beim erstellen einer Gruppe kann der Nutzer einen Gruppennamen und ein Passwort wählen.
@@ -192,7 +211,7 @@ Beim Austreten muss der Nutzer noch nachträglich bestätigen, dass er aus der a
     \begin{adjustbox}{right=160mm}
         \includegraphics[height=220mm]{images/section3/Use-Case-Diagramm Aufbau App.png}
     \end{adjustbox}
-    Abbildung 3.1: Use-Case-Diagramm: Aufbau der App
+    \caption*{Abbildung 3.1: Use-Case-Diagramm: Aufbau der App}
     \label{fig:A31}
 \end{figure}
 \newpage
@@ -785,6 +804,7 @@ In diesem Kapitel wird die technische Umgebung des Produktes beschrieben.
 \begin{itemize}
     \item Entwicklungsumgebung - Android Studio, IntelliJ
     \item Implementierungssprache der App - Dart
+    \item Nuzterverwaltung - Firebase
     \item Client-Betriebssystem - Android 10 oder eine neuere Androidversion
     \item Implementierungssprache des Servers - ?
 \end{itemize}
