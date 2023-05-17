@@ -78,16 +78,17 @@ Die in diesem Heft verwendeten Personenbezeichnungen beziehen sich – sofern ni
 Musskriterien: unabdingbare Leistungen der Software.
 
 \begin{enumerate}[start=1,label={$\langle$\bfseries RM\arabic*$\rangle$}, leftmargin = 5em, itemsep=4pt, parsep=4pt]
-    \item Die App besitzt eine Nutzerverwaltung.
-    \item Der Nutzer muss sich registrieren, einloggen und ausloggen können.
-    \item Der Nutzer muss eine Gruppe erstellen und beitreten können.
-    \item Der Nutzer muss Gruppen nach dem Beitreten wieder verlassen können.
-    \item Es muss in jeder Gruppe mindestens ein Gruppenadmin sein.
-    \item Der Nutzer muss Rezepte erstellen und hochladen können.
-    \item Es müssen erstellte Rezepte von anderen Nutzern in der gleichen Gruppe angeschaut werden können.
-    \item Erstellte Rezepte müssen vom Ersteller seperat verwaltet und geändert werden können.
-    
-   
+
+    \item Die App besitzt eine Nutzerverwaltung.\label{RM1}
+    \item Der Nutzer muss sich registrieren, einloggen und ausloggen können.\label{RM2}
+    \item Der Nutzer muss eine Gruppe erstellen und diese auch wieder auflösen können.\label{RM3}
+    \item Der Nutzer muss Gruppen einer Gruppe mithilfe eines Gruppenkürzels beitreten können und diese danach auch wieder verlassen können.\label{RM4}
+    \item Es muss in jeder Gruppe mindestens ein Gruppenadmin sein.\label{RM5}
+    \item Der Nutzer muss Rezepte erstellen und hochladen können.\label{RM6}
+    \item Der Nutzer muss zu jedem Rezept den Rezepttitel, die Zubereitungsdauer, die Zutaten mit Mengenangaben, den Schwierigkeitsgrad, die Portionsanzahl und eine Zubereitungsanweisungen angeben können.\label{RM7}
+    \item Es müssen erstellte Rezepte von anderen Nutzern in der gleichen Gruppe angeschaut werden können.\label{RM8}
+    \item Ein erstellte Rezepte muss vom Autor separat verwaltet, geändert und gelöscht werden können.\label{RM9}
+    \item Jedes Gruppenmitglied muss das Gruppenkürzel einsehen können.\label{RM10}
 \end{enumerate}
 
 \subsection{Sollkriterien}
@@ -95,38 +96,42 @@ Sollkriterien: erstrebenswerte Leistungen.
 
 \begin{enumerate}[start=1,label={$\langle$\bfseries RS\arabic*$\rangle$}, leftmargin = 5em, itemsep=4pt, parsep=4pt]
     
-    \item Der Nutzer soll bei Rezepten Portionen skalieren können.
-    \item Der Nutzer kann Rezepte favoritisieren.
-    \item In jeder Gruppe soll es einen Gruppenadmin geben.
-    \item Admins sollen Nutzer aus Gruppen entfernen können.
-    \item Admins sollen Rezepte von Nutzern vor anderen Nutzern in der Gruppe ausblenden können.
-    \item Zu jedem Rezept soll die Kochzeit, Schwierigkeit hinzugefügt werden können.
-    \item Das Hinzufügedatum eines Rezept soll einsehbar sein.
-    \item Der Nutzer soll sein Passwort wieder zurücksetzen können.
-    \item Der Nutzer soll sein Konto nach erstellen wieder löschen können.
-    
+    \item Der Nutzer soll bei Rezepten Portionen skalieren können.\label{RS1}
+    \item Der Nutzer soll Rezepte favorisieren können.\label{RS2}
+    \item Ein Admin soll weiter Gruppenmitglieder zum Admin ernennen können und jenen auch den Adminstatus wieder entziehen können.\label{RS3}
+    \item Ein Admin soll Nutzer aus Gruppen kicken, bannen und auch wieder entbannen können.\label{RS4}
+    \item Ein Admin soll Rezepte von Nutzern vor anderen Nutzern in der Gruppe ausblenden können.\label{RS5}
+    \item Das Hinzufügedatum eines Rezeptes soll einsehbar sein.\label{RS7}
+    \item Der Nutzer soll sein Passwort wieder zurücksetzen können.\label{RS8}
+    \item Der Nutzer soll sein Konto nach erstellen wieder löschen können.\label{RS9}
+    \item Der Nutzer soll das Gruppenkürzel auch über einen QR-Code teilen können.\label{RS10}
+    \item Der Nutzer soll seinen Benutzernamen ändern können.\label{RS11}
 \end{enumerate}
 
 \subsection{Kannkriterien}
 Kannkriterien: Leistungen, die enthalten sein können.
 
 \begin{enumerate}[start=1,label={$\langle$\bfseries RC\arabic*$\rangle$}, leftmargin = 5em, itemsep=4pt, parsep=4pt]
-    \item Rezepte können in Form von PDFs exportiert werden.
-    \item Man kann zwischen Dark Mode und Light Mode wechseln können.
-    \item Es kann genau ein Bild zum Rezept hochladen werden.
-    \item Der Nutzer soll Rezepte bewerten können. %Noch Aktuell?
-    \item Der Nutzer kann Zutaten aus einer Liste auswählen.
+    \item Der Nutzer kann Rezepte in Form von PDFs exportiert werden.\label{RC1}
+    \item Der Nutzer kann zwischen Dark Mode und Light Mode wechseln können.\label{RC2}
+    \item Der Nutzer kann genau ein Bild zum Rezept hochladen.\label{RC3}
+    \item Der Nutzer kann Zutaten aus einer Liste auswählen.\label{RC4}
+    \item Der Nutzer kann sein Profilbild ändern.\label{RC5}
+    \item Der Nutzer kann Rezepte filtern nach Favoriten und Schwierigkeitsgrad.\label{RC6}
+    \item Der Nutzer kann Rezepte jeweils auf- und absteigend sortieren Alphabetisch nach dem Namen des Rezepts, nach dem Schwierigkeitsgrad und dem Hinzufügedatum.\label{RC7}
+    \item Ein Admin kann den Gruppennamen ändern.\label{RC8}
 \end{enumerate}
 
 \subsection{Abgrenzungskriterien}
 Abgrenzungskriterien: Leistungen die explizit nicht umgesetzt werden.
 
 \begin{enumerate}[start=1,label={$\langle$\bfseries RW\arabic*$\rangle$}, leftmargin = 5em, itemsep=4pt, parsep=4pt]
-    \item Es können keine Lebensmittel über die App bestellt werden.
     \item Es können keine Kommentare zu Rezepten hinzugefügt werden.
+    \item Der Nutzer kann keine Rezepte bewerten.
     \item Es gibt keine integrierte Chatfunktion.
     \item Es können keine Videos den Rezepten hinzugefügt werden.
     \item Es können keine Nutzer direkt über die App gesucht werden.
+    \item Es existiert kein Gruppenprofilbild.
 \end{enumerate}
 
 \section{Produkteinsatz}
@@ -230,342 +235,323 @@ Beim Austreten muss der Nutzer noch nachträglich bestätigen, dass er aus der a
 \newpage
 
 \section{Produktfunktion}
-\textbf{Einloggen $\langle$F10$\rangle$}\\
-\textbf{Anwendungsfall:} Der Nutzer möchte sich in der App anmelden um alle Features der App nutzen zu können.\\
-\textbf{Anforderungen:} RM1\\
-\textbf{Ziel:} Der Nutzer erhält Zugang zu seinem Profil in der App indem eine Verbindung zum Server hergestellt wird.\\
+\textbf{Einloggen und Ausloggen $\langle$F10$\rangle$}\\
+\textbf{Anwendungsfall:} Der Nutzer möchte sich in der App anmelden und sich danach wieder ausloggen.\\
+\textbf{Anforderungen:} \ref{RM1}, \ref{RM2}\\
+\textbf{Ziel:} Der Nutzer erhält Zugang zu seinem Profil in der App, indem eine Verbindung zum Server hergestellt wird. Danach wird diese Verbindung wieder getrennt\\
 \textbf{Vorbedingung:} Der Nutzer hat bereits ein Konto erstellt.\\
-\textbf{Nachbedingung Erfolg:} Der Nutzer ist erfolgreich eingeloggt und wird zur Hauptansicht der App weitergeleitet.\\
-\textbf{Nachbedingung Fehlschlag:} Das Passwort oder der Nutzername ist falsch, sodass ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Nachbedingung Erfolg:} Der Nutzer ist erfolgreich ausgeloggt und wird zur Login-Ansicht der App weitergeleitet.\\
+\textbf{Nachbedingung Fehlschlag:} Das Passwort oder der Nutzername ist falsch, sodass eine Fehlermeldung erscheint bei dem fehlerhaften Eingabefeld.\\
 \textbf{Akteure:} Nutzer, Server\\
-\textbf{Auslösendes Ereignis:} Der Nutzer startet die App.\\
+\textbf{Auslösendes Ereignis:} -\\
 \textbf{Beschreibung:}
 \begin{enumerate}
-    \item Start der App.
-    \item Login View erscheint
-    \item Eingabe des Nutzernamens.
-    \item Eingabe des Passworts.
-    \item Auf Weiter Button klicken, um Anmeldung abzuschließen.
+    \item Der Nutzer startet die App.
+    \item Die Login-Ansicht erscheint
+    \item Der Nutzer gibt seinen Nutzernamen ein.
+    \item Der Nutzer gibt sein Passwort ein.
+    \item Der Nutzer klickt auf den Weiter-Button, um die Anmeldung abzuschließen.
+    \item Der Nutzer klickt auf den Verwaltungs-Ansichts-Button.
+    \item Der Nutzer Klick auf den ausloggen-Button.
+    \item Der Nutzer wird zur Login-Ansicht weitergeleitet
 \end{enumerate}
 \textbf{Erweiterung:} -\\
-\textbf{Alternativen:} Mit einem Klick auf den Registrieren Button kann ein Nutzer Konto angelegt werden. Mit einem Klick auf den Passwort vergessen Button Knopf kann das Passwort eines bestehenden Kontos geändert werden.  \\
+\textbf{Alternativen:} Mit einem Klick auf den Registrieren-Button kann ein Nutzer Konto angelegt werden. Mit einem Klick auf den Passwort-vergessen-Button Knopf kann das Passwort eines bestehenden Kontos geändert werden.  \\
 \newpage
 
-\textbf{Registrierung $\langle$F20$\rangle$}\\
-\textbf{Anwendungsfall:} Der Nutzer möchte ein Nutzer Konto anlegen.\\
-\textbf{Anforderungen:} \\
-\textbf{Ziel:} Der Nutzer legt ein Nutzerkonto an um alle Features der App nutzen zu können.\\
-\textbf{Vorbedingung:} Die App muss bereits gestartet worden sein.
-\textbf{Nachbedingung Erfolg:} Der Nutzer wird zum Gruppenansicht weitergeleitet und mit einem Pop-up-Fenster erfolgt die Bestätigung zur erfolgreichen Registrierung.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
+
+\textbf{Registrierung und Konto löschen $\langle$F20$\rangle$}\\
+\textbf{Anwendungsfall:} Der Nutzer möchte ein Nutzerkonto anlegen und danach sein Konto löschen.\\
+\textbf{Anforderungen:} \ref{RM2}, \ref{RS8} \\
+\textbf{Ziel:} Der Nutzer legt ein Nutzerkonto an, um alle Features der App nutzen zu können und löscht das Nutzerkonto danach.\\
+\textbf{Vorbedingung:} -\\
+\textbf{Nachbedingung Erfolg:} Der Nutzer wird zum Gruppen-Ansicht weitergeleitet und mit einem Pop-up-Fenster erfolgt die Bestätigung zur erfolgreichen Registrierung.\\
+\textbf{Nachbedingung Fehlschlag:} Eine Fehlermeldung erscheint beim fehlerhaften Eingabefenster.\\
 \textbf{Akteure:} Nutzer, Server\\
-\textbf{Auslösendes Ereignis:} Der Nutzer muss auf den "Registrieren" Button in der Loginansicht klicken.\\
+\textbf{Auslösendes Ereignis:} Der Nutzer muss auf den Registrieren-Button in der Login-Ansicht klicken.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
-    \item Klick auf den Registrieren Button.
-    \item Eingabe des Nutzernamens.
-    \item Eingabe der E-Mail-Adresse.
-    \item Eingabe eines Passworts.
-    \item Wiederholen des Passworts.
-    \item Klick auf den Weiter Button.
+    \item Der Nutzer klickt auf den Registrieren-Button.
+    \item Der Nutzer gibt einen Nutzernamen ein.
+    \item Der Nutzer gibt seine E-Mail-Adresse ein.
+    \item Der Nutzer gibt ein Passwort ein.
+    \item Der Nutzer gibt das Passwort nochmals ein.
+    \item Der Nutzer klickt auf den Weiter-Button.
+    \item Der Nutzer wird zur Login-Ansicht weitergeleitet.
+    \item Der Nutzer klickt auf den Verwaltungs-Ansichts-Button.
+    \item Der Nutzer klickt auf den Konto-Löschen-Button.
+    \item Ein Pop-up-Fenster erscheint zur Bestätigung zum Löschen des Benutzerkonto löschen.
+    \item Der Nutzer klickt auf den Bestätigen-Button.
+    \item Das Benutzerkonto wird gelöscht.
+    \item der Nutzer wird zur Login-Ansicht weitergeleitet.
 \end{enumerate}
 \textbf{Erweiterung:} -\\
-\textbf{Alternativen:} Durch das Klicken auf den Login Button wird der Nutzer zurück zur Loginansicht geleitet.\\
+\textbf{Alternativen:} -\\
 \newpage
+
 
 \textbf{Passwort zurücksetzen $\langle$F20$\rangle$}\\
 \textbf{Anwendungsfall:} Der Nutzer möchte das Passwort für seinen Benutzerkonto zurücksetzen.\\
-\textbf{Anforderungen:} \\
-\textbf{Ziel:} Der Nutzer kann eine neues Passwort setzen.\\
+\textbf{Anforderungen:} \ref{RS7}\\
+\textbf{Ziel:} Der Nutzer kann ein neues Passwort setzen.\\
 \textbf{Vorbedingung:} Die App muss bereits gestartet worden sein.\\
-\textbf{Nachbedingung Erfolg:} Der Nutzer wird zum Loginansicht weitergeleitet und mit einem Pop-up-Fenster erfolgt die Bestätigung der Versendung einer E-Mail an die angegeben E-Mail Adresse.\\
+\textbf{Nachbedingung Erfolg:} Der Nutzer wird zum Login-Ansicht weitergeleitet und mit einem Pop-up-Fenster erfolgt die Bestätigung der Versendung einer E-Mail an die angegeben E-Mail-Adresse.\\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer, Server\\
-\textbf{Auslösendes Ereignis:} Der Nutzer muss auf den Passwort vergessen Button in der Loginansicht klicken.\\
+\textbf{Auslösendes Ereignis:} Der Nutzer muss auf den Passwort-vergessen-Button in der Login-Ansicht klicken.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
-    \item Klick auf den Passwort vergessen Button.
-    \item Eingabe der E-Mail Adresse.
+    \item Klick auf den Passwort-vergessen-Button.
+    \item Eingabe der E-Mail-Adresse.
     \item Klick auf den Weiter Button.
 \end{enumerate}
 \textbf{Erweiterung:} -\\
-\textbf{Alternativen:} Durch das Klicken auf den Verlassen Button wird der Nutzer zurück zur Loginansicht geleitet.\\
+\textbf{Alternativen:} Durch das Klicken auf den Verlassen Button wird der Nutzer zurück zur Login-Ansicht geleitet.\\
 \newpage
 
-\textbf{Benutzernamen ändern $\langle$F30$\rangle$}\\
-\textbf{Anwendungsfall:} Der Nutzer möchte seinen Benutzernamen ändern.\\
-\textbf{Anforderungen:} \\
-\textbf{Ziel:} Der Nutzer kann seinen Benutzernamen an seine Wünsche anpassen.\\
-\textbf{Vorbedingung:} Der Nutzer muss einen Nutzerkonto haben.\\
-\textbf{Nachbedingung Erfolg:} Der aktualisierte Nutzername wird anderen Nutzern angezeigt.\\
+
+\textbf{Benutzernamen und Profilbild ändern $\langle$F30$\rangle$}\\
+\textbf{Anwendungsfall:} Der Nutzer möchte seinen Benutzernamen und sein Profilbild ändern.\\
+\textbf{Anforderungen:} \ref{RS10}, \ref{RC5}\\
+\textbf{Ziel:} Der Nutzer kann seinen Benutzernamen und sein Profilbild an seine Wünsche anpassen.\\
+\textbf{Vorbedingung:} -\\
+\textbf{Nachbedingung Erfolg:} Der aktualisierte Nutzername und das aktualisierte Profilbild wird anderen Nutzern angezeigt.\\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer, Server\\
-\textbf{Auslösendes Ereignis:} In der Verwaltungsansicht klickt der Nutzer auf den Nutzernamen bearbeiten Button.\\
+\textbf{Auslösendes Ereignis:} Der Nutzer klickt auf den Button für die Verwaltungs-Ansicht.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
+    \item Der Nutzer klickt auf den Button für die Verwaltungs-Ansicht.\\
     \item Der Nutzer klickt auf den Nutzernamen bearbeiten Button.
     \item Der neue Benutzername wird eingegeben.
     \item Der Nutzer klickt auf den speichern Button.
+    \item Der Nutzer klickt auf sein Profilbild.
+    \item Der Nutzer kann mit Hilfe des betriebssystemeigenen Dateimanagers ein neues Profilbild aussehen.
 \end{enumerate}
 \textbf{Erweiterung:} -\\
-\textbf{Alternativen:} Der Nutzer kann auf den Exit Button klicken und der Prozess wird abgebrochen und der Nutzer gelangt zurück zur Verwaltungsansicht.\\
+\textbf{Alternativen:} Der Nutzer kann auch sein Profilbild komplett entfernen. Auch kann der Nutzer auf den Exit Button klicken und der Prozess wird abgebrochen und der Nutzer gelangt zurück zur Verwaltungs-Ansicht.\\
 \newpage
 
 
-\textbf{Rezept erstellen $\langle$F40$\rangle$}\\
-\textbf{Anwendungsfall:} Der Nutzer möchte ein neues Rezept erstellen.\\
-\textbf{Anforderungen:} RM3, RS3, RC2\\
-\textbf{Ziel:} Der Nutzer erstellt ein Rezept, welches er mit seinen Gruppen teilen möchte, oder auch nur für sich sichtbar macht.\\
-\textbf{Vorbedingung:} Der Nutzer muss in der App angemeldet sein.\\
-\textbf{Nachbedingung Erfolg:} Das neue Rezept kann bei den eigenen Rezepten gefunden werden und kann mit seinen Gruppen geteilt werden.\\
+
+\textbf{Rezept erstellen, ändern und löschen$\langle$F40$\rangle$}\\
+\textbf{Anwendungsfall:} Der Nutzer möchte ein neues Rezept erstellen, es danach ändern und es schließlich löschen.\\
+\textbf{Anforderungen:} \ref{RM6}, \ref{RM7}, \ref{RM9}, \ref{RC3}, \ref{RC4}\\
+\textbf{Ziel:} Der Nutzer erstellt ein Rezept, welches er mit seinen Gruppen teilen möchte, oder auch nur für sich sichtbar macht. Nimmt dann Änderungen vor, um es dann wieder zu löschen.\\
+\textbf{Vorbedingung:} -\\
+\textbf{Nachbedingung Erfolg:} Das erstellte und geänderte Rezept wird in der Verwaltungs-Ansicht nicht mehr angezeigt.  \\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer, Server\\
-\textbf{Auslösendes Ereignis:} In der Hauptansicht klickt der Nutzer auf den neues Rezept anlegen Button.\\
+\textbf{Auslösendes Ereignis:} In der Haupt-Ansicht klickt der Nutzer auf den neues-Rezept -anlegen-Button.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
     \item Der Nutzer klickt auf den Button für ein neues Rezept.
-    \item Der Rezepttitel wird eingeben.
-    \item Der gesamten Zeitaufwand wird eingeben.
-    \item Der Schwierigkeitsgrad wird auswählen.
-    \item Die Zutaten mit Mengenangaben werden ausgewählt.
-    \item Der Text mit Schritt für Schritt Anleitung wird eingeben.
-    \item Es wird ausgewählt für wie viele Personen das Rezept ist.
-    \item Der Nutzer klickt auf den speichern Button und das Rezept wird abgespeichert.
+    \item Der Nutzer gib den Rezepttitel, die Zubereitungsdauer, die Zutaten mit Mengenangaben, den Schwierigkeitsgrad, die Portionsanzahl und eine Zubereitungsanweisungen an.
+    \item Der Nutzer klickt auf den speichern Button.
+    \item Der Nutzer wird zur Haupt-Ansicht weitergeleitet.
+    \item Der Nutzer klickt auf den Verwaltungs-Ansicht Button.
+    \item Der Nutzer klickt auf das gerade erstellte Rezept.
+    \item Der Nutzer wird zur Rezept-erstellen-Ansicht weitegeleitet.
+    \item Der Nutzer ändert den Rezepttitel.
+    \item Der Nutzer klickt auf den Speichern Button.
+    \item Der Nutzer wird zur Haupt-Ansicht weitergeleitet. 
+    \item Der Nutzer klickt auf den Verwaltungs-Ansicht Button.
+    \item Der Nutzer klickt auf den Löschen Button des gerade geänderten Rezepts.
+    \item Ein Pop-up-Fenster erscheint mit der Frage zur Bestätigung, dass das Rezept gelöscht werden soll.
+    \item Der Nutzer klickt auf den bestätigen Button.
+    \item Dem Nutzer wird das Rezept nicht mehr angezeigt.
 \end{enumerate}
-\textbf{Erweiterung:} Der Nutzer kann ein Bild vom fertigen Gericht hochladen.\\
-\textbf{Alternativen:} Der Nutzer kann auf den Exit Button klicken und das Rezept erstellen wird abgebrochen und der Nutzer gelangt zurück zur Hauptansicht.\\
+\textbf{Erweiterung:} Der Nutzer kann ein Bild vom fertigen Gericht können.\\
+\textbf{Alternativen:} -\\
 \newpage
 
-\textbf{Rezept ändern $\langle$F50$\rangle$}\\
-\textbf{Anwendungsfall:} Der Nutzer möchte den Inhalt seines Rezepts nachträglich ändern.\\
-\textbf{Anforderungen:} RM5, RS3\\
-\textbf{Ziel:} Der Nutzer will sein Rezept anpassen um es an nach seinen Vorstellungen umzugestalten.\\
-\textbf{Vorbedingung:} Der Nutzer hat bereits ein eigenes Rezept erstellt.\\
-\textbf{Nachbedingung Erfolg:} Das aktualisierte Rezept wird wieder auf den Server geladen und den eingestellten Nutzern aktualisiert angezeigt. \\
+\textbf{Rezept suchen, sortieren, filtern, anschauen und favorisieren $\langle$F60$\rangle$}\\
+\textbf{Anwendungsfall:} Der Nutzer möchte nach einem Rezept Suchen, dann die Rezepte nach dem Schwierigkeitsgrad filtern, ein Rezept sich genauer anschauen und dies dann favorisieren.\\
+\textbf{Anforderungen:} \ref{RM8}, \ref{RS1}, \ref{RS2}, \ref{RC6}, \ref{RC7}, \ref{RC1} \\
+\textbf{Ziel:} Der Nutzer kann mit dem Suchen, dem Filtern und dem Favorisieren sein gewünschtes Rezept schnell finden und es mithilfe der Zubereitungsanweisungen nachvollziehen.\\
+\textbf{Vorbedingung:} Dem Nutzer wird mindestens ein Rezept in der Haupts-Ansicht oder in der Gruppen-Detail-Ansicht angezeigt.\\
+\textbf{Nachbedingung Erfolg:} Das Rezept favorisierte Rezept ist mit den anderen favorisierten Rezepten beim Filter favorisierte Rezepte auffindbar.\\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer, Server\\
-\textbf{Auslösendes Ereignis:} Ein Klick auf den Button zum Rezept ändern in der Rezeptansicht von einem selbst erstellten Rezept.\\
+\textbf{Auslösendes Ereignis:} Klick auf die Suchzeile in der Haupt-Ansicht.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
-    \item Weiterleitung zum Rezepterstellenansicht, welche bereits mit allen Angaben des Rezepts gefüllt ist.
-    \item Änderung des Rezeptnamens, des gesamten Zeitaufwandes, des Schwierigkeitsgrad, der Zutaten zuzüglichen der Mengenangaben, die Anleitung oder die Angabe für wie viele Personen das Rezept ist.
-    \item Mit dem Klick auf den speichern Button werden die Änderungen am Rezept gespeichert.
-\end{enumerate}
-\textbf{Erweiterung:} -\\
-\textbf{Alternativen:} Mit einem Klick auf den Exit Button kann das Rezept ändern abgebrochen werden, wobei alle Änderungen verloren gehen.\\
-\newpage
-
-\textbf{Rezept anschauen $\langle$F60$\rangle$}\\
-\textbf{Anwendungsfall:} Der Nutzer möchte sich das Rezepte genauer betrachten.\\
-\textbf{Anforderungen:} RM4, RS2, RS4, RC1\\
-\textbf{Ziel:} Der Nutzer kann mithilfe der Anleitung und den Mengenangaben das Rezept nachvollziehen.\\
-\textbf{Vorbedingung:} Dem Nutzer wird das  Rezepte in der Hauptsansicht oder in der Gruppendetailsansicht angezeigt.\\
-\textbf{Nachbedingung Erfolg:} Das Rezept wird mit all seinen Details angezeigt in der Rezeptansicht.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
-\textbf{Akteure:} Nutzer, Server\\
-\textbf{Auslösendes Ereignis:} Klick auf ein Rezept in der Hauptsansicht oder in der Gruppendetailsansicht.\\
-\textbf{Beschreibung:}
-\begin{enumerate}
-    \item Durch das Rezept scrollen um die gesamte Anleitung zu sehen, falls diese nicht auf den Screen passt.
+    \item Der Nutzer klickt auf die Suchzeile.
+    \item Der Nutzer gibt einen Suchbegriff ein.
+    \item Der Nutzer klickt auf den Sortierungs-methode-Button und wählt Hinzufügedatum aus.
+    \item Der Nutzer klickt auf den Filtern-nach-Button und wählt Schwierigkeitsgrad Mittel.
+    \item Der Nutzer klickt auf ein Rezept.
+    \item Der Nutzer wird zur Rezept-Ansicht weitergeleitet.
+    \item Der Nutzer skaliert das Rezept auf eine Person.
+    \item Der Nutzer klickt auf den Favoriten-Button.
 \end{enumerate}
 \textbf{Erweiterung:} Der Nutzer kann die voreingestellte Portionsgröße auf die gewünschte Anzahl ändern. Des Weiter kann ein Rezept auch in der Form eines PDFs exportiert werden.\\
-\textbf{Alternativen:} Mit dem zurück Button kann der Nutzer zur Hauptsansicht oder in der Gruppendetailsansicht zurückkehren abhängig davon wie man in die Rezeptansicht gekommen ist.\\
+\textbf{Alternativen:} -\\
 \newpage
 
-\textbf{Rezept favorisieren $\langle$F70$\rangle$}\\
-\textbf{Anwendungsfall:} Der Nutzer möchte ein Rezept zu seinen Favoriten hinzugefügen.\\
-\textbf{Anforderungen:} RC3\\
-\textbf{Ziel:} Der Nutzer kann ein Rezept zu den Favoriten hinzugefügen, um einen schnelleren Zugriff auf das Rezept zu haben.\\
-\textbf{Vorbedingung:} Es müssen dem Nutzer Rezepte in der Hauptsansicht oder in der Gruppendetailsansicht angezeigt werden.\\
-\textbf{Nachbedingung Erfolg:} Der Nutzer kann das Rezept in seiner Favoritenansicht finden.\\
+
+\textbf{Gruppe erstellen und Gruppe auflösen $\langle$F90$\rangle$}\\
+\textbf{Anwendungsfall:} Der Nutzer möchte eine neue Gruppe erstellen, mit der die Rezepte geteilt werden können und diese danach wieder auflösen.\\
+\textbf{Anforderungen:} \ref{RM3}, \ref{RM5} \\
+\textbf{Ziel:} Der Nutzer kann mit der neuen Gruppe seine Rezepte teilen und danach die Gruppe auch wieder auflösen.\\
+\textbf{Vorbedingung:} -\\
+\textbf{Nachbedingung Erfolg:} Die erstellte Gruppe wird in der Verwaltung-Ansicht nicht mehr angezeigt und der Admin Status des Nutzers wird wieder entfernt.\\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer, Server\\
-\textbf{Auslösendes Ereignis:} Klick auf den Favorisieren Button.\\
+\textbf{Auslösendes Ereignis:} Der Nutzer klickt auf den Gruppe-erstellen Button.\\
 \textbf{Beschreibung:}
-\begin{enumerate}
-    \item Klick auf den Favorisieren Button.
-\end{enumerate}
-\textbf{Erweiterung:} Das Favorisieren kann auch wieder entfernt werden durch das erneute klicken auf den favorisieren Button. Des Weiteren kann die Favoriten List auch nach Autor, Rezeptname und Hinzufügedatum sortiert werden.\\
-\textbf{Alternativen:} Das Favorisieren kann auch in der Hauptansicht durchgeführt werden durch das Klicken auf den Stern neben dem Rezept.\\
-\newpage
-
-\textbf{Rezept suchen $\langle$F80$\rangle$}\\
-\textbf{Anwendungsfall:} Der Nutzer möchte alle Rezepte von allen Gruppen in der Hauptansicht durchsuchen.\\
-\textbf{Anforderungen:} \\
-\textbf{Ziel:} Dem Nutzer werden alle Rezepte mit bestimmten Namen in der Hauptansicht angezeigt.\\
-\textbf{Vorbedingung:} Vom Nutzer selbst oder in seinen Gruppen wurden bereits Rezepte hochgeladen.\\
-\textbf{Nachbedingung Erfolg:} Zum eingegeben Begriff passende Rezepte werden in der Hauptansicht angezigt.\\
-\textbf{Nachbedingung Fehlschlag:} Keine Rezepte werden in der Hauptansicht angezeigt, stattdessen eine Fehlermeldung.\\
-\textbf{Akteure:} Nutzer, Server\\
-\textbf{Auslösendes Ereignis:} Klick auf die Suchzeile.\\
-\textbf{Beschreibung:}
-\begin{enumerate}
-    \item Klick auf die Suchzeile in der Hauptansicht.
-    \item Eingabe des Suchbegriffs.
-    \item Passende Rezepte werden angezeigt und es kann durch die Ergebnisse gescrollt werden.
-\end{enumerate}
-\textbf{Erweiterung:} Der Nutzer kann die Ergebnisse auch sortieren nach zuletzt hinzugefügt oder alphabetisch nach dem Rezeptnamen oder dem Autornamen.\\
-\textbf{Alternativen:} Mit dem Klick auf den Button neben dem eingegebenen Suchwort kann das Suchwort entfernt werden und es wird die normale Hauptansicht angezeigt.\\
-\newpage
-
-\textbf{Gruppe erstellen $\langle$F90$\rangle$}\\
-\textbf{Anwendungsfall:} Der Nutzer möchte eine neue Gruppe erstellen mit der die Rezepte geteilt werden können. \\
-\textbf{Anforderungen:} RM2 \\
-\textbf{Ziel:} Der Nutzer kann mit der neuen Gruppe seine Rezepte teilen.\\
-\textbf{Vorbedingung:} Ein Nutzerprofil ist angemeldet und der Nutzer befindet sich in der Verwaltungsansicht.\\
-\textbf{Nachbedingung Erfolg:} Neue Gruppe wird in der Verwaltungsansicht angezeigt.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
-\textbf{Akteure:} Nutzer, Server\\
-\textbf{Auslösendes Ereignis:} Ein klick auf den Gruppen erstellen Button.\\
-\textbf{Beschreibung:}
-\begin{enumerate}
-    \item Klick auf den neue Gruppe erstellen Button.
-    \item Eingabe des Gruppennamens.
-    \item Eingabe des Gruppenpassworts.
-    \item Wiederholen des Gruppenpassworts.
-    \item Klick auf den speichern Button wird die Gruppe gespeichert.
+\begin{enumerate}	
+    \item Der Nutzer klickt auf den Gruppe-erstellen Button.
+    \item Der Nutzer wird zur Gruppen-Erstellungs-Ansicht weitergeleitet.
+    \item Der Nutzer gibt den Gruppennamen ein.
+    \item Der Nutzer klickt auf den speichern Button.
+    \item Der Nutzer wird zur Verwaltungs-Ansicht zurückgeleitet.
+    \item Der Nutzer klickt auf die Gruppe und wird zur Gruppen-Detail-Ansicht weitergeleitet.
+    \item Der Nutzer klickt auf den Gruppen-auflösen-Button.
+    \item Ein Pop-up-Fenster erscheint, welches um Bestätigung bitten.
+    \item Der Nutzer klickt auf den Button zum Bestätigen.
 \end{enumerate}
 \textbf{Erweiterung:} -\\
-\textbf{Alternativen:} Mit dem Exit Button kann der Gruppenerstellungs-Prozess abgebrochen werden, dabei werden keine Daten gespeichert. Des Weiteren kann mit dem Gruppe beitreten Button einer Gruppe beigetreten werden.\\
+\textbf{Alternativen:} Mit dem Gruppe-beitreten-Button kann auch zur Gruppen-Erstellungs-Ansicht gelangt werden.\\
 \newpage
 
-\textbf{Gruppe beitreten $\langle$F100$\rangle$}\\
-\textbf{Anwendungsfall:} Der Nutzer möchte einer neuen Gruppe beitreten.\\
-\textbf{Anforderungen:} RM2 \\
-\textbf{Ziel:} Der Nutzer ist der Gruppe beigetreten und kann alle in der Gruppe geteilten Rezepte ansehen.\\
-\textbf{Vorbedingung:} Der Nutzer befindet sich in der Verwaltungsansicht.\\
-\textbf{Nachbedingung Erfolg:} Ein Gruppe wird in der Liste der Gruppen angezeigt.\\
+\textbf{Gruppe beitreten und verlassen $\langle$F100$\rangle$}\\
+\textbf{Anwendungsfall:} Der Nutzer möchte einer neuen Gruppe beitreten und diese danach verlassen.\\
+\textbf{Anforderungen:} \ref{RM4} \\
+\textbf{Ziel:} Der Nutzer ist der Gruppe beigetreten und kann alle in der Gruppe geteilten Rezepte ansehen und diese auch wieder verlassen, sodass in der Haupt-Ansicht die Rezepte nicht mehr angezeigt werden.\\
+\textbf{Vorbedingung:} -\\
+\textbf{Nachbedingung Erfolg:} Die beigetretene Gruppe wird nicht mehr in der Verwaltung-Ansicht angezeigt und die Rezepte der Gruppe werden nicht mehr in der Haupt-Ansicht angezeigt.\\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer, Server\\
 \textbf{Auslösendes Ereignis:} Klick auf den Gruppe-beitreten Button.\\
 \textbf{Beschreibung:}\\
 \begin{enumerate}
-    \item Klick auf den Gruppe-beitreten Button.
-    \item Eingabe des Gruppennamens.
-    \item Eingabe des Gruppenpassworts.
-    \item Klick auf der Gruppe beitreten Button.
+    \item Der Nutzer klickt auf den Gruppe-beitreten-Button in der Verwaltung-Ansicht.
+    \item Der Nutzer gibt das Gruppenkürzels ein.
+    \item Der Nutzer klickt auf den Gruppe-beitreten-Button.
+    \item Der Nutzer wird zur Gruppen-Detail-Ansicht weitergeleitet.
+    \item Der Nutzer klickt auf den Gruppe-verlassen Button.
+    \item Ein Pop-up-Fenster erscheint, welches um Bestätigung bitten.
+    \item Der Nutzer klickt auf den Button zum Bestätigen.
+    \item der Nutzer wird zur Verwaltungs-Ansicht weitergeleitet.
 \end{enumerate}
-\textbf{Erweiterung:} Mit dem Scannen eines QR-Codes kann auch einer Gruppe beigetreten werden ohne die Eingabe eines Passworts oder eines Gruppennamens.\\
-\textbf{Alternativen:} Mit dem Exit Button kann der Gruppenbeitritts Prozess abgebrochen werden, alle eingegebene Daten gehen verloren.\\
+\textbf{Erweiterung:} Mit dem Scannen eines QR-Codes kann auch einer Gruppe beigetreten werden ohne die Eingabe eines Gruppennamens.\\
+\textbf{Alternativen:} Nach dem Login-Ansicht wird man zur Gruppe-beitreten-Ansicht weitergeleitet, wodurch auch einer Gruppe beigetreten werden kann.\\
 \newpage
 
-\textbf{Gruppe verlassen $\langle$F110$\rangle$}\\
-\textbf{Anwendungsfall:} Der Nutzer möchte seine Gruppenmitgliedschaft beenden.\\
-\textbf{Anforderungen:} RM6\\
-\textbf{Ziel:} Der Nutzer möchte die Rezepte der Gruppe in der Hauptansicht nicht mehr angezeigt bekommen.\\
-\textbf{Vorbedingung:} Der Nutzer ist Mitglied in einer Gruppe. \\
-\textbf{Nachbedingung Erfolg:} Dem Nutzer werden nicht mehr die Rezepte der anderen Gruppen Mitglieder angezigt und die Gruppe wird nicht mehr in der Verwaltungansicht angezeigt.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
-\textbf{Akteure:} Nutzer, Server\\
-\textbf{Auslösendes Ereignis:} Der Nutzer befindet sich in der Verwaltungsansicht.\\
-\textbf{Beschreibung:}
-\begin{enumerate}
-    \item Klick auf Gruppe verlassen Button.
-    \item Pop-up-Fenster erscheint zur Bestätigung zum verlassen der Gruppe.
-    \item Mit Klick auf Ja Button wird Gruppe verlassen.
-\end{enumerate}
-\textbf{Erweiterung:} -\\
-\textbf{Alternativen:} Mit dem Exit Button kann der Gruppen verlassen Prozess abgebrochen werden.\\
-\newpage
-
-\textbf{Gruppenkürzel und -passwort ausgeben $\langle$F120$\rangle$}\\
-\textbf{Anwendungsfall:} Der Nutzer möchte den Gruppennamen und das Gruppenpasswort erhalten.\\
-\textbf{Anforderungen:} \\
-\textbf{Ziel:} Der Nutzer kann die Daten der Gruppe mit anderen Nutzern teilen um diese die Möglichkeit zu geben der Gruppe beizutreten.\\
+\textbf{Gruppenkürzel ausgeben $\langle$F120$\rangle$}\\
+\textbf{Anwendungsfall:} Der Nutzer möchte den Gruppenkürzel erhalten.\\
+\textbf{Anforderungen:} \ref{RM10}\\
+\textbf{Ziel:} Der Nutzer kann die Daten der Gruppe mit anderen Nutzern teilen, um diese die Möglichkeit zu geben der Gruppe beizutreten.\\
 \textbf{Vorbedingung:} Der Nutzer ist in einer Gruppe Mitglied.\\
 \textbf{Nachbedingung Erfolg:} Ein Pop-up-Fenster erscheint mit den Daten der Gruppe.\\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer, Server \\
-\textbf{Auslösendes Ereignis:} Der Nutzer klickt in der Verwaltungsansicht auf die Gruppe und wird zur Gruppendetailansicht weitergeleitet.\\
+\textbf{Auslösendes Ereignis:} Der Nutzer klickt in der Verwaltungs-Ansicht auf die Gruppe und wird zur Gruppen-Detail-Ansicht weitergeleitet.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
-    \item Klick auf den Gruppennamen in der Verwaltungansicht.
-    \item Klick auf den Gruppen Informations Button.
-    \item In der Gruppendetailansicht werden Gruppenname und Gruppenpasswort angezeigt.
-\end{enumerate}
-\textbf{Erweiterung:} In der Gruppendetailansicht kann eine QR-Code erstellt werden welcher einem direkt einer Gruppe beitreten lässt ohne die Eingabe eines Grupennamens oder eines Gruppenpassworts. \\
-\textbf{Alternativen:} Mit dem Exit Button kann der Prozess abgebrochen werden.\\
-\newpage
-
-\textbf{Gruppe auflösen $\langle$F130$\rangle$}\\
-\textbf{Anwendungsfall:} Der Nutzer möchte eine Gruppe auflösen.\\
-\textbf{Anforderungen:} \\
-\textbf{Ziel:} Der Nutzer kann die Gruppe auflösen damit keine Rezepte mehr geteilt werden können.\\
-\textbf{Vorbedingung:} Der Nutzer ist Admin einer Gruppe.\\
-\textbf{Nachbedingung Erfolg:} Die Gruppe ist aufgelöst, wird somit nicht mehr in der Verwaltungansicht angezeigt und alle Rezepte die in der Gruppe geteilt worden sind worden sind nicht mehr einsehbar.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
-\textbf{Akteure:} Nutzer, Server \\
-\textbf{Auslösendes Ereignis:} Der Nutzer klickt auf den Gruppe auflösen Button.\\
-\textbf{Beschreibung:}
-\begin{enumerate}
-    \item Der Nutzer klickt auf den Gruppe auflösen Button
-    \item Ein Pop-up-Fenster erscheint, welches um Bestätigung bitten.
-    \item Klick auf den Button zum bestätigen.
-    \item In der Verwaltungsansicht erscheint ein Pop-up-Fenster, welches bestätigt dass die Gruppe aufgelöst worden ist.
+    \item Der Nutzer klickt auf die Gruppen-Detail-Ansicht-Button.
+    \item Der Nutzer klickt auf den Gruppen-Informations-Button.
+    \item Der Nutzer wird zur QR-Code-Ansicht weitergeleitet.
+    \item Der Nutzer sieht den QR-Code, der alle Informationen enthält.
 \end{enumerate}
 \textbf{Erweiterung:} -\\
-\textbf{Alternativen:} Die Bestätigung zur Auflösung der Gruppe kann auch nicht erteilt werden, wodurch der der Nutzer zur Verwaltungsansicht zurückkehrt.\\
+\textbf{Alternativen:} -\\
 \newpage
 
-\textbf{Admin ernennen $\langle$F140$\rangle$}\\
-\textbf{Anwendungsfall:} Der Nutzer möchte ein weiteres Mitglied der Gruppe zu einem Admin der Gruppe ernennen.\\
-\textbf{Anforderungen:} \\
-\textbf{Ziel:} Der Nutzer kann seine Rechte für die Gruppe mit anderen Mitgliedern teilen.\\
+
+\textbf{Admin ernennen und Admin Status entfernen $\langle$F140$\rangle$}\\
+\textbf{Anwendungsfall:} Der Nutzer möchte ein weiteres Mitglied der Gruppe zu einem Admin der Gruppe ernennen und dem Nutzer den Admin Status dann wieder aberkennen.\\
+\textbf{Anforderungen:} \ref{RS3}\\
+\textbf{Ziel:} Der Nutzer kann seine Rechte für die Gruppe mit anderen Mitgliedern teilen und auch anderen Mitglieder die Rechte entziehen.\\
 \textbf{Vorbedingung:} Der Nutzer ist Admin der Gruppe.\\
-\textbf{Nachbedingung Erfolg:} Ein weiteres Mitglied der Gruppe erhält alle Rechte für die Gruppe.\\
+\textbf{Nachbedingung Erfolg:} Ein weiteres Mitglied besitze die gegebenen Reche nicht mehr.\\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer, Server \\
-\textbf{Auslösendes Ereignis:} Klick auf die Detailansicht eines Mitglieds der Gruppe.\\
+\textbf{Auslösendes Ereignis:} Klick auf die Detail-Ansicht eines Mitglieds der Gruppe.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
-    \item Klick auf die Detailansicht eines Mitglieds der Gruppe.
-    \item Klick auf die Option den Nutzer zum Admin der Gruppe zu ernennen.
-    \item Ein Pop-up-Fenster erscheint mit einer Bestätigung dass der Nutzer zum Admin der Gruppe ernannt wurde.
+    \item Der Nutzer klickt auf die Detail-Ansicht eines Mitglieds der Gruppe.
+    \item Der Nutzer klickt auf die Option den Nutzer zum Admin der Gruppe zu ernennen.
+    \item Ein Pop-up-Fenster erscheint mit einer Bestätigung, dass der Nutzer zum Admin der Gruppe ernannt wurde.
+    \item Der Nutzer klickt auf die Detail-Ansicht eines Mitglieds der Gruppe.
+    \item Der Nutzer klickt auf die Option den Nutzer die Admin Rechte der Gruppe zu entziehen.
+     \item Ein Pop-up-Fenster erscheint mit einer Bestätigung, dass dem Nutzer die Admin Rechte entzogen worden.
 \end{enumerate}
 \textbf{Erweiterung:} -\\
-\textbf{Alternativen:} Der Prozess kann durch das Klicken auf den Exit Button abgebrochen werden. Der Nutzer kehrt zur Gruppendetailansicht zurück.\\
+\textbf{Alternativen:} -\\
 \newpage
 
-\textbf{Rezepte verwalten für die Gruppen $\langle$F150$\rangle$}\\
-\textbf{Anwendungsfall:} Der Nutzer will ein Rezept, welches mit der Gruppe von einem Nutzer geteilt wird, ausblenden.\\
-\textbf{Anforderungen:} \\
-\textbf{Ziel:} Der Nutzer kann bestimmen welche Rezepte den Mitglieder und ihm selbst angeziegt werden.\\
+\textbf{Nutzer kicken und Nutzer bannen $\langle$F150$\rangle$}\\
+\textbf{Anwendungsfall:} Ein Admin möchte ein Mitglied der Gruppe aus der Gruppe kicken und ein anderes Mitglied aus der Gruppe bannen und danach wieder entbannen.\\
+\textbf{Anforderungen:} \ref{RS4}\\
+\textbf{Ziel:} Ein Admin möchte das erste Mitglied nur aus der Gruppe kicken und dem zweiten Mitglied nicht mehr die Möglichkeit bieten der Gruppe beizutreten.\\
+\textbf{Vorbedingung:} Der Nutzer ist Admin der Gruppe und die Gruppe hat insgesamt mindestens drei Mitglieder.\\
+\textbf{Nachbedingung Erfolg:} Die beiden Nutzer sind nicht mehr in der Gruppe.\\
+\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Akteure:} Nutzer, Server \\
+\textbf{Auslösendes Ereignis:} Der Nutzer klickt auf die Detail-Ansicht des Mitglieds der Gruppe.\\
+\textbf{Beschreibung:}
+\begin{enumerate}
+    \item Der Nutzer klickt auf die Detail-Ansicht des ersten Mitglieds der Gruppe.
+    \item Der Nutzer klickt auf die Option den Nutzer zu kicken.
+    \item Ein Pop-up-Fenster erscheint mit einer Bitte um Bestätigung, dass der Nutzer gekickt werden soll.
+    \item Der Nutzer klickt auf den Bestätigen-Button.
+    \item Der Nutzer klickt auf die Detail-Ansicht des zweiten Mitglieds der Gruppe.
+    \item Der Nutzer klickt auf die Option den Nutzer zu bannen.
+    \item Der Nutzer klickt auf die Detail-Ansicht des gebannten Nutzers in der Liste der gebannten Nutzer.
+    \item Der Nutzer klickt auf die Option den Nutzer zu entbannen.
+    \item Ein Pop-up-Fenster erscheint mit einer Bitte um Bestätigung, dass der Nutzer entbannt werden soll.
+    \item Der Nutzer klickt auf den Bestätigen-Button.
+\end{enumerate}
+\textbf{Erweiterung:} -\\
+\textbf{Alternativen:} -\\
+\newpage
+
+
+\textbf{Rezepte verwalten für die Gruppen $\langle$F160$\rangle$}\\
+\textbf{Anwendungsfall:} Der Nutzer will ein Rezept, welches mit der Gruppe von einem Nutzer geteilt wird, ausblenden und danach die Ausblendung wieder rückgängig machen.\\
+\textbf{Anforderungen:} \ref{RS5}\\
+\textbf{Ziel:} Der Nutzer kann bestimmen welche Rezepte den Mitgliedern und ihm selbst angezeigt werden.\\
 \textbf{Vorbedingung:} Der Nutzer ist Admin der Gruppe und in der Gruppe bestehen Rezepte.\\
-\textbf{Nachbedingung Erfolg:} Das Rezpt wird nicht mehr in der Hauptansicht angezeigt und für die Mitglieder das ausgeblendete Rezept auch in der Gruppendetailansicht nicht mehr einsehbar.\\
+\textbf{Nachbedingung Erfolg:} Das Rezept wird wieder Hauptansicht oder in der Gruppen-Detail-Ansicht angezeigt nach dem es für die Mitglieder  ausgeblendet war.\\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer, Server \\
-\textbf{Auslösendes Ereignis:} In der Gruppendetailansicht wird auf den ausblende Knopf für eine Rezept geklickt.\\
+\textbf{Auslösendes Ereignis:} Der Nutzer klickt in der Gruppen-Detail-Ansicht auf den ausblenden-Button von einem Rezept.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
-    \item Klick auf den ausblenden Button für ein Rezept.
-    \item Ein Pop-up-Fenster erscheint, welches um Bestätigung bittet dass das Rezept wirklich ausgeblendet werden soll.
-    \item Klick auf den Bestätigen Button.
-    \item Der Nutzer wird zum Gruppendetailansicht weitergeleitet.
-    \item Ein Pop-up-Fenster erscheint, welches die Ausblendung der Rezpets bestätigt.
+    \item Der Nutzer klickt in der Gruppen-Detail-Ansicht auf den ausblenden-Button von einem Rezept.
+    \item Ein Pop-up-Fenster erscheint, welches um Bestätigung bittet, dass das Rezept wirklich ausgeblendet werden soll.
+    \item Der Nutzer klickt auf den Bestätigen-Button.
+    \item Der Nutzer wird zum Gruppen-Detail-Ansicht weitergeleitet.
+    \item Der Nutzer klickt in der Gruppen-Detail-Ansicht auf den einblenden-Button von dem ausgeblendeten Rezept.
+    \item Der Nutzer klickt auf den Bestätigen-Button.
+    \item Der Nutzer wird zum Gruppen-Detail-Ansicht weitergeleitet.
 \end{enumerate}
 \textbf{Erweiterung:} -\\
-\textbf{Alternativen:} Mit dem Exit Button kann die Bestätigung nicht gegeben werden und somit wird das Rezept nicht ausgeblendet.\\
+\textbf{Alternativen:} -\\
 \newpage
 
-\textbf{Gruppenpasswort und -namen ändern $\langle$F160$\rangle$}\\
-\textbf{Anwendungsfall:} Der Nutzer möchte den Gruppennamen oder das Gruppenpasswort ändern.\\
-\textbf{Anforderungen:} \\
-\textbf{Ziel:} Der Nutzer kann den Gruppennamen und -passwort nach seinen Vorstellungen anpassen.\\
+
+\textbf{Gruppennamen ändern $\langle$F170$\rangle$}\\
+\textbf{Anwendungsfall:} Ein Admin möchte den Gruppennamen ändern.\\
+\textbf{Anforderungen:} \ref{RC8}\\
+\textbf{Ziel:} Ein Admin kann den Gruppennamen nach seinen Vorstellungen anpassen.\\
 \textbf{Vorbedingung:} Der Nutzer ist Admin der Gruppe.\\
-\textbf{Nachbedingung Erfolg:} Der angepasste Gruppenname bzw. Gruppenpasswort wird den Mitglieder angezeigt.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Nachbedingung Erfolg:} Der angepasste Gruppenname wird den Mitgliedern angezeigt.\\
+\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer, Server \\
-\textbf{Auslösendes Ereignis:} In der Gruppendetailansicht wird auf den Bearbeiten Button geklickt.\\
+\textbf{Auslösendes Ereignis:} In der Gruppen-Detail-Ansicht wird auf den Bearbeiten Button geklickt.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
-    \item Klick auf den Bearbeiten Button
-    \item Ändern der Gruppennamens oder -passwort.
-    \item Klicken auf den bestätigen Button zum speicheren der Änderungen.
+    \item Der Nutzer klickt auf den Bearbeiten Button.
+    \item Der Nutzer gibt den neuen Gruppennamen ein.
+    \item Der Nutzer klickt auf den Bestätigen-Button.
+    \item Der Nutzer wird zur Gruppen-Detail-Ansicht
 \end{enumerate}
 \textbf{Erweiterung:} -\\
-\textbf{Alternativen:} Der Bearbeitungsporzess kann über der Exit Button abgebrochen werden, alle Änderungen werden nicht gespeichert.\\
+\textbf{Alternativen:} -\\
 \newpage
-
 
 \section{Produktdaten}
 Um die App nutzen zu können, ist es erforderlich einige Daten zu speichern. Diese werden auf unterschiedlichen Geräten gespeichert:
