@@ -592,16 +592,17 @@ als konkrete Produktanforderungen konkretisiert.
 \begin{tabular}{| c | c | c | c | c |}
     \hline
     \textbf{Pruduktqualität} & \textbf{sehr gut} & \textbf{gut} & \textbf{normal} & \textbf{nicht relevant} \\ \hline
-    Angemessenheit           &                   &              &                 &                         \\ \hline
-    Richtigkeit              &                   &              &                 &                         \\ \hline
-    Interoperabilität        &                   &              &                 &                         \\ \hline
-    Ordnungsmäßigkeit        &                   &              &                 &                         \\ \hline
+    Angemessenheit           & X                  &              &                 &                         \\ \hline
+    Richtigkeit              &                   & X             &                 &                         \\ \hline
+    Interoperabilität        & X                  &              &                 &                         \\ \hline
+    Ordnungsmäßigkeit        &                   & X             &                 &                         \\ \hline
 \end{tabular}
 
 \textbf{Angemessenheit}\\
-Da jede Softwarekomponente und das Spiel als Ganzes für die zugeschriebene Funktion geeignet sein muss, ist die Angemessenheit als gut einzustufen.
+Da jede Komponente der App dem Nutzer entweder beim Teilen, Finden oder Speichern von Rezepten unterstützt, ist die Angemessenheit der App insgesamt als sehr hoch einzustufen
 
-\textbf{Richtigkeit und Ordnungsmäßigkeit}
+\textbf{Richtigkeit und Ordnungsmäßigkeit}\\
+Die App bietet nur an wenigen Schnittstellen wie z.B. dem Erstellen bzw. Verändern von Rezepten Anfälligkeit für Verlust oder Verfälschung von Daten. Dennoch ist ein hohes Maß an Richtigkeit insbesondere im Bereich der Nutzer- und Rezeptverwaltung erwünscht.
 
 \textbf{Interoperabilität}\\
 Da die App mit Schnittstellen wie bspw. dem Server oder Android-Betriebssystem fehlerfrei kommunizieren muss, um korrekt zu arbeiten, ist eine sehr gute Interoperabilität wichtig.
@@ -625,7 +626,7 @@ Trotz kontinuierlichen Testens während des Entwicklungsprozesses, kann es zur L
 Das Ausmaß ist dabei von Fall zu Fall unterschiedlich.
 Folglich wird die Fehlertoleranz der App als normal eingestuft.
 
-\subsection{Wiederherstellbarkeit}
+\textbf{Wiederherstellbarkeit}
 
 
 \subsection{Benutzbarkeit}
