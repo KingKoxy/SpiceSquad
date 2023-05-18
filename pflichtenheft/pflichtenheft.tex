@@ -161,12 +161,15 @@ Das Use-Case-Diagramm zeigt mittels Verbindungslininen, wie die einzelnen Use-Ca
 Der Abschnitt „Gruppenverwaltung“ und "Rezepte Liste" werden genauer in jeweils einem Aktivitätsdiagramm abgebildet.
 Dadurch können die einzelnen Schritte, die durchlaufen werden, besser beschrieben werden.
 
-\paragraph{Abbildung 3.1}
+\textbf{Abbildung 3.1}\\
 In dem Use-Case-Diagramm „Aufbau der App“ sieht man die allgemeine Struktur der App.\\
 Bei der erstmaligen Nutzung muss der Nutzer sich registrieren.
 Dazu muss er seinen Namen, seine E-Mail-Adresse und ein Passwort eingeben.
 Das Passwort muss durch eine erneute Eingabe berstätigt werden.
-Falls der Nutzer schon einen Nutzerkonto besitzt kann er sich einloggen.
+Nach Bestätigung der Eingabe kann der Nutzer eine Gruppe erstellen, einer Gruppe beitreten oder diesen Punkt überspringen und erstmal keiner Gruppe beitreten.
+Eine Gruppe kann durch Eingabe des Gruppenkürzels oder durch scannen des QR-Codes einer Gruppe beigetreten werden.
+Der Nutzer kann eine Gruppe durch Eingabe eines Gruppennamen erstellten.\\
+Falls der Nutzer schon ein Nutzerkonto besitzt kann er sich einloggen.
 Dazu muss er seine E-Mail-Adresse und sein Passwort eingeben.
 Hat der Nutzer sein Passwort vergessen besteht die Möglichkeit das Passwort zurückzusetzen.
 Ein eingeloggter Nutzer muss sich nicht erneut einloggen.\\
@@ -178,25 +181,24 @@ Es können Zutaten, Kochanleitung, Schwierigkeit und Kochzeit ƒür das neue Rez
 Im Anschluss kann das Rezept veröffentlicht werden.\\
 Durch klicken auf die Schaltfläche "Verwaltungs-Ansicht" gelangt der Nutzer auf die "Verwaltungs-Ansicht".
 In dieser Ansicht kann der Nutzer sich ausloggen, sein Nutzerkonto löschen, seinen Nutzernamen ändern, 
-erstellte Rezepte bearbeiten, eine Gruppe verlassen und Gruppen-Kürzel und das dazugehörige Passwort kopieren.\\
+erstellte Rezepte bearbeiten, eine Gruppe verlassen und Gruppen-Kürzel kopieren.\\
 Durch das drücken der Schaltfläche "Gruppe hinzufügen" kann der Nutzer eine neue Gruppe erstellen oder beitreten.
-Eine Gruppe kann durch Eingabe eines Gruppennamen und Passwort erstellt werden.\\ %Passiv
-Von der Verwaltungsansicht-
+Von der Verwaltungs-Ansicht kommt man durck klicken auf eine Gruppe auf die "Gruppen-Ansicht".
+Eingeloggte Nutzer können hier Gruppenmitglieder und Rezepte von Gruppenmitgliedern einsehen, die Gruppe verlassen oder den QR-Code zum beitreten der Gruppe einsehen.
+Gruppenadmins können in dieser Ansicht Gruppenmitglieder entfernen, bannen, Rezepte von Gruppenmitgliedern für die Gruppe ausblenden oder die Gruppe auflösen.
 
-
-\paragraph{Abbildung 3.2}
-Im Aktivitätsdiagramm „Rezepte Liste“ werden die verschiedenen Möglichkeiten unter dem Menüpunkt aufgeführt.
+\textbf{Abbildung 3.2}\\
+Im Aktivitätsdiagramm „Rezepte Liste“ werden die verschiedenen Möglichkeiten unter dem Menüpunkt "Rezepte Liste" aufgeführt.
 Der Nutzer hat die Möglichkeite Rezepte durch eine Suchfeld zu suchen.
-Der Nutzer hat die Möglichkeit die Rezepteliste durch vorgegebene Sortierungen zu sortieren.
-Beim Auswählen eines Rezepts öffnet sich das zugehörige Rezeptfenster.
-Im Rezeptfenster kann der Nutzer die Portionsgröße anpassen, das Rezept bewerten und das Rezept fovorisieren.
-Im Fenster Rezeptliste kann der Nutzer Rezepte erstellen.
-Es öffnet sich ein leeres Rezepttemplate Fenster.
-Der Nutzer kann die Zutaten und die Kochanleitung in diesem Fenster eingeben.
-Nach Bestätigung der Eingabe kommt der Nutzer wieder auf die Rezept Liste.
+Der Nutzer hat die Möglichkeit die Rezepteliste durch vorgegebene Sortierungen zu sortieren oder nach Filterkriterien zu filtern.
+Vorgegeben Sortierungen sind auf- oder absteigend Alpahbetisch nach Namen des Rezepts, nach dem Schwierigkeitsgrad und nach dem Hinzufügedatum.
+Die Rezeptliste lässt sich nach Favoriten oder Schwierigkeitsgrad filtern.\\
+Beim Auswählen eines Rezepts öffnet sich das dazugehörige Rezeptansicht.
+In der Rezeptansicht kann der Nutzer die Portionsgröße anpassen und das Rezept fovorisieren.
+Mit dem Zurück-Button gelangt der Nutzer wieder auf der Ansicht "Rezept Liste"
 
-\paragraph{Abbildung 3.3}
-Im Aktivitätsdiagramm Verwaltung  möchte der Nutzer seine Gruppen verwalten.
+\textbf{Abbildung 3.3}\\
+Im Aktivitätsdiagramm Verwaltung möchte der Nutzer seine Gruppen verwalten.
 Es besteht die Wahl eine Gruppe zu erstellen, eine Gruppe hinzuzufügen oder bestehende Gruppen zu verwalten.
 Beim erstellen einer Gruppe kann der Nutzer einen Gruppennamen und ein Passwort wählen.
 Nach Bestätigung wird der Nutzer der Gruppe hinzugefügt.
