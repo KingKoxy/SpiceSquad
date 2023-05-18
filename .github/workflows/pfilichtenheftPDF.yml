@@ -17,24 +17,8 @@ jobs:
           work_in_root_file_dir: true
           root_file: pflichtenheft/pflichtenheft.tex
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          tag_name: ${{ github.ref_name }}
-          release_name: Release ${{ github.ref_name }}
-          draft: false
-          prerelease: false
-
-      - name: Upload Release Asset
-        id: upload-release-asset 
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}/pflichtenheft
-          asset_path: ./pflichtenheft.pdf
-          asset_name: pflichtenheft.pdf
-          asset_content_type: pdf
+          files: ./pflichtenheft/pflichtenheft.pdf
