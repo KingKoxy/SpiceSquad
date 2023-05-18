@@ -113,13 +113,12 @@ Kannkriterien: Leistungen, die enthalten sein können.
 
 \begin{enumerate}[start=1,label={$\langle$\bfseries RC\arabic*$\rangle$}, leftmargin = 5em, itemsep=4pt, parsep=4pt]
     \item Der Nutzer kann Rezepte in Form von PDFs exportiert werden.\label{RC1}
-    \item Der Nutzer kann zwischen Dark Mode und Light Mode wechseln können.\label{RC2}
-    \item Der Nutzer kann genau ein Bild zum Rezept hochladen.\label{RC3}
-    \item Der Nutzer kann Zutaten aus einer Liste auswählen.\label{RC4}
-    \item Der Nutzer kann sein Profilbild ändern.\label{RC5}
-    \item Der Nutzer kann Rezepte filtern nach Favoriten und Schwierigkeitsgrad.\label{RC6}
-    \item Der Nutzer kann Rezepte jeweils auf- und absteigend sortieren Alphabetisch nach dem Namen des Rezepts, nach dem Schwierigkeitsgrad und dem Hinzufügedatum.\label{RC7}
-    \item Ein Admin kann den Gruppennamen ändern.\label{RC8}
+    \item Der Nutzer kann genau ein Bild zum Rezept hochladen.\label{RC2}
+    \item Der Nutzer kann Zutaten aus einer Liste auswählen.\label{RC3}
+    \item Der Nutzer kann sein Profilbild ändern.\label{RC4}
+    \item Der Nutzer kann Rezepte filtern nach Favoriten und Schwierigkeitsgrad.\label{RC5}
+    \item Der Nutzer kann Rezepte jeweils auf- und absteigend sortieren Alphabetisch nach dem Namen des Rezepts, nach dem Schwierigkeitsgrad und dem Hinzufügedatum.\label{RC6}
+    \item Ein Admin kann den Gruppennamen ändern.\label{RC7}
 \end{enumerate}
 
 \subsection{Abgrenzungskriterien}
@@ -132,6 +131,7 @@ Abgrenzungskriterien: Leistungen die explizit nicht umgesetzt werden.
     \item Es können keine Videos den Rezepten hinzugefügt werden.
     \item Es können keine Nutzer direkt über die App gesucht werden.
     \item Es existiert kein Gruppenprofilbild.
+    \item Der Nutzer kann  nicht zwischen Dark Mode und Light Mode wechseln.
 \end{enumerate}
 
 \section{Produkteinsatz}
@@ -164,7 +164,7 @@ Dadurch können die einzelnen Schritte, die durchlaufen werden, besser beschrieb
 \textbf{Abbildung 3.1}\\
 In dem Use-Case-Diagramm „Aufbau der App“ sieht man die allgemeine Struktur der App.\\
 Bei der erstmaligen Nutzung muss der Nutzer sich registrieren.
-Dazu muss er seinen Namen, seine E-Mail-Adresse und ein Passwort eingeben.
+Dazu muss er seinen Benutzernamen, seine E-Mail-Adresse und ein Passwort eingeben.
 Das Passwort muss durch eine erneute Eingabe berstätigt werden.
 Nach Bestätigung der Eingabe kann der Nutzer eine Gruppe erstellen, einer Gruppe beitreten oder diesen Punkt überspringen und erstmal keiner Gruppe beitreten.
 Eine Gruppe kann durch Eingabe des Gruppenkürzels oder durch scannen des QR-Codes einer Gruppe beigetreten werden.
@@ -173,29 +173,29 @@ Falls der Nutzer schon ein Nutzerkonto besitzt kann er sich einloggen.
 Dazu muss er seine E-Mail-Adresse und sein Passwort eingeben.
 Hat der Nutzer sein Passwort vergessen besteht die Möglichkeit das Passwort zurückzusetzen.
 Ein eingeloggter Nutzer muss sich nicht erneut einloggen.\\
-Nach dem Einloggen gelangt der Nutzer auf die Rezept-Ansicht.
+Nach dem Einloggen gelangt der Nutzer auf die Haupt-Ansicht.
 Hier hat er die Möglichkeit, Rezepte zu filtern, suchen oder zu sortieren.
 Durch klicken auf ein Rezept kann der Nutzer das Rezept ansehen, favorisieren und die Portionsgrößen ändern.\\
 Durch klicken auf die Schaltfläche "Rezept erstellen" kann der Nutzer ein neues Rezept erstellen.
-Es können Zutaten, Kochanleitung, Schwierigkeit und Kochzeit ƒür das neue Rezept angegeben werden.
+Es können Zutaten, Zubereitungsanweisung, Schwierigkeit und Kochzeit ƒür das neue Rezept angegeben werden.
 Im Anschluss kann das Rezept veröffentlicht werden.\\
-Durch klicken auf die Schaltfläche "Verwaltungs-Ansicht" gelangt der Nutzer auf die "Verwaltungs-Ansicht".
-In dieser Ansicht kann der Nutzer sich ausloggen, sein Nutzerkonto löschen, seinen Nutzernamen ändern, 
+Durch klicken auf die Schaltfläche "Verwaltungs-Ansicht"\space gelangt der Nutzer auf die \glqq Verwaltungs-Ansicht\grqq.
+In dieser Ansicht kann der Nutzer sich ausloggen, sein Nutzerkonto löschen, seinen Benutzernamen ändern, 
 erstellte Rezepte bearbeiten, eine Gruppe verlassen und Gruppen-Kürzel kopieren.\\
-Durch das drücken der Schaltfläche "Gruppe hinzufügen" kann der Nutzer eine neue Gruppe erstellen oder beitreten.
+Durch das Drücken der Schaltfläche "Gruppe hinzufügen" kann der Nutzer eine neue Gruppe erstellen oder beitreten.
 Von der Verwaltungs-Ansicht kommt man durck klicken auf eine Gruppe auf die "Gruppen-Ansicht".
 Eingeloggte Nutzer können hier Gruppenmitglieder und Rezepte von Gruppenmitgliedern einsehen, die Gruppe verlassen oder den QR-Code zum beitreten der Gruppe einsehen.
 Gruppenadmins können in dieser Ansicht Gruppenmitglieder entfernen, bannen, Rezepte von Gruppenmitgliedern für die Gruppe ausblenden oder die Gruppe auflösen.
 
 \textbf{Abbildung 3.2}\\
-Im Aktivitätsdiagramm „Rezepte Liste“ werden die verschiedenen Möglichkeiten unter dem Menüpunkt "Rezepte Liste" aufgeführt.
+Im Aktivitätsdiagramm „Rezepte Liste“\space werden die verschiedenen Möglichkeiten unter dem Menüpunkt "Rezepte Liste"\space aufgeführt.
 Der Nutzer hat die Möglichkeite Rezepte durch eine Suchfeld zu suchen.
 Der Nutzer hat die Möglichkeit die Rezepteliste durch vorgegebene Sortierungen zu sortieren oder nach Filterkriterien zu filtern.
 Vorgegeben Sortierungen sind auf- oder absteigend Alpahbetisch nach Namen des Rezepts, nach dem Schwierigkeitsgrad und nach dem Hinzufügedatum.
 Die Rezeptliste lässt sich nach Favoriten oder Schwierigkeitsgrad filtern.\\
 Beim Auswählen eines Rezepts öffnet sich das dazugehörige Rezeptansicht.
 In der Rezeptansicht kann der Nutzer die Portionsgröße anpassen und das Rezept fovorisieren.
-Mit dem Zurück-Button gelangt der Nutzer wieder auf der Ansicht "Rezept Liste"
+Mit dem Zurück-Button gelangt der Nutzer wieder auf der Ansicht "Rezept Liste".
 
 \textbf{Abbildung 3.3}\\
 Im Aktivitätsdiagramm Verwaltung möchte der Nutzer seine Gruppen verwalten.
@@ -233,6 +233,116 @@ Beim Austreten muss der Nutzer noch nachträglich bestätigen, dass er aus der a
     \includegraphics{images/section3/Aktivitaetsdiagramm Rezepte Liste.png}\\
     Abbildung 3.3: Aktivitätsdiagramm: Gruppenverwaltung
     \label{fig:A33}
+\end{figure}
+\newpage
+
+\section{Benutzeroberfläche/Schnittstellen}
+In diesem Kapitel wird die Benutzeroberfläche erläutert. Es wird auf die Darstellung der einzel- nen Funktionen sowie die Navigation zwischen diesen eingegangen.
+
+\textbf{Benutzeroberfläche:}
+
+Bei der App handelt es sich um eine Anwendungssoftware für Android-Endgeräte. Die Benutzer-oberfläche stellt daher einen wichtigen Teil des Produktes dar. Diese muss intuitiv und einfach zu bedienen sein, um eine möglichst hohe Benutzerfreundlichkeit zu gewährleisten. Außerdem sollte sie möglichst ansprechend gestaltet sein, um den Nutzer zu motivieren, die App zu verwenden. Beides wurde im UI-Entwurf berücksichtigt. Durch eine geringe Anzahl an gut strukturierten Ansichten und eine klare Farbgebung wird eine einfache Bedienbarkeit gewährleistet. Wichtige Buttons werden durch eine auffällige Farbe hervorgehoben, um die Navigation zu erleichtern. Es soll außerdem einen Lightmode geben, der entsprechend den Systemeinstellungen automatisch aktiviert wird. Nun sollen die einzelnen Ansichten erläutert werden.
+
+\textbf{Registrieren- und Loginansicht} $\langle$UI10$\rangle$
+
+Beim öffnen der App gelangt der Nutzer auf die Registrierenansicht (\ref{fig:A71}). Hier kann er sich mit einem Nutzernamen und Passwort registrieren. Nach erfolgreicher Registrierung gelangt der Nutzer auf die Gruppenansicht $\langle$UI20$\rangle$. Alternativ kann der Nutzer auch auf die Loginansicht (\ref{fig:A72}) wechseln. Hier kann er sich mit seinen Nutzerdaten einloggen, falls er bereits registriert ist. Nach erfolgreichem Login gelangt der Nutzer zur Hauptseite $\langle$UI30$\rangle$.
+
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.5\textwidth}
+        \centering
+        \includegraphics[height=80mm]{images/section7/RegisterView.jpg}
+        \label{fig:A71}
+        \caption{Registrierenansicht}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.5\textwidth}
+        \centering
+        \includegraphics[height=80mm]{images/section7/LoginView.jpg}
+        \label{fig:A72}
+        \caption{Loginansicht}
+    \end{minipage}
+\end{figure}
+
+\textbf{Gruppenansicht} $\langle$UI20$\rangle$
+
+Auf der Gruppenansicht (\ref{fig:A73}) kann der Nutzer eine neue Gruppe erstellen, indem er den Namen der neuen Gruppe festlegt und auf "Weiter" drückt. Damit wird die Gruppe in der Datenbank angelegt und der Nutzer tritt dieser bei. Anschließend wird er auf die Hauptansicht $\langle$UI30$\rangle$ weitergeleitet. Alternativ kann der Nutzer auch einer bereits bestehenden Gruppe beitreten. Dazu muss er auf "Gruppe beitreten" drücken, woraufhin sich ein Popup-Fenster öffnet. Hier muss er den Gruppencode eingeben, den jede Gruppe besitzt. Existiert der Gruppencode, so wird der Nutzer der Gruppe hinzugefügt. Auch hier wird der Nutzer auf die Hauptansicht $\langle$UI30$\rangle$ weitergeleitet.
+
+\begin{figure}[!htp]
+    \centering
+    \includegraphics[height=80mm]{images/section7/GroupView.jpg}
+    \label{fig:A73}
+    \caption{Gruppenansicht}
+\end{figure}
+\newpage
+\textbf{Hauptansicht} $\langle$UI30$\rangle$
+
+In der Hauptansicht (\ref{fig:A74}) kann der Nutzer alle Rezepte aus den Gruppen, in denen er Mitglied ist sehen. Diese kann er nach verschiedenen Faktoren filtern und sortieren. Durch eine Suchleiste kann er außerdem schnell ein gewünschtes Rezept finden. Jedes Rezept wird hier mit Titel, dem ersten Bild, Kochdauer und Schwierigkeitsgrad abgebildet. Durch einen Klick auf das Herzsymbol wird ein Rezept zu den Favoriten hinzugefügt bzw. wieder entfernt. Klickt ein Nutzer auf ein Rezept, so gelangt er zur Rezeptansicht $\langle$UI40$\rangle$. Durch einen Klick auf das Notizblock-Symbol gelangt der Nutzer auf die Rezepterstellenansicht $\langle$UI60$\rangle$.
+
+\begin{figure}[!htp]
+    \centering
+    \includegraphics[height=80mm]{images/section7/MainView.jpg}
+    \label{fig:A74}
+    \caption{Hauptansicht}
+\end{figure}
+
+Unten am Bildschirm befindet sich eine Navigationsleiste, die es dem Nutzer ermöglicht, zwischen verschiedenen Ansichten zu wechseln. Durch einen Klick auf das Haus-Symbol gelangt der Nutzer auf die Hauptansicht $\langle$UI30$\rangle$. Durch einen Klick auf das Herz-Symbol gelangt der Nutzer auf die Favoritenansicht $\langle$UI50$\rangle$. Durch einen Klick auf das Personen-Symbol gelangt der Nutzer auf die Verwaltungsansicht $\langle$UI80$\rangle$.
+
+\textbf{Rezeptansicht} $\langle$UI40$\rangle$
+
+In der Rezeptansicht (\ref{fig:A75}) wird ein bestimmtes Rezept angezeigt. Es werden Name, Bilder, Zutaten, Zubereitungsanweisungen, Kochdauer, Schwierigkeitsgrad, Autor und Erstellungsdatum angezeigt. Der Nutzer kann durch anpassen der Portionenzahl automatisch die Zutatenmengen errechnen lassen. Durch einen Klick auf das Herzsymbol wird ein Rezept zu den Favoriten hinzugefügt bzw. wieder entfernt. Ist der Nutzer der Autor des Rezepts, so wird oben ein Stiftsymbol angezeigt. Durch einen Klick auf dieses Symbol gelangt der Nutzer auf die Rezepterstellenansicht $\langle$UI60$\rangle$, die bereits mit dem Rezept befüllt ist. Dort kann er das Rezept bearbeiten. Mit Hilfe des Plus-Symbols über den Bildern kann ein Nutzer außerdem Bilder hochladen, die dann für alle Nutzer im Rezept einsehbar sind. Dies geschieht mit Hilfe des betriebssystemeigenen Dateimanagers. Unten am Bildschirm ist wieder die Navigationsleiste zu finden. Außerdem kann der Nutzer wieder zurück zur vorherigen Ansicht gelangen, indem er auf das Zurück-Symbol oben links klickt.
+
+\begin{figure}[!htp]
+    \centering
+    \includegraphics[height=80mm]{images/section7/RecipeView.jpg}
+    \label{fig:A75}
+    \caption{Rezeptansicht}
+\end{figure}
+
+\textbf{Favoritenansicht} $\langle$UI50$\rangle$
+
+Die Favoritenansicht (\ref{fig:A76}) ist identisch zur Hauptansicht $\langle$UI30$\rangle$, nur dass hier nur die favorisierten Rezepte angezeigt werden. Außerdem gibt es hier keinen Button zum Rezepte erstellen.
+\newpage
+\begin{figure}[!htp]
+    \centering
+    \includegraphics[height=80mm]{images/section7/FavouritesView.jpg}
+    \label{fig:A76}
+    \caption{Favoritenansicht}
+\end{figure}
+
+\textbf{Rezepterstellenansicht} $\langle$UI60$\rangle$
+
+In dieser Ansicht (\ref{fig:A77}) kann ein Nutzer ein neues Rezept erstellen oder bearbeiten. Dazu gibt es verschiedene Eingabefelder, die der Nutzer ausfüllen kann. Diese umfassen den Rezeptnamen, Dauer und Schwierigkeitsgrad sowie die Zubereitungsanweisungen. Außerdem kann er Bilder mit Hilfe des betriebssystemeigenen Dateimanagers hochladen, indem er auf das Bild-Symbol klickt. 
+Die Zutaten können mit einem Klick auf das Plus-Symbol hinzugefügt werden. Dazu öffnet sich die Zutatenauswahlansicht, in der der Nutzer die Zutat auswählen kann. Die bereits hinzugefügten Zutaten werden in einer Liste angezeigt und können durch einen Klick auf das Kreuz-Symbol entfernt werden. Ganz unten befindet sich ein Knopf zum Speichern des Rezepts. Durch einen Klick auf das Zurück-Symbol oben links gelangt der Nutzer zurück zur vorherigen Ansicht. Auch hier gibt es wieder die Navigationsleiste.
+
+\begin{figure}[!htp]
+    \centering
+    \includegraphics[height=80mm]{images/section7/RecipeCreationView.jpg}
+    \label{fig:A77}
+    \caption{Rezepterstellenansicht}
+\end{figure}
+
+\textbf{Zutatenauswahlansicht} $\langle$UI70$\rangle$
+
+In dieser Ansicht (\ref{fig:A78}) kann der Nutzer Zutaten erstellen. Dazu schreibt er den Namen der Zutat in das Eingabefeld und wählt Einheit und Menge aus. Während der Nutzer die Zutat eingibt sollen automatisch Zutaten gesucht werden, die zum bisher geschriebenen Text passen und als Vorschlag unter dem Eingabefeld angezeigt werden. Durch Klick auf so einen Vorschlag wird der Zutatenname auf diesen Vorschlag gesetzt. Der Nutzer hat außerdem die Möglichkeit ein Icon für die Zutat aus einem Dropdownmenü zu wählen. Durch den "Hinzufügen"-Button wird die Zutat erstellt und der Nutzer gelangt zurück zur Rezepterstellenansicht $\langle$UI60$\rangle$.
+
+\begin{figure}[!htp]
+    \centering
+    \includegraphics[height=80mm]{images/section7/IngredientPickerView.jpg}
+    \label{fig:A78}
+    \caption{Rezepterstellenansicht}
+\end{figure}
+
+\textbf{Verwaltungsansicht} $\langle$UI80$\rangle$
+
+Die Verwaltungsansicht dient der Verwaltung des Nutzers und seiner Gruppen. Der Nutzer kann seinen Anzeigenamen ändern. Zudem kann er Gruppen austreten, in dem er auf das Kreuz-Symbol neben der entsprechenden Gruppe drückt. Außerdem kann er den Gruppencode mit Hilfe des Teilen-Symbols teilen. Durch das Plus-Symbol gelangt der Nutzer zur Gruppenansicht $\langle$UI90$\rangle$, in der er eine neue Gruppe erstellen kann oder einer bestehenden Gruppe beitritt. Außerdem sieht der Nutzer seine erstellten Rezepte, die er hier mit dem entsprechenden Button entfernen oder bearbeiten kann. Durch Klick auf das Rezept wird man zur entsprechenden Rezeptansicht $\langle$UI40$\rangle$. Mit dem Teilen-Button soll ein Rezept als PDF exportiert werden können.
+Zudem kann der Nutzer sich ausloggen mit dem Symbol oben rechts. Daraufhin wird er zur Loginansicht $\langle$UI10$\rangle$weitergeleitet. Auch hier gibt es wieder die Navigationsleiste.
+
+\begin{figure}[!htp]
+    \centering
+    \includegraphics[height=80mm]{images/section7/SettingsView.jpg}
+    \label{fig:A79}
+    \caption{Verwaltungsansicht}
 \end{figure}
 \newpage
 
@@ -279,13 +389,15 @@ Beim Austreten muss der Nutzer noch nachträglich bestätigen, dass er aus der a
     \item Der Nutzer gibt ein Passwort ein.
     \item Der Nutzer gibt das Passwort nochmals ein.
     \item Der Nutzer klickt auf den Weiter-Button.
-    \item Der Nutzer wird zur Login-Ansicht weitergeleitet.
+    \item Der Nutzer wird in die Gruppen-Beitritts-Ansicht weitergeleitet.
+    \item Der Nutzer klickt auf den Überspringen-Button.
+    \item Der Nutzer wird zur Haupt-Ansicht weitergeleitet.
     \item Der Nutzer klickt auf den Verwaltungs-Ansichts-Button.
     \item Der Nutzer klickt auf den Konto-Löschen-Button.
     \item Ein Pop-up-Fenster erscheint zur Bestätigung zum Löschen des Benutzerkonto löschen.
     \item Der Nutzer klickt auf den Bestätigen-Button.
     \item Das Benutzerkonto wird gelöscht.
-    \item der Nutzer wird zur Login-Ansicht weitergeleitet.
+    \item Der Nutzer wird zur Login-Ansicht weitergeleitet.
 \end{enumerate}
 \textbf{Erweiterung:} -\\
 \textbf{Alternativen:} -\\
@@ -314,7 +426,7 @@ Beim Austreten muss der Nutzer noch nachträglich bestätigen, dass er aus der a
 
 \textbf{Benutzernamen und Profilbild ändern $\langle$F30$\rangle$}\\
 \textbf{Anwendungsfall:} Der Nutzer möchte seinen Benutzernamen und sein Profilbild ändern.\\
-\textbf{Anforderungen:} \ref{RS10}, \ref{RC5}\\
+\textbf{Anforderungen:} \ref{RS10}, \ref{RC4}\\
 \textbf{Ziel:} Der Nutzer kann seinen Benutzernamen und sein Profilbild an seine Wünsche anpassen.\\
 \textbf{Vorbedingung:} -\\
 \textbf{Nachbedingung Erfolg:} Der aktualisierte Nutzername und das aktualisierte Profilbild wird anderen Nutzern angezeigt.\\
@@ -338,7 +450,7 @@ Beim Austreten muss der Nutzer noch nachträglich bestätigen, dass er aus der a
 
 \textbf{Rezept erstellen, ändern und löschen$\langle$F40$\rangle$}\\
 \textbf{Anwendungsfall:} Der Nutzer möchte ein neues Rezept erstellen, es danach ändern und es schließlich löschen.\\
-\textbf{Anforderungen:} \ref{RM6}, \ref{RM7}, \ref{RM9}, \ref{RC3}, \ref{RC4}\\
+\textbf{Anforderungen:} \ref{RM6}, \ref{RM7}, \ref{RM9}, \ref{RC2}, \ref{RC3}\\
 \textbf{Ziel:} Der Nutzer erstellt ein Rezept, welches er mit seinen Gruppen teilen möchte, oder auch nur für sich sichtbar macht. Nimmt dann Änderungen vor, um es dann wieder zu löschen.\\
 \textbf{Vorbedingung:} -\\
 \textbf{Nachbedingung Erfolg:} Das erstellte und geänderte Rezept wird in der Verwaltungs-Ansicht nicht mehr angezeigt.  \\
@@ -369,7 +481,7 @@ Beim Austreten muss der Nutzer noch nachträglich bestätigen, dass er aus der a
 
 \textbf{Rezept suchen, sortieren, filtern, anschauen und favorisieren $\langle$F60$\rangle$}\\
 \textbf{Anwendungsfall:} Der Nutzer möchte nach einem Rezept Suchen, dann die Rezepte nach dem Schwierigkeitsgrad filtern, ein Rezept sich genauer anschauen und dies dann favorisieren.\\
-\textbf{Anforderungen:} \ref{RM8}, \ref{RS1}, \ref{RS2}, \ref{RC6}, \ref{RC7}, \ref{RC1} \\
+\textbf{Anforderungen:} \ref{RM8}, \ref{RS1}, \ref{RS2}, \ref{RC1}, \ref{RC5}, \ref{RC6}\\
 \textbf{Ziel:} Der Nutzer kann mit dem Suchen, dem Filtern und dem Favorisieren sein gewünschtes Rezept schnell finden und es mithilfe der Zubereitungsanweisungen nachvollziehen.\\
 \textbf{Vorbedingung:} Dem Nutzer wird mindestens ein Rezept in der Haupts-Ansicht oder in der Gruppen-Detail-Ansicht angezeigt.\\
 \textbf{Nachbedingung Erfolg:} Das Rezept favorisierte Rezept ist mit den anderen favorisierten Rezepten beim Filter favorisierte Rezepte auffindbar.\\
@@ -412,6 +524,7 @@ Beim Austreten muss der Nutzer noch nachträglich bestätigen, dass er aus der a
     \item Der Nutzer klickt auf den Gruppen-auflösen-Button.
     \item Ein Pop-up-Fenster erscheint, welches um Bestätigung bitten.
     \item Der Nutzer klickt auf den Button zum Bestätigen.
+    \item Der Nutzer wird zur Verwaltungs-Ansicht weitergeleitet.
 \end{enumerate}
 \textbf{Erweiterung:} -\\
 \textbf{Alternativen:} Mit dem Gruppe-beitreten-Button kann auch zur Gruppen-Erstellungs-Ansicht gelangt werden.\\
@@ -537,7 +650,7 @@ Beim Austreten muss der Nutzer noch nachträglich bestätigen, dass er aus der a
 
 \textbf{Gruppennamen ändern $\langle$F170$\rangle$}\\
 \textbf{Anwendungsfall:} Ein Admin möchte den Gruppennamen ändern.\\
-\textbf{Anforderungen:} \ref{RC8}\\
+\textbf{Anforderungen:} \ref{RC7}\\
 \textbf{Ziel:} Ein Admin kann den Gruppennamen nach seinen Vorstellungen anpassen.\\
 \textbf{Vorbedingung:} Der Nutzer ist Admin der Gruppe.\\
 \textbf{Nachbedingung Erfolg:} Der angepasste Gruppenname wird den Mitgliedern angezeigt.\\
