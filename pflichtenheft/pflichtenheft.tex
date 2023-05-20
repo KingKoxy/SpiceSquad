@@ -242,11 +242,9 @@ Beim Auswählen von Gruppenmitgliedern hat gibt es die Möglichkeit das Gruppenm
     Abbildung 3.3: Aktivitätsdiagramm: Verwaltung als Admin
     \label{fig:A33}
 \end{figure}
-
 \newpage
 
-
-\section{Benutzeroberfläche/Schnittstellen}
+\section{Benutzeroberfläche}
 \renewcommand{\thesubsection}{$\langle$UI\arabic{subsection}$\rangle$}
 
 In diesem Kapitel wird die Benutzerberfläche erläutert. Es wird auf die Darstellung der einzel- nen Funktionen sowie die Navigation zwischen diesen eingegangen. Alle hier gezeigten Abbildungen dienen lediglich der Veranschaulichung und sind nicht als fertige Entwürfe zu verstehen.
@@ -266,10 +264,10 @@ Hat ein Nutzer sein Passwort vergessen, so kann er zur Passwort-Zurücksetzen-An
 \subsection{Passwort-Zurücksetzen-Ansicht}
 \label{ui:PasswordResetView}
 Hier (\autoref{fig:PasswordResetView}) kann der Nutzer sein Password zurücksetzen lassen, indem er seine E-Mail-Adresse eingibt. Durch Betätigen des Weiter-Buttons bekommt er eine E-Mail zugeschickt, in der sich ein Link befindet, mit dem er ein neues Passwort vergeben kann. Außerdem wird er in der App auf die Anmeldeansicht \ref{ui:LoginView} weitergeleitet.
-\subsection{Gruppen-Beitritts-Ansicht}
 
+\subsection{Gruppen-Beitritts-Ansicht}
 \label{ui:GroupJoiningView}
-In dieser Ansicht (\autoref{fig:GroupJoinginView}) kann der Nutzer einer bereits bestehenden Gruppe beitreten. Dazu kann er entweder ein Gruppen-Kürzel eingeben oder mit Hilfe der Handykamera einen QR-Code scannen. In dieser Ansicht gibt es einige Unterschiede, je nachdem ob der Nutzer nach der Registrierungsansicht \ref{ui:RegisterView} oder von der Verwaltungsansicht \ref{ui:SettingsView} auf diese Seite gelangt. Im ersten Fall gibt es noch einen Überspringen-Knopf, mit dem der Nutzer keiner Gruppe beitritt, sondern direkt auf die Hauptansicht \ref{ui:MainView} gelangt. Dorthin wird er auch weitergeleitet, wenn er einer Gruppe beigetreten ist. Im zweiten Fall gibt es einen Zurück-Knopf, mit dem der Nutzer auf die Verwaltungsansicht \ref{ui:SettingsView} zurückgelangt. Das ist auch der Fall, nachdem er einer Gruppe beigetreten ist.
+In dieser Ansicht (\autoref{fig:GroupJoiningView}) kann der Nutzer einer bereits bestehenden Gruppe beitreten. Dazu kann er entweder ein Gruppen-Kürzel eingeben oder mit Hilfe der Handykamera einen QR-Code scannen. In dieser Ansicht gibt es einige Unterschiede, je nachdem ob der Nutzer nach der Registrierungsansicht \ref{ui:RegisterView} oder von der Verwaltungsansicht \ref{ui:SettingsView} auf diese Seite gelangt. Im ersten Fall gibt es noch einen Überspringen-Knopf, mit dem der Nutzer keiner Gruppe beitritt, sondern direkt auf die Hauptansicht \ref{ui:MainView} gelangt. Dorthin wird er auch weitergeleitet, wenn er einer Gruppe beigetreten ist. Im zweiten Fall gibt es einen Zurück-Knopf, mit dem der Nutzer auf die Verwaltungsansicht \ref{ui:SettingsView} zurückgelangt. Das ist auch der Fall, nachdem er einer Gruppe beigetreten ist.
 Alternativ kann der Nutzer auch eine Gruppe erstellen, indem er zur Gruppen-Erstellungs-Ansicht \ref{ui:GroupCreationView} wechselt.
 
 \subsection{Gruppen-Erstellungs-Ansicht}
@@ -304,9 +302,11 @@ Zudem kann der Nutzer sich ausloggen mit dem Symbol oben rechts. Daraufhin wird 
 \subsection{Gruppen-Detail-Ansicht}
 \label{ui:GroupDetailView}
 In der Gruppen-Detail-Ansicht (\autoref{fig:GroupDetailView}) kann der Nutzer die Mitglieder und Rezepte einer Gruppe ansehen. Durch den QR-Code-Button gelangt er zur QR-Code-Ansicht \ref{ui:QRCodeView}. Durch Klick auf das Verlassen-Symbol kann die Gruppe verlassen werden. Mit dem Plus-Symbol neben der Mitglieder-Sektion wird das Gruppenkürzel in die Zwischenablage kopiert und kann geteilt werden. Durch Klick auf ein Rezept wird der Nutzer zur entsprechenden Rezeptansicht \ref{ui:RecipeView} weitergeleitet. Als Administrator hat man zudem die Möglichkeit die Gruppe aufzulösen, woraufhin der Nutzer wieder auf die Verwaltungsansicht \ref{ui:SettingsView} gelangt. Zudem kann er Nutzer aus der Gruppe entfernen, bannen oder zu Administratoren ernennen bzw. diesen Titel wieder aberkennen. Außerdem kann er Rezepte für alle Gruppenmitglieder außer dem Autor verstecken bzw. wieder einblenden. Weiterhin kann er den Gruppennamen ändern, indem er auf das Stift-Symbol drückt. Auch hier gibt es wieder die Navigationsleiste aus \ref{ui:MainView}.
+
 \subsection{QR-Code-Ansicht}
 \label{ui:QRCodeView}
 In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe angezeigt. Durch den Zurück-Button kommt der Nutzer zurück zur Gruppen-Detail-Ansicht (\ref{ui:GroupDetailView}). Auch hier gibt es wieder die Navigationsleiste aus \ref{ui:MainView}.
+
 \subsection*{Abbildungen}
 \begin{figure}[htp]
     \begin{minipage}
@@ -336,8 +336,8 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
         [t]{0.49\textwidth}
         \centering
         \includegraphics[height=80mm]{images/ui/GroupJoiningView.jpg}
-        \label{fig:GroupJoiningView}
         \caption{Gruppen-Beitritts-Ansicht \ref{ui:GroupJoiningView}}
+        \label{fig:GroupJoiningView}
     \end{minipage}
 \end{figure}
 \begin{figure}[htp]
@@ -361,15 +361,15 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
         [t]{0.49\textwidth}
         \centering
         \includegraphics[height=80mm]{images/ui/RecipeView.jpg}
-        \label{fig:RecipeView}
         \caption{Rezeptansicht \ref{ui:RecipeView}}
+        \label{fig:RecipeView}
     \end{minipage}
     \begin{minipage}
         [t]{0.49\textwidth}
         \centering
         \includegraphics[height=80mm]{images/ui/RecipeCreationView.jpg}
-        \label{fig:RecipeCreationView}
         \caption{Rezept-Erstellungs-Ansicht \ref{ui:RecipeCreationView}}
+        \label{fig:RecipeCreationView}
     \end{minipage}
 \end{figure}
 \begin{figure}[htp]
@@ -377,8 +377,8 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
         [t]{0.49\textwidth}
         \centering
         \includegraphics[height=80mm]{images/ui/IngredientPickerView.jpg}
-        \label{fig:IngredientPickerView}
         \caption{Zutaten-Auswahl-Ansicht \ref{ui:IngredientPickerView}}
+        \label{fig:IngredientPickerView}
     \end{minipage}
     \begin{minipage}
         [t]{0.49\textwidth}
@@ -397,7 +397,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
         \label{fig:GroupDetailView}
     \end{minipage}
     \begin{minipage}
-        [t]{0.49\textwidth}
+        [t]{0.49\textwidth} 
         \centering
         \includegraphics[height=80mm]{images/ui/QRCodeView.jpg}
         \caption{QR-Code-Ansicht \ref{ui:QRCodeView}}
