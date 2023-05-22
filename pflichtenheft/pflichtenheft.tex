@@ -110,9 +110,9 @@ Musskriterien: unabdingbare Leistungen der Software.
     \item Der Gruppenadministrator kann die Gruppe auflösen. \label{rm:GroupDeletion}
     \item Der Nutzer einer Gruppe mithilfe eines Gruppenkürzels beitreten können und diese danach auch wieder verlassen können.\label{rm:GroupJoining}
     \item Der Nutzer muss Rezepte erstellen und hochladen können.\label{rm:RecipeCreation}
-    \item Der Nutzer muss zu jedem Rezept den Rezepttitel, die Zubereitungsdauer, die Zutaten mit Mengenangaben, den Schwierigkeitsgrad, die Portionsanzahl und eine Zubereitungsanweisungen angeben können.\label{rm:RecipeContents}
-    \item Der Nutzer muss Rezepte von allen Erstellern in der gleichen Gruppe anschauen können.\label{rm:RecipeViewing}
-    \item Der Rezeptersteller muss seine Rezepte separat ändern und löschen können.\label{rm:RecipeManagement}
+    \item Der \Gls{Autor} muss zu jedem seiner Rezepte den Rezepttitel, die Zubereitungsdauer, die Zutaten mit Mengenangaben, den Schwierigkeitsgrad, die Portionsanzahl und eine Zubereitungsanweisungen angeben können.\label{rm:RecipeContents}
+    \item Der Nutzer muss öffentliche Rezepte aller Autoren in der gleichen Gruppe anschauen können.\label{rm:RecipeViewing}
+    \item Der \Gls{Autor} muss seine Rezepte separat ändern und löschen können.\label{rm:RecipeManagement}
     \item Jedes Gruppenmitglied muss das Gruppenkürzel einsehen können.\label{rm:GroupId}
 \end{enumerate}
 
@@ -122,11 +122,11 @@ Sollkriterien: Leistungen, die enthalten sein sollten, bei Bedarf jedoch auch we
 \begin{enumerate}[start=1,label={$\langle$\bfseries RS\arabic*$\rangle$}, leftmargin = 5em, itemsep=4pt, parsep=4pt]
     \item Der Nutzer soll bei Rezepten Portionen skalieren können.\label{rs:PortionScaling}
     \item Der Nutzer soll Rezepte favorisieren können.\label{rs:RecipeFavourites}
-    \item Der Nutzer soll die \Gls{sichtbarkeit} der von ihm erstellten Rezepte ändern können.\label{rs:RecipeVisibility}
+    \item Der Autor soll die \Gls{sichtbarkeit} seiner Rezepte ändern können.\label{rs:RecipeVisibility}
     \item Ein Administrator soll Gruppenmitglieder zum Administrator ernennen und den Administratorenstatus wieder entziehen können.\label{rs:AdminCreation}
     \item Ein Administrator soll Nutzer aus Gruppen \Gls{kicken} und \Gls{bannen} können.\label{rs:Kicking}
     \item Ein Administrator soll Rezepte von anderen Nutzern in der Gruppe ausblenden können.\label{rs:RecipeHiding}
-    \item Das Hinzufügedatum und der Benutzername des Erstellers eines Rezeptes soll einsehbar sein.\label{rs:AuthorAndDate}
+    \item Das Hinzufügedatum und der Benutzername des Autors eines Rezeptes soll einsehbar sein.\label{rs:AuthorAndDate}
     \item Der Nutzer soll sein Passwort wieder zurücksetzen können, indem er einen Link an seine E-Mail-Adresse geschickt bekommt.\label{rs:ResetPassword}
     \item Der Nutzer soll sein Konto nach erstellen wieder löschen können.\label{rs:AccountDeletion}
     \item Der Nutzer soll das Gruppenkürzel auch über einen QR-Code teilen können.\label{rs:QRCode}
@@ -140,7 +140,7 @@ Kannkriterien: Leistungen, die umgesetzt werden können, jedoch nachrangig sind.
 
 \begin{enumerate}[start=1,label={$\langle$\bfseries RC\arabic*$\rangle$}, leftmargin = 5em, itemsep=4pt, parsep=4pt]
     \item Der Nutzer kann Rezepte in Form von PDFs exportieren.\label{rc:PDFExport}
-    \item Der Nutzer kann genau ein Bild zu jedem Rezept hochladen.\label{rc:Images}
+    \item Der Autor kann genau ein Bild zu jedem seiner Rezepte hochladen.\label{rc:Images}
     \item Der Nutzer kann Zutaten aus einer Liste auswählen.\label{rc:IngredientList}
     \item Der Nutzer kann sein Profilbild ändern.\label{rc:ProfileImage}
     \item Der Nutzer kann Rezepte nach Favoriten und Schwierigkeitsgrad filtern.\label{rc:Filtering}
@@ -913,6 +913,7 @@ Die oben als am wichtigsten bezeichneten Qualitätsmerkmale werden im Folgenden 
 
 \begin{enumerate}[start=1,label={$\langle$\bfseries Q\arabic*$\rangle$}, leftmargin = 5em, itemsep=4pt, parsep=4pt]
     \item Passwörter sollen nur gehashed gespeichert werden.
+    \item Passwörter werden beim zurücksetzen vom Nutzer ausgewählt, nicht automatisch generiert
     \item Der Code soll sinnvoll und hinreichend dokumentiert sein.
     \item Die App soll sinnvoll modularisiert sein.
     \item Die App soll auf Android-Version 8.0 und höher installierbar sein.
