@@ -54,7 +54,6 @@
 \makeglossaries
 \renewcommand{\glossarysection}[2][]{}
 
-
 \begin{document}
 \include{glossary.tex}
 
@@ -86,6 +85,7 @@
 \end{titlepage}
 
 \tableofcontents
+\newpage
 
 \section*{Gender-Hinweis}
 Zur besseren Lesbarkeit wird in diesem Pflichtenheft das generische Maskulinum verwendet.
@@ -117,9 +117,9 @@ Sollkriterien: Leistungen, die enthalten sein sollten, bei Bedarf jedoch auch we
 \begin{enumerate}[start=1,label={$\langle$\bfseries RS\arabic*$\rangle$}, leftmargin = 5em, itemsep=4pt, parsep=4pt]
     \item Der Nutzer soll bei Rezepten Portionen skalieren können.\label{rs:PortionScaling}
     \item Der Nutzer soll Rezepte favorisieren können.\label{rs:RecipeFavourites}
-    \item Ein \Gls{Admin} soll Gruppenmitglieder zum Admin ernennen und den Adminstatus wieder entziehen können.\label{rs:AdminCreation}
-    \item Ein Admin soll Nutzer aus Gruppen \Gls{kicken} und \Gls{bannen} können.\label{rs:Kicking}
-    \item Ein Admin soll Rezepte von anderen Nutzern in der Gruppe ausblenden können.\label{rs:RecipeHiding}
+    \item Ein \Gls{Administrator} soll Gruppenmitglieder zum Administrator ernennen und den Administratorenstatus wieder entziehen können.\label{rs:AdminCreation}
+    \item Ein Administrator soll Nutzer aus Gruppen \Gls{kicken} und \Gls{bannen} können.\label{rs:Kicking}
+    \item Ein Administrator soll Rezepte von anderen Nutzern in der Gruppe ausblenden können.\label{rs:RecipeHiding}
     \item Das Hinzufügedatum und der Benutzername des Erstellers eines Rezeptes soll einsehbar sein.\label{rs:AuthorAndDate}
     \item Der Nutzer soll sein Passwort wieder zurücksetzen können, indem er einen Link an seine E-Mail-Adresse geschickt bekommt.\label{rs:ResetPassword}
     \item Der Nutzer soll sein Konto nach erstellen wieder löschen können.\label{rs:AccountDeletion}
@@ -138,18 +138,18 @@ Kannkriterien: Leistungen, die umgesetzt werden können, falls noch Zeit ist.
     \item Der Nutzer kann sein Profilbild ändern.\label{rc:ProfileImage}
     \item Der Nutzer kann Rezepte nach Favoriten und Schwierigkeitsgrad filtern.\label{rc:Filtering}
     \item Der Nutzer kann Rezepte jeweils auf- und absteigend Alphabetisch nach dem Namen des Rezepts, nach dem Schwierigkeitsgrad und dem Hinzufügedatum sortieren.\label{rc:Sorting}
-    \item Nur ein Admin kann den Gruppennamen ändern.\label{rc:GroupRenaming}
+    \item Nur ein Administrator kann den Gruppennamen ändern.\label{rc:GroupRenaming}
 \end{enumerate}
 
 \subsection{Abgrenzungskriterien}
 Abgrenzungskriterien: Leistungen die explizit nicht umgesetzt werden.
 
 \begin{enumerate}[start=1,label={$\langle$\bfseries RW\arabic*$\rangle$}, leftmargin = 5em, itemsep=4pt, parsep=4pt]
-    \item Es können keine Kommentare zu Rezepten hinzugefügt werden.
+    \item Es gibt keine Möglichkeit Rezepte durch Kommentare zu
     \item Der Nutzer kann keine Rezepte bewerten.
     \item Es gibt keine integrierte Chatfunktion.
-    \item Es können keine Videos den Rezepten hinzugefügt werden.
-    \item Es können keine Nutzer direkt über die App gesucht werden.
+    \item Das Hinzufügen von Videos zu den Rezepten ist nicht
+    \item Über die App kann man keine anderen Nutzer direkt suchen.
     \item Es existiert kein Gruppenprofilbild.
     \item Der Nutzer kann nicht zwischen Dark Mode und Light Mode wechseln.
 \end{enumerate}
@@ -176,30 +176,35 @@ In diesem Unterkapitel wird auf die unterschiedlichen Bedürfnisse und Anforderu
 Um die volle Funktionsfähigkeit der App garantieren zu können, ist eine Internetverbindung erforderlich. Außerdem können QR-Codes für Gruppen nur mit einer funktionierenden Handykamera gescannt werden, auf die die App zugreifen kann.
 
 \section{Produktübersicht}
-In diesem Kapitel werden die Produktfunktionen beschrieben und in einem Use-Case-Diagramm visualisiert.
+In diesem Kapitel werden die Produktfunktionen beschrieben und in einem Use-Case-Diagramm "Aufbau der App" visualisiert.
 Das Use-Case-Diagramm zeigt mittels Verbindungslininen, wie die einzelnen Use-Cases zueinander stehen.
-Der Abschnitt „Gruppenverwaltung“ und "Rezepte Liste" werden genauer in jeweils einem Aktivitätsdiagramm abgebildet.
+Die Hauptansicht wird genauer im Aktivitätsdiagramm "Hauptansicht" abgebildet.
+Die Gruppen-Detail-Ansicht als Administrator wird in einem weiteren Aktivitätsdiagramm "Gruppen-Detail-Ansicht als Administrator" dargestellt und erläutert.
 Dadurch können die einzelnen Schritte, die durchlaufen werden, besser beschrieben werden.\par
 
 
-\paragraph{Use-Case-Diagramm (\autoref{fig:UseCaseDiagram}):}
+\paragraph{Aufbau der App (\autoref{fig:UseCaseDiagram}):}
 
-In dem Use-Case-Diagramm „Aufbau der App“ sieht man die allgemeine Struktur der App.
+In dem Use-Case-Diagramm „Aufbau der App“ sieht man die allgemeine Struktur der App. 
 
 Bei der erstmaligen Nutzung muss der Nutzer sich registrieren.
 Dazu muss er seinen Benutzernamen, seine E-Mail-Adresse und ein Passwort eingeben.
-Das Passwort muss durch eine erneute Eingabe berstätigt werden.
+Das Passwort muss durch eine erneute Eingabe bestätigt werden.
 Nach Bestätigung der Eingabe kann der Nutzer eine Gruppe erstellen, einer Gruppe beitreten oder diesen Punkt überspringen und erstmal keiner Gruppe beitreten.
-Durch Eingabe eines Gruppenkürzels oder durch scannen eines QR-Codes kann einer Gruppe beigetreten werden.
-Der Nutzer kann eine Gruppe durch Eingabe eines Gruppennamens erstellten.\par
+Durch das erstellen einer Gruppe wird man automatisch zum Administrator der Gruppe.
+Der Nutzer kann einer Grupppe durch Eingabe eines Gruppenkürzels oder durch scannen eines QR-Codes beitreten.
+Der Nutzer kann eine Gruppe durch Eingabe eines Gruppennamens erstellten.
+
 Falls der Nutzer schon ein Nutzerkonto besitzt kann er sich einloggen.
 Dazu muss er seine E-Mail-Adresse und sein Passwort eingeben.
 Hat der Nutzer sein Passwort vergessen besteht die Möglichkeit das Passwort zurückzusetzen.
-Ein eingeloggter Nutzer muss sich nicht erneut einloggen.\par
-Nach dem Einloggen gelangt der Nutzer auf die Haupt-Ansicht.
-Hier hat er die Möglichkeit, Rezepte zu filtern, suchen oder zu sortieren.
-Durch klicken auf ein Rezept kann der Nutzer das Rezept ansehen, favorisieren und die Portionsgrößen ändern.\par
-Durch klicken auf den Rezept-erstellen-Button kann der Nutzer ein neues Rezept erstellen.
+Ein eingeloggter Nutzer muss sich nicht erneut einloggen.\newline
+Nach dem Einloggen gelangt der Nutzer auf die Hauptansicht.
+Hier hat er die Möglichkeit, Rezepte zu filtern, favorisieren, suchen oder zu sortieren.
+Durch klicken auf ein Rezept gelangt der Nutzer auf der Rezeptansicht.
+Die Rezeptansicht wird unter dem Aktivitätsdiagramm "Hauptansicht" (Abbildung 3.2) noch genauer beschrieben.
+Durch klicken auf den Rezept-erstellen-Button gelangt der Nutzer auf der Rezept-Erstellungs-Ansicht.
+Hier kann der Nutzer ein neues Rezept erstellen.
 Es können Zutaten, Zubereitungsanweisung, Schwierigkeitgrad und Kochzeit ƒür das neue Rezept angegeben werden.
 Im Anschluss kann das Rezept veröffentlicht werden.\par
 Durch klicken auf den Verwaltungs-Ansicht-Button
@@ -209,28 +214,47 @@ erstellte Rezepte bearbeiten, eine Gruppe verlassen und Gruppen-Kürzel oder Gru
 Durch das Drücken des Gruppen-hinzufügen-Button kann der Nutzer eine neue Gruppe erstellen oder beitreten.
 Von der Verwaltungs-Ansicht kommt der Nutzer durch klicken auf eine Gruppe auf die Gruppen-Detail-Ansicht.
 Eingeloggte Nutzer können hier Gruppenmitglieder und Rezepte von Gruppenmitgliedern einsehen, die Gruppe verlassen oder den QR-Code zum beitreten der Gruppe einsehen.
-Gruppenadmins können in dieser Ansicht Gruppenmitglieder entfernen, bannen, zum Admin ernennen, als Admin entfernen, Rezepte von Gruppenmitgliedern für die Gruppe ausblenden oder die Gruppe auflösen.\par
+Durch das klicken auf die Rezepte gelangt der Nutzer auf die Rezeptansicht des dazugehörigen Rezepts.
+Gruppenadministratoren können in dieser Ansicht Gruppenmitglieder entfernen, bannen, zum Administrator ernennen, als Administrator entfernen, Rezepte von Gruppenmitgliedern für die Gruppe ausblenden oder die Gruppe auflösen.\par
 
 
-\paragraph{Aktivitätsdiagramm "Hauptansicht" (\autoref{fig:ActivityDiagramMainView}):}
+\paragraph{Hauptansicht (\autoref{fig:ActivityDiagramMainView}):}
 
-Im Aktivitätsdiagramm „Haupt-Ansicht“ werden die verschiedenen Möglichkeiten unter dem Menüpunkt Haupt-Ansicht aufgeführt.
+Im Aktivitätsdiagramm „Hauptansicht“
+werden die verschiedenen Möglichkeiten unter dem Menüpunkt Hauptansicht aufgeführt.
+
 Der Nutzer hat die Möglichkeit Rezepte durch eine Suchfeld zu suchen.
-Der Nutzer hat die Möglichkeit die Rezepteliste durch vorgegebene Sortierungen zu sortieren oder nach Filterkriterien zu filtern.
+Der Nutzer hat die Möglichkeit die Liste durch vorgegebene Sortierungen zu sortieren oder nach Filterkriterien zu filtern.
 Vorgegeben Sortierungen sind auf- oder absteigend Alpahbetisch nach Namen des Rezepts, nach dem Schwierigkeitsgrad und nach dem Hinzufügedatum.
-Die Rezeptliste lässt sich nach Favoriten oder Schwierigkeitsgrad filtern.
-Beim Auswählen eines Rezepts öffnet sich die dazugehörige Rezept-Ansicht.
-In der Rezept-Ansicht kann der Nutzer die Portionsgröße anpassen und das Rezept fovorisieren.
-Mit dem Zurück-Button gelangt der Nutzer wieder auf der Haupt-Ansicht.\par
+Die Liste lässt sich nach Favoriten oder Schwierigkeitsgrad filtern.
+Es besteht zudem die Möglichkeit Rezepte schon in dieser Ansicht zu favorisieren.\newline
+Beim Auswählen eines Rezepts öffnet sich die dazugehörige Rezeptansicht.
+In dieser Ansicht kann der Nutzer das Rezept ansehen, favorisieren und die Portionsgrößen ändern.
+Es besteht zudem die Möglichkeit Rezepte zu melden.
+Ist der Nutzer der Ersteller des Rezept hat er zudem die Möglichkeit das Rezept zu bearbeiten.
+Wird ein Rezept gemeldet, so werden die Administratoren mit einer E-Mail auf die Meldung benachrichtigt.\newline
+Es be
+Durch klicken auf zurück gelangt der Nutzer wieder auf der Hauptansicht.\par
 
 
-\paragraph{Aktivitätsdiagramm "Verwaltung als Admin" (\autoref{fig:ActivityDiagramAdmin}):}
+\paragraph{Gruppen-Detail-Ansicht als Administrator (\autoref{fig:ActivityDiagramAdmin}):}
 
-Im Aktivitätsdiagramm "Verwaltung als Admin" wir gezeigt, welche Möglichkeiten der Nutzer als Admin einer Gruppe in der "Gruppen-Ansicht" hat.
-Der Admin muss in der Verwaltungs-Ansicht die Gruppe wählen in der er Gruppenadmin ist.
-Der Admin landet so in der Gruppen-Detail-Ansicht.
-Durch klicken auf ein Rezept kann der Gruppenadmin, eingeblendete Rezepte ausblenden und ausgeblendete Rezepte einblenden.
-Beim Auswählen von Gruppenmitgliedern hat gibt es die Möglichkeit das Gruppenmitglied zu entfernen oder zu bannen, beides muss jeweils nochmal (...)
+Im Aktivitätsdiagramm "Gruppen-Detail-Ansicht als Administrator" wir gezeigt, welche Möglichkeiten der Nutzer als Administrator einer Gruppe in der "Gruppen-Detail-Ansicht" hat.
+
+Der Administrator muss in der Verwaltungsansicht die Gruppe wählen in der er Gruppenadministrator ist.
+Der Administrator landet so in der Gruppen-Detail-Ansicht.
+Durch klicken auf ein Rezept kann der Gruppenadministrator, eingeblendete Rezepte ausblenden und ausgeblendete Rezepte einblenden.\newline
+Beim Auswählen von Gruppenmitgliedern gibt es die Möglichkeit das Gruppenmitglied zu entfernen oder zu bannen.
+Der Administrator muss die jeweilige Aktion nachträglich nochmal bestätigen.
+Ein entfernter Nutzer kann der Gruppe wieder beitreten wohingegen ein gebannter Nutzer der Gruppe unwiderruflich nicht mehr beitreten kann.
+Ein Administrator kann ein Gruppenmitglied zu einem Administrator ernennen
+Ein Administrator kann einen anderen Administrator als Administrator entfernen.
+
+Der Administrator einer Gruppe kann durch eine nachfolgende Bestätigung die Gruppe verlassen.
+Ist anschließend kein weiteres Mitglied mehr in der Gruppe wird die Gruppe aufgelöst. Ein Nutzer kann der Gruppe anschließend nicht mehr beitreten.
+Falls es keinen Administrator mehr in der Gruppe gibt, wird der Nutzer, der nach dem Administrator die Gruppe beigetreten ist und noch in der Gruppe ist, zum neuen Administrator.
+Ein Administrator kann eine Gruppe durch eine nachfolgende Bestätigung auflösen. Ein Nutzer kann der Gruppe anschließend nicht mehr beitreten.\newline
+Der Administrator kann das Gruppenkürzel durch "Gruppenkürzel kopieren" in die Zwischenablage kopieren. Der Administrator kann den QR-Code der Gruppe durch "QR-Code anzeigen" anschauen.
 \newpage
 
 \begin{figure}[!htp]
@@ -256,7 +280,7 @@ Beim Auswählen von Gruppenmitgliedern hat gibt es die Möglichkeit das Gruppenm
     \begin{adjustbox}{right=150mm}
         \includegraphics[height=230mm]{images/produktübersicht/ActivityDiagramAdmin.png}
     \end{adjustbox}
-    \caption{Aktivitätsdiagramm: Verwaltung als Admin}
+    \caption{Aktivitätsdiagramm: Gruppen-Detail-Ansicht als Administrator}
     \label{fig:ActivityDiagramAdmin}
 \end{figure}
 \newpage
@@ -300,7 +324,7 @@ Unten am Bildschirm befindet sich eine Navigationsleiste, die es dem Nutzer erm�
 
 \paragraph{Rezeptansicht:}
 \label{ui:RecipeView}
-In der Rezeptansicht (\autoref{fig:RecipeView}) wird ein bestimmtes Rezept angezeigt. Es werden der Name, das Bild, die Zutaten, die Zubereitungsanweisungen, die Kochdauer, der Schwierigkeitsgrad, der Autor und das Erstellungsdatum angezeigt. Der Nutzer kann durch anpassen der Portionenzahl automatisch die Zutatenmengen errechnen lassen. Durch einen Klick auf das Herzsymbol wird ein Rezept zu den Favoriten hinzugefügt bzw. wieder entfernt. Ist der Nutzer der Autor des Rezepts, so wird oben ein Stiftsymbol angezeigt. Durch einen Klick auf dieses Symbol gelangt der Nutzer auf die Rezepterstellenansicht \ref{ui:RecipeCreationView}, die bereits mit dem Rezept befüllt ist. Dort kann er das Rezept bearbeiten. Unten am Bildschirm ist wieder die Navigationsleiste, wie in \ref{ui:MainView}, zu finden. Außerdem kann der Nutzer wieder zurück zur vorherigen Ansicht gelangen, indem er auf das Zurück-Symbol oben links klickt.
+In der Rezeptansicht (\autoref{fig:RecipeView}) wird ein bestimmtes Rezept angezeigt. Es werden der Name, das Bild, die Zutaten, die Zubereitungsanweisungen, die Kochdauer, der Schwierigkeitsgrad, der Ersteller und das Erstellungsdatum angezeigt. Der Nutzer kann durch anpassen der Portionenzahl automatisch die Zutatenmengen errechnen lassen. Durch einen Klick auf das Herzsymbol wird ein Rezept zu den Favoriten hinzugefügt bzw. wieder entfernt. Ist der Nutzer der Ersteller des Rezepts, so wird oben ein Stiftsymbol angezeigt. Durch einen Klick auf dieses Symbol gelangt der Nutzer auf die Rezepterstellenansicht \ref{ui:RecipeCreationView}, die bereits mit dem Rezept befüllt ist. Dort kann er das Rezept bearbeiten. Unten am Bildschirm ist wieder die Navigationsleiste, wie in \ref{ui:MainView}, zu finden. Außerdem kann der Nutzer wieder zurück zur vorherigen Ansicht gelangen, indem er auf das Zurück-Symbol oben links klickt.
 
 \paragraph{Rezept-Erstellungs-Ansicht}
 \label{ui:RecipeCreationView}
@@ -309,6 +333,7 @@ Die Zutaten können mit einem Klick auf das Plus-Symbol hinzugefügt werden. Daz
 
 \paragraph{Zutaten-Auswahl-Ansicht:}
 \label{ui:IngredientPickerView}
+In dieser Ansicht (\autoref{fig:IngredientPickerView}) kann der Nutzer Zutaten erstellen. Dazu schreibt er den Namen der Zutat in das Eingabefeld und wählt Einheit und Menge aus. Während der Nutzer die Zutat eingibt sollen automatisch Zutaten gesucht werden, die zum bisher geschriebenen Text passen und als Vorschlag unter dem Eingabefeld angezeigt werden. Durch Klick auf so einen Vorschlag wird der Zutatenname auf diesen Vorschlag gesetzt. Der Nutzer hat außerdem die Möglichkeit ein Icon für die Zutat aus einem Dropdownmenü zu wählen. Durch den Hinzufügen-Button gelangt der Nutzer zurück zur Rezepterstellenansicht \ref{ui:RecipeCreationView}, wo die Zutat hinzugefügt wurde.
 In dieser Ansicht (\autoref{fig:IngredientPickerView}) kann der Nutzer Zutaten erstellen. Dazu schreibt er den Namen der Zutat in das Eingabefeld und wählt Einheit und Menge aus. Während der Nutzer die Zutat eingibt sollen automatisch Zutaten gesucht werden, die zum bisher geschriebenen Text passen und als Vorschlag unter dem Eingabefeld angezeigt werden. Durch Klick auf so einen Vorschlag wird der Zutatenname auf diesen Vorschlag gesetzt. Der Nutzer hat außerdem die Möglichkeit ein Icon für die Zutat aus einem Dropdownmenü zu wählen. Durch den Hinzufügen-Button gelangt der Nutzer zurück zur Rezepterstellenansicht \ref{ui:RecipeCreationView}, wo die Zutat hinzugefügt wurde.
 
 \paragraph{Verwaltungsansicht:}
@@ -319,11 +344,12 @@ Zudem kann der Nutzer sich ausloggen mit dem Symbol oben rechts. Daraufhin wird 
 
 \paragraph{Gruppen-Detail-Ansicht:}
 \label{ui:GroupDetailView}
-In der Gruppen-Detail-Ansicht (\autoref{fig:GroupDetailView}) kann der Nutzer die Mitglieder und Rezepte einer Gruppe ansehen. Durch den QR-Code-Button gelangt er zur QR-Code-Ansicht \ref{ui:QRCodeView}. Durch Klick auf das Verlassen-Symbol kann die Gruppe verlassen werden. Mit dem Plus-Symbol neben der Mitglieder-Sektion wird das Gruppenkürzel in die Zwischenablage kopiert und kann geteilt werden. Durch Klick auf ein Rezept wird der Nutzer zur entsprechenden Rezeptansicht \ref{ui:RecipeView} weitergeleitet. Als Administrator hat man zudem die Möglichkeit die Gruppe aufzulösen, woraufhin der Nutzer wieder auf die Verwaltungsansicht \ref{ui:SettingsView} gelangt. Zudem kann er Nutzer aus der Gruppe entfernen, bannen oder zu Administratoren ernennen bzw. diesen Titel wieder aberkennen. Außerdem kann er Rezepte für alle Gruppenmitglieder außer dem Autor verstecken bzw. wieder einblenden. Weiterhin kann er den Gruppennamen ändern, indem er auf das Stift-Symbol drückt. Auch hier gibt es wieder die Navigationsleiste aus \ref{ui:MainView}.
+In der Gruppen-Detail-Ansicht (\autoref{fig:GroupDetailView}) kann der Nutzer die Mitglieder und Rezepte einer Gruppe ansehen. Durch den QR-Code-Button gelangt er zur QR-Code-Ansicht \ref{ui:QRCodeView}. Durch Klick auf das Verlassen-Symbol kann die Gruppe verlassen werden. Mit dem Plus-Symbol neben der Mitglieder-Sektion wird das Gruppenkürzel in die Zwischenablage kopiert und kann geteilt werden. Durch Klick auf ein Rezept wird der Nutzer zur entsprechenden Rezeptansicht \ref{ui:RecipeView} weitergeleitet. Als Administrator hat man zudem die Möglichkeit die Gruppe aufzulösen, woraufhin der Nutzer wieder auf die Verwaltungsansicht \ref{ui:SettingsView} gelangt. Zudem kann er Nutzer aus der Gruppe entfernen, bannen oder zu Administratoren ernennen bzw. diesen Titel wieder aberkennen. Außerdem kann er Rezepte für alle Gruppenmitglieder außer dem Ersteller verstecken bzw. wieder einblenden. Weiterhin kann er den Gruppennamen ändern, indem er auf das Stift-Symbol drückt. Auch hier gibt es wieder die Navigationsleiste aus \ref{ui:MainView}.
 
 \paragraph{QR-Code-Ansicht:}
 \label{ui:QRCodeView}
 In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe angezeigt. Durch den Zurück-Button kommt der Nutzer zurück zur Gruppen-Detail-Ansicht (\ref{ui:GroupDetailView}). Auch hier gibt es wieder die Navigationsleiste aus \ref{ui:MainView}.
+\newpage
 \newpage
 \subsection*{Abbildungen}
 \begin{figure}[htp]
@@ -438,7 +464,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Vorbedingung:} Der Nutzer hat bereits ein Konto erstellt.\\
 \textbf{Nachbedingung Erfolg:} Der Nutzer ist erfolgreich ausgeloggt und wird zur Login-Ansicht der App weitergeleitet.\\
 \textbf{Nachbedingung Fehlschlag:} Das Passwort oder der Nutzername ist falsch, sodass eine Fehlermeldung erscheint bei dem fehlerhaften Eingabefeld.\\
-\textbf{Akteure:} Nutzer, Server\\
+\textbf{Akteure:} Nutzer\\
 \textbf{Auslösendes Ereignis:} -\\
 \textbf{Beschreibung:}
 \begin{enumerate}
@@ -447,7 +473,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
     \item Der Nutzer gibt seinen Nutzernamen ein.
     \item Der Nutzer gibt sein Passwort ein.
     \item Der Nutzer klickt auf den Weiter-Button, um die Anmeldung abzuschließen.
-    \item Der Nutzer klickt auf den Verwaltungs-Ansichts-Button.
+    \item Der Nutzer klickt auf den Verwaltungsansichts-Button.
     \item Der Nutzer Klick auf den ausloggen-Button.
     \item Der Nutzer wird zur Login-Ansicht weitergeleitet
 \end{enumerate}
@@ -462,7 +488,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Vorbedingung:} -\\
 \textbf{Nachbedingung Erfolg:} Der Nutzer wird zum Gruppen-Ansicht weitergeleitet und mit einem Pop-up-Fenster erfolgt die Bestätigung zur erfolgreichen Registrierung.\\
 \textbf{Nachbedingung Fehlschlag:} Eine Fehlermeldung erscheint beim fehlerhaften Eingabefenster.\\
-\textbf{Akteure:} Nutzer, Server\\
+\textbf{Akteure:} Nutzer\\
 \textbf{Auslösendes Ereignis:} Der Nutzer muss auf den Registrieren-Button in der Login-Ansicht klicken.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
@@ -474,8 +500,8 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
     \item Der Nutzer klickt auf den Weiter-Button.
     \item Der Nutzer wird in die Gruppen-Beitritts-Ansicht weitergeleitet.
     \item Der Nutzer klickt auf den Überspringen-Button.
-    \item Der Nutzer wird zur Haupt-Ansicht weitergeleitet.
-    \item Der Nutzer klickt auf den Verwaltungs-Ansichts-Button.
+    \item Der Nutzer wird zur Hauptansicht weitergeleitet.
+    \item Der Nutzer klickt auf den Verwaltungsansichts-Button.
     \item Der Nutzer klickt auf den Konto-Löschen-Button.
     \item Ein Pop-up-Fenster erscheint zur Bestätigung zum Löschen des Benutzerkonto löschen.
     \item Der Nutzer klickt auf den Bestätigen-Button.
@@ -493,7 +519,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Vorbedingung:} Die App muss bereits gestartet worden sein.\\
 \textbf{Nachbedingung Erfolg:} Der Nutzer wird zum Login-Ansicht weitergeleitet und mit einem Pop-up-Fenster erfolgt die Bestätigung der Versendung einer E-Mail an die angegeben E-Mail-Adresse.\\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
-\textbf{Akteure:} Nutzer, Server\\
+\textbf{Akteure:} Nutzer\\
 \textbf{Auslösendes Ereignis:} Der Nutzer muss auf den Passwort-vergessen-Button in der Login-Ansicht klicken.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
@@ -512,11 +538,11 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Vorbedingung:} -\\
 \textbf{Nachbedingung Erfolg:} Der aktualisierte Nutzername und das aktualisierte Profilbild wird anderen Nutzern angezeigt.\\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
-\textbf{Akteure:} Nutzer, Server\\
-\textbf{Auslösendes Ereignis:} Der Nutzer klickt auf den Button für die Verwaltungs-Ansicht.\\
+\textbf{Akteure:} Nutzer\\
+\textbf{Auslösendes Ereignis:} Der Nutzer klickt auf den Button für die Verwaltungsansicht.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
-    \item Der Nutzer klickt auf den Button für die Verwaltungs-Ansicht.
+    \item Der Nutzer klickt auf den Button für die Verwaltungsansicht.
     \item Der Nutzer klickt auf den Nutzernamen bearbeiten Button.
     \item Der neue Benutzername wird eingegeben.
     \item Der Nutzer klickt auf den speichern Button.
@@ -524,7 +550,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
     \item Der Nutzer kann mit Hilfe des betriebssystemeigenen Dateimanagers ein neues Profilbild aussehen.
 \end{enumerate}
 \textbf{Erweiterung:} -\\
-\textbf{Alternativen:} Der Nutzer kann auch sein Profilbild komplett entfernen. Auch kann der Nutzer auf den Exit Button klicken und der Prozess wird abgebrochen und der Nutzer gelangt zurück zur Verwaltungs-Ansicht.\\
+\textbf{Alternativen:} Der Nutzer kann auch sein Profilbild komplett entfernen. Auch kann der Nutzer auf den Exit Button klicken und der Prozess wird abgebrochen und der Nutzer gelangt zurück zur Verwaltungsansicht.\\
 \newpage
 
 \subsection{Rezept erstellen, ändern und löschen}
@@ -532,17 +558,17 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Anforderungen:} \ref{rm:RecipeCreation}, \ref{rm:RecipeContents}, \ref{rm:RecipeManagement}, \ref{rc:Images}, \ref{rc:IngredientList}\\
 \textbf{Ziel:} Der Nutzer erstellt ein Rezept, welches er mit seinen Gruppen teilen möchte, oder auch nur für sich sichtbar macht. Nimmt dann Änderungen vor, um es dann wieder zu löschen.\\
 \textbf{Vorbedingung:} -\\
-\textbf{Nachbedingung Erfolg:} Das erstellte und geänderte Rezept wird in der Verwaltungs-Ansicht nicht mehr angezeigt.  \\
+\textbf{Nachbedingung Erfolg:} Das erstellte und geänderte Rezept wird in der Verwaltungsansicht nicht mehr angezeigt.  \\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
-\textbf{Akteure:} Nutzer, Server\\
-\textbf{Auslösendes Ereignis:} In der Haupt-Ansicht klickt der Nutzer auf den neues-Rezept -anlegen-Button.\\
+\textbf{Akteure:} Nutzer\\
+\textbf{Auslösendes Ereignis:} In der Hauptansicht klickt der Nutzer auf den neues-Rezept -anlegen-Button.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
     \item Der Nutzer klickt auf den Button für ein neues Rezept.
     \item Der Nutzer gib den Rezepttitel, die Zubereitungsdauer, die Zutaten mit Mengenangaben, den Schwierigkeitsgrad, die Portionsanzahl und eine Zubereitungsanweisungen an.
     \item Der Nutzer klickt auf den speichern Button.
-    \item Der Nutzer wird zur Haupt-Ansicht weitergeleitet.
-    \item Der Nutzer klickt auf den Verwaltungs-Ansicht Button.
+    \item Der Nutzer wird zur Hauptansicht weitergeleitet.
+    \item Der Nutzer klickt auf den Verwaltungsansicht Button.
     \item Der Nutzer klickt auf das gerade erstellte Rezept.
     \item Der Nutzer wird zur Rezept-Erstellungs-Ansicht weitegeleitet.
     \item Der Nutzer ändert den Rezepttitel.
@@ -565,8 +591,8 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Vorbedingung:} Dem Nutzer wird mindestens ein Rezept in der Haupts-Ansicht oder in der Gruppen-Detail-Ansicht angezeigt.\\
 \textbf{Nachbedingung Erfolg:} Das Rezept favorisierte Rezept ist mit den anderen favorisierten Rezepten beim Filter favorisierte Rezepte auffindbar.\\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
-\textbf{Akteure:} Nutzer, Server\\
-\textbf{Auslösendes Ereignis:} Klick auf die Suchzeile in der Haupt-Ansicht.\\
+\textbf{Akteure:} Nutzer\\
+\textbf{Auslösendes Ereignis:} Klick auf die Suchzeile in der Hauptansicht.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
     \item Der Nutzer klickt auf die Suchzeile.
@@ -574,7 +600,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
     \item Der Nutzer klickt auf den Filtern-nach-Button und wählt Schwierigkeitsgrad Mittel.
     \item Der Nutzer gibt einen Suchbegriff ein.
     \item Der Nutzer klickt auf das erste Rezept.
-    \item Der Nutzer wird zur Rezept-Ansicht weitergeleitet.
+    \item Der Nutzer wird zur Rezeptansicht weitergeleitet.
     \item Der Nutzer skaliert das Rezept auf eine Person.
     \item Der Nutzer klickt auf den Favoriten-Button.
 \end{enumerate}
@@ -587,9 +613,9 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Anforderungen:} \ref{rm:GroupCreation}, \ref{rm:GroupAdmin}, \ref{rm:GroupDeletion} \\
 \textbf{Ziel:} Der Nutzer kann mit der neuen Gruppe seine Rezepte teilen und danach die Gruppe auch wieder auflösen.\\
 \textbf{Vorbedingung:} -\\
-\textbf{Nachbedingung Erfolg:} Die erstellte Gruppe wird in der Verwaltung-Ansicht nicht mehr angezeigt und der Admin Status des Nutzers wird wieder entfernt.\\
+\textbf{Nachbedingung Erfolg:} Die erstellte Gruppe wird in der Verwaltung-Ansicht nicht mehr angezeigt und der Administrator Status des Nutzers wird wieder entfernt.\\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
-\textbf{Akteure:} Nutzer, Server\\
+\textbf{Akteure:} Nutzer\\
 \textbf{Auslösendes Ereignis:} Der Nutzer klickt auf den Gruppe-erstellen Button.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
@@ -597,12 +623,12 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
     \item Der Nutzer wird zur Gruppen-Erstellungs-Ansicht weitergeleitet.
     \item Der Nutzer gibt den Gruppennamen ein.
     \item Der Nutzer klickt auf den speichern Button.
-    \item Der Nutzer wird zur Verwaltungs-Ansicht zurückgeleitet.
+    \item Der Nutzer wird zur Verwaltungsansicht zurückgeleitet.
     \item Der Nutzer klickt auf die Gruppe und wird zur Gruppen-Detail-Ansicht weitergeleitet.
     \item Der Nutzer klickt auf den Gruppen-auflösen-Button.
     \item Ein Pop-up-Fenster erscheint, welches um Bestätigung bitten.
     \item Der Nutzer klickt auf den Button zum Bestätigen.
-    \item Der Nutzer wird zur Verwaltungs-Ansicht weitergeleitet.
+    \item Der Nutzer wird zur Verwaltungsansicht weitergeleitet.
 \end{enumerate}
 \textbf{Erweiterung:} -\\
 \textbf{Alternativen:} Mit dem Gruppe-beitreten-Button kann auch zur Gruppen-Erstellungs-Ansicht gelangt werden.
@@ -611,11 +637,11 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \subsection{Gruppe beitreten und verlassen}
 \textbf{Anwendungsfall:} Der Nutzer möchte einer neuen Gruppe beitreten und diese danach verlassen.\\
 \textbf{Anforderungen:} \ref{rm:GroupJoining} \\
-\textbf{Ziel:} Der Nutzer ist der Gruppe beigetreten und kann alle in der Gruppe geteilten Rezepte ansehen und diese auch wieder verlassen, sodass in der Haupt-Ansicht die Rezepte nicht mehr angezeigt werden.\\
+\textbf{Ziel:} Der Nutzer ist der Gruppe beigetreten und kann alle in der Gruppe geteilten Rezepte ansehen und diese auch wieder verlassen, sodass in der Hauptansicht die Rezepte nicht mehr angezeigt werden.\\
 \textbf{Vorbedingung:} -\\
-\textbf{Nachbedingung Erfolg:} Die beigetretene Gruppe wird nicht mehr in der Verwaltung-Ansicht angezeigt und die Rezepte der Gruppe werden nicht mehr in der Haupt-Ansicht angezeigt.\\
+\textbf{Nachbedingung Erfolg:} Die beigetretene Gruppe wird nicht mehr in der Verwaltung-Ansicht angezeigt und die Rezepte der Gruppe werden nicht mehr in der Hauptansicht angezeigt.\\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
-\textbf{Akteure:} Nutzer, Server\\
+\textbf{Akteure:} Nutzer\\
 \textbf{Auslösendes Ereignis:} Klick auf den Gruppe-beitreten Button.\\
 \textbf{Beschreibung:}\\
 \begin{enumerate}
@@ -626,7 +652,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
     \item Der Nutzer klickt auf den Gruppe-verlassen Button.
     \item Ein Pop-up-Fenster erscheint, welches um Bestätigung bitten.
     \item Der Nutzer klickt auf den Button zum Bestätigen.
-    \item der Nutzer wird zur Verwaltungs-Ansicht weitergeleitet.
+    \item der Nutzer wird zur Verwaltungsansicht weitergeleitet.
 \end{enumerate}
 \textbf{Erweiterung:} Mit dem Scannen eines QR-Codes kann auch einer Gruppe beigetreten werden ohne die Eingabe eines Gruppennamens.\\
 \textbf{Alternativen:} Nach dem Login-Ansicht wird man zur Gruppe-beitreten-Ansicht weitergeleitet, wodurch auch einer Gruppe beigetreten werden kann.
@@ -639,8 +665,8 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Vorbedingung:} Der Nutzer ist in einer Gruppe Mitglied.\\
 \textbf{Nachbedingung Erfolg:} Ein Pop-up-Fenster erscheint mit den Daten der Gruppe.\\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
-\textbf{Akteure:} Nutzer, Server \\
-\textbf{Auslösendes Ereignis:} Der Nutzer klickt in der Verwaltungs-Ansicht auf die Gruppe und wird zur Gruppen-Detail-Ansicht weitergeleitet.\\
+\textbf{Akteure:} Nutzer\\
+\textbf{Auslösendes Ereignis:} Der Nutzer klickt in der Verwaltungsansicht auf die Gruppe und wird zur Gruppen-Detail-Ansicht weitergeleitet.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
     \item Der Nutzer klickt auf die Gruppen-Detail-Ansicht-Button.
@@ -652,20 +678,20 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Alternativen:} -
 \newpage
 
-\subsection{Admin ernennen und Admin-Status entfernen}
-\textbf{Anwendungsfall:} Der Nutzer möchte ein weiteres Mitglied der Gruppe zu einem Admin der Gruppe ernennen und dem Nutzer den Admin Status dann wieder aberkennen.\\
+\subsection{Administrator ernennen und Administratorenstatus entfernen}
+\textbf{Anwendungsfall:} Der Nutzer möchte ein weiteres Mitglied der Gruppe zu einem Administrator der Gruppe ernennen und dem Nutzer den Administratorenstatus dann wieder aberkennen.\\
 \textbf{Anforderungen:} \ref{rs:AdminCreation}\\
 \textbf{Ziel:} Der Nutzer kann seine Rechte für die Gruppe mit anderen Mitgliedern teilen und auch anderen Mitgliedern die Rechte entziehen.\\
 \textbf{Vorbedingung:} Der Nutzer ist Admin der Gruppe.\\
 \textbf{Nachbedingung Erfolg:} Ein weiteres Mitglied besitze die gegebenen Reche nicht mehr.\\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
-\textbf{Akteure:} Nutzer, Server \\
+\textbf{Akteure:} Nutzer\\
 \textbf{Auslösendes Ereignis:} Klick auf die Detail-Ansicht eines Mitglieds der Gruppe.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
     \item Der Nutzer klickt auf die Detail-Ansicht eines Mitglieds der Gruppe.
-    \item Der Nutzer klickt auf die Option den Nutzer zum Admin der Gruppe zu ernennen.
-    \item Ein Pop-up-Fenster erscheint mit einer Bestätigung, dass der Nutzer zum Admin der Gruppe ernannt wurde.
+    \item Der Nutzer klickt auf die Option den Nutzer zum Administrator der Gruppe zu ernennen.
+    \item Ein Pop-up-Fenster erscheint mit einer Bestätigung, dass der Nutzer zum Administrator der Gruppe ernannt wurde.
     \item Der Nutzer klickt auf die Detail-Ansicht eines Mitglieds der Gruppe.
     \item Der Nutzer klickt auf die Option den Nutzer die Admin Rechte der Gruppe zu entziehen.
     \item Ein Pop-up-Fenster erscheint mit einer Bestätigung, dass dem Nutzer die Admin Rechte entzogen worden.
@@ -675,13 +701,13 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \newpage
 
 \subsection{Nutzer kicken und Nutzer bannen}
-\textbf{Anwendungsfall:} Ein Admin möchte ein Mitglied der Gruppe aus der Gruppe kicken und ein anderes Mitglied aus der Gruppe bannen.\\
+\textbf{Anwendungsfall:} Ein Administrator möchte ein Mitglied der Gruppe aus der Gruppe kicken und ein anderes Mitglied aus der Gruppe bannen.\\
 \textbf{Anforderungen:} \ref{rs:Kicking}\\
-\textbf{Ziel:} Ein Admin möchte das erste Mitglied nur aus der Gruppe kicken und dem zweiten Mitglied nicht mehr die Möglichkeit bieten der Gruppe beizutreten.\\
-\textbf{Vorbedingung:} Der Nutzer ist Admin der Gruppe und die Gruppe hat insgesamt mindestens drei Mitglieder.\\
+\textbf{Ziel:} Ein Administrator möchte das erste Mitglied nur aus der Gruppe kicken und dem zweiten Mitglied nicht mehr die Möglichkeit bieten der Gruppe beizutreten.\\
+\textbf{Vorbedingung:} Der Nutzer ist Administrator der Gruppe und die Gruppe hat insgesamt mindestens drei Mitglieder.\\
 \textbf{Nachbedingung Erfolg:} Die beiden Nutzer sind nicht mehr in der Gruppe.\\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
-\textbf{Akteure:} Nutzer, Server \\
+\textbf{Akteure:} Nutzer\\
 \textbf{Auslösendes Ereignis:} Der Nutzer klickt auf die Detail-Ansicht des Mitglieds der Gruppe.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
@@ -700,10 +726,10 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Anwendungsfall:} Der Nutzer will ein Rezept, welches mit der Gruppe von einem Nutzer geteilt wird, ausblenden und danach die Ausblendung wieder rückgängig machen.\\
 \textbf{Anforderungen:} \ref{rs:RecipeHiding}\\
 \textbf{Ziel:} Der Nutzer kann bestimmen welche Rezepte den Mitgliedern und ihm selbst angezeigt werden.\\
-\textbf{Vorbedingung:} Der Nutzer ist Admin der Gruppe und in der Gruppe bestehen Rezepte.\\
+\textbf{Vorbedingung:} Der Nutzer ist Administrator der Gruppe und in der Gruppe bestehen Rezepte.\\
 \textbf{Nachbedingung Erfolg:} Das Rezept wird wieder Hauptansicht oder in der Gruppen-Detail-Ansicht angezeigt nach dem es für die Mitglieder  ausgeblendet war.\\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
-\textbf{Akteure:} Nutzer, Server \\
+\textbf{Akteure:} Nutzer\\
 \textbf{Auslösendes Ereignis:} Der Nutzer klickt in der Gruppen-Detail-Ansicht auf den ausblenden-Button von einem Rezept.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
@@ -720,13 +746,13 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \newpage
 
 \subsection{Gruppennamen ändern}
-\textbf{Anwendungsfall:} Ein Admin möchte den Gruppennamen ändern.\\
+\textbf{Anwendungsfall:} Ein Administrator möchte den Gruppennamen ändern.\\
 \textbf{Anforderungen:} \ref{rc:GroupRenaming}\\
-\textbf{Ziel:} Ein Admin kann den Gruppennamen nach seinen Vorstellungen anpassen.\\
-\textbf{Vorbedingung:} Der Nutzer ist Admin der Gruppe.\\
+\textbf{Ziel:} Ein Administrator kann den Gruppennamen nach seinen Vorstellungen anpassen.\\
+\textbf{Vorbedingung:} Der Nutzer ist Administrator der Gruppe.\\
 \textbf{Nachbedingung Erfolg:} Der angepasste Gruppenname wird den Mitgliedern angezeigt.\\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
-\textbf{Akteure:} Nutzer, Server \\
+\textbf{Akteure:} Nutzer\\
 \textbf{Auslösendes Ereignis:} In der Gruppen-Detail-Ansicht wird auf den Bearbeiten Button geklickt.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
@@ -805,7 +831,7 @@ Das Ausmaß ist dabei von Fall zu Fall unterschiedlich.
 Folglich wird die Fehlertoleranz der App als normal eingestuft.
 
 \textbf{Wiederherstellbarkeit}
-
+?
 
 \subsection{Benutzbarkeit}
 \begin{tabular}{| c | c | c | c | c |}
@@ -860,9 +886,9 @@ Die App basiert auf wenigen, klar definierten Schnittstellen. Das Verhalten und 
 Die oben als am wichtigsten bezeichneten Qualitätsmerkmale werden im Folgenden operatio- nalisiert, d.h. in konkreten Produktanforderungen konkretisiert oder es wird angegeben, welche Richtlinie (z. B. Standard, Norm) einzuhalten ist.
 
 \begin{enumerate}[start=1,label={$\langle$\bfseries Q\arabic*$\rangle$}, leftmargin = 5em, itemsep=4pt, parsep=4pt]
-    \item Lorem
-    \item Lorem
-    \item Lorem
+    \item ?
+    \item ?
+    \item ?
 \end{enumerate}
 
 \section{Technische Produktumgebung}
@@ -871,9 +897,10 @@ In diesem Kapitel wird die technische Umgebung des Produktes beschrieben.
 \subsection{Software}
 \begin{itemize}
     \item Entwicklungsumgebung - Android Studio, IntelliJ
+    \item UI-Entwicklungs-Kit - Flutter
     \item Implementierungssprache der App - Dart
-    \item Nuzterverwaltung - Firebase
-    \item Client-Betriebssystem - Android 10 oder eine neuere Androidversion
+    \item Nutzerverwaltung - Firebase
+    \item Client-Betriebssystem - Android 8.0 oder eine neuere Android-Version
     \item Implementierungssprache des Servers - ?
 \end{itemize}
 
@@ -882,8 +909,10 @@ In diesem Kapitel wird die technische Umgebung des Produktes beschrieben.
     \item Standard Smartphone mit Android Betriebssystem
 \end{itemize}
 
+%Todo Produktumgebung weiter ausführen
 \subsection{Produktschnittstellen}
 Die Benutzerschnittstelle wird über ein GUI zur Verfügung gestellt.
+Das Scannen von QR-Codes ist durch die Smartphone-Kamera möglich.
 \newpage
 
 \section{Glossar}
