@@ -4,17 +4,32 @@
     description={Cooler Begriff für Gruppe}
 }
 
-\newglossaryentry{Admin}{
+\newglossaryentry{admin}{
     name=Admin,
     description={Rolle, die innerhalb einer Gruppe eingenommen werden kann. Admins können Nutzer kicken, bannen, zu Admins befördern sowie Rezepte für Gruppenmitglieder unsichtbar machen. Der Ersteller einer Gruppe ist automatisch ein Admin. Admins können von anderen Admins zu normalen Nutzern degradiert werden.}
 }
 
-\newglossaryentry{privat}{
-    name=privat,
-    description={Ein privates Rezept ist nur für den Nutzer, der es erstellt hat, sichtbar.}
-}
+%\newglossaryentry{privat}{
+%    name=privat,
+%    description={Ein privates Rezept ist nur für den Nutzer, der es erstellt hat, sichtbar.}
+%}
 
-\newglossaryentry{Rezept}{
+\newglossaryentry{rezept}{
     name=Rezept,
     description={Ein Rezept besteht aus einer Liste an Zutaten mit Mengenangaben sowie einer Zubereitungsanweisung in Fließtext. Zusätzlich können Angaben zum Zeitaufwand und zur Schwierigkeit (Hinzufügedatum?) enthalten sein.}
+}
+
+\newglossaryentry{schwierigkeit}{
+    name=Schwierigkeit,
+    description={Optionale Angabe zur abgeschätzten Schwierigkeit eines Rezeptes. Es gibt die Stufen "einfach","mittel und "schwer". Wird beim erstellen des Rezepts keine Angabe zur Schwierigkeit gemacht, wird diese automatisch auf "mittel" gesetzt.}
+}
+
+\newglossaryentry{autor}{
+    name=Autor,
+    description={Ersteller eines Rezepts. Besitzt Privilegien bezüglich Sichtbarkeit und Modifikation der von ihm erstellten Rezepte.}
+}
+
+\newglossaryentry{favorit}{
+    name=Favorit,
+    description={Ein von einem Nutzer als Favorit getagtes Rezept. Nutzer können ihre Rezepte nach Favoriten filtern, um direkt auf diese zuzugreifen.}
 }
