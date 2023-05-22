@@ -36,6 +36,20 @@
 % sets right quotation for "
 \MakeOuterQuote{"}
 
+%change figure numbering
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+
+%add command to hide subsections from toc
+\newcommand{\changelocaltocdepth}[1]{%
+  \addtocontents{toc}{\protect\setcounter{tocdepth}{#1}}%
+  \setcounter{tocdepth}{#1}%
+}
+
+\newcommand{\resetSubSectionNumbering}{
+    \renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+    \changelocaltocdepth{3} 
+}
+
 % glossary
 \makeglossaries
 \renewcommand{\glossarysection}[2][]{}
@@ -83,45 +97,48 @@ Die in diesem Heft verwendeten Personenbezeichnungen beziehen sich – sofern ni
 Musskriterien: unabdingbare Leistungen der Software.
 
 \begin{enumerate}[start=1,label={$\langle$\bfseries RM\arabic*$\rangle$}, leftmargin = 5em, itemsep=4pt, parsep=4pt]
-    \item Die App besitzt eine Nutzerverwaltung.\label{RM1}
-    \item Der Nutzer muss sich registrieren, einloggen und ausloggen können.\label{RM2}
-    \item Der Nutzer muss eine Gruppe erstellen und diese auch wieder auflösen können.\label{RM3}
-    \item Der Nutzer muss Gruppen einer Gruppe mithilfe eines Gruppenkürzels beitreten können und diese danach auch wieder verlassen können.\label{RM4}
-    \item In jeder Gruppe muss mindestens ein Gruppenadmin sein.\label{RM5}
-    \item Der Nutzer muss Rezepte erstellen und hochladen können.\label{RM6}
-    \item Der Nutzer muss zu jedem Rezept den Rezepttitel, die Zubereitungsdauer, die Zutaten mit Mengenangaben, den Schwierigkeitsgrad, die Portionsanzahl und eine Zubereitungsanweisungen angeben können.\label{RM7}
-    \item Erstellte Rezepte müssen von anderen Nutzern in der gleichen Gruppe angeschaut werden können.\label{RM8}
-    \item Erstellte Rezepte müssen vom Autor separat verwaltet, geändert und gelöscht werden können.\label{RM9}
-    \item Jedes Gruppenmitglied muss das Gruppenkürzel einsehen können.\label{RM10}
+    \item Der Nutzer muss sich mit einer E-Mail-Adresse, einem Nutzernamen und einem Passwort registrieren können.\label{rm:Registering}
+    \item Der registrierte Nutzer muss sich mit seiner E-Mail-Adresse und seinem Passwort anmelden, um auf die Funktionen der App zugreifen zu können. \label{rm:Login}
+    \item Der angemeldete Nutzer muss sich abmelden können. \label{rm:Logout}
+    \item Der Nutzer muss eine Gruppe erstellen können. \label{rm:GroupCreation}
+    \item In jeder Gruppe muss mindestens ein Gruppenadmin sein, der nach Erstellung nur der Ersteller ist.\label{rm:GroupAdmin}
+    \item Der Gruppenadmin kann die Gruppe auflösen. \label{rm:GroupDeletion}
+    \item Der Nutzer einer Gruppe mithilfe eines Gruppenkürzels beitreten können und diese danach auch wieder verlassen können.\label{rm:GroupJoining}
+    \item Der Nutzer muss Rezepte erstellen und hochladen können.\label{rm:RecipeCreation}
+    \item Der Nutzer muss zu jedem Rezept den Rezepttitel, die Zubereitungsdauer, die Zutaten mit Mengenangaben, den Schwierigkeitsgrad, die Portionsanzahl und eine Zubereitungsanweisungen angeben können.\label{rm:RecipeContents}
+    \item Nutzer können Rezepte von allen Erstellern in der gleichen Gruppe anschauen können.\label{rm:RecipeViewing}
+    \item Der Rezeptersteller muss seine Rezepte separat ändern und löschen können.\label{rm:RecipeManagement}
+    \item Jedes Gruppenmitglied muss das Gruppenkürzel einsehen können.\label{rm:GroupId}
 \end{enumerate}
 
 \subsection{Sollkriterien}
-Sollkriterien: erstrebenswerte Leistungen.
+Sollkriterien: Leistungen, die enthalten sein sollten, bei Bedarf jedoch auch weggelassen werden können.
 
 \begin{enumerate}[start=1,label={$\langle$\bfseries RS\arabic*$\rangle$}, leftmargin = 5em, itemsep=4pt, parsep=4pt]
-    \item Der Nutzer soll bei Rezepten Portionen skalieren können.\label{RS1}
-    \item Der Nutzer soll Rezepte favorisieren können.\label{RS2}
-    \item Ein \Gls{Admin} soll weiter Gruppenmitglieder zum Admin ernennen können und jenen auch den Adminstatus wieder entziehen können.\label{RS3}
-    \item Ein Admin soll Nutzer aus Gruppen kicken, bannen und auch wieder entbannen können.\label{RS4}
-    \item Ein Admin soll Rezepte von anderen Nutzern in der Gruppe ausblenden können.\label{RS5}
-    \item Das Hinzufügedatum eines Rezeptes soll einsehbar sein.\label{RS7}
-    \item Der Nutzer soll sein Passwort wieder zurücksetzen können.\label{RS8}
-    \item Der Nutzer soll sein Konto nach erstellen wieder löschen können.\label{RS9}
-    \item Der Nutzer soll das Gruppenkürzel auch über einen QR-Code teilen können.\label{RS10}
-    \item Der Nutzer soll seinen Benutzernamen ändern können.\label{RS11}
+    \item Der Nutzer soll bei Rezepten Portionen skalieren können.\label{rs:PortionScaling}
+    \item Der Nutzer soll Rezepte favorisieren können.\label{rs:RecipeFavourites}
+    \item Ein \Gls{Admin} soll Gruppenmitglieder zum Admin ernennen und den Adminstatus wieder entziehen können.\label{rs:AdminCreation}
+    \item Ein Admin soll Nutzer aus Gruppen \Gls{kicken} und \Gls{bannen} können.\label{rs:Kicking}
+    \item Ein Admin soll Rezepte von anderen Nutzern in der Gruppe ausblenden können.\label{rs:RecipeHiding}
+    \item Das Hinzufügedatum und der Benutzername des Erstellers eines Rezeptes soll einsehbar sein.\label{rs:AuthorAndDate}
+    \item Der Nutzer soll sein Passwort wieder zurücksetzen können, indem er einen Link an seine E-Mail-Adresse geschickt bekommt.\label{rs:ResetPassword}
+    \item Der Nutzer soll sein Konto nach erstellen wieder löschen können.\label{rs:AccountDeletion}
+    \item Der Nutzer soll das Gruppenkürzel auch über einen QR-Code teilen können.\label{rs:QRCode}
+    \item Der Nutzer soll seinen Benutzernamen ändern können.\label{rs:ChangeUsername}
+    \item Der Nutzer kann nach Rezepten anhand ihres Titels suchen.\label{rs:Searching}
 \end{enumerate}
 
 \subsection{Kannkriterien}
-Kannkriterien: Leistungen, die enthalten sein können.
+Kannkriterien: Leistungen, die umgesetzt werden können, falls noch Zeit ist.
 
 \begin{enumerate}[start=1,label={$\langle$\bfseries RC\arabic*$\rangle$}, leftmargin = 5em, itemsep=4pt, parsep=4pt]
-    \item Der Nutzer kann Rezepte in Form von PDFs exportieren.\label{RC1}
-    \item Der Nutzer kann nur ein Bild zu jedem Rezept hochladen.\label{RC2}
-    \item Der Nutzer kann Zutaten aus einer Liste auswählen.\label{RC3}
-    \item Der Nutzer kann sein Profilbild ändern.\label{RC4}
-    \item Der Nutzer kann Rezepte nach Favoriten und Schwierigkeitsgrad filtern.\label{RC5}
-    \item Der Nutzer kann Rezepte jeweils auf- und absteigend Alphabetisch nach dem Namen des Rezepts, nach dem Schwierigkeitsgrad und dem Hinzufügedatum sortieren.\label{RC6}
-    \item Nur ein Admin kann den Gruppennamen ändern.\label{RC7}
+    \item Der Nutzer kann Rezepte in Form von PDFs exportieren.\label{rc:PDFExport}
+    \item Der Nutzer kann genau ein Bild zu jedem Rezept hochladen.\label{rc:Images}
+    \item Der Nutzer kann Zutaten aus einer Liste auswählen.\label{rc:IngredientList}
+    \item Der Nutzer kann sein Profilbild ändern.\label{rc:ProfileImage}
+    \item Der Nutzer kann Rezepte nach Favoriten und Schwierigkeitsgrad filtern.\label{rc:Filtering}
+    \item Der Nutzer kann Rezepte jeweils auf- und absteigend Alphabetisch nach dem Namen des Rezepts, nach dem Schwierigkeitsgrad und dem Hinzufügedatum sortieren.\label{rc:Sorting}
+    \item Nur ein Admin kann den Gruppennamen ändern.\label{rc:GroupRenaming}
 \end{enumerate}
 
 \subsection{Abgrenzungskriterien}
@@ -165,7 +182,7 @@ Der Abschnitt „Gruppenverwaltung“ und "Rezepte Liste" werden genauer in jewe
 Dadurch können die einzelnen Schritte, die durchlaufen werden, besser beschrieben werden.\par
 
 
-\paragraph{Abbildung 3.1}
+\paragraph{Use-Case-Diagramm (\autoref{fig:UseCaseDiagram}):}
 
 In dem Use-Case-Diagramm „Aufbau der App“ sieht man die allgemeine Struktur der App.
 
@@ -195,7 +212,7 @@ Eingeloggte Nutzer können hier Gruppenmitglieder und Rezepte von Gruppenmitglie
 Gruppenadmins können in dieser Ansicht Gruppenmitglieder entfernen, bannen, zum Admin ernennen, als Admin entfernen, Rezepte von Gruppenmitgliedern für die Gruppe ausblenden oder die Gruppe auflösen.\par
 
 
-\paragraph{Abbildung 3.2}
+\paragraph{Aktivitätsdiagramm "Hauptansicht" (\autoref{fig:ActivityDiagramMainView}):}
 
 Im Aktivitätsdiagramm „Haupt-Ansicht“ werden die verschiedenen Möglichkeiten unter dem Menüpunkt Haupt-Ansicht aufgeführt.
 Der Nutzer hat die Möglichkeit Rezepte durch eine Suchfeld zu suchen.
@@ -207,7 +224,7 @@ In der Rezept-Ansicht kann der Nutzer die Portionsgröße anpassen und das Rezep
 Mit dem Zurück-Button gelangt der Nutzer wieder auf der Haupt-Ansicht.\par
 
 
-\paragraph{Abbildung 3.3}
+\paragraph{Aktivitätsdiagramm "Verwaltung als Admin" (\autoref{fig:ActivityDiagramAdmin}):}
 
 Im Aktivitätsdiagramm "Verwaltung als Admin" wir gezeigt, welche Möglichkeiten der Nutzer als Admin einer Gruppe in der "Gruppen-Ansicht" hat.
 Der Admin muss in der Verwaltungs-Ansicht die Gruppe wählen in der er Gruppenadmin ist.
@@ -219,28 +236,28 @@ Beim Auswählen von Gruppenmitgliedern hat gibt es die Möglichkeit das Gruppenm
 \begin{figure}[!htp]
     \centering
     \begin{adjustbox}{right=160mm}
-        \includegraphics[height=220mm]{images/section3/UseCaseDiagram.png}
+        \includegraphics[height=220mm]{images/produktübersicht/UseCaseDiagram.png}
     \end{adjustbox}
-    \caption*{Abbildung 3.1: Use-Case-Diagramm: Aufbau der App}
-    \label{fig:A31}
+    \caption{Use-Case-Diagramm: Aufbau der App}
+    \label{fig:UseCaseDiagram}
 \end{figure}
 \newpage
 
 \begin{figure}[!htp]
     \centering
-    \includegraphics{images/section3/ActivityDiagramRecipeList.png}
-    Abbildung 3.2: Aktivitätsdiagramm: Haupt-Ansicht
-    \label{fig:A32}
+    \includegraphics{images/produktübersicht/ActivityDiagramMainView.png}
+    \caption{Aktivitätsdiagramm: Haupt-Ansicht}
+    \label{fig:ActivityDiagramMainView}
 \end{figure}
 \newpage
 
 \begin{figure}[!htp]
     \centering
     \begin{adjustbox}{right=150mm}
-        \includegraphics[height=230mm]{images/section3/ActivityDiagramGroupSettings.png}
+        \includegraphics[height=230mm]{images/produktübersicht/ActivityDiagramAdmin.png}
     \end{adjustbox}
-    Abbildung 3.3: Aktivitätsdiagramm: Verwaltung als Admin
-    \label{fig:A33}
+    \caption{Aktivitätsdiagramm: Verwaltung als Admin}
+    \label{fig:ActivityDiagramAdmin}
 \end{figure}
 \newpage
 
@@ -313,14 +330,14 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
     \begin{minipage}
         [t]{0.49\textwidth}
         \centering
-        \includegraphics[height=80mm]{images/ui/RegisterView.jpg}
+        \includegraphics[height=80mm]{images/benutzeroberfläche/RegisterView.jpg}
         \caption{Registrierenansicht \ref{ui:RegisterView}}
         \label{fig:RegisterView}
     \end{minipage}
     \begin{minipage}
         [t]{0.49\textwidth}
         \centering
-        \includegraphics[height=80mm]{images/ui/LoginView.jpg}
+        \includegraphics[height=80mm]{images/benutzeroberfläche/LoginView.jpg}
         \caption{Anmeldeansicht \ref{ui:LoginView}}
         \label{fig:LoginView}
     \end{minipage}
@@ -329,14 +346,14 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
     \begin{minipage}
         [t]{0.49\textwidth}
         \centering
-        \includegraphics[height=80mm]{images/ui/PasswordResetView.jpg}
+        \includegraphics[height=80mm]{images/benutzeroberfläche/PasswordResetView.jpg}
         \caption{Passwort-Zurücksetzen-Ansicht \ref{ui:PasswordResetView}}
         \label{fig:PasswordResetView}
     \end{minipage}
     \begin{minipage}
         [t]{0.49\textwidth}
         \centering
-        \includegraphics[height=80mm]{images/ui/GroupJoiningView.jpg}
+        \includegraphics[height=80mm]{images/benutzeroberfläche/GroupJoiningView.jpg}
         \caption{Gruppen-Beitritts-Ansicht \ref{ui:GroupJoiningView}}
         \label{fig:GroupJoiningView}
     \end{minipage}
@@ -345,14 +362,14 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
     \begin{minipage}
         [t]{0.49\textwidth}
         \centering
-        \includegraphics[height=80mm]{images/ui/GroupCreationView.jpg}
+        \includegraphics[height=80mm]{images/benutzeroberfläche/GroupCreationView.jpg}
         \caption{Gruppen-Erstellungs-Ansicht \ref{ui:GroupCreationView}}
         \label{fig:GroupCreationView}
     \end{minipage}
     \begin{minipage}
         [t]{0.49\textwidth}
         \centering
-        \includegraphics[height=80mm]{images/ui/MainView.jpg}
+        \includegraphics[height=80mm]{images/benutzeroberfläche/MainView.jpg}
         \caption{Hauptansicht \ref{ui:MainView}}
         \label{fig:MainView}
     \end{minipage}
@@ -361,14 +378,14 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
     \begin{minipage}
         [t]{0.49\textwidth}
         \centering
-        \includegraphics[height=80mm]{images/ui/RecipeView.jpg}
+        \includegraphics[height=80mm]{images/benutzeroberfläche/RecipeView.jpg}
         \caption{Rezeptansicht \ref{ui:RecipeView}}
         \label{fig:RecipeView}
     \end{minipage}
     \begin{minipage}
         [t]{0.49\textwidth}
         \centering
-        \includegraphics[height=80mm]{images/ui/RecipeCreationView.jpg}
+        \includegraphics[height=80mm]{images/benutzeroberfläche/RecipeCreationView.jpg}
         \caption{Rezept-Erstellungs-Ansicht \ref{ui:RecipeCreationView}}
         \label{fig:RecipeCreationView}
     \end{minipage}
@@ -377,14 +394,14 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
     \begin{minipage}
         [t]{0.49\textwidth}
         \centering
-        \includegraphics[height=80mm]{images/ui/IngredientPickerView.jpg}
+        \includegraphics[height=80mm]{images/benutzeroberfläche/IngredientPickerView.jpg}
         \caption{Zutaten-Auswahl-Ansicht \ref{ui:IngredientPickerView}}
         \label{fig:IngredientPickerView}
     \end{minipage}
     \begin{minipage}
         [t]{0.49\textwidth}
         \centering
-        \includegraphics[height=80mm]{images/ui/SettingsView.jpg}
+        \includegraphics[height=80mm]{images/benutzeroberfläche/SettingsView.jpg}
         \caption{Verwaltungsansicht \ref{ui:SettingsView}}
         \label{fig:SettingsView}
     \end{minipage}
@@ -393,14 +410,14 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
     \begin{minipage}
         [t]{0.49\textwidth}
         \centering
-        \includegraphics[height=80mm]{images/ui/GroupDetailView.jpg}
+        \includegraphics[height=80mm]{images/benutzeroberfläche/GroupDetailView.jpg}
         \caption{Gruppen-Detail-Ansicht \ref{ui:GroupDetailView}}
         \label{fig:GroupDetailView}
     \end{minipage}
     \begin{minipage}
         [t]{0.49\textwidth}
         \centering
-        \includegraphics[height=80mm]{images/ui/QRCodeView.jpg}
+        \includegraphics[height=80mm]{images/benutzeroberfläche/QRCodeView.jpg}
         \caption{QR-Code-Ansicht \ref{ui:QRCodeView}}
         \label{fig:QRCodeView}
     \end{minipage}
@@ -409,11 +426,15 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \renewcommand{\theparagraph}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.\arabic{paragraph}}
 \setcounter{secnumdepth}{3}
 
-\section{Produktfunktion}
-\textbf{Einloggen und Ausloggen $\langle$F10$\rangle$}\\
-\textbf{Anwendungsfall:} Der Nutzer möchte sich in der App anmelden und sich danach wieder ausloggen.\\
-\textbf{Anforderungen:} \ref{RM1}, \ref{RM2}\\
-\textbf{Ziel:} Der Nutzer erhält Zugang zu seinem Profil in der App, indem eine Verbindung zum Server hergestellt wird. Danach wird diese Verbindung wieder getrennt\\
+\section{Produktfunktionen}
+
+\changelocaltocdepth{1}
+\renewcommand{\thesubsection}{$\langle$F\arabic{subsection}0$\rangle$}
+
+\subsection{Einloggen und Ausloggen}
+\textbf{Anwendungsfall:} Der Nutzer möchte sich in der App anmelden und sich danach wieder abmelden.\\
+\textbf{Anforderungen:} \ref{rm:Login}, \ref{rm:Logout}\\
+\textbf{Ziel:} Der Nutzer erhält Zugang zu seinem Profil in der App, indem eine Verbindung zum Server hergestellt wird. Danach wird diese Verbindung wieder getrennt.\\
 \textbf{Vorbedingung:} Der Nutzer hat bereits ein Konto erstellt.\\
 \textbf{Nachbedingung Erfolg:} Der Nutzer ist erfolgreich ausgeloggt und wird zur Login-Ansicht der App weitergeleitet.\\
 \textbf{Nachbedingung Fehlschlag:} Das Passwort oder der Nutzername ist falsch, sodass eine Fehlermeldung erscheint bei dem fehlerhaften Eingabefeld.\\
@@ -434,10 +455,9 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Alternativen:} Mit einem Klick auf den Registrieren-Button kann ein Nutzer Konto angelegt werden. Mit einem Klick auf den Passwort-vergessen-Button Knopf kann das Passwort eines bestehenden Kontos geändert werden.
 \newpage
 
-
-\textbf{Registrierung und Konto löschen $\langle$F20$\rangle$}\\
+\subsection{Registrierung und Konto löschen}
 \textbf{Anwendungsfall:} Der Nutzer möchte ein Nutzerkonto anlegen und danach sein Konto löschen.\\
-\textbf{Anforderungen:} \ref{RM2}, \ref{RS8} \\
+\textbf{Anforderungen:} \ref{rm:Registering}, \ref{rs:AccountDeletion} \\
 \textbf{Ziel:} Der Nutzer legt ein Nutzerkonto an, um alle Features der App nutzen zu können und löscht das Nutzerkonto danach.\\
 \textbf{Vorbedingung:} -\\
 \textbf{Nachbedingung Erfolg:} Der Nutzer wird zum Gruppen-Ansicht weitergeleitet und mit einem Pop-up-Fenster erfolgt die Bestätigung zur erfolgreichen Registrierung.\\
@@ -466,10 +486,9 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Alternativen:} -
 \newpage
 
-
-\textbf{Passwort zurücksetzen $\langle$F20$\rangle$}\\
+\subsection{Passwort zurücksetzen}
 \textbf{Anwendungsfall:} Der Nutzer möchte das Passwort für seinen Benutzerkonto zurücksetzen.\\
-\textbf{Anforderungen:} \ref{RS7}\\
+\textbf{Anforderungen:} \ref{rs:ResetPassword}\\
 \textbf{Ziel:} Der Nutzer kann ein neues Passwort setzen.\\
 \textbf{Vorbedingung:} Die App muss bereits gestartet worden sein.\\
 \textbf{Nachbedingung Erfolg:} Der Nutzer wird zum Login-Ansicht weitergeleitet und mit einem Pop-up-Fenster erfolgt die Bestätigung der Versendung einer E-Mail an die angegeben E-Mail-Adresse.\\
@@ -486,10 +505,9 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Alternativen:} Durch das Klicken auf den Verlassen Button wird der Nutzer zurück zur Login-Ansicht geleitet.
 \newpage
 
-
-\textbf{Benutzernamen und Profilbild ändern $\langle$F30$\rangle$}\\
+\subsection{Benutzernamen und Profilbild ändern}
 \textbf{Anwendungsfall:} Der Nutzer möchte seinen Benutzernamen und sein Profilbild ändern.\\
-\textbf{Anforderungen:} \ref{RS10}, \ref{RC4}\\
+\textbf{Anforderungen:} \ref{rs:ChangeUsername}, \ref{rc:ProfileImage}\\
 \textbf{Ziel:} Der Nutzer kann seinen Benutzernamen und sein Profilbild an seine Wünsche anpassen.\\
 \textbf{Vorbedingung:} -\\
 \textbf{Nachbedingung Erfolg:} Der aktualisierte Nutzername und das aktualisierte Profilbild wird anderen Nutzern angezeigt.\\
@@ -509,11 +527,9 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Alternativen:} Der Nutzer kann auch sein Profilbild komplett entfernen. Auch kann der Nutzer auf den Exit Button klicken und der Prozess wird abgebrochen und der Nutzer gelangt zurück zur Verwaltungs-Ansicht.\\
 \newpage
 
-
-
-\textbf{Rezept erstellen, ändern und löschen$\langle$F40$\rangle$}\\
+\subsection{Rezept erstellen, ändern und löschen}
 \textbf{Anwendungsfall:} Der Nutzer möchte ein neues Rezept erstellen, es danach ändern und es schließlich löschen.\\
-\textbf{Anforderungen:} \ref{RM6}, \ref{RM7}, \ref{RM9}, \ref{RC2}, \ref{RC3}\\
+\textbf{Anforderungen:} \ref{rm:RecipeCreation}, \ref{rm:RecipeContents}, \ref{rm:RecipeManagement}, \ref{rc:Images}, \ref{rc:IngredientList}\\
 \textbf{Ziel:} Der Nutzer erstellt ein Rezept, welches er mit seinen Gruppen teilen möchte, oder auch nur für sich sichtbar macht. Nimmt dann Änderungen vor, um es dann wieder zu löschen.\\
 \textbf{Vorbedingung:} -\\
 \textbf{Nachbedingung Erfolg:} Das erstellte und geänderte Rezept wird in der Verwaltungs-Ansicht nicht mehr angezeigt.  \\
@@ -542,9 +558,9 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Alternativen:} -
 \newpage
 
-\textbf{Rezept suchen, sortieren, filtern, anschauen und favorisieren $\langle$F60$\rangle$}\\
+\subsection{Rezept suchen, sortieren, filtern, anschauen und favorisieren}
 \textbf{Anwendungsfall:} Der Nutzer möchte nach einem Rezept Suchen, dann die Rezepte nach dem Schwierigkeitsgrad filtern, ein Rezept sich genauer anschauen und dies dann favorisieren.\\
-\textbf{Anforderungen:} \ref{RM8}, \ref{RS1}, \ref{RS2}, \ref{RC1}, \ref{RC5}, \ref{RC6}\\
+\textbf{Anforderungen:} \ref{rm:RecipeViewing}, \ref{rs:RecipeFavourites}, \ref{rs:PortionScaling}, \ref{rs:Searching}, \ref{rc:Filtering}, \ref{rc:Sorting}, \ref{rc:PDFExport}\\
 \textbf{Ziel:} Der Nutzer kann mit dem Suchen, dem Filtern und dem Favorisieren sein gewünschtes Rezept schnell finden und es mithilfe der Zubereitungsanweisungen nachvollziehen.\\
 \textbf{Vorbedingung:} Dem Nutzer wird mindestens ein Rezept in der Haupts-Ansicht oder in der Gruppen-Detail-Ansicht angezeigt.\\
 \textbf{Nachbedingung Erfolg:} Das Rezept favorisierte Rezept ist mit den anderen favorisierten Rezepten beim Filter favorisierte Rezepte auffindbar.\\
@@ -554,22 +570,21 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Beschreibung:}
 \begin{enumerate}
     \item Der Nutzer klickt auf die Suchzeile.
-    \item Der Nutzer gibt einen Suchbegriff ein.
     \item Der Nutzer klickt auf den Sortierungs-methode-Button und wählt Hinzufügedatum aus.
     \item Der Nutzer klickt auf den Filtern-nach-Button und wählt Schwierigkeitsgrad Mittel.
-    \item Der Nutzer klickt auf ein Rezept.
+    \item Der Nutzer gibt einen Suchbegriff ein.
+    \item Der Nutzer klickt auf das erste Rezept.
     \item Der Nutzer wird zur Rezept-Ansicht weitergeleitet.
     \item Der Nutzer skaliert das Rezept auf eine Person.
     \item Der Nutzer klickt auf den Favoriten-Button.
 \end{enumerate}
-\textbf{Erweiterung:} Der Nutzer kann die voreingestellte Portionsgröße auf die gewünschte Anzahl ändern. Des Weiter kann ein Rezept auch in der Form eines PDFs exportiert werden.\\
+\textbf{Erweiterung:} Der Nutzer kann die voreingestellte Portionsgröße auf die gewünschte Anzahl ändern. Des Weiteren kann ein Rezept auch in der Form eines PDFs exportiert werden.\\
 \textbf{Alternativen:} -
 \newpage
 
-
-\textbf{Gruppe erstellen und Gruppe auflösen $\langle$F90$\rangle$}\\
+\subsection{Gruppe erstellen und Gruppe auflösen}
 \textbf{Anwendungsfall:} Der Nutzer möchte eine neue Gruppe erstellen, mit der die Rezepte geteilt werden können und diese danach wieder auflösen.\\
-\textbf{Anforderungen:} \ref{RM3}, \ref{RM5} \\
+\textbf{Anforderungen:} \ref{rm:GroupCreation}, \ref{rm:GroupAdmin}, \ref{rm:GroupDeletion} \\
 \textbf{Ziel:} Der Nutzer kann mit der neuen Gruppe seine Rezepte teilen und danach die Gruppe auch wieder auflösen.\\
 \textbf{Vorbedingung:} -\\
 \textbf{Nachbedingung Erfolg:} Die erstellte Gruppe wird in der Verwaltung-Ansicht nicht mehr angezeigt und der Admin Status des Nutzers wird wieder entfernt.\\
@@ -593,9 +608,9 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Alternativen:} Mit dem Gruppe-beitreten-Button kann auch zur Gruppen-Erstellungs-Ansicht gelangt werden.
 \newpage
 
-\textbf{Gruppe beitreten und verlassen $\langle$F100$\rangle$}\\
+\subsection{Gruppe beitreten und verlassen}
 \textbf{Anwendungsfall:} Der Nutzer möchte einer neuen Gruppe beitreten und diese danach verlassen.\\
-\textbf{Anforderungen:} \ref{RM4} \\
+\textbf{Anforderungen:} \ref{rm:GroupJoining} \\
 \textbf{Ziel:} Der Nutzer ist der Gruppe beigetreten und kann alle in der Gruppe geteilten Rezepte ansehen und diese auch wieder verlassen, sodass in der Haupt-Ansicht die Rezepte nicht mehr angezeigt werden.\\
 \textbf{Vorbedingung:} -\\
 \textbf{Nachbedingung Erfolg:} Die beigetretene Gruppe wird nicht mehr in der Verwaltung-Ansicht angezeigt und die Rezepte der Gruppe werden nicht mehr in der Haupt-Ansicht angezeigt.\\
@@ -617,9 +632,9 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Alternativen:} Nach dem Login-Ansicht wird man zur Gruppe-beitreten-Ansicht weitergeleitet, wodurch auch einer Gruppe beigetreten werden kann.
 \newpage
 
-\textbf{Gruppenkürzel ausgeben $\langle$F120$\rangle$}\\
+\subsection{Gruppenkürzel ausgeben}
 \textbf{Anwendungsfall:} Der Nutzer möchte den Gruppenkürzel erhalten.\\
-\textbf{Anforderungen:} \ref{RM10}\\
+\textbf{Anforderungen:} \ref{rm:GroupId}\\
 \textbf{Ziel:} Der Nutzer kann die Daten der Gruppe mit anderen Nutzern teilen, um diese die Möglichkeit zu geben der Gruppe beizutreten.\\
 \textbf{Vorbedingung:} Der Nutzer ist in einer Gruppe Mitglied.\\
 \textbf{Nachbedingung Erfolg:} Ein Pop-up-Fenster erscheint mit den Daten der Gruppe.\\
@@ -637,11 +652,10 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Alternativen:} -
 \newpage
 
-
-\textbf{Admin ernennen und Admin Status entfernen $\langle$F140$\rangle$}\\
+\subsection{Admin ernennen und Admin-Status entfernen}
 \textbf{Anwendungsfall:} Der Nutzer möchte ein weiteres Mitglied der Gruppe zu einem Admin der Gruppe ernennen und dem Nutzer den Admin Status dann wieder aberkennen.\\
-\textbf{Anforderungen:} \ref{RS3}\\
-\textbf{Ziel:} Der Nutzer kann seine Rechte für die Gruppe mit anderen Mitgliedern teilen und auch anderen Mitglieder die Rechte entziehen.\\
+\textbf{Anforderungen:} \ref{rs:AdminCreation}\\
+\textbf{Ziel:} Der Nutzer kann seine Rechte für die Gruppe mit anderen Mitgliedern teilen und auch anderen Mitgliedern die Rechte entziehen.\\
 \textbf{Vorbedingung:} Der Nutzer ist Admin der Gruppe.\\
 \textbf{Nachbedingung Erfolg:} Ein weiteres Mitglied besitze die gegebenen Reche nicht mehr.\\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
@@ -660,9 +674,9 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Alternativen:} -
 \newpage
 
-\textbf{Nutzer kicken und Nutzer bannen $\langle$F150$\rangle$}\\
-\textbf{Anwendungsfall:} Ein Admin möchte ein Mitglied der Gruppe aus der Gruppe kicken und ein anderes Mitglied aus der Gruppe bannen und danach wieder entbannen.\\
-\textbf{Anforderungen:} \ref{RS4}\\
+\subsection{Nutzer kicken und Nutzer bannen}
+\textbf{Anwendungsfall:} Ein Admin möchte ein Mitglied der Gruppe aus der Gruppe kicken und ein anderes Mitglied aus der Gruppe bannen.\\
+\textbf{Anforderungen:} \ref{rs:Kicking}\\
 \textbf{Ziel:} Ein Admin möchte das erste Mitglied nur aus der Gruppe kicken und dem zweiten Mitglied nicht mehr die Möglichkeit bieten der Gruppe beizutreten.\\
 \textbf{Vorbedingung:} Der Nutzer ist Admin der Gruppe und die Gruppe hat insgesamt mindestens drei Mitglieder.\\
 \textbf{Nachbedingung Erfolg:} Die beiden Nutzer sind nicht mehr in der Gruppe.\\
@@ -677,18 +691,14 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
     \item Der Nutzer klickt auf den Bestätigen-Button.
     \item Der Nutzer klickt auf die Detail-Ansicht des zweiten Mitglieds der Gruppe.
     \item Der Nutzer klickt auf die Option den Nutzer zu bannen.
-    \item Der Nutzer klickt auf die Detail-Ansicht des gebannten Nutzers in der Liste der gebannten Nutzer.
-    \item Der Nutzer klickt auf die Option den Nutzer zu entbannen.
-    \item Ein Pop-up-Fenster erscheint mit einer Bitte um Bestätigung, dass der Nutzer entbannt werden soll.
-    \item Der Nutzer klickt auf den Bestätigen-Button.
 \end{enumerate}
 \textbf{Erweiterung:} -\\
 \textbf{Alternativen:} -
 \newpage
 
-\textbf{Rezepte verwalten für die Gruppen $\langle$F160$\rangle$}\\
+\subsection{Rezepte verwalten für die Gruppen}
 \textbf{Anwendungsfall:} Der Nutzer will ein Rezept, welches mit der Gruppe von einem Nutzer geteilt wird, ausblenden und danach die Ausblendung wieder rückgängig machen.\\
-\textbf{Anforderungen:} \ref{RS5}\\
+\textbf{Anforderungen:} \ref{rs:RecipeHiding}\\
 \textbf{Ziel:} Der Nutzer kann bestimmen welche Rezepte den Mitgliedern und ihm selbst angezeigt werden.\\
 \textbf{Vorbedingung:} Der Nutzer ist Admin der Gruppe und in der Gruppe bestehen Rezepte.\\
 \textbf{Nachbedingung Erfolg:} Das Rezept wird wieder Hauptansicht oder in der Gruppen-Detail-Ansicht angezeigt nach dem es für die Mitglieder  ausgeblendet war.\\
@@ -709,9 +719,9 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Alternativen:} -
 \newpage
 
-\textbf{Gruppennamen ändern $\langle$F170$\rangle$}\\
+\subsection{Gruppennamen ändern}
 \textbf{Anwendungsfall:} Ein Admin möchte den Gruppennamen ändern.\\
-\textbf{Anforderungen:} \ref{RC7}\\
+\textbf{Anforderungen:} \ref{rc:GroupRenaming}\\
 \textbf{Ziel:} Ein Admin kann den Gruppennamen nach seinen Vorstellungen anpassen.\\
 \textbf{Vorbedingung:} Der Nutzer ist Admin der Gruppe.\\
 \textbf{Nachbedingung Erfolg:} Der angepasste Gruppenname wird den Mitgliedern angezeigt.\\
@@ -729,22 +739,28 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Alternativen:} -
 \newpage
 
+\resetSubSectionNumbering
+
 \section{Produktdaten}
+\changelocaltocdepth{1}
+\renewcommand{\thesubsection}{$\langle$D\arabic{subsection}0$\rangle$}
+
 Um die App nutzen zu können, ist es erforderlich einige Daten zu speichern. Diese werden auf unterschiedlichen Geräten gespeichert:
 
-\textbf{Smartphone-Daten $\langle$D10$\rangle$}
+\subsection{Smartphone-Daten}
 \begin{itemize}
     \item Anwendung
     \item Konfigurationsdatei
 \end{itemize}
 
-\textbf{Server-Daten $\langle$D20$\rangle$}
+\subsection{Server-Daten}
 \begin{itemize}
     \item Rezepte
     \item Nutzerdaten
     \item Gruppen
 \end{itemize}
 
+\resetSubSectionNumbering
 \section{Nichtfunktionale Anforderungen}
 Im folgenden Kapitel werden die nichtfunktionalen Anforderungen und Qualitätsmerkmale der App definiert.
 Anschließend werden die wichtigsten Qualitätsmerkmale operationalisiert und, falls diese nicht als allgemeine Richtlinie (z.B. Standard, Norm usw.) zu Verfügung gestellt werden,
