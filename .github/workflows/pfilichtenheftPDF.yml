@@ -14,7 +14,7 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
-          post_compile: "makeglossaries pflichtenheft.glo"
+          post_compile: "makeglossaries ./pflichtenheft/pflichtenheft.glo"
           work_in_root_file_dir: true
           root_file: pflichtenheft/pflichtenheft.tex
 
