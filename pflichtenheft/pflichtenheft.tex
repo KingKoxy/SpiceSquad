@@ -106,7 +106,7 @@ Musskriterien: unabdingbare Leistungen der Software.
     \item Der Nutzer einer Gruppe mithilfe eines Gruppenkürzels beitreten können und diese danach auch wieder verlassen können.\label{rm:GroupJoining}
     \item Der Nutzer muss Rezepte erstellen und hochladen können.\label{rm:RecipeCreation}
     \item Der Nutzer muss zu jedem Rezept den Rezepttitel, die Zubereitungsdauer, die Zutaten mit Mengenangaben, den Schwierigkeitsgrad, die Portionsanzahl und eine Zubereitungsanweisungen angeben können.\label{rm:RecipeContents}
-    \item Nutzer können Rezepte von allen Erstellern in der gleichen Gruppe anschauen können.\label{rm:RecipeViewing}
+    \item Der Nutzer muss Rezepte von allen Erstellern in der gleichen Gruppe anschauen können.\label{rm:RecipeViewing}
     \item Der Rezeptersteller muss seine Rezepte separat ändern und löschen können.\label{rm:RecipeManagement}
     \item Jedes Gruppenmitglied muss das Gruppenkürzel einsehen können.\label{rm:GroupId}
 \end{enumerate}
@@ -580,7 +580,6 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer\\
 \textbf{Auslösendes Ereignis:} In der Haupt-Ansicht klickt der Nutzer auf den neues-Rezept -anlegen-Button.\\
-
 \textbf{Beschreibung:}
 \begin{enumerate}
     \item Der Nutzer klickt auf den Button für ein neues Rezept.
@@ -637,7 +636,6 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Nachbedingung Erfolg:} Die erstellte Gruppe wird in der Verwaltung-Ansicht nicht mehr angezeigt und der Administrator Status des Nutzers wird wieder entfernt.\\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer\\
-
 \textbf{Auslösendes Ereignis:} Der Nutzer klickt auf den Gruppe-erstellen-Button.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
@@ -665,7 +663,6 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer\\
 \textbf{Auslösendes Ereignis:} Klick auf den Gruppe-beitreten-Button.\\
-
 \textbf{Beschreibung:}\\
 \begin{enumerate}
     \item Der Nutzer klickt auf den Gruppe-beitreten-Button in der Verwaltung-Ansicht.
@@ -702,15 +699,14 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \newpage
 
 
-\subsection{Administrator ernennen und Administratorenstatus entfernen}
+\subsection{Administrator ernennen und Administratoren Status entfernen}
 \textbf{Anwendungsfall:} Der Nutzer möchte ein weiteres Mitglied der Gruppe zu einem Administrator der Gruppe ernennen und dem Nutzer den Administrator Status dann wieder aberkennen.\\
-\textbf{Anforderungen:} \ref{RS3}\\
+\textbf{Anforderungen:} \ref{rs:AdminCreation}\\
 \textbf{Ziel:} Der Nutzer kann seine Rechte für die Gruppe mit anderen Mitgliedern teilen und auch anderen Mitglieder die Rechte entziehen.\\
 \textbf{Vorbedingung:} Der Nutzer ist Administrator der Gruppe.\\
 \textbf{Nachbedingung Erfolg:} Ein weiteres Mitglied besitze die gegebenen Rechte nicht mehr.\\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer \\
-
 \textbf{Auslösendes Ereignis:} Klick auf die Detail-Ansicht eines Mitglieds der Gruppe.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
@@ -725,8 +721,8 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \newpage
 
 \subsection{Nutzer kicken und Nutzer bannen}
-\textbf{Anwendungsfall:} Ein Administrator möchte ein Mitglied der Gruppe aus der Gruppe kicken und ein anderes Mitglied aus der Gruppe bannen und danach wieder entbannen.\\
-\textbf{Anforderungen:} \ref{RS4}\\
+\textbf{Anwendungsfall:} Ein Administrator möchte ein Mitglied der Gruppe aus der Gruppe kicken und ein anderes Mitglied aus der Gruppe bannen.\\
+\textbf{Anforderungen:} \ref{rs:Kicking}\\
 \textbf{Ziel:} Ein Administrator möchte das erste Mitglied nur aus der Gruppe kicken und dem zweiten Mitglied nicht mehr die Möglichkeit bieten der Gruppe beizutreten.\\
 \textbf{Vorbedingung:} Der Nutzer ist Administrator der Gruppe und die Gruppe hat insgesamt mindestens drei Mitglieder.\\
 \textbf{Nachbedingung Erfolg:} Die beiden Nutzer sind nicht mehr in der Gruppe.\\
@@ -748,13 +744,12 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 
 \subsection{Rezepte verwalten für die Gruppen}
 \textbf{Anwendungsfall:} Der Nutzer meldet ein Rezept, welches mit der Gruppe von einem Nutzer geteilt wird, und der Administrator der Gruppe will dieses Rezept, ausblenden und danach die Ausblendung wieder rückgängig machen.\\
-\textbf{Anforderungen:} \ref{RS5}, \ref{RC9}\\
+\textbf{Anforderungen:} \ref{rs:RecipeHiding}, \ref{rc:RecipeMelden}\\
 \textbf{Ziel:} Der Administrator kann bestimmen welche Rezepte den Mitgliedern und ihm selbst angezeigt werden.\\
 \textbf{Vorbedingung:} Der Nutzer und der Administrator sind in einer Gruppe und in der Gruppe bestehen Rezepte.\\
 \textbf{Nachbedingung Erfolg:} Das Rezept wird wieder Haupt-Ansicht oder in der Gruppen-Detail-Ansicht angezeigt, nach dem es für die Mitglieder ausgeblendet war.\\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer, Administrator  \\
-
 \textbf{Auslösendes Ereignis:} Der Nutzer klickt in der Gruppen-Detail-Ansicht auf den ausblenden-Button von einem Rezept.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
@@ -779,14 +774,12 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \subsection{Gruppennamen ändern}
 \textbf{Anwendungsfall:} Ein Administrator möchte den Gruppennamen ändern.\\
 \textbf{Anforderungen:} \ref{rc:GroupRenaming}\\
-
 \textbf{Ziel:} Ein Administrator kann den Gruppennamen nach seinen Vorstellungen anpassen.\\
 \textbf{Vorbedingung:} Der Nutzer ist Administrator der Gruppe.\\
 \textbf{Nachbedingung Erfolg:} Der angepasste Gruppenname wird den Mitgliedern angezeigt.\\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer\\
 \textbf{Auslösendes Ereignis:} In der Gruppen-Detail-Ansicht wird auf den Bearbeiten-Button geklickt.\\
-
 \textbf{Beschreibung:}
 \begin{enumerate}
     \item Der Nutzer klickt auf den Bearbeiten-Button.
