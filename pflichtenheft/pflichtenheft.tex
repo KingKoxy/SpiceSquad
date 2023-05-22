@@ -110,9 +110,9 @@ Musskriterien: unabdingbare Leistungen der Software.
     \item Der Gruppenadministrator kann die Gruppe auflösen. \label{rm:GroupDeletion}
     \item Der Nutzer einer Gruppe mithilfe eines Gruppenkürzels beitreten können und diese danach auch wieder verlassen können.\label{rm:GroupJoining}
     \item Der Nutzer muss Rezepte erstellen und hochladen können.\label{rm:RecipeCreation}
-    \item Der \Gls{Autor} muss zu jedem seiner Rezepte den Rezepttitel, die Zubereitungsdauer, die Zutaten mit Mengenangaben, den Schwierigkeitsgrad, die Portionsanzahl und eine Zubereitungsanweisungen angeben können.\label{rm:RecipeContents}
+    \item Der \Gls{autor} muss zu jedem seiner Rezepte den Rezepttitel, die Zubereitungsdauer, die Zutaten mit Mengenangaben, den Schwierigkeitsgrad, die Portionsanzahl und eine Zubereitungsanweisungen angeben können.\label{rm:RecipeContents}
     \item Der Nutzer muss öffentliche Rezepte aller Autoren in der gleichen Gruppe anschauen können.\label{rm:RecipeViewing}
-    \item Der \Gls{Autor} muss seine Rezepte separat ändern und löschen können.\label{rm:RecipeManagement}
+    \item Der \Gls{autor} muss seine Rezepte separat ändern und löschen können.\label{rm:RecipeManagement}
     \item Jedes Gruppenmitglied muss das Gruppenkürzel einsehen können.\label{rm:GroupId}
 \end{enumerate}
 
@@ -155,10 +155,10 @@ Kannkriterien: Leistungen, die umgesetzt werden können, jedoch nachrangig sind.
 Abgrenzungskriterien: Leistungen die explizit nicht umgesetzt werden.
 
 \begin{enumerate}[start=1,label={$\langle$\bfseries RW\arabic*$\rangle$}, leftmargin = 5em, itemsep=4pt, parsep=4pt]
-    \item Es gibt keine Möglichkeit Rezepte durch Kommentare zu
+    \item Es gibt keine Möglichkeit Rezepte durch Kommentare zu suchen.
     \item Der Nutzer kann keine Rezepte bewerten.
     \item Es gibt keine integrierte Chatfunktion.
-    \item Das Hinzufügen von Videos zu den Rezepten ist nicht
+    \item Das Hinzufügen von Videos zu den Rezepten ist nicht möglich.
     \item Über die App kann man keine anderen Nutzer direkt suchen.
     \item Es existiert kein Gruppenprofilbild.
     \item Der Nutzer kann nicht zwischen Dark Mode und Light Mode wechseln.
@@ -185,6 +185,7 @@ Die App ist insbesondere für Gruppen geeignet, in denen gekocht wird (Bsp. Wohn
 In diesem Unterkapitel wird auf die unterschiedlichen Bedürfnisse und Anforderungen an die Software eingegangen. \newline
 Um die volle Funktionsfähigkeit der App garantieren zu können, ist eine Internetverbindung erforderlich. Außerdem können QR-Codes für Gruppen nur mit einer funktionierenden Handykamera gescannt werden, auf die die App zugreifen kann.
 
+\newpage
 \section{Produktübersicht}
 
 In diesem Kapitel werden die Produktfunktionen beschrieben und in einem Use-Case-Diagramm "Aufbau der App" visualisiert.
@@ -203,7 +204,7 @@ Bei der erstmaligen Nutzung muss der Nutzer sich registrieren.
 
 Dazu muss er seinen Benutzernamen, seine E-Mail-Adresse und ein Passwort eingeben.
 Das Passwort muss durch eine erneute Eingabe bestätigt werden.
-Nach Bestätigung der Eingabe kann der Nutzer eine Gruppe erstellen, einer Gruppe beitreten oder diesen Punkt überspringen und erstmal keiner Gruppe beitreten.
+Nach Bestätigung der Eingabe kann der Nutzer eine Gruppe erstellen, einer Gruppe beitreten oder diesen Punkt überspringen und vorerst keiner Gruppe beitreten.
 Durch das erstellen einer Gruppe wird man automatisch zum Administrator der Gruppe.
 Der Nutzer kann einer Grupppe durch Eingabe eines Gruppenkürzels oder durch scannen eines QR-Codes beitreten.
 Der Nutzer kann eine Gruppe durch Eingabe eines Gruppennamens erstellten.
