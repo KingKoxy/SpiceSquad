@@ -45,7 +45,12 @@
   \setcounter{tocdepth}{#1}%
 }
 
-\newcommand{\resetSubSectionNumbering}{
+\newcommand{\enablesubsectionnumbering}[1]{
+    \renewcommand{\thesubsection}{$\langle$#1\arabic{subsection}0$\rangle$}
+    \changelocaltocdepth{1} 
+}
+
+\newcommand{\resetsubsectionnumbering}{
     \renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
     \changelocaltocdepth{3} 
 }
@@ -300,76 +305,74 @@ Der Administrator kann das Gruppenkürzel durch "Gruppenkürzel kopieren" in die
 \newpage
 
 \section{ Benutzeroberfläche }
-\setcounter{secnumdepth}{6}
-\renewcommand{\theparagraph}{$\langle$UI\arabic{paragraph}$\rangle$}
-
+\enablesubsectionnumbering{UI}
 In diesem Kapitel wird die Benutzerberfläche erläutert. Es wird auf die Darstellung der einzelnen Funktionen sowie die Navigation zwischen diesen eingegangen. Alle hier gezeigten Abbildungen dienen lediglich der Veranschaulichung und sind nicht als fertige Entwürfe zu verstehen.
 
-\paragraph*{Benutzeroberfläche:}
+\subsection*{Benutzeroberfläche}
 Bei der App handelt es sich um eine Anwendungssoftware für Android-Endgeräte. Die Benutzer-oberfläche stellt daher einen wichtigen Teil des Produktes dar. Diese muss intuitiv und einfach zu bedienen sein, um eine möglichst hohe Benutzerfreundlichkeit zu gewährleisten. Außerdem sollte sie möglichst ansprechend gestaltet sein, um den Nutzer zu motivieren, die App zu verwenden. Beides wurde im UI-Entwurf berücksichtigt. Durch eine geringe Anzahl an gut strukturierten Ansichten und eine klare Farbgebung wird eine einfache Bedienbarkeit gewährleistet. Wichtige Buttons werden durch eine auffällige Farbe hervorgehoben, um die Navigation zu erleichtern. Nun sollen die einzelnen Ansichten erläutert werden. 
 
-\paragraph{Registrieren-Ansicht:}
+\subsection{Registrieren-Ansicht}
 \label{ui:RegisterView}
 Beim Öffnen der App gelangt der Nutzer auf die Registrieren-Ansicht (\autoref{fig:RegisterView}). Hier kann er sich mit seiner E-Mail-Adresse, einem Nutzernamen und einem Passwort registrieren. Nach erfolgreicher Registrierung gelangt der Nutzer auf die Gruppen-Beitritts-Ansicht \ref{ui:GroupJoiningView}. Alternativ kann der Nutzer auch auf die Login-Ansicht \ref{ui:LoginView} wechseln.
 
-\paragraph{Anmelde-Ansicht:}
+\subsection{Anmelde-Ansicht}
 \label{ui:LoginView}
 In der Anmeldeseite (\autoref{fig:LoginView}) kann ein bereits registrierter Nutzer sich mit seiner E-Mail-Adresse und seinem Passwort anmelden. Nach erfolgreicher Anmeldung gelangt der Nutzer auf die Haupt-Ansicht \ref{ui:MainView}. Alternativ kann der Nutzer auch auf die Registrieren-Ansicht \ref{ui:RegisterView} wechseln.
 Hat ein Nutzer sein Passwort vergessen, so kann er zur Passwort-Zurücksetzen-Ansicht \ref{ui:PasswordResetView} wechseln.
 
-\paragraph{Passwort-Zurücksetzen-Ansicht:}
+\subsection{Passwort-Zurücksetzen-Ansicht}
 \label{ui:PasswordResetView}
 Hier (\autoref{fig:PasswordResetView}) kann der Nutzer sein Password zurücksetzen lassen, indem er seine E-Mail-Adresse eingibt. Durch Betätigen des Weiter-Buttons bekommt er eine E-Mail zugeschickt, in der sich ein Link befindet, mit dem er ein neues Passwort vergeben kann. Außerdem wird er in der App auf die Anmelde-Ansicht \ref{ui:LoginView} weitergeleitet.
 
-\paragraph{Gruppen-Beitritts-Ansicht:}
+\subsection{Gruppen-Beitritts-Ansicht}
 \label{ui:GroupJoiningView}
 In dieser Ansicht (\autoref{fig:GroupJoiningView}) kann der Nutzer einer bereits bestehenden Gruppe beitreten. Dazu kann er entweder ein Gruppen-Kürzel eingeben oder mit Hilfe der Handykamera einen QR-Code scannen. In dieser Ansicht gibt es einige Unterschiede, je nachdem ob der Nutzer nach der Registrierungs-Ansicht \ref{ui:RegisterView} oder von der Verwaltungs-Ansicht \ref{ui:SettingsView} auf diese Seite gelangt. Im ersten Fall gibt es noch einen Überspringen-Knopf, mit dem der Nutzer keiner Gruppe beitritt, sondern direkt auf die Haupt-Ansicht \ref{ui:MainView} gelangt. Dorthin wird er auch weitergeleitet, wenn er einer Gruppe beigetreten ist. Im zweiten Fall gibt es einen Zurück-Knopf, mit dem der Nutzer auf die Verwaltungs-Ansicht \ref{ui:SettingsView} zurückgelangt. Das ist auch der Fall, nachdem er einer Gruppe beigetreten ist.
 Alternativ kann der Nutzer auch eine Gruppe erstellen, indem er zur Gruppen-Erstellungs-Ansicht \ref{ui:GroupCreationView} wechselt.
 
-\paragraph{Gruppen-Erstellungs-Ansicht:}
+\subsection{Gruppen-Erstellungs-Ansicht}
 \label{ui:GroupCreationView}
 In dieser Ansicht (\autoref{fig:GroupCreationView}) kann der Nutzer eine neue Gruppe erstellen. Dazu muss er einen Gruppennamen eingeben. Durch Betätigen des Weiter-Buttons wird die Gruppe erstellt und der Nutzer wieder je nach vorheriger Ansicht auf die Haupt-Ansicht \ref{ui:MainView} oder die Verwaltungs-Ansicht \ref{ui:SettingsView} weitergeleitet. Auch hier gibt es einen Zurück- oder Überspringen-Button, der so wie in \ref{ui:GroupJoiningView} funktioniert.
 
-\paragraph{Haupt-Ansicht:}
+\subsection{Haupt-Ansicht}
 \label{ui:MainView}
 In der Haupt-Ansicht (\autoref{fig:MainView}) kann der Nutzer alle Rezepte aus den Gruppen, in denen er Mitglied ist, sehen. Diese kann er nach verschiedenen Faktoren filtern und sortieren. Durch eine Suchleiste kann er außerdem schnell ein gewünschtes Rezept finden. Jedes Rezept wird hier mit Titel, dem Bild, Kochdauer und Schwierigkeitsgrad abgebildet. Durch einen Klick auf das Herzsymbol wird ein Rezept zu den Favoriten hinzugefügt bzw. wieder entfernt. Klickt ein Nutzer auf ein Rezept, so gelangt er zur Rezept-Ansicht \ref{ui:RecipeView}.
 
 Unten am Bildschirm befindet sich eine Navigationsleiste, die es dem Nutzer ermöglicht, zwischen verschiedenen Ansichten zu wechseln. Durch einen Klick auf das Haus-Symbol gelangt der Nutzer auf die Haupt-Ansicht \ref{ui:MainView}. Durch einen Klick auf das Notizblock-Symbol gelangt der Nutzer auf die Rezept-Erstellungs-Ansicht \ref{ui:RecipeCreationView}. Durch einen Klick auf das Personen-Symbol gelangt der Nutzer auf die Verwaltungs-Ansicht \ref{ui:SettingsView}.
 
-\paragraph{Rezept-Ansicht:}
+\subsection{Rezept-Ansicht}
 \label{ui:RecipeView}
 
 In der Rezept-Ansicht (\autoref{fig:RecipeView}) wird ein bestimmtes Rezept angezeigt. Es werden der Name, das Bild, die Zutaten, die Zubereitungsanweisungen, die Kochdauer, der Schwierigkeitsgrad, der Ersteller und das Erstellungsdatum angezeigt. Der Nutzer kann durch anpassen der Portionenzahl automatisch die Zutatenmengen errechnen lassen. Durch einen Klick auf das Herzsymbol wird ein Rezept zu den Favoriten hinzugefügt bzw. wieder entfernt. Ist der Nutzer der Ersteller des Rezepts, so wird oben ein Stiftsymbol angezeigt. Durch einen Klick auf dieses Symbol gelangt der Nutzer auf die Rezept-Erstellungs-Ansicht \ref{ui:RecipeCreationView}, die bereits mit dem Rezept befüllt ist. Dort kann er das Rezept bearbeiten. Unten am Bildschirm ist wieder die Navigationsleiste, wie in \ref{ui:MainView}, zu finden. Außerdem kann der Nutzer wieder zurück zur vorherigen Ansicht gelangen, indem er auf das Zurück-Symbol oben links klickt.
 
 
-\paragraph{Rezept-Erstellungs-Ansicht}
+\subsection{Rezept-Erstellungs-Ansicht}
 \label{ui:RecipeCreationView}
 In dieser Ansicht (\autoref{fig:RecipeCreationView}) kann ein Nutzer ein neues Rezept erstellen oder ein Bestehendes bearbeiten. Dazu gibt es verschiedene Eingabefelder, die der Nutzer ausfüllen kann. Diese umfassen den Rezeptnamen, Dauer und Schwierigkeitsgrad sowie die Zubereitungsanweisungen. Zusätzlich muss der Nutzer festlegen, für wie viele Portionen das Rezept ausgelegt ist. Außerdem kann er ein Bild mit Hilfe des betriebssystemeigenen Dateimanagers hochladen, indem er auf das Bild-Symbol klickt.
 Die Zutaten können mit einem Klick auf das Plus-Symbol hinzugefügt werden. Dazu öffnet sich die Zutaten-auswahl-Ansicht \ref{ui:IngredientPickerView}, in der der Nutzer die Zutat auswählen kann. Die bereits hinzugefügten Zutaten werden in einer Liste angezeigt und können durch einen Klick auf das Kreuz-Symbol entfernt werden. Ganz unten befindet sich ein Knopf zum Speichern des Rezepts. Mit diesem wird der Nutzer auf die Haupt-Ansicht \ref{ui:MainView} weitergeleitet. Bearbeitet der Nutzer eines seiner Rezepte und erstellt kein neues, so gibt es einen Zurück-Button, mit dem er auf die vorherige Ansicht gelangt. Auch hier gibt es wieder die Navigationsleiste aus \ref{ui:MainView}.
 
-\paragraph{Zutaten-Auswahl-Ansicht:}
+\subsection{Zutaten-Auswahl-Ansicht}
 \label{ui:IngredientPickerView}
 In dieser Ansicht (\autoref{fig:IngredientPickerView}) kann der Nutzer Zutaten erstellen. Dazu schreibt er den Namen der Zutat in das Eingabefeld und wählt Einheit und Menge aus. Während der Nutzer die Zutat eingibt sollen automatisch Zutaten gesucht werden, die zum bisher geschriebenen Text passen und als Vorschlag unter dem Eingabefeld angezeigt werden. Durch Klick auf so einen Vorschlag wird der Zutatenname auf diesen Vorschlag gesetzt. Der Nutzer hat außerdem die Möglichkeit ein Icon für die Zutat aus einem Dropdownmenü zu wählen. Durch den Hinzufügen-Button gelangt der Nutzer zurück zur Rezept-Erstellungs-Ansicht \ref{ui:RecipeCreationView}, wo die Zutat hinzugefügt wurde.
 In dieser Ansicht (\autoref{fig:IngredientPickerView}) kann der Nutzer Zutaten erstellen. Dazu schreibt er den Namen der Zutat in das Eingabefeld und wählt Einheit und Menge aus. Während der Nutzer die Zutat eingibt sollen automatisch Zutaten gesucht werden, die zum bisher geschriebenen Text passen und als Vorschlag unter dem Eingabefeld angezeigt werden. Durch Klick auf so einen Vorschlag wird der Zutatenname auf diesen Vorschlag gesetzt. Der Nutzer hat außerdem die Möglichkeit ein Icon für die Zutat aus einem Dropdownmenü zu wählen. Durch den Hinzufügen-Button gelangt der Nutzer zurück zur Rezept-Erstellungs-Ansicht \ref{ui:RecipeCreationView}, wo die Zutat hinzugefügt wurde.
 
 
-\paragraph{Verwaltungs-Ansicht:}
+\subsection{Verwaltungs-Ansicht}
 \label{ui:SettingsView}
 
 Die Verwaltungs-Ansicht dient der Verwaltung des Nutzers, seiner Gruppen und seiner Rezepte. Der Nutzer kann seinen Anzeigenamen und sein Profilbild ändern. Zudem kann er Gruppen verlassen, in dem er auf das Kreuz-Symbol neben der entsprechenden Gruppe drückt. Durch das Plus-Symbol gelangt der Nutzer zur Gruppen-Beitritts-Ansicht \ref{ui:GroupJoiningView} in der er einer Gruppe beitreten kann oder eine neue Gruppe erstellen kann. Drückt ein Nutzer auf eine der Gruppen, so kommt er zur Gruppen-Detail-Ansicht \ref{ui:GroupDetailView}. Außerdem sieht der Nutzer seine erstellten Rezepte, die er hier mit dem entsprechenden Button entfernen, als PDF exportieren oder auf privat stellen kann. Durch Klick auf das Rezept wird man zur entsprechenden Rezept-Ansicht \ref{ui:RecipeView}.
 Zudem kann der Nutzer sich ausloggen mit dem Symbol oben rechts. Daraufhin wird er zur Anmelde-Ansicht \ref{ui:LoginView} weitergeleitet. Er kann außerdem sein Konto auflösen, woraufhin er ebenfalls zur Anmelde-Ansicht \ref{ui:LoginView} geleitet wird. Auch hier gibt es wieder die Navigationsleiste aus \ref{ui:MainView}.
 
-\paragraph{Gruppen-Detail-Ansicht:}
+\subsection{Gruppen-Detail-Ansicht}
 \label{ui:GroupDetailView}
 
 In der Gruppen-Detail-Ansicht (\autoref{fig:GroupDetailView}) kann der Nutzer die Mitglieder und Rezepte einer Gruppe ansehen. Durch den QR-Code-Button gelangt er zur QR-Code-Ansicht \ref{ui:QRCodeView}. Durch Klick auf das Verlassen-Symbol kann die Gruppe verlassen werden. Mit dem Plus-Symbol neben der Mitglieder-Sektion wird das Gruppenkürzel in die Zwischenablage kopiert und kann geteilt werden. Durch Klick auf ein Rezept wird der Nutzer zur entsprechenden Rezept-Ansicht \ref{ui:RecipeView} weitergeleitet. Als Administrator hat man zudem die Möglichkeit die Gruppe aufzulösen, woraufhin der Nutzer wieder auf die Verwaltungs-Ansicht \ref{ui:SettingsView} gelangt. Zudem kann er Nutzer aus der Gruppe entfernen, bannen oder zu Administratoren ernennen bzw. diesen Titel wieder aberkennen. Außerdem kann er Rezepte für alle Gruppenmitglieder außer dem Ersteller verstecken bzw. wieder einblenden. Weiterhin kann er den Gruppennamen ändern, indem er auf das Stift-Symbol drückt. Auch hier gibt es wieder die Navigationsleiste aus \ref{ui:MainView}.
 
 
-\paragraph{QR-Code-Ansicht:}
+\subsection{QR-Code-Ansicht}
 \label{ui:QRCodeView}
-In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe angezeigt. Durch den Zurück-Button kommt der Nutzer zurück zur Gruppen-Detail-Ansicht (\ref{ui:GroupDetailView}). Auch hier gibt es wieder die Navigationsleiste aus \ref{ui:MainView}.
+In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe angezeigt. Durch den Zurück-Button kommt der Nutzer zurück zur Gruppen-Detail-Ansicht \ref{ui:GroupDetailView}. Auch hier gibt es wieder die Navigationsleiste aus \ref{ui:MainView}.
 \newpage
-\newpage
+
 \subsection*{Abbildungen}
 \begin{figure}[htp]
     \begin{minipage}
@@ -446,7 +449,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
     \begin{minipage}
         [t]{0.49\textwidth}
         \centering
-        \includegraphics[height=80mm]{images/ui/SettingsView.jpg}
+        \includegraphics[height=80mm]{images/benutzeroberfläche/SettingsView.jpg}
         \caption{Verwaltungs-Ansicht \ref{ui:SettingsView}}
         \label{fig:SettingsView}
     \end{minipage}
@@ -473,9 +476,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 
 \section{Produktfunktionen}
 
-\changelocaltocdepth{1}
-\renewcommand{\thesubsection}{$\langle$F\arabic{subsection}0$\rangle$}
-
+\enablesubsectionnumbering{F}
 \subsection{Einloggen und Ausloggen}
 \textbf{Anwendungsfall:} Der Nutzer möchte sich in der App anmelden und sich danach wieder abmelden.\\
 \textbf{Anforderungen:} \ref{rm:Login}, \ref{rm:Logout}\\
@@ -791,13 +792,11 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \newpage
 
 
-\resetSubSectionNumbering
+\resetsubsectionnumbering
 
 
 \section{Produktdaten}
-\changelocaltocdepth{1}
-\renewcommand{\thesubsection}{$\langle$D\arabic{subsection}0$\rangle$}
-
+\enablesubsectionnumbering{D}
 Um die App nutzen zu können, ist es erforderlich einige Daten zu speichern. Diese werden auf unterschiedlichen Geräten gespeichert:
 
 \subsection{Smartphone-Daten}
@@ -813,7 +812,7 @@ Um die App nutzen zu können, ist es erforderlich einige Daten zu speichern. Die
     \item Gruppen
 \end{itemize}
 
-\resetSubSectionNumbering
+\resetsubsectionnumbering
 \section{Nichtfunktionale Anforderungen}
 Im folgenden Kapitel werden die nichtfunktionalen Anforderungen und Qualitätsmerkmale der App definiert.
 Anschließend werden die wichtigsten Qualitätsmerkmale operationalisiert und, falls diese nicht als allgemeine Richtlinie (z.B. Standard, Norm usw.) zu Verfügung gestellt werden,
