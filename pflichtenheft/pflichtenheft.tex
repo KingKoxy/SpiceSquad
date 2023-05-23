@@ -575,13 +575,13 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 
 \subsection{Rezept erstellen, ändern und löschen}
 \textbf{Anwendungsfall:} Der Nutzer möchte ein neues Rezept erstellen, es danach ändern und es schließlich löschen.\\
-\textbf{Anforderungen:} \ref{rm:RecipeCreation}, \ref{rm:RecipeContents}, \ref{rm:RecipeManagement}, \ref{rc:Images}, \ref{rc:IngredientList}\\
+\textbf{Anforderungen:} \ref{rm:RecipeCreation}, \ref{rm:RecipeContents}, \ref{rm:RecipeManagement}, \ref{rc:Images}, \ref{rc:IngredientList}, \ref{rs:RecipeVisibility}\\
 \textbf{Ziel:} Der Nutzer erstellt ein Rezept, welches er mit seinen Gruppen teilen möchte, oder auch nur für sich sichtbar macht. Nimmt dann Änderungen vor, um es dann wieder zu löschen.\\
 \textbf{Vorbedingung:} -\\
-\textbf{Nachbedingung Erfolg:} Das erstellte und geänderte Rezept wird in der Verwaltungsansicht nicht mehr angezeigt.  \\
+\textbf{Nachbedingung Erfolg:} Das erstellte und geänderte Rezept wird in der Verwaltungs-Ansicht nicht mehr angezeigt.  \\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer\\
-\textbf{Auslösendes Ereignis:} In der Haupt-Ansicht klickt der Nutzer auf den neues-Rezept -anlegen-Button.\\
+\textbf{Auslösendes Ereignis:} In der Haupt-Ansicht klickt der Nutzer auf den neues-Rezept-anlegen-Button.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
     \item Der Nutzer klickt auf den Button für ein neues Rezept.
@@ -591,7 +591,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
     \item Der Nutzer klickt auf den Verwaltungs-Ansicht-Button.
     \item Der Nutzer klickt auf das gerade erstellte Rezept.
     \item Der Nutzer wird zur Rezept-Erstellungs-Ansicht weitegeleitet.
-    \item Der Nutzer ändert den Rezepttitel.
+    \item Der Nutzer ändert den Rezepttitel und die Sichtbarkeit des Rezepts.
     \item Der Nutzer klickt auf den Speichern-Button.
     \item Der Nutzer wird zur Haupt-Ansicht weitergeleitet.
     \item Der Nutzer klickt auf den Verwaltungs-Ansicht-Button.
@@ -658,7 +658,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 
 \subsection{Gruppe beitreten und verlassen}
 \textbf{Anwendungsfall:} Der Nutzer möchte einer neuen Gruppe beitreten und diese danach verlassen.\\
-\textbf{Anforderungen:} \ref{rm:GroupJoining} \\
+\textbf{Anforderungen:} \ref{rm:GroupJoining}, \ref{rs:QRCode} \\
 \textbf{Ziel:} Der Nutzer ist der Gruppe beigetreten und kann alle in der Gruppe geteilten Rezepte ansehen und diese auch wieder verlassen, sodass in der Hauptansicht die Rezepte nicht mehr angezeigt werden.\\
 \textbf{Vorbedingung:} -\\
 \textbf{Nachbedingung Erfolg:} Die beigetretene Gruppe wird nicht mehr in der Verwaltung-Ansicht angezeigt und die Rezepte der Gruppe werden nicht mehr in der Hauptansicht angezeigt.\\
@@ -674,7 +674,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
     \item Der Nutzer klickt auf den Gruppe-verlassen-Button.
     \item Ein Pop-up-Fenster erscheint, welches um Bestätigung bitten.
     \item Der Nutzer klickt auf den Button zum Bestätigen.
-    \item der Nutzer wird zur Verwaltungsansicht weitergeleitet.
+    \item der Nutzer wird zur Verwaltungs-Ansicht weitergeleitet.
 \end{enumerate}
 \textbf{Erweiterung:}\\
 \textbf{Alternativen:} Nach dem Login-Ansicht wird man zur Gruppe-beitreten-Ansicht weitergeleitet, wodurch auch einer Gruppe beigetreten werden kann. Einer Gruppe kann auch mit dem Scannen eines QR-Codes beigetreten werden ohne die Eingabe eines Gruppennamens.
@@ -787,9 +787,29 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
     \item Der Nutzer klickt auf den Bearbeiten-Button.
     \item Der Nutzer gibt den neuen Gruppennamen ein.
     \item Der Nutzer klickt auf den Bestätigen-Button.
-    \item Der Nutzer wird zur Gruppen-Detail-Ansicht
+    \item Der Nutzer wird zur Gruppen-Detail-Ansicht.
 \end{enumerate}
 \textbf{Alternativen:} -
+
+
+\subsection{Administrator verlässt die Gruppe}
+\textbf{Anwendungsfall:} Ein Administrator verlässt die Gruppe.\\
+\textbf{Anforderungen:} \\
+\textbf{Ziel:} Ein Administrator kann die Gruppe verlassen und ein anderes Mitglied wird zum neuen Admin.\\
+\textbf{Vorbedingung:} Der Nutzer ist einziger Administrator der Gruppe und die Gruppe enthält mehr als ein Mitglied.\\
+\textbf{Nachbedingung Erfolg:} Der Nutzer der am längsten in der Gruppe ist, exklusive des bisherigen Administrators, ist neuer Administrator.\\
+\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Akteure:} Nutzer, Administrator\\
+\textbf{Auslösendes Ereignis:} In der Gruppen-Detail-Ansicht wird auf den Gruppe-verlassen-Button geklickt.\\
+\textbf{Beschreibung:}
+\begin{enumerate}
+    \item Der Administrator klickt auf den Gruppe-verlassen-Button.
+    \item Ein Pop-up-Fenster erscheint, welches um Bestätigung bitten.
+    \item Der Administrator klickt auf den Button zum Bestätigen.
+    \item Der Administrator wird zur Verwaltungs-Ansicht weitergeleitet.
+    \item Der Nutzer der am längsten in der Gruppe ist, exklusive des bisherigen Administrators, ist neuer Administrator. 
+\end{enumerate}
+\textbf{Alternativen:} Ist der Administrator das letzte Mitglied der Gruppe, so wird die Gruppe gelöscht.
 \newpage
 
 
