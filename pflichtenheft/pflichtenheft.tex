@@ -150,7 +150,7 @@ Kannkriterien: Leistungen, die umgesetzt werden können, jedoch nachrangig sind.
     \item Der Nutzer kann Rezepte jeweils auf- und absteigend Alphabetisch nach dem Namen des Rezepts, nach dem Schwierigkeitsgrad und dem Hinzufügedatum sortieren.\label{rc:Sorting}
     \item Nur ein Administrator kann den Gruppennamen ändern.\label{rc:GroupRenaming}
     \item Der Nutzer kann ein Rezept dem Administrator melden.\label{rc:RecipeMelden}
-    \item Nutzer können favorisierte Rezepte nicht weiterhin anschauen, wenn der Autor die Gruppe verlässt. Tritt der Autor wieder ein, sind die favorisierten Rezepte wieder als solche sichtbar.\label{rc:FavoriteAuthorRejoin}
+    \item Der Nutzer kann favorisierte Rezepte nicht weiterhin anschauen, wenn der Autor die Gruppe verlässt. Tritt der Autor wieder ein, sind die favorisierten Rezepte wieder als solche sichtbar.\label{rc:FavoriteAuthorRejoin}
 
 \end{enumerate}
 
@@ -570,9 +570,11 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
     \item Der neue Nutzername wird eingegeben.
     \item Der Nutzer klickt auf den Speichern-Button.
     \item Der Nutzer klickt auf sein Profilbild.
-    \item Der Nutzer kann mit Hilfe des betriebssystemeigenen Dateimanagers ein neues Profilbild aussehen.
+    \item Der Nutzer kann mit Hilfe des betriebssystemeigenen Dateimanagers ein neues Profilbild auswählen.
+    \item Der Nutzer klickt auf sein Profilbild.
+    \item Der Nutzer entfernt sein Profilbild komplett.
 \end{enumerate}
-\textbf{Alternativen:} Der Nutzer kann auch sein Profilbild komplett entfernen. Auch kann der Nutzer auf den Exit-Button klicken und der Prozess wird abgebrochen und der Nutzer gelangt zurück zur Verwaltungsansicht.\\
+\textbf{Alternativen:} -
 \newpage
 
 
@@ -594,7 +596,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
     \item Der Nutzer klickt auf den Verwaltungsansicht-Button.
     \item Der Nutzer klickt auf das gerade erstellte Rezept.
     \item Der Nutzer wird zur Rezept-Erstellungs-Ansicht weitegeleitet.
-    \item Der Nutzer ändert den Rezepttitel und die Sichtbarkeit des Rezepts.
+    \item Der Nutzer ändert den Rezepttitel, die Sichtbarkeit des Rezepts und lädt ein Bild des fertigen Gerichts hoch.
     \item Der Nutzer klickt auf den Speichern-Button.
     \item Der Nutzer wird zur Hauptansicht weitergeleitet.
     \item Der Nutzer klickt auf den Verwaltungsansicht-Button.
@@ -603,19 +605,18 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
     \item Der Nutzer klickt auf den bestätigen Button.
     \item Dem Nutzer wird das Rezept nicht mehr angezeigt.
 \end{enumerate}
-\textbf{Alternativen:} Der Nutzer kann ein Bild vom fertigen Gericht können.
+\textbf{Alternativen:} -
 \newpage
 
 
 \subsection{Rezept suchen, sortieren, filtern, anschauen und favorisieren}
 \textbf{Anwendungsfall:} Der Nutzer möchte nach einem Rezept Suchen, dann die Rezepte nach dem Schwierigkeitsgrad filtern, ein Rezept sich genauer anschauen und dies dann favorisieren.\\
-\textbf{Anforderungen:} \ref{rm:RecipeViewing}, \ref{rs:RecipeFavourites}, \ref{rs:PortionScaling}, \ref{rs:Searching}, \ref{rc:Filtering}, \ref{rc:Sorting}, \ref{rc:PDFExport}, \ref{rs:AuthorAndDate}, \ref{rs:RecipeLabels}\\
+\textbf{Anforderungen:} \ref{rm:RecipeViewing}, \ref{rs:RecipeFavourites}, \ref{rs:PortionScaling}, \ref{rs:Searching}, \ref{rc:Filtering}, \ref{rc:Sorting}, \ref{rc:PDFExport}, \ref{rs:AuthorAndDate}, \ref{rs:RecipeLabels}, \ref{rc:FavoriteAuthorRejoin}\\
 \textbf{Ziel:} Der Nutzer kann mit dem Suchen, dem Filtern und dem Favorisieren sein gewünschtes Rezept schnell finden und es mithilfe der Zubereitungsanweisungen nachvollziehen.\\
 \textbf{Vorbedingung:} Dem Nutzer wird mindestens ein Rezept in der Hauptansicht oder in der Gruppen-Detail-Ansicht angezeigt.\\
 \textbf{Nachbedingung Erfolg:} Das Rezept favorisierte Rezept ist mit den anderen favorisierten Rezepten beim Filter favorisierte Rezepte auffindbar.\\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer\\
-\textbf{Auslösendes Ereignis:} Klick auf die Suchzeile in der Hauptansicht.\\
 \textbf{Auslösendes Ereignis:} Klick auf die Suchzeile in der Hauptansicht.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
@@ -627,9 +628,10 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
     \item Der Nutzer wird zur Rezeptansicht weitergeleitet.
     \item Der Nutzer skaliert das Rezept auf eine Person.
     \item Der Nutzer klickt auf den Favoriten-Button.
+    \item Der Nutzer ändert die Portionsröße um einen Zähler.
+    \item Der Nutzer klickt auf den Exportieren-Button um das Rezept als PDF zu downloaden.
 \end{enumerate}
-
-\textbf{Alternativen:} Der Nutzer kann die voreingestellte Portionsgröße auf die gewünschte Anzahl ändern. Des Weiteren kann ein Rezept auch in der Form eines PDFs exportiert werden.
+\textbf{Alternativen:} Der Nutzer kann favorisierte Rezepte nicht weiterhin anschauen, wenn der Autor die Gruppe verlässt. Tritt der Autor wieder ein, sind die favorisierten Rezepte wieder als solche sichtbar.
 \newpage
 
 \subsection{Gruppe erstellen und Gruppe auflösen}
@@ -795,7 +797,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 
 \subsection{Administrator verlässt die Gruppe}
 \textbf{Anwendungsfall:} Ein Administrator verlässt die Gruppe.\\
-\textbf{Anforderungen:} \\
+\textbf{Anforderungen:} \ref{rs:NoAdmins}\\
 \textbf{Ziel:} Ein Administrator kann die Gruppe verlassen und ein anderes Mitglied wird zum neuen Admin.\\
 \textbf{Vorbedingung:} Der Nutzer ist einziger Administrator der Gruppe und die Gruppe enthält mehr als ein Mitglied.\\
 \textbf{Nachbedingung Erfolg:} Der Nutzer der am längsten in der Gruppe ist, exklusive des bisherigen Administrators, ist neuer Administrator.\\
