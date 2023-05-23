@@ -107,9 +107,9 @@ Musskriterien: unabdingbare Leistungen der Software.
     \item Der angemeldete Nutzer muss sich abmelden können. \label{rm:Logout}
     \item Der Nutzer muss eine Gruppe erstellen können. \label{rm:GroupCreation}
     \item In jeder Gruppe muss mindestens ein Gruppenadministrator sein, der nach Erstellung nur der Ersteller ist.\label{rm:GroupAdmin}
-    \item Der Gruppenadministrator kann die Gruppe auflösen. \label{rm:GroupDeletion}
-    \item Der Nutzer einer Gruppe mithilfe eines Gruppenkürzels beitreten können und diese danach auch wieder verlassen können.\label{rm:GroupJoining}
-    \item Der Nutzer muss Rezepte erstellen und hochladen können.\label{rm:RecipeCreation}
+    \item Der Gruppenadministrator muss die Gruppe auflösen können. \label{rm:GroupDeletion}
+    \item Der Nutzer muss einer Gruppe mithilfe eines Gruppenkürzels beitreten können und diese danach auch wieder verlassen können.\label{rm:GroupJoining}
+    \item Der Nutzer muss Rezepte erstellen und hochladen können. \label{rm:RecipeCreation}
     \item Der \Gls{autor} muss zu jedem seiner Rezepte den Rezepttitel, die Zubereitungsdauer, die Zutaten mit Mengenangaben, den Schwierigkeitsgrad, die Portionsanzahl und eine Zubereitungsanweisungen angeben können.\label{rm:RecipeContents}
     \item Der Nutzer muss öffentliche Rezepte aller Autoren in der gleichen Gruppe anschauen können.\label{rm:RecipeViewing}
     \item Der \Gls{autor} muss seine Rezepte separat ändern und löschen können.\label{rm:RecipeManagement}
@@ -606,7 +606,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 
 \subsection{Rezept suchen, sortieren, filtern, anschauen und favorisieren}
 \textbf{Anwendungsfall:} Der Nutzer möchte nach einem Rezept Suchen, dann die Rezepte nach dem Schwierigkeitsgrad filtern, ein Rezept sich genauer anschauen und dies dann favorisieren.\\
-\textbf{Anforderungen:} \ref{rm:RecipeViewing}, \ref{rs:RecipeFavourites}, \ref{rs:PortionScaling}, \ref{rs:Searching}, \ref{rc:Filtering}, \ref{rc:Sorting}, \ref{rc:PDFExport}\\
+\textbf{Anforderungen:} \ref{rm:RecipeViewing}, \ref{rs:RecipeFavourites}, \ref{rs:PortionScaling}, \ref{rs:Searching}, \ref{rc:Filtering}, \ref{rc:Sorting}, \ref{rc:PDFExport}, \ref{rs:AuthorAndDate}\\
 \textbf{Ziel:} Der Nutzer kann mit dem Suchen, dem Filtern und dem Favorisieren sein gewünschtes Rezept schnell finden und es mithilfe der Zubereitungsanweisungen nachvollziehen.\\
 \textbf{Vorbedingung:} Dem Nutzer wird mindestens ein Rezept in der Haupts-Ansicht oder in der Gruppen-Detail-Ansicht angezeigt.\\
 \textbf{Nachbedingung Erfolg:} Das Rezept favorisierte Rezept ist mit den anderen favorisierten Rezepten beim Filter favorisierte Rezepte auffindbar.\\
