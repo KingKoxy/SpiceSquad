@@ -200,7 +200,7 @@ Die Gruppen-Detail-Ansicht als Administrator wird in einem weiteren Aktivitätsd
 Dadurch können die einzelnen Schritte, die durchlaufen werden, besser beschrieben werden.\par
 
 
-\section{Aufbau der App (\autoref{fig:UseCaseDiagram}):}
+\subsection{Aufbau der App (\autoref{fig:UseCaseDiagram}):}
 
 In dem Use-Case-Diagramm „Aufbau der App“ sieht man die allgemeine Struktur der App.
 
@@ -237,9 +237,10 @@ Eingeloggte Nutzer können hier Gruppenmitglieder und Rezepte von Gruppenmitglie
 Durch das klicken auf die Rezepte gelangt der Nutzer auf die Rezeptansicht des dazugehörigen Rezepts.
 Gruppenadministratoren können in dieser Ansicht Gruppenmitglieder entfernen, bannen, zum Administrator ernennen, als Administrator entfernen, Rezepte von Gruppenmitgliedern für die Gruppe ausblenden oder die Gruppe auflösen.\par
 
+Im Falle eines Verbindungsverlustes zum Server können bereits geladene Rezepte weiterhin angezeigt werden. Wird die App ohne Verbindung zum Server gestartet, wird eine Fehlermeldung angezeigt.
 
 
-\section{Hauptansicht (\autoref{fig:ActivityDiagramMainView}):}
+\subsection{Hauptansicht (\autoref{fig:ActivityDiagramMainView}):}
 
 Im Aktivitätsdiagramm „Hauptansicht“
 werden die verschiedenen Möglichkeiten unter dem Menüpunkt Hauptansicht aufgeführt.
@@ -255,11 +256,10 @@ In dieser Ansicht kann der Nutzer das Rezept ansehen, favorisieren und die Porti
 Es besteht zudem die Möglichkeit Rezepte zu melden.
 Ist der Nutzer der Autor des Rezepts, hat er zudem die Möglichkeit, das Rezept zu bearbeiten.
 Wird ein Rezept gemeldet, so werden die Administratoren mit einer E-Mail auf die Meldung benachrichtigt.\newline
-Es be
-Durch klicken auf zurück gelangt der Nutzer wieder auf der Hauptansicht.\par
+Durch klicken auf den Zurück-Button gelangt der Nutzer wieder auf der Hauptansicht.\par
 
 
-\section{Gruppen-Detail-Ansicht als Administrator (\autoref{fig:ActivityDiagramAdmin}):}
+\subsection{Gruppen-Detail-Ansicht als Administrator (\autoref{fig:ActivityDiagramAdmin}):}
 
 Im Aktivitätsdiagramm "Gruppen-Detail-Ansicht als Administrator" wir gezeigt, welche Möglichkeiten der Nutzer als Administrator einer Gruppe in der "Gruppen-Detail-Ansicht" hat.
 
@@ -478,7 +478,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \renewcommand{\theparagraph}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.\arabic{paragraph}}
 \setcounter{secnumdepth}{3}
 
-\section{Produktfunktionen}
+\section{Use-Case Beispiele}
 
 \enablesubsectionnumbering{F}
 \subsection{Einloggen und Ausloggen}
@@ -866,7 +866,6 @@ Da die App mit Schnittstellen wie bspw. dem Server oder Android-Betriebssystem f
     Zuverlässigkeit          & X                 &              &                 &                         \\ \hline
     Reife                    & X                 &              &                 &                         \\ \hline
     Fehlertoleranz           &                   &              & X               &                         \\ \hline
-    Wiederherstellbarkeit    &                   & ?            &                 &                         \\ \hline
 \end{tabular}
 
 \textbf{Zuverlässigkeit und Reife}\\
@@ -877,9 +876,6 @@ Durch die zahlreichen Testfälle können wir eine sehr gute Zuverlässigkeit und
 Trotz kontinuierlichen Testens während des Entwicklungsprozesses, kann es zur Laufzeit des Spiels zu Fehlern kommen.
 Das Ausmaß ist dabei von Fall zu Fall unterschiedlich.
 Folglich wird die Fehlertoleranz der App als normal eingestuft.
-
-\textbf{Wiederherstellbarkeit}
-?
 
 \subsection{Benutzbarkeit}
 \begin{tabular}{| c | c | c | c | c |}
@@ -930,6 +926,10 @@ Dadurch ist eine gute Installierbarkeit unerlässlich.
 \textbf{Konformität}\newline
 Die App basiert auf wenigen, klar definierten Schnittstellen. Das Verhalten und die Laufzeit auf einem Gerät beeinflusst das Verhalten nur geringfügig. Die Anforderung an die Konformität kann also als normal eingestuft werden
 
+\subsection{Hardwareanforderungen}
+
+
+
 \subsection{Qualitätsanforderungen}
 Die oben als am wichtigsten bezeichneten Qualitätsmerkmale werden im Folgenden operationalisiert, d.h. in konkreten Produktanforderungen konkretisiert oder es wird angegeben, welche Richtlinie (z. B. Standard, Norm) einzuhalten ist.
 
@@ -941,29 +941,6 @@ Die oben als am wichtigsten bezeichneten Qualitätsmerkmale werden im Folgenden 
     \item Die App soll auf Android-Version 8.0 und höher installierbar sein.
     \item Die Sprache der App soll deutsch sein.
 \end{enumerate}
-
-\section{Technische Produktumgebung}
-In diesem Kapitel wird die technische Umgebung des Produktes beschrieben.
-
-\subsection{Software}
-\begin{itemize}
-    \item Entwicklungsumgebung - Android Studio, IntelliJ
-    \item UI-frontend-Framework - Flutter
-    \item Implementierungssprache der App - Dart
-    \item Nutzerverwaltung - Firebase
-    \item Client-Betriebssystem - Android 8.0 oder eine neuere Android-Version
-\end{itemize}
-
-\subsection{Hardware}
-\begin{itemize}
-    \item Standard-Smartphone mit Android Betriebssystem, Kamera und Internetverbindung
-\end{itemize}
-
-%Todo Produktumgebung weiter ausführen
-\subsection{Produktschnittstellen}
-Die Benutzerschnittstelle wird über ein GUI zur Verfügung gestellt.
-Das Scannen von QR-Codes ist durch die Smartphone-Kamera möglich.
-\newpage
 
 \section{Glossar}
 \printglossary[type=\acronymtype]
