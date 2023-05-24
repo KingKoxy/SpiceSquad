@@ -106,11 +106,11 @@ Musskriterien: unabdingbare Leistungen der Software.
     \item Der registrierte Nutzer muss sich mit seiner E-Mail-Adresse und seinem Passwort anmelden, um auf die Funktionen der App zugreifen zu können. \label{rm:Login}
     \item Der angemeldete Nutzer muss sich abmelden können. \label{rm:Logout}
     \item Der Nutzer muss eine Gruppe erstellen können. \label{rm:GroupCreation}
-    \item In jeder Gruppe muss mindestens ein Gruppenadministrator sein, standardmäßig ist der Gruppengründer Administrator.\label{rm:GroupAdmin}
+    \item In jeder Gruppe muss mindestens ein \Gls{administrator} sein, standardmäßig ist der Gruppengründer \Gls{administrator}.\label{rm:GroupAdmin}
     \item Der Gruppenadministrator muss die Gruppe auflösen können. \label{rm:GroupDeletion}
     \item Der Nutzer muss einer Gruppe mithilfe eines Gruppenkürzels beitreten können und diese danach auch wieder verlassen können.\label{rm:GroupJoining}
-    \item Der Nutzer muss Rezepte erstellen und hochladen können. \label{rm:RecipeCreation}
-    \item Der \Gls{autor} muss zu jedem seiner Rezepte den Rezepttitel, die Zubereitungsdauer, die Zutaten mit Mengenangaben, den Schwierigkeitsgrad, die Portionsanzahl und eine Zubereitungsanweisungen angeben können.\label{rm:RecipeContents}
+    \item Der Nutzer muss \Gls{rezept}e erstellen und hochladen können. \label{rm:RecipeCreation}
+    \item Der \Gls{autor} muss zu jedem seiner \Gls{rezept}e den Rezepttitel, die Zubereitungsdauer, die Zutaten mit Mengenangaben, den Schwierigkeitsgrad, die Portionsanzahl und eine Zubereitungsanweisungen angeben können.\label{rm:RecipeContents}
     \item Der Nutzer muss öffentliche Rezepte aller Autoren in der gleichen Gruppe anschauen können.\label{rm:RecipeViewing}
     \item Der \Gls{autor} muss seine Rezepte separat ändern und löschen können.\label{rm:RecipeManagement}
     \item Jedes Gruppenmitglied muss das Gruppenkürzel einsehen können.\label{rm:GroupId}
@@ -125,7 +125,7 @@ Sollkriterien: Leistungen, die enthalten sein sollten, bei Bedarf jedoch auch we
     \item Der Nutzer soll Rezepten \Gls{labels} hinzufügen können.\label{rs:RecipeLabels}
     \item Der Autor soll die \Gls{sichtbarkeit} seiner Rezepte ändern können.\label{rs:RecipeVisibility}
     \item Ein Administrator soll Gruppenmitglieder zum Administrator ernennen und den Administratorenstatus wieder entziehen können.\label{rs:AdminCreation}
-    \item Ein Administrator soll Nutzer aus Gruppen \Gls{kicken} und \Gls{bannen} können.\label{rs:Kicking}
+    \item Ein Administrator soll Nutzer aus Gruppen \gls{kicken} und \gls{bannen} können.\label{rs:Kicking}
     \item Ein Administrator soll Rezepte von anderen Nutzern in der Gruppe aus- und \gls{einblenden} können.\label{rs:RecipeHiding}
     \item Das Hinzufügedatum und der Benutzername des Autors eines Rezeptes soll einsehbar sein.\label{rs:AuthorAndDate}
     \item Der Nutzer soll sein Passwort wieder zurücksetzen können, indem er einen Link an seine E-Mail-Adresse geschickt bekommt.\label{rs:ResetPassword}
@@ -149,7 +149,7 @@ Kannkriterien: Leistungen, die umgesetzt werden können, jedoch nachrangig sind.
     \item Der Nutzer kann Rezepte nach Favoriten, Schwierigkeitsgrad und \Gls{labels} filtern.\label{rc:Filtering}
     \item Der Nutzer kann Rezepte jeweils auf- und absteigend Alphabetisch nach dem Namen des Rezepts, nach dem Schwierigkeitsgrad und dem Hinzufügedatum sortieren.\label{rc:Sorting}
     \item Nur ein Administrator kann den Gruppennamen ändern.\label{rc:GroupRenaming}
-    \item Der Nutzer kann ein Rezept dem Administrator melden.\label{rc:RecipeMelden}
+    \item Der Nutzer kann den Administratoren Rezepte melden.\label{rc:RecipeMelden}
     \item Der Nutzer kann favorisierte Rezepte nicht weiterhin anschauen, wenn der Autor die Gruppe verlässt. Tritt der Autor wieder ein, sind die favorisierten Rezepte wieder als solche sichtbar.\label{rc:FavoriteAuthorRejoin}
 
 \end{enumerate}
@@ -177,7 +177,7 @@ Die App bietet eine Reihe von Funktionen, die Nutzern eine Vielzahl an Anwendung
 Zum einen können Nutzer Rezepte hochladen und diese bei Bedarf im Nachhinein bearbeiten.
 Dies ermöglicht das Teilen von Rezepten mit anderen Nutzern. Eigene Rezepte können außerdem auf privat gestellt werden, sodass nur der erstellende Nutzer selbst diese sehen kann.
 Die App kann also auch als eine Art digitales Kochbuch benutzt werden, um eigene Rezepte zu organisieren und bei Bedarf auch von anderen Geräten aufrufen zu können.
-Nutzer können außerdem Kochgruppen, sogenannten \Gls{squad}, beitreten, um Rezepte mit Nutzern mit ähnlichen Interessen zu teilen und die öffentlichen Rezepte anderer Nutzer in diesen Gruppen zu betrachten. Nutzer können die Rezepte ihrer Gruppen nach bestimmten Kriterien filtern, sortieren und suchen. So können Nutzer gezielt ihre Kochkenntnisse erweitern.
+Nutzer können außerdem Kochgruppen, sogenannten \Gls{squad}s, beitreten, um Rezepte mit Nutzern mit ähnlichen Interessen zu teilen und die öffentlichen Rezepte anderer Nutzer in diesen Gruppen zu betrachten. Nutzer können die Rezepte ihrer Gruppen nach bestimmten Kriterien filtern, sortieren und suchen. So können Nutzer gezielt ihre Kochkenntnisse erweitern.
 Rezepte können zudem skaliert werden, um die richtige Menge für eine bestimmte Anzahl an Personen effizient zu ermitteln.
 
 \subsection{Zielgruppen}
@@ -235,7 +235,7 @@ Durch das Drücken des Gruppen-hinzufügen-Button kann der Nutzer eine neue Grup
 Von der Verwaltungsansicht kommt der Nutzer durch klicken auf eine Gruppe auf die Gruppen-Detail-Ansicht.
 Eingeloggte Nutzer können hier Gruppenmitglieder und Rezepte von Gruppenmitgliedern einsehen, die Gruppe verlassen oder den QR-Code zum beitreten der Gruppe einsehen.
 Durch das klicken auf die Rezepte gelangt der Nutzer auf die Rezeptansicht des dazugehörigen Rezepts.
-Gruppenadministratoren können in dieser Ansicht Gruppenmitglieder entfernen, bannen, zum Administrator ernennen, als Administrator entfernen, Rezepte von Gruppenmitgliedern für die Gruppe \gls{ausblenden} oder die Gruppe auflösen.\par
+Gruppenadministratoren können in dieser Ansicht Gruppenmitglieder kicken, bannen, zum Administrator ernennen, Administratoren zu normalen Nutzern degradieren, Rezepte von Gruppenmitgliedern für die Gruppe \gls{ausblenden} oder die Gruppe auflösen.\par
 
 Im Falle eines Verbindungsverlustes zum Server können bereits geladene Rezepte weiterhin angezeigt werden. Wird die App ohne Verbindung zum Server gestartet, wird eine Fehlermeldung angezeigt.
 
@@ -268,9 +268,9 @@ Der Administrator landet so in der Gruppen-Detail-Ansicht.
 Durch klicken auf ein Rezept kann der Gruppenadministrator, eingeblendete Rezepte \gls{ausblenden} und ausgeblendete Rezepte einblenden.\newline
 Beim Auswählen von Gruppenmitgliedern gibt es die Möglichkeit das Gruppenmitglied zu entfernen oder zu bannen.
 Der Administrator muss die jeweilige Aktion nachträglich nochmal bestätigen.
-Ein entfernter Nutzer kann der Gruppe wieder beitreten wohingegen ein gebannter Nutzer der Gruppe unwiderruflich nicht mehr beitreten kann.
-Ein Administrator kann ein Gruppenmitglied zu einem Administrator ernennen
-Ein Administrator kann einen anderen Administrator als Administrator entfernen.
+Ein gekickter Nutzer kann der Gruppe wieder beitreten wohingegen ein gebannter Nutzer der Gruppe unwiderruflich nicht mehr beitreten kann.
+Ein Administrator kann ein Gruppenmitglied zu einem Administrator ernennen.
+Ein Administrator kann einen anderen Administrator wieder zu einem normalen Nutzer machen.
 
 Der Administrator einer Gruppe kann durch eine nachfolgende Bestätigung die Gruppe verlassen.
 Ist anschließend kein weiteres Mitglied mehr in der Gruppe wird die Gruppe aufgelöst. Ein Nutzer kann der Gruppe anschließend nicht mehr beitreten.
