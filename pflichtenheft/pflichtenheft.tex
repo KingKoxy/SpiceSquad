@@ -108,12 +108,12 @@ Musskriterien: unabdingbare Leistungen der Software.
     \item Der Nutzer muss eine Gruppe erstellen können. \label{rm:GroupCreation}
     \item In jeder Gruppe muss mindestens ein \gls{administrator} sein, standardmäßig ist der Gruppengründer auch \gls{administrator}.\label{rm:GroupAdmin}
     \item Der \glslink{administrator}{Gruppenadministrator} muss die Gruppe auflösen können. \label{rm:GroupDeletion}
-    \item Der Nutzer muss einer Gruppe mithilfe eines \glslink{gruppenkürzel}{Gruppenkürzels} beitreten können und diese danach auch wieder verlassen können.\label{rm:GroupJoining}
+    \item Der Nutzer muss einer Gruppe mithilfe eines \glslink{gruppenkurzel}{Gruppenkürzels} beitreten können und diese danach auch wieder verlassen können.\label{rm:GroupJoining}
     \item Der Nutzer muss \glslink{rezept}{Rezepte} erstellen und hochladen können. \label{rm:RecipeCreation}
     \item Der \gls{autor} muss zu jedem seiner \glslink{rezept}{Rezept} den Rezepttitel, die Zubereitungszeit, die Zutaten mit Mengenangabe, den \glslink{schwierigkeit}{Schwierigkeitsgrad}, die Portionsanzahl und eine Zubereitungsanweisung angeben können.\label{rm:RecipeContents}
     \item Der Nutzer muss öffentliche \glslink{rezept}{Rezepte} aller \glslink{autor}{Autoren} in der gleichen Gruppe anschauen können.\label{rm:RecipeViewing}
     \item Der \gls{autor} muss seine \glslink{rezept}{Rezepte} separat ändern und löschen können.\label{rm:RecipeManagement}
-    \item Jedes Gruppenmitglied muss das \gls{gruppenkürzel} einsehen können.\label{rm:GroupId}
+    \item Jedes Gruppenmitglied muss das \gls{gruppenkurzel} einsehen können.\label{rm:GroupId}
 \end{enumerate}
 
 \subsection{Sollkriterien}
@@ -130,7 +130,7 @@ Sollkriterien: Leistungen, die enthalten sein sollten, bei Bedarf jedoch auch we
     \item Das Hinzufügedatum und der Benutzername des \glslink{autor}{Autors} eines \glslink{rezept}{Rezeptes} soll einsehbar sein.\label{rs:AuthorAndDate}
     \item Der Nutzer soll sein Passwort wieder zurücksetzen können, indem er einen Link an seine E-Mail-Adresse geschickt bekommt.\label{rs:ResetPassword}
     \item Der Nutzer soll sein Konto nach erstellen wieder löschen können.\label{rs:AccountDeletion}
-    \item Der Nutzer soll das \gls{gruppenkürzel} auch über einen QR-Code teilen können.\label{rs:QRCode}
+    \item Der Nutzer soll das \gls{gruppenkurzel} auch über einen QR-Code teilen können.\label{rs:QRCode}
     \item Der Nutzer soll seinen Nutzernamen ändern können.\label{rs:ChangeUsername}
     \item Der Nutzer soll nach \glslink{rezept}{Rezepten} anhand ihres Titels suchen können.\label{rs:Searching}
     \item Die Gruppe soll aus der Datenbank gelöscht werden, wenn das letzte Mitglied der Gruppe diese verlassen hat.\label{rs:EmptyGroup}
@@ -209,7 +209,7 @@ Dazu muss er seinen Benutzernamen, seine E-Mail-Adresse und ein Passwort eingebe
 Das Passwort muss durch eine erneute Eingabe bestätigt werden.
 Nach Bestätigung der Eingabe kann der Nutzer eine Gruppe erstellen, einer Gruppe beitreten oder diesen Punkt überspringen und vorerst keiner Gruppe beitreten.
 Durch das Erstellen einer Gruppe wird man automatisch zum \gls{administrator} der Gruppe.
-Der Nutzer kann einer Gruppe durch Eingabe eines \gls{gruppenkürzel} oder durch Scannen eines QR-Codes beitreten.
+Der Nutzer kann einer Gruppe durch Eingabe eines \gls{gruppenkurzel} oder durch Scannen eines QR-Codes beitreten.
 Der Nutzer kann eine Gruppe durch Eingabe eines Gruppennamens erstellten.
 
 Falls der Nutzer schon ein Nutzerkonto besitzt, kann er sich einloggen.
@@ -274,7 +274,7 @@ Ein \gls{administrator} kann einen anderen \gls{administrator} wieder zu einem n
 Der \gls{administrator} einer Gruppe kann durch eine nachfolgende Bestätigung die Gruppe verlassen.
 Ist anschließend kein weiteres Mitglied mehr in der Gruppe wird die Gruppe aufgelöst. Ein Nutzer kann der Gruppe anschließend nicht mehr beitreten.
 Ein \gls{administrator} kann eine Gruppe durch eine nachfolgende Bestätigung auflösen. Ein Nutzer kann der Gruppe anschließend nicht mehr beitreten und alle Mitglieder der Gruppe werden automatisch \glslink{kicken}{gekickt}.\newline
-Der \gls{administrator} kann das \gls{gruppenkürzel} durch "Gruppenkürzel kopieren" in die Zwischenablage kopieren. Der \gls{administrator} kann den QR-Code der Gruppe durch "QR-Code anzeigen" anschauen.
+Der \gls{administrator} kann das \gls{gruppenkurzel} durch "Gruppenkürzel kopieren" in die Zwischenablage kopieren. Der \gls{administrator} kann den QR-Code der Gruppe durch "QR-Code anzeigen" anschauen.
 
 \newpage
 
@@ -368,7 +368,7 @@ Zudem kann der Nutzer sich mit dem Symbol oben rechts ausloggen. Daraufhin wird 
 
 \subsection{Gruppen-Detail-Ansicht}
 \label{ui:GroupDetailView}
-In der Gruppen-Detail-Ansicht (\autoref{fig:GroupDetailView}) kann der Nutzer die Mitglieder und \glslink{rezept}{Rezepte} einer Gruppe ansehen. Durch den QR-Code-Button gelangt er zur QR-Code-Ansicht \ref{ui:QRCodeView}. Durch Klick auf das Verlassen-Symbol kann die Gruppe verlassen werden. Mit dem Plus-Symbol neben der Mitglieder-Sektion wird das \gls{gruppenkürzel} in die Zwischenablage kopiert und kann geteilt werden. Durch Klick auf ein Rezept wird der Nutzer zur entsprechenden Rezeptansicht \ref{ui:RecipeView} weitergeleitet. Als \gls{administrator} hat man zudem die Möglichkeit die Gruppe aufzulösen, woraufhin der Nutzer wieder auf die Verwaltungsansicht \ref{ui:SettingsView} gelangt. Zudem kann er Nutzer aus der Gruppe \gls{kicken}, \gls{bannen} oder zu \glslink{administrator}{Administratoren} ernennen bzw. diesen Titel wieder aberkennen. Außerdem kann er \glslink{rezept}{Rezepte} für alle Gruppenmitglieder außer dem \gls{autor} verstecken bzw. wieder \gls{einblenden}. Weiterhin kann er den Gruppennamen ändern, indem er auf das Stift-Symbol drückt. Auch hier gibt es wieder die Navigationsleiste aus \ref{ui:MainView}.
+In der Gruppen-Detail-Ansicht (\autoref{fig:GroupDetailView}) kann der Nutzer die Mitglieder und \glslink{rezept}{Rezepte} einer Gruppe ansehen. Durch den QR-Code-Button gelangt er zur QR-Code-Ansicht \ref{ui:QRCodeView}. Durch Klick auf das Verlassen-Symbol kann die Gruppe verlassen werden. Mit dem Plus-Symbol neben der Mitglieder-Sektion wird das \gls{gruppenkurzel} in die Zwischenablage kopiert und kann geteilt werden. Durch Klick auf ein Rezept wird der Nutzer zur entsprechenden Rezeptansicht \ref{ui:RecipeView} weitergeleitet. Als \gls{administrator} hat man zudem die Möglichkeit die Gruppe aufzulösen, woraufhin der Nutzer wieder auf die Verwaltungsansicht \ref{ui:SettingsView} gelangt. Zudem kann er Nutzer aus der Gruppe \gls{kicken}, \gls{bannen} oder zu \glslink{administrator}{Administratoren} ernennen bzw. diesen Titel wieder aberkennen. Außerdem kann er \glslink{rezept}{Rezepte} für alle Gruppenmitglieder außer dem \gls{autor} verstecken bzw. wieder \gls{einblenden}. Weiterhin kann er den Gruppennamen ändern, indem er auf das Stift-Symbol drückt. Auch hier gibt es wieder die Navigationsleiste aus \ref{ui:MainView}.
 
 
 
@@ -671,7 +671,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Beschreibung:}\\
 \begin{enumerate}
     \item Der Nutzer klickt auf den Gruppe-beitreten-Button in der Verwaltungsansicht.
-    \item Der Nutzer gibt das \glslink{gruppenkürzel}{Gruppenkürzels} ein.
+    \item Der Nutzer gibt das \glslink{gruppenkurzel}{Gruppenkürzels} ein.
     \item Der Nutzer klickt auf den Gruppe-beitreten-Button.
     \item Der Nutzer wird zur Gruppen-Detail-Ansicht weitergeleitet.
     \item Der Nutzer klickt auf den Gruppe-verlassen-Button.
@@ -684,7 +684,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 
 
 \subsection{Gruppenkürzel ausgeben}
-\textbf{Anwendungsfall:} Der Nutzer möchte den \gls{gruppenkürzel} erhalten.\\
+\textbf{Anwendungsfall:} Der Nutzer möchte den \gls{gruppenkurzel} erhalten.\\
 \textbf{Anforderungen:} \ref{rm:GroupId}\\
 \textbf{Ziel:} Der Nutzer kann die Daten der Gruppe mit anderen Nutzern teilen, um diesen die Möglichkeit zu geben der Gruppe beizutreten.\\
 \textbf{Vorbedingung:} Der Nutzer ist in einer Gruppe Mitglied.\\
@@ -695,7 +695,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Beschreibung:}
 \begin{enumerate}
     \item Der Nutzer klickt auf die Gruppen-Detail-Ansicht-Button.
-    \item Der Nutzer klickt auf den Gruppen-Informations-Button und das \gls{gruppenkürzel} wird in die Zwischenablage kopiert.
+    \item Der Nutzer klickt auf den Gruppen-Informations-Button und das \gls{gruppenkurzel} wird in die Zwischenablage kopiert.
     \item Der Nutzer klickt auf den QR-Code-Button.
     \item Der Nutzer wird zur QR-Code-Ansicht weitergeleitet.
     \item Der Nutzer sieht den QR-Code, der alle Informationen enthält.
@@ -947,5 +947,5 @@ Die oben als am wichtigsten bezeichneten Qualitätsmerkmale werden im Folgenden 
 \end{enumerate}
 
 \section{Glossar}
-\printglossary[type=\acronymtype]
+\printglossary[style=altlist]
 \end{document}
