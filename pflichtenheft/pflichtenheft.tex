@@ -124,12 +124,12 @@ Sollkriterien: Leistungen, die enthalten sein sollten, bei Bedarf jedoch auch we
     \item Der Nutzer soll \glslink{rezept}{Rezepte} \glslink{favorit}{favorisieren} können.\label{rs:RecipeFavourites}
     \item Der Nutzer soll seinen \glslink{rezept}{Rezepten} \gls{labels} hinzufügen können.\label{rs:RecipeLabels}
     \item Der \gls{autor} soll die \gls{sichtbarkeit} seiner \glslink{rezept}{Rezepte} ändern können.\label{rs:RecipeVisibility}
-    \item Ein \gls{administrator} soll Gruppenmitglieder zum \gls{administrator} ernennen und den \glslink{administrator}{Administrator Status} wieder entziehen können.\label{rs:AdminCreation}
+    \item Ein \gls{administrator} soll Gruppenmitglieder zum \gls{administrator} ernennen und den \glslink{administrator}{Administratorenstatus} wieder entziehen können.\label{rs:AdminCreation}
     \item Ein \gls{administrator} soll Nutzer aus Gruppen \gls{kicken} und \gls{bannen} können.\label{rs:Kicking}
     \item Ein \gls{administrator} soll \glslink{rezept}{Rezepte} von anderen Nutzern in der Gruppe \gls{ausblenden} und \gls{einblenden} können.\label{rs:RecipeHiding}
     \item Das Hinzufügedatum und der Benutzername des \glslink{autor}{Autors} eines \glslink{rezept}{Rezeptes} soll einsehbar sein.\label{rs:AuthorAndDate}
     \item Der Nutzer soll sein Passwort wieder zurücksetzen können, indem er einen Link an seine E-Mail-Adresse geschickt bekommt.\label{rs:ResetPassword}
-    \item Der Nutzer soll sein Konto nach erstellen wieder löschen können.\label{rs:AccountDeletion}
+    \item Der Nutzer soll sein Konto nach Erstellen wieder löschen können.\label{rs:AccountDeletion}
     \item Der Nutzer soll das \gls{gruppenkurzel} auch über einen QR-Code teilen können.\label{rs:QRCode}
     \item Der Nutzer soll seinen Nutzernamen ändern können.\label{rs:ChangeUsername}
     \item Der Nutzer soll nach \glslink{rezept}{Rezepten} anhand ihres Titels suchen können.\label{rs:Searching}
@@ -144,10 +144,10 @@ Kannkriterien: Leistungen, die umgesetzt werden können, jedoch nachrangig sind.
 \begin{enumerate}[start=1,label={$\langle$\bfseries RC\arabic*$\rangle$}, leftmargin = 5em, itemsep=4pt, parsep=4pt]
     \item Der Nutzer kann \glslink{rezept}{Rezepte} in Form von PDFs exportieren.\label{rc:PDFExport}
     \item Der \gls{autor} kann genau ein Bild zu jedem seiner \glslink{rezept}{Rezepte} hochladen.\label{rc:Images}
-    \item Der Nutzer kann Zutaten aus einer Liste auswählen.\label{rc:IngredientList}
+    \item Der Nutzer kann beim Erstellen eines Rezepts Zutaten aus einer Liste suchen und auswählen.\label{rc:IngredientList}
     \item Der Nutzer kann sein Profilbild setzen und ändern.\label{rc:ProfileImage}
     \item Der Nutzer kann \glslink{rezept}{Rezepte} nach \glslink{favorit}{Favoriten}, \glslink{schwierigkeit}{Schwierigkeitsgrad} und \gls{labels} filtern.\label{rc:Filtering}
-    \item Der Nutzer kann \glslink{rezept}{Rezepte} jeweils auf- und absteigend Alphabetisch nach dem Namen des Rezepts, nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} und dem Hinzufügedatum sortieren.\label{rc:Sorting}
+    \item Der Nutzer kann \glslink{rezept}{Rezepte} jeweils auf- und absteigend nach dem Namen des Rezepts, nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} und dem Hinzufügedatum sortieren.\label{rc:Sorting}
     \item Nur ein \gls{administrator} kann den Gruppennamen ändern.\label{rc:GroupRenaming}
     \item Der Nutzer kann den \glslink{administrator}{Administratoren} \glslink{rezept}{Rezepte} melden.\label{rc:RecipeMelden}
     \item Der Nutzer kann \glslink{favorit}{favorisierte} \glslink{rezept}{Rezepte} nicht weiterhin anschauen, wenn der \gls{autor} die Gruppe verlässt. Tritt der \gls{autor} wieder ein, sind die \glslink{favorit}{favorisierten} \glslink{rezept}{Rezepte} wieder als solche sichtbar.\label{rc:FavoriteAuthorRejoin}
@@ -158,14 +158,13 @@ Kannkriterien: Leistungen, die umgesetzt werden können, jedoch nachrangig sind.
 Abgrenzungskriterien: Leistungen die explizit nicht umgesetzt werden.
 
 \begin{enumerate}[start=1,label={$\langle$\bfseries RW\arabic*$\rangle$}, leftmargin = 5em, itemsep=4pt, parsep=4pt]
-    \item Es gibt keine Möglichkeit \glslink{rezept}{Rezepte} durch Kommentare zu suchen.
+    \item Der Nutzer kann keine Kommentare zu \glslink{rezept}{Rezepten} abgeben.
     \item Der Nutzer kann keine \glslink{rezept}{Rezepte} bewerten.
-    \item Es gibt keine integrierte Chatfunktion.
-    \item Das Hinzufügen von Videos zu den \glslink{rezept}{Rezepten} ist nicht möglich.
-    \item Über die App kann man keine anderen Nutzer direkt suchen.
-    \item Es existiert kein Gruppenprofilbild.
-    \item Der Nutzer kann nicht zwischen Dark Mode und Light Mode wechseln.
-    \item Admins können Bans auf Gruppenmitglieder nicht rückgängig machen.
+    \item Der Nutzer kann keine Videos zu den \glslink{rezept}{Rezepten} hinzufügen.
+    \item Der Nutzer kann keine anderen Nutzer suchen.
+    \item Gruppen besitzen kein Gruppenbild.
+    \item Es gibt keinen Light-Mode.
+    \item \glslink{administrator}{Administratoren} können \glslink{bannen}{Banns} auf Gruppenmitglieder nicht rückgängig machen.
 \end{enumerate}
 
 \section{Produkteinsatz}
@@ -173,16 +172,16 @@ Dieses Kapitel dient dazu, den Einsatzbereich, die Zielgruppen und die Betriebsb
 
 \subsection{Anwendungsbereiche}
 In diesem Abschnitt wird erläutert, in welchen Bereichen die Software eingesetzt werden soll. \par
-Die App bietet eine Reihe von Funktionen, die Nutzern eine Vielzahl an Anwendungsmöglichkeiten rund um das Thema kochen bieten.
+Die App bietet eine Reihe von Funktionen, die Nutzern eine Vielzahl an Anwendungsmöglichkeiten rund um das Thema Kochen bieten.
 Zum einen können Nutzer \glslink{rezept}{Rezepte} hochladen und diese bei Bedarf im Nachhinein bearbeiten.
-Dies ermöglicht das Teilen von \glslink{rezept}{Rezepten} mit anderen Nutzern. Eigene \glslink{rezept}{Rezepte} können außerdem auf privat gestellt werden, sodass nur der erstellende Nutzer selbst diese sehen kann.
+Dies ermöglicht das Teilen von \glslink{rezept}{Rezepten} mit anderen Nutzern. Eigene \glslink{rezept}{Rezepte} können außerdem auf \glslink{sichtbarkeit}{privat} gestellt werden, sodass nur der \gls{autor} selbst diese sehen kann.
 Die App kann also auch als eine Art digitales Kochbuch benutzt werden, um eigene \glslink{rezept}{Rezepte} zu organisieren und bei Bedarf auch von anderen Geräten aufrufen zu können.
-Nutzer können außerdem Kochgruppen, sogenannten \glslink{squad}{Squads}, beitreten, um \glslink{rezept}{Rezepte} mit Nutzern, welche ähnlichen Interessen haben, zu teilen und die öffentlichen \glslink{rezept}{Rezepte} anderer Nutzer in diesen Gruppen zu betrachten. Außerdem können Nutzer die \glslink{rezept}{Rezepte} ihrer Gruppen nach bestimmten Kriterien filtern, sortieren und nach Schlagwörtern durchsuchen. So können Nutzer gezielt ihre Kochkenntnisse erweitern.
+Nutzer können außerdem Kochgruppen, sogenannten \glslink{squad}{Squads}, beitreten, um \glslink{rezept}{Rezepte} mit Nutzern, welche ähnliche Interessen haben, zu teilen und die öffentlichen \glslink{rezept}{Rezepte} anderer Nutzer in diesen Gruppen zu betrachten. Außerdem können Nutzer die \glslink{rezept}{Rezepte} ihrer Gruppen nach bestimmten Kriterien filtern, sortieren und nach Schlagwörtern durchsuchen. So können Nutzer gezielt ihre Kochkenntnisse erweitern.
 \glslink{rezept}{Rezepte} können zudem skaliert werden, um die richtige Menge für eine bestimmte Anzahl an Personen effizient zu ermitteln.
 
 \subsection{Zielgruppen}
 Im Folgenden wird aufgezählt, für welche Anwender die Software im Wesentlichen gedacht ist. \par
-Die Koch App richtet sich an alle, die gerne kochen und ihre Kocherfahrung verbessern möchten.
+\gls{spicesquad} richtet sich an alle, die gerne kochen und ihre Kocherfahrung verbessern möchten.
 Die App ist insbesondere für Gruppen geeignet, in denen gekocht wird (Bsp. Wohngemeinschaften), da \glslink{rezept}{Rezepte} effizient geteilt und skaliert werden können.
 
 \subsection{Betriebsbedingungen}
@@ -214,15 +213,15 @@ Der Nutzer kann eine Gruppe durch Eingabe eines Gruppennamens erstellten.
 
 Falls der Nutzer schon ein Nutzerkonto besitzt, kann er sich einloggen.
 Dazu muss er seine E-Mail-Adresse und sein Passwort eingeben.
-Hat der Nutzer sein Passwort vergessen besteht die Möglichkeit das Passwort zurückzusetzen.
+Hat der Nutzer sein Passwort vergessen, besteht die Möglichkeit das Passwort zurückzusetzen.
 Ein eingeloggter Nutzer muss sich nicht erneut einloggen.\newline
 Nach dem Einloggen gelangt der Nutzer auf die Hauptansicht.
-Hier hat er die Möglichkeit, \glslink{rezept}{Rezepte} zu filtern, \glslink{favorit}{favorisieren}, nach Schlagworten zu durchsuchen oder zu sortieren.
+Hier hat er die Möglichkeit, \glslink{rezept}{Rezepte} zu filtern, zu \glslink{favorit}{favorisieren}, nach Schlagworten zu durchsuchen oder zu sortieren.
 Durch Klicken auf ein Rezept gelangt der Nutzer auf die Rezeptansicht.
-Die Rezeptansicht wird unter dem Aktivitätsdiagramm "Hauptansicht" (Abbildung 3.2) noch genauer beschrieben.
+Die Rezeptansicht wird unter dem Aktivitätsdiagramm "Hauptansicht" (\autoref{fig:ActivityDiagramMainView}) noch genauer beschrieben.
 Durch Klicken auf den Rezept-erstellen-Button gelangt der Nutzer auf der Rezept-Erstellungs-Ansicht.
 Hier kann der Nutzer ein neues Rezept erstellen.
-Es kann der Rezepttitel, die Zubereitungszeit, die Zutaten mit Mengenangabe, den \glslink{schwierigkeit}{Schwierigkeitsgrad}, die Portionsanzahl und eine
+Es können der Rezepttitel, die Zubereitungszeit, die Zutaten mit Mengenangabe, den \glslink{schwierigkeit}{Schwierigkeitsgrad}, die Portionsanzahl und eine
 Zubereitungsanweisung für das neue Rezept angegeben werden.
 
 Im Anschluss kann das Rezept veröffentlicht werden.\par
@@ -230,12 +229,12 @@ Durch klicken auf den Verwaltungsansicht-Button
 gelangt der Nutzer auf die Verwaltungsansicht.
 In dieser Ansicht kann der Nutzer sich ausloggen, sein Nutzerkonto löschen, seinen Nutzernamen ändern,
 erstellte \glslink{rezept}{Rezepte} bearbeiten, eine Gruppe verlassen und Gruppen-Kürzel oder Gruppen-QR-Codes teilen.\par
-Durch das Drücken des Gruppen-hinzufügen-Button kann der Nutzer eine neue Gruppe erstellen oder beitreten.
+Durch das Drücken des Gruppen-Hinzufügen-Buttons kann der Nutzer eine neue Gruppe erstellen oder beitreten.
 
 Von der Verwaltungsansicht kommt der Nutzer durch Klicken auf eine Gruppe auf die Gruppen-Detail-Ansicht.
 Eingeloggte Nutzer können hier Gruppenmitglieder und \glslink{rezept}{Rezepte} von Gruppenmitgliedern einsehen, die Gruppe verlassen oder den QR-Code zum Beitreten der Gruppe einsehen.
 Durch das Klicken auf die \glslink{rezept}{Rezepte} gelangt der Nutzer auf die Rezeptansicht des dazugehörigen Rezepts.
-\glslink{administrator}{Gruppenadministratoren} können in dieser Ansicht Gruppenmitglieder \gls{kicken}, \gls{bannen}, zum \gls{administrator} ernennen, \glslink{administrator}{Administratoren} zu normalen Nutzern degradieren, \glslink{rezept}{Rezepte} von Gruppenmitgliedern für die Gruppe \gls{ausblenden} oder die Gruppe auflösen.\par
+\glslink{administrator}{Gruppenadministratoren} können in der Verwaltungsansicht Gruppenmitglieder \gls{kicken}, \gls{bannen}, zum \gls{administrator} ernennen, \glslink{administrator}{Administratoren} zu normalen Nutzern degradieren, \glslink{rezept}{Rezepte} von Gruppenmitgliedern für die Gruppe \gls{ausblenden} oder die Gruppe auflösen.\par
 
 Im Falle eines Verbindungsverlustes zum Server können bereits geladene \glslink{rezept}{Rezepte} weiterhin angezeigt werden. Wird die App ohne Verbindung zum Server gestartet, wird eine Fehlermeldung angezeigt.
 
@@ -246,7 +245,7 @@ werden die verschiedenen Möglichkeiten unter dem Menüpunkt Hauptansicht aufgef
 
 
 Der Nutzer hat die Möglichkeit \glslink{rezept}{Rezepte} durch ein Suchfeld zu suchen.
-Der Nutzer hat die Möglichkeit die Liste durch vorgegebene Sortierungen zu sortieren oder nach Filterkriterien zu filtern.
+Der Nutzer hat die Möglichkeit die Liste nach verschiedenen vorgegebene Attributen zu sortieren oder zu filtern.
 Vorgegebene Sortierungen sind auf- oder absteigend alphabetisch nach Namen des Rezepts, nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} und nach dem Hinzufügedatum.
 Die Liste lässt sich nach \glslink{favorit}{Favoriten}, \gls{labels} oder \glslink{schwierigkeit}{Schwierigkeitsgrad} filtern.
 Es besteht zudem die Möglichkeit \glslink{rezept}{Rezepte} schon in dieser Ansicht zu \glslink{favorit}{favorisieren}.\newline
@@ -266,7 +265,7 @@ Der \gls{administrator} muss in der Verwaltungsansicht die Gruppe wählen in der
 Der \gls{administrator} landet so in der Gruppen-Detail-Ansicht.
 Durch Klicken auf ein Rezept kann der \glslink{administrator}{Gruppenadministrator}, \glslink{einblenden}{eingeblendete} \glslink{rezept}{Rezepte} \gls{ausblenden} und \glslink{ausblenden}{ausgeblendete} \glslink{rezept}{Rezepte} \gls{einblenden}.\newline
 Beim Auswählen von Gruppenmitgliedern gibt es die Möglichkeit das Gruppenmitglied zu \gls{kicken} oder zu \gls{bannen}.
-Der \gls{administrator} muss die jeweilige Aktion nachträglich nochmal bestätigen.
+Der \gls{administrator} muss die jeweilige Aktion vor dem endgültigen Entfernen nocheinmal bestätigen.
 Ein \glslink{kicken}{gekickter} Nutzer kann der Gruppe wieder beitreten wohingegen ein \glslink{bannen}{gebannter} Nutzer der Gruppe unwiderruflich nicht mehr beitreten kann.
 Ein \gls{administrator} kann ein Gruppenmitglied zu einem \gls{administrator} ernennen.
 Ein \gls{administrator} kann einen anderen \gls{administrator} wieder zu einem normalen Nutzer degradieren.
@@ -274,7 +273,7 @@ Ein \gls{administrator} kann einen anderen \gls{administrator} wieder zu einem n
 Der \gls{administrator} einer Gruppe kann durch eine nachfolgende Bestätigung die Gruppe verlassen.
 Ist anschließend kein weiteres Mitglied mehr in der Gruppe wird die Gruppe aufgelöst. Ein Nutzer kann der Gruppe anschließend nicht mehr beitreten.
 Ein \gls{administrator} kann eine Gruppe durch eine nachfolgende Bestätigung auflösen. Ein Nutzer kann der Gruppe anschließend nicht mehr beitreten und alle Mitglieder der Gruppe werden automatisch \glslink{kicken}{gekickt}.\newline
-Der \gls{administrator} kann das \gls{gruppenkurzel} durch "Gruppenkürzel kopieren" in die Zwischenablage kopieren. Der \gls{administrator} kann den QR-Code der Gruppe durch "QR-Code anzeigen" anschauen.
+Der \gls{administrator} kann das \gls{gruppenkurzel} durch "Gruppenkürzel kopieren" in die Zwischenablage kopieren. Der \gls{administrator} kann den QR-Code der Gruppe durch "QR-Code anzeigen" ansehen.
 
 \newpage
 
@@ -307,7 +306,8 @@ Der \gls{administrator} kann das \gls{gruppenkurzel} durch "Gruppenkürzel kopie
 \end{figure}
 \newpage
 
-\section{ Benutzeroberfläche }
+\section{Benutzeroberfläche}
+\setcounter{figure}{0} 
 \enablesubsectionnumbering{UI}
 In diesem Kapitel wird die Benutzerberfläche erläutert. Es wird auf die Darstellung der einzelnen Funktionen sowie die Navigation zwischen diesen eingegangen. Alle hier gezeigten Abbildungen dienen lediglich der Veranschaulichung und sind nicht als fertige Entwürfe zu verstehen.
 
@@ -316,12 +316,12 @@ Bei der App handelt es sich um eine Anwendungssoftware für Android-Endgeräte. 
 
 \subsection{Registrierungsansicht}
 \label{ui:RegisterView}
-Beim Öffnen der App gelangt der Nutzer auf die Registrierungsansicht (\autoref{fig:RegisterView}). Hier kann der Nutzer sich mit seiner E-Mail-Adresse, einem Nutzernamen und einem Passwort registrieren. Nach erfolgreicher Registrierung gelangt der Nutzer auf die Gruppen-Beitritts-Ansicht \ref{ui:GroupJoiningView}. Alternativ kann der Nutzer auch auf die Anmeldungsansicht \ref{ui:LoginView} wechseln.
+Beim Öffnen der App gelangt der Nutzer auf die Registrierungsansicht (\autoref{fig:RegisterView}). Hier kann sich der Nutzer mit seiner E-Mail-Adresse, einem Nutzernamen und einem Passwort registrieren. Nach erfolgreicher Registrierung gelangt der Nutzer auf die Gruppen-Beitritts-Ansicht \ref{ui:GroupJoiningView}. Alternativ kann der Nutzer auch auf die Anmeldungsansicht \ref{ui:LoginView} wechseln.
 
 
 \subsection{Anmeldungsansicht}
 \label{ui:LoginView}
-In der Anmeldeseite (\autoref{fig:LoginView}) kann ein bereits registrierter Nutzer sich mit seiner E-Mail-Adresse und seinem Passwort anmelden. Nach erfolgreicher Anmeldung gelangt der Nutzer auf die Hauptansicht \ref{ui:MainView}. Alternativ kann der Nutzer auch auf die Registrierungsansicht \ref{ui:RegisterView} wechseln.
+In der Anmeldungsansicht (\autoref{fig:LoginView}) kann sich ein bereits registrierter Nutzer mit seiner E-Mail-Adresse und seinem Passwort anmelden. Nach erfolgreicher Anmeldung gelangt der Nutzer auf die Hauptansicht \ref{ui:MainView}. Alternativ kann der Nutzer auch auf die Registrierungsansicht \ref{ui:RegisterView} wechseln.
 Hat ein Nutzer sein Passwort vergessen, so kann er zur Passwort-Zurücksetzen-Ansicht \ref{ui:PasswordResetView} wechseln.
 
 \subsection{Passwort-Zurücksetzen-Ansicht}
@@ -330,7 +330,7 @@ Hier (\autoref{fig:PasswordResetView}) kann der Nutzer sein Password zurücksetz
 
 \subsection{Gruppen-Beitritts-Ansicht}
 \label{ui:GroupJoiningView}
-In dieser Ansicht (\autoref{fig:GroupJoiningView}) kann der Nutzer einer bereits bestehenden Gruppe beitreten. Dazu kann er entweder ein Gruppen-Kürzel eingeben oder mit Hilfe der Handykamera einen QR-Code scannen. In dieser Ansicht gibt es einige Unterschiede, je nachdem ob der Nutzer nach der Registrierungsansicht \ref{ui:RegisterView} oder von der Verwaltungsansicht \ref{ui:SettingsView} auf diese Seite gelangt. Im ersten Fall gibt es noch einen Überspringen-Knopf, mit dem der Nutzer keiner Gruppe beitritt, sondern direkt auf die Hauptansicht \ref{ui:MainView} gelangt. Dorthin wird er auch weitergeleitet, wenn er einer Gruppe beigetreten ist. Im zweiten Fall gibt es einen Zurück-Knopf, mit dem der Nutzer auf die Verwaltungsansicht \ref{ui:SettingsView} zurückgelangt. Das ist auch der Fall, nachdem er einer Gruppe beigetreten ist.
+In dieser Ansicht (\autoref{fig:GroupJoiningView}) kann der Nutzer einer bereits bestehenden Gruppe beitreten. Dazu kann er entweder ein \gls{gruppenkurzel} eingeben oder mit Hilfe der Handykamera einen QR-Code scannen. In dieser Ansicht gibt es einige Unterschiede, je nachdem ob der Nutzer nach der Registrierungsansicht \ref{ui:RegisterView} oder von der Verwaltungsansicht \ref{ui:SettingsView} auf diese Seite gelangt. Im ersten Fall gibt es noch einen Überspringen-Knopf, mit dem der Nutzer keiner Gruppe beitritt, sondern direkt auf die Hauptansicht \ref{ui:MainView} gelangt. Dorthin wird er auch weitergeleitet, wenn er einer Gruppe beigetreten ist. Im zweiten Fall gibt es einen Zurück-Knopf, mit dem der Nutzer auf die Verwaltungsansicht \ref{ui:SettingsView} zurückgelangt. Das ist auch der Fall, nachdem er einer Gruppe beigetreten ist.
 Alternativ kann der Nutzer auch eine Gruppe erstellen, indem er zur Gruppen-Erstellungs-Ansicht \ref{ui:GroupCreationView} wechselt.
 
 \subsection{Gruppen-Erstellungs-Ansicht}
@@ -346,13 +346,13 @@ Unten am Bildschirm befindet sich eine Navigationsleiste, die es dem Nutzer erm�
 \subsection{Rezeptansicht}
 \label{ui:RecipeView}
 
-In der Rezeptansicht (\autoref{fig:RecipeView}) wird ein bestimmtes Rezept angezeigt. Es werden der Name, das Bild, die Zutaten, die Zubereitungsanweisungen, die Zubereitungszeit, der \glslink{schwierigkeit}{Schwierigkeitsgrad}, der \gls{autor} und das Erstellungsdatum angezeigt. Der Nutzer kann durch Anpassen der Portionenzahl automatisch die Zutatenmengen errechnen lassen. Durch einen Klick auf das Herzsymbol wird ein Rezept zu den \glslink{favorit}{Favoriten} hinzugefügt bzw. wieder entfernt. Ist der Nutzer der \gls{autor} des Rezepts, so wird oben ein Stiftsymbol angezeigt. Durch einen Klick auf dieses Symbol gelangt der Nutzer auf die Rezept-Erstellungs-Ansicht \ref{ui:RecipeCreationView}, die bereits mit dem Rezept befüllt ist. Dort kann er das Rezept bearbeiten. Unten am Bildschirm ist wieder die Navigationsleiste, wie in \ref{ui:MainView}, zu finden. Außerdem kann der Nutzer wieder zurück zur vorherigen Ansicht gelangen, indem er auf das Zurück-Symbol oben links klickt.
+In der Rezeptansicht (\autoref{fig:RecipeView}) wird ein bestimmtes \gls{rezept} angezeigt. Es werden der Name, das Bild, die Zutaten, die Zubereitungsanweisungen, die Zubereitungszeit, der \glslink{schwierigkeit}{Schwierigkeitsgrad}, der \gls{autor} und das Erstellungsdatum angezeigt. Der Nutzer kann durch Anpassen der Portionenzahl automatisch die Zutatenmengen errechnen lassen. Durch einen Klick auf das Herzsymbol wird ein Rezept zu den \glslink{favorit}{Favoriten} hinzugefügt bzw. wieder entfernt. Ist der Nutzer der \gls{autor} des Rezepts, so wird oben ein Stiftsymbol angezeigt. Durch einen Klick auf dieses Symbol gelangt der Nutzer auf die Rezept-Erstellungs-Ansicht \ref{ui:RecipeCreationView}, die bereits mit dem Rezept befüllt ist. Dort kann er das Rezept bearbeiten. Unten am Bildschirm ist wieder die Navigationsleiste, wie in \ref{ui:MainView}, zu finden. Außerdem kann der Nutzer wieder zurück zur vorherigen Ansicht gelangen, indem er auf das Zurück-Symbol oben links klickt. Unter dem Rezept gibt es noch einen Melden-Button, mit dem ein Rezept den \glslink{administrator}{Administratoren} gemeldet werden kann.
 
 
 \subsection{Rezept-Erstellungs-Ansicht}
 \label{ui:RecipeCreationView}
 In dieser Ansicht (\autoref{fig:RecipeCreationView}) kann ein Nutzer ein neues Rezept erstellen oder ein Bestehendes bearbeiten. Dazu gibt es verschiedene Eingabefelder, die der Nutzer ausfüllen kann. Diese umfassen den Rezeptnamen, Zubereitungszeit, \gls{labels} und \glslink{schwierigkeit}{Schwierigkeitsgrad} sowie die Zubereitungsanweisungen. Zusätzlich muss der Nutzer festlegen, für wie viele Portionen das Rezept ausgelegt ist. Außerdem kann er ein Bild mit Hilfe des betriebssystemeigenen Dateimanagers hochladen, indem er auf das Bild-Symbol klickt.
-Die Zutaten können mit einem Klick auf das Plus-Symbol hinzugefügt werden. Dazu öffnet sich die Zutaten-auswahl-Ansicht \ref{ui:IngredientPickerView}, in der der Nutzer die Zutat auswählen kann. Die bereits hinzugefügten Zutaten werden in einer Liste angezeigt und können durch einen Klick auf das Kreuz-Symbol entfernt werden. Ganz unten befindet sich ein Knopf zum Speichern des Rezepts. Mit diesem wird der Nutzer auf die Hauptansicht \ref{ui:MainView} weitergeleitet. Bearbeitet der Nutzer eines seiner \glslink{rezept}{Rezepte} und erstellt kein neues, so gibt es einen Zurück-Button, mit dem er auf die vorherige Ansicht gelangt. Auch hier gibt es wieder die Navigationsleiste aus \ref{ui:MainView}.
+Die Zutaten können mit einem Klick auf das Plus-Symbol hinzugefügt werden. Dazu öffnet sich die Zutaten-Auswahl-Ansicht \ref{ui:IngredientPickerView}, in der der Nutzer die Zutat auswählen kann. Die bereits hinzugefügten Zutaten werden in einer Liste angezeigt und können durch einen Klick auf das Kreuz-Symbol entfernt werden. Ganz unten befindet sich ein Knopf zum Speichern des Rezepts. Mit diesem wird der Nutzer auf die Hauptansicht \ref{ui:MainView} weitergeleitet. Bearbeitet der Nutzer eines seiner \glslink{rezept}{Rezepte} und erstellt kein neues, so gibt es einen Zurück-Button, mit dem er auf die vorherige Ansicht gelangt. Auch hier gibt es wieder die Navigationsleiste aus \ref{ui:MainView}.
 
 \subsection{Zutaten-Auswahl-Ansicht}
 \label{ui:IngredientPickerView}
@@ -362,7 +362,7 @@ In dieser Ansicht (\autoref{fig:IngredientPickerView}) kann der Nutzer Zutaten e
 
 \subsection{Verwaltungsansicht}
 \label{ui:SettingsView}
-Die Verwaltungsansicht dient der Verwaltung des Nutzers, seiner Gruppen und seiner \glslink{rezept}{Rezepte}. Der Nutzer kann seinen Anzeigenamen und sein Profilbild ändern. Zudem kann er Gruppen verlassen, in dem er auf das Kreuz-Symbol neben der entsprechenden Gruppe drückt. Durch das Plus-Symbol gelangt der Nutzer zur Gruppen-Beitritts-Ansicht \ref{ui:GroupJoiningView} in der er einer Gruppe beitreten kann oder eine neue Gruppe erstellen kann. Drückt ein Nutzer auf eine der Gruppen, so kommt er zur Gruppen-Detail-Ansicht \ref{ui:GroupDetailView}. Außerdem sieht der Nutzer seine erstellten \glslink{rezept}{Rezepte}, die er hier mit dem entsprechenden Button entfernen, als PDF exportieren oder auf privat stellen kann. Durch Klick auf das Rezept wird man zur entsprechenden Rezeptansicht \ref{ui:RecipeView}.
+Die Verwaltungsansicht dient der Verwaltung des Nutzers, seiner Gruppen und seiner \glslink{rezept}{Rezepte}. Der Nutzer kann seinen Anzeigenamen und sein Profilbild ändern. Zudem kann er Gruppen verlassen, in dem er auf das Kreuz-Symbol neben der entsprechenden Gruppe drückt. Durch das Plus-Symbol gelangt der Nutzer zur Gruppen-Beitritts-Ansicht \ref{ui:GroupJoiningView} in der er einer Gruppe beitreten oder eine neue Gruppe erstellen kann. Drückt ein Nutzer auf eine der Gruppen, so kommt er zur Gruppen-Detail-Ansicht \ref{ui:GroupDetailView}. Außerdem sieht der Nutzer seine erstellten \glslink{rezept}{Rezepte}, die er hier mit dem entsprechenden Button entfernen, als PDF exportieren oder auf privat stellen kann. Durch Klick auf das Rezept wird man zur entsprechenden Rezeptansicht \ref{ui:RecipeView} geleitet.
 Zudem kann der Nutzer sich mit dem Symbol oben rechts ausloggen. Daraufhin wird er zur Anmeldungsansicht \ref{ui:LoginView} weitergeleitet. Er kann außerdem sein Konto auflösen, woraufhin er ebenfalls zur Anmeldungsansicht \ref{ui:LoginView} geleitet wird. Auch hier gibt es wieder die Navigationsleiste aus \ref{ui:MainView}.
 
 
@@ -498,10 +498,10 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
     \item Der Nutzer gibt sein Passwort ein.
     \item Der Nutzer klickt auf den Weiter-Button, um die Anmeldung abzuschließen.
     \item Der Nutzer klickt auf den Verwaltungsansicht-Button.
-    \item Der Nutzer Klick auf den ausloggen-Button.
+    \item Der Nutzer Klick auf den Abmelde-Button.
     \item Der Nutzer wird zur Anmeldungsansicht weitergeleitet
 \end{enumerate}
-\textbf{Alternativen:} Mit einem Klick auf den Registrieren-Button kann ein Nutzer Konto angelegt werden. Mit einem Klick auf den Passwort-vergessen-Button kann das Passwort eines bestehenden Kontos geändert werden.
+\textbf{Alternativen:} Mit einem Klick auf den Registrieren-Button kann ein Nutzer Konto angelegt werden. Mit einem Klick auf den Passwort-Vergessen-Button kann das Passwort eines bestehenden Kontos geändert werden.
 \newpage
 
 \subsection{Registrierung und Konto löschen}
@@ -509,8 +509,8 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Anforderungen:} \ref{rm:Registering}, \ref{rs:AccountDeletion} \\
 \textbf{Ziel:} Der Nutzer legt ein Nutzerkonto an, um alle Features der App nutzen zu können und löscht das Nutzerkonto danach.\\
 \textbf{Vorbedingung:} -\\
-\textbf{Nachbedingung Erfolg:} Der Nutzer wird zum Gruppen-Beitritts-Ansicht weitergeleitet und mit einem Pop-up-Fenster erfolgt die Bestätigung zur erfolgreichen Registrierung.\\
-\textbf{Nachbedingung Fehlschlag:} Eine Fehlermeldung erscheint beim fehlerhaften Eingabefenster.\\
+\textbf{Nachbedingung Erfolg:} Der Nutzer wird zum Gruppen-Beitritts-Ansicht weitergeleitet und mit einem Pop-Up-Fenster erfolgt die Bestätigung zur erfolgreichen Registrierung.\\
+\textbf{Nachbedingung Fehlschlag:} Eine Fehlermeldung erscheint beim fehlerhaften Eingabefeld.\\
 \textbf{Akteure:} Nutzer\\
 \textbf{Auslösendes Ereignis:} Der Nutzer muss auf den Registrieren-Button in der Anmeldungsansicht klicken.\\
 \textbf{Beschreibung:}
@@ -526,7 +526,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
     \item Der Nutzer wird zur Hauptansicht weitergeleitet.
     \item Der Nutzer klickt auf den Verwaltungsansicht-Button.
     \item Der Nutzer klickt auf den Konto-Löschen-Button.
-    \item Ein Pop-up-Fenster erscheint zur Bestätigung zum Löschen des Benutzerkonto löschen.
+    \item Ein Pop-Up-Fenster erscheint zur Bestätigung zum Löschen des Benutzerkonto löschen.
     \item Der Nutzer klickt auf den Bestätigen-Button.
     \item Das Benutzerkonto wird gelöscht.
     \item Der Nutzer wird zur Anmeldungsansicht weitergeleitet.
@@ -539,14 +539,13 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Anforderungen:} \ref{rs:ResetPassword}\\
 \textbf{Ziel:} Der Nutzer kann ein neues Passwort setzen.\\
 \textbf{Vorbedingung:} Die App muss bereits gestartet worden sein.\\
-\textbf{Nachbedingung Erfolg:} Der Nutzer wird zum Anmeldungsansicht weitergeleitet und mit einem Pop-up-Fenster erfolgt die Bestätigung der Versendung einer E-Mail an die angegeben E-Mail-Adresse.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Nachbedingung Erfolg:} Der Nutzer wird zum Anmeldungsansicht weitergeleitet und mit einem Pop-Up-Fenster erfolgt die Bestätigung der Versendung einer E-Mail an die angegeben E-Mail-Adresse.\\
+\textbf{Nachbedingung Fehlschlag:} Ein Pop-Up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer\\
-\textbf{Auslösendes Ereignis:} Der Nutzer muss auf den Passwort-vergessen-Button in der Anmeldungsansicht klicken.\\
-
+\textbf{Auslösendes Ereignis:} Der Nutzer muss auf den Passwort-Vergessen-Button in der Anmeldungsansicht klicken.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
-    \item Klick auf den Passwort-vergessen-Button.
+    \item Klick auf den Passwort-Vergessen-Button.
     \item Eingabe der E-Mail-Adresse.
     \item Klick auf den Weiter-Button.
 \end{enumerate}
@@ -560,13 +559,13 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Ziel:} Der Nutzer kann seinen Benutzernamen und sein Profilbild an seine Wünsche anpassen.\\
 \textbf{Vorbedingung:} -\\
 \textbf{Nachbedingung Erfolg:} Der aktualisierte Nutzername und das aktualisierte Profilbild wird anderen Nutzern angezeigt.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Nachbedingung Fehlschlag:} Ein Pop-Up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer\\
 \textbf{Auslösendes Ereignis:} Der Nutzer klickt auf den Button für die Verwaltungsansicht.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
     \item Der Nutzer klickt auf den Button für die Verwaltungsansicht.
-    \item Der Nutzer klickt auf den Nutzernamen-bearbeiten-Button.
+    \item Der Nutzer klickt auf den Nutzernamen-Bearbeiten-Button.
     \item Der Nutzer gibt den neuen Nutzernamen ein.
     \item Der Nutzer klickt auf den Speichern-Button.
     \item Der Nutzer klickt auf sein Profilbild.
@@ -584,7 +583,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Ziel:} Der Nutzer erstellt ein Rezept, welches er mit seinen Gruppen teilen möchte, oder auch nur für sich sichtbar macht. Nimmt dann Änderungen vor, um es dann wieder zu löschen.\\
 \textbf{Vorbedingung:} -\\
 \textbf{Nachbedingung Erfolg:} Das erstellte und geänderte Rezept wird in der Verwaltungsansicht nicht mehr angezeigt.  \\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Nachbedingung Fehlschlag:} Ein Pop-Up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer\\
 \textbf{Auslösendes Ereignis:} In der Hauptansicht klickt der Nutzer auf den neues-Rezept-anlegen-Button.\\
 \textbf{Beschreibung:}
@@ -601,7 +600,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
     \item Der Nutzer wird zur Hauptansicht weitergeleitet.
     \item Der Nutzer klickt auf den Verwaltungsansicht-Button.
     \item Der Nutzer klickt auf den Löschen-Button des gerade geänderten Rezepts.
-    \item Ein Pop-up-Fenster erscheint mit der Frage zur Bestätigung, dass das Rezept gelöscht werden soll.
+    \item Ein Pop-Up-Fenster erscheint mit der Frage zur Bestätigung, dass das Rezept gelöscht werden soll.
     \item Der Nutzer klickt auf den Bestätigen-Button.
     \item Dem Nutzer wird das Rezept nicht mehr angezeigt.
 \end{enumerate}
@@ -610,12 +609,12 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 
 
 \subsection{Rezept suchen, sortieren, filtern, anschauen und favorisieren}
-\textbf{Anwendungsfall:} Der Nutzer möchte nach einem Rezept Suchen, dann die \glslink{rezept}{Rezepte} nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} filtern, ein Rezept sich genauer anschauen und dies dann \glslink{favorit}{favorisieren}.\\
+\textbf{Anwendungsfall:} Der Nutzer möchte nach einem Rezept suchen, dann die \glslink{rezept}{Rezepte} nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} filtern, ein Rezept sich genauer anschauen und dies dann \glslink{favorit}{favorisieren}.\\
 \textbf{Anforderungen:} \ref{rm:RecipeViewing}, \ref{rs:RecipeFavourites}, \ref{rs:PortionScaling}, \ref{rs:Searching}, \ref{rc:Filtering}, \ref{rc:Sorting}, \ref{rc:PDFExport}, \ref{rs:AuthorAndDate}, \ref{rs:RecipeLabels}, \ref{rc:FavoriteAuthorRejoin}\\
 \textbf{Ziel:} Der Nutzer kann mit dem Suchen, dem Filtern und dem \glslink{favorit}{Favorisieren} sein gewünschtes Rezept schnell finden und es mithilfe der Zubereitungsanweisungen nachvollziehen.\\
 \textbf{Vorbedingung:} Dem Nutzer wird mindestens ein Rezept in der Hauptansicht oder in der Gruppen-Detail-Ansicht angezeigt.\\
-\textbf{Nachbedingung Erfolg:} Das Rezept \glslink{favorit}{favorisierte} Rezept ist mit den anderen \glslink{favorit}{favorisierten} \glslink{rezept}{Rezepten} beim Filter \glslink{favorit}{favorisierte} \glslink{rezept}{Rezepte} auffindbar.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Nachbedingung Erfolg:} Das \glslink{favorit}{favorisierte} Rezept ist mit den anderen \glslink{favorit}{favorisierten} \glslink{rezept}{Rezepten} beim Filter \glslink{favorit}{favorisierte} \glslink{rezept}{Rezepte} auffindbar.\\
+\textbf{Nachbedingung Fehlschlag:} Ein Pop-Up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer\\
 \textbf{Auslösendes Ereignis:} Der Nutzer klickt auf die Suchzeile in der Hauptansicht.\\
 \textbf{Beschreibung:}
@@ -639,7 +638,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Ziel:} Der Nutzer kann mit der neuen Gruppe seine \glslink{rezept}{Rezepte} teilen und danach die Gruppe auch wieder auflösen.\\
 \textbf{Vorbedingung:} -\\
 \textbf{Nachbedingung Erfolg:} Die erstellte Gruppe wird in der Verwaltungsansicht nicht mehr angezeigt und der \glslink{administrator}{Administrator Status} des Nutzers wird wieder entfernt.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Nachbedingung Fehlschlag:} Ein Pop-Up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer\\
 \textbf{Auslösendes Ereignis:} Der Nutzer klickt auf den Gruppe-erstellen-Button.\\
 \textbf{Beschreibung:}
@@ -650,12 +649,12 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
     \item Der Nutzer klickt auf den Speichern-Button.
     \item Der Nutzer wird zur Verwaltungsansicht zurückgeleitet.
     \item Der Nutzer klickt auf die Gruppe und wird zur Gruppen-Detail-Ansicht weitergeleitet.
-    \item Der Nutzer klickt auf den Gruppen-auflösen-Button.
-    \item Ein Pop-up-Fenster erscheint, welches um Bestätigung bitten.
+    \item Der Nutzer klickt auf den Gruppe-Auflösen-Button.
+    \item Ein Pop-Up-Fenster erscheint, welches um Bestätigung bitten.
     \item Der Nutzer klickt auf den Button zum Bestätigen.
     \item Der Nutzer wird zur Verwaltungsansicht weitergeleitet.
 \end{enumerate}
-\textbf{Alternativen:} Mit dem Gruppe-beitreten-Button kann auch zur Gruppen-Erstellungs-Ansicht gelangt werden.
+\textbf{Alternativen:} Mit dem Gruppe-Beitreten-Button kann auch zur Gruppen-Erstellungs-Ansicht gelangt werden.
 \newpage
 
 
@@ -665,21 +664,21 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Ziel:} Der Nutzer ist der Gruppe beigetreten und kann alle in der Gruppe geteilten \glslink{rezept}{Rezepte} ansehen und diese auch wieder verlassen, sodass in der Hauptansicht die \glslink{rezept}{Rezepte} nicht mehr angezeigt werden.\\
 \textbf{Vorbedingung:} -\\
 \textbf{Nachbedingung Erfolg:} Die beigetretene Gruppe wird nicht mehr in der Verwaltungsansicht angezeigt und die \glslink{rezept}{Rezepte} der Gruppe werden nicht mehr in der Hauptansicht angezeigt.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Nachbedingung Fehlschlag:} Ein Pop-Up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer\\
-\textbf{Auslösendes Ereignis:} Klick auf den Gruppe-beitreten-Button.\\
+\textbf{Auslösendes Ereignis:} Klick auf den Gruppe-Beitreten-Button.\\
 \textbf{Beschreibung:}\\
 \begin{enumerate}
-    \item Der Nutzer klickt auf den Gruppe-beitreten-Button in der Verwaltungsansicht.
+    \item Der Nutzer klickt auf den Gruppe-Beitreten-Button in der Verwaltungsansicht.
     \item Der Nutzer gibt das \glslink{gruppenkurzel}{Gruppenkürzels} ein.
-    \item Der Nutzer klickt auf den Gruppe-beitreten-Button.
+    \item Der Nutzer klickt auf den Gruppe-Beitreten-Button.
     \item Der Nutzer wird zur Gruppen-Detail-Ansicht weitergeleitet.
-    \item Der Nutzer klickt auf den Gruppe-verlassen-Button.
-    \item Ein Pop-up-Fenster erscheint, welches um Bestätigung bitten.
+    \item Der Nutzer klickt auf den Gruppe-Verlassen-Button.
+    \item Ein Pop-Up-Fenster erscheint, welches um Bestätigung bittet.
     \item Der Nutzer klickt auf den Button zum Bestätigen.
-    \item der Nutzer wird zur Verwaltungsansicht weitergeleitet.
+    \item Eer Nutzer wird zur Verwaltungsansicht weitergeleitet.
 \end{enumerate}
-\textbf{Alternativen:} Nach dem Anmeldungsansicht wird man zur Gruppe-beitreten-Ansicht weitergeleitet, wodurch auch einer Gruppe beigetreten werden kann. Einer Gruppe kann auch mit dem Scannen eines QR-Codes beigetreten werden ohne die Eingabe eines Gruppennamens. Der Prozess des Gruppe verlassens kann abgebrochen werden mit der Verweigerung der Bestätigung.
+\textbf{Alternativen:} Nach dem Anmeldungsansicht wird man zur Gruppe-Beitreten-Ansicht weitergeleitet, wodurch auch einer Gruppe beigetreten werden kann. Einer Gruppe kann auch mit dem Scannen eines QR-Codes beigetreten werden ohne die Eingabe eines Gruppennamens. Der Prozess des Gruppe Verlassens kann abgebrochen werden mit der Verweigerung der Bestätigung.
 \newpage
 
 
@@ -688,8 +687,8 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Anforderungen:} \ref{rm:GroupId}\\
 \textbf{Ziel:} Der Nutzer kann die Daten der Gruppe mit anderen Nutzern teilen, um diesen die Möglichkeit zu geben der Gruppe beizutreten.\\
 \textbf{Vorbedingung:} Der Nutzer ist in einer Gruppe Mitglied.\\
-\textbf{Nachbedingung Erfolg:} Ein Pop-up-Fenster erscheint mit den Daten der Gruppe.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Nachbedingung Erfolg:} Ein Pop-Up-Fenster erscheint mit den Daten der Gruppe.\\
+\textbf{Nachbedingung Fehlschlag:} Ein Pop-Up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer \\
 \textbf{Auslösendes Ereignis:} Der Nutzer klickt in der Verwaltungsansicht auf die Gruppe und wird zur Gruppen-Detail-Ansicht weitergeleitet.\\
 \textbf{Beschreibung:}
@@ -703,24 +702,23 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Alternativen:} Mit dem Zurück-Button kann die QR-Code-Ansicht wieder verlassen werden.
 \newpage
 
-
 \subsection{Administrator ernennen und Administrator Status entfernen}
-\textbf{Anwendungsfall:} Der Nutzer möchte ein weiteres Mitglied der Gruppe zu einem \gls{administrator} der Gruppe ernennen und dem Nutzer den \glslink{administrator}{Administrator Status} dann wieder aberkennen.\\
+\textbf{Anwendungsfall:} Der Nutzer möchte ein weiteres Mitglied der Gruppe zu einem \gls{administrator} der Gruppe ernennen und dem Nutzer den \glslink{administrator}{Administratorenstatus} dann wieder aberkennen.\\
 \textbf{Anforderungen:} \ref{rs:AdminCreation}\\
 \textbf{Ziel:} Der Nutzer kann seine Rechte für die Gruppe mit anderen Mitgliedern teilen und auch anderen Mitglieder die Rechte entziehen.\\
 \textbf{Vorbedingung:} Der Nutzer ist \gls{administrator} der Gruppe.\\
-\textbf{Nachbedingung Erfolg:} Ein weiteres Mitglied besitze die gegebenen Rechte nicht mehr.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Nachbedingung Erfolg:} Ein weiteres Mitglied besitzt die gegebenen Rechte nicht mehr.\\
+\textbf{Nachbedingung Fehlschlag:} Ein Pop-Up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} \gls{administrator}, Nutzer \\
 \textbf{Auslösendes Ereignis:} Der Nutzer klickt auf die Detailansicht eines Mitglieds der Gruppe.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
     \item Der \gls{administrator} klickt auf die Detailansicht eines Mitglieds der Gruppe.
     \item Der \gls{administrator} klickt auf die Option den Nutzer zum \gls{administrator} der Gruppe zu ernennen.
-    \item Ein Pop-up-Fenster erscheint mit einer Bestätigung, dass der Nutzer zum \gls{administrator} der Gruppe ernannt wurde.
+    \item Ein Pop-Up-Fenster erscheint mit einer Bestätigung, dass der Nutzer zum \gls{administrator} der Gruppe ernannt wurde.
     \item Der \gls{administrator} klickt auf die Detail-Ansicht eines Mitglieds der Gruppe.
-    \item Der \gls{administrator} klickt auf die Option den Nutzer den \glslink{administrator}{Administrator Status} in der Gruppe zu entziehen.
-    \item Ein Pop-up-Fenster erscheint mit einer Bestätigung, dass dem Nutzer der \glslink{administrator}{Administrator Status} entzogen worden.
+    \item Der \gls{administrator} klickt auf die Option den Nutzer den \glslink{administrator}{Administratorenstatus} in der Gruppe zu entziehen.
+    \item Ein Pop-Up-Fenster erscheint mit einer Bestätigung, dass dem Nutzer der \glslink{administrator}{Administratorenstatus} entzogen worden.
 \end{enumerate}
 \textbf{Alternativen:} -
 \newpage
@@ -731,19 +729,18 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Ziel:} Ein \gls{administrator} möchte das erste Mitglied nur aus der Gruppe \gls{kicken} und dem zweiten Mitglied nicht mehr die Möglichkeit bieten der Gruppe beizutreten.\\
 \textbf{Vorbedingung:} Der Nutzer ist \gls{administrator} der Gruppe und die Gruppe hat insgesamt mindestens drei Mitglieder.\\
 \textbf{Nachbedingung Erfolg:} Die beiden Nutzer sind nicht mehr in der Gruppe.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Nachbedingung Fehlschlag:} Ein Pop-Up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} \gls{administrator}, Nutzer\\
 \textbf{Auslösendes Ereignis:} Der Nutzer klickt auf die Detail-Ansicht des Mitglieds der Gruppe.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
     \item Der \gls{administrator} klickt auf die Detail-Ansicht des ersten Mitglieds der Gruppe.
     \item Der \gls{administrator} klickt auf die Option den Nutzer zu \gls{kicken}.
-    \item Ein Pop-up-Fenster erscheint mit einer Bitte um Bestätigung, dass der Nutzer \glslink{kicken}{gekickt} werden soll.
+    \item Ein Pop-Up-Fenster erscheint mit einer Bitte um Bestätigung, dass der Nutzer \glslink{kicken}{gekickt} werden soll.
     \item Der \gls{administrator} klickt auf den Bestätigen-Button.
     \item Der \gls{administrator} klickt auf die Detailansicht des zweiten Mitglieds der Gruppe.
     \item Der \gls{administrator} klickt auf die Option den Nutzer zu \gls{bannen}.
-    \item Ein Pop-up-Fenster erscheint mit einer Bestätigung, dass der Nutzer \glslink{bannen}{gebannt} worden ist.
-    \item Der 
+    \item Ein Pop-Up-Fenster erscheint mit einer Bestätigung, dass der Nutzer \glslink{bannen}{gebannt} worden ist.
 \end{enumerate}
 \textbf{Alternativen:} -
 \newpage
@@ -755,24 +752,22 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Ziel:} Der \gls{administrator} kann bestimmen welche \glslink{rezept}{Rezepte} den Mitgliedern und ihm selbst angezeigt werden.\\
 \textbf{Vorbedingung:} Der Nutzer und der \gls{administrator} sind in einer Gruppe und in der Gruppe besteht mindestens ein \glslink{rezept}{Rezepte}.\\
 \textbf{Nachbedingung Erfolg:} Das Rezept wird wieder Hauptansicht und in der Gruppen-Detail-Ansicht angezeigt, nach dem es für die Mitglieder ausgeblendet war.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Nachbedingung Fehlschlag:} Ein Pop-Up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer, \gls{administrator}\\
 \textbf{Auslösendes Ereignis:} Der Nutzer klickt in der Gruppen-Detail-Ansicht auf den Melden-Button von einem Rezept.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
     \item Der Nutzer klickt in der Gruppen-Detail-Ansicht auf den Melden-Button von einem Rezept.
-    \item Ein Pop-up-Fenster erscheint, welches um Bestätigung bittet, dass das Rezept wirklich gemeldet werden soll.
+    \item Ein Pop-Up-Fenster erscheint, welches um Bestätigung bittet, dass das Rezept wirklich gemeldet werden soll.
     \item Der Nutzer klickt auf den Bestätigen-Button.
     \item Der \gls{administrator} erhält eine E-Mail mit der Benachrichtigung über die Meldung des Rezepts.
     \item Der \gls{administrator} öffnet die App und manövriert zur Gruppen-Detail-Ansicht.
     \item Der \gls{administrator} klickt in der Gruppen-Detail-Ansicht auf den Ausblenden-Button von einem Rezept.
-    \item Ein Pop-up-Fenster erscheint, welches um Bestätigung bittet, dass das Rezept wirklich ausgeblendet werden soll.
+    \item Ein Pop-Up-Fenster erscheint, welches um Bestätigung bittet, dass das Rezept wirklich ausgeblendet werden soll.
     \item Der \gls{administrator} klickt auf den Bestätigen-Button.
-    \item Der \gls{administrator} wird zur Gruppen-Detail-Ansicht weitergeleitet.
     \item Der \gls{administrator} klickt in der Gruppen-Detail-Ansicht auf den Einblenden-Button von dem \glslink{ausblenden}{ausgeblendeten} Rezept.
-    \item Ein Pop-up-Fenster erscheint, welches um Bestätigung bittet, dass das Rezept wirklich \glslink{einblenden}{eingeblendet} werden soll.
+    \item Ein Pop-Up-Fenster erscheint, welches um Bestätigung bittet, dass das Rezept wirklich \glslink{einblenden}{eingeblendet} werden soll.
     \item Der \gls{administrator} klickt auf den Bestätigen-Button.
-    \item Der \gls{administrator} wird zum Gruppen-Detail-Ansicht weitergeleitet.
 \end{enumerate}
 \textbf{Alternativen:} Bei einer Verweigerung der Bestätigung wird der jeweilige Prozess abgebrochen.
 \newpage
@@ -784,7 +779,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Ziel:} Ein \gls{administrator} kann den Gruppennamen nach seinen Vorstellungen anpassen.\\
 \textbf{Vorbedingung:} Der Nutzer ist \gls{administrator} der Gruppe.\\
 \textbf{Nachbedingung Erfolg:} Der angepasste Gruppenname wird den Mitgliedern angezeigt.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Nachbedingung Fehlschlag:} Ein Pop-Up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} \gls{administrator}\\
 \textbf{Auslösendes Ereignis:} In der Gruppen-Detail-Ansicht wird auf den Bearbeiten-Button geklickt.\\
 \textbf{Beschreibung:}
@@ -803,13 +798,13 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Ziel:} Ein \gls{administrator} kann die Gruppe verlassen und ein anderes Mitglied wird zum neuen \gls{administrator}.\\
 \textbf{Vorbedingung:} Der Nutzer ist einziger \gls{administrator} der Gruppe und die Gruppe enthält mehr als ein Mitglied.\\
 \textbf{Nachbedingung Erfolg:} Der Nutzer der am längsten in der Gruppe ist, exklusive des bisherigen \glslink{administrator}{Administrators}, ist neuer \gls{administrator}.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Nachbedingung Fehlschlag:} Ein Pop-Up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer, \gls{administrator}\\
-\textbf{Auslösendes Ereignis:} In der Gruppen-Detail-Ansicht wird auf den Gruppe-verlassen-Button geklickt.\\
+\textbf{Auslösendes Ereignis:} In der Gruppen-Detail-Ansicht wird auf den Gruppe-Verlassen-Button geklickt.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
-    \item Der \gls{administrator} klickt auf den Gruppe-verlassen-Button.
-    \item Ein Pop-up-Fenster erscheint, welches um Bestätigung bitten.
+    \item Der \gls{administrator} klickt auf den Gruppe-Verlassen-Button.
+    \item Ein Pop-Up-Fenster erscheint, welches um Bestätigung bitten.
     \item Der \gls{administrator} klickt auf den Button zum Bestätigen.
     \item Der \gls{administrator} wird zur Verwaltungsansicht weitergeleitet.
     \item Der Nutzer der am längsten in der Gruppe ist, exklusive des bisherigen \glslink{administrator}{Administrators}, ist neuer \gls{administrator}. 
@@ -828,7 +823,7 @@ Um die App nutzen zu können, ist es erforderlich einige Daten zu speichern. Die
 \subsection{Smartphone-Daten}
 \begin{itemize}
     \item Anwendung
-    \item Konfigurationsdatei
+    \item Zwischengespeicherte Rezepte
 \end{itemize}
 
 \subsection{Server-Daten}
@@ -938,8 +933,8 @@ Die App ist für Standardsmartphones, welche Android 8.0 oder höher unterstütz
 Die oben als am wichtigsten bezeichneten Qualitätsmerkmale werden im Folgenden operationalisiert, d.h. in konkreten Produktanforderungen konkretisiert oder es wird angegeben, welche Richtlinie (z. B. Standard, Norm) einzuhalten ist.
 
 \begin{enumerate}[start=1,label={$\langle$\bfseries Q\arabic*$\rangle$}, leftmargin = 5em, itemsep=4pt, parsep=4pt]
-    \item Passwörter sollen nur gehashed gespeichert werden.
-    \item Passwörter werden beim zurücksetzen vom Nutzer ausgewählt, nicht automatisch generiert
+    \item Passwörter sollen nur verschlüsselt gespeichert werden.
+    \item Passwörter werden beim Zurücksetzen vom Nutzer ausgewählt, nicht automatisch generiert
     \item Der Code soll sinnvoll und hinreichend dokumentiert sein.
     \item Die App soll sinnvoll modularisiert sein.
     \item Die App soll auf Android-Version 8.0 und höher installierbar sein.
