@@ -316,7 +316,8 @@ Bei der App handelt es sich um eine Anwendungssoftware für Android-Endgeräte. 
 
 \subsection{Registrierungsansicht}
 \label{ui:RegisterView}
-Beim Öffnen der App gelangt der Nutzer auf die Registrierungsansicht (\autoref{fig:RegisterView}). Hier kann der Nutzer sich mit seiner E-Mail-Adresse, einem Nutzernamen und einem Passwort registrieren. Nach erfolgreicher Registrierung gelangt der Nutzer auf die Gruppen-Beitritts-Ansicht \ref{ui:GroupJoiningView}. Alternativ kann der Nutzer auch auf die Login-Ansicht \ref{ui:LoginView} wechseln.
+Beim Öffnen der App gelangt der Nutzer auf die Registrierungsansicht (\autoref{fig:RegisterView}). Hier kann der Nutzer sich mit seiner E-Mail-Adresse, einem Nutzernamen und einem Passwort registrieren. Nach erfolgreicher Registrierung gelangt der Nutzer auf die Gruppen-Beitritts-Ansicht \ref{ui:GroupJoiningView}. Alternativ kann der Nutzer auch auf die Anmeldungsansicht \ref{ui:LoginView} wechseln.
+
 
 \subsection{Anmeldungsansicht}
 \label{ui:LoginView}
@@ -345,7 +346,7 @@ Unten am Bildschirm befindet sich eine Navigationsleiste, die es dem Nutzer erm�
 \subsection{Rezeptansicht}
 \label{ui:RecipeView}
 
-In der Rezeptansicht (\autoref{fig:RecipeView}) wird ein bestimmtes Rezept angezeigt. Es werden der Name, das Bild, die Zutaten, die Zubereitungsanweisungen, die Zubereitungszeit, der Schwierigkeitsgrad, der Autor und das Erstellungsdatum angezeigt. Der Nutzer kann durch anpassen der Portionenzahl automatisch die Zutatenmengen errechnen lassen. Durch einen Klick auf das Herzsymbol wird ein Rezept zu den Favoriten hinzugefügt bzw. wieder entfernt. Ist der Nutzer der Autor des Rezepts, so wird oben ein Stiftsymbol angezeigt. Durch einen Klick auf dieses Symbol gelangt der Nutzer auf die Rezept-Erstellungs-Ansicht \ref{ui:RecipeCreationView}, die bereits mit dem Rezept befüllt ist. Dort kann er das Rezept bearbeiten. Unten am Bildschirm ist wieder die Navigationsleiste, wie in \ref{ui:MainView}, zu finden. Außerdem kann der Nutzer wieder zurück zur vorherigen Ansicht gelangen, indem er auf das Zurück-Symbol oben links klickt.
+In der Rezeptansicht (\autoref{fig:RecipeView}) wird ein bestimmtes Rezept angezeigt. Es werden der Name, das Bild, die Zutaten, die Zubereitungsanweisungen, die Zubereitungszeit, der Schwierigkeitsgrad, der Autor und das Erstellungsdatum angezeigt. Der Nutzer kann durch Anpassen der Portionenzahl automatisch die Zutatenmengen errechnen lassen. Durch einen Klick auf das Herzsymbol wird ein Rezept zu den Favoriten hinzugefügt bzw. wieder entfernt. Ist der Nutzer der Autor des Rezepts, so wird oben ein Stiftsymbol angezeigt. Durch einen Klick auf dieses Symbol gelangt der Nutzer auf die Rezept-Erstellungs-Ansicht \ref{ui:RecipeCreationView}, die bereits mit dem Rezept befüllt ist. Dort kann er das Rezept bearbeiten. Unten am Bildschirm ist wieder die Navigationsleiste, wie in \ref{ui:MainView}, zu finden. Außerdem kann der Nutzer wieder zurück zur vorherigen Ansicht gelangen, indem er auf das Zurück-Symbol oben links klickt.
 
 
 \subsection{Rezept-Erstellungs-Ansicht}
@@ -361,14 +362,14 @@ In dieser Ansicht (\autoref{fig:IngredientPickerView}) kann der Nutzer Zutaten e
 
 \subsection{Verwaltungsansicht}
 \label{ui:SettingsView}
+Die Verwaltungsansicht dient der Verwaltung des Nutzers, seiner Gruppen und seiner Rezepte. Der Nutzer kann seinen Anzeigenamen und sein Profilbild ändern. Zudem kann er Gruppen verlassen, in dem er auf das Kreuz-Symbol neben der entsprechenden Gruppe drückt. Durch das Plus-Symbol gelangt der Nutzer zur Gruppen-Beitritts-Ansicht \ref{ui:GroupJoiningView} in der er einer Gruppe beitreten kann oder eine neue Gruppe erstellen kann. Drückt ein Nutzer auf eine der Gruppen, so kommt er zur Gruppen-Detail-Ansicht \ref{ui:GroupDetailView}. Außerdem sieht der Nutzer seine erstellten Rezepte, die er hier mit dem entsprechenden Button entfernen, als PDF exportieren oder auf privat stellen kann. Durch Klick auf das Rezept wird man zur entsprechenden Rezeptansicht \ref{ui:RecipeView}.
+Zudem kann der Nutzer sich mit dem Symbol oben rechts ausloggen. Daraufhin wird er zur Anmeldungsansicht \ref{ui:LoginView} weitergeleitet. Er kann außerdem sein Konto auflösen, woraufhin er ebenfalls zur Anmeldungsansicht \ref{ui:LoginView} geleitet wird. Auch hier gibt es wieder die Navigationsleiste aus \ref{ui:MainView}.
 
-Die Verwaltungsansicht dient der Verwaltung des Nutzers, seiner Gruppen und seiner Rezepte. Der Nutzer kann seinen Anzeigenamen und sein Profilbild ändern. Zudem kann er Gruppen verlassen, in dem er auf das Kreuz-Symbol neben der entsprechenden Gruppe drückt. Durch das Plus-Symbol gelangt der Nutzer zur Gruppen-Beitritts-Ansicht \ref{ui:GroupJoiningView} in der er einer Gruppe beitreten kann oder eine neue Gruppe erstellen kann. Drückt ein Nutzer auf eine der Gruppen, so kommt er zur Gruppen-Detail-Ansicht \ref{ui:GroupDetailView}. Außerdem sieht der Nutzer seine erstellten Rezepte, die er hier mit dem entsprechenden Button entfernen, als PDF exportieren oder auf privat stellen kann. Durch Klick auf das Rezept wird man zur entsprechenden Rezeptansicht \ref{ui:RecipeView} weitergeleitet.
-Zudem kann der Nutzer sich ausloggen mit dem Symbol oben rechts. Daraufhin wird er zur Anmeldungsansicht \ref{ui:LoginView} weitergeleitet. Er kann außerdem sein Konto auflösen, woraufhin er ebenfalls zur Anmeldungsansicht \ref{ui:LoginView} geleitet wird. Auch hier gibt es wieder die Navigationsleiste aus \ref{ui:MainView}.
 
 \subsection{Gruppen-Detail-Ansicht}
 \label{ui:GroupDetailView}
+In der Gruppen-Detail-Ansicht (\autoref{fig:GroupDetailView}) kann der Nutzer die Mitglieder und Rezepte einer Gruppe ansehen. Durch den QR-Code-Button gelangt er zur QR-Code-Ansicht \ref{ui:QRCodeView}. Durch Klick auf das Verlassen-Symbol kann die Gruppe verlassen werden. Mit dem Plus-Symbol neben der Mitglieder-Sektion wird das Gruppenkürzel in die Zwischenablage kopiert und kann geteilt werden. Durch Klick auf ein Rezept wird der Nutzer zur entsprechenden Rezeptansicht \ref{ui:RecipeView} weitergeleitet. Als \Gls{administrator} hat man zudem die Möglichkeit die Gruppe aufzulösen, woraufhin der Nutzer wieder auf die Verwaltungsansicht \ref{ui:SettingsView} gelangt. Zudem kann er Nutzer aus der Gruppe kicken, bannen oder zu \glslink{administrator}{Administratoren} ernennen bzw. diesen Titel wieder aberkennen. Außerdem kann er Rezepte für alle Gruppenmitglieder außer dem Autor verstecken bzw. wieder einblenden. Weiterhin kann er den Gruppennamen ändern, indem er auf das Stift-Symbol drückt. Auch hier gibt es wieder die Navigationsleiste aus \ref{ui:MainView}.
 
-In der Gruppen-Detail-Ansicht (\autoref{fig:GroupDetailView}) kann der Nutzer die Mitglieder und Rezepte einer Gruppe ansehen. Durch den QR-Code-Button gelangt er zur QR-Code-Ansicht \ref{ui:QRCodeView}. Durch Klick auf das Verlassen-Symbol kann die Gruppe verlassen werden. Mit dem Plus-Symbol neben der Mitglieder-Sektion wird das Gruppenkürzel in die Zwischenablage kopiert und kann geteilt werden. Durch Klick auf ein Rezept wird der Nutzer zur entsprechenden Rezeptansicht \ref{ui:RecipeView} weitergeleitet. Als \Gls{administrator} hat man zudem die Möglichkeit die Gruppe aufzulösen, woraufhin der Nutzer wieder auf die Verwaltungsansicht \ref{ui:SettingsView} gelangt. Zudem kann er Nutzer aus der Gruppe entfernen, bannen oder zu \glslink{administrator}{Administratoren} ernennen bzw. diesen Titel wieder aberkennen. Außerdem kann er Rezepte für alle Gruppenmitglieder außer dem Autor verstecken bzw. wieder einblenden. Weiterhin kann er den Gruppennamen ändern, indem er auf das Stift-Symbol drückt. Auch hier gibt es wieder die Navigationsleiste aus \ref{ui:MainView}.
 
 
 \subsection{QR-Code-Ansicht}
@@ -485,20 +486,20 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Anforderungen:} \ref{rm:Login}, \ref{rm:Logout}\\
 \textbf{Ziel:} Der Nutzer erhält Zugang zu seinem Profil in der App, indem eine Verbindung zum Server hergestellt wird. Danach wird diese Verbindung wieder getrennt.\\
 \textbf{Vorbedingung:} Der Nutzer hat bereits ein Konto erstellt.\\
-\textbf{Nachbedingung Erfolg:} Der Nutzer ist erfolgreich ausgeloggt und wird zur Loginansicht der App weitergeleitet.\\
+\textbf{Nachbedingung Erfolg:} Der Nutzer ist erfolgreich ausgeloggt und wird zur Anmeldungsansicht der App weitergeleitet.\\
 \textbf{Nachbedingung Fehlschlag:} Das Passwort oder der Nutzername ist falsch, sodass eine Fehlermeldung erscheint bei dem fehlerhaften Eingabefeld.\\
 \textbf{Akteure:} Nutzer\\
 \textbf{Auslösendes Ereignis:} -\\
 \textbf{Beschreibung:}
 \begin{enumerate}
     \item Der Nutzer startet die App.
-    \item Die Login-Ansicht erscheint
+    \item Die Anmeldungsansicht erscheint
     \item Der Nutzer gibt seinen Nutzernamen ein.
     \item Der Nutzer gibt sein Passwort ein.
     \item Der Nutzer klickt auf den Weiter-Button, um die Anmeldung abzuschließen.
     \item Der Nutzer klickt auf den Verwaltungsansicht-Button.
     \item Der Nutzer Klick auf den ausloggen-Button.
-    \item Der Nutzer wird zur Loginansicht weitergeleitet
+    \item Der Nutzer wird zur Anmeldungsansicht weitergeleitet
 \end{enumerate}
 \textbf{Alternativen:} Mit einem Klick auf den Registrieren-Button kann ein Nutzer Konto angelegt werden. Mit einem Klick auf den Passwort-vergessen-Button kann das Passwort eines bestehenden Kontos geändert werden.
 \newpage
@@ -511,7 +512,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Nachbedingung Erfolg:} Der Nutzer wird zum Gruppen-Beitritts-Ansicht weitergeleitet und mit einem Pop-up-Fenster erfolgt die Bestätigung zur erfolgreichen Registrierung.\\
 \textbf{Nachbedingung Fehlschlag:} Eine Fehlermeldung erscheint beim fehlerhaften Eingabefenster.\\
 \textbf{Akteure:} Nutzer\\
-\textbf{Auslösendes Ereignis:} Der Nutzer muss auf den Registrieren-Button in der Loginansicht klicken.\\
+\textbf{Auslösendes Ereignis:} Der Nutzer muss auf den Registrieren-Button in der Anmeldungsansicht klicken.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
     \item Der Nutzer klickt auf den Registrieren-Button.
@@ -528,7 +529,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
     \item Ein Pop-up-Fenster erscheint zur Bestätigung zum Löschen des Benutzerkonto löschen.
     \item Der Nutzer klickt auf den Bestätigen-Button.
     \item Das Benutzerkonto wird gelöscht.
-    \item Der Nutzer wird zur Login-Ansicht weitergeleitet.
+    \item Der Nutzer wird zur Anmeldungsansicht weitergeleitet.
 \end{enumerate}
 \textbf{Alternativen:} Der Prozess des Konto Löschens kann abgebrochen werden indem eine Bestätigung verweigert wird.
 \newpage
@@ -538,17 +539,18 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Anforderungen:} \ref{rs:ResetPassword}\\
 \textbf{Ziel:} Der Nutzer kann ein neues Passwort setzen.\\
 \textbf{Vorbedingung:} Die App muss bereits gestartet worden sein.\\
-\textbf{Nachbedingung Erfolg:} Der Nutzer wird zum Loginansicht weitergeleitet und mit einem Pop-up-Fenster erfolgt die Bestätigung der Versendung einer E-Mail an die angegeben E-Mail-Adresse.\\
+\textbf{Nachbedingung Erfolg:} Der Nutzer wird zum Anmeldungsansicht weitergeleitet und mit einem Pop-up-Fenster erfolgt die Bestätigung der Versendung einer E-Mail an die angegeben E-Mail-Adresse.\\
 \textbf{Nachbedingung Fehlschlag:} Ein Pop-up-Fenster erscheint mit einer Fehlermeldung.\\
 \textbf{Akteure:} Nutzer\\
-\textbf{Auslösendes Ereignis:} Der Nutzer muss auf den Passwort-vergessen-Button in der Loginansicht klicken.\\
+\textbf{Auslösendes Ereignis:} Der Nutzer muss auf den Passwort-vergessen-Button in der Anmeldungsansicht klicken.\\
+
 \textbf{Beschreibung:}
 \begin{enumerate}
     \item Klick auf den Passwort-vergessen-Button.
     \item Eingabe der E-Mail-Adresse.
     \item Klick auf den Weiter-Button.
 \end{enumerate}
-\textbf{Alternativen:} Durch das Klicken auf den Verlassen-Button wird der Nutzer zurück zur Login-Ansicht geleitet.
+\textbf{Alternativen:} Durch das Klicken auf den Verlassen-Button wird der Nutzer zurück zur Anmeldungsansicht geleitet.
 \newpage
 
 
@@ -677,7 +679,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
     \item Der Nutzer klickt auf den Button zum Bestätigen.
     \item der Nutzer wird zur Verwaltungsansicht weitergeleitet.
 \end{enumerate}
-\textbf{Alternativen:} Nach dem Login-Ansicht wird man zur Gruppe-beitreten-Ansicht weitergeleitet, wodurch auch einer Gruppe beigetreten werden kann. Einer Gruppe kann auch mit dem Scannen eines QR-Codes beigetreten werden ohne die Eingabe eines Gruppennamens. Der Prozess des Gruppe verlassens kann abgebrochen werden mit der Verweigerung der Bestätigung.
+\textbf{Alternativen:} Nach dem Anmeldungsansicht wird man zur Gruppe-beitreten-Ansicht weitergeleitet, wodurch auch einer Gruppe beigetreten werden kann. Einer Gruppe kann auch mit dem Scannen eines QR-Codes beigetreten werden ohne die Eingabe eines Gruppennamens. Der Prozess des Gruppe verlassens kann abgebrochen werden mit der Verweigerung der Bestätigung.
 \newpage
 
 
