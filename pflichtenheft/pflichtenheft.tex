@@ -206,7 +206,7 @@ Bei der erstmaligen Nutzung muss der Nutzer sich registrieren.
 
 Dazu muss er seinen Benutzernamen, seine E-Mail-Adresse und ein Passwort eingeben.
 Das Passwort muss durch eine erneute Eingabe bestätigt werden.
-Nach Bestätigung der Eingabe kann der Nutzer eine Gruppe erstellen, einer Gruppe beitreten oder diesen Punkt überspringen und vorerst keiner Gruppe beitreten.
+Nach Bestätigung der Eingabe kann der Nutzer eine Gruppe erstellen, einer Gruppe beitreten oder diesen Punkt überspringen und vorerst keiner Gruppe beitreten. Jeder Nutzer kann nur eine begrenzte Anzahl an Gruppen erstellen.
 Durch das Erstellen einer Gruppe wird man automatisch zum \gls{administrator} der Gruppe.
 Der Nutzer kann einer Gruppe durch Eingabe eines \gls{gruppenkurzel} oder durch Scannen eines QR-Codes beitreten.
 Der Nutzer kann eine Gruppe durch Eingabe eines Gruppennamens erstellten.
@@ -222,7 +222,7 @@ Die Rezeptansicht wird unter dem Aktivitätsdiagramm "Hauptansicht" (\autoref{fi
 Durch Klicken auf den Rezept-erstellen-Button gelangt der Nutzer auf der Rezept-Erstellungs-Ansicht.
 Hier kann der Nutzer ein neues Rezept erstellen.
 Es können der Rezepttitel, die Zubereitungszeit, die Zutaten mit Mengenangabe, den \glslink{schwierigkeit}{Schwierigkeitsgrad}, die Portionsanzahl und eine
-Zubereitungsanweisung für das neue Rezept angegeben werden.
+Zubereitungsanweisung für das neue Rezept angegeben werden. Rezepttitel und Zutatenbezeichnung sowie Zubereitungsanweisung sind auf eine sinnvolle Anzahl an Zeichen begrenzt. Außerdem ist nur die Angabe begrenzt vieler verschiedener Zutaten möglich.
 
 Im Anschluss kann das Rezept veröffentlicht werden.\par
 Durch klicken auf den Verwaltungsansicht-Button
@@ -335,7 +335,7 @@ Alternativ kann der Nutzer auch eine Gruppe erstellen, indem er zur Gruppen-Erst
 
 \subsection{Gruppen-Erstellungs-Ansicht}
 \label{ui:GroupCreationView}
-In dieser Ansicht (\autoref{fig:GroupCreationView}) kann der Nutzer eine neue Gruppe erstellen. Dazu muss er einen Gruppennamen eingeben. Durch Betätigen des Weiter-Buttons wird die Gruppe erstellt und der Nutzer wieder je nach vorheriger Ansicht auf die Hauptansicht \ref{ui:MainView} oder die Verwaltungsansicht \ref{ui:SettingsView} weitergeleitet. Auch hier gibt es einen Zurück- oder Überspringen-Button, der so wie in \ref{ui:GroupJoiningView} funktioniert.
+In dieser Ansicht (\autoref{fig:GroupCreationView}) kann der Nutzer eine neue Gruppe erstellen. Dazu muss er einen Gruppennamen eingeben. Durch Betätigen des Weiter-Buttons wird die Gruppe erstellt und der Nutzer wieder je nach vorheriger Ansicht auf die Hauptansicht \ref{ui:MainView} oder die Verwaltungsansicht \ref{ui:SettingsView} weitergeleitet. Auch hier gibt es einen Zurück- oder Überspringen-Button, der so wie in \ref{ui:GroupJoiningView} funktioniert. Jeder Nutzer kann nur begrenzt viele Gruppen erstellen.
 
 \subsection{Hauptansicht}
 \label{ui:MainView}
@@ -351,7 +351,7 @@ In der Rezeptansicht (\autoref{fig:RecipeView}) wird ein bestimmtes \gls{rezept}
 
 \subsection{Rezept-Erstellungs-Ansicht}
 \label{ui:RecipeCreationView}
-In dieser Ansicht (\autoref{fig:RecipeCreationView}) kann ein Nutzer ein neues Rezept erstellen oder ein Bestehendes bearbeiten. Dazu gibt es verschiedene Eingabefelder, die der Nutzer ausfüllen kann. Diese umfassen den Rezeptnamen, Zubereitungszeit, \gls{labels} und \glslink{schwierigkeit}{Schwierigkeitsgrad} sowie die Zubereitungsanweisungen. Zusätzlich muss der Nutzer festlegen, für wie viele Portionen das Rezept ausgelegt ist. Außerdem kann er ein Bild mit Hilfe des betriebssystemeigenen Dateimanagers hochladen, indem er auf das Bild-Symbol klickt.
+In dieser Ansicht (\autoref{fig:RecipeCreationView}) kann ein Nutzer ein neues Rezept erstellen oder ein Bestehendes bearbeiten. Dazu gibt es verschiedene Eingabefelder, die der Nutzer ausfüllen kann. Diese umfassen den Rezeptnamen, Zubereitungszeit, \gls{labels} und \glslink{schwierigkeit}{Schwierigkeitsgrad} sowie die Zubereitungsanweisungen. Rezepttitel und Zutatenbezeichnung sowie Zubereitungsanweisung sind auf eine sinnvolle Anzahl an Zeichen begrenzt. Außerdem ist nur die Angabe begrenzt vieler verschiedener Zutaten möglich. Zusätzlich muss der Nutzer festlegen, für wie viele Portionen das Rezept ausgelegt ist. Außerdem kann er ein Bild mit Hilfe des betriebssystemeigenen Dateimanagers hochladen, indem er auf das Bild-Symbol klickt. Auch die Dateigröße des Bildes ist beschränkt.
 Die Zutaten können mit einem Klick auf das Plus-Symbol hinzugefügt werden. Dazu öffnet sich die Zutaten-Auswahl-Ansicht \ref{ui:IngredientPickerView}, in der der Nutzer die Zutat auswählen kann. Die bereits hinzugefügten Zutaten werden in einer Liste angezeigt und können durch einen Klick auf das Kreuz-Symbol entfernt werden. Ganz unten befindet sich ein Knopf zum Speichern des Rezepts. Mit diesem wird der Nutzer auf die Hauptansicht \ref{ui:MainView} weitergeleitet. Bearbeitet der Nutzer eines seiner \glslink{rezept}{Rezepte} und erstellt kein neues, so gibt es einen Zurück-Button, mit dem er auf die vorherige Ansicht gelangt. Auch hier gibt es wieder die Navigationsleiste aus \ref{ui:MainView}.
 
 \subsection{Zutaten-Auswahl-Ansicht}
@@ -792,7 +792,7 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \textbf{Alternativen:} Bei einer Verweigerung der Bestätigung wird die Umbenennung abgebrochen.
 \newpage
 
-\subsection{\gls{administrator} verlässt die Gruppe}
+\subsection{Administrator verlässt die Gruppe}
 \textbf{Anwendungsfall:} Ein \gls{administrator} verlässt die Gruppe.\\
 \textbf{Anforderungen:} \ref{rs:NoAdmins}\\
 \textbf{Ziel:} Ein \gls{administrator} kann die Gruppe verlassen und ein anderes Mitglied wird zum neuen \gls{administrator}.\\
