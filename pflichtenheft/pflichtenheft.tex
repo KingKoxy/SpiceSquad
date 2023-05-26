@@ -190,21 +190,18 @@ Um die volle Funktionsfähigkeit der App garantieren zu können, ist eine Intern
 
 \newpage
 \section{Produktübersicht}
-
 In diesem Kapitel werden die Produktfunktionen beschrieben und in einem Use-Case-Diagramm "Aufbau der App" visualisiert.
 Das Use-Case-Diagramm zeigt mittels Verbindungslininen, wie die einzelnen Use-Cases zueinander stehen.
 Die Hauptansicht wird genauer im Aktivitätsdiagramm "Hauptansicht" abgebildet.
 Die Gruppen-Detail-Ansicht als \gls{administrator} wird in einem weiteren Aktivitätsdiagramm "Gruppen-Detail-Ansicht als \gls{administrator}" dargestellt und erläutert.
-Dadurch können die einzelnen Schritte, die durchlaufen werden, besser beschrieben werden.\par
+Dadurch können die einzelnen Schritte, die durchlaufen werden, besser beschrieben werden.
 
 
 \subsection{Aufbau der App (\autoref{fig:UseCaseDiagram}):}
 
 In dem Use-Case-Diagramm „Aufbau der App“ sieht man die allgemeine Struktur der App.
 
-Bei der erstmaligen Nutzung muss der Nutzer sich registrieren.
-
-Dazu muss er seinen Benutzernamen, seine E-Mail-Adresse und ein Passwort eingeben.
+Bei der erstmaligen Nutzung muss der Nutzer sich registrieren. Dazu muss er seinen Benutzernamen, seine E-Mail-Adresse und ein Passwort eingeben.
 Das Passwort muss durch eine erneute Eingabe bestätigt werden.
 Nach Bestätigung der Eingabe kann der Nutzer eine Gruppe erstellen, einer Gruppe beitreten oder diesen Punkt überspringen und vorerst keiner Gruppe beitreten. Jeder Nutzer kann nur eine begrenzte Anzahl an Gruppen erstellen.
 Durch das Erstellen einer Gruppe wird man automatisch zum \gls{administrator} der Gruppe.
@@ -212,29 +209,26 @@ Der Nutzer kann einer Gruppe durch Eingabe eines \gls{gruppenkurzel} oder durch 
 Der Nutzer kann eine Gruppe durch Eingabe eines Gruppennamens erstellten.
 
 Falls der Nutzer schon ein Nutzerkonto besitzt, kann er sich einloggen.
-Dazu muss er seine E-Mail-Adresse und sein Passwort eingeben.
+Dazu muss er seine E-Mail-Adresse und sein Passwort eingeben. Ist der Nutzer einmal angemeldet, so muss er sich erst wieder nach einer bestimmten Zeit anmelden, selbst wenn die App geschlossen wurde.
 Hat der Nutzer sein Passwort vergessen, besteht die Möglichkeit das Passwort zurückzusetzen.
-Ein eingeloggter Nutzer muss sich nicht erneut einloggen.\newline
-Nach dem Einloggen gelangt der Nutzer auf die Hauptansicht.
-Hier hat er die Möglichkeit, \glslink{rezept}{Rezepte} zu filtern, zu \glslink{favorit}{favorisieren}, nach Schlagworten zu durchsuchen oder zu sortieren.
+
+Nach dem Anmelden oder Registrieren gelangt der Nutzer auf die Hauptansicht.
+Hier hat er die Möglichkeit, \glslink{rezept}{Rezepte} zu filtern, zu \glslink{favorit}{favorisieren}, nach Schlagwörtern zu durchsuchen oder zu sortieren.
 Durch Klicken auf ein Rezept gelangt der Nutzer auf die Rezeptansicht.
 Die Rezeptansicht wird unter dem Aktivitätsdiagramm "Hauptansicht" (\autoref{fig:ActivityDiagramMainView}) noch genauer beschrieben.
-Durch Klicken auf den Rezept-erstellen-Button gelangt der Nutzer auf der Rezept-Erstellungs-Ansicht.
+
+Durch Klicken auf den Rezept-Erstellen-Button gelangt der Nutzer auf die Rezept-Erstellungs-Ansicht.
 Hier kann der Nutzer ein neues Rezept erstellen.
-Es können der Rezepttitel, die Zubereitungszeit, die Zutaten mit Mengenangabe, den \glslink{schwierigkeit}{Schwierigkeitsgrad}, die Portionsanzahl und eine
-Zubereitungsanweisung für das neue Rezept angegeben werden. Rezepttitel und Zutatenbezeichnung sowie Zubereitungsanweisung sind auf eine sinnvolle Anzahl an Zeichen begrenzt. Außerdem ist nur die Angabe begrenzt vieler verschiedener Zutaten möglich.
+Es können der Rezepttitel, die Zubereitungszeit, die Zutaten mit Mengenangabe, der \glslink{schwierigkeit}{Schwierigkeitsgrad}, die Portionsanzahl und eine
+Zubereitungsanweisung für das neue Rezept angegeben werden. Rezepttitel und Zutatenbezeichnung sowie Zubereitungsanweisung sind auf eine sinnvolle Anzahl an Zeichen begrenzt. Außerdem ist nur die Angabe begrenzt vieler verschiedener Zutaten möglich. Im Anschluss kann das Rezept veröffentlicht werden.
 
-Im Anschluss kann das Rezept veröffentlicht werden.\par
-Durch klicken auf den Verwaltungsansicht-Button
+Durch Klicken auf den Verwaltungsansicht-Button
 gelangt der Nutzer auf die Verwaltungsansicht.
-In dieser Ansicht kann der Nutzer sich ausloggen, sein Nutzerkonto löschen, seinen Nutzernamen ändern,
-erstellte \glslink{rezept}{Rezepte} bearbeiten, eine Gruppe verlassen und Gruppen-Kürzel oder Gruppen-QR-Codes teilen.\par
-Durch das Drücken des Gruppen-Hinzufügen-Buttons kann der Nutzer eine neue Gruppe erstellen oder beitreten.
+In dieser Ansicht kann der Nutzer sich abmelden, sein Nutzerkonto löschen, seinen Nutzernamen ändern und Gruppen verlassen. Durch das Drücken des Gruppen-Hinzufügen-Buttons kann der Nutzer eine neue Gruppe erstellen oder beitreten. Zudem ist es möglich erstellte \glslink{rezept}{Rezepte} zu löschen, als PDF zu exportieren oder auf \gls{privat} zu stellen. Klickt der Nutzer auf ein Rezept, so kann er dieses in der Rezept-Erstellungs-Ansicht bearbeiten.
 
-Von der Verwaltungsansicht kommt der Nutzer durch Klicken auf eine Gruppe auf die Gruppen-Detail-Ansicht.
-Eingeloggte Nutzer können hier Gruppenmitglieder und \glslink{rezept}{Rezepte} von Gruppenmitgliedern einsehen, die Gruppe verlassen oder den QR-Code zum Beitreten der Gruppe einsehen.
-Durch das Klicken auf die \glslink{rezept}{Rezepte} gelangt der Nutzer auf die Rezeptansicht des dazugehörigen Rezepts.
-\glslink{administrator}{Gruppenadministratoren} können in der Gruppen-Detail-Ansicht Gruppenmitglieder \gls{kicken}, \gls{bannen}, zum \gls{administrator} ernennen, \glslink{administrator}{Administratoren} zu normalen Nutzern degradieren, \glslink{rezept}{Rezepte} von Gruppenmitgliedern für die Gruppe \gls{ausblenden} oder die Gruppe auflösen.\par
+Von der Verwaltungsansicht kommt der Nutzer durch Klicken auf eine Gruppe auf die jeweilige Gruppen-Detail-Ansicht. Eingeloggte Nutzer können hier alle Gruppenmitglieder und alle \glslink{rezept}{Rezepte} dieser Gruppenmitglieder einsehen. Außerdem kann die Gruppe verlassen, das Gruppenkürzel kopiert oder der jeweilige QR-Code angezeigt werden. Durch das Klicken auf die \glslink{rezept}{Rezepte} gelangt der Nutzer auf die Rezeptansicht des dazugehörigen Rezepts.
+
+\glslink{administrator}{Gruppenadministratoren} können in der Gruppen-Detail-Ansicht Gruppenmitglieder \gls{kicken}, \gls{bannen}, zum \gls{administrator} ernennen, \glslink{administrator}{Administratoren} zu normalen Nutzern degradieren, \glslink{rezept}{Rezepte} von Gruppenmitgliedern für die Gruppe \gls{ausblenden} oder die Gruppe auflösen. Des Weiteren kann nur ein \gls{administrator} den Gruppennamen ändern.
 
 Im Falle eines Verbindungsverlustes zum Server können bereits geladene \glslink{rezept}{Rezepte} weiterhin angezeigt werden. Wird die App ohne Verbindung zum Server gestartet, wird eine Fehlermeldung angezeigt.
 
@@ -242,7 +236,6 @@ Im Falle eines Verbindungsverlustes zum Server können bereits geladene \glslink
 
 Im Aktivitätsdiagramm „Hauptansicht“
 werden die verschiedenen Möglichkeiten unter dem Menüpunkt Hauptansicht aufgeführt.
-
 
 Der Nutzer hat die Möglichkeit \glslink{rezept}{Rezepte} durch ein Suchfeld zu suchen.
 Der Nutzer hat die Möglichkeit die Liste nach verschiedenen vorgegebene Attributen zu sortieren oder zu filtern.
