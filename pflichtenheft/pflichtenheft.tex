@@ -220,7 +220,7 @@ Die Rezeptansicht wird unter dem Aktivitätsdiagramm "Hauptansicht" (\autoref{fi
 Durch Klicken auf den Rezept-Erstellen-Button gelangt der Nutzer auf die Rezept-Erstellungs-Ansicht.
 Hier kann der Nutzer ein neues Rezept erstellen.
 Es können der Rezepttitel, die Zubereitungszeit, die Zutaten mit Mengenangabe, der \glslink{schwierigkeit}{Schwierigkeitsgrad}, die Portionsanzahl und eine
-Zubereitungsanweisung für das neue Rezept angegeben werden. Rezepttitel und Zutatenbezeichnung sowie Zubereitungsanweisung sind auf eine sinnvolle Anzahl an Zeichen begrenzt. Außerdem ist nur die Angabe begrenzt vieler verschiedener Zutaten möglich. Im Anschluss kann das Rezept veröffentlicht werden.
+Zubereitungsanweisung für das neue Rezept angegeben werden. Rezepttitel und Zutatenbezeichnung sowie Zubereitungsanweisung sind auf eine sinnvolle Anzahl an Zeichen begrenzt. Außerdem ist nur die Angabe begrenzt vieler verschiedener Zutaten möglich. Der \gls{autor} kann auch ein Bild hochladen, das bei Bedarf automatisch auf eine angebrachte Größe skaliert wird. Im Anschluss kann das Rezept veröffentlicht werden.
 
 Durch Klicken auf den Verwaltungsansicht-Button
 gelangt der Nutzer auf die Verwaltungsansicht.
@@ -472,246 +472,254 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \setcounter{secnumdepth}{3}
 
 \section{Use-Case Beispiele}
+\enablesubsectionnumbering{UC}
 
-\enablesubsectionnumbering{F}
 \subsection{Einloggen und Ausloggen}
+\label{uc:LoginLogout}
 \textbf{Anwendungsfall:} Der Nutzer möchte sich in der App anmelden und sich danach wieder abmelden.\\
 \textbf{Anforderungen:} \ref{rm:Login}, \ref{rm:Logout}\\
-\textbf{Ziel:} Der Nutzer erhält Zugang zu seinem Profil in der App, indem eine Verbindung zum Server hergestellt wird. Danach wird diese Verbindung wieder getrennt.\\
+\textbf{Ziel:} Der Nutzer erhält Zugang zu den Funktionen der App, indem er sich anmeldet. Danach wird er wieder abgemeldet.\\
 \textbf{Vorbedingung:} Der Nutzer hat bereits ein Konto erstellt.\\
 \textbf{Nachbedingung Erfolg:} Der Nutzer ist erfolgreich ausgeloggt und wird zur Anmeldungsansicht der App weitergeleitet.\\
-\textbf{Nachbedingung Fehlschlag:} Das Passwort oder der Nutzername ist falsch, sodass eine Fehlermeldung erscheint bei dem fehlerhaften Eingabefeld.\\
+\textbf{Nachbedingung Fehlschlag:} Das Passwort oder der Nutzername ist falsch, sodass eine Fehlermeldung bei dem fehlerhaften Eingabefeld erscheint.\\
 \textbf{Akteure:} Nutzer\\
-\textbf{Auslösendes Ereignis:} -\\
+\textbf{Auslösendes Ereignis:} Der Nutzer öffnet die App.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
-    \item Der Nutzer startet die App.
-    \item Die Anmeldungsansicht erscheint
-    \item Der Nutzer gibt seinen Nutzernamen ein.
+    \item Der Nutzer gibt seine E-Mail-Adresse ein.
     \item Der Nutzer gibt sein Passwort ein.
     \item Der Nutzer klickt auf den Weiter-Button, um die Anmeldung abzuschließen.
+    \item Der Nutzer wird zur Hauptansicht weitergeleitet.
     \item Der Nutzer klickt auf den Verwaltungsansicht-Button.
-    \item Der Nutzer Klick auf den Abmelde-Button.
-    \item Der Nutzer wird zur Anmeldungsansicht weitergeleitet
+    \item Der Nutzer klickt auf den Abmelde-Button.
+    \item Der Nutzer wird abgemeldet und zur Anmeldungsansicht weitergeleitet.
 \end{enumerate}
-\textbf{Alternativen:} Mit einem Klick auf den Registrieren-Button kann ein Nutzer Konto angelegt werden. Mit einem Klick auf den Passwort-Vergessen-Button kann das Passwort eines bestehenden Kontos geändert werden.
+\textbf{Alternativen:} Mit einem Klick auf den Passwort-Vergessen-Button kann das Passwort eines bestehenden Kontos geändert werden (siehe \ref{uc:ResetPassword}).
 \newpage
 
 \subsection{Registrierung und Konto löschen}
+\label{uc:RegisteringDeletingAccount}
 \textbf{Anwendungsfall:} Der Nutzer möchte ein Nutzerkonto anlegen und danach sein Konto löschen.\\
 \textbf{Anforderungen:} \ref{rm:Registering}, \ref{rs:AccountDeletion} \\
-\textbf{Ziel:} Der Nutzer legt ein Nutzerkonto an, um alle Features der App nutzen zu können und löscht das Nutzerkonto danach.\\
-\textbf{Vorbedingung:} -\\
+\textbf{Ziel:} Der Nutzer legt ein Nutzerkonto an, um die Funktionen der App nutzen zu können und löscht das Nutzerkonto danach.\\
+\textbf{Vorbedingung:} Es ist bisher kein Konto mit der E-Mail-Adresse des Nutzers angelegt worden.
 \textbf{Nachbedingung Erfolg:} Der Nutzer wird zum Gruppen-Beitritts-Ansicht weitergeleitet und mit einem Pop-Up-Fenster erfolgt die Bestätigung zur erfolgreichen Registrierung.\\
-\textbf{Nachbedingung Fehlschlag:} Eine Fehlermeldung erscheint beim fehlerhaften Eingabefeld.\\
+\textbf{Nachbedingung Fehlschlag:} Es erscheint eine Fehlermeldung bei dem fehlerhaften Eingabefeld.\\
 \textbf{Akteure:} Nutzer\\
-\textbf{Auslösendes Ereignis:} Der Nutzer muss auf den Registrieren-Button in der Anmeldungsansicht klicken.\\
+\textbf{Auslösendes Ereignis:} Der Nutzer muss nach Öffnen der App auf den Registrieren-Button in der Anmeldungsansicht klicken.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
-    \item Der Nutzer klickt auf den Registrieren-Button.
     \item Der Nutzer gibt einen Nutzernamen ein.
     \item Der Nutzer gibt seine E-Mail-Adresse ein.
     \item Der Nutzer gibt ein Passwort ein.
-    \item Der Nutzer gibt das Passwort nochmals ein.
+    \item Der Nutzer wiederholt das Passwort.
     \item Der Nutzer klickt auf den Weiter-Button.
     \item Der Nutzer wird in die Gruppen-Beitritts-Ansicht weitergeleitet.
     \item Der Nutzer klickt auf den Überspringen-Button.
     \item Der Nutzer wird zur Hauptansicht weitergeleitet.
     \item Der Nutzer klickt auf den Verwaltungsansicht-Button.
     \item Der Nutzer klickt auf den Konto-Löschen-Button.
-    \item Ein Pop-Up-Fenster erscheint zur Bestätigung zum Löschen des Benutzerkonto löschen.
+    \item Ein Pop-Up-Fenster erscheint zur Bestätigung des Vorgangs.
     \item Der Nutzer klickt auf den Bestätigen-Button.
     \item Das Benutzerkonto wird gelöscht.
     \item Der Nutzer wird zur Anmeldungsansicht weitergeleitet.
 \end{enumerate}
-\textbf{Alternativen:} Der Prozess des Konto Löschens kann abgebrochen werden indem eine Bestätigung verweigert wird.
+\textbf{Alternativen:} Der Prozess des Konto-Löschens kann abgebrochen werden indem eine Bestätigung verweigert wird.
 \newpage
 
 \subsection{Passwort zurücksetzen}
+\label{uc:ResetPassword}
 \textbf{Anwendungsfall:} Der Nutzer möchte das Passwort für seinen Benutzerkonto zurücksetzen.\\
 \textbf{Anforderungen:} \ref{rs:ResetPassword}\\
-\textbf{Ziel:} Der Nutzer kann ein neues Passwort setzen.\\
-\textbf{Vorbedingung:} Die App muss bereits gestartet worden sein.\\
-\textbf{Nachbedingung Erfolg:} Der Nutzer wird zum Anmeldungsansicht weitergeleitet und mit einem Pop-Up-Fenster erfolgt die Bestätigung der Versendung einer E-Mail an die angegeben E-Mail-Adresse.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-Up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Ziel:} Der Nutzer kann ein neues Passwort setzen und sich anschließend damit anmelden.\\
+\textbf{Vorbedingung:} Es gibt ein Konto mit der angegebenen E-Mail-Adresse.\\
+\textbf{Nachbedingung Erfolg:} Der Nutzer hat sich mit einem neuen Passwort angemeldet.\\
+\textbf{Nachbedingung Fehlschlag:} Ein Pop-Up-Fenster erscheint mit einer Fehlermeldung. Das Passwort des jeweiligen Accounts wurde nicht verändert.\\
 \textbf{Akteure:} Nutzer\\
-\textbf{Auslösendes Ereignis:} Der Nutzer muss auf den Passwort-Vergessen-Button in der Anmeldungsansicht klicken.\\
+\textbf{Auslösendes Ereignis:} Der Nutzer muss nach Öffnen der App auf den Passwort-Vergessen-Button in der Anmeldungsansicht klicken.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
-    \item Klick auf den Passwort-Vergessen-Button.
-    \item Eingabe der E-Mail-Adresse.
-    \item Klick auf den Weiter-Button.
+    \item Der Nutzer gibt seine E-Mail-Adresse ein.
+    \item Die Anmeldungsansicht öffnet sich und ein Pop-Up-Fenster mit der Information, dass eine E-Mail versendet wurde, wird angezeigt.
+    \item Eine E-Mail mit einem Link zu einer Website auf der ein neues Passwort vergeben werden kann wird an die angegebene E-Mail-Adresse geschickt.
+    \item Der Nutzer folgt dem Link.
+    \item Der Nutzer gibt ein neues Passwort ein.
+    \item Der Nutzer kehrt in die App zurück und meldet sich wie in \ref{uc:LoginLogout} beschrieben an.
 \end{enumerate}
-\textbf{Alternativen:} Durch das Klicken auf den Verlassen-Button wird der Nutzer zurück zur Anmeldungsansicht geleitet.
+\textbf{Alternativen:} Durch das Klicken auf den Zurück-Button in der Passwort-Zurücksetzen-Ansicht wird der Nutzer zurück zur Anmeldungsansicht geleitet.
 \newpage
 
 
 \subsection{Benutzernamen und Profilbild ändern}
 \textbf{Anwendungsfall:} Der Nutzer möchte seinen Nutzernamen und sein Profilbild ändern.\\
 \textbf{Anforderungen:} \ref{rs:ChangeUsername}, \ref{rc:ProfileImage}\\
-\textbf{Ziel:} Der Nutzer kann seinen Benutzernamen und sein Profilbild an seine Wünsche anpassen.\\
-\textbf{Vorbedingung:} -\\
+\textbf{Ziel:} Der Nutzer kann seinen Benutzernamen und sein Profilbild ändern.\\
+\textbf{Vorbedingung:} Der Nutzer ist bereits angemeldet und befindet sich in der Verwaltungsansicht.\\
 \textbf{Nachbedingung Erfolg:} Der aktualisierte Nutzername und das aktualisierte Profilbild wird anderen Nutzern angezeigt.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-Up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Nachbedingung Fehlschlag:} Der Nutzername oder das Profilbild wurden nicht ersetzt.\\
 \textbf{Akteure:} Nutzer\\
-\textbf{Auslösendes Ereignis:} Der Nutzer klickt auf den Button für die Verwaltungsansicht.\\
+\textbf{Auslösendes Ereignis:} -\\
 \textbf{Beschreibung:}
 \begin{enumerate}
-    \item Der Nutzer klickt auf den Button für die Verwaltungsansicht.
     \item Der Nutzer klickt auf den Nutzernamen-Bearbeiten-Button.
-    \item Der Nutzer gibt den neuen Nutzernamen ein.
+    \item Der Nutzer gibt den neuen Nutzernamen in einem Pop-Up-Fenster ein.
     \item Der Nutzer klickt auf den Speichern-Button.
     \item Der Nutzer klickt auf sein Profilbild.
     \item Der Nutzer kann mit Hilfe des betriebssystemeigenen Dateimanagers ein neues Profilbild auswählen.
-    \item Der Nutzer klickt auf sein Profilbild.
-    \item Der Nutzer entfernt sein Profilbild komplett.
 \end{enumerate}
-\textbf{Alternativen:} Der Nutzer kann den Prozess des Benutzernamens ändern abbrechen in dem er die Ansicht verlässt ohne auf den Speichern-Button zu klicken.
+\textbf{Alternativen:} Der Nutzer kann den Prozess des Benutzernamens-Ändern abbrechen, indem er das Pop-Up-Fenster schließt.
 \newpage
 
-
 \subsection{Rezept erstellen, ändern und löschen}
-\textbf{Anwendungsfall:} Der Nutzer möchte ein neues Rezept erstellen, es danach ändern und es schließlich löschen.\\
-\textbf{Anforderungen:} \ref{rm:RecipeCreation}, \ref{rm:RecipeContents}, \ref{rm:RecipeManagement}, \ref{rc:Images}, \ref{rc:IngredientList}, \ref{rs:RecipeVisibility}\\
-\textbf{Ziel:} Der Nutzer erstellt ein Rezept, welches er mit seinen Gruppen teilen möchte, oder auch nur für sich sichtbar macht. Nimmt dann Änderungen vor, um es dann wieder zu löschen.\\
-\textbf{Vorbedingung:} -\\
+\textbf{Anwendungsfall:} Der Nutzer möchte ein neues Rezept erstellen, es danach ändern sowie ein Bild hochladen und es schließlich löschen.\\
+\textbf{Anforderungen:} \ref{rm:RecipeCreation}, \ref{rm:RecipeContents}, \ref{rm:RecipeManagement}, \ref{rc:Images}, \ref{rc:IngredientList}\\
+\textbf{Ziel:} Der Nutzer erstellt ein Rezept, welches er mit seinen Gruppen teilt, nimmt dann Änderungen vor und löscht es schließlich.\\
+\textbf{Vorbedingung:} Der Nutzer ist angemeldet und befindet sich in der Hauptansicht.\\
 \textbf{Nachbedingung Erfolg:} Das erstellte und geänderte Rezept wird in der Verwaltungsansicht nicht mehr angezeigt.  \\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-Up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Nachbedingung Fehlschlag:} -\\
 \textbf{Akteure:} Nutzer\\
-\textbf{Auslösendes Ereignis:} In der Hauptansicht klickt der Nutzer auf den neues-Rezept-anlegen-Button.\\
+\textbf{Auslösendes Ereignis:} In der Hauptansicht klickt der Nutzer auf den Neues-Rezept-Anlegen-Button.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
-    \item Der Nutzer klickt auf den Button für ein neues Rezept.
-    \item Der Nutzer gib den Rezepttitel, die Zubereitungszeit, ein \gls{labels}, die Zutaten mit Mengenangaben, den \glslink{schwierigkeit}{Schwierigkeitsgrad}, die Portionsanzahl und eine Zubereitungsanweisungen an.
+    \item Der Nutzer gibt den Rezepttitel, die Zubereitungszeit, die Portionenzahl, den \glslink{schwierigkeit}{Schwierigkeitsgrad} und die Zubereitungsanweisungen ein und wählt verschiedene \gls{labels} aus.
+    \item Er drückt auf den Zutaten-Hinzufügen-Button.
+    \item Er wird zur Zutaten-Hinzufügen-Ansicht weitergeleitet.
+    \item Er tippt den anfang des Namens der Zutat ein und wählt das erste angezeigte Ergebnis aus.
+    \item Er gibt die Menge und die Einheit der Zutat ein.
+    \item Er drückt auf den Hinzufügen-Button.
     \item Der Nutzer klickt auf den Speichern-Button.
-    \item Der Nutzer wird zur Hauptansicht weitergeleitet.
+    \item Der Nutzer wird zur Hauptansicht weitergeleitet und das Rezept ist in der Liste sichtbar.
     \item Der Nutzer klickt auf den Verwaltungsansicht-Button.
     \item Der Nutzer klickt auf das gerade erstellte Rezept.
     \item Der Nutzer wird zur Rezept-Erstellungs-Ansicht weitegeleitet.
-    \item Der Nutzer ändert den Rezepttitel, die \gls{sichtbarkeit} des Rezepts und lädt ein Bild des fertigen Gerichts hoch.
+    \item Der Nutzer ändert den Rezepttitel und lädt ein Bild des fertigen Gerichts hoch.
     \item Der Nutzer klickt auf den Speichern-Button.
-    \item Der Nutzer wird zur Hauptansicht weitergeleitet.
+    \item Der Nutzer wird zur Hauptansicht weitergeleitet, wo das aktualisierte Rezept in der Liste angezeigt wird.
     \item Der Nutzer klickt auf den Verwaltungsansicht-Button.
     \item Der Nutzer klickt auf den Löschen-Button des gerade geänderten Rezepts.
-    \item Ein Pop-Up-Fenster erscheint mit der Frage zur Bestätigung, dass das Rezept gelöscht werden soll.
+    \item Ein Pop-Up-Fenster erscheint mit der Frage zur Bestätigung der Aktion.
     \item Der Nutzer klickt auf den Bestätigen-Button.
-    \item Dem Nutzer wird das Rezept nicht mehr angezeigt.
+    \item Keinem Nutzer wird das Rezept mehr angezeigt.
 \end{enumerate}
 \textbf{Alternativen:} Jeder der zuvor genannten Prozesse kann durch ein Klick auf den Zurück-Button abgebrochen werden.
 \newpage
 
-
-\subsection{Rezept suchen, sortieren, filtern, anschauen und favorisieren}
-\textbf{Anwendungsfall:} Der Nutzer möchte nach einem Rezept suchen, dann die \glslink{rezept}{Rezepte} nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} filtern, ein Rezept sich genauer anschauen und dies dann \glslink{favorit}{favorisieren}.\\
-\textbf{Anforderungen:} \ref{rm:RecipeViewing}, \ref{rs:RecipeFavourites}, \ref{rs:PortionScaling}, \ref{rs:Searching}, \ref{rc:Filtering}, \ref{rc:Sorting}, \ref{rc:PDFExport}, \ref{rs:AuthorAndDate}, \ref{rs:RecipeLabels}, \ref{rc:FavoriteAuthorRejoin}\\
+\subsection{Rezept suchen, sortieren, filtern, betrachten und favorisieren}
+\textbf{Anwendungsfall:} Der Nutzer möchte nach einem Rezept suchen, dann die \glslink{rezept}{Rezepte} nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} filtern, sich ein Rezept genauer anschauen und dieses dann \glslink{favorit}{favorisieren}.\\
+\textbf{Anforderungen:} \ref{rm:RecipeViewing}, \ref{rs:RecipeFavourites}, \ref{rs:PortionScaling}, \ref{rs:Searching}, \ref{rc:Filtering}, \ref{rc:Sorting}, \ref{rs:AuthorAndDate}, \ref{rs:RecipeLabels}\\
 \textbf{Ziel:} Der Nutzer kann mit dem Suchen, dem Filtern und dem \glslink{favorit}{Favorisieren} sein gewünschtes Rezept schnell finden und es mithilfe der Zubereitungsanweisungen nachvollziehen.\\
-\textbf{Vorbedingung:} Dem Nutzer wird mindestens ein Rezept in der Hauptansicht oder in der Gruppen-Detail-Ansicht angezeigt.\\
+\textbf{Vorbedingung:} Dem Nutzer wird mindestens ein Rezept in der Hauptansicht oder in der Gruppen-Detail-Ansicht angezeigt, das die entsprechenden Filterkriterien erfüll, noch nicht favorisiert wurde und dem Suchtext entspricht. Der Nutzer ist angemeldet und befindet sich in der Hauptansicht.\\
 \textbf{Nachbedingung Erfolg:} Das \glslink{favorit}{favorisierte} Rezept ist mit den anderen \glslink{favorit}{favorisierten} \glslink{rezept}{Rezepten} beim Filter \glslink{favorit}{favorisierte} \glslink{rezept}{Rezepte} auffindbar.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-Up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Nachbedingung Fehlschlag:} -\\
 \textbf{Akteure:} Nutzer\\
-\textbf{Auslösendes Ereignis:} Der Nutzer klickt auf die Suchzeile in der Hauptansicht.\\
+\textbf{Auslösendes Ereignis:} -\\
 \textbf{Beschreibung:}
 \begin{enumerate}
     \item Der Nutzer klickt auf die Suchzeile.
-    \item Der Nutzer klickt auf den Sortierungs-Methode-Button und wählt Hinzufügedatum aus.
-    \item Der Nutzer klickt auf den Filtern-nach-Button und wählt \glslink{schwierigkeit}{Schwierigkeitsgrad} Mittel aus.
-    \item Der Nutzer gibt einen Suchbegriff ein.
+    \item Der Nutzer gibt einen Text ein und drückt Enter.
+    \item Der Nutzer klickt auf den Sortieren-Button und wählt Hinzufügedatum aus.
+    \item Der Nutzer klickt auf den Filtern-Button und wählt \glslink{schwierigkeit}{Schwierigkeitsgrad} Mittel aus.
     \item Der Nutzer klickt auf das erste Rezept.
     \item Der Nutzer wird zur Rezeptansicht weitergeleitet.
+    \item Der Nutzer ändert die Portionszahl und die Zutatenmengen werden automatisch entsprechend angepasst.
     \item Der Nutzer klickt auf den Favoriten-Button.
-    \item Der Nutzer ändert die Portionsröße um einen Zähler.
-    \item Der Nutzer klickt auf den Exportieren-Button um das Rezept als PDF zu downloaden.
 \end{enumerate}
-\textbf{Alternativen:} Der Nutzer kann \glslink{favorit}{favorisierte} \glslink{rezept}{Rezepte} nicht weiterhin anschauen, wenn der \gls{autor} die Gruppe verlässt. Tritt der \gls{autor} wieder ein, sind die \glslink{favorit}{favorisierten} \glslink{rezept}{Rezepte} wieder als solche sichtbar.
+\textbf{Alternativen:} -
 \newpage
 
-\subsection{Gruppe erstellen und Gruppe auflösen}
-\textbf{Anwendungsfall:} Der Nutzer möchte eine neue Gruppe erstellen, mit der die \glslink{rezept}{Rezepte} geteilt werden können und diese danach wieder auflösen.\\
+\subsection{Rezept auf privat stellen und exportieren}
+\textbf{Anwendungsfall:} Der Nutzer möchte ein eigenes \gls{rezept} auf \gls{privat} stellen und dann exportieren.\\
+\textbf{Anforderungen:} \ref{rm:RecipeViewing}, \ref{rs:RecipeHiding}, \ref{rc:PDFExport} \\
+\textbf{Ziel:} Der Nutzer will, dass das Rezept nur ihm sichtbar ist und eine PDF-Datei des Rezepts erzeugen.\\
+\textbf{Vorbedingung:} Der Nutzer ist angemeldet und befindet sich in der Verwaltungsansicht. Er hat mindestens ein Rezept erstellt.\\
+\textbf{Nachbedingung Erfolg:} Anderen Nutzern ist das Rezept nicht mehr sichtbar und der Nutzer hat die Möglichkeit eine PDF des Rezepts herunterzuladen.\\
+\textbf{Nachbedingung Fehlschlag:} -\\
+\textbf{Akteure:} Nutzer\\
+\textbf{Auslösendes Ereignis:} -\\
+\textbf{Beschreibung:}
+\begin{enumerate}
+    \item Der Nutzer klickt auf das Augen-Symbol neben dem Rezept.
+    \item Das Rezept ist nun \gls{privat} und wird anderen Nutzern nicht mehr in der Hauptansicht angezeigt.
+    \item Der Nutzer klickt auf den Exportieren-Button.
+    \item Eine PDF-Datei des Rezepts wird heruntergeladen.
+\end{enumerate}
+\textbf{Alternativen:} -
+\newpage
+
+\subsection{Gruppe erstellen, Gruppe mit Kürzel beitreten und Gruppe auflösen}
+\textbf{Anwendungsfall:} Der Nutzer möchte eine neue Gruppe erstellen, und ein weiterer Nutzer dieser beitreten. Danach löst der Nutzer die Gruppe wieder auf\\
 \textbf{Anforderungen:} \ref{rm:GroupCreation}, \ref{rm:GroupAdmin}, \ref{rm:GroupDeletion} \\
 \textbf{Ziel:} Der Nutzer kann mit der neuen Gruppe seine \glslink{rezept}{Rezepte} teilen und danach die Gruppe auch wieder auflösen.\\
-\textbf{Vorbedingung:} -\\
-\textbf{Nachbedingung Erfolg:} Die erstellte Gruppe wird in der Verwaltungsansicht nicht mehr angezeigt und der \glslink{administrator}{Administrator Status} des Nutzers wird wieder entfernt.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-Up-Fenster erscheint mit einer Fehlermeldung.\\
-\textbf{Akteure:} Nutzer\\
-\textbf{Auslösendes Ereignis:} Der Nutzer klickt auf den Gruppe-erstellen-Button.\\
+\textbf{Vorbedingung:} Beide Nutzer sind angemeldet und befinden sich in der Verwaltungsansicht.\\
+\textbf{Nachbedingung Erfolg:} Die erstellte Gruppe wird keinem Nutzer mehr in der Verwaltungsansicht angezeigt.\\
+\textbf{Nachbedingung Fehlschlag:} -\\
+\textbf{Akteure:} Nutzer 1, Nutzer 2\\
+\textbf{Auslösendes Ereignis:} Nutzer 1 klickt auf den Gruppe-Hinzufügen-Button.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
-    \item Der Nutzer klickt auf den Gruppe-erstellen-Button.
-    \item Der Nutzer wird zur Gruppen-Erstellungs-Ansicht weitergeleitet.
-    \item Der Nutzer gibt den Gruppennamen ein.
-    \item Der Nutzer klickt auf den Speichern-Button.
-    \item Der Nutzer wird zur Verwaltungsansicht zurückgeleitet.
-    \item Der Nutzer klickt auf die Gruppe und wird zur Gruppen-Detail-Ansicht weitergeleitet.
-    \item Der Nutzer klickt auf den Gruppe-Auflösen-Button.
-    \item Ein Pop-Up-Fenster erscheint, welches um Bestätigung bitten.
-    \item Der Nutzer klickt auf den Button zum Bestätigen.
-    \item Der Nutzer wird zur Verwaltungsansicht weitergeleitet.
+    \item Nutzer 1 wird zur Gruppen-Beitritts-Ansicht weitergeleitet.
+    \item Nutzer 1 navigiert zur Gruppen-Erstellungs-Ansicht.
+    \item Nutzer 1 gibt den Gruppennamen ein.
+    \item Nutzer 1 klickt auf den Speichern-Button. Die Gruppe wird angelegt und Nutzer 1 ist Administrator der Gruppe.
+    \item Nutzer 1 wird zur Verwaltungsansicht zurückgeleitet.
+    \item Nutzer 1 klickt auf die Gruppe und wird zur Gruppen-Detail-Ansicht weitergeleitet.
+    \item Nutzer 1 drückt auf das Teilen-Symbol.
+    \item Nutzer 1 schickt das \gls{gruppenkurzel} an Nutzer 2.
+    \item Nutzer 2 drückt auf den Gruppe-Hinzufügen-Button.
+    \item Nutzer 2 wird zur Gruppen-Beitritts-Ansicht weitergeleitet.
+    \item Nutzer 2 gibt das \gls{gruppenkurzel} ein.
+    \item Nutzer 2 klickt auf den Weiter-Button.
+    \item Nutzer 2 wird zur Verwaltungsansicht weitergeleitet.
+    \item Nutzer 1 drückt auf den Gruppe-Auflösen-Button und wird zur Verwaltungsansicht geleitet.
+    \item Bei beiden Nutzern verschwindet die Gruppe aus der Verwaltungsansicht.
 \end{enumerate}
-\textbf{Alternativen:} Mit dem Gruppe-Beitreten-Button kann auch zur Gruppen-Erstellungs-Ansicht gelangt werden.
+\textbf{Alternativen:} -
 \newpage
 
-
-\subsection{Gruppe beitreten und verlassen}
-\textbf{Anwendungsfall:} Der Nutzer möchte einer neuen Gruppe beitreten und diese danach verlassen.\\
+\subsection{Gruppe mit QR-Code beitreten und verlassen}
+\textbf{Anwendungsfall:} Der Nutzer möchte einer neuen Gruppe mit einem QR-Code beitreten und diese danach verlassen.\\
 \textbf{Anforderungen:} \ref{rm:GroupJoining}, \ref{rs:QRCode} \\
-\textbf{Ziel:} Der Nutzer ist der Gruppe beigetreten und kann alle in der Gruppe geteilten \glslink{rezept}{Rezepte} ansehen und diese auch wieder verlassen, sodass in der Hauptansicht die \glslink{rezept}{Rezepte} nicht mehr angezeigt werden.\\
-\textbf{Vorbedingung:} -\\
+\textbf{Ziel:} Nutzer 2 ist der Gruppe beigetreten und hat diese danach wieder verlassen.\\
+\textbf{Vorbedingung:} Beide Nutzer sind angemeldet. Nutzer 1 ist Mitglied in einer Gruppe, in der Nutzer 2 nicht ist, und befindet sich in der dazugehörigen Gruppen-Detail-Ansicht. Nutzer 2 befindet sich in der Verwaltungsansicht.\\
 \textbf{Nachbedingung Erfolg:} Die beigetretene Gruppe wird nicht mehr in der Verwaltungsansicht angezeigt und die \glslink{rezept}{Rezepte} der Gruppe werden nicht mehr in der Hauptansicht angezeigt.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-Up-Fenster erscheint mit einer Fehlermeldung.\\
-\textbf{Akteure:} Nutzer\\
-\textbf{Auslösendes Ereignis:} Klick auf den Gruppe-Beitreten-Button.\\
-\textbf{Beschreibung:}\\
-\begin{enumerate}
-    \item Der Nutzer klickt auf den Gruppe-Beitreten-Button in der Verwaltungsansicht.
-    \item Der Nutzer gibt das \glslink{gruppenkurzel}{Gruppenkürzels} ein.
-    \item Der Nutzer klickt auf den Gruppe-Beitreten-Button.
-    \item Der Nutzer wird zur Gruppen-Detail-Ansicht weitergeleitet.
-    \item Der Nutzer klickt auf den Gruppe-Verlassen-Button.
-    \item Ein Pop-Up-Fenster erscheint, welches um Bestätigung bittet.
-    \item Der Nutzer klickt auf den Button zum Bestätigen.
-    \item Eer Nutzer wird zur Verwaltungsansicht weitergeleitet.
-\end{enumerate}
-\textbf{Alternativen:} Nach dem Anmeldungsansicht wird man zur Gruppe-Beitreten-Ansicht weitergeleitet, wodurch auch einer Gruppe beigetreten werden kann. Einer Gruppe kann auch mit dem Scannen eines QR-Codes beigetreten werden ohne die Eingabe eines Gruppennamens. Der Prozess des Gruppe Verlassens kann abgebrochen werden mit der Verweigerung der Bestätigung.
-\newpage
-
-
-\subsection{Gruppenkürzel ausgeben}
-\textbf{Anwendungsfall:} Der Nutzer möchte den \gls{gruppenkurzel} erhalten.\\
-\textbf{Anforderungen:} \ref{rm:GroupId}\\
-\textbf{Ziel:} Der Nutzer kann die Daten der Gruppe mit anderen Nutzern teilen, um diesen die Möglichkeit zu geben der Gruppe beizutreten.\\
-\textbf{Vorbedingung:} Der Nutzer ist in einer Gruppe Mitglied.\\
-\textbf{Nachbedingung Erfolg:} Ein Pop-Up-Fenster erscheint mit den Daten der Gruppe.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-Up-Fenster erscheint mit einer Fehlermeldung.\\
-\textbf{Akteure:} Nutzer \\
-\textbf{Auslösendes Ereignis:} Der Nutzer klickt in der Verwaltungsansicht auf die Gruppe und wird zur Gruppen-Detail-Ansicht weitergeleitet.\\
+\textbf{Nachbedingung Fehlschlag:} -\\
+\textbf{Akteure:} Nutzer 1, Nutzer 2\\
+\textbf{Auslösendes Ereignis:} -\\
 \textbf{Beschreibung:}
 \begin{enumerate}
-    \item Der Nutzer klickt auf die Gruppen-Detail-Ansicht-Button.
-    \item Der Nutzer klickt auf den Gruppen-Informations-Button und das \gls{gruppenkurzel} wird in die Zwischenablage kopiert.
-    \item Der Nutzer klickt auf den QR-Code-Button.
-    \item Der Nutzer wird zur QR-Code-Ansicht weitergeleitet.
-    \item Der Nutzer sieht den QR-Code, der alle Informationen enthält.
+    \item Nutzer 1 klickt auf den QR-Code-Button.
+    \item Nutzer 1 wird zur QR-Code-Ansicht weitergeleitet.
+    \item Nutzer 2 klickt auf den Gruppe-Beitreten-Button in der Verwaltungsansicht.
+    \item Nutzer 2 wird zur Gruppen-Beitritts-Ansicht weitergeleitet.
+    \item Nutzer 2 klickt auf den QR-Code-Scannen-Button.
+    \item Die Kamera des Smartphones von Nutzer 2 öffnet sich.
+    \item Nutzer 2 scannt den QR-Code von Nutzer 1.
+    \item Nutzer 2 wird zur Verwaltungsansicht weitergeleitet und ist jetzt Mitglied in der Gruppe.
+    \item Nutzer 2 klickt auf den Gruppe-Verlassen-Button.
+    \item Ein Pop-Up-Fenster erscheint, welches um Bestätigung bittet.
+    \item Nutzer 2 klickt auf den Button zum Bestätigen.
+    \item Die Gruppe verschwindet aus der Gruppenliste von Nutzer 2.
 \end{enumerate}
-\textbf{Alternativen:} Mit dem Zurück-Button kann die QR-Code-Ansicht wieder verlassen werden.
+\textbf{Alternativen:} -
 \newpage
 
-\subsection{Administrator ernennen und Administrator Status entfernen}
+\subsection{Administrator ernennen und Administratorenstatus entfernen}
 \textbf{Anwendungsfall:} Der Nutzer möchte ein weiteres Mitglied der Gruppe zu einem \gls{administrator} der Gruppe ernennen und dem Nutzer den \glslink{administrator}{Administratorenstatus} dann wieder aberkennen.\\
 \textbf{Anforderungen:} \ref{rs:AdminCreation}\\
-\textbf{Ziel:} Der Nutzer kann seine Rechte für die Gruppe mit anderen Mitgliedern teilen und auch anderen Mitglieder die Rechte entziehen.\\
-\textbf{Vorbedingung:} Der Nutzer ist \gls{administrator} der Gruppe.\\
-\textbf{Nachbedingung Erfolg:} Ein weiteres Mitglied besitzt die gegebenen Rechte nicht mehr.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-Up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Ziel:} Der \gls{administrator} kann seine Rechte für die Gruppe mit anderen Mitgliedern teilen und auch anderen Mitglieder die Rechte entziehen.\\
+\textbf{Vorbedingung:} Der Nutzer ist angemeldet und\gls{administrator} der Gruppe. Er befindet sich in der Gruppen-Detail-Ansicht.\\
+\textbf{Nachbedingung Erfolg:} Ein Mitglied der Gruppe besitzt die gegebenen Rechte nicht mehr.\\
+\textbf{Nachbedingung Fehlschlag:} -\\
 \textbf{Akteure:} \gls{administrator}, Nutzer \\
-\textbf{Auslösendes Ereignis:} Der Nutzer klickt auf die Detailansicht eines Mitglieds der Gruppe.\\
+\textbf{Auslösendes Ereignis:} -\\
 \textbf{Beschreibung:}
 \begin{enumerate}
-    \item Der \gls{administrator} klickt auf die Detailansicht eines Mitglieds der Gruppe.
-    \item Der \gls{administrator} klickt auf die Option den Nutzer zum \gls{administrator} der Gruppe zu ernennen.
-    \item Ein Pop-Up-Fenster erscheint mit einer Bestätigung, dass der Nutzer zum \gls{administrator} der Gruppe ernannt wurde.
-    \item Der \gls{administrator} klickt auf die Detail-Ansicht eines Mitglieds der Gruppe.
+    \item Der \gls{administrator} klickt den Optionen-Button neben einem Mitglied der Gruppe.
+    \item Ein Drop-Down-Menü öffnet sich, aus dem der \gls{administrator} die Option auswählt, den Nutzer zum \gls{administrator} der Gruppe zu ernennen.
+    \item Das Drop-Down-Menü schließt sich und der Nutzer ist nun ebenfalls \gls{administrator} der Gruppe und wird als solcher angezeigt.
+    \item Der \gls{administrator} klickt den Optionen-Button neben dem neuen Administrator.
     \item Der \gls{administrator} klickt auf die Option den Nutzer den \glslink{administrator}{Administratorenstatus} in der Gruppe zu entziehen.
-    \item Ein Pop-Up-Fenster erscheint mit einer Bestätigung, dass dem Nutzer der \glslink{administrator}{Administratorenstatus} entzogen worden.
+    \item Das Drop-Down-Menü schließt sich und der Nutzer ist nun kein \gls{administrator} der Gruppe mehr und wird auch nicht als solcher angezeigt.
 \end{enumerate}
 \textbf{Alternativen:} -
 \newpage
@@ -719,95 +727,89 @@ In der QR-Code-Ansicht (\autoref{fig:QRCodeView}) wird der QR-Code einer Gruppe 
 \subsection{Nutzer kicken und Nutzer bannen}
 \textbf{Anwendungsfall:} Ein \gls{administrator} möchte ein Mitglied der Gruppe aus der Gruppe \gls{kicken} und ein anderes Mitglied aus der Gruppe \gls{bannen}.\\
 \textbf{Anforderungen:} \ref{rs:Kicking}\\
-\textbf{Ziel:} Ein \gls{administrator} möchte das erste Mitglied nur aus der Gruppe \gls{kicken} und dem zweiten Mitglied nicht mehr die Möglichkeit bieten der Gruppe beizutreten.\\
-\textbf{Vorbedingung:} Der Nutzer ist \gls{administrator} der Gruppe und die Gruppe hat insgesamt mindestens drei Mitglieder.\\
+\textbf{Ziel:} Ein \gls{administrator} möchte das erste Mitglied nur aus der Gruppe \gls{kicken} und das zweite Mitglied \gls{bannen}.\\
+\textbf{Vorbedingung:} Der Nutzer ist \gls{administrator} der Gruppe, angemeldet und befindet sich in der Gruppen-Detail-Ansicht. Alle drei Akteure sind in der gleichen Gruppe.\\
 \textbf{Nachbedingung Erfolg:} Die beiden Nutzer sind nicht mehr in der Gruppe.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-Up-Fenster erscheint mit einer Fehlermeldung.\\
-\textbf{Akteure:} \gls{administrator}, Nutzer\\
-\textbf{Auslösendes Ereignis:} Der Nutzer klickt auf die Detail-Ansicht des Mitglieds der Gruppe.\\
+\textbf{Nachbedingung Fehlschlag:} -\\
+\textbf{Akteure:} \gls{administrator}, Nutzer 1, Nutzer 2\\
+\textbf{Auslösendes Ereignis:} -\\
 \textbf{Beschreibung:}
 \begin{enumerate}
-    \item Der \gls{administrator} klickt auf die Detail-Ansicht des ersten Mitglieds der Gruppe.
+    \item Der \gls{administrator} klickt auf den Optionen-Button von Nutzer 1.
     \item Der \gls{administrator} klickt auf die Option den Nutzer zu \gls{kicken}.
     \item Ein Pop-Up-Fenster erscheint mit einer Bitte um Bestätigung, dass der Nutzer \glslink{kicken}{gekickt} werden soll.
     \item Der \gls{administrator} klickt auf den Bestätigen-Button.
-    \item Der \gls{administrator} klickt auf die Detailansicht des zweiten Mitglieds der Gruppe.
+    \item Nutzer 1 verschwindet aus der Liste der Gruppenmitglieder und ist kein Mitglied der Gruppe mehr.
+    \item Der \gls{administrator} klickt auf den Optionen-Button von Nutzer 2.
     \item Der \gls{administrator} klickt auf die Option den Nutzer zu \gls{bannen}.
-    \item Ein Pop-Up-Fenster erscheint mit einer Bestätigung, dass der Nutzer \glslink{bannen}{gebannt} worden ist.
+    \item Ein Pop-Up-Fenster erscheint mit einer Bitte um Bestätigung, dass der Nutzer \glslink{bannen}{gebannt} werden soll.
+    \item Der \gls{administrator} klickt auf den Bestätigen-Button.
+    \item Nutzer 2 verschwindet aus der Liste der Gruppenmitglieder und ist kein Mitglied der Gruppe mehr. Er kann ihr auch nicht mehr beitreten.
 \end{enumerate}
 \textbf{Alternativen:} -
 \newpage
 
 
 \subsection{Rezepte verwalten für die Gruppen}
-\textbf{Anwendungsfall:} Der Nutzer meldet ein Rezept, welches mit der Gruppe von einem Nutzer geteilt wird, und der \gls{administrator} der Gruppe will dieses Rezept, \gls{ausblenden} und danach wieder \gls{einblenden}.\\
+\textbf{Anwendungsfall:} Der Nutzer meldet ein Rezept, welches mit der Gruppe von einem Nutzer geteilt wird, und der \gls{administrator} der Gruppe will dieses Rezept \gls{ausblenden}\\
 \textbf{Anforderungen:} \ref{rs:RecipeHiding}, \ref{rc:RecipeMelden}\\
-\textbf{Ziel:} Der \gls{administrator} kann bestimmen welche \glslink{rezept}{Rezepte} den Mitgliedern und ihm selbst angezeigt werden.\\
-\textbf{Vorbedingung:} Der Nutzer und der \gls{administrator} sind in einer Gruppe und in der Gruppe besteht mindestens ein \glslink{rezept}{Rezepte}.\\
-\textbf{Nachbedingung Erfolg:} Das Rezept wird wieder Hauptansicht und in der Gruppen-Detail-Ansicht angezeigt, nach dem es für die Mitglieder ausgeblendet war.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-Up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Ziel:} Der \gls{administrator} kann bestimmen welche \glslink{rezept}{Rezepte} den Mitgliedern der Gruppe und ihm selbst angezeigt werden.\\
+\textbf{Vorbedingung:} Der Nutzer und der \gls{administrator} sind in einer Gruppe und beide angemeldet. In der Gruppe gibt es mindestens ein \gls{rezept}. Der Nutzer befindet sich in der Rezeptansicht des Rezepts.\\
+\textbf{Nachbedingung Erfolg:} Das Rezept wird keinem Gruppenmitglied außer dem Autor angezeigt. Administratoren können das Rezept nur in der Gruppen-Detail-Ansicht sehen.\\
+\textbf{Nachbedingung Fehlschlag:} -\\
 \textbf{Akteure:} Nutzer, \gls{administrator}\\
-\textbf{Auslösendes Ereignis:} Der Nutzer klickt in der Gruppen-Detail-Ansicht auf den Melden-Button von einem Rezept.\\
+\textbf{Auslösendes Ereignis:} -\\
 \textbf{Beschreibung:}
 \begin{enumerate}
-    \item Der Nutzer klickt in der Gruppen-Detail-Ansicht auf den Melden-Button von einem Rezept.
+    \item Der Nutzer klickt auf den Melden-Button
     \item Ein Pop-Up-Fenster erscheint, welches um Bestätigung bittet, dass das Rezept wirklich gemeldet werden soll.
     \item Der Nutzer klickt auf den Bestätigen-Button.
     \item Der \gls{administrator} erhält eine E-Mail mit der Benachrichtigung über die Meldung des Rezepts.
     \item Der \gls{administrator} öffnet die App und manövriert zur Gruppen-Detail-Ansicht.
-    \item Der \gls{administrator} klickt in der Gruppen-Detail-Ansicht auf den Ausblenden-Button von einem Rezept.
-    \item Ein Pop-Up-Fenster erscheint, welches um Bestätigung bittet, dass das Rezept wirklich ausgeblendet werden soll.
-    \item Der \gls{administrator} klickt auf den Bestätigen-Button.
-    \item Der \gls{administrator} klickt in der Gruppen-Detail-Ansicht auf den Einblenden-Button von dem \glslink{ausblenden}{ausgeblendeten} Rezept.
-    \item Ein Pop-Up-Fenster erscheint, welches um Bestätigung bittet, dass das Rezept wirklich \glslink{einblenden}{eingeblendet} werden soll.
-    \item Der \gls{administrator} klickt auf den Bestätigen-Button.
+    \item Der \gls{administrator} klickt in der Gruppen-Detail-Ansicht auf den Ausblenden-Button des Rezepts.
+    \item Das Rezept wird ausgeblendet und ist nur noch für den Autor sichtbar. Für Administratoren ist es nur in der Gruppen-Detail-Ansicht sichtbar.
 \end{enumerate}
-\textbf{Alternativen:} Bei einer Verweigerung der Bestätigung wird der jeweilige Prozess abgebrochen.
+\textbf{Alternativen:} Der Administrator kann das Rezept auch wieder einblenden, indem er auf den Einblenden-Button klickt.
 \newpage
-
 
 \subsection{Gruppennamen ändern}
 \textbf{Anwendungsfall:} Ein \gls{administrator} möchte den Gruppennamen ändern.\\
 \textbf{Anforderungen:} \ref{rc:GroupRenaming}\\
 \textbf{Ziel:} Ein \gls{administrator} kann den Gruppennamen nach seinen Vorstellungen anpassen.\\
-\textbf{Vorbedingung:} Der Nutzer ist \gls{administrator} der Gruppe.\\
+\textbf{Vorbedingung:} Der Nutzer ist \gls{administrator} der Gruppe, angemeldet und in der Gruppen-Detail-Ansicht.\\
 \textbf{Nachbedingung Erfolg:} Der angepasste Gruppenname wird den Mitgliedern angezeigt.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-Up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Nachbedingung Fehlschlag:} Der Gruppenname wurde nicht geändert.\\
 \textbf{Akteure:} \gls{administrator}\\
-\textbf{Auslösendes Ereignis:} In der Gruppen-Detail-Ansicht wird auf den Bearbeiten-Button geklickt.\\
+\textbf{Auslösendes Ereignis:} In der Gruppen-Detail-Ansicht wird auf den Namen-Bearbeiten-Button geklickt.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
-    \item Der Nutzer klickt auf den Bearbeiten-Button.
+    \item Ein Pop-Up-Fenster erscheint, welches um den neuen Gruppennamen bittet.
     \item Der Nutzer gibt den neuen Gruppennamen ein.
     \item Der Nutzer klickt auf den Bestätigen-Button.
-    \item Der Nutzer wird zur Gruppen-Detail-Ansicht.
+    \item Der Nutzer wird zur Gruppen-Detail-Ansicht weitergeleitet, wo der neue Name angezeigt wird.
 \end{enumerate}
-\textbf{Alternativen:} Bei einer Verweigerung der Bestätigung wird die Umbenennung abgebrochen.
+\textbf{Alternativen:} Wird das Pop-Up-Fenster geschlossen, so wird die Benennung abgebrochen.
 \newpage
 
 \subsection{Administrator verlässt die Gruppe}
-\textbf{Anwendungsfall:} Ein \gls{administrator} verlässt die Gruppe.\\
+\textbf{Anwendungsfall:} Der einzige \gls{administrator} verlässt die Gruppe.\\
 \textbf{Anforderungen:} \ref{rs:NoAdmins}\\
 \textbf{Ziel:} Ein \gls{administrator} kann die Gruppe verlassen und ein anderes Mitglied wird zum neuen \gls{administrator}.\\
-\textbf{Vorbedingung:} Der Nutzer ist einziger \gls{administrator} der Gruppe und die Gruppe enthält mehr als ein Mitglied.\\
+\textbf{Vorbedingung:} Der Nutzer ist einziger \gls{administrator} der Gruppe und die Gruppe enthält mehr als ein Mitglied. Zudem ist der Administrator angemeldet und befindet sich in der Gruppen-Detail-Ansicht.\\
 \textbf{Nachbedingung Erfolg:} Der Nutzer der am längsten in der Gruppe ist, exklusive des bisherigen \glslink{administrator}{Administrators}, ist neuer \gls{administrator}.\\
-\textbf{Nachbedingung Fehlschlag:} Ein Pop-Up-Fenster erscheint mit einer Fehlermeldung.\\
+\textbf{Nachbedingung Fehlschlag:} -\\
 \textbf{Akteure:} Nutzer, \gls{administrator}\\
-\textbf{Auslösendes Ereignis:} In der Gruppen-Detail-Ansicht wird auf den Gruppe-Verlassen-Button geklickt.\\
+\textbf{Auslösendes Ereignis:} Der Administrator drückt auf den Gruppe-Verlassen-Button.\\
 \textbf{Beschreibung:}
 \begin{enumerate}
-    \item Der \gls{administrator} klickt auf den Gruppe-Verlassen-Button.
     \item Ein Pop-Up-Fenster erscheint, welches um Bestätigung bitten.
     \item Der \gls{administrator} klickt auf den Button zum Bestätigen.
     \item Der \gls{administrator} wird zur Verwaltungsansicht weitergeleitet.
     \item Der Nutzer der am längsten in der Gruppe ist, exklusive des bisherigen \glslink{administrator}{Administrators}, ist neuer \gls{administrator}. 
 \end{enumerate}
 \textbf{Alternativen:} Ist der \gls{administrator} das letzte Mitglied der Gruppe, so wird die Gruppe gelöscht.
-\newpage
-
-
 \resetsubsectionnumbering
-
+\newpage
 
 \section{Produktdaten}
 \enablesubsectionnumbering{D}
