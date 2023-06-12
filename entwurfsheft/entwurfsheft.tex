@@ -167,20 +167,23 @@ Die einzelnen Schichten werden in den folgenden Kapiteln genauer beschrieben.
 
     \newpage
 
-        \paragraph{MainViewPage}
+        \paragraph{MainViewPage}  $\;$ \\
+        Die Klasse erstellt den MainViewPageState und erbt von der Klasse StatefullWidget.\newline
             \textbf{Methods}
                 \begin{itemize}
                     \item createState: State<MainViewPageState> - Konstruktor für den MainViewPageState.
                 \end{itemize}
                 
-        \paragraph{MainViewPageState}
+        \paragraph{MainViewPageState} $\;$ \\
+        Die Klasse fasst alle Widgets zusammen um die Hauptansicht darzustellen. Sie erbt von der Klasse State.\newline
             \textbf{Methods}
                 \begin{itemize}
                     \item filtering(filter: FilteringMethods) - Alle Rezepte werden dem Filterkriterium gefiltert.
                     \item sorting(sort: SortingMethods) - Alle Rezepte werden nach dem Sortierkriterium sortiert.
                 \end{itemize}
 
-        \paragraph{TopBar}
+        \paragraph{TopBar} $\;$ \\
+        Die Klasse stellt die Top Bar der App da.\newline
             \textbf{Attributes}
                 \begin{itemize}
                     \item keyword: TextEdittingController - Eingegebene Zeichenkette durch den Nutzer für die Suche.
@@ -190,14 +193,16 @@ Die einzelnen Schichten werden in den folgenden Kapiteln genauer beschrieben.
                     \item search(keyword: TextEdittingController) - Durchsucht alle Rezepte um gibt jene aus, welche Rezepttitel zu dem Schlagwort passen.
                 \end{itemize}
                 
-        \paragraph{AppBar}
+        \paragraph{AppBar} $\;$ \\
+        Die Klasse stellt die App Bar am unteren Bildschrimrand da. \newline
             \textbf{Methodes}
                 \begin{itemize}
                     \item recipeCreationView() - Die Rezept-erstell-Ansicht wird aufgerufen.
                     \item settingsView() - Die Einstellungsansicht wird aufgerufen.
                 \end{itemize}
 
-        \paragraph{RecipeWidget}
+        \paragraph{RecipeWidget} $\;$ \\
+        Die Klasse stellt eine Rezept Element in der Hauptansicht da.\newline
             \textbf{Attributes}
                  \begin{itemize}
                      \item recipe: Recipe - Das Rezept mit dem Widget dargestellte Rezept.
@@ -207,7 +212,8 @@ Die einzelnen Schichten werden in den folgenden Kapiteln genauer beschrieben.
                     \item RecipeWidget(recipe: Recipe - notNull) - Konstruktor für ein Recipe Widget. Ein Rezept muss angegeben werden.
                 \end{itemize}
                 
-        \paragraph{InformationWidget}
+        \paragraph{InformationWidget} $\;$ \\
+        Die Klasse stellt das InformationWidget da, welche schneller Informationen über das Rezept vermittel.\newline
             \textbf{Attributes}
                 \begin{itemize}
                     \item infromation: InformationKategories - Gibt an welche Information in dem Widget dargestellt werden soll.
@@ -219,8 +225,8 @@ Die einzelnen Schichten werden in den folgenden Kapiteln genauer beschrieben.
                     \item InformationWidget(information: InformationKategories - notNull, text: string) - Konstruktor für ein Information Widget. Eine Information Kategorie muss angegeben werden.
                 \end{itemize}
 
-        \paragraph{SortingMethods}
-        Ein Enum der alle Sortierung Methoden beinhält.
+        \paragraph{SortingMethods} $\;$ \\
+        Ein Enum der alle Sortierung Methoden beinhält.\newline
             \textbf{Content}
             \begin{itemize}
                 \item  alphabetical - Die Rezepte werden alphabetisch sortiert.
@@ -228,8 +234,8 @@ Die einzelnen Schichten werden in den folgenden Kapiteln genauer beschrieben.
                 \item  date - Die Rezepte werden nach dem Hinzufüge Datum sortiert.
             \end{itemize}
             
-        \paragraph{FilteringMehods}
-        Ein Enum der alle Filter Methoden beinhält.
+        \paragraph{FilteringMehods} $\;$ \\
+        Ein Enum der alle Filter Methoden beinhält.\newline
             \textbf{Content}
             \begin{itemize}
                 \item favorits - Die Rezepte werden nach Favoriten gefiltert.
@@ -243,8 +249,8 @@ Die einzelnen Schichten werden in den folgenden Kapiteln genauer beschrieben.
                 \item labelKoscher - Die Rezepte werden nach dem \gls{label} koscher gefiltert.
             \end{itemize}
             
-        \paragraph{InformationKategories}
-        Ein Enum der alle Information Kategorien beinhält.
+        \paragraph{InformationKategories} $\;$ \\
+        Ein Enum der alle Information Kategorien beinhält.\newline
             \textbf{Content}
             \begin{itemize}
                 \item duration - Das Widget gibt an.
