@@ -95,9 +95,31 @@
 \section*{Gender-Hinweis}
 Zur besseren Lesbarkeit wird in diesem Entwurfsheft das generische Maskulinum verwendet.
 Die in diesem Heft verwendeten Personenbezeichnungen beziehen sich – sofern nicht anders kenntlich gemacht – auf alle Geschlechter.
+\newpage
+
+\section{Einleitung}
+Das Entfurfsheft des Projekts: "Write your own Android App: SpiceSquad" baut auf des zuvor verfasste Pflichtenheft auf.
+Hierzu wurde zunächst ein umfassendes Klassendiagramm erstellt. Auf diesem basierend werden alle Klassen, Methoden und Attribute ausführlich erklärt.
+In weiteren Kapiteln wird der REST-Webservice und die Datenbankstruktur beschrieben. Zum besseren Verständnis sind Ablaufbeschreibungen in Form von Sequenzdiagrammen angefügt.
+
+\section{Aufbau}
+Im folgenden wird der Aufbau der
+
+\subsection{Client-Server-Architektur}
+Wie bereits im Pflichtenheft angeführt, haben wir uns für eine Trennung von Client und Server entschieden, um somit eine höchstmögliche Modularität zu gewährleisten und
+Funktionen wie Squads zu ermöglichen. Die Kommunikation erfolgt über REST-Schnittstellen, welche eine einheitliche Schnittstelle mit dem Server bieten und eine einfache Skalierbarkeit begünstigen.
+Im Folgenden werden die Architekturen von Server und Client näher beschrieben.
 
 
-\section{Presentation layer}
+\subsubsection{Server}
+Der Server besteht aus zentralen Komponenten den Routers und den Controller. 
+\subsubsection{Client}
+Der Client ist nach dem Repository Entwurfsmuster entworfen, welche im nächsten Abschnitt genauer erläutert wird.
+
+\subsection{Repository Entwurftsmuster}
+
+\section{Android-App}
+\subsection{Presentation Layer}
     %\includegraphics[width = 180mm]{entwurfsheft/images/Presentation-layer/Presentation-Layer.png}
     \newpage
     \subsection{Recipe Creation Page}
@@ -139,98 +161,126 @@ Die in diesem Heft verwendeten Personenbezeichnungen beziehen sich – sofern ni
         %    \end{minipage}
         %\end{figure}
 
-        \newpage
-        
-        \subsection{Add Ingeredient Page}
-            Die Klassen beinhaltet alle nötigen Funktionen und Attribute um die Zutaten-Auswahl-Ansicht darzustellen.\newline
-        \textbf{Attributes}
-        \begin{itemize}
-            \item ingredient: Die Ausgewählten Daten zur Datstellung einer Zutat.
-        \end{itemize}
-        
-        \textbf{Methods}
-        \begin{itemize}
-            \item addIngerdient(ingerdient: Ingeredient): Fügt dem Rezept eine neue Zutat hinzu. 
-        \end{itemize}
-        
-            \subsubsection{Ingeredient}
-                Die Klasse stellt eine Zutat für eine Rezept da.
-                \textbf{Attributes}
-                    \begin{itemize}
-                        \item name: Die eingegebene Zeichenkette für den Namen der Zutat.
-                        \item iconId: Die ID des ausgewählten Icons.
-                        \item amount: Die ausgewählte Anzahl der Zutat für das Rezept.
-                        \item unit: Die Einheit in der die Zutat bemessen wird.
-                    \end{itemize}
-                    
-                \textbf{Methods}
-                    \begin{itemize}
-                        \item choseIcon(iconId: String): Fügt der Zutat eine Icon hinzu. 
-                    \end{itemize}
+\subsection{Application Layer}
+\subsection{Data Layer}
 
-        \newpage
-        
-         \subsection{Groupe Detail Page}
-            Die Klassen beinhaltet alle nötigen Funktionen und Attribute um die Gruppen-Detail-Ansicht darzustellen.\newline
-            
-        \subsubsection{GroupeDetailPageState}
-            \textbf{Methods}
-            \begin{itemize}
-                \item changeGroupeName(name: String): Ändert den Gruppennamen auf die eingegbene Zeichenkette.
-                \item leaveGroup(userId: string): Der User ist nicht mehr teil der Gruppe.
-                \item deleteGroup(userId: string): Die Gruppe wird gelöscht und dabei werden alle Mitgleider entfernt.
-                \item getQRCode(userId: string): Der QR-Code zum Beitretten der Gruppe wird erstellt und bereitgestellt.
-                \item getGroupId(userId: string): Die Gruppen ID wird ausgegeben.
-                \item kickUser(userId: string): Der User mit der angegeben ID wird aus der Gruppe entfernt.
-                \item banUser(userId: string): Der User mit der angegeben ID wird aus der Gruppe entfernt, auf eine Blacklist gesetzt sodass er nicht mehr beitretten kann.
-                \item makeAdmin(userId: string): Der User mit der angegeben ID wird zu einem Admin der Gruppe.
-                \item removeAdminStatus(userId: string): Der User mit der angegeben ID wird der Adminstatus entfernt.
-                \item togglePrivate(recipeId: string): Für das Rezeot mit der angegeben ID wird die \gls{sichtbarkeit} geändert.
-            \end{itemize}
+\section{REST-Webservice}
 
-        \subsubsection{GroupeDetailPage}
-            \textbf{Methods}
-            \begin{itemize}
-                \item createState: State<GroupeDetailPageState>: Erstellt einen GroupeDetailPageState.
-            \end{itemize}
+\subsection{Server}
+\subsection*{Attribute}
+\paragraph{port: number} Durch das Attribut port lässt sich einstellen auf welchen Port Anfragen an den Server zulässig sind.
+Port ist vom Type number.
+\paragraph{firebaseCredentials: any}
+\paragraph{express: express.Application}
+\paragraph{app: App}
+\paragraph{}
 
-        \subsubsection{GroupeWidget}
-            \textbf{Methods}
-            \begin{itemize}
-                \item delete(): 
-                \item change()
-                \item togglePrivate()
-            \end{itemize}
+\subsection*{Methode}
+\paragraph{public <<create>> constructor(): void}
+\paragraph{public start(): void}
+\paragraph{private connectToDatabase(): void}
+\paragraph{private connectToFirebase(): void}
+\paragraph{private createServer(): void}
 
-        \subsubsection{GroupeDUserWidget}
-            \textbf{Attributes}
-            \begin{itemize}
-                \item ownAccount: Gibt an ob es sich bei dem dargsetellten User um den eigenen Account handelt.
-            \end{itemize}
-            
-            \textbf{Methods}
-            \begin{itemize}
-                \item  Mitgliedelement(required isOwnAccount: bool):
-                \item  kickUser(di: String):
-                \item  banUser()
-                \item  makeAdmin()
-                \item  removeAdminStatus()
-            \end{itemize}
-    
-        \newpage
-        
-         \subsection{Groupe Detail Page}
-            Die Klassen beinhaltet alle nötigen Funktionen und Attribute um die  darzustellen.\newline
-        \textbf{Attributes}
-        \begin{itemize}
-            \item 
-        \end{itemize}
-        
-        \textbf{Methods}
-        \begin{itemize}
-            \item 
-        \end{itemize}
- 
+
+\subsection{App}
+\subsubsection*{Attribute}
+\paragraph{app: express.Application}
+\paragraph{authentificationRoutes: AuthentificationRouter}
+\paragraph{recipeRoutes: RecipeRouter}
+\paragraph{groupRoutes: GroupRouter}
+\paragraph{userRoutes: UserRouter}
+\paragraph{IngredientRouter}
+
+\subsubsection*{Methode}
+\paragraph{public <<create> constructor(express.Application): void}
+\paragraph{private initializeMiddleware(): void}
+\paragraph{private initializeRoutes(): void}
+\paragraph{privtate initializeErrorHandlers(): void}
+
+\subsection{Router}
+\subsubsection{AbstractRouter}
+\subsubsection*{Attribute}
+\paragraph{protected router: express.Router}
+\paragraph{protected controller: AbstractController}
+\paragraph{protected checkAuthorization: CheckAuthorization}
+\paragraph{protected checkAuth: any}
+
+\subsubsection*{Methode}
+\paragraph{public <<create>> constructor(): void}
+\paragraph{protected abstract setupRoutes(): void}
+\paragraph{public getRouter(): express.Router}
+
+\subsubsection{AuthentificationRouter}
+\subsubsection*{Methode}
+\paragraph{public <<create>> constructor(): void}
+\paragraph{protected setupRoutes(): void}
+
+\subsubsection{RecipeRouter}
+\subsubsection*{Methode}
+\paragraph{public <<create>> constructor(): void}
+\paragraph{protected setupRoutes(): void}
+
+\subsubsection{GroupRouter}
+\subsubsection*{Methode}
+\paragraph{public <<create>> constructor(): void}
+\paragraph{protected setupRoutes(): void}
+
+\subsubsection{UserRouter}
+\subsubsection*{Methode}
+\paragraph{public <<create>> constructor(): void}
+\paragraph{protected setupRoutes(): void}
+
+\subsubsection{IngredientRouter}
+\subsubsection*{Methode}
+\paragraph{public <<create>> constructor(): void}
+\paragraph{protected setupRoutes(): void}
+
+\subsection{Middleware}
+\subsubsection{CheckAuthorization}
+\subsubsection*{Methode}
+\paragraph{authChecker(req: any, res, any, next: any): void}
+
+\subsection{Controller}
+\subsubsection{AbstractController}
+\subsubsection*{Methode}
+
+
+\subsubsection{AuthentificationController}
+\subsubsection*{Methode}
+\paragraph{public userRegister(req: any, res: any, next: any): void}
+\paragraph{public userLogin(req: any, res: any, next: any): void}
+\paragraph{userResetPassword(req: any, res: any, next: any): void}
+\paragraph{}
+
+\subsubsection{RecipeController}
+\subsubsection*{Methode}
+\paragraph{public recipePost(req: any, res: any, next: any): void}
+\paragraph{public recipeDelete(req: any, res: any, next: any): void}
+\paragraph{public recipePatch(req: any, res: any, next: any): void}
+\paragraph{public recipeGet(req: any, res: any, next: any): void}
+\paragraph{public recipeGetAll(req: any, res: any, next: any): void}
+\paragraph{public recipeSetFavorite(req: any, res: any, next: any): void}
+\paragraph{public recipeGetByGroup(req: any, res: any, next: any): void}
+
+\subsubsection{GroupController}
+\subsubsection*{Methode}
+\paragraph{public groupPost(req: any, res: any, next: any): void}
+\paragraph{public groupDelete(req: any, res: any, next: any): void}
+\paragraph{public groupGetById(req: any, res: any, next: any): void}
+\paragraph{public groupPatch(req: any, res: any, next: any): void}
+\paragraph{public groupJoin(req: any, res: any, next: any): void}
+\paragraph{public groupLeave(req: any, res: any, next: any): void}
+
+\subsubsection{UserController}
+\subsubsection*{Methode}
+\paragraph{public userDelete(req: any, res: any, next: any): void}
+\paragraph{public userPatch(req: any, res: any, next: any): void}
+
+\subsubsection{IngredientController}
+\subsubsection*{Methode}
+\paragraph{ingredientGetAll(req: any, res: any, next: any): void}
+
 \newpage
 
 \section{Datenbank}
@@ -308,6 +358,13 @@ Die Tabelle "CensoredRecipe" repräsentiert die Many-To-Many-Beziehung zwischen 
 \paragraph{recipe\_id (uuid - not null, foreign key):} Hierbei handelt es sich um die Id des Rezepts, das zensiert wurde, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
 \paragraph{group\_id (uuid - not null, foreign key):} Hierbei handelt es sich um die Id der Gruppe, zu der der Administrator gehört, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
 \newpage
+
+\section{Ablaufbeschreibung}
+
+\section{Klassenindex}
+\subsection{Client-Klassen}
+\subsection{Server-Klassen}
+
 \section{Glossar}
 \printglossary[style=altlist]
 \end{document}
