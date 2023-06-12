@@ -139,6 +139,97 @@ Die in diesem Heft verwendeten Personenbezeichnungen beziehen sich – sofern ni
         %    \end{minipage}
         %\end{figure}
 
+        \newpage
+        
+        \subsection{Add Ingeredient Page}
+            Die Klassen beinhaltet alle nötigen Funktionen und Attribute um die Zutaten-Auswahl-Ansicht darzustellen.\newline
+        \textbf{Attributes}
+        \begin{itemize}
+            \item ingredient: Die Ausgewählten Daten zur Datstellung einer Zutat.
+        \end{itemize}
+        
+        \textbf{Methods}
+        \begin{itemize}
+            \item addIngerdient(ingerdient: Ingeredient): Fügt dem Rezept eine neue Zutat hinzu. 
+        \end{itemize}
+        
+            \subsubsection{Ingeredient}
+                Die Klasse stellt eine Zutat für eine Rezept da.
+                \textbf{Attributes}
+                    \begin{itemize}
+                        \item name: Die eingegebene Zeichenkette für den Namen der Zutat.
+                        \item iconId: Die ID des ausgewählten Icons.
+                        \item amount: Die ausgewählte Anzahl der Zutat für das Rezept.
+                        \item unit: Die Einheit in der die Zutat bemessen wird.
+                    \end{itemize}
+                    
+                \textbf{Methods}
+                    \begin{itemize}
+                        \item choseIcon(iconId: String): Fügt der Zutat eine Icon hinzu. 
+                    \end{itemize}
+
+        \newpage
+        
+         \subsection{Groupe Detail Page}
+            Die Klassen beinhaltet alle nötigen Funktionen und Attribute um die Gruppen-Detail-Ansicht darzustellen.\newline
+            
+        \subsubsection{GroupeDetailPageState}
+            \textbf{Methods}
+            \begin{itemize}
+                \item changeGroupeName(name: String): Ändert den Gruppennamen auf die eingegbene Zeichenkette.
+                \item leaveGroup(userId: string): Der User ist nicht mehr teil der Gruppe.
+                \item deleteGroup(userId: string): Die Gruppe wird gelöscht und dabei werden alle Mitgleider entfernt.
+                \item getQRCode(userId: string): Der QR-Code zum Beitretten der Gruppe wird erstellt und bereitgestellt.
+                \item getGroupId(userId: string): Die Gruppen ID wird ausgegeben.
+                \item kickUser(userId: string): Der User mit der angegeben ID wird aus der Gruppe entfernt.
+                \item banUser(userId: string): Der User mit der angegeben ID wird aus der Gruppe entfernt, auf eine Blacklist gesetzt sodass er nicht mehr beitretten kann.
+                \item makeAdmin(userId: string): Der User mit der angegeben ID wird zu einem Admin der Gruppe.
+                \item removeAdminStatus(userId: string): Der User mit der angegeben ID wird der Adminstatus entfernt.
+                \item togglePrivate(recipeId: string): Für das Rezeot mit der angegeben ID wird die \gls{sichtbarkeit} geändert.
+            \end{itemize}
+
+        \subsubsection{GroupeDetailPage}
+            \textbf{Methods}
+            \begin{itemize}
+                \item createState: State<GroupeDetailPageState>: Erstellt einen GroupeDetailPageState.
+            \end{itemize}
+
+        \subsubsection{GroupeWidget}
+            \textbf{Methods}
+            \begin{itemize}
+                \item delete(): 
+                \item change()
+                \item togglePrivate()
+            \end{itemize}
+
+        \subsubsection{GroupeDUserWidget}
+            \textbf{Attributes}
+            \begin{itemize}
+                \item ownAccount: Gibt an ob es sich bei dem dargsetellten User um den eigenen Account handelt.
+            \end{itemize}
+            
+            \textbf{Methods}
+            \begin{itemize}
+                \item  Mitgliedelement(required isOwnAccount: bool):
+                \item  kickUser(di: String):
+                \item  banUser()
+                \item  makeAdmin()
+                \item  removeAdminStatus()
+            \end{itemize}
+    
+        \newpage
+        
+         \subsection{Groupe Detail Page}
+            Die Klassen beinhaltet alle nötigen Funktionen und Attribute um die  darzustellen.\newline
+        \textbf{Attributes}
+        \begin{itemize}
+            \item 
+        \end{itemize}
+        
+        \textbf{Methods}
+        \begin{itemize}
+            \item 
+        \end{itemize}
  
 \newpage
 
