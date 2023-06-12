@@ -106,11 +106,11 @@ Die in diesem Heft verwendeten Personenbezeichnungen beziehen sich – sofern ni
         \begin{itemize}
             \item image: Hochgeladenes Bild welches den anderen Nutzern in der Rezeptansicht angezeigt werden soll.
             \item title: Die eingegebene Zeichenkette für den Titel des Rezepts.
-            \item isVegetarian: Der vom Nutzer angegebene Boolean ob das \gls{labels} Vegetarisch dem Leser angezeigt werden soll.
-            \item isVegan: Der vom Nutzer angegebene Boolean ob das \gls{labels} Vegan dem Leser angezeigt werden soll.
-            \item isGlutenFree: Der vom Nutzer angegebene Boolean ob das \gls{labels} Glutenfrei dem Leser angezeigt werden soll.
-            \item isHalal: Der vom Nutzer angegebene Boolean ob das \gls{labels} Halal dem Leser angezeigt werden soll.
-            \item isKosher: Der vom Nutzer angegebene Boolean ob das \gls{labels} Koscher dem Leser angezeigt werden soll.
+            \item isVegetarian: Der vom Nutzer angegebene Boolean ob das \gls{label} Vegetarisch dem Leser angezeigt werden soll.
+            \item isVegan: Der vom Nutzer angegebene Boolean ob das \gls{label} Vegan dem Leser angezeigt werden soll.
+            \item isGlutenFree: Der vom Nutzer angegebene Boolean ob das \gls{label} Glutenfrei dem Leser angezeigt werden soll.
+            \item isHalal: Der vom Nutzer angegebene Boolean ob das \gls{label} Halal dem Leser angezeigt werden soll.
+            \item isKosher: Der vom Nutzer angegebene Boolean ob das \gls{label} Koscher dem Leser angezeigt werden soll.
             \item duration: Die vom Nutzer eingegebene Ganzzahl, welche die Zubereitunszeit in Minuten angibt.
             \item dificullty: Die vom Nutzer ausgewählte \gls{schwierigkeit} des Rezepts
             \item ingerdients: Eine Liste an Ingerdients, welche in der AddIngredientPage erstellt wurde:
@@ -231,6 +231,82 @@ Die in diesem Heft verwendeten Personenbezeichnungen beziehen sich – sofern ni
             \item 
         \end{itemize}
  
+\newpage
+
+\section{Datenbank}
+Die zugrundeliegende Datenbank soll möglichst nah an unseren Entitäten orientiert sein, um inkonsistente Daten zu vermeiden. Daher wird für das Projekt die Datenbank "PostgreSQL" verwendet. Sie unterstützt relationale Datenformate und ist daher optimal für unsere Anforderungen geeignet. Zudem ist sie Open-Source und kostenlos und erfreut sich seit 35 Jahren großer Beliebtheit.
+\subsection{Datenbankschema}
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width = \linewidth]{images/Database/schema.png}
+    \caption{Datenbankschema}
+\end{figure}
+Im Datenbankschema werden die einzelnen Entitäten der App abgebildet. Die einzelnen Tabellen werden nun genauer erläutert.
+\newpage
+\subsubsection{Recipe}
+Die Tabelle "Recipe" enthält die Rezepte und besitzt die folgenden Attribute:
+\paragraph{id (uuid - primary key):} Die Id stellt den Primärschlüssel des Rezepts dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
+\paragraph{title (varchar(64) - not null):} Der Titel des Rezepts. Der Datentyp ist \Gls{varchar}. Er darf nicht leer und maximal 64 Zeichen lang sein.
+\paragraph{author\_id (uuid - not null, foreign key):} Hierbei handelt es sich um die Id des Autors des Rezepts als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
+\paragraph{image (blob):} Das Bild des Rezepts in binär Code. Der Datentyp ist \Gls{blob}.
+\paragraph{duration (int - not null):} Die Zubereitungszeit des Rezepts in Minuten. Der Datentyp ist Integer. Sie darf nicht leer sein.
+\paragraph{difficulty (Difficulty - not null):} Die Schwierigkeit des Rezepts, die nicht leer sein darf. Der Datentyp "Difficulty" ist ein Enum, mit den Werten "easy", "medium" und "hard".
+\paragraph{instructions (text - not null):} Die Zubereitungsanleitung des Rezepts, die nicht leer sein darf. Der Datentyp ist Text, was einer unbegrenzten Zeichenkette entspricht.
+\paragraph{is\_vegetarian (bool - not null):} Gibt an, ob das \Gls{label} "Vegetarisch" aktiviert ist. Der Datentyp ist Boolean und darf nicht leer sein.
+\paragraph{is\_vegan (bool - not null):} Gibt an, ob das \Gls{label} "Vegan" aktiviert ist. Der Datentyp ist Boolean und darf nicht leer sein.
+\paragraph{is\_gluten\_free (bool - not null):} Gibt an, ob das \Gls{label} "Glutenfrei" aktiviert ist. Der Datentyp ist Boolean und darf nicht leer sein.
+\paragraph{is\_halal (bool - not null):} Gibt an, ob das \Gls{label} "Halal" aktiviert ist. Der Datentyp ist Boolean und darf nicht leer sein.
+\paragraph{is\_kosher (bool - not null):} Gibt an, ob das \Gls{label} "Koscher" aktiviert ist. Der Datentyp ist Boolean und darf nicht leer sein.
+\newpage
+\subsubsection{Ingredient}
+Die Tabelle "Ingredient" enthält die Zutaten, die den eizelnen Rezepten zugeordnet sind und besitzt die folgenden Attribute:
+\paragraph{id (uuid - primary key):} Die Id stellt den Primärschlüssel der Zutat dar und muss daher nicht leer und eindeutig sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert. 
+\paragraph{name (varchar(32) - not null):} Der Name der Zutat. Der Datentyp ist \Gls{varchar}. Er darf nicht leer und maximal 32 Zeichen lang sein.
+\paragraph{icon\_name (varchar(32))} Der Name des Icons, das die Zutat repräsentiert. Der Datentyp ist \Gls{varchar}. Er ist maximal 32 Zeichen lang.
+\paragraph{amount (int - not null):} Die Menge der Zutat in der jeweiligen Einheit. Sie darf nicht leer sein und der Datentyp ist Integer.
+\paragraph{unit (varchar(16)):} Die Einheit der Zutat. Der Datentyp ist \Gls{varchar}. Sie ist maximal 16 Zeichen lang und optional. 
+\paragraph{recipe\_id (uuid - not null, foreign key):} Hierbei handelt es sich um die Id des Rezepts, zu dem die Zutat gehört, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
+\newpage
+\subsubsection{IngredientNames}
+Die Tabelle "IngredientNames" enthält lediglich die Namen der Zutaten, die in der Vorschlagsliste beim Zutaten erstellen angezeigt werden. Sie besitzt die folgenden Attribute:
+\paragraph{name (varchar(32) - primary key):} Der Name der Zutat. Der Datentyp ist \Gls{varchar}. Es handelt sich um den Primärschlüssel und der Name muss daher eindeutig und nicht leer sein.
+\newpage
+\subsubsection{User}
+Die Tabelle "User" enthält die Benutzer der App und besitzt die folgenden Attribute:
+\paragraph{id (uuid - primary key):} Die Id stellt den Primärschlüssel des Benutzers dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
+\paragraph{user\_name (varchar(32) - not null):} Der Benutzername des Benutzers. Der Datentyp ist \Gls{varchar}. Er darf nicht leer und maximal 32 Zeichen lang sein.
+\paragraph{email (varchar(64) - not null):} Die E-Mail-Adresse des Benutzers. Der Datentyp ist \Gls{varchar}. Sie darf nicht leer und maximal 64 Zeichen lang sein.
+\paragraph{profile\_image (blob):} Das Profilbild des Benutzers in binär Code. Der Datentyp ist \Gls{blob}.
+\paragraph{firebase\_user\_id (varchar - not null, unique)} Die Id des Benutzers, die in der Firebase Datenbank hinterlegt ist. Der Datentyp ist \Gls{varchar}. Sie muss eindeutig und nicht leer sein. Sie dient als Fremdschlüssel über die Datenbank hinweg zu Firebase.
+\newpage
+\subsubsection{Favourite}
+Die Tabelle "Favourite" repräsentiert die Many-To-Many-Beziehung zwischen den Benutzern und den Rezepten, die sie favorisiert haben. Sie besitzt die folgenden Attribute:
+\paragraph{id (uuid - primary key):} Die Id stellt den Primärschlüssel der Beziehung dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
+\paragraph{user\_id (uuid - not null, foreign key):} Hierbei handelt es sich um die Id des Benutzers, der das Rezept favorisiert hat, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
+\paragraph{recipe\_id (uuid - not null, foreign key):} Hierbei handelt es sich um die Id des Rezepts, das favorisiert wurde, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
+\newpage
+\subsubsection{Group}
+Die Tabelle "Group" enthält die Gruppen bzw. Squads und besitzt die folgenden Attribute:
+\paragraph{id (uuid - primary key):} Die Id stellt den Primärschlüssel der Gruppe dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
+\paragraph{name (varchar(32) - not null):} Der Name der Gruppe. Der Datentyp ist \Gls{varchar}. Er darf nicht leer und maximal 32 Zeichen lang sein.
+\newpage
+\subsubsection{GroupMember}
+Die Tabelle "GroupMember" repräsentiert die Many-To-Many-Beziehung zwischen den Gruppen und den Benutzern, die Mitglied der Gruppe sind. Sie besitzt die folgenden Attribute:
+\paragraph{id (uuid - primary key):} Die Id stellt den Primärschlüssel der Beziehung dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
+\paragraph{user\_id (uuid - not null, foreign key):} Hierbei handelt es sich um die Id des Benutzers, der Mitglied der Gruppe ist, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
+\paragraph{group\_id (uuid - not null, foreign key):} Hierbei handelt es sich um die Id der Gruppe, zu der der Benutzer gehört, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
+\newpage
+\subsubsection{Admin}
+Die Tabelle "Admin" repräsentiert die Many-To-Many-Beziehung zwischen den Gruppen und den Benutzern, die Administratoren der Gruppe sind. Sie besitzt die folgenden Attribute:
+\paragraph{id (uuid - primary key):} Die Id stellt den Primärschlüssel der Beziehung dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
+\paragraph{user\_id (uuid - not null, foreign key):} Hierbei handelt es sich um die Id des Benutzers, der Administrator der Gruppe ist, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
+\paragraph{group\_id (uuid - not null, foreign key):} Hierbei handelt es sich um die Id der Gruppe, zu der der Benutzer gehört, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
+\newpage
+\subsubsection{CensoredRecipe}
+Die Tabelle "CensoredRecipe" repräsentiert die Many-To-Many-Beziehung zwischen den Gruppen und den Rezepten, die die jeweiligen Administratoren zensiert haben. Sie besitzt die folgenden Attribute:
+\paragraph{id (uuid - primary key):} Die Id stellt den Primärschlüssel der Beziehung dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
+\paragraph{recipe\_id (uuid - not null, foreign key):} Hierbei handelt es sich um die Id des Rezepts, das zensiert wurde, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
+\paragraph{group\_id (uuid - not null, foreign key):} Hierbei handelt es sich um die Id der Gruppe, zu der der Administrator gehört, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
 \newpage
 \section{Glossar}
 \printglossary[style=altlist]
