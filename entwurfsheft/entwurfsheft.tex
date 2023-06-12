@@ -95,10 +95,31 @@
 \section*{Gender-Hinweis}
 Zur besseren Lesbarkeit wird in diesem Entwurfsheft das generische Maskulinum verwendet.
 Die in diesem Heft verwendeten Personenbezeichnungen beziehen sich – sofern nicht anders kenntlich gemacht – auf alle Geschlechter.
+\newpage
 
+\section{Architektur der Applikation}
+\subsection{Übersicht}
+Für die Entwicklung der Applikation soll Flutter benutzt werden. Dies bietet einige Vorteile. Flutter ist ein plattformübergreifendes Framework, das es Entwicklern ermöglicht, eine einzige Codebasis zu verwenden, um Apps sowohl für iOS als auch für Android zu erstellen. Dies reduziert den Entwicklungsaufwand erheblich, da Entwickler nicht separate Codes für jede Plattform schreiben müssen. Flutter verwendet die Dart-Programmiersprache, die eine einfache Syntax und eine umfangreiche Bibliothek bietet, um leistungsstarke und ansprechende Benutzeroberflächen zu erstellen. Darüber hinaus verfügt Flutter über eine Hot-Reload-Funktion, die es Entwicklern ermöglicht, Änderungen in Echtzeit zu sehen, was den Entwicklungsprozess beschleunigt. Flutter-Apps sind schnell, reaktionsfähig und bieten eine extrem gute Leistung, da sie direkt auf die nativen Funktionen des Betriebssystems zugreifen. Diese Kombination aus plattformübergreifender Entwicklung, einfacher Sprache, schnellem Entwicklungsprozess und guter Leistung macht Flutter zur Wahl für die Entwicklung von SpiceSquad.
 
-\section{Presentation layer}
-    %\includegraphics[width = 180mm]{entwurfsheft/images/Presentation-layer/Presentation-Layer.png}
+Die Applikation wird in vier große Schichten gegliedert. Dies dient dazu, die Bestandteile der App nach ihrer Funktion zu gruppieren und die Abhängigkeiten zwischen den einzelnen Komponenten zu minimieren. Dadurch wird die Wartbarkeit massiv verbessert und auch die Erweiterbarkeit der Applikation wird durch diese Strukturierung erleichtert. Die Schichten orientieren sich stark an den Empfehlungen von Google für die Architektur von Android Applikationen. Die vier Schichten sind der \textbf{Presentation Layer}, der \textbf{Application Layer}, der \textbf{Domain Layer} und der \textbf{Data Layer}. 
+\begin{figure}[htp]
+    \centering
+    \includegraphics[height = 0.4\textheight]{images/architecture/architecture.png}
+    \caption{Architektur der Applikation}
+    \label{fig:struktur}
+    %\footnotetext{Quelle: \url{https://codewithandrea.com/articles/flutter-app-architecture-application-layer/}}
+\end{figure}
+
+Die einzelnen Schichten werden in den folgenden Kapiteln genauer beschrieben.
+
+\newpage
+\section{Presentation Layer}
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width = \textwidth]{images/presentationLayer/presentationLayer.png}
+    \caption{Klassendiagramm des Presentation Layer}
+    \label{fig:presentation-layer}
+\end{figure}
     \newpage
     \subsection{Recipe Creation Page}
         Die Klassen beinhaltet alle nötigen Funktionen und Attribute um die Rezept-Erstell-Ansicht darzustellen.\newline
@@ -124,20 +145,11 @@ Die in diesem Heft verwendeten Personenbezeichnungen beziehen sich – sofern ni
         \end{itemize}
 
         
-        %\begin{figure}[htp]
-        %    \begin{minipage}
-        %        [t]{0.49\textwidth}
-        %        \centering
-        %        \includegraphics[height=80mm]{pflichtenheft/images/benutzeroberfläche/RegisterView.jpg}
-        %        \caption{Registrierungsansicht}
-        %    \end{minipage}
-        %    \begin{minipage}
-        %        [t]{0.49\textwidth}
-        %        \centering
-        %        \includegraphics[height = 50mm]{entwurfsheft/images/Presentation-layer/Recipe Creation Page.png}
-        %        \caption{RecipeCreationPage}
-        %    \end{minipage}
-        %\end{figure}
+        \begin{figure}[htp]
+               \centering
+               \includegraphics[height = 50mm]{images/presentationLayer/recipeCreationPage.png}
+               \caption{RecipeCreationPage}
+        \end{figure}
 
         \newpage
         
