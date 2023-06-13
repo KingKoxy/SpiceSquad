@@ -102,14 +102,14 @@ Das Entfurfsheft des Projekts: "Write your own Android App: SpiceSquad" baut auf
 Hierzu wurde zunächst ein umfassendes Klassendiagramm erstellt. Auf diesem basierend werden alle Klassen, Methoden und Attribute ausführlich erklärt.
 In weiteren Kapiteln wird der REST-Webservice und die Datenbankstruktur beschrieben. Zum besseren Verständnis sind Ablaufbeschreibungen in Form von Sequenzdiagrammen angefügt.
 
-\section{Architektur der Applikation}
+\section{Struktur}
 
 \subsection{Client-Server-Architektur}
 Wie bereits im Pflichtenheft angeführt, haben wir uns für eine Trennung von Client und Server entschieden, um somit eine höchstmögliche Modularität zu gewährleisten und
 Funktionen wie Squads zu ermöglichen. Die Kommunikation erfolgt über REST-Schnittstellen, welche eine einheitliche Schnittstelle mit dem Server bieten und eine einfache Skalierbarkeit begünstigen.
 Im Folgenden werden die Architekturen von Server und Client näher beschrieben.
 
-\subsection{Übersicht}
+\subsection{Architektur der Applikation}
 Für die Entwicklung der Applikation soll Flutter benutzt werden. Dies bietet einige Vorteile. Flutter ist ein plattformübergreifendes Framework, das es Entwicklern ermöglicht, eine einzige Codebasis zu verwenden, um Apps sowohl für iOS als auch für Android zu erstellen. Dies reduziert den Entwicklungsaufwand erheblich, da Entwickler nicht separate Codes für jede Plattform schreiben müssen. Flutter verwendet die Dart-Programmiersprache, die eine einfache Syntax und eine umfangreiche Bibliothek bietet, um leistungsstarke und ansprechende Benutzeroberflächen zu erstellen. Darüber hinaus verfügt Flutter über eine Hot-Reload-Funktion, die es Entwicklern ermöglicht, Änderungen in Echtzeit zu sehen, was den Entwicklungsprozess beschleunigt. Flutter-Apps sind schnell, reaktionsfähig und bieten eine extrem gute Leistung, da sie direkt auf die nativen Funktionen des Betriebssystems zugreifen. Diese Kombination aus plattformübergreifender Entwicklung, einfacher Sprache, schnellem Entwicklungsprozess und guter Leistung macht Flutter zur Wahl für die Entwicklung von SpiceSquad.
 
 Die Applikation wird in vier große Schichten gegliedert. Dies dient dazu, die Bestandteile der App nach ihrer Funktion zu gruppieren und die Abhängigkeiten zwischen den einzelnen Komponenten zu minimieren. Dadurch wird die Wartbarkeit massiv verbessert und auch die Erweiterbarkeit der Applikation wird durch diese Strukturierung erleichtert. Die Schichten orientieren sich stark an den Empfehlungen von Google für die Architektur von Android Applikationen. Die vier Schichten sind der \textbf{Presentation Layer}, der \textbf{Application Layer}, der \textbf{Domain Layer} und der \textbf{Data Layer}. 
@@ -123,6 +123,184 @@ Die Applikation wird in vier große Schichten gegliedert. Dies dient dazu, die B
 Die einzelnen Schichten werden in den folgenden Kapiteln genauer beschrieben.
 
 \newpage
+
+\section{Domain Layer}
+\changelocaltocdepth{2}
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width = \textwidth]{images/domainLayer/domainLayer.pdf}
+    \caption{Klassendiagramm des Domain Layer}
+    \label{fig:domain-layer}
+\end{figure}
+Der Domain Layer enthält in erster Linie die Models der einzelnen Entitäten. Diese sollen nun genauer beschrieben werden.
+\subsection{User}
+Die User-Klasse repräsentiert einen Nutzer der App.
+\subsubsection{Attribute}
+Alle Attribute sind privat und können nur über einen Getter gelesen werden.
+\paragraph{profileImage: Uint8List?}
+Das Profilbild des Nutzers. Der Typ Uint8List ist ein Array von Bytes, welches das Bild in binärer Form enthält. Dieses Attribut ist optional, da nicht jeder Nutzer ein Profilbild haben muss.
+\paragraph{username: String}
+Der Nutzername des Nutzers.
+
+\subsubsection{Methoden}
+\paragraph{getProfileImage(): Uint8List?}
+Gibt das Profilbild des Nutzers zurück. Ist kein Profilbild gesetzt, wird null zurückgegeben.
+\paragraph{getUsername(): String}
+Gibt den Nutzernamen des Nutzers zurück.
+\paragraph{factory User.fromJson(Map<String, dynamic> json): User} Factory-Methode zum Erstellen eines User-Objekts aus einem \glslink{JSON}{JSON-Objekt}. Sie wird verwendet, um die Daten, die vom Server geschickt werden und in \Gls{JSON} vorliegen, in ein User-Objekt umzuwandeln. Die Methode ist statisch, da sie kein User-Objekt benötigt, um aufgerufen zu werden. Nimmt als Parameter das bereits in eine Map umgewandelte \glslink{JSON}{JSON-Objekt} entgegen und gibt ein User-Objekt zurück.
+
+\subsection{Recipe}
+Die Recipe-Klasse repräsentiert ein Rezept.
+\subsubsection{Attribute}
+Alle Attribute sind private und können nur über Getter-Methoden abgerufen werden.
+\paragraph{title: String}
+Der Titel des Rezepts.
+\paragraph{author: User}
+Der Autor des Rezepts.
+\paragraph{uploadDate: Date}
+Das Datum, an dem das Rezept hochgeladen wurde.
+\paragraph{duration: int}
+Die Dauer zum Nachkochen des Rezepts in Minuten.
+\paragraph{difficulty: Difficulty}
+Die Schwierigkeit des Rezepts.
+\paragraph{image: Uint8List?}
+Das Bild des Rezepts. Der Typ Uint8List ist ein Array von Bytes, welches das Bild in binärer Form enthält. Dieses Attribut ist optional, da nicht jedes Rezept ein Bild haben muss.
+\paragraph{isVegetartian: bool}
+Gibt an, ob das Label "Vegetarisch" aktiviert ist.
+\paragraph{isVegan: bool}
+Gibt an, ob das Label "Vegan" aktiviert ist.
+\paragraph{isGlutenFree: bool}
+Gibt an, ob das Label "Glutenfrei" aktiviert ist.
+\paragraph{isHalal: bool}
+Gibt an, ob das Label "Halal" aktiviert ist.
+\paragraph{isKosher: bool}
+Gibt an, ob das Label "Koscher" aktiviert ist.
+\paragraph{ingredients: List<Ingredient>}
+Die Liste der Zutaten, die für das Rezept benötigt werden.
+\paragraph{instructions: String}
+Die Zubereitungsanleitung des Rezepts.
+\paragraph{defaultPortionAmount: int}
+Die Anzahl der Portionen, die das Rezept standardmäßig ergibt. Wird zum Berechnen der Mengen der Zutaten benötigt.
+\paragraph{isFavourite: bool}
+Gibt an, ob das Rezept vom Nutzer als Favorit markiert wurde.
+\paragraph{isPrivate: bool}
+Gibt an, ob das Rezept privat ist. Private Rezepte können nur vom Autor selbst gesehen werden.
+
+\subsubsection{Methoden}
+\paragraph{getTitle(): String}
+Gibt den Titel des Rezepts zurück.
+\paragraph{getAuthor(): User}
+Gibt den Autor des Rezepts zurück.
+\paragraph{getUploadDate(): Date}
+Gibt das Datum, an dem das Rezept hochgeladen wurde, zurück.
+\paragraph{getDuration(): int}
+Gibt die Dauer zum Nachkochen des Rezepts in Minuten zurück.
+\paragraph{getDifficulty(): Difficulty}
+Gibt die Schwierigkeit des Rezepts zurück.
+\paragraph{getImage(): Uint8List?}
+Gibt das Bild des Rezepts zurück. Ist kein Bild gesetzt, wird null zurückgegeben.
+\paragraph{getIsVegetarian(): bool}
+Gibt zurück, ob das Label "Vegetarisch" aktiviert ist.
+\paragraph{getIsVegan(): bool}
+Gibt zurück, ob das Label "Vegan" aktiviert ist.
+\paragraph{getIsGlutenFree(): bool}
+Gibt zurück, ob das Label "Glutenfrei" aktiviert ist.
+\paragraph{getIsHalal(): bool}
+Gibt zurück, ob das Label "Halal" aktiviert ist.
+\paragraph{getIsKosher(): bool}
+Gibt zurück, ob das Label "Koscher" aktiviert ist.
+\paragraph{getIngredients(): List<Ingredient>}
+Gibt die Liste der Zutaten, die für das Rezept benötigt werden, zurück.
+\paragraph{getInstructions(): String}
+Gibt die Zubereitungsanleitung des Rezepts zurück.
+\paragraph{getDefaultPortionAmount(): int}
+Gibt die Anzahl der Portionen, die das Rezept standardmäßig ergibt, zurück.
+\paragraph{getIsFavourite(): bool}
+Gibt zurück, ob das Rezept vom Nutzer als Favorit markiert wurde.
+\paragraph{getIsPrivate(): bool}
+Gibt zurück, ob das Rezept privat ist.
+\paragraph{factory Recipe.fromJson(Map<String, dynamic> json): Recipe} 
+Factory-Methode zum Erstellen eines Recipe-Objekts aus einem \glslink{JSON}{JSON-Objekt}. Sie wird verwendet, um die Daten, die vom Server geschickt werden und in \Gls{JSON} vorliegen, in ein Recipe-Objekt umzuwandeln. Die Methode ist statisch, da sie kein Recipe-Objekt benötigt, um aufgerufen zu werden. Nimmt als Parameter das bereits in eine Map umgewandelte \glslink{JSON}{JSON-Objekt} entgegen und gibt ein Recipe-Objekt zurück.
+
+\subsection{Ingredient}
+Die Ingredient-Klasse repräsentiert eine Zutat, die einem Rezept zugeordnet ist.
+\subsubsection{Attribute}
+Alle Attribute sind private und können nur über Getter-Methoden abgerufen werden.
+\paragraph{name: String}
+Der Name der Zutat.
+\paragraph{iconId: String}
+Die Id des Icons, das der Zutat zugeordnet ist.
+\paragraph{amount: double}
+Die Menge der Zutat, die für das Rezept benötigt wird.
+\paragraph{unit: String}
+Die Einheit der Zutatenmenge.
+
+\subsubsection{Methoden}
+\paragraph{getName(): String}
+Gibt den Namen der Zutat zurück.
+\paragraph{getIconId(): String}
+Gibt die Id des Icons, das der Zutat zugeordnet ist, zurück.
+\paragraph{getAmount(): double}
+Gibt die Menge der Zutat, die für das Rezept benötigt wird, zurück.
+\paragraph{getUnit(): String}
+Gibt die Einheit der Zutatenmenge zurück.
+\paragraph{factory Ingredient.fromJson(Map<String, dynamic> json): Ingredient}
+Factory-Methode zum Erstellen eines Ingredient-Objekts aus einem \glslink{JSON}{JSON-Objekt}. Sie wird verwendet, um die Daten, die vom Server geschickt werden und in \Gls{JSON} vorliegen, in ein Ingredient-Objekt umzuwandeln. Die Methode ist statisch, da sie kein Ingredient-Objekt benötigt, um aufgerufen zu werden. Nimmt als Parameter das bereits in eine Map umgewandelte \glslink{JSON}{JSON-Objekt} entgegen und gibt ein Ingredient-Objekt zurück.
+\subsection{Difficulty}
+Der Difficulty-Enum repräsentiert die Schwierigkeit eines Rezepts. Er kann folgende Werte annehmen:
+\begin{itemize}
+\item easy
+\item medium
+\item hard
+\end{itemize}
+
+\subsection{Group}
+Die Group-Klasse repräsentiert eine Gruppe bzw. Squad von Nutzern.
+\subsubsection{Attribute}
+Alle Attribute sind privat und können nur über einen Getter gelesen werden.
+\paragraph{name: String}
+Der Name der Gruppe.
+\paragraph{joiningLink: String}
+Das Gruppenkürzel der Gruppe. Dieses wird verwendet, um einer Gruppe beizutreten.
+\paragraph{members: List<GroupMember>}
+Die Liste der Mitglieder der Gruppe. Die Liste ist nicht leer, da eine Gruppe mindestens einen Nutzer enthalten muss.
+\paragraph{recipes: List<GroupRecipe>}
+Die Liste der Rezepte, die von Mitgliedern der Gruppe erstellt wurden.
+
+\subsubsection{Methoden}
+\paragraph{getName(): String}
+Gibt den Namen der Gruppe zurück.
+\paragraph{getJoiningLink(): String}
+Gibt das Gruppenkürzel der Gruppe zurück.
+\paragraph{getMembers(): List<GroupMember>}
+Gibt die Liste der Mitglieder der Gruppe zurück.
+\paragraph{getRecipes(): List<GroupRecipe>}
+Gibt die Liste der Rezepte der Gruppe zurück.
+\paragraph{factory Group.fromJson(Map<String, dynamic> json): Group} Factory-Methode zum Erstellen eines Group-Objekts aus einem \glslink{JSON}{JSON-Objekt}. Sie wird verwendet, um die Daten, die vom Server geschickt werden und in \Gls{JSON} vorliegen, in ein Group-Objekt umzuwandeln. Die Methode ist statisch, da sie kein Group-Objekt benötigt, um aufgerufen zu werden. Nimmt als Parameter das bereits in eine Map umgewandelte \glslink{JSON}{JSON-Objekt} entgegen und gibt ein Group-Objekt zurück.
+
+\subsection{GroupMember}
+Die GroupMember-Klasse repräsentiert ein Mitglied einer Gruppe. Sie erbt von der User-Klasse.
+\subsubsection{Attribute}
+Alle Attribute sind privat und können nur über einen Getter gelesen werden.
+\paragraph{isAdmin: bool}
+Gibt an, ob das Mitglied Administrator der Gruppe, der es zugeordnet ist, ist.
+\subsubsection{Methoden}
+\paragraph{getIsAdmin(): bool}
+Gibt zurück, ob das Mitglied Administrator der Gruppe, der es zugeordnet ist, ist.
+\paragraph{factory GroupMember.fromJson(Map<String, dynamic> json): GroupMember} Factory-Methode zum Erstellen eines GroupMember-Objekts aus einem \glslink{JSON}{JSON-Objekt}. Sie wird verwendet, um die Daten, die vom Server geschickt werden und in \Gls{JSON} vorliegen, in ein GroupMember-Objekt umzuwandeln. Die Methode ist statisch, da sie kein GroupMember-Objekt benötigt, um aufgerufen zu werden. Nimmt als Parameter das bereits in eine Map umgewandelte \glslink{JSON}{JSON-Objekt} entgegen und gibt ein GroupMember-Objekt zurück.
+
+\subsection{GroupRecipe}
+Die GroupRecipe-Klasse repräsentiert ein Rezept, das einer konkreten Gruppe zugeordnet wurde. Sie erbt von der Recipe-Klasse.
+\subsubsection{Attribute}
+Alle Attribute sind privat und können nur über einen Getter gelesen werden.
+\paragraph{isCensored: bool}
+Gibt an, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
+\subsubsection{Methoden}
+\paragraph{getIsCensored(): bool}
+Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
+\paragraph{factory GroupRecipe.fromJson(Map<String, dynamic> json): GroupRecipe} Factory-Methode zum Erstellen eines GroupRecipe-Objekts aus einem \glslink{JSON}{JSON-Objekt}. Sie wird verwendet, um die Daten, die vom Server geschickt werden und in \Gls{JSON} vorliegen, in ein GroupRecipe-Objekt umzuwandeln. Die Methode ist statisch, da sie kein GroupRecipe-Objekt benötigt, um aufgerufen zu werden. Nimmt als Parameter das bereits in eine Map umgewandelte \glslink{JSON}{JSON-Objekt} entgegen und gibt ein GroupRecipe-Objekt zurück.
+\changelocaltocdepth{4}
+
 \section{Presentation Layer}
 \begin{figure}[htp]
     \centering
@@ -271,15 +449,12 @@ Die einzelnen Schichten werden in den folgenden Kapiteln genauer beschrieben.
     \begin{minipage}
         [t]{0.49\textwidth}
         \centering
-        \includegraphics[height=0.95\textwidth]{images/Presentation-layer/MainViewClass.png}
+        \includegraphics[width=0.95\textwidth]{images/Presentation-layer/MainViewClass.png}
         \caption{Klassen für Hauptansicht}
     \end{minipage}
 \end{figure}
 
 \newpage
-
-\subsection{Application Layer}
-\subsection{Data Layer}
 
 \section{REST-Webservice}
 
