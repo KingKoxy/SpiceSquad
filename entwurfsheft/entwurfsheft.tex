@@ -112,7 +112,7 @@ Im Folgenden werden die Architekturen von Server und Client näher beschrieben.
 \subsection{Architektur der Applikation}
 Für die Entwicklung der Applikation soll Flutter benutzt werden. Dies bietet einige Vorteile. Flutter ist ein plattformübergreifendes Framework, das es Entwicklern ermöglicht, eine einzige Codebasis zu verwenden, um Apps sowohl für iOS als auch für Android zu erstellen. Dies reduziert den Entwicklungsaufwand erheblich, da Entwickler nicht separate Codes für jede Plattform schreiben müssen. Flutter verwendet die Dart-Programmiersprache, die eine einfache Syntax und eine umfangreiche Bibliothek bietet, um leistungsstarke und ansprechende Benutzeroberflächen zu erstellen. Darüber hinaus verfügt Flutter über eine Hot-Reload-Funktion, die es Entwicklern ermöglicht, Änderungen in Echtzeit zu sehen, was den Entwicklungsprozess beschleunigt. Flutter-Apps sind schnell, reaktionsfähig und bieten eine extrem gute Leistung, da sie direkt auf die nativen Funktionen des Betriebssystems zugreifen. Diese Kombination aus plattformübergreifender Entwicklung, einfacher Sprache, schnellem Entwicklungsprozess und guter Leistung macht Flutter zur Wahl für die Entwicklung von SpiceSquad.
 
-Die Applikation wird in vier große Schichten gegliedert. Dies dient dazu, die Bestandteile der App nach ihrer Funktion zu gruppieren und die Abhängigkeiten zwischen den einzelnen Komponenten zu minimieren. Dadurch wird die Wartbarkeit massiv verbessert und auch die Erweiterbarkeit der Applikation wird durch diese Strukturierung erleichtert. Die Schichten orientieren sich stark an den Empfehlungen von Google für die Architektur von Android Applikationen. Die vier Schichten sind der \textbf{Presentation Layer}, der \textbf{Application Layer}, der \textbf{Domain Layer} und der \textbf{Data Layer}. 
+Die Applikation wird in vier große Schichten gegliedert. Dies dient dazu, die Bestandteile der App nach ihrer Funktion zu gruppieren und die Abhängigkeiten zwischen den einzelnen Komponenten zu minimieren. Dadurch wird die Wartbarkeit massiv verbessert und auch die Erweiterbarkeit der Applikation wird durch diese Strukturierung erleichtert. Die Schichten orientieren sich stark an den Empfehlungen von Google für die Architektur von Android Applikationen. Die vier Schichten sind der \textbf{Presentation Layer}, der \textbf{Application Layer}, der \textbf{Domain Layer} und der \textbf{Data Layer}.
 \begin{figure}[htp]
     \centering
     \includegraphics[height = 0.4\textheight]{images/architecture/architecture.png}
@@ -219,7 +219,7 @@ Gibt die Anzahl der Portionen, die das Rezept standardmäßig ergibt, zurück.
 Gibt zurück, ob das Rezept vom Nutzer als Favorit markiert wurde.
 \paragraph{getIsPrivate(): bool}
 Gibt zurück, ob das Rezept privat ist.
-\paragraph{factory Recipe.fromJson(Map<String, dynamic> json): Recipe} 
+\paragraph{factory Recipe.fromJson(Map<String, dynamic> json): Recipe}
 Factory-Methode zum Erstellen eines Recipe-Objekts aus einem \glslink{JSON}{JSON-Objekt}. Sie wird verwendet, um die Daten, die vom Server geschickt werden und in \Gls{JSON} vorliegen, in ein Recipe-Objekt umzuwandeln. Die Methode ist statisch, da sie kein Recipe-Objekt benötigt, um aufgerufen zu werden. Nimmt als Parameter das bereits in eine Map umgewandelte \glslink{JSON}{JSON-Objekt} entgegen und gibt ein Recipe-Objekt zurück.
 
 \subsection{Ingredient}
@@ -249,9 +249,9 @@ Factory-Methode zum Erstellen eines Ingredient-Objekts aus einem \glslink{JSON}{
 \subsection{Difficulty}
 Der Difficulty-Enum repräsentiert die Schwierigkeit eines Rezepts. Er kann folgende Werte annehmen:
 \begin{itemize}
-\item easy
-\item medium
-\item hard
+    \item easy
+    \item medium
+    \item hard
 \end{itemize}
 
 \subsection{Group}
@@ -309,143 +309,143 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
     \label{fig:presentation-layer}
 \end{figure}
 
-    \newpage
-    \subsubsection{Recipe Creation Page}
-        Die Klassen beinhaltet alle nötigen Funktionen und Attribute um die Rezept-Erstell-Ansicht darzustellen.\newline
+\newpage
+\subsubsection{Recipe Creation Page}
+Die Klassen beinhaltet alle nötigen Funktionen und Attribute um die Rezept-Erstell-Ansicht darzustellen.\newline
 
 
-        \paragraph{RecipeCreationPageState}
-            \textbf{Attributes}
-                \begin{itemize}
-                    \item image(blob): Hochgeladenes Bild welches den anderen Nutzern in der Rezeptansicht angezeigt werden soll.
-                    \item title(varchar(64) - not null): Die eingegebene Zeichenkette für den Titel des Rezepts. Die Zeichenkette kann maximal 64 Zeichen lang sein und muss ausgefüllt sein.
-                    \item is\_Vegetarian(bool): Der vom Nutzer angegebene Boolean ob das \gls{label} Vegetarisch dem Leser angezeigt werden soll. Ist standartmäßig auf false.
-                    \item is\_Vegan(bool): Der vom Nutzer angegebene Boolean ob das \gls{label} Vegan dem Leser angezeigt werden soll. Ist standartmäßig auf false.
-                    \item is\_GlutenFree(bool): Der vom Nutzer angegebene Boolean ob das \gls{label} Glutenfrei dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
-                    \item is\_Halal(bool): Der vom Nutzer angegebene Boolean ob das \gls{label} Halal dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
-                    \item is\_Kosher(bool): Der vom Nutzer angegebene Boolean ob das \gls{label} Koscher dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
-                    \item duration(int - not null): Die vom Nutzer eingegebene Ganzzahl, welche die Zubereitunszeit in Minuten angibt. Muss angegeben werden.
-                    \item difficulty(Difficulty - not null: Die vom Nutzer ausgewählte \gls{schwierigkeit} des Rezepts. Muss angegeben werden.
-                    \item ingredients(Ingredients[]): Eine Liste an Ingerdients, welche in der AddIngredientPage erstellt wurde:
-                    \item instructions(text - not null: Die vom Nutzer angegeben Zeichenkette für die Beschreibung des Rezepts. Muss angegeben werden.
-                \end{itemize}
-            
-            \textbf{Methods}
-                \begin{itemize}
-                    \item addIngredient(): Die Page AddIngredientPage wird aufgerufen.
-                    \item recipeSave(): Die Methode ruft, abhängig davon ob das Rezept neu erstellt wird oder nur verändert wurde, entweder recipeCreation() oder recipeChange() auf.
-                \end{itemize}
+\paragraph{RecipeCreationPageState}
+\textbf{Attributes}
+\begin{itemize}
+    \item image(blob): Hochgeladenes Bild welches den anderen Nutzern in der Rezeptansicht angezeigt werden soll.
+    \item title(varchar(64) - not null): Die eingegebene Zeichenkette für den Titel des Rezepts. Die Zeichenkette kann maximal 64 Zeichen lang sein und muss ausgefüllt sein.
+    \item is\_Vegetarian(bool): Der vom Nutzer angegebene Boolean ob das \gls{label} Vegetarisch dem Leser angezeigt werden soll. Ist standartmäßig auf false.
+    \item is\_Vegan(bool): Der vom Nutzer angegebene Boolean ob das \gls{label} Vegan dem Leser angezeigt werden soll. Ist standartmäßig auf false.
+    \item is\_GlutenFree(bool): Der vom Nutzer angegebene Boolean ob das \gls{label} Glutenfrei dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
+    \item is\_Halal(bool): Der vom Nutzer angegebene Boolean ob das \gls{label} Halal dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
+    \item is\_Kosher(bool): Der vom Nutzer angegebene Boolean ob das \gls{label} Koscher dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
+    \item duration(int - not null): Die vom Nutzer eingegebene Ganzzahl, welche die Zubereitunszeit in Minuten angibt. Muss angegeben werden.
+    \item difficulty(Difficulty - not null: Die vom Nutzer ausgewählte \gls{schwierigkeit} des Rezepts. Muss angegeben werden.
+    \item ingredients(Ingredients[]): Eine Liste an Ingerdients, welche in der AddIngredientPage erstellt wurde:
+    \item instructions(text - not null: Die vom Nutzer angegeben Zeichenkette für die Beschreibung des Rezepts. Muss angegeben werden.
+\end{itemize}
 
-       \begin{figure}[htp]
-               \centering
-               \includegraphics[height = 50mm]{images/presentationLayer/recipeCreationPage.png}
-               \caption{RecipeCreationPage}
-        \end{figure}
+\textbf{Methods}
+\begin{itemize}
+    \item addIngredient(): Die Page AddIngredientPage wird aufgerufen.
+    \item recipeSave(): Die Methode ruft, abhängig davon ob das Rezept neu erstellt wird oder nur verändert wurde, entweder recipeCreation() oder recipeChange() auf.
+\end{itemize}
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[height = 50mm]{images/presentationLayer/recipeCreationPage.png}
+    \caption{RecipeCreationPage}
+\end{figure}
 
 
-    \newpage
+\newpage
 
 \subsubsection{Hauptansicht}
-        Die Klassen beinhaltet alle nötigen Funktionen und Attribute um die Hauptansicht darzustellen.\newline
+Die Klassen beinhaltet alle nötigen Funktionen und Attribute um die Hauptansicht darzustellen.\newline
 
-        \paragraph{MainViewPage}
-            \textbf{Methods}
-                \begin{itemize}
-                    \item createState: State<MainViewPageState> - Konstruktor für den MainViewPageState.
-                \end{itemize}
-                
-        \paragraph{MainViewPageState}
-            \textbf{Methods}
-                \begin{itemize}
-                    \item filtering(filter: FilteringMethods) - Alle Rezepte werden dem Filterkriterium gefiltert.
-                    \item sorting(sort: SortingMethods) - Alle Rezepte werden nach dem Sortierkriterium sortiert.
-                \end{itemize}
+\paragraph{MainViewPage}
+\textbf{Methods}
+\begin{itemize}
+    \item createState: State<MainViewPageState> - Konstruktor für den MainViewPageState.
+\end{itemize}
 
-        \paragraph{TopBar}
-            \textbf{Attributes}
-                \begin{itemize}
-                    \item keyword: TextEdittingController - Eingegebene Zeichenkette durch den Nutzer für die Suche.
-                \end{itemize}
-            \textbf{Methodes}
-                \begin{itemize}
-                    \item search(keyword: TextEdittingController) - Durchsucht alle Rezepte um gibt jene aus, welche Rezepttitel zu dem Schlagwort passen.
-                \end{itemize}
-                
-        \paragraph{AppBar}
-            \textbf{Methodes}
-                \begin{itemize}
-                    \item recipeCreationView() - Die Rezept-erstell-Ansicht wird aufgerufen.
-                    \item settingsView() - Die Einstellungsansicht wird aufgerufen.
-                \end{itemize}
+\paragraph{MainViewPageState}
+\textbf{Methods}
+\begin{itemize}
+    \item filtering(filter: FilteringMethods) - Alle Rezepte werden dem Filterkriterium gefiltert.
+    \item sorting(sort: SortingMethods) - Alle Rezepte werden nach dem Sortierkriterium sortiert.
+\end{itemize}
 
-        \paragraph{RecipeWidget}
-            \textbf{Attributes}
-                 \begin{itemize}
-                     \item recipe: Recipe - Das mit dem Widget dargestellte Rezept.
-                 \end{itemize}
-            \textbf{Methodes}
-                \begin{itemize}
-                    \item RecipeWidget(recipe: Recipe - notNull) - Konstruktor für ein Recipe Widget. Ein Rezept muss angegeben werden.
-                \end{itemize}
-                
-        \paragraph{InformationWidget}
-            \textbf{Attributes}
-                \begin{itemize}
-                    \item information: InformationKategories - Gibt an welche Information in dem Widget dargestellt werden soll.
-                    \item text: string - Der Text der in dem Widget angezeigt werden kann.
-                \end{itemize}
+\paragraph{TopBar}
+\textbf{Attributes}
+\begin{itemize}
+    \item keyword: TextEdittingController - Eingegebene Zeichenkette durch den Nutzer für die Suche.
+\end{itemize}
+\textbf{Methodes}
+\begin{itemize}
+    \item search(keyword: TextEdittingController) - Durchsucht alle Rezepte um gibt jene aus, welche Rezepttitel zu dem Schlagwort passen.
+\end{itemize}
 
-            \textbf{Methodes}
-                \begin{itemize}
-                    \item InformationWidget(information: InformationKategories - notNull, text: string) - Konstruktor für ein Information Widget. Eine Information Kategorie muss angegeben werden.
-                \end{itemize}
+\paragraph{AppBar}
+\textbf{Methodes}
+\begin{itemize}
+    \item recipeCreationView() - Die Rezept-erstell-Ansicht wird aufgerufen.
+    \item settingsView() - Die Einstellungsansicht wird aufgerufen.
+\end{itemize}
 
-        \paragraph{SortingMethods}
-        Ein Enum der alle Sortierung Methoden beinhält.
-            \textbf{Content}
-            \begin{itemize}
-                \item  alphabetical - Die Rezepte werden alphabetisch sortiert.
-                \item  difficulty - Die Rezepte werden nach dem \gls{schwierigkeit}{Schwierigkeitsgrad} sortiert.
-                \item  date - Die Rezepte werden nach dem Hinzufüge Datum sortiert.
-            \end{itemize}
-            
-        \paragraph{FilteringMehods}
-        Ein Enum der alle Filter Methoden beinhält.
-            \textbf{Content}
-            \begin{itemize}
-                \item favorits - Die Rezepte werden nach Favoriten gefiltert.
-                \item difficultyEasy - Die Rezepte werden nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} einfach gefiltert.
-                \item difficultyMedium - Die Rezepte werden nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} mittel gefiltert.
-                \item difficultyHard - Die Rezepte werden nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} schwer gefiltert.
-                \item labelVegetarian - Die Rezepte werden nach dem \gls{label} vegetarisch gefiltert.
-                \item labelVegan - Die Rezepte werden nach dem \gls{label} vegan gefiltert.
-                \item labelGlutenFree - Die Rezepte werden nach dem \gls{label} Gluten frei gefiltert.
-                \item labelHalal - Die Rezepte werden nach dem \gls{label} halal gefiltert.
-                \item labelKoscher - Die Rezepte werden nach dem \gls{label} koscher gefiltert.
-            \end{itemize}
-            
-        \paragraph{InformationKategories}
-        Ein Enum der alle Information Kategorien beinhält.
-            \textbf{Content}
-            \begin{itemize}
-                \item duration - Das Widget gibt an.
-                \item difficultyEasy - Das Widget gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} einfach an.
-                \item difficultyMedium - Das Widget gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} mittel an.
-                \item difficultyHard - Das Widget gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} schwer an.
-                \item labelVegetarian - Das Widget gibt das \gls{label} vegetarisch an.
-                \item labelVegan - Das Widget gibt das \gls{label} vegan an.
-                \item labelGlutenFree - Das Widget gibt das \gls{label} Gluten frei an.
-                \item labelHalal - Das Widget gibt das \gls{label} halal an.
-                \item labelKoscher - Das Widget gibt das \gls{label} koscher an.
-            \end{itemize}
-            
-    \begin{figure}[htp]
+\paragraph{RecipeWidget}
+\textbf{Attributes}
+\begin{itemize}
+    \item recipe: Recipe - Das mit dem Widget dargestellte Rezept.
+\end{itemize}
+\textbf{Methodes}
+\begin{itemize}
+    \item RecipeWidget(recipe: Recipe - notNull) - Konstruktor für ein Recipe Widget. Ein Rezept muss angegeben werden.
+\end{itemize}
+
+\paragraph{InformationWidget}
+\textbf{Attributes}
+\begin{itemize}
+    \item information: InformationKategories - Gibt an welche Information in dem Widget dargestellt werden soll.
+    \item text: string - Der Text der in dem Widget angezeigt werden kann.
+\end{itemize}
+
+\textbf{Methodes}
+\begin{itemize}
+    \item InformationWidget(information: InformationKategories - notNull, text: string) - Konstruktor für ein Information Widget. Eine Information Kategorie muss angegeben werden.
+\end{itemize}
+
+\paragraph{SortingMethods}
+Ein Enum der alle Sortierung Methoden beinhält.
+\textbf{Content}
+\begin{itemize}
+    \item  alphabetical - Die Rezepte werden alphabetisch sortiert.
+    \item  difficulty - Die Rezepte werden nach dem \gls{schwierigkeit}{Schwierigkeitsgrad} sortiert.
+    \item  date - Die Rezepte werden nach dem Hinzufüge Datum sortiert.
+\end{itemize}
+
+\paragraph{FilteringMehods}
+Ein Enum der alle Filter Methoden beinhält.
+\textbf{Content}
+\begin{itemize}
+    \item favorits - Die Rezepte werden nach Favoriten gefiltert.
+    \item difficultyEasy - Die Rezepte werden nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} einfach gefiltert.
+    \item difficultyMedium - Die Rezepte werden nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} mittel gefiltert.
+    \item difficultyHard - Die Rezepte werden nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} schwer gefiltert.
+    \item labelVegetarian - Die Rezepte werden nach dem \gls{label} vegetarisch gefiltert.
+    \item labelVegan - Die Rezepte werden nach dem \gls{label} vegan gefiltert.
+    \item labelGlutenFree - Die Rezepte werden nach dem \gls{label} Gluten frei gefiltert.
+    \item labelHalal - Die Rezepte werden nach dem \gls{label} halal gefiltert.
+    \item labelKoscher - Die Rezepte werden nach dem \gls{label} koscher gefiltert.
+\end{itemize}
+
+\paragraph{InformationKategories}
+Ein Enum der alle Information Kategorien beinhält.
+\textbf{Content}
+\begin{itemize}
+    \item duration - Das Widget gibt an.
+    \item difficultyEasy - Das Widget gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} einfach an.
+    \item difficultyMedium - Das Widget gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} mittel an.
+    \item difficultyHard - Das Widget gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} schwer an.
+    \item labelVegetarian - Das Widget gibt das \gls{label} vegetarisch an.
+    \item labelVegan - Das Widget gibt das \gls{label} vegan an.
+    \item labelGlutenFree - Das Widget gibt das \gls{label} Gluten frei an.
+    \item labelHalal - Das Widget gibt das \gls{label} halal an.
+    \item labelKoscher - Das Widget gibt das \gls{label} koscher an.
+\end{itemize}
+
+\begin{figure}[htp]
     \begin{minipage}
         [t]{0.49\textwidth}
         \centering
         \includegraphics[height=80mm]{images/Presentation-layer/MainView.jpg}
         \caption{Hauptansicht}
-        \end{minipage}
+    \end{minipage}
     \begin{minipage}
         [t]{0.49\textwidth}
         \centering
@@ -602,11 +602,11 @@ Die Tabelle "Recipe" enthält die Rezepte und besitzt die folgenden Attribute:
 \newpage
 \subsubsection{Ingredient}
 Die Tabelle "Ingredient" enthält die Zutaten, die den eizelnen Rezepten zugeordnet sind und besitzt die folgenden Attribute:
-\paragraph{id (uuid - primary key):} Die Id stellt den Primärschlüssel der Zutat dar und muss daher nicht leer und eindeutig sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert. 
+\paragraph{id (uuid - primary key):} Die Id stellt den Primärschlüssel der Zutat dar und muss daher nicht leer und eindeutig sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
 \paragraph{name (varchar(32) - not null):} Der Name der Zutat. Der Datentyp ist \Gls{varchar}. Er darf nicht leer und maximal 32 Zeichen lang sein.
 \paragraph{icon\_name (varchar(32))} Der Name des Icons, das die Zutat repräsentiert. Der Datentyp ist \Gls{varchar}. Er ist maximal 32 Zeichen lang.
 \paragraph{amount (int - not null):} Die Menge der Zutat in der jeweiligen Einheit. Sie darf nicht leer sein und der Datentyp ist Integer.
-\paragraph{unit (varchar(16)):} Die Einheit der Zutat. Der Datentyp ist \Gls{varchar}. Sie ist maximal 16 Zeichen lang und optional. 
+\paragraph{unit (varchar(16)):} Die Einheit der Zutat. Der Datentyp ist \Gls{varchar}. Sie ist maximal 16 Zeichen lang und optional.
 \paragraph{recipe\_id (uuid - not null, foreign key):} Hierbei handelt es sich um die Id des Rezepts, zu dem die Zutat gehört, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
 \newpage
 \subsubsection{IngredientNames}
