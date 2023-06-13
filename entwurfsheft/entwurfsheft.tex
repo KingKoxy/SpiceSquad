@@ -147,8 +147,8 @@ Die einzelnen Schichten werden in den folgenden Kapiteln genauer beschrieben.
                     \item is\_Halal(bool): Der vom Nutzer angegebene Boolean ob das \gls{label} Halal dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
                     \item is\_Kosher(bool): Der vom Nutzer angegebene Boolean ob das \gls{label} Koscher dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
                     \item duration(int - not null): Die vom Nutzer eingegebene Ganzzahl, welche die Zubereitunszeit in Minuten angibt. Muss angegeben werden.
-                    \item dificullty(Difficulty - not null: Die vom Nutzer ausgewählte \gls{schwierigkeit} des Rezepts. Muss angegeben werden.
-                    \item ingerdients(Ingredients[]): Eine Liste an Ingerdients, welche in der AddIngredientPage erstellt wurde:
+                    \item difficulty(Difficulty - not null: Die vom Nutzer ausgewählte \gls{schwierigkeit} des Rezepts. Muss angegeben werden.
+                    \item ingredients(Ingredients[]): Eine Liste an Ingerdients, welche in der AddIngredientPage erstellt wurde:
                     \item instructions(text - not null: Die vom Nutzer angegeben Zeichenkette für die Beschreibung des Rezepts. Muss angegeben werden.
                 \end{itemize}
             
@@ -203,7 +203,7 @@ Die einzelnen Schichten werden in den folgenden Kapiteln genauer beschrieben.
         \paragraph{RecipeWidget}
             \textbf{Attributes}
                  \begin{itemize}
-                     \item recipe: Recipe - Das Rezept mit dem Widget dargestellte Rezept.
+                     \item recipe: Recipe - Das mit dem Widget dargestellte Rezept.
                  \end{itemize}
             \textbf{Methodes}
                 \begin{itemize}
@@ -213,7 +213,7 @@ Die einzelnen Schichten werden in den folgenden Kapiteln genauer beschrieben.
         \paragraph{InformationWidget}
             \textbf{Attributes}
                 \begin{itemize}
-                    \item infromation: InformationKategories - Gibt an welche Information in dem Widget dargestellt werden soll.
+                    \item information: InformationKategories - Gibt an welche Information in dem Widget dargestellt werden soll.
                     \item text: string - Der Text der in dem Widget angezeigt werden kann.
                 \end{itemize}
 
