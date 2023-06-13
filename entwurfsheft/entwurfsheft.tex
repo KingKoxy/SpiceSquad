@@ -301,6 +301,17 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
 \paragraph{factory GroupRecipe.fromJson(Map<String, dynamic> json): GroupRecipe} Factory-Methode zum Erstellen eines GroupRecipe-Objekts aus einem \glslink{JSON}{JSON-Objekt}. Sie wird verwendet, um die Daten, die vom Server geschickt werden und in \Gls{JSON} vorliegen, in ein GroupRecipe-Objekt umzuwandeln. Die Methode ist statisch, da sie kein GroupRecipe-Objekt benötigt, um aufgerufen zu werden. Nimmt als Parameter das bereits in eine Map umgewandelte \glslink{JSON}{JSON-Objekt} entgegen und gibt ein GroupRecipe-Objekt zurück.
 \changelocaltocdepth{4}
 
+\section{Data Layer}
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=\textwidth]{images/dataLayer/dataLayer.pdf}
+    \caption{Klassendiagramm des Data Layers}
+    \label{fig:dataLayer}
+\end{figure}
+Der Data Layer ist für die Datenverarbeitung und -verwaltung verantwortlich. In der App selbst befinden sich lediglich die Repository-Klassen. Sie fungieren als eine Abstraktionsebene zwischen der Geschäftslogik (Application Layer) und den Datenquellen, wie z. B. einer lokalen Datenbank oder einem Remote-Server. Die Repository-Klassen bieten eine Schnittstelle, über die die Geschäftslogik auf die Daten zugreifen kann, ohne Details über deren Speicherung oder Beschaffung zu kennen. Sie bieten Methoden zur Datenabfrage, -aktualisierung und -speicherung und handhaben die Kommunikation mit den entsprechenden Datenquellen. Dadurch wird eine lose Kopplung zwischen der Geschäftslogik und den konkreten Datenquellen erreicht und ermöglicht eine flexiblere Handhabung von Datenquellenwechseln oder -aktualisierungen. Repository-Klassen unterstützen auch das Prinzip der Datenkapselung und fördern eine saubere und modularisierte Architektur in der App-Entwicklung.
+Nun sollen die einzelnen Repository-Klassen vorgestellt werden.
+
+
 \section{Presentation Layer}
 \begin{figure}[htp]
     \centering
