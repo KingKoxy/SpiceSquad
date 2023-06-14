@@ -310,162 +310,141 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
 \end{figure}
 
 \newpage
-\subsubsection{Recipe Creation Page}
-Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Rezept-Erstell-Ansicht darzustellen.\newline
+\subsection{Rezept-Erstellungs-Ansicht}
+    Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Rezept-Erstell-Ansicht darzustellen.\newline
 
+    \subsubsection{RecipeCreationPageState}
+        \paragraph*{Attributes}
+            \subparagraph*{image(blob): Hochgeladenes Bild, welches den anderen Nutzern in der Rezeptansicht angezeigt werden soll.}
+            \subparagraph*{title(varchar(64) - not null): Die eingegebene Zeichenkette für den Titel des Rezepts. Die Zeichenkette kann maximal 64 Zeichen lang sein und muss ausgefüllt sein.}
+            \subparagraph*{is\_Vegetarian(bool): Der vom Nutzer angegebene Boolean, ob das \gls{label} Vegetarisch dem Leser angezeigt werden soll. Ist standartmäßig auf false.}
+            \subparagraph*{is\_Vegan(bool): Der vom Nutzer angegebene Boolean, ob das \gls{label} Vegan dem Leser angezeigt werden soll. Ist standartmäßig auf false.}
+            \subparagraph*{is\_GlutenFree(bool): Der vom Nutzer angegebene Boolean, ob das \gls{label} Glutenfrei dem Leser angezeigt werden soll.  Ist standartmäßig auf false.}
+            \subparagraph*{is\_Halal(bool): Der vom Nutzer angegebene Boolean, ob das \gls{label} Halal dem Leser angezeigt werden soll.  Ist standartmäßig auf false.}
+            \subparagraph*{is\_Kosher(bool): Der vom Nutzer angegebene Boolean, ob das \gls{label} Koscher dem Leser angezeigt werden soll.  Ist standartmäßig auf false.}
+            \subparagraph*{duration(int - not null): Die vom Nutzer eingegebene Ganzzahl, welche die Zubereitungszeit in Minuten angibt. Muss angegeben werden.}
+            \subparagraph*{difficulty(Difficulty - not null): Die vom Nutzer ausgewählte \gls{schwierigkeit} des Rezepts. Muss angegeben werden.}
+            \subparagraph*{ingredients(Ingredients[]): Eine Liste an Ingerdients, welche in der AddIngredientPage erstellt wurde.}
+            \subparagraph*{instructions(text - not null): Die vom Nutzer angegeben Zeichenkette für die Beschreibung des Rezepts. Muss angegeben werden.}
 
-\paragraph{RecipeCreationPageState}
-\textbf{Attributes}
-\begin{itemize}
-    \item image(blob): Hochgeladenes Bild, welches den anderen Nutzern in der Rezeptansicht angezeigt werden soll.
-    \item title(varchar(64) - not null): Die eingegebene Zeichenkette für den Titel des Rezepts. Die Zeichenkette kann maximal 64 Zeichen lang sein und muss ausgefüllt sein.
-    \item is\_Vegetarian(bool): Der vom Nutzer angegebene Boolean, ob das \gls{label} Vegetarisch dem Leser angezeigt werden soll. Ist standartmäßig auf false.
-    \item is\_Vegan(bool): Der vom Nutzer angegebene Boolean, ob das \gls{label} Vegan dem Leser angezeigt werden soll. Ist standartmäßig auf false.
-    \item is\_GlutenFree(bool): Der vom Nutzer angegebene Boolean, ob das \gls{label} Glutenfrei dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
-    \item is\_Halal(bool): Der vom Nutzer angegebene Boolean, ob das \gls{label} Halal dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
-    \item is\_Kosher(bool): Der vom Nutzer angegebene Boolean, ob das \gls{label} Koscher dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
-    \item duration(int - not null): Die vom Nutzer eingegebene Ganzzahl, welche die Zubereitunszeit in Minuten angibt. Muss angegeben werden.
-    \item difficulty(Difficulty - not null: Die vom Nutzer ausgewählte \gls{schwierigkeit} des Rezepts. Muss angegeben werden.
-    \item ingredients(Ingredients[]): Eine Liste an Ingerdients, welche in der AddIngredientPage erstellt wurde:
-    \item instructions(text - not null: Die vom Nutzer angegeben Zeichenkette für die Beschreibung des Rezepts. Muss angegeben werden.
-\end{itemize}
-
-\textbf{Methods}
-\begin{itemize}
-    \item addIngredient(): Die Page AddIngredientPage wird aufgerufen.
-    \item recipeSave(): Die Methode ruft, abhängig davon ob das Rezept neu erstellt wird oder nur verändert wurde, entweder recipeCreation() oder recipeChange() auf.
-\end{itemize}
-
-\begin{figure}[htp]
-    \centering
-    \includegraphics[height = 50mm]{images/presentationLayer/recipeCreationPage.png}
-    \caption{RecipeCreationPage}
-\end{figure}
-
-
+        \paragraph*{Methods}
+            \subparagraph*{addIngredient(): Die Page AddIngredientPage wird aufgerufen.}
+            \subparagraph*{recipeSave(): Die Methode ruft, abhängig davon ob das Rezept neu erstellt wird oder nur verändert wurde, entweder recipeCreation() oder recipeChange() auf.}
+       
+            
+    \begin{figure}[htp]
+        \begin{minipage}
+            [t]{0.49\textwidth}
+            \centering
+            \includegraphics[height=80mm]{images/Presentation-layer/MainView.jpg}
+            \caption{Hauptansicht}
+        \end{minipage}
+        \begin{minipage}
+            [t]{0.49\textwidth}
+            \centering
+            \includegraphics[width=0.95\textwidth]{images/Presentation-layer/MainViewClass.png}
+            \caption{Klassen für Hauptansicht}
+        \end{minipage}
+    \end{figure}
 \newpage
 
-\subsubsection{Hauptansicht}
-Die Klassen beinhaltet alle nötigen Funktionen und Attribute um die Hauptansicht darzustellen.\newline
+\subsection{Hauptansicht}
+    Die Klassen beinhaltet alle nötigen Funktionen und Attribute um die Hauptansicht darzustellen.
 
-\paragraph{MainViewPage}
-\textbf{Methods}
-\begin{itemize}
-    \item createState: State<MainViewPageState> - Konstruktor für den MainViewPageState.
-\end{itemize}
+    \subsubsection{MainViewPage}
+        \paragraph*{Methoden}
+            \subparagraph*{createState: State<MainViewPageState>} - Konstruktor für den MainViewPageState.
 
-\paragraph{MainViewPageState}
-\textbf{Methods}
-\begin{itemize}
-    \item filtering(filter: FilteringMethods) - Alle Rezepte werden dem Filterkriterium gefiltert.
-    \item sorting(sort: SortingMethods) - Alle Rezepte werden nach dem Sortierkriterium sortiert.
-\end{itemize}
+    \subsubsection{MainViewPageState}
+        \paragraph*{Methoden}
+            \subparagraph*{filtering(filter: FilteringMethods) - Alle Rezepte werden dem Filterkriterium gefiltert.}
+            \subparagraph*{sorting(sort: SortingMethods) - Alle Rezepte werden nach dem Sortierkriterium sortiert.}
 
-\paragraph{TopBar}
-\textbf{Attributes}
-\begin{itemize}
-    \item keyword: TextEdittingController - Durch den Nutzer eingegebene Zeichenkette für die Suche.
-\end{itemize}
-\textbf{Methodes}
-\begin{itemize}
-    \item search(keyword: TextEdittingController) - Durchsucht alle Rezepte und gibt die aus, deren Rezepttitel zu dem Schlagwort passen.
-\end{itemize}
+    \subsubsection{TopBar}
+        \paragraph*{Attribute}
+            \subparagraph*{keyword: TextEdittingController - Durch den Nutzer eingegebene Zeichenkette für die Suche.}
 
-\paragraph{AppBar}
-\textbf{Methodes}
-\begin{itemize}
-    \item recipeCreationView() - Die Rezept-erstell-Ansicht wird aufgerufen.
-    \item settingsView() - Die Einstellungsansicht wird aufgerufen.
-\end{itemize}
+        \paragraph*{Methode}
+            \subparagraph*{ search(keyword: TextEdittingController) - Durchsucht alle Rezepte und gibt die aus, deren Rezepttitel zu dem Schlagwort passen.}
 
-\paragraph{RecipeWidget}
-\textbf{Attributes}
-\begin{itemize}
-    \item recipe: Recipe - Das mit dem Widget dargestellte Rezept.
-\end{itemize}
-\textbf{Methodes}
-\begin{itemize}
-    \item RecipeWidget(recipe: Recipe - notNull) - Konstruktor für ein Recipe Widget. Ein Rezept muss angegeben werden.
-\end{itemize}
+    \subsubsection{AppBar}
+        \paragraph*{Methoden}
+            \subparagraph*{recipeCreationView() - Die Rezept-erstell-Ansicht wird aufgerufen.}
+            \subparagraph*{settingsView() - Die Einstellungsansicht wird aufgerufen.}
 
-\paragraph{InformationWidget}
-\label{sec:InformationWidget}
-\textbf{Attributes}
-\begin{itemize}
-    \item information: InformationKategories - Gibt an welche Information in dem Widget dargestellt werden soll.
-    \item text: string - Der Text der in dem Widget angezeigt werden kann.
-\end{itemize}
+    \subsubsection{RecipeWidget}
+        \paragraph*{Attribut}
+            \subparagraph*{recipe: Recipe - Das mit dem Widget dargestellte Rezept.}
 
-\textbf{Methodes}
-\begin{itemize}
-    \item InformationWidget(information: InformationKategories - notNull, text: string) - Konstruktor für ein Information Widget. Eine Information Kategorie muss angegeben werden.
-\end{itemize}
+        \paragraph*{Methode}
+            \subparagraph*{RecipeWidget(recipe: Recipe - notNull) - Konstruktor für ein Recipe Widget. Ein Rezept muss angegeben werden.}
 
-\paragraph{SortingMethods}
-Ein Enum der alle Sortierung Methoden beinhält.
-\textbf{Content}
-\begin{itemize}
-    \item  alphabetical - Die Rezepte werden alphabetisch sortiert.
-    \item  difficulty - Die Rezepte werden nach dem \gls{schwierigkeit}{Schwierigkeitsgrad} sortiert.
-    \item  date - Die Rezepte werden nach dem Hinzufüge Datum sortiert.
-\end{itemize}
+    \subsubsection{InformationWidget} \label{sec:InformationWidget}
+        \paragraph*{Attribute}
+            \subparagraph*{information: InformationKategories - Gibt an welche Information in dem Widget dargestellt werden soll.}
+            \subparagraph*{text: string - Der Text der in dem Widget angezeigt werden kann.}
 
-\paragraph{FilteringMehods}
-Ein Enum der alle Filter Methoden beinhält.
-\textbf{Content}
-\begin{itemize}
-    \item favorites - Die Rezepte werden nach Favoriten gefiltert.
-    \item difficultyEasy - Die Rezepte werden nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} einfach gefiltert.
-    \item difficultyMedium - Die Rezepte werden nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} mittel gefiltert.
-    \item difficultyHard - Die Rezepte werden nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} schwer gefiltert.
-    \item labelVegetarian - Die Rezepte werden nach dem \gls{label} vegetarisch gefiltert.
-    \item labelVegan - Die Rezepte werden nach dem \gls{label} vegan gefiltert.
-    \item labelGlutenFree - Die Rezepte werden nach dem \gls{label} glutenfrei gefiltert.
-    \item labelHalal - Die Rezepte werden nach dem \gls{label} halal gefiltert.
-    \item labelKoscher - Die Rezepte werden nach dem \gls{label} koscher gefiltert.
-\end{itemize}
+        \paragraph*{Methoden}
+            \subparagraph*{InformationWidget(information: InformationKategories - notNull, text: string) - Konstruktor für ein Information Widget. Eine Information Kategorie muss angegeben werden.}
 
-\paragraph{InformationKategories} 
-    \label{sec:InformationKategories}
-Ein Enum der alle Information Kategorien beinhält.
-\textbf{Content}
-\begin{itemize}
-    \item duration - Das Widget gibt die Zubereitungsdauer an.
-    \item difficultyEasy - Das Widget gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} einfach an.
-    \item difficultyMedium - Das Widget gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} mittel an.
-    \item difficultyHard - Das Widget gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} schwer an.
-    \item labelVegetarian - Das Widget gibt das \gls{label} vegetarisch an.
-    \item labelVegan - Das Widget gibt das \gls{label} vegan an.
-    \item labelGlutenFree - Das Widget gibt das \gls{label} Gluten frei an.
-    \item labelHalal - Das Widget gibt das \gls{label} halal an.
-    \item labelKoscher - Das Widget gibt das \gls{label} koscher an.
-\end{itemize}
+    \subsubsection{SortingMethods}
+        Ein Enum der alle Sortierung Methoden beinhält.
+        \paragraph*{Content}
+            \subparagraph*{alphabetical - Die Rezepte werden alphabetisch sortiert.}
+            \subparagraph*{difficulty - Die Rezepte werden nach dem \gls{schwierigkeit}{Schwierigkeitsgrad} sortiert.}
+            \subparagraph*{date - Die Rezepte werden nach dem Hinzufüge Datum sortiert.}
 
-\begin{figure}[htp]
-    \begin{minipage}
-        [t]{0.49\textwidth}
-        \centering
-        \includegraphics[height=80mm]{images/Presentation-layer/MainView.jpg}
-        \caption{Hauptansicht}
-    \end{minipage}
-    \begin{minipage}
-        [t]{0.49\textwidth}
-        \centering
-        \includegraphics[width=0.95\textwidth]{images/Presentation-layer/MainViewClass.png}
-        \caption{Klassen für Hauptansicht}
-    \end{minipage}
-\end{figure}
+    \subsubsection{FilteringMehods}
+        Ein Enum der alle Filter Methoden beinhält.
+        \paragraph*{Content}
+            \subparagraph*{favorites - Die Rezepte werden nach Favoriten gefiltert.}
+            \subparagraph*{difficultyEasy - Die Rezepte werden nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} einfach gefiltert.}
+            \subparagraph*{difficultyMedium - Die Rezepte werden nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} mittel gefiltert.}
+            \subparagraph*{difficultyHard - Die Rezepte werden nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} schwer gefiltert.}
+            \subparagraph*{labelVegetarian - Die Rezepte werden nach dem \gls{label} vegetarisch gefiltert.}
+            \subparagraph*{labelVegan - Die Rezepte werden nach dem \gls{label} vegan gefiltert.}
+            \subparagraph*{labelGlutenFree - Die Rezepte werden nach dem \gls{label} glutenfrei gefiltert.}
+            \subparagraph*{labelHalal - Die Rezepte werden nach dem \gls{label} halal gefiltert.}
+            \subparagraph*{labelKoscher - Die Rezepte werden nach dem \gls{label} koscher gefiltert.}
+
+    \subsubsection{InformationKategories} \label{sec:InformationKategories}
+        Ein Enum der alle Information Kategorien beinhält.
+        \paragraph*{Content}
+            \subparagraph*{duration - Das Widget gibt die Zubereitungsdauer an.}
+            \subparagraph*{difficultyEasy - Das Widget gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} einfach an.}
+            \subparagraph*{difficultyMedium - Das Widget gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} mittel an.}
+            \subparagraph*{difficultyHard - Das Widget gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} schwer an.}
+            \subparagraph*{labelVegetarian - Das Widget gibt das \gls{label} vegetarisch an.}
+            \subparagraph*{labelVegan - Das Widget gibt das \gls{label} vegan an.}
+            \subparagraph*{labelGlutenFree - Das Widget gibt das \gls{label} Gluten frei an.}
+            \subparagraph*{labelHalal - Das Widget gibt das \gls{label} halal an.}
+            \subparagraph*{labelKoscher - Das Widget gibt das \gls{label} koscher an.}
+
+    \begin{figure}[htp]
+        \begin{minipage}
+            [t]{0.49\textwidth}
+            \centering
+            \includegraphics[height=80mm]{images/Presentation-layer/MainView.jpg}
+            \caption{Hauptansicht}
+        \end{minipage}
+        \begin{minipage}
+            [t]{0.49\textwidth}
+            \centering
+            \includegraphics[width=0.95\textwidth]{images/Presentation-layer/MainViewClass.png}
+            \caption{Klassen für Hauptansicht}
+        \end{minipage}
+    \end{figure}
 
 \subsection{Rezeptansicht}
     Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Hauptansicht darzustellen.
 
     \subsubsection{RecipeViewPage}
-        \paragraph*{Method}
+        \paragraph*{Methode}
             \subparagraph*{createState: State<RecipeViewPageState>} - Konstruktor für den RecipeViewPageState.
         
     \subsubsection{recipeViewPageState}
         \paragraph*{Attribut}
-            \subparagraph*{portions:TextEdittingController} - Eingegebene Ganzzahl für die die Zutatenmengen berechnet werden. Ist standardmäßig auf der Portionsgröße die beim Rezepterstellen angegeben worden ist.
+            \subparagraph*{portions: TextEdittingController} - Eingegebene Ganzzahl für die die Zutatenmengen berechnet werden. Ist standardmäßig auf der Portionsgröße die beim Rezepterstellen angegeben worden ist.
     
         \paragraph*{Method}
             \subparagraph*{changePortions(portions: int)} - Die neuen Mengenangaben für die Zutaten werden berechnet.
@@ -495,18 +474,18 @@ Ein Enum der alle Information Kategorien beinhält.
     Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Registrierungsansicht darzustellen.
 
     \subsubsection{RegisterPage}
-        \paragraph*{Method}
+        \paragraph*{Methode}
             \subparagraph*{createState: State<RegisterPageState>} - Konstruktor für den RegisterPageState.
     
     \subsubsection{RegisterPageState}
-        \paragraph*{Attribut}
+        \paragraph*{Attribute}
             \subparagraph*{usernameController: TextEdittingController} - Die eingegebene Zeichenkette für den Benutzernamen des neuen Users.
-            \subparagraph*{emailController: TextEdittingController} - Die eingegebene Zeichenkette für die E-Mail-Addresse des neuen Users.
+            \subparagraph*{emailController: TextEdittingController} - Die eingegebene Zeichenkette für die E-Mail-Adresse des neuen Users.
             \subparagraph*{passwordController: TextEdittingController} - Die eingegebene Zeichenkette für das Passwort des neuen Accounts für den neunen User.
             \subparagraph*{repeatedPassword: TextEdittingController} - Die eingegebene Zeichenkette für das wiederholte Passwort des neuen Accounts.
          
-        \paragraph*{Methodes}
-            \subparagraph*{register(username: string, email: string, password: string, repeatedPassword: string)} - Überprüft ob das eingegeben Passwort mit dem wiedeholten Passwort übereinstimmt und ruft dann die Funktion register() im UserRepository auf.
+        \paragraph*{Methoden}
+            \subparagraph*{register(username: string, email: string, password: string, repeatedPassword: string)} - Überprüft ob das eingegeben Passwort mit dem wiederholten Passwort übereinstimmt und ruft dann die Funktion register() im UserRepository auf.
             \subparagraph*{login()} - Die Loginansicht wird aufgerufen.
 
     \subsubsection{InformationWidget (\autoref{sec:InformationWidget})}
@@ -533,19 +512,19 @@ Ein Enum der alle Information Kategorien beinhält.
     Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Passwort-Zurücksetzen-Ansicht darzustellen.
     
     \subsubsection{ResetPasswordPage}
-        \paragraph*{Method}
+        \paragraph*{Methode}
             \subparagraph*{createState: State<ResetPasswordPageState>} - Konstruktor für den ResetPasswordPageState.
     
     \subsubsection{ResetPasswordPageState}
         \paragraph*{Attribut}
-            \subparagraph*{emailController: TextEdittingController} - Die eingegebene Zeichenkette für die E-Mail-Address des Users.
+            \subparagraph*{emailController: TextEdittingController} - Die eingegebene Zeichenkette für die E-Mail-Adresse des Users.
     
-        \paragraph*{Methodes}
-            \subparagraph*{resetPassword(email: string)} - Überprüft ob die Korrektheit der E-Mail-Addresse und ruft die Funktionen resetPassword() im UserRepository auf.
+        \paragraph*{Methoden}
+            \subparagraph*{resetPassword(email: string)} - Überprüft ob die Korrektheit der E-Mail-Adresse und ruft die Funktionen resetPassword() im UserRepository auf.
             \subparagraph*{LoginView()} - Die Loginansicht wird aufgerufen.
 
     \subsubsection{ReturnButton} \label{sec:ReturnButton}
-        \paragraph*{Methodes}
+        \paragraph*{Methoden}
             \subparagraph*{prevoiusView()} - Die vorherige Ansicht wird aufgerufen. Es werden keine Daten gespeichert die in der Ansicht angegeben worden sind.
     
             \begin{figure}[htp]
@@ -569,15 +548,15 @@ Ein Enum der alle Information Kategorien beinhält.
     Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Anmeldungsansicht darzustellen.
 
     \subsubsection{LoginPagePage}
-        \paragraph*{Method}
+        \paragraph*{Methode}
             \subparagraph*{createState: State<LoginPageState>} - Konstruktor für den LoginPageState.
     
     \subsubsection{LoginPageState}
         \paragraph*{Attribut}
-            \subparagraph*{emailController: TextEdittingController} - Die eingegebe Zeichenkette für die E-Mail-Addresse des Users.
-            \subparagraph*{passwortController: TextEdittingController} - Die eingegebe Zeichenkette für das Passwort des Users.
+            \subparagraph*{emailController: TextEdittingController} - Die eingegebene Zeichenkette für die E-Mail-Adresse des Users.
+            \subparagraph*{passwortController: TextEdittingController} - Die eingegebene Zeichenkette für das Passwort des Users.
 
-        \paragraph*{Methodes}
+        \paragraph*{Methoden}
 
             \subparagraph*{login(email: string, password: string)} - Überprüft die Eingaben und ruft die Funktionen createGroupe() im UserRepository auf.
             \subparagraph*{resetPasswordView()} -  Die Passwort-Zurücksetzen-Ansicht wird aufgerufen.
@@ -604,14 +583,14 @@ Ein Enum der alle Information Kategorien beinhält.
     Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Gruppen-Erstellungs-Ansicht darzustellen.
 
     \subsubsection{GroupeCreationPage}
-        \paragraph*{Method}
+        \paragraph*{Methode}
             \subparagraph*{createState: State<GroupeCreationPageState>} - Konstruktor für den GroupeCreationPageState.
     
     \subsubsection{GroupeCreationPageState}
         \paragraph*{Attribut}
-            \subparagraph*{groupeNameController: TextEdittingController} - Die eingegebe Zeichenkette für den Namen der neuen Gruppe.
+            \subparagraph*{groupeNameController: TextEdittingController} - Die eingegebene Zeichenkette für den Namen der neuen Gruppe.
 
-        \paragraph*{Methodes}
+        \paragraph*{Methoden}
 
             \subparagraph*{createGroupe(name: string)} - Überprüft den Gruppenname und ruft die Funktionen createGroupe() im GroupeService auf.
             \subparagraph*{joinGroupeView()} -  Die Gruppen-Beitritts-Ansicht wird aufgerufen.
@@ -640,7 +619,7 @@ Ein Enum der alle Information Kategorien beinhält.
             \subparagraph*{group: Group} - Die Gruppe dessen Details dargestellt werden.
             \subparagraph*{newTitle: TextEdittingController} - Die eingegeben Zeichenkette für den neunen Gruppennamen.
 
-        \paragraph*{Methodes}
+        \paragraph*{Methoden}
             \subparagraph*{GroupDetailPage(group: Group - notNull)} - Ein Konstruktor für eine GroupDetailPage. Der Parameter muss angegeben werden. 
             \subparagraph*{setGroupTitle(newTitle: string)} - Die Eingabe wird Überprüft und die Funktion setGroupName() im GroupeService wird aufgerufen.
             \subparagraph*{deleteGroup()} - Das ConfirmationWidget wird aufgerufen und bei positiver Rückmeldung wird die Funktion kickUser() im GroupeService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
@@ -648,12 +627,11 @@ Ein Enum der alle Information Kategorien beinhält.
             \subparagraph*{getQRCode()} - Die QR-Code-Ansicht wird aufgerufen.
             \subparagraph*{getGroupeTitel()} - Der Gruppen Titel wird in die Zwischenablage gespeichert.
 
-
     \subsubsection{ConfirmationWidget}
         \paragraph*{Attribut}
             \subparagraph*{text: string} - Der Text der Angezeigt werden soll im Widget.
 
-        \paragraph*{Methodes}
+        \paragraph*{Methoden}
             \subparagraph*{ConfirmationWidget(text: string - notNull)} - Ein Konstruktor für ein ConfirmationWidget, wobei ein Text angegeben werden muss.
             \subparagraph*{decline()} - Dem Erzeugter wird true zurückgegeben.
             \subparagraph*{accept()} - Dem Erzeugter wird false zurückgegeben.
@@ -662,7 +640,7 @@ Ein Enum der alle Information Kategorien beinhält.
         \paragraph*{Attribut}
             \subparagraph*{user: User} - Der darzustellende User.
 
-        \paragraph*{Methodes}
+        \paragraph*{Methoden}
             \subparagraph*{OptionWidget(user: User - notNull)} - Ein Konstruktor für ein OptionWidget. Der Parameter muss angegeben werden. 
             \subparagraph*{kickUser()} - Das ConfirmationWidget wird aufgerufen und bei positiver Rückmeldung wird die Funktion kickUser() im UserSettingsService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
             \subparagraph*{banUser()} - Das ConfirmationWidget wird aufgerufen und bei positiver Rückmeldung wird die Funktion banUser() im UserSettingsService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
@@ -675,8 +653,8 @@ Ein Enum der alle Information Kategorien beinhält.
             \subparagraph*{view: Boolean} - Ein Boolean der Angibt ob die Sichtbarkeit des Rezepts verändert werden darf oder nicht.
             \subparagraph*{settingsView: Boolean} - Eine Boolean der angibt ob das Widget in der Einstellungsansicht verwendet wird.
 
-        \paragraph*{Methodes}
-            \subparagraph*{RecipeWidget(recipe: Recipe - notNull, view: boolean - notNull, settingsView: boolean - notNull)} - Ein konsturktor für ein RecipeWidget. Alle Parameter müssen angegeben werden.
+        \paragraph*{Methoden}
+            \subparagraph*{RecipeWidget(recipe: Recipe - notNull, view: boolean - notNull, settingsView: boolean - notNull)} - Ein Konstruktor für ein RecipeWidget. Alle Parameter müssen angegeben werden.
             \subparagraph*{togglePrivate()} - Die Sichtbarkeit des Rezepts für die Gruppe ausgeblendet werden soll, wenn settingsView false ist. Wenn settingsView auf true steht wird das Rezept für alle Gruppen ausgeblendet.
             \subparagraph*{delete()} - Das ConfirmationWidget wird aufgerufen und bei positiver Rückmeldung wird die Funktion deleteRecipe() im RecipeService aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
             \subparagraph*{export()} - Die Funktion exportRecipe() im RecipeService wird aufgerufen.
@@ -685,7 +663,7 @@ Ein Enum der alle Information Kategorien beinhält.
         \paragraph*{Attribut}
             \subparagraph*{isOwnAccount: Boolean} - Ein Boolean der Angibt ob es sich um den eigenen Account handelt.
 
-        \paragraph*{Methodes}
+        \paragraph*{Methoden}
             \subparagraph*{UserWidget(user: User - notNull, isOwnAccount: bool - notNull)} - Ein Konstruktor für ein UserWidget. Alle Parameter müssen angegeben werden.
             \subparagraph*{options()} - Das optionWidget wird aufgerufen.
 
