@@ -98,7 +98,7 @@ Die in diesem Heft verwendeten Personenbezeichnungen beziehen sich – sofern ni
 \newpage
 
 \section{Einleitung}
-Das Entfurfsheft des Projekts: "Write your own Android App: SpiceSquad" baut auf des zuvor verfasste Pflichtenheft auf.
+Das Entfurfsheft des Projekts: "Write your own Android App: SpiceSquad" baut auf dem zuvor verfassten Pflichtenheft auf.
 Hierzu wurde zunächst ein umfassendes Klassendiagramm erstellt. Auf diesem basierend werden alle Klassen, Methoden und Attribute ausführlich erklärt.
 In weiteren Kapiteln wird der REST-Webservice und die Datenbankstruktur beschrieben. Zum besseren Verständnis sind Ablaufbeschreibungen in Form von Sequenzdiagrammen angefügt.
 
@@ -106,11 +106,11 @@ In weiteren Kapiteln wird der REST-Webservice und die Datenbankstruktur beschrie
 
 \subsection{Client-Server-Architektur}
 Wie bereits im Pflichtenheft angeführt, haben wir uns für eine Trennung von Client und Server entschieden, um somit eine höchstmögliche Modularität zu gewährleisten und
-Funktionen wie Squads zu ermöglichen. Die Kommunikation erfolgt über REST-Schnittstellen, welche eine einheitliche Schnittstelle mit dem Server bieten und eine einfache Skalierbarkeit begünstigen.
+Funktionen wie Squads zu ermöglichen. Die Kommunikation erfolgt über REST-Schnittstellen, welche eine einheitliche Schnittstelle mit dem Server bieten und eine einfache Skalierbarkeit ermöglichen.
 Im Folgenden werden die Architekturen von Server und Client näher beschrieben.
 
 \subsection{Architektur der Applikation}
-Für die Entwicklung der Applikation soll Flutter benutzt werden. Dies bietet einige Vorteile. Flutter ist ein plattformübergreifendes Framework, das es Entwicklern ermöglicht, eine einzige Codebasis zu verwenden, um Apps sowohl für iOS als auch für Android zu erstellen. Dies reduziert den Entwicklungsaufwand erheblich, da Entwickler nicht separate Codes für jede Plattform schreiben müssen. Flutter verwendet die Dart-Programmiersprache, die eine einfache Syntax und eine umfangreiche Bibliothek bietet, um leistungsstarke und ansprechende Benutzeroberflächen zu erstellen. Darüber hinaus verfügt Flutter über eine Hot-Reload-Funktion, die es Entwicklern ermöglicht, Änderungen in Echtzeit zu sehen, was den Entwicklungsprozess beschleunigt. Flutter-Apps sind schnell, reaktionsfähig und bieten eine extrem gute Leistung, da sie direkt auf die nativen Funktionen des Betriebssystems zugreifen. Diese Kombination aus plattformübergreifender Entwicklung, einfacher Sprache, schnellem Entwicklungsprozess und guter Leistung macht Flutter zur Wahl für die Entwicklung von SpiceSquad.
+Für die Entwicklung der Applikation soll Flutter benutzt werden. Dies bietet einige Vorteile. Flutter ist ein plattformübergreifendes Framework, das es Entwicklern ermöglicht, eine einzige Codebasis zu verwenden, um Apps sowohl für iOS als auch für Android zu erstellen. Dies reduziert den Entwicklungsaufwand erheblich, da Entwickler nicht separate Codes für jede Plattform schreiben müssen. Flutter verwendet die Dart-Programmiersprache, die eine einfache Syntax und eine umfangreiche Bibliothek bietet, um leistungsstarke und ansprechende Benutzeroberflächen zu erstellen. Darüber hinaus verfügt Flutter über eine Hot-Reload-Funktion, die es Entwicklern ermöglicht, Änderungen in Echtzeit zu sehen, was den Entwicklungsprozess beschleunigt. Flutter-Apps sind schnell, reaktionsfähig und bieten eine extrem gute Leistung, da sie direkt auf die nativen Funktionen des Betriebssystems zugreifen. Diese Kombination aus plattformübergreifender Entwicklung, einfacher Sprache, schnellem Entwicklungsprozess und guter Leistung macht Flutter zu einer guten Wahl für die Entwicklung von SpiceSquad.
 
 Die Applikation wird in vier große Schichten gegliedert. Dies dient dazu, die Bestandteile der App nach ihrer Funktion zu gruppieren und die Abhängigkeiten zwischen den einzelnen Komponenten zu minimieren. Dadurch wird die Wartbarkeit massiv verbessert und auch die Erweiterbarkeit der Applikation wird durch diese Strukturierung erleichtert. Die Schichten orientieren sich stark an den Empfehlungen von Google für die Architektur von Android Applikationen. Die vier Schichten sind der \textbf{Presentation Layer}, der \textbf{Application Layer}, der \textbf{Domain Layer} und der \textbf{Data Layer}.
 \begin{figure}[htp]
@@ -311,19 +311,19 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
 
 \newpage
 \subsubsection{Recipe Creation Page}
-Die Klassen beinhaltet alle nötigen Funktionen und Attribute um die Rezept-Erstell-Ansicht darzustellen.\newline
+Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Rezept-Erstell-Ansicht darzustellen.\newline
 
 
 \paragraph{RecipeCreationPageState}
 \textbf{Attributes}
 \begin{itemize}
-    \item image(blob): Hochgeladenes Bild welches den anderen Nutzern in der Rezeptansicht angezeigt werden soll.
+    \item image(blob): Hochgeladenes Bild, welches den anderen Nutzern in der Rezeptansicht angezeigt werden soll.
     \item title(varchar(64) - not null): Die eingegebene Zeichenkette für den Titel des Rezepts. Die Zeichenkette kann maximal 64 Zeichen lang sein und muss ausgefüllt sein.
-    \item is\_Vegetarian(bool): Der vom Nutzer angegebene Boolean ob das \gls{label} Vegetarisch dem Leser angezeigt werden soll. Ist standartmäßig auf false.
-    \item is\_Vegan(bool): Der vom Nutzer angegebene Boolean ob das \gls{label} Vegan dem Leser angezeigt werden soll. Ist standartmäßig auf false.
-    \item is\_GlutenFree(bool): Der vom Nutzer angegebene Boolean ob das \gls{label} Glutenfrei dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
-    \item is\_Halal(bool): Der vom Nutzer angegebene Boolean ob das \gls{label} Halal dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
-    \item is\_Kosher(bool): Der vom Nutzer angegebene Boolean ob das \gls{label} Koscher dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
+    \item is\_Vegetarian(bool): Der vom Nutzer angegebene Boolean, ob das \gls{label} Vegetarisch dem Leser angezeigt werden soll. Ist standartmäßig auf false.
+    \item is\_Vegan(bool): Der vom Nutzer angegebene Boolean, ob das \gls{label} Vegan dem Leser angezeigt werden soll. Ist standartmäßig auf false.
+    \item is\_GlutenFree(bool): Der vom Nutzer angegebene Boolean, ob das \gls{label} Glutenfrei dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
+    \item is\_Halal(bool): Der vom Nutzer angegebene Boolean, ob das \gls{label} Halal dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
+    \item is\_Kosher(bool): Der vom Nutzer angegebene Boolean, ob das \gls{label} Koscher dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
     \item duration(int - not null): Die vom Nutzer eingegebene Ganzzahl, welche die Zubereitunszeit in Minuten angibt. Muss angegeben werden.
     \item difficulty(Difficulty - not null: Die vom Nutzer ausgewählte \gls{schwierigkeit} des Rezepts. Muss angegeben werden.
     \item ingredients(Ingredients[]): Eine Liste an Ingerdients, welche in der AddIngredientPage erstellt wurde:
@@ -364,11 +364,11 @@ Die Klassen beinhaltet alle nötigen Funktionen und Attribute um die Hauptansich
 \paragraph{TopBar}
 \textbf{Attributes}
 \begin{itemize}
-    \item keyword: TextEdittingController - Eingegebene Zeichenkette durch den Nutzer für die Suche.
+    \item keyword: TextEdittingController - Durch den Nutzer eingegebene Zeichenkette für die Suche.
 \end{itemize}
 \textbf{Methodes}
 \begin{itemize}
-    \item search(keyword: TextEdittingController) - Durchsucht alle Rezepte um gibt jene aus, welche Rezepttitel zu dem Schlagwort passen.
+    \item search(keyword: TextEdittingController) - Durchsucht alle Rezepte und gibt die aus, deren Rezepttitel zu dem Schlagwort passen.
 \end{itemize}
 
 \paragraph{AppBar}
@@ -414,13 +414,13 @@ Ein Enum der alle Sortierung Methoden beinhält.
 Ein Enum der alle Filter Methoden beinhält.
 \textbf{Content}
 \begin{itemize}
-    \item favorits - Die Rezepte werden nach Favoriten gefiltert.
+    \item favorites - Die Rezepte werden nach Favoriten gefiltert.
     \item difficultyEasy - Die Rezepte werden nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} einfach gefiltert.
     \item difficultyMedium - Die Rezepte werden nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} mittel gefiltert.
     \item difficultyHard - Die Rezepte werden nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} schwer gefiltert.
     \item labelVegetarian - Die Rezepte werden nach dem \gls{label} vegetarisch gefiltert.
     \item labelVegan - Die Rezepte werden nach dem \gls{label} vegan gefiltert.
-    \item labelGlutenFree - Die Rezepte werden nach dem \gls{label} Gluten frei gefiltert.
+    \item labelGlutenFree - Die Rezepte werden nach dem \gls{label} glutenfrei gefiltert.
     \item labelHalal - Die Rezepte werden nach dem \gls{label} halal gefiltert.
     \item labelKoscher - Die Rezepte werden nach dem \gls{label} koscher gefiltert.
 \end{itemize}
@@ -430,7 +430,7 @@ Ein Enum der alle Filter Methoden beinhält.
 Ein Enum der alle Information Kategorien beinhält.
 \textbf{Content}
 \begin{itemize}
-    \item duration - Das Widget gibt an.
+    \item duration - Das Widget gibt die Zubereitungsdauer an.
     \item difficultyEasy - Das Widget gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} einfach an.
     \item difficultyMedium - Das Widget gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} mittel an.
     \item difficultyHard - Das Widget gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} schwer an.
