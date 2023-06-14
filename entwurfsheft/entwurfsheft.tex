@@ -389,6 +389,7 @@ Die Klassen beinhaltet alle nötigen Funktionen und Attribute um die Hauptansich
 \end{itemize}
 
 \paragraph{InformationWidget}
+\label{sec:InformationWidget}
 \textbf{Attributes}
 \begin{itemize}
     \item information: InformationKategories - Gibt an welche Information in dem Widget dargestellt werden soll.
@@ -424,7 +425,8 @@ Ein Enum der alle Filter Methoden beinhält.
     \item labelKoscher - Die Rezepte werden nach dem \gls{label} koscher gefiltert.
 \end{itemize}
 
-\paragraph{InformationKategories}
+\paragraph{InformationKategories} 
+    \label{sec:InformationKategories}
 Ein Enum der alle Information Kategorien beinhält.
 \textbf{Content}
 \begin{itemize}
@@ -454,6 +456,257 @@ Ein Enum der alle Information Kategorien beinhält.
     \end{minipage}
 \end{figure}
 
+\subsection{Rezeptansicht}
+    Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Hauptansicht darzustellen.
+
+    \subsubsection{RecipeViewPage}
+        \paragraph*{Method}
+            \subparagraph*{createState: State<RecipeViewPageState>} - Konstruktor für den RecipeViewPageState.
+        
+    \subsubsection{recipeViewPageState}
+        \paragraph*{Attribut}
+            \subparagraph*{portions:TextEdittingController} - Eingegebene Ganzzahl für die die Zutatenmengen berechnet werden. Ist standardmäßig auf der Portionsgröße die beim Rezepterstellen angegeben worden ist.
+    
+        \paragraph*{Method}
+            \subparagraph*{changePortions(portions: int)} - Die neuen Mengenangaben für die Zutaten werden berechnet.
+
+    \subsubsection{InformationWidget (\autoref{sec:InformationWidget})}
+
+    \subsubsection{InformationKategories (\autoref{sec:InformationKategories})}
+
+    \begin{figure}[htp]
+        \begin{minipage}
+            [t]{0.49\textwidth}
+            \centering
+            \includegraphics[height=80mm]{images/Presentation-layer/RecipeView.jpg}
+            \caption{Rezeptansicht}
+        \end{minipage}
+        \begin{minipage}
+            [t]{0.49\textwidth}
+            \centering
+            \includegraphics[width=0.95\textwidth]{images/Presentation-layer/RecipeViewClass.png}
+            \caption{Klassen für Rezeptansicht}
+        \end{minipage}
+    \end{figure}    
+
+    \newpage
+
+\subsection{Registrierungsansicht}
+    Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Registrierungsansicht darzustellen.
+
+    \subsubsection{RegisterPage}
+        \paragraph*{Method}
+            \subparagraph*{createState: State<RegisterPageState>} - Konstruktor für den RegisterPageState.
+    
+    \subsubsection{RegisterPageState}
+        \paragraph*{Attribut}
+            \subparagraph*{usernameController: TextEdittingController} - Die eingegebene Zeichenkette für den Benutzernamen des neuen Users.
+            \subparagraph*{emailController: TextEdittingController} - Die eingegebene Zeichenkette für die E-Mail-Addresse des neuen Users.
+            \subparagraph*{passwordController: TextEdittingController} - Die eingegebene Zeichenkette für das Passwort des neuen Accounts für den neunen User.
+            \subparagraph*{repeatedPassword: TextEdittingController} - Die eingegebene Zeichenkette für das wiederholte Passwort des neuen Accounts.
+         
+        \paragraph*{Methodes}
+            \subparagraph*{register(username: string, email: string, password: string, repeatedPassword: string)} - Überprüft ob das eingegeben Passwort mit dem wiedeholten Passwort übereinstimmt und ruft dann die Funktion register() im UserRepository auf.
+            \subparagraph*{login()} - Die Loginansicht wird aufgerufen.
+
+    \subsubsection{InformationWidget (\autoref{sec:InformationWidget})}
+
+    \subsubsection{InformationKategories (\autoref{sec:InformationKategories})}
+    \begin{figure}[htp]
+        \begin{minipage}
+            [t]{0.49\textwidth}
+            \centering
+            \includegraphics[height=80mm]{images/Presentation-layer/RegisterView.jpg}
+            \caption{Registrierungsansicht}
+        \end{minipage}
+        \begin{minipage}
+            [t]{0.49\textwidth}
+            \centering
+            \includegraphics[width=0.95\textwidth]{images/Presentation-layer/RegisterViewClass.png}
+            \caption{Klassen für Registrierungsansicht}
+        \end{minipage}
+    \end{figure}    
+        
+    \newpage
+
+\subsection{Passwort-Zurücksetzen-Ansicht}
+    Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Passwort-Zurücksetzen-Ansicht darzustellen.
+    
+    \subsubsection{ResetPasswordPage}
+        \paragraph*{Method}
+            \subparagraph*{createState: State<ResetPasswordPageState>} - Konstruktor für den ResetPasswordPageState.
+    
+    \subsubsection{ResetPasswordPageState}
+        \paragraph*{Attribut}
+            \subparagraph*{emailController: TextEdittingController} - Die eingegebene Zeichenkette für die E-Mail-Address des Users.
+    
+        \paragraph*{Methodes}
+            \subparagraph*{resetPassword(email: string)} - Überprüft ob die Korrektheit der E-Mail-Addresse und ruft die Funktionen resetPassword() im UserRepository auf.
+            \subparagraph*{LoginView()} - Die Loginansicht wird aufgerufen.
+
+    \subsubsection{ReturnButton} \label{sec:ReturnButton}
+        \paragraph*{Methodes}
+            \subparagraph*{prevoiusView()} - Die vorherige Ansicht wird aufgerufen. Es werden keine Daten gespeichert die in der Ansicht angegeben worden sind.
+    
+            \begin{figure}[htp]
+                \begin{minipage}
+                    [t]{0.49\textwidth}
+                    \centering
+                    \includegraphics[height=80mm]{images/Presentation-layer/PasswordResetView.jpg}
+                    \caption{Passwort-Zurücksetzen-Ansicht}
+                \end{minipage}
+                \begin{minipage}
+                    [t]{0.49\textwidth}
+                    \centering
+                    \includegraphics[width=0.95\textwidth]{images/Presentation-layer/PasswordResetViewClass.png}
+                    \caption{Klassen für Passwort-Zurücksetzen-Ansicht}
+                \end{minipage}
+            \end{figure}    
+        
+            \newpage
+
+\subsection{Anmeldungsansicht}
+    Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Anmeldungsansicht darzustellen.
+
+    \subsubsection{LoginPagePage}
+        \paragraph*{Method}
+            \subparagraph*{createState: State<LoginPageState>} - Konstruktor für den LoginPageState.
+    
+    \subsubsection{LoginPageState}
+        \paragraph*{Attribut}
+            \subparagraph*{emailController: TextEdittingController} - Die eingegebe Zeichenkette für die E-Mail-Addresse des Users.
+            \subparagraph*{passwortController: TextEdittingController} - Die eingegebe Zeichenkette für das Passwort des Users.
+
+        \paragraph*{Methodes}
+
+            \subparagraph*{login(email: string, password: string)} - Überprüft die Eingaben und ruft die Funktionen createGroupe() im UserRepository auf.
+            \subparagraph*{resetPasswordView()} -  Die Passwort-Zurücksetzen-Ansicht wird aufgerufen.
+            \subparagraph*{registerView()} -  Die Registrierungsansicht wird aufgerufen.
+
+    \begin{figure}[htp]
+        \begin{minipage}
+            [t]{0.49\textwidth}
+            \centering
+            \includegraphics[height=80mm]{images/Presentation-layer/LoginView.jpg}
+            \caption{Anmeldungsansicht}
+        \end{minipage}
+        \begin{minipage}
+            [t]{0.49\textwidth}
+            \centering
+            \includegraphics[width=0.95\textwidth]{images/Presentation-layer/LoginViewClass.png}
+            \caption{Klassen für Anmeldungsansicht}
+        \end{minipage}
+    \end{figure}    
+        
+    \newpage
+
+\subsection{Gruppen-Erstellungs-Ansicht}
+    Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Gruppen-Erstellungs-Ansicht darzustellen.
+
+    \subsubsection{GroupeCreationPage}
+        \paragraph*{Method}
+            \subparagraph*{createState: State<GroupeCreationPageState>} - Konstruktor für den GroupeCreationPageState.
+    
+    \subsubsection{GroupeCreationPageState}
+        \paragraph*{Attribut}
+            \subparagraph*{groupeNameController: TextEdittingController} - Die eingegebe Zeichenkette für den Namen der neuen Gruppe.
+
+        \paragraph*{Methodes}
+
+            \subparagraph*{createGroupe(name: string)} - Überprüft den Gruppenname und ruft die Funktionen createGroupe() im GroupeService auf.
+            \subparagraph*{joinGroupeView()} -  Die Gruppen-Beitritts-Ansicht wird aufgerufen.
+    \begin{figure}[htp]
+        \begin{minipage}
+            [t]{0.49\textwidth}
+            \centering
+            \includegraphics[height=80mm]{images/Presentation-layer/GroupCreationView.jpg}
+            \caption{Passwort-Zurücksetzen-Ansicht}
+        \end{minipage}
+        \begin{minipage}
+            [t]{0.49\textwidth}
+            \centering
+            \includegraphics[width=0.95\textwidth]{images/Presentation-layer/GroupCreationViewClass.png}
+            \caption{Klassen für Passwort-Zurücksetzen-Ansicht}
+        \end{minipage}
+    \end{figure}    
+        
+    \newpage
+
+\subsection{Gruppen-Detail-Ansicht}
+    Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Gruppen-Detail-Ansicht darzustellen.
+
+    \subsubsection{GroupDetailPage}
+        \paragraph*{Attribut}
+            \subparagraph*{group: Group} - Die Gruppe dessen Details dargestellt werden.
+            \subparagraph*{newTitle: TextEdittingController} - Die eingegeben Zeichenkette für den neunen Gruppennamen.
+
+        \paragraph*{Methodes}
+            \subparagraph*{GroupDetailPage(group: Group - notNull)} - Ein Konstruktor für eine GroupDetailPage. Der Parameter muss angegeben werden. 
+            \subparagraph*{setGroupTitle(newTitle: string)} - Die Eingabe wird Überprüft und die Funktion setGroupName() im GroupeService wird aufgerufen.
+            \subparagraph*{deleteGroup()} - Das ConfirmationWidget wird aufgerufen und bei positiver Rückmeldung wird die Funktion kickUser() im GroupeService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
+            \subparagraph*{leaveGroup()} - Das ConfirmationWidget wird aufgerufen und bei positiver Rückmeldung wird die Funktion leaveGroup() im GroupeService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
+            \subparagraph*{getQRCode()} - Die QR-Code-Ansicht wird aufgerufen.
+            \subparagraph*{getGroupeTitel()} - Der Gruppen Titel wird in die Zwischenablage gespeichert.
+
+
+    \subsubsection{ConfirmationWidget}
+        \paragraph*{Attribut}
+            \subparagraph*{text: string} - Der Text der Angezeigt werden soll im Widget.
+
+        \paragraph*{Methodes}
+            \subparagraph*{ConfirmationWidget(text: string - notNull)} - Ein Konstruktor für ein ConfirmationWidget, wobei ein Text angegeben werden muss.
+            \subparagraph*{decline()} - Dem Erzeugter wird true zurückgegeben.
+            \subparagraph*{accept()} - Dem Erzeugter wird false zurückgegeben.
+
+    \subsubsection{OptionWidget}
+        \paragraph*{Attribut}
+            \subparagraph*{user: User} - Der darzustellende User.
+
+        \paragraph*{Methodes}
+            \subparagraph*{OptionWidget(user: User - notNull)} - Ein Konstruktor für ein OptionWidget. Der Parameter muss angegeben werden. 
+            \subparagraph*{kickUser()} - Das ConfirmationWidget wird aufgerufen und bei positiver Rückmeldung wird die Funktion kickUser() im UserSettingsService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
+            \subparagraph*{banUser()} - Das ConfirmationWidget wird aufgerufen und bei positiver Rückmeldung wird die Funktion banUser() im UserSettingsService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
+            \subparagraph*{makeAdmin()} - Das ConfirmationWidget wird aufgerufen und bei positiver Rückmeldung wird die Funktion makeAdmin() im UserSettingsService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
+            \subparagraph*{removeAdminStatus()} - Das ConfirmationWidget wird aufgerufen und bei positiver Rückmeldung wird die Funktion removeAdminStatus() im UserSettingsService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
+
+    \subsubsection{RecipeWidget}
+        \paragraph*{Attribut}
+            \subparagraph*{recipe: Recipe} - Das darzustellende Rezept.
+            \subparagraph*{view: Boolean} - Ein Boolean der Angibt ob die Sichtbarkeit des Rezepts verändert werden darf oder nicht.
+            \subparagraph*{settingsView: Boolean} - Eine Boolean der angibt ob das Widget in der Einstellungsansicht verwendet wird.
+
+        \paragraph*{Methodes}
+            \subparagraph*{RecipeWidget(recipe: Recipe - notNull, view: boolean - notNull, settingsView: boolean - notNull)} - Ein konsturktor für ein RecipeWidget. Alle Parameter müssen angegeben werden.
+            \subparagraph*{togglePrivate()} - Die Sichtbarkeit des Rezepts für die Gruppe ausgeblendet werden soll, wenn settingsView false ist. Wenn settingsView auf true steht wird das Rezept für alle Gruppen ausgeblendet.
+            \subparagraph*{delete()} - Das ConfirmationWidget wird aufgerufen und bei positiver Rückmeldung wird die Funktion deleteRecipe() im RecipeService aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
+            \subparagraph*{export()} - Die Funktion exportRecipe() im RecipeService wird aufgerufen.
+
+    \subsubsection{UserWidget}
+        \paragraph*{Attribut}
+            \subparagraph*{isOwnAccount: Boolean} - Ein Boolean der Angibt ob es sich um den eigenen Account handelt.
+
+        \paragraph*{Methodes}
+            \subparagraph*{UserWidget(user: User - notNull, isOwnAccount: bool - notNull)} - Ein Konstruktor für ein UserWidget. Alle Parameter müssen angegeben werden.
+            \subparagraph*{options()} - Das optionWidget wird aufgerufen.
+
+    \subsubsection{ReturnButton (\autoref{sec:ReturnButton})}
+
+    \begin{figure}[htp]
+        \begin{minipage}
+            [t]{0.49\textwidth}
+            \centering
+            \includegraphics[height=80mm]{images/Presentation-layer/GroupDetailView.jpg}
+            \caption{Gruppen-Detail-Ansicht}
+        \end{minipage}
+        \begin{minipage}
+            [t]{0.49\textwidth}
+            \centering
+            \includegraphics[width=0.95\textwidth]{images/Presentation-layer/GroupDetailViewClass.png}
+            \caption{Klassen für Gruppen-Detail-Ansicht}
+        \end{minipage}
+    \end{figure}    
+        
+    \newpage
 \newpage
 
 \section{REST-Webservice}
