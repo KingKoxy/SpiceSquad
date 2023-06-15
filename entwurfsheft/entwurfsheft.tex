@@ -960,7 +960,7 @@ Die Tabelle "Recipe" enthält die Rezepte und besitzt die folgenden Attribute:
 \newpage
 \subsubsection{Ingredient}
 Die Tabelle "Ingredient" enthält die Zutaten, die den eizelnen Rezepten zugeordnet sind und besitzt die folgenden Attribute:
-\paragraph{id (uuid - primary key):} Die Id stellt den Primärschlüssel der Zutat dar und muss daher nicht leer und eindeutig sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
+\paragraph{id (uuid - primary key):} Die Id stellt den Primärschlüssel der Zutat dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
 \paragraph{name (varchar(32) - not null):} Der Name der Zutat. Der Datentyp ist \Gls{varchar}. Er darf nicht leer und maximal 32 Zeichen lang sein.
 \paragraph{icon\_name (varchar(32))} Der Name des Icons, das die Zutat repräsentiert. Der Datentyp ist \Gls{varchar}. Er ist maximal 32 Zeichen lang.
 \paragraph{amount (int - not null):} Die Menge der Zutat in der jeweiligen Einheit. Sie darf nicht leer sein und der Datentyp ist Integer.
