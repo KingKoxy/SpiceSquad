@@ -1173,6 +1173,13 @@ Als Programmiersprache verwenden wir Serverseitig TypeScript. Typescript ist ein
 Das ermöglicht es Sprachkonstrukte wie Klassen, Vererbungen und Module zu verwenden um unser Projekt sowohl client- als auch serverseitig objektorientiert zu entwickeln.
 Das machte es einfacher den Aufbau des Servers zu strukturieren und auf Langzeit Wartbarkeit zu garantieren. Mit TypeScript als eines der meistgenutzten Programmiersprachen und Node.js als eines der meist beliebtesten Technologien wollen wir zudem eine hohe Zukunftssicherheit mit unserer Wahl garantieren.
 
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width = 1\textwidth]{images/webserver/webserver.pdf}
+    \caption{Klassendiagramm des Webservers}
+    \label{fig:webserver}
+\end{figure}
+
 \subsection{Server}
 In einer Express-Anwendung bezieht sich der Begriff "Server" auf den Hauptkomponente, die die Anfragen von Clients empfängt.
 Der Server ist dafür verantwortlich die Verbindung mit der Datenbank und Firebase (siehe Nutzerverwaltung) aufzubauen und die Application zu starten.
@@ -1215,12 +1222,16 @@ Die Application-Klasse wird durch den Aufruf von express() erstellt, der eine ne
 \texttt{express.Application}, die beim erzeugen des Objekts dem Konstruktor mitgeben wird.
 Durch dieses Attribut bekommt die Klasse Applikation mitgeteilt, auf welcher \texttt{express.Application} die in dieser Klasse erzeugten Routing-Punkte angewendet werden sollen.
 \texttt{Application} ist vom Typ \texttt{express.Application}.
-\paragraph{authentificationRoutes: AuthentificationRouter}Dieses Attribut repräsentiert den \texttt{AuthentificationRouter} in der Express.js Anwendung. \texttt{AuthenthificationRouter} ist vom Typ \texttt{AuthentificationRouter}.
+\paragraph{authentificationRoutes: AuthentificationRouter}Dieses Attribut repräsentiert den \newline
+\texttt{AuthentificationRouter} in der Express.js Anwendung. \texttt{AuthenthificationRouter} ist vom Typ \texttt{AuthentificationRouter}.
 \paragraph{recipeRoutes: RecipeRouter}Dieses Attribut repräsentiert den \texttt{RecipeRouter} in der Express.js Anwendung. \texttt{RecipeRouter} ist vom Typ \texttt{RecipeRouter}.
-\paragraph{groupRoutes: GroupRouter}Das Attribut für den \texttt{GroupRouter}. \texttt{groupRouter} ist vom Typ \texttt{GroupRouter}.
-\paragraph{userRoutes: UserRouter}Das Attribut für den \texttt{UserRouter}. \texttt{userRouter} ist vom Typ \texttt{UserRouter}.
+\paragraph{groupRoutes: GroupRouter}Das Attribut für den \texttt{GroupRouter}. \texttt{groupRouter} ist vom \newline
+Typ \texttt{GroupRouter}.
+\paragraph{userRoutes: UserRouter}Das Attribut für den \texttt{UserRouter}. \texttt{userRouter} ist vom Typ \newline
+\texttt{UserRouter}.
 \paragraph{adminRouter: AdminRouter}Das Attribut für den \texttt{AdminRouter}. \texttt{adminRouter} ist vom Typ \texttt{AdminRouter}.
-\paragraph{ingredientRouter: IngredientRouter}Das Attribut für den \texttt{Ingredient Router}. \texttt{ingredientRouter} ist vom Typ \texttt{IngredientRouter}.
+\paragraph{ingredientRouter: IngredientRouter}Das Attribut für den \texttt{IngredientRouter}. \newline
+ \texttt{ingredientRouter} ist vom Typ \texttt{IngredientRouter}.
 
 \subsubsection*{Methode}
 \paragraph{<<create> constructor(express.Application): void}Konstruktor für die Klasse \texttt{Application}.
@@ -1266,19 +1277,22 @@ Der \texttt{AbstractRouter} ist eine abstrakte Repräsentation eines Routers. So
 \subsubsection{AuthentificationRouter}
 Der AuthentificationRouter ist speziell für die Verarbeitung von Authentifizierungsanfragen zuständig. 
 \subsubsection*{Methoden}
-\paragraph{<<create>> constructor(): void}Konstruktor zum erzeugen des Objekts der Klasse \texttt{AuthentificationRouter}.
+\paragraph{<<create>> constructor(): void}Konstruktor zum erzeugen des Objekts der Klasse \newline
+\texttt{AuthentificationRouter}.
 \paragraph{setupRoutes(): void}Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
 \subsubsection{RecipeRouter}
 Der RecipeRouter ist für die Verwaltung der Routen und Endpunkte verantwortlich, die mit Rezepten zusammenhängen.
 \subsubsection*{Methoden}
-\paragraph{<<create>> constructor(): void}Konstruktor zum erzeugen des Objekts der Klasse \texttt{RecipeRouter}.
+\paragraph{<<create>> constructor(): void}Konstruktor zum erzeugen des Objekts der Klasse \newline
+\texttt{RecipeRouter}.
 \paragraph{setupRoutes(): void}Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
 \subsubsection{GroupRouter}
 Der GroupRouter ist verantwortlich für die Verwaltung der Routen und Endpunkte, die mit Gruppen in der Anwendung zusammenhängen.
 \subsubsection*{Methoden}
-\paragraph{<<create>> constructor(): void}Konstruktor zum erzeugen des Objekts der Klasse \texttt{GroupRouter}.
+\paragraph{<<create>> constructor(): void}Konstruktor zum erzeugen des Objekts der Klasse \newline
+\texttt{GroupRouter}.
 \paragraph{setupRoutes(): void}Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
 \subsubsection{UserRouter}
@@ -1320,6 +1334,13 @@ Der Controller ist für die Verarbeitung von Anfragen zuständig, die an eine be
 Der Controller agiert als eine Art Vermittler zwischen den Routen und der eigentlichen Geschäftslogik der Anwendung.
 Ein Controller ist ein Objekt, das Handler-Funktionen für verschiedene Routen bereitstellt.
 Diese Handler-Funktionen werden als Callback-Funktionen für die entsprechenden Routen registriert und nehmen die Anfrage (\texttt{req}) und die Antwort (\texttt{res}) als Parameter entgegen.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width = 1\textwidth]{images/webserver/controller.pdf}
+    \caption{Controller Klassen des Webservers}
+    \label{fig:controller}
+\end{figure}
 
 \subsubsection{AbstractController}
 \subsubsection*{Methode}
