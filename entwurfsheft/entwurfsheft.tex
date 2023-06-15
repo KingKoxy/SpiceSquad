@@ -126,13 +126,14 @@ Die einzelnen Schichten werden in den folgenden Kapiteln genauer beschrieben.
 
 \section{Domain Layer}
 \changelocaltocdepth{2}
+Der Domain Layer enthält in erster Linie die Models der einzelnen Entitäten. Diese sollen nun genauer beschrieben werden.
 \begin{figure}[htp]
     \centering
     \includegraphics[width = \textwidth]{images/domainLayer/domainLayer.pdf}
-    \caption{Klassendiagramm des Domain Layer}
+    \caption{Klassendiagramm der Model-Klassen}
     \label{fig:domain-layer}
 \end{figure}
-Der Domain Layer enthält in erster Linie die Models der einzelnen Entitäten. Diese sollen nun genauer beschrieben werden.
+
 \subsection{User}
 Die User-Klasse repräsentiert einen Nutzer der App.
 \subsubsection{Attribute}
@@ -302,15 +303,59 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
 \changelocaltocdepth{4}
 
 \section{Data Layer}
+Der Data Layer ist für die Datenverarbeitung und -verwaltung verantwortlich. In der App selbst befinden sich lediglich die Repository-Klassen. Sie fungieren als eine Abstraktionsebene zwischen der Geschäftslogik (Application Layer) und den Datenquellen, wie z. B. einer lokalen Datenbank oder einem Remote-Server. Die Repository-Klassen bieten eine Schnittstelle, über die die Geschäftslogik auf die Daten zugreifen kann, ohne Details über deren Speicherung oder Beschaffung zu kennen. Sie bieten Methoden zur Datenabfrage, -aktualisierung und -speicherung und handhaben die Kommunikation mit den entsprechenden Datenquellen. Dadurch wird eine lose Kopplung zwischen der Geschäftslogik und den konkreten Datenquellen erreicht und ermöglicht eine flexiblere Handhabung von Datenquellenwechseln oder -aktualisierungen. Repository-Klassen unterstützen auch das Prinzip der Datenkapselung und fördern eine saubere und modularisierte Architektur in der App-Entwicklung.
+Nun sollen die einzelnen Repository-Klassen vorgestellt werden. Die Klassen sind in Abbildung \ref{fig:dataLayer} dargestellt.
 \begin{figure}[htp]
     \centering
     \includegraphics[width=\textwidth]{images/dataLayer/dataLayer.pdf}
-    \caption{Klassendiagramm des Data Layers}
+    \caption{Klassendiagramm der Repository-Klassen}
     \label{fig:dataLayer}
 \end{figure}
-Der Data Layer ist für die Datenverarbeitung und -verwaltung verantwortlich. In der App selbst befinden sich lediglich die Repository-Klassen. Sie fungieren als eine Abstraktionsebene zwischen der Geschäftslogik (Application Layer) und den Datenquellen, wie z. B. einer lokalen Datenbank oder einem Remote-Server. Die Repository-Klassen bieten eine Schnittstelle, über die die Geschäftslogik auf die Daten zugreifen kann, ohne Details über deren Speicherung oder Beschaffung zu kennen. Sie bieten Methoden zur Datenabfrage, -aktualisierung und -speicherung und handhaben die Kommunikation mit den entsprechenden Datenquellen. Dadurch wird eine lose Kopplung zwischen der Geschäftslogik und den konkreten Datenquellen erreicht und ermöglicht eine flexiblere Handhabung von Datenquellenwechseln oder -aktualisierungen. Repository-Klassen unterstützen auch das Prinzip der Datenkapselung und fördern eine saubere und modularisierte Architektur in der App-Entwicklung.
-Nun sollen die einzelnen Repository-Klassen vorgestellt werden.
 
+\subsection{UserRepository}
+Das UserRepository stellt die Schnittstelle zwischen der Geschäftslogik und der Datenquelle für Nutzer dar. Es bietet Methoden zur Abfrage, Aktualisierung und Speicherung von Nutzern speichert das Token zur Authentifizierung des Nutzers bei dem Server.
+\subsubsection{Attribute}
+\paragraph{token: String}
+Das Token zur Authentifizierung des Nutzers mit dem Server. Es handelt sich um ein privates Attribut, das nur über einen Getter gelesen werden kann. Das Token entspricht dem JWT-Token, das der Server nach der Authentifizierung des Nutzers zurückgibt. Darin sind unteranderem die Nutzer-ID und die Gültigkeitsdauer des Tokens kodiert enthalten.
+\paragraph{currentUser: User}
+Das User-Objekt, das den aktuell angemeldeten Nutzer repräsentiert. Es handelt sich um ein privates Attribut, das nur über einen Getter gelesen werden kann.
+\subsubsection{Methoden}
+\paragraph{getToken(): String}
+Gibt das Token zur Authentifizierung des Nutzers bei dem Server zurück.
+\paragraph{getCurrentUser(): User}
+Gibt das User-Objekt, das den aktuell angemeldeten Nutzer repräsentiert, zurück.
+\paragraph{login(String email, String password): Future<void>}
+Es wird eine Anfrage zum Nutzer Anmelden an den Server gestellt. Nimmt als Parameter die E-Mail-Adresse und das Passwort des Nutzers entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Anmeldung erfolgreich war. Wenn die Anmeldung fehlschlägt, wird eine Exception geworfen. Die Methode speichert das Token in dem privaten Attribut token und das User-Objekt, das den aktuell angemeldeten Nutzer repräsentiert, in dem privaten Attribut currentUser.
+\paragraph{logout(): Future<void>}
+Es wird eine Anfrage an den Server zum Abmelden des Nutzers gestellt. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Abmeldung erfolgreich war. Wenn die Abmeldung fehlschlägt, wird eine Exception geworfen. Die Methode löscht das Token aus dem privaten Attribut token und das User-Objekt aus dem privaten Attribut currentUser.
+\paragraph{register(String email, String password, String username): Future<void>}
+Es wird eine Anfrage an den Server gestellt, einen neuen Nutzer zu registrieren. Nimmt als Parameter die E-Mail-Adresse, das Passwort und den Nutzernamen des Nutzers entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Registrierung erfolgreich war. Wenn die Registrierung fehlschlägt, wird eine Exception geworfen. Die Methode speichert das Token in dem privaten Attribut token und das User-Objekt, das den aktuell angemeldeten Nutzer repräsentiert, in dem privaten Attribut currentUser.
+\paragraph{updateUser(User user): Future<void>}
+Es wird eine Anfrage an den Server gesendet, den angemeldeten Nutzer zu aktualisieren. Die Methode aktualisiert das User-Objekt, das den aktuell angemeldeten Nutzer repräsentiert, in dem privaten Attribut currentUser.
+Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Anfrage erfolgreich war. Wenn die Anfrage fehlschlägt, wird eine Exception geworfen.
+\paragraph{deleteAccount(): Future<void>}
+Es wird eine Anfrage an den Server gesendet, um den Account des aktuell angemeldeten Nutzers zu löschen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Anfrage erfolgreich war. Wenn die Anfrage fehlschlägt, wird eine Exception geworfen. Die Methode führt im Anschluss die Methode logout() aus.
+\paragraph{resetPassword(String email): Future<void>}
+Es wird eine Anfrage an den Server zum Zurücksetzen des Passworts gesendet. Nimmt als Parameter die E-Mail-Adresse des Nutzers entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn der Server eine E-Mail zum Zurücksetzen des Passworts versendet hat. Wenn das Versenden fehlschlägt, wird eine Exception geworfen.
+
+\subsection{GroupRepository}
+Das GroupRepository stellt die Schnittstelle zwischen der Geschäftslogik und der Datenquelle für Gruppen dar. Es bietet Methoden zur Abfrage, Aktualisierung und Speicherung von Gruppen.
+\subsubsection{Attribute}
+\paragraph{userRepository: UserRepository}
+Das UserRepository-Objekt, das das GroupRepository-Objekt verwendet. Es handelt sich um ein privates Attribut. Es wird später verwendet, um das Token zur Authentifizierung des Nutzers bei dem Server für Anfragen zu erhalten.
+\subsubsection{Methoden}
+\paragraph{<<construtor>> GroupRepository(UserRepository userRepo): GroupRepository}
+Konstruktor der Klasse. Initialisiert das Attribut userRepository mit dem übergebenen UserRepository-Objekt.
+\paragraph{fetchAllGroupsForUser(): Future<List<Group>>}
+Fragt alle Gruppen des angemeldeten Nutzers beim Server ab und gibt diese als Liste zurück. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Abfrage erfolgreich war. Wenn die Abfrage fehlschlägt, wird eine Exception geworfen.
+\paragraph{joinGroup(String joiningLink): Future<void>}
+Es wird eine Anfrage an den Server zum Beitritt des aktuellen Nutzers zu einer Gruppe mit dem übergebenen Beitrittslink gestellt. Nimmt als Parameter den Beitrittslink der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn der Nutzer erfolgreich der Gruppe beigetreten ist. Wenn der Nutzer der Gruppe nicht beitreten kann, wird eine Exception geworfen.
+\paragraph{deleteGroup(String groupId): Future<void>}
+Es wird eine Anfrage an den Server zum Löschen einer Gruppe mit der übergebenen Gruppen-ID gestellt. Nimmt als Parameter die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Gruppe erfolgreich gelöscht wurde. Wenn die Gruppe nicht gelöscht werden kann, wird eine Exception geworfen.
+\paragraph{leaveGroup(String groupId): Future<void>}
+Es wird eine Anfrage an den Server zum Austritt des aktuellen Nutzers aus einer Gruppe mit der übergebenen Gruppen-ID gestellt. Nimmt als Parameter die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn der Nutzer erfolgreich die Gruppe verlassen hat. Wenn der Nutzer die Gruppe nicht verlassen kann, wird eine Exception geworfen.
+\paragraph{createGroup(String name): Future<void>}
+Es wird eine Anfrage an den Server zum Erstellen einer neuen Gruppe mit dem übergebenen Namen gestellt. Nimmt als Parameter den Namen der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Gruppe erfolgreich erstellt wurde. Wenn die Gruppe nicht erstellt werden kann, wird eine Exception geworfen.
 
 \section{Presentation Layer}
 \begin{figure}[htp]
