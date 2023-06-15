@@ -542,12 +542,17 @@ Leitet die Anfrage zum Aktivieren/Deaktivieren eines Rezepts als privat an das z
 \paragraph{reportRecipe(String recipeId): Future<void>}
 Leitet die Anfrage zum Melden eines Rezepts an das zuständige Repository weiter. Nimmt als Parameter die ID des Rezepts entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn das Rezept erfolgreich gemeldet wurde. Wenn das Rezept nicht gemeldet werden kann, wird eine Exception geworfen.
 \paragraph{exportRecipe(Recipe recipe): Future<void>}
-Erstellt eine PDF-Datei mit Hilfe der PDFExporter-Klasse. Nimmt als Parameter das Rezept entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die PDF-Datei erfolgreich erstellt wurde. Wenn die PDF-Datei nicht erstellt werden kann, wird eine Exception geworfen.
-\subsection{PDFExporter}
-Der PDFExporter dient dazu, ein Template und Methoden zur Verfügung zu stellen, um ein Rezept als PDF-Datei zu exportieren.
-%TODO
+Erstellt eine PDF-Datei mit Hilfe der PdfExporter-Klasse. Nimmt als Parameter das Rezept entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die PDF-Datei erfolgreich erstellt wurde. Wenn die PDF-Datei nicht erstellt werden kann, wird eine Exception geworfen.
+\subsection{PdfExporter}
+Der PdfExporter dient dazu, ein Template und Methoden zur Verfügung zu stellen, um ein Rezept als PDF-Datei zu exportieren.
+\subsubsection{Methoden}
+\paragraph{PdfExporter.exportRecipe(Recipe recipe): Future<void>}
+Erstellt eine PDF-Datei, die das Rezept enthält und exportiert dieses anschließend. Nimmt als Parameter das Rezept entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die PDF-Datei erfolgreich erstellt und exportiert wurde. Wenn die PDF-Datei nicht erstellt und exportiert werden kann, wird eine Exception geworfen.
 \subsection{ProviderFactory}
-%TODO
+Die ProviderFactory dient dazu, die Riverpod-Provider zu erstellen. Mehr zu den Providern in \ref{sec:riverpod}.
+\subsubsection{Methoden}
+\paragraph{ProviderFactory.makeProviders(): void}
+Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Parameter entgegen.
 \newpage
 \section{Presentation Layer}
 \begin{figure}[htp]
