@@ -126,7 +126,7 @@ Die einzelnen Schichten werden in den folgenden Kapiteln genauer beschrieben.
 
 \section{Domain Layer}
 \changelocaltocdepth{2}
-Der Domain Layer enthält in erster Linie die Models der einzelnen Entitäten. Diese sollen nun genauer beschrieben werden.
+Der Domain Layer enthält in erster Linie die Models der einzelnen Entitäten. Diese sollen nun genauer beschrieben werden. In den folgenden Klassendiagrammen wurden Getter der Übersicht halber weggelassen. Sie werden jedoch immer im Text beschrieben, sofern es sie gibt.
 \begin{figure}[htp]
     \centering
     \includegraphics[width = \textwidth]{images/domainLayer/domainLayer.pdf}
@@ -138,12 +138,16 @@ Der Domain Layer enthält in erster Linie die Models der einzelnen Entitäten. D
 Die User-Klasse repräsentiert einen Nutzer der App.
 \subsubsection{Attribute}
 Alle Attribute sind privat und können nur über einen Getter gelesen werden.
+\paragraph{id: String}
+Die eindeutige ID des Nutzers. Diese wird vom Server vergeben und ist somit nicht vom Nutzer selbst zu setzen.
 \paragraph{profileImage: Uint8List?}
 Das Profilbild des Nutzers. Der Typ Uint8List ist ein Array von Bytes, welches das Bild in binärer Form enthält. Dieses Attribut ist optional, da nicht jeder Nutzer ein Profilbild haben muss.
 \paragraph{username: String}
 Der Nutzername des Nutzers.
 
 \subsubsection{Methoden}
+\paragraph{getId(): String}
+Gibt die ID des Nutzers zurück.
 \paragraph{getProfileImage(): Uint8List?}
 Gibt das Profilbild des Nutzers zurück. Ist kein Profilbild gesetzt, wird null zurückgegeben.
 \paragraph{getUsername(): String}
@@ -154,6 +158,8 @@ Gibt den Nutzernamen des Nutzers zurück.
 Die Recipe-Klasse repräsentiert ein Rezept.
 \subsubsection{Attribute}
 Alle Attribute sind private und können nur über Getter-Methoden abgerufen werden.
+\paragraph{id: String}
+Die eindeutige ID des Rezepts. Diese wird vom Server vergeben und ist somit nicht vom Nutzer selbst zu setzen.
 \paragraph{title: String}
 Der Titel des Rezepts.
 \paragraph{author: User}
@@ -188,6 +194,8 @@ Gibt an, ob das Rezept vom Nutzer als Favorit markiert wurde.
 Gibt an, ob das Rezept privat ist. Private Rezepte können nur vom Autor selbst gesehen werden.
 
 \subsubsection{Methoden}
+\paragraph{getId(): String}
+Gibt die ID des Rezepts zurück.
 \paragraph{getTitle(): String}
 Gibt den Titel des Rezepts zurück.
 \paragraph{getAuthor(): User}
@@ -225,6 +233,8 @@ Factory-Methode zum Erstellen eines Recipe-Objekts aus einem \glslink{JSON}{JSON
 
 \subsection{Ingredient}
 Die Ingredient-Klasse repräsentiert eine Zutat, die einem Rezept zugeordnet ist.
+\paragraph{id: String}
+Die eindeutige ID der Zutat. Diese wird vom Server vergeben und ist somit nicht vom Nutzer selbst zu setzen.
 \subsubsection{Attribute}
 Alle Attribute sind private und können nur über Getter-Methoden abgerufen werden.
 \paragraph{name: String}
@@ -237,6 +247,8 @@ Die Menge der Zutat, die für das Rezept benötigt wird.
 Die Einheit der Zutatenmenge.
 
 \subsubsection{Methoden}
+\paragraph{getId(): String}
+Gibt die ID der Zutat zurück.
 \paragraph{getName(): String}
 Gibt den Namen der Zutat zurück.
 \paragraph{getIconId(): String}
@@ -259,6 +271,8 @@ Der Difficulty-Enum repräsentiert die Schwierigkeit eines Rezepts. Er kann folg
 Die Group-Klasse repräsentiert eine Gruppe bzw. Squad von Nutzern.
 \subsubsection{Attribute}
 Alle Attribute sind privat und können nur über einen Getter gelesen werden.
+\paragraph{id: String}
+Die eindeutige ID der Gruppe. Diese wird vom Server vergeben und ist somit nicht vom Nutzer selbst zu setzen.
 \paragraph{name: String}
 Der Name der Gruppe.
 \paragraph{joiningLink: String}
@@ -269,6 +283,8 @@ Die Liste der Mitglieder der Gruppe. Die Liste ist nicht leer, da eine Gruppe mi
 Die Liste der Rezepte, die von Mitgliedern der Gruppe erstellt wurden.
 
 \subsubsection{Methoden}
+\paragraph{getId(): String}
+Gibt die ID der Gruppe zurück.
 \paragraph{getName(): String}
 Gibt den Namen der Gruppe zurück.
 \paragraph{getJoiningLink(): String}
@@ -344,7 +360,7 @@ Das GroupRepository stellt die Schnittstelle zwischen der Geschäftslogik und de
 \paragraph{userRepository: UserRepository}
 Das UserRepository-Objekt, das das GroupRepository-Objekt verwendet. Es handelt sich um ein privates Attribut. Es wird später verwendet, um das Token zur Authentifizierung des Nutzers bei dem Server für Anfragen zu erhalten.
 \subsubsection{Methoden}
-\paragraph{<<construtor>> GroupRepository(UserRepository userRepo): GroupRepository}
+\paragraph{<<construtor>> GroupRepository(UserRepository userRepository): GroupRepository}
 Konstruktor der Klasse. Initialisiert das Attribut userRepository mit dem übergebenen UserRepository-Objekt.
 \paragraph{fetchAllGroupsForUser(): Future<List<Group>>}
 Fragt alle Gruppen des angemeldeten Nutzers beim Server ab und gibt diese als Liste zurück. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Abfrage erfolgreich war. Wenn die Abfrage fehlschlägt, wird eine Exception geworfen.
@@ -356,6 +372,58 @@ Es wird eine Anfrage an den Server zum Löschen einer Gruppe mit der übergebene
 Es wird eine Anfrage an den Server zum Austritt des aktuellen Nutzers aus einer Gruppe mit der übergebenen Gruppen-ID gestellt. Nimmt als Parameter die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn der Nutzer erfolgreich die Gruppe verlassen hat. Wenn der Nutzer die Gruppe nicht verlassen kann, wird eine Exception geworfen.
 \paragraph{createGroup(String name): Future<void>}
 Es wird eine Anfrage an den Server zum Erstellen einer neuen Gruppe mit dem übergebenen Namen gestellt. Nimmt als Parameter den Namen der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Gruppe erfolgreich erstellt wurde. Wenn die Gruppe nicht erstellt werden kann, wird eine Exception geworfen.
+\subsection{AdminActionRepository}
+Das AdminActionRepository stellt die Schnittstelle zwischen der Geschäftslogik und den Server-Schnittstellen für verschiedene Administratoraktionen dar.
+\subsubsection{Attribute}
+\paragraph{userRepository: UserRepository}
+Das UserRepository-Objekt, das das AdminActionRepository-Objekt verwendet. Es handelt sich um ein privates Attribut. Es wird später verwendet, um das Token zur Authentifizierung des Nutzers bei dem Server für Anfragen zu erhalten.
+\subsubsection{Methoden}
+\paragraph{<<construtor>> AdminActionRepository(UserRepository userRepository): AdminActionRepository}
+Konstruktor der Klasse. Initialisiert das Attribut userRepository mit dem übergebenen UserRepository-Objekt.
+\paragraph{makeAdmin(String userId, String groupId): Future<void>}
+Es wird eine Anfrage an den Server gestellt, um den Nutzer mit der übergebenen ID zum Administrator der Gruppe mit der übergebenen ID zu machen. Nimmt als Parameter die ID des Nutzers und die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn der Nutzer erfolgreich zum Administrator der Gruppe gemacht wurde. Wenn der Nutzer nicht zum Administrator der Gruppe gemacht werden kann, wird eine Exception geworfen.
+
+\paragraph{removeAdminStatus(String userId, String groupId): Future<void>}
+Es wird eine Anfrage an den Server gestellt, um den Nutzer mit der übergebenen ID den Administratorstatus der Gruppe mit der übergebenen ID zu entziehen. Nimmt als Parameter die ID des Nutzers und die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn der Nutzer erfolgreich den Administratorstatus der Gruppe entzogen bekommen hat. Wenn der Nutzer nicht den Administratorstatus der Gruppe entzogen bekommen kann, wird eine Exception geworfen.
+\paragraph{kickUser(String userId, String groupId): Future<void>}
+Es wird eine Anfrage an den Server gestellt, um den Nutzer mit der übergebenen ID aus der Gruppe mit der übergebenen ID zu entfernen. Nimmt als Parameter die ID des Nutzers und die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn der Nutzer erfolgreich aus der Gruppe entfernt wurde. Wenn der Nutzer nicht aus der Gruppe entfernt werden kann, wird eine Exception geworfen.
+\paragraph{banUser(String userId, String groupId): Future<void>}
+Es wird eine Anfrage an den Server gestellt, um den Nutzer mit der übergebenen ID aus der Gruppe mit der übergebenen ID zu bannen. Nimmt als Parameter die ID des Nutzers und die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn der Nutzer erfolgreich aus der Gruppe gebannt wurde. Wenn der Nutzer nicht aus der Gruppe gebannt werden kann, wird eine Exception geworfen.
+\paragraph{setCensored(String recipeId, bool value): Future<void>}
+Setzt das Rezept mit der übergebenen ID als zensiert. Nimmt als Parameter die ID des Rezepts und einen boolschen Wert, der angibt, ob das Rezept als zensiert gesetzt oder entfernt werden soll, entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn das Rezept erfolgreich als zensiert gesetzt oder entfernt wurde. Wenn das Rezept nicht als zensiert gesetzt oder entfernt werden kann, wird eine Exception geworfen.
+
+\subsection{RemoteRecipeRepository}
+Das RemoteRecipeRepository stellt die Schnittstelle zwischen der Geschäftslogik und den Server-Schnittstellen für Rezepte dar.
+\subsubsection{Attribute}
+\paragraph{userRepository: UserRepository}
+Das UserRepository-Objekt, das das RemoteRecipeRepository-Objekt verwendet. Es handelt sich um ein privates Attribut. Es wird später verwendet, um das Token zur Authentifizierung des Nutzers bei dem Server für Anfragen zu erhalten.
+\subsubsection{Methoden}
+\paragraph{<<construtor>> RemoteRecipeRepository(UserRepository userRepository): RemoteRecipeRepository}
+Konstruktor der Klasse. Initialisiert das Attribut userRepository mit dem übergebenen UserRepository-Objekt.
+\paragraph{fetchRecipeById(String recipeId): Future<Recipe>}
+Fragt das Rezept mit der übergebenen ID vom Server ab. Nimmt als Parameter die ID des Rezepts entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn das Rezept erfolgreich vom Server abgefragt wurde. Wenn das Rezept nicht vom Server abgefragt werden kann, wird eine Exception geworfen.
+\paragraph{fetchAllRecipesForUser(): Future<List<Recipe>>}
+Fragt alle Rezepte aus Gruppen des aktuellen Nutzers vom Server ab. Nimmt keine Parameter entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Rezepte erfolgreich vom Server abgefragt wurden. Wenn die Rezepte nicht vom Server abgefragt werden können, wird eine Exception geworfen. Speihert zudem alle Rezepte in den lokalen Speicher.
+\paragraph{fetchOwnRecipes(): Future<List<Recipe>>}
+Fragt alle Rezepte, die vom aktuellen Nutzer erstellt wurden, vom Server ab. Nimmt keine Parameter entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Rezepte erfolgreich vom Server abgefragt wurden. Wenn die Rezepte nicht vom Server abgefragt werden können, wird eine Exception geworfen.
+\paragraph{createRecipe(Recipe recipe): Future<void>}
+Erstellt ein neues Rezept auf dem Server. Nimmt als Parameter das Rezept, das erstellt werden soll, entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn das Rezept erfolgreich erstellt wurde. Wenn das Rezept nicht erstellt werden kann, wird eine Exception geworfen.
+\paragraph{deleteRecipe(String recipeId): Future<void>}
+Löscht das Rezept mit der übergebenen ID vom Server. Nimmt als Parameter die ID des Rezepts entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn das Rezept erfolgreich gelöscht wurde. Wenn das Rezept nicht gelöscht werden kann, wird eine Exception geworfen.
+\paragraph{updateRecipe(String recipeId, Recipe recipe): Future<void>}
+Aktualisiert das Rezept mit der übergebenen ID auf dem Server. Nimmt als Parameter die ID des Rezepts und das aktualisierte Rezept entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn das Rezept erfolgreich aktualisiert wurde. Wenn das Rezept nicht aktualisiert werden kann, wird eine Exception geworfen.
+\paragraph{setFavourite(String recipeId, bool value): Futre<void>}
+Setzt das Rezept mit der übergebenen ID als Favorit des aktuellen Nutzers. Nimmt als Parameter die ID des Rezepts und einen boolschen Wert, der angibt, ob das Rezept als Favorit gesetzt oder entfernt werden soll, entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn das Rezept erfolgreich als Favorit gesetzt oder entfernt wurde. Wenn das Rezept nicht als Favorit gesetzt oder entfernt werden kann, wird eine Exception geworfen.
+
+\subsection{LocalRecipeRepository}
+Das LocalRecipeRepository stellt die Schnittstelle zwischen der Geschäftslogik und dem lokalen Speicher für Rezepte dar.
+\subsubsection{Methoden}
+\paragraph{fetchRecipeById(String recipeId): Future<Recipe>}
+Fragt das Rezept mit der übergebenen ID aus dem lokalen Speicher ab. Nimmt als Parameter die ID des Rezepts entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn das Rezept erfolgreich aus dem lokalen Speicher abgefragt wurde. Wenn das Rezept nicht aus dem lokalen Speicher abgefragt werden kann, wird eine Exception geworfen.
+\paragraph{fetchAllRecipesForUser(): Future<List<Recipe>>}
+Fragt alle Rezepte aus Gruppen des aktuellen Nutzers aus dem lokalen Speicher ab. Nimmt keine Parameter entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Rezepte erfolgreich aus dem lokalen Speicher abgefragt wurden. Wenn die Rezepte nicht aus dem lokalen Speicher abgefragt werden können, wird eine Exception geworfen.
+\paragraph{fetchOwnRecipes(): Future<List<Recipe>>}
+Fragt alle Rezepte, die vom aktuellen Nutzer erstellt wurden, aus dem lokalen Speicher ab. Nimmt keine Parameter entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Rezepte erfolgreich aus dem lokalen Speicher abgefragt wurden. Wenn die Rezepte nicht aus dem lokalen Speicher abgefragt werden können, wird eine Exception geworfen.
 
 \section{Presentation Layer}
 \begin{figure}[htp]
