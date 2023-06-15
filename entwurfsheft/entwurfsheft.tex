@@ -436,7 +436,7 @@ Fragt alle Rezepte, die vom aktuellen Nutzer erstellt wurden, aus dem lokalen Sp
 \newpage
 
 \subsection{Hauptansicht}
-    Die Klassen beinhaltet alle nötigen Funktionen und Attribute um die Hauptansicht darzustellen.
+    Die Klassen beinhalten alle nötigen Funktionen und Attribute, um die Hauptansicht darzustellen.
 
     \subsubsection{MainViewPage}
         \paragraph*{Methoden}
@@ -469,11 +469,11 @@ Fragt alle Rezepte, die vom aktuellen Nutzer erstellt wurden, aus dem lokalen Sp
 
     \subsubsection{InformationWidget} \label{sec:InformationWidget}
         \paragraph*{Attribute}
-            \subparagraph*{information: InformationKategories} - Gibt an welche Information in dem Widget dargestellt werden soll.
+            \subparagraph*{information: InformationCategories} - Gibt an welche Information in dem Widget dargestellt werden soll.
             \subparagraph*{text: string} - Der Text der in dem Widget angezeigt werden kann.
 
         \paragraph*{Methoden}
-            \subparagraph*{InformationWidget(information: InformationKategories - notNull, text: string)} - Konstruktor für ein Information Widget. Eine Information Kategorie muss angegeben werden.
+            \subparagraph*{InformationWidget(information: InformationCategories - notNull, text: string)} - Konstruktor für ein Information Widget. Eine Information Kategorie muss angegeben werden.
 
     \subsubsection{SortingMethods}
         Ein Enum der alle Sortierung Methoden beinhält.
@@ -495,7 +495,7 @@ Fragt alle Rezepte, die vom aktuellen Nutzer erstellt wurden, aus dem lokalen Sp
             \subparagraph*{labelHalal} - Die Rezepte werden nach dem \gls{label} halal gefiltert.
             \subparagraph*{labelKoscher} - Die Rezepte werden nach dem \gls{label} koscher gefiltert.
 
-    \subsubsection{InformationKategories} \label{sec:InformationKategories}
+    \subsubsection{InformationCategories} \label{sec:InformationCategories}
         Ein Enum der alle Information Kategorien beinhält.
         \paragraph*{Content}
             \subparagraph*{duration} - Das Widget gibt die Zubereitungsdauer an.
@@ -539,7 +539,7 @@ Fragt alle Rezepte, die vom aktuellen Nutzer erstellt wurden, aus dem lokalen Sp
 
     \subsubsection{InformationWidget (\autoref{sec:InformationWidget})}
 
-    \subsubsection{InformationKategories (\autoref{sec:InformationKategories})}
+    \subsubsection{InformationCategories (\autoref{sec:InformationCategories})}
 
     \begin{figure}[htp]
         \begin{minipage}
@@ -578,7 +578,7 @@ Fragt alle Rezepte, die vom aktuellen Nutzer erstellt wurden, aus dem lokalen Sp
 
     \subsubsection{InformationWidget (\autoref{sec:InformationWidget})}
 
-    \subsubsection{InformationKategories (\autoref{sec:InformationKategories})}
+    \subsubsection{InformationCategories (\autoref{sec:InformationCategories})}
     \begin{figure}[htp]
         \begin{minipage}
             [t]{0.49\textwidth}
@@ -633,7 +633,7 @@ Fragt alle Rezepte, die vom aktuellen Nutzer erstellt wurden, aus dem lokalen Sp
             \newpage
 
 \subsection{Anmeldungsansicht}
-    Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Anmeldungsansicht darzustellen.
+    Die Klassen beinhalten alle nötigen Funktionen und Attribute, um die Anmeldungsansicht darzustellen.
 
     \subsubsection{LoginPagePage}
         \paragraph*{Methode}
@@ -646,7 +646,7 @@ Fragt alle Rezepte, die vom aktuellen Nutzer erstellt wurden, aus dem lokalen Sp
 
         \paragraph*{Methoden}
 
-            \subparagraph*{login(email: string, password: string)} - Überprüft die Eingaben und ruft die Funktionen createGroupe() im UserRepository auf.
+            \subparagraph*{login(email: string, password: string)} - Überprüft die Eingaben und ruft die Funktionen createGroup() im UserRepository auf.
             \subparagraph*{resetPasswordView()} -  Die Passwort-Zurücksetzen-Ansicht wird aufgerufen.
             \subparagraph*{registerView()} -  Die Registrierungsansicht wird aufgerufen.
 
@@ -670,18 +670,18 @@ Fragt alle Rezepte, die vom aktuellen Nutzer erstellt wurden, aus dem lokalen Sp
 \subsection{Gruppen-Erstellungs-Ansicht}
     Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Gruppen-Erstellungs-Ansicht darzustellen.
 
-    \subsubsection{GroupeCreationPage}
+    \subsubsection{GroupCreationPage}
         \paragraph*{Methode}
-            \subparagraph*{createState: State<GroupeCreationPageState>} - Konstruktor für den GroupeCreationPageState.
+            \subparagraph*{createState: State<GroupCreationPageState>} - Konstruktor für den GroupCreationPageState.
     
-    \subsubsection{GroupeCreationPageState}
+    \subsubsection{GroupCreationPageState}
         \paragraph*{Attribut}
-            \subparagraph*{groupeNameController: TextEdittingController} - Die eingegebene Zeichenkette für den Namen der neuen Gruppe.
+            \subparagraph*{GroupNameController: TextEdittingController} - Die eingegebene Zeichenkette für den Namen der neuen Gruppe.
 
         \paragraph*{Methoden}
 
-            \subparagraph*{createGroupe(name: string)} - Überprüft den Gruppenname und ruft die Funktionen createGroupe() im GroupeService auf.
-            \subparagraph*{joinGroupeView()} -  Die Gruppen-Beitritts-Ansicht wird aufgerufen.
+            \subparagraph*{createGroup(name: string)} - Überprüft den Gruppenname und ruft die Funktionen createGroup() im GroupService auf.
+            \subparagraph*{joinGroupView()} -  Die Gruppen-Beitritts-Ansicht wird aufgerufen.
     \begin{figure}[htp]
         \begin{minipage}
             [t]{0.49\textwidth}
@@ -704,55 +704,55 @@ Fragt alle Rezepte, die vom aktuellen Nutzer erstellt wurden, aus dem lokalen Sp
 
     \subsubsection{GroupDetailPage}
         \paragraph*{Attribut}
-            \subparagraph*{group: Group} - Die Gruppe dessen Details dargestellt werden.
-            \subparagraph*{newTitle: TextEdittingController} - Die eingegeben Zeichenkette für den neunen Gruppennamen.
+            \subparagraph*{group: Group} - Die Gruppe, deren Details dargestellt werden.
+            \subparagraph*{newTitle: TextEdittingController} - Die eingegebe Zeichenkette für den neuen Gruppennamen.
 
         \paragraph*{Methoden}
-            \subparagraph*{GroupDetailPage(group: Group - notNull)} - Ein Konstruktor für eine GroupDetailPage. Der Parameter muss angegeben werden. 
-            \subparagraph*{setGroupTitle(newTitle: string)} - Die Eingabe wird Überprüft und die Funktion setGroupName() im GroupeService wird aufgerufen.
-            \subparagraph*{deleteGroup()} - Das ConfirmationWidget wird aufgerufen und bei positiver Rückmeldung wird die Funktion kickUser() im GroupeService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
-            \subparagraph*{leaveGroup()} - Das ConfirmationWidget wird aufgerufen und bei positiver Rückmeldung wird die Funktion leaveGroup() im GroupeService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
+            \subparagraph*{GroupDetailPage(group: Group - notNull)} - Ein Konstruktor für GroupDetailPage. Der Parameter muss angegeben werden. 
+            \subparagraph*{setGroupTitle(newTitle: string)} - Die Eingabe wird überprüft und die Funktion setGroupName() im GroupService wird aufgerufen.
+            \subparagraph*{deleteGroup()} - Das ConfirmationWidget wird aufgerufen und bei positiver Rückmeldung wird die Funktion kickUser() im GroupService aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
+            \subparagraph*{leaveGroup()} - Das ConfirmationWidget wird aufgerufen und bei positiver Rückmeldung wird die Funktion leaveGroup() im GroupService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
             \subparagraph*{getQRCode()} - Die QR-Code-Ansicht wird aufgerufen.
-            \subparagraph*{getGroupeTitel()} - Der Gruppen Titel wird in die Zwischenablage gespeichert.
+            \subparagraph*{getGroupTitel()} - Der Gruppentitel wird in der Zwischenablage gespeichert.
 
     \subsubsection{ConfirmationWidget}
         \paragraph*{Attribut}
-            \subparagraph*{text: string} - Der Text der Angezeigt werden soll im Widget.
+            \subparagraph*{text: string} - Der Text, der im Widget angezeigt werden soll.
 
         \paragraph*{Methoden}
-            \subparagraph*{ConfirmationWidget(text: string - notNull)} - Ein Konstruktor für ein ConfirmationWidget, wobei ein Text angegeben werden muss.
-            \subparagraph*{decline()} - Dem Erzeugter wird true zurückgegeben.
-            \subparagraph*{accept()} - Dem Erzeugter wird false zurückgegeben.
+            \subparagraph*{ConfirmationWidget(text: string - notNull)} - Ein Konstruktor für ConfirmationWidget, bei dem ein Text angegeben werden muss.
+            \subparagraph*{decline()} - Dem Erzeuger wird true zurückgegeben.
+            \subparagraph*{accept()} - Dem Erzeuger wird false zurückgegeben.
 
     \subsubsection{OptionWidget}
         \paragraph*{Attribut}
             \subparagraph*{user: User} - Der darzustellende User.
 
         \paragraph*{Methoden}
-            \subparagraph*{OptionWidget(user: User - notNull)} - Ein Konstruktor für ein OptionWidget. Der Parameter muss angegeben werden. 
-            \subparagraph*{kickUser()} - Das ConfirmationWidget wird aufgerufen und bei positiver Rückmeldung wird die Funktion kickUser() im UserSettingsService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
-            \subparagraph*{banUser()} - Das ConfirmationWidget wird aufgerufen und bei positiver Rückmeldung wird die Funktion banUser() im UserSettingsService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
-            \subparagraph*{makeAdmin()} - Das ConfirmationWidget wird aufgerufen und bei positiver Rückmeldung wird die Funktion makeAdmin() im UserSettingsService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
-            \subparagraph*{removeAdminStatus()} - Das ConfirmationWidget wird aufgerufen und bei positiver Rückmeldung wird die Funktion removeAdminStatus() im UserSettingsService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
+            \subparagraph*{OptionWidget(user: User - notNull)} - Ein Konstruktor für OptionWidget. Der Parameter muss angegeben werden. 
+            \subparagraph*{kickUser()} - Das ConfirmationWidget wird aufgerufen und bei positiver Rückmeldung wird die Funktion kickUser() im UserSettingsService aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
+            \subparagraph*{banUser()} - Das ConfirmationWidget wird aufgerufen und bei positiver Rückmeldung wird die Funktion banUser() im UserSettingsService aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
+            \subparagraph*{makeAdmin()} - Das ConfirmationWidget wird aufgerufen und bei positiver Rückmeldung wird die Funktion makeAdmin() im UserSettingsService aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
+            \subparagraph*{removeAdminStatus()} - Das ConfirmationWidget wird aufgerufen und bei positiver Rückmeldung wird die Funktion removeAdminStatus() im UserSettingsService aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
 
     \subsubsection{RecipeWidget}
         \paragraph*{Attribut}
             \subparagraph*{recipe: Recipe} - Das darzustellende Rezept.
-            \subparagraph*{view: Boolean} - Ein Boolean der Angibt ob die Sichtbarkeit des Rezepts verändert werden darf oder nicht.
-            \subparagraph*{settingsView: Boolean} - Eine Boolean der angibt ob das Widget in der Einstellungsansicht verwendet wird.
+            \subparagraph*{view: Boolean} - Ein Boolean der angibt, ob die Sichtbarkeit des Rezepts verändert werden darf oder nicht.
+            \subparagraph*{settingsView: Boolean} - Ein Boolean der angibt, ob das Widget in der Einstellungsansicht verwendet wird.
 
         \paragraph*{Methoden}
-            \subparagraph*{RecipeWidget(recipe: Recipe - notNull, view: boolean - notNull, settingsView: boolean - notNull)} - Ein Konstruktor für ein RecipeWidget. Alle Parameter müssen angegeben werden.
+            \subparagraph*{RecipeWidget(recipe: Recipe - notNull, view: boolean - notNull, settingsView: boolean - notNull)} - Ein Konstruktor für RecipeWidget. Alle Parameter müssen angegeben werden.
             \subparagraph*{togglePrivate()} - Die Sichtbarkeit des Rezepts für die Gruppe ausgeblendet werden soll, wenn settingsView false ist. Wenn settingsView auf true steht wird das Rezept für alle Gruppen ausgeblendet.
             \subparagraph*{delete()} - Das ConfirmationWidget wird aufgerufen und bei positiver Rückmeldung wird die Funktion deleteRecipe() im RecipeService aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
             \subparagraph*{export()} - Die Funktion exportRecipe() im RecipeService wird aufgerufen.
 
     \subsubsection{UserWidget}
         \paragraph*{Attribut}
-            \subparagraph*{isOwnAccount: Boolean} - Ein Boolean der Angibt ob es sich um den eigenen Account handelt.
+            \subparagraph*{isOwnAccount: Boolean} - Ein Boolean der angibt, ob es sich um den eigenen Account handelt.
 
         \paragraph*{Methoden}
-            \subparagraph*{UserWidget(user: User - notNull, isOwnAccount: bool - notNull)} - Ein Konstruktor für ein UserWidget. Alle Parameter müssen angegeben werden.
+            \subparagraph*{UserWidget(user: User - notNull, isOwnAccount: bool - notNull)} - Ein Konstruktor für UserWidget. Alle Parameter müssen angegeben werden.
             \subparagraph*{options()} - Das optionWidget wird aufgerufen.
 
     \subsubsection{ReturnButton (\autoref{sec:ReturnButton})}
@@ -780,7 +780,7 @@ Fragt alle Rezepte, die vom aktuellen Nutzer erstellt wurden, aus dem lokalen Sp
     \subsubsection{RecipeCreationPageState}
         \paragraph*{Attributes}
             \subparagraph*{image: blob} - Hochgeladenes Bild, welches den anderen Nutzern in der Rezeptansicht angezeigt werden soll.
-            \subparagraph*{title: TextEdittingController (notNull)} - Die eingegebene Zeichenkette für den Titel des Rezepts. Die Zeichenkette kann maximal 64 Zeichen lang sein und muss ausgefüllt sein.
+            \subparagraph*{title: TextEdittingController (notNull)} - Die eingegebene Zeichenkette für den Titel des Rezepts. Die Zeichenkette kann maximal 64 Zeichen lang sein und darf nicht leer sein.
             \subparagraph*{is\_Vegetarian: Boolean} - Der vom Nutzer angegebene Boolean, ob das \gls{label} Vegetarisch dem Leser angezeigt werden soll. Ist standartmäßig auf false.
             \subparagraph*{is\_Vegan: Boolean} - Der vom Nutzer angegebene Boolean, ob das \gls{label} Vegan dem Leser angezeigt werden soll. Ist standartmäßig auf false.
             \subparagraph*{is\_GlutenFree: Boolean} - Der vom Nutzer angegebene Boolean, ob das \gls{label} Glutenfrei dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
