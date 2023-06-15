@@ -12,7 +12,7 @@
 \usepackage{caption}        % add captions
 \usepackage{adjustbox}      % add adjustmentbox
 \usepackage{csquotes}
-
+ 
 % Set footer and header bar
 \usepackage[headsepline, footsepline]{scrlayer-scrpage}
 \addtokomafont{headsepline}{\color{BlueViolet}}
@@ -320,7 +320,7 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
 
 \section{Data Layer}
 Der Data Layer ist für die Datenverarbeitung und -verwaltung verantwortlich. In der App selbst befinden sich lediglich die Repository-Klassen. Sie fungieren als eine Abstraktionsebene zwischen der Geschäftslogik (Application Layer) und den Datenquellen, wie z. B. einer lokalen Datenbank oder einem Remote-Server. Die Repository-Klassen bieten eine Schnittstelle, über die die Geschäftslogik auf die Daten zugreifen kann, ohne Details über deren Speicherung oder Beschaffung zu kennen. Sie bieten Methoden zur Datenabfrage, -aktualisierung und -speicherung und handhaben die Kommunikation mit den entsprechenden Datenquellen. Dadurch wird eine lose Kopplung zwischen der Geschäftslogik und den konkreten Datenquellen erreicht und ermöglicht eine flexiblere Handhabung von Datenquellenwechseln oder -aktualisierungen. Repository-Klassen unterstützen auch das Prinzip der Datenkapselung und fördern eine saubere und modularisierte Architektur in der App-Entwicklung.
-Nun sollen die einzelnen Repository-Klassen vorgestellt werden. Die Klassen sind in Abbildung \ref{fig:dataLayer} dargestellt.
+Nun sollen die einzelnen Repository-Klassen vorgestellt werden. Die Klassen sind in Abbildung  dargestellt.
 \begin{figure}[htp]
     \centering
     \includegraphics[width=\textwidth]{images/dataLayer/dataLayer.pdf}
@@ -943,84 +943,162 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
 
 \newpage
 
-\section{REST-Webservice}
+\section{REST-Webserver}
+Um seinen Account zu verwalten, Rezepte aufzurufen oder mit Gruppe interagieren zu können benötigt man die Verbindung zum Server.
+Um die Anfragen performant und flexibel zu gestalten, verwendet das Projekt Node.js in Verbindung mit dem Express.js Framework. 
+Express.js ermöglicht es einfach einen robusten Webservice zu entwickeln. Dazu bietet Express.js eine Menge an Dienstprogrammmethoden an um das ganze zu ermöglichen.
+Als Programmiersprache verwenden wir Serverseitig TypeScript. Typescript ist eine freie und quelloffene Programmiersprache, die statische Typisierung zu JavaScript hinzufügt.
+Das ermöglicht es Sprachkonstrukte wie Klassen, Vererbungen und Module zu verwenden um unser Projekt sowohl client- als auch serverseitig objektorientiert zu entwickeln.
+Das machte es einfacher den Aufbau des Servers zu strukturieren und auf Langzeit Wartbarkeit zu garantieren. Mit TypeScript als eines der meistgenutzten Programmiersprachen und Node.js als eines der meist beliebtesten Technologien wollen wir zudem eine hohe Zukunftssicherheit mit unserer Wahl garantieren.
 
 \subsection{Server}
+In einer Express-Anwendung bezieht sich der Begriff "Server" auf den Hauptkomponente, die die Anfragen von Clients empfängt.
+Der Server ist dafür verantwortlich die Verbindung mit der Datenbank und Firebase (siehe Nutzerverwaltung) aufzubauen und die Application zu starten.
+% TODO Referenz Nutzerverwaltung
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width = 0.3\textwidth]{images/webserver/server.pdf}
+    \caption{Klasse Server des Webservers}
+    \label{fig:server}
+\end{figure}
+
 \subsection*{Attribute}
-\paragraph{port: number} Durch das Attribut port lässt sich einstellen auf welchen Port Anfragen an den Server zulässig sind.
-Port ist vom Type number.
-\paragraph{firebaseCredentials: any}
-\paragraph{express: express.Application}
-\paragraph{app: App}
-\paragraph{}
+\paragraph{port: number}Durch das Attribut \texttt{port} lässt sich einstellen auf welchen Port Anfragen an den Server zulässig sind. Es soll möglich sein, die Wahl des Ports durch eine Umgebungsvariable zu wählen. Wird kein Port durch eine Umgebungsvariable definiert, so soll der Server über den Port 3000 erreichbar sein.
+\texttt{Port} ist vom Type number.
+\paragraph{express: express.Application}Express repräsentiert die Express Applikation die beim Start durch \texttt{express.listen()} Anfragen an den Port annimmt.
+Express ist vom Typ express.Application. Es handelt sich um ein privates Attribut.
+\paragraph{application: Application}Application vom Typ Application repräsentiert das nach dem Start erzeugte Objekt der Klasse Application.
 
-\subsection*{Methode}
-\paragraph{public <<create>> constructor(): void}
-\paragraph{public start(): void}
-\paragraph{private connectToDatabase(): void}
-\paragraph{private connectToFirebase(): void}
-\paragraph{private createServer(): void}
+\subsection*{Methoden}
+\paragraph{<<create>> constructor(): void}Konstruktor der Klasse Server, die beim Starten des Servers aufgerufen wird um ein neues Objekt der Klasse Server zu erzeugen. Der Konstruktor gibt keinen Wert zurück.
+\paragraph{start(): void}Durch Aufruf der Funktion \texttt{start()} wird der Server gestartet. Dazu wird im inneren der Funktion die privaten Funktionen \texttt{connectToDatabase()}, \texttt{connectToFirebase()} und \texttt{createServer()} aufgerufen.
+\paragraph{connectToDatabase(): boolean}Diese Funktion wird benötigt um die Verbindung der Datenbank herzustellen. Bei erfolgreicher Verbindung wir \texttt{true} zurückgegeben.
+\paragraph{connectToFirebase(): boolean}Durch diese Funktion wird die Verbindung mit Firebase aufgebaut. Bei erfolgreicher Verbindung wird \texttt{true} zurückgegeben.
+\paragraph{createServer(): boolean}Beim Aufrufen der create Server Funktion wird eine die der der Server mithilfe von \texttt{express.listen()} gestartet. Beim erfolgreichen Starten des Servers wird \texttt{true} zurückgegeben.
 
 
-\subsection{App}
+\subsection{Application}
+Die Application-Klasse wird durch den Aufruf von express() erstellt, der eine neue Express-Anwendung erzeugt. Dieses express()-Objekt enthält eine Reihe von Methoden, die verwendet werden können, um Routen, Middleware und andere Funktionen zu definieren, die für den Betrieb der Anwendung erforderlich sind.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width = 0.3\textwidth]{images/webserver/application.pdf}
+    \caption{Klasse Application des Webservers}
+    \label{fig:application}
+\end{figure}
+
 \subsubsection*{Attribute}
-\paragraph{app: express.Application}
-\paragraph{authentificationRoutes: AuthentificationRouter}
-\paragraph{recipeRoutes: RecipeRouter}
-\paragraph{groupRoutes: GroupRouter}
-\paragraph{userRoutes: UserRouter}
-\paragraph{IngredientRouter}
+\paragraph{private application: express.Application}Das Attribut \texttt{application} speichert die \newline
+\texttt{express.Application}, die beim erzeugen des Objekts dem Konstruktor mitgeben wird.
+Durch dieses Attribut bekommt die Klasse Applikation mitgeteilt, auf welcher \texttt{express.Application} die in dieser Klasse erzeugten Routing-Punkte angewendet werden sollen.
+\texttt{Application} ist vom Typ \texttt{express.Application}.
+\paragraph{authentificationRoutes: AuthentificationRouter}Dieses Attribut repräsentiert den \texttt{AuthentificationRouter} in der Express.js Anwendung. \texttt{AuthenthificationRouter} ist vom Typ \texttt{AuthentificationRouter}.
+\paragraph{recipeRoutes: RecipeRouter}Dieses Attribut repräsentiert den \texttt{RecipeRouter} in der Express.js Anwendung. \texttt{RecipeRouter} ist vom Typ \texttt{RecipeRouter}.
+\paragraph{groupRoutes: GroupRouter}Das Attribut für den \texttt{GroupRouter}. \texttt{groupRouter} ist vom Typ \texttt{GroupRouter}.
+\paragraph{userRoutes: UserRouter}Das Attribut für den \texttt{UserRouter}. \texttt{userRouter} ist vom Typ \texttt{UserRouter}.
+\paragraph{adminRouter: AdminRouter}Das Attribut für den \texttt{AdminRouter}. \texttt{adminRouter} ist vom Typ \texttt{AdminRouter}.
+\paragraph{ingredientRouter: IngredientRouter}Das Attribut für den \texttt{Ingredient Router}. \texttt{ingredientRouter} ist vom Typ \texttt{IngredientRouter}.
 
 \subsubsection*{Methode}
-\paragraph{public <<create> constructor(express.Application): void}
-\paragraph{private initializeMiddleware(): void}
-\paragraph{private initializeRoutes(): void}
-\paragraph{privtate initializeErrorHandlers(): void}
+\paragraph{<<create> constructor(express.Application): void}Konstruktor für die Klasse \texttt{Application}.
+\paragraph{initializeMiddleware(): void}Mit dieser Methode wird die Middleware initialisiert. Hier ist es möglich die eingehenden Anfragen vorzubehandeln, bevor sie an die eigentlichen Routstellen weitergeleitet werden.
+Eine Middleware die beispielsweise zwischengeschaltet werden kann wäre Morgan. Morgan ermöglicht es HTTP anfragen zu loggen.
+\paragraph{initializeRoutes(): void}Mit dieser Methode werden die Routen initialisiert.
+\paragraph{initializeErrorHandlers(): void}Mit dieser Methode Werden Error-Handler initialisiert. Diese wird benötigt, wenn beispielsweise eine Anfrage an keine gültige Route gestellt wird.
 
 \subsection{Router}
-\subsubsection{AbstractRouter}
-\subsubsection*{Attribute}
-\paragraph{protected router: express.Router}
-\paragraph{protected controller: AbstractController}
-\paragraph{protected checkAuthorization: CheckAuthorization}
-\paragraph{protected checkAuth: any}
+Ein Router kann als eine Art Zwischenschicht betrachtet werden, die HTTP-Anfragen an die entsprechenden Controller weiterleitet.
+Er hilft dabei, den Code zu strukturieren und die Handhabung von Routen in einer modularen und organisierten Weise zu ermöglichen.
+Ein Router in Express wird durch die Verwendung des \texttt{express.Router()}-Objekts erstellt.
+Dieses Objekt stellt eine Miniaturversion der Express-Anwendung dar und kann Routen und Endpunkte definieren, ähnlich wie die Hauptanwendung.
+Ein Router kann mit einem Pfad oder Präfix konfiguriert werden, der angibt, unter welchem Pfad seine Routen verfügbar sein sollen.
 
-\subsubsection*{Methode}
-\paragraph{public <<create>> constructor(): void}
-\paragraph{protected abstract setupRoutes(): void}
-\paragraph{public getRouter(): express.Router}
+Ein Router kann dabei mehrere Routen definieren, indem verschiedene HTTP-Methoden wie \texttt{GET}, \texttt{POST}, \texttt{PUT}, \texttt{DELETE} usw. verwendet werden.
+Jede Route kann einen oder mehrere Handler haben, die ausgeführt werden, wenn die Route mit einer Anfrage übereinstimmt.
+Diese Handler sind Funktionen, die Zugriff auf die Anfrage- und Antwortobjekte haben und die erforderlichen Aktionen durchführen.
+Router ermöglichen es, den Code in einer Express-Anwendung besser zu organisieren, indem sie verwandte Routen und deren Handler gruppieren.
+Dies erleichtert die Wartung, Skalierbarkeit und Lesbarkeit des Codes.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width = 1\textwidth]{images/webserver/router.pdf}
+    \caption{Router-Klassen des Webservers}
+    \label{fig:router}
+\end{figure}
+
+\subsubsection{AbstractRouter}
+Der \texttt{AbstractRouter} ist eine abstrakte Repräsentation eines Routers. So kann ein grundlegender Aufbau für alle Router garantiert werden. Alle Router erben von dieser Klasse \texttt{AbstractRouter}.
+\subsubsection*{Attribute}
+\paragraph{router: express.Router}Attribut, dass einen Router in Express repräsentiert. Das zugehörige Objekt soll beim Konstruktoraufruf erzeugt werden. 
+\paragraph{controller: AbstractController}Attribut, dass einen abstrakten Controller repräsentiert. Mit diesem Attribut wird in den jeweiligen Routern der dazu passende Controller gespeichert.
+\paragraph{checkAuthorization: CheckAuthorization}
+\paragraph{checkAuth: any}
+
+\subsubsection*{Methoden}
+\paragraph{<<create>> constructor(): void}Konstruktor der Klasse \texttt{AbstractRouter}. Wir zum erzeugen des Objekts benötigt.
+\paragraph{abstract setupRoutes(): void}Diese abstrakte Methode definiert einen Methode die die Kinderklassen implementieren müssen.
+\paragraph{getRouter(): express.Router}Getter-Methode für das Attribut \texttt{router}.
+
 
 \subsubsection{AuthentificationRouter}
-\subsubsection*{Methode}
-\paragraph{public <<create>> constructor(): void}
-\paragraph{protected setupRoutes(): void}
+Der AuthentificationRouter ist speziell für die Verarbeitung von Authentifizierungsanfragen zuständig. 
+\subsubsection*{Methoden}
+\paragraph{<<create>> constructor(): void}Konstruktor zum erzeugen des Objekts der Klasse \texttt{AuthentificationRouter}.
+\paragraph{setupRoutes(): void}Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
 \subsubsection{RecipeRouter}
-\subsubsection*{Methode}
-\paragraph{public <<create>> constructor(): void}
-\paragraph{protected setupRoutes(): void}
+Der RecipeRouter ist für die Verwaltung der Routen und Endpunkte verantwortlich, die mit Rezepten zusammenhängen.
+\subsubsection*{Methoden}
+\paragraph{<<create>> constructor(): void}Konstruktor zum erzeugen des Objekts der Klasse \texttt{RecipeRouter}.
+\paragraph{setupRoutes(): void}Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
 \subsubsection{GroupRouter}
-\subsubsection*{Methode}
-\paragraph{public <<create>> constructor(): void}
-\paragraph{protected setupRoutes(): void}
+Der GroupRouter ist verantwortlich für die Verwaltung der Routen und Endpunkte, die mit Gruppen in der Anwendung zusammenhängen.
+\subsubsection*{Methoden}
+\paragraph{<<create>> constructor(): void}Konstruktor zum erzeugen des Objekts der Klasse \texttt{GroupRouter}.
+\paragraph{setupRoutes(): void}Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
 \subsubsection{UserRouter}
+Der UserRouter ist für die Verwaltung von Routen und Endpunkten zuständig, die mit Benutzeraktionen und -informationen zusammenhängen.
 \subsubsection*{Methode}
-\paragraph{public <<create>> constructor(): void}
-\paragraph{protected setupRoutes(): void}
+\paragraph{<<create>> constructor(): void}Konstruktor zum erzeugen des Objekts der Klasse \texttt{UserRouter}.
+\paragraph{setupRoutes(): void}Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
 \subsubsection{IngredientRouter}
-\subsubsection*{Methode}
-\paragraph{public <<create>> constructor(): void}
-\paragraph{protected setupRoutes(): void}
+Der IngredientRouter ist verantwortlich für die Verwaltung von Routen und Endpunkten, die mit Zutaten in der Anwendung zusammenhängen.
+\subsubsection*{Methoden}
+\paragraph{<<create>> constructor(): void}Konstruktor zum erzeugen des Objekts der Klasse \texttt{IngredientRouter}.
+\paragraph{setupRoutes(): void}Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
+
+\subsubsection{AdminRouter}
+Der Admin ist verantwortlich für die Verwaltung von Routen und Endpunkten, die mit Administrator Interaktionen zusammenhängen.
+\subsubsection*{Methoden}
+\paragraph{<<create>> constructor(): void}Konstruktor zum erzeugen des Objekts der Klasse \texttt{AdminRouter}.
+\paragraph{setupRoutes(): void}Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
 \subsection{Middleware}
+Durch die Middleware können Anfragen vorher bearbeitet werden, bevor sie zu den eigentlichen Routingstellen gehen.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width = 1\textwidth]{images/webserver/middleware.pdf}
+    \caption{Middleware-Klassen des Webservers}
+    \label{fig:middleware}
+\end{figure}
+
 \subsubsection{CheckAuthorization}
+Mit check
 \subsubsection*{Methode}
 \paragraph{authChecker(req: any, res, any, next: any): void}
 
 \subsection{Controller}
+In einer Express-Anwendung bezieht sich der Begriff "Controller" auf eine Komponente oder eine Sammlung von Funktionen, die dazu dienen, die Logik für bestimmte Routen oder Endpunkte zu implementieren.
+Der Controller ist für die Verarbeitung von Anfragen zuständig, die an eine bestimmte Route gesendet werden, und für die Rückgabe von entsprechenden Antworten.
+Der Controller agiert als eine Art Vermittler zwischen den Routen und der eigentlichen Geschäftslogik der Anwendung.
+Ein Controller ist ein Objekt, das Handler-Funktionen für verschiedene Routen bereitstellt.
+Diese Handler-Funktionen werden als Callback-Funktionen für die entsprechenden Routen registriert und nehmen die Anfrage (\texttt{req}) und die Antwort (\texttt{res}) als Parameter entgegen.
+
 \subsubsection{AbstractController}
 \subsubsection*{Methode}
 
@@ -1060,6 +1138,25 @@ Port ist vom Type number.
 \subsubsection*{Methode}
 \paragraph{ingredientGetAll(req: any, res: any, next: any): void}
 
+\newpage
+
+\section{Nutzerverwaltung mit Firebase}
+Um SpiceSquad nutzen zu können muss ein Nutzer sich registrieren oder einloggen sofern er schon einen Account besitzt.
+Durch die Kenntnis der Identität eines Benutzer ermöglicht es SpiceSquad zum einen die Benutzerdaten in einer Datenbank auf einem Server sicher zu speichern und zum anderen diese Daten auf anderen Geräten wieder abzurufen um auf allen Geräten des Nutzers die selbe personalisierte Erfahrung zu gewährleisten.
+Um unseren Nutzern eine sichere und reibungslose Nutzerverwaltung gewährleisten zu können verwendet SpiceSquad Firebase-Authentifizierung als Dienst zur Nutzerverwaltung.
+Firebase-Authentifizierung ermöglicht es sicher Nutzerdaten zu speicher und anfragen an den Server von angemeldeten Nutzer zu authentifizieren.
+Hierbei verwendet Firebase sogenannte JWT (JSON Web Token), die bei Firebase ID Token genannt werden.
+ID Token müssen durch regelmäßige Anfragen erneuert werden.
+Ein Beispiel wie die Verifizierung durch ID Token funktioniert findet man in dem Abschnitt Ablaufbeschreibung.
+Firebase anfragen, die Firebase direkt betreffen, sollen über den \texttt{AuthentificationRouter} laufen.
+Die beinhaltet beispielsweise das registrieren, einloggen und rücksetzen des Passworts.
+SpiceSquad verwendet diese Token um anfragen an die REST-API zu verifizieren und diese gleich einem Nutzer zuzuweisen.
+Wir haben uns beim Entwurf entschieden, jede Kommunikation nur zwischen Client (Android-App) und Server (REST Webserver) laufen zu lassen. Das heißt, dass alle Anfragen an Firebase erst über den REST Webserver laufen und dann anschließend an Firebase weitergeleitet werden.
+Grund für diese Entscheidung, war die, dass wir unsere App nur direkt mit unserem Server kommunizieren lassen wollen. Damit wollen wir uns auf der Seite der App so unabhängig von anderen dienst machen wie möglich.
+
+\subsection{Passwort zurücksetzen}
+Wie vorher erwähnt sollen Passwörter von Nutzer zurückgesetzt werden können. Beim Rücksetzen soll der Nutzer eine Mail mit einem Link zum zurücksetzen seines Passworts erhalten.
+Das alles wird von Firebase-Authentifizierung bereits bereitgestellt. SpiceSquad bedient sich also für dieses Funktion bei Firebase-Authentifizierung.
 \newpage
 
 \section{Datenbank}
@@ -1150,7 +1247,7 @@ Die Tabelle "BannedUser" repräsentiert die Many-To-Many-Beziehung zwischen den 
 \section{Klassenindex}
 \subsection{Client-Klassen}
 \subsection{Server-Klassen}
-
+\newpage
 \section{Glossar}
 \printglossary[style=altlist]
 \end{document}
