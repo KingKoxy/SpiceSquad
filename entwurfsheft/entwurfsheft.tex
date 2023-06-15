@@ -320,6 +320,7 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
 
     \subsubsection{MainViewPageState}
         \paragraph*{Methoden}
+
             \subparagraph*{filtering(filter: FilteringMethods)} - Alle Rezepte werden dem Filterkriterium gefiltert.
             \subparagraph*{sorting(sort: SortingMethods)} - Alle Rezepte werden nach dem Sortierkriterium sortiert.
 
@@ -781,19 +782,12 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
             \subparagraph*{newUsernameController: TextEdittingController} - Die eingegebene Zeichenkette für den neuen Nutzernamen des Benutzers.
 
         \paragraph*{Methoden}
-            \subparagraph*{setProfileImage(image: Image)}
-            \subparagraph*{removeProfileImage()}
-            \subparagraph*{setUserName(value: string)}
-            \subparagraph*{joinGroup()}
-            \subparagraph*{leaveGroup(id: string)}
-            \subparagraph*{groupeDetail()}
-            \subparagraph*{toggleFavourite(id: string)}
-            \subparagraph*{reportRecipe(id: string)}
-            \subparagraph*{createRecipe(data: Recipe)}
-            \subparagraph*{exportRecipe(id: string)}
-            \subparagraph*{logout()}
-            \subparagraph*{deleteAccount()}
-            \subparagraph*{deleteRecipe(id: string)}
+            \subparagraph*{setProfileImage(image: Image)} - Überprüft das Hochgeladene Bild und ruft die Funktion setProfileImage() im UserService auf.
+            \subparagraph*{removeProfileImage()} - Ruft die Funktion removeProfileImage() im UserService auf.
+            \subparagraph*{setUserName(value: string)} - Überprüft die Eingabe und ruft die Funktion setUserName() im UserService auf.
+            \subparagraph*{joinGroup()} - Die Gruppen-Beitritts-Ansicht wird aufgerufen.
+            \subparagraph*{recipeCreationView()} - Die Rezept-Erstellungs-Ansicht wird aufgerufen.
+            \subparagraph*{deleteAccount()} - Das ConfirmationWidget wird aufgerufen und bei positiver Rückmeldung wird die Funktion kickUser() im UserSettingsService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts. 
 
     \begin{figure}[htp]
         \begin{minipage}
@@ -811,6 +805,7 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
     \end{figure}    
         
     \newpage
+
 \newpage
 
 \section{REST-Webservice}
