@@ -316,7 +316,7 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
 
     \subsubsection{MainViewPage}
         \paragraph*{Methoden}
-            \subparagraph*{createState: State<MainViewPageState>} - Konstruktor für den MainViewPageState.
+            \subparagraph*{createState: State<MainViewPageState>} - Der Konstruktor für den MainViewPageState.
 
     \subsubsection{MainViewPageState}
         \paragraph*{Methoden}
@@ -324,15 +324,22 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
             \subparagraph*{sorting(sort: SortingMethods)} - Alle Rezepte werden nach dem Sortierkriterium sortiert.
 
     \subsubsection{TopBar}
-        \paragraph*{Attribute}
+        \paragraph*{Attribut}
             \subparagraph*{keyword: TextEdittingController} - Durch den Nutzer eingegebene Zeichenkette für die Suche.
 
         \paragraph*{Methode}
             \subparagraph*{ search(keyword: TextEdittingController)} - Durchsucht alle Rezepte und gibt die aus, deren Rezepttitel zu dem Schlagwort passen.
 
-    \subsubsection{AppBar}
+    \subsubsection{AppBar} \label{sec:AppBar}
+        \paragraph*{Attribute}
+            \subparagraph*{mainView: Boolean} - Der Boolean gibt an ob das AppBar Widget in Hauptansicht verwendet wird.
+            \subparagraph*{recipeCreationView: Boolean} - Der Boolean gibt an ob das AppBar Widget in Rezept-Erstellungs-Ansicht verwendet wird.
+            \subparagraph*{settingsView: Boolean} - Der Boolean gibt an ob das AppBar Widget in Einstellungsansicht verwendet wird.
+
         \paragraph*{Methoden}
-            \subparagraph*{recipeCreationView()} - Die Rezept-erstell-Ansicht wird aufgerufen.
+            \subparagraph*{AppBar(mainView: Boolean - notNull, recipeCreationView: Boolean - notNull, settingsView: Boolean - notNull)} - Der Konstruktor für den AppBar. Alle Parameter müssen angegeben werden. 
+            \subparagraph*{mainView()} - Die Hauptansicht wird aufgerufen.
+            \subparagraph*{recipeCreationView()} - Die Rezept-Erstellungs-Ansicht wird aufgerufen.
             \subparagraph*{settingsView()} - Die Einstellungsansicht wird aufgerufen.
 
     \subsubsection{RecipeWidget}
@@ -409,7 +416,7 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
         \paragraph*{Attribut}
             \subparagraph*{portions: TextEdittingController} - Eingegebene Ganzzahl für die die Zutatenmengen berechnet werden. Ist standardmäßig auf der Portionsgröße die beim Rezepterstellen angegeben worden ist.
     
-        \paragraph*{Method}
+        \paragraph*{Methode}
             \subparagraph*{changePortions(portions: int)} - Die neuen Mengenangaben für die Zutaten werden berechnet.
 
     \subsubsection{InformationWidget (\autoref{sec:InformationWidget})}
@@ -562,13 +569,13 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
             [t]{0.49\textwidth}
             \centering
             \includegraphics[height=80mm]{images/Presentation-layer/GroupCreationView.jpg}
-            \caption{Passwort-Zurücksetzen-Ansicht}
+            \caption{Gruppen-Erstellungs-Ansicht}
         \end{minipage}
         \begin{minipage}
             [t]{0.49\textwidth}
             \centering
             \includegraphics[width=0.95\textwidth]{images/Presentation-layer/GroupCreationViewClass.png}
-            \caption{Klassen für Passwort-Zurücksetzen-Ansicht}
+            \caption{Klassen für Gruppen-Erstellungs-Ansicht}
         \end{minipage}
     \end{figure}    
         
@@ -650,41 +657,159 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
     \newpage
 
     \subsection{Rezept-Erstellungs-Ansicht}
-    Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Rezept-Erstell-Ansicht darzustellen.\newline
+        Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Rezept-Erstell-Ansicht darzustellen.
 
-    \subsubsection{RecipeCreationPageState}
-        \paragraph*{Attributes}
-            \subparagraph*{image: blob} - Hochgeladenes Bild, welches den anderen Nutzern in der Rezeptansicht angezeigt werden soll.
-            \subparagraph*{title: TextEdittingController (notNull)} - Die eingegebene Zeichenkette für den Titel des Rezepts. Die Zeichenkette kann maximal 64 Zeichen lang sein und muss ausgefüllt sein.
-            \subparagraph*{is\_Vegetarian: Boolean} - Der vom Nutzer angegebene Boolean, ob das \gls{label} Vegetarisch dem Leser angezeigt werden soll. Ist standartmäßig auf false.
-            \subparagraph*{is\_Vegan: Boolean} - Der vom Nutzer angegebene Boolean, ob das \gls{label} Vegan dem Leser angezeigt werden soll. Ist standartmäßig auf false.
-            \subparagraph*{is\_GlutenFree: Boolean} - Der vom Nutzer angegebene Boolean, ob das \gls{label} Glutenfrei dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
-            \subparagraph*{is\_Halal: Boolean} - Der vom Nutzer angegebene Boolean, ob das \gls{label} Halal dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
-            \subparagraph*{is\_Kosher: Boolean} - Der vom Nutzer angegebene Boolean, ob das \gls{label} Koscher dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
-            \subparagraph*{duration: TextEdittingController (notNull)} - Die vom Nutzer eingegebene Ganzzahl, welche die Zubereitungszeit in Minuten angibt. Muss angegeben werden.
-            \subparagraph*{difficulty: Difficulty (notNull)} - Die vom Nutzer ausgewählte \gls{schwierigkeit} des Rezepts. Muss angegeben werden.
-            \subparagraph*{ingredients: Ingredients[]} - Eine Liste an Ingerdients, welche in der AddIngredientPage erstellt wurde.
-            \subparagraph*{instructions: TextEdittingController (notNull)} - Die vom Nutzer angegeben Zeichenkette für die Beschreibung des Rezepts. Muss angegeben werden.
+        \subsubsection{RecipeCreationPage}
+            \paragraph*{Methode}
+                \subparagraph*{createState: State<RecipeCreationPageState>} - Konstruktor für den RecipeCreationPageState.
 
-        \paragraph*{Methods}
-            \subparagraph*{addIngredient()} - Die Page AddIngredientPage wird aufgerufen.
-            \subparagraph*{recipeSave()} - Die Methode ruft, abhängig davon ob das Rezept neu erstellt wird oder nur verändert wurde, entweder recipeCreation() oder recipeChange() auf.
-       
-            
+        \subsubsection{RecipeCreationPageState}
+            \paragraph*{Attribute}
+                \subparagraph*{image: blob} - Hochgeladenes Bild, welches den anderen Nutzern in der Rezeptansicht angezeigt werden soll.
+                \subparagraph*{title: TextEdittingController (notNull)} - Die eingegebene Zeichenkette für den Titel des Rezepts. Die Zeichenkette kann maximal 64 Zeichen lang sein und muss ausgefüllt sein.
+                \subparagraph*{is\_Vegetarian: Boolean} - Der vom Nutzer angegebene Boolean, ob das \gls{label} Vegetarisch dem Leser angezeigt werden soll. Ist standartmäßig auf false.
+                \subparagraph*{is\_Vegan: Boolean} - Der vom Nutzer angegebene Boolean, ob das \gls{label} Vegan dem Leser angezeigt werden soll. Ist standartmäßig auf false.
+                \subparagraph*{is\_GlutenFree: Boolean} - Der vom Nutzer angegebene Boolean, ob das \gls{label} Glutenfrei dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
+                \subparagraph*{is\_Halal: Boolean} - Der vom Nutzer angegebene Boolean, ob das \gls{label} Halal dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
+                \subparagraph*{is\_Kosher: Boolean} - Der vom Nutzer angegebene Boolean, ob das \gls{label} Koscher dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
+                \subparagraph*{duration: TextEdittingController (notNull)} - Die vom Nutzer eingegebene Ganzzahl, welche die Zubereitungszeit in Minuten angibt. Muss angegeben werden.
+                \subparagraph*{difficulty: Difficulty (notNull)} - Die vom Nutzer ausgewählte \gls{schwierigkeit} des Rezepts. Muss angegeben werden.
+                \subparagraph*{ingredients: Ingredients[]} - Eine Liste an Ingerdients, welche in der AddIngredientPage erstellt wurde.
+                \subparagraph*{instructions: TextEdittingController (notNull)} - Die vom Nutzer angegeben Zeichenkette für die Beschreibung des Rezepts. Muss angegeben werden.
+
+            \paragraph*{Methoden}
+                \subparagraph*{addIngredient()} - Die Page AddIngredientPage wird aufgerufen.
+                \subparagraph*{recipeSave()} - Die Methode ruft, abhängig davon ob das Rezept neu erstellt wird oder nur verändert wurde, entweder recipeCreation() oder recipeChange() auf.
+        
+        \subsubsection{Difficulty}
+            Ein Enum der alle \glslink{schwierigkeit}{Schwierigkeitsgrade} beinhält.
+            \paragraph*{Content}
+                \subparagraph*{easy} - Der \glslink{schwierigkeit}{Schwierigkeitsgrad} einfach.
+                \subparagraph*{medium} - Der \glslink{schwierigkeit}{Schwierigkeitsgrad} mittel.
+                \subparagraph*{hard} - Der \glslink{schwierigkeit}{Schwierigkeitsgrad} schwer.
+
+        \subsubsection*{IngredientWidget}
+            Die Klasse beschreibt eine Widget dass eine Zutat darstellt.
+            \paragraph*{Attribut}
+                \subparagraph*{ingredient: Ingredient} - Die darzustellende Zutat.
+
+            \paragraph*{Methoden}
+                \subparagraph*{delete()} - Das IngredientWidget wird nicht mehr in der Rezept-Erstellungs-Ansicht angezeigt und ist die Zutat ist nicht mehr teil des Rezepts.
+
+        \subsubsection*{InformationWidget (\autoref{sec:InformationWidget})}
+
+        \subsubsection*{InformationKategories (\autoref{sec:InformationKategories})}
+
+        \subsubsection*{ReturnButton (\autoref{sec:ReturnButton})}
+        
+        \subsubsection*{AppBar (\autoref{sec:AppBar})}
+            \begin{figure}[htp]
+                \begin{minipage}
+                    [t]{0.49\textwidth}
+                    \centering
+                    \includegraphics[height=80mm]{images/Presentation-layer/RecipeCreationView.jpg}
+                    \caption{Rezept-Erstellungs-Ansicht}
+                \end{minipage}
+                \begin{minipage}
+                    [t]{0.49\textwidth}
+                    \centering
+                    \includegraphics[width=0.95\textwidth]{images/Presentation-layer/RecipeCreationViewClass.pdf}
+                    \caption{Klassen für Rezept-Erstellungs-Ansicht}
+                \end{minipage}
+            \end{figure}
+
+        \newpage
+
+    \subsection{Zutaten-Auswahl-Ansicht}
+        Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Zutaten-Auswahl-Ansicht darzustellen.
+    
+        \subsubsection{AddIngredientPage}
+            \paragraph*{Methode}
+                \subparagraph*{createState: State<AddIngredientPageState>} - Der Konstruktor für den AddIngredientPageState.
+        
+        \subsubsection{AddIngredientPageState}
+            \paragraph*{Attribut}
+                \subparagraph*{ingredientController: TextEdittingController} - Die eingegebene Zeichenkette für den Namen der neunen Zutat.
+    
+            \paragraph*{Methoden}
+                \subparagraph*{searchIngredient(input: string)} - Überprüft die Eingabe und ruft die Funktion getAllIngredientNames() im IngredientService auf.
+                \subparagraph*{addIngredient(ingredient: Ingredient)} -  Erstellt aus den Eingaben ein Objekt der Klasse Ingredient und kehrt zurück zur Rezept-Erstellungs-Ansicht.
+        
+        \subsubsection*{Ingredient}
+            \paragraph*{Attribute}
+                \subparagraph*{name: string} - Der Name der Zutat.
+                \subparagraph*{iconId: string} - Die Id des Icons, welche zu der Zutat ausgewählt worden ist.
+                \subparagraph*{amount: int} - Die Mengenangabe für die Zutat.
+                \subparagraph*{unit: string} - Die Einheit der Mengenangabe.
+
+        \subsubsection*{ChoseIconElement}
+            \paragraph*{Methode}
+                \subparagraph*{choseIcon(iconId: String)} - Speichert das ausgewählte Icon mit der Zutat ab.
+
+        \subparagraph*{IconElement}
+            \paragraph*{Attribut}
+                \subparagraph*{iconId: String} - Die Id des Icons, welches dargestellt werden soll.
+        
+        \subsubsection*{ReturnButton (\autoref{sec:ReturnButton})}
+
         \begin{figure}[htp]
             \begin{minipage}
                 [t]{0.49\textwidth}
                 \centering
-                \includegraphics[height=80mm]{images/Presentation-layer/MainView.jpg}
-                \caption{Hauptansicht}
+                \includegraphics[height=80mm]{images/Presentation-layer/IngredientPickerView.jpg}
+                \caption{Zutaten-Auswahl-Ansicht}
             \end{minipage}
             \begin{minipage}
                 [t]{0.49\textwidth}
                 \centering
-                \includegraphics[width=0.95\textwidth]{images/Presentation-layer/MainViewClass.png}
-                \caption{Klassen für Hauptansicht}
+                \includegraphics[width=0.95\textwidth]{images/Presentation-layer/IngredientPickerViewClass.pdf}
+                \caption{Klassen für Zutaten-Auswahl-Ansicht}
             \end{minipage}
-        \end{figure}
+        \end{figure}    
+            
+        \newpage
+
+\subsection{Verwaltungsansicht}
+    Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Verwaltungsansicht darzustellen.
+
+    \subsubsection{SettingsPage}
+        \paragraph*{Methode}
+            \subparagraph*{createState: State<SettingsPageState>} - Der Konstruktor für den SettingsPageState.
+    
+    \subsubsection{SettingsPageState}
+        \paragraph*{Attribut}
+            \subparagraph*{newUsernameController: TextEdittingController} - Die eingegebene Zeichenkette für den neuen Nutzernamen des Benutzers.
+
+        \paragraph*{Methoden}
+            \subparagraph*{setProfileImage(image: Image)}
+            \subparagraph*{removeProfileImage()}
+            \subparagraph*{setUserName(value: string)}
+            \subparagraph*{joinGroup()}
+            \subparagraph*{leaveGroup(id: string)}
+            \subparagraph*{groupeDetail()}
+            \subparagraph*{toggleFavourite(id: string)}
+            \subparagraph*{reportRecipe(id: string)}
+            \subparagraph*{createRecipe(data: Recipe)}
+            \subparagraph*{exportRecipe(id: string)}
+            \subparagraph*{logout()}
+            \subparagraph*{deleteAccount()}
+            \subparagraph*{deleteRecipe(id: string)}
+
+    \begin{figure}[htp]
+        \begin{minipage}
+            [t]{0.49\textwidth}
+            \centering
+            \includegraphics[height=80mm]{images/Presentation-layer/GroupCreationView.jpg}
+            \caption{Verwaltungsansicht}
+        \end{minipage}
+        \begin{minipage}
+            [t]{0.49\textwidth}
+            \centering
+            \includegraphics[width=0.95\textwidth]{images/Presentation-layer/GroupCreationViewClass.png}
+            \caption{Verwaltungsansicht}
+        \end{minipage}
+    \end{figure}    
+        
     \newpage
 \newpage
 
