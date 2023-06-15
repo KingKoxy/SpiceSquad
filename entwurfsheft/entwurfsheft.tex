@@ -601,22 +601,22 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
 
     \subsubsection{InformationElement} \label{sec:InformationElement}
         \paragraph*{Attribute}
-            \subparagraph*{information: InformationKategories} - Gibt an welche Information in dem Widget dargestellt werden soll.
-            \subparagraph*{text: string} - Der Text der in dem Widget angezeigt werden kann.
+            \subparagraph*{information: InformationCategories} - Gibt an, welche Information in dem Widget dargestellt werden soll.
+            \subparagraph*{text: string} - Der Text, der in dem Widget angezeigt werden kann.
 
         \paragraph*{Methoden}
-            \subparagraph*{InformationElement(information: InformationKategories - notNull, text: string)} - Der Konstruktor für ein Information Widget. Eine Information Kategorie muss angegeben werden.
+            \subparagraph*{InformationWidget(information: InformationCategories - notNull, text: string)} - Konstruktor für Information Widget. Eine Information Kategorie muss angegeben werden.
 
 
     \subsubsection{SortingMethods}
-        Ein Enum der alle Sortierung Methoden beinhält.
+        Ein Enum, der alle Sortierungsmethoden beinhält.
         \paragraph*{Content}
             \subparagraph*{alphabetical} - Die Rezepte werden alphabetisch sortiert.
-            \subparagraph*{difficulty} - Die Rezepte werden nach dem \gls{schwierigkeit}{Schwierigkeitsgrad} sortiert.
-            \subparagraph*{date} - Die Rezepte werden nach dem Hinzufüge Datum sortiert.
+            \subparagraph*{difficulty} - Die Rezepte werden nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} sortiert.
+            \subparagraph*{date} - Die Rezepte werden nach dem Hinzufügedatum sortiert.
 
     \subsubsection{FilteringMehods}
-        Ein Enum der alle Filter Methoden beinhält.
+        Ein Enum, der alle Filter Methoden beinhält.
         \paragraph*{Content}
             \subparagraph*{favorites} - Die Rezepte werden nach Favoriten gefiltert.
             \subparagraph*{difficultyEasy} - Die Rezepte werden nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} einfach gefiltert.
@@ -638,7 +638,7 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
             \subparagraph*{difficultyHard} - Das Widget gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} schwer an.
             \subparagraph*{labelVegetarian} - Das Widget gibt das \gls{label} vegetarisch an.
             \subparagraph*{labelVegan} - Das Widget gibt das \gls{label} vegan an.
-            \subparagraph*{labelGlutenFree} - Das Widget gibt das \gls{label} Gluten frei an.
+            \subparagraph*{labelGlutenFree} - Das Widget gibt das \gls{label} glutenfrei an.
             \subparagraph*{labelHalal} - Das Widget gibt das \gls{label} halal an.
             \subparagraph*{labelKoscher} - Das Widget gibt das \gls{label} koscher an.
 
@@ -668,7 +668,7 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
         
     \subsubsection{recipeViewPageState}
         \paragraph*{Attribut}
-            \subparagraph*{portions: TextEdittingController} - Eingegebene Ganzzahl für die die Zutatenmengen berechnet werden. Ist standardmäßig auf der Portionsgröße die beim Rezepterstellen angegeben worden ist.
+            \subparagraph*{portions: TextEdittingController} - Eingegebene Ganzzahl für die die Zutatenmengen berechnet werden. Ist standardmäßig auf der Portionsgröße, die beim Rezepterstellen angegeben worden ist.
     
         \paragraph*{Methode}
             \subparagraph*{changePortions(portions: int)} - Die neuen Mengenangaben für die Zutaten werden berechnet.
@@ -705,11 +705,11 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
         \paragraph*{Attribute}
             \subparagraph*{usernameController: TextEdittingController} - Die eingegebene Zeichenkette für den Benutzernamen des neuen Users.
             \subparagraph*{emailController: TextEdittingController} - Die eingegebene Zeichenkette für die E-Mail-Adresse des neuen Users.
-            \subparagraph*{passwordController: TextEdittingController} - Die eingegebene Zeichenkette für das Passwort des neuen Accounts für den neunen User.
+            \subparagraph*{passwordController: TextEdittingController} - Die eingegebene Zeichenkette für das Passwort des neuen Accounts für den neuen User.
             \subparagraph*{repeatedPassword: TextEdittingController} - Die eingegebene Zeichenkette für das wiederholte Passwort des neuen Accounts.
          
         \paragraph*{Methoden}
-            \subparagraph*{register(username: string, email: string, password: string, repeatedPassword: string)} - Überprüft ob das eingegeben Passwort mit dem wiederholten Passwort übereinstimmt und ruft dann die Funktion register() im UserRepository auf.
+            \subparagraph*{register(username: string, email: string, password: string, repeatedPassword: string)} - Überprüft, ob das eingegeben Passwort mit dem wiederholten Passwort übereinstimmt und ruft dann die Funktion register() im UserRepository auf.
             \subparagraph*{login()} - Die Loginansicht wird aufgerufen.
 
     \subsubsection*{InformationElement (\autoref{sec:InformationElement})}
@@ -745,7 +745,7 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
             \subparagraph*{emailController: TextEdittingController} - Die eingegebene Zeichenkette für die E-Mail-Adresse des Users.
     
         \paragraph*{Methoden}
-            \subparagraph*{resetPassword(email: string)} - Überprüft ob die Korrektheit der E-Mail-Adresse und ruft die Funktionen resetPassword() im UserRepository auf.
+            \subparagraph*{resetPassword(email: string)} - Überprüft die Korrektheit der E-Mail-Adresse und ruft die Funktionen resetPassword() im UserRepository auf.
             \subparagraph*{LoginView()} - Die Loginansicht wird aufgerufen.
 
     \subsubsection{ReturnButton} \label{sec:ReturnButton} 
@@ -819,6 +819,10 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
             \subparagraph*{createGroupe(name: string)} - Überprüft den Gruppenname und ruft die Funktionen createGroupe() im GroupeService auf.
             \subparagraph*{joinGroupeView()} -  Die Gruppen-Beitritts-Ansicht wird aufgerufen.
             \subparagraph*{mainView()} - Die Hauptansicht wird aufgerufen.
+
+
+            \subparagraph*{createGroup(name: string)} - Überprüft den Gruppennamen und ruft die Funktionen createGroup() im GroupService auf.
+            \subparagraph*{joinGroupView()} -  Die Gruppen-Beitritts-Ansicht wird aufgerufen.
 
     \begin{figure}[htp]
         \begin{minipage}
