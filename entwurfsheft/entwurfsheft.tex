@@ -12,7 +12,7 @@
 \usepackage{caption}        % add captions
 \usepackage{adjustbox}      % add adjustmentbox
 \usepackage{csquotes}
-
+ 
 % Set footer and header bar
 \usepackage[headsepline, footsepline]{scrlayer-scrpage}
 \addtokomafont{headsepline}{\color{BlueViolet}}
@@ -124,25 +124,31 @@ Die einzelnen Schichten werden in den folgenden Kapiteln genauer beschrieben.
 
 \newpage
 
-\section{Domain Layer}
 \changelocaltocdepth{2}
+
+\section{Domain Layer}
+Der Domain Layer enthält in erster Linie die Models der einzelnen Entitäten. Diese sollen nun genauer beschrieben werden. In den folgenden Klassendiagrammen wurden Getter der Übersicht halber weggelassen. Sie werden jedoch immer im Text beschrieben, sofern es sie gibt.
 \begin{figure}[htp]
     \centering
     \includegraphics[width = \textwidth]{images/domainLayer/domainLayer.pdf}
-    \caption{Klassendiagramm des Domain Layer}
+    \caption{Klassendiagramm der Model-Klassen}
     \label{fig:domain-layer}
 \end{figure}
-Der Domain Layer enthält in erster Linie die Models der einzelnen Entitäten. Diese sollen nun genauer beschrieben werden.
+
 \subsection{User}
 Die User-Klasse repräsentiert einen Nutzer der App.
 \subsubsection{Attribute}
 Alle Attribute sind privat und können nur über einen Getter gelesen werden.
+\paragraph{id: String}
+Die eindeutige ID des Nutzers. Diese wird vom Server vergeben und ist somit nicht vom Nutzer selbst zu setzen.
 \paragraph{profileImage: Uint8List?}
 Das Profilbild des Nutzers. Der Typ Uint8List ist ein Array von Bytes, welches das Bild in binärer Form enthält. Dieses Attribut ist optional, da nicht jeder Nutzer ein Profilbild haben muss.
 \paragraph{username: String}
 Der Nutzername des Nutzers.
 
 \subsubsection{Methoden}
+\paragraph{getId(): String}
+Gibt die ID des Nutzers zurück.
 \paragraph{getProfileImage(): Uint8List?}
 Gibt das Profilbild des Nutzers zurück. Ist kein Profilbild gesetzt, wird null zurückgegeben.
 \paragraph{getUsername(): String}
@@ -153,6 +159,8 @@ Gibt den Nutzernamen des Nutzers zurück.
 Die Recipe-Klasse repräsentiert ein Rezept.
 \subsubsection{Attribute}
 Alle Attribute sind private und können nur über Getter-Methoden abgerufen werden.
+\paragraph{id: String}
+Die eindeutige ID des Rezepts. Diese wird vom Server vergeben und ist somit nicht vom Nutzer selbst zu setzen.
 \paragraph{title: String}
 Der Titel des Rezepts.
 \paragraph{author: User}
@@ -187,6 +195,8 @@ Gibt an, ob das Rezept vom Nutzer als Favorit markiert wurde.
 Gibt an, ob das Rezept privat ist. Private Rezepte können nur vom Autor selbst gesehen werden.
 
 \subsubsection{Methoden}
+\paragraph{getId(): String}
+Gibt die ID des Rezepts zurück.
 \paragraph{getTitle(): String}
 Gibt den Titel des Rezepts zurück.
 \paragraph{getAuthor(): User}
@@ -224,6 +234,8 @@ Factory-Methode zum Erstellen eines Recipe-Objekts aus einem \glslink{JSON}{JSON
 
 \subsection{Ingredient}
 Die Ingredient-Klasse repräsentiert eine Zutat, die einem Rezept zugeordnet ist.
+\paragraph{id: String}
+Die eindeutige ID der Zutat. Diese wird vom Server vergeben und ist somit nicht vom Nutzer selbst zu setzen.
 \subsubsection{Attribute}
 Alle Attribute sind private und können nur über Getter-Methoden abgerufen werden.
 \paragraph{name: String}
@@ -236,6 +248,8 @@ Die Menge der Zutat, die für das Rezept benötigt wird.
 Die Einheit der Zutatenmenge.
 
 \subsubsection{Methoden}
+\paragraph{getId(): String}
+Gibt die ID der Zutat zurück.
 \paragraph{getName(): String}
 Gibt den Namen der Zutat zurück.
 \paragraph{getIconId(): String}
@@ -258,6 +272,8 @@ Der Difficulty-Enum repräsentiert die Schwierigkeit eines Rezepts. Er kann folg
 Die Group-Klasse repräsentiert eine Gruppe bzw. Squad von Nutzern.
 \subsubsection{Attribute}
 Alle Attribute sind privat und können nur über einen Getter gelesen werden.
+\paragraph{id: String}
+Die eindeutige ID der Gruppe. Diese wird vom Server vergeben und ist somit nicht vom Nutzer selbst zu setzen.
 \paragraph{name: String}
 Der Name der Gruppe.
 \paragraph{joiningLink: String}
@@ -268,6 +284,8 @@ Die Liste der Mitglieder der Gruppe. Die Liste ist nicht leer, da eine Gruppe mi
 Die Liste der Rezepte, die von Mitgliedern der Gruppe erstellt wurden.
 
 \subsubsection{Methoden}
+\paragraph{getId(): String}
+Gibt die ID der Gruppe zurück.
 \paragraph{getName(): String}
 Gibt den Namen der Gruppe zurück.
 \paragraph{getJoiningLink(): String}
@@ -299,8 +317,243 @@ Gibt an, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
 \paragraph{getIsCensored(): bool}
 Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
 \paragraph{factory GroupRecipe.fromJson(Map<String, dynamic> json): GroupRecipe} Factory-Methode zum Erstellen eines GroupRecipe-Objekts aus einem \glslink{JSON}{JSON-Objekt}. Sie wird verwendet, um die Daten, die vom Server geschickt werden und in \Gls{JSON} vorliegen, in ein GroupRecipe-Objekt umzuwandeln. Die Methode ist statisch, da sie kein GroupRecipe-Objekt benötigt, um aufgerufen zu werden. Nimmt als Parameter das bereits in eine Map umgewandelte \glslink{JSON}{JSON-Objekt} entgegen und gibt ein GroupRecipe-Objekt zurück.
-\changelocaltocdepth{4}
 
+\section{Data Layer}
+Der Data Layer ist für die Datenverarbeitung und -verwaltung verantwortlich. In der App selbst befinden sich lediglich die Repository-Klassen. Sie fungieren als eine Abstraktionsebene zwischen der Geschäftslogik (Application Layer) und den Datenquellen, wie z. B. einer lokalen Datenbank oder einem Remote-Server. Die Repository-Klassen bieten eine Schnittstelle, über die die Geschäftslogik auf die Daten zugreifen kann, ohne Details über deren Speicherung oder Beschaffung zu kennen. Sie bieten Methoden zur Datenabfrage, -aktualisierung und -speicherung und handhaben die Kommunikation mit den entsprechenden Datenquellen. Dadurch wird eine lose Kopplung zwischen der Geschäftslogik und den konkreten Datenquellen erreicht und ermöglicht eine flexiblere Handhabung von Datenquellenwechseln oder -aktualisierungen. Repository-Klassen unterstützen auch das Prinzip der Datenkapselung und fördern eine saubere und modularisierte Architektur in der App-Entwicklung.
+Nun sollen die einzelnen Repository-Klassen vorgestellt werden. Die Klassen sind in Abbildung  dargestellt.
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=\textwidth]{images/dataLayer/dataLayer.pdf}
+    \caption{Klassendiagramm der Repository-Klassen}
+    \label{fig:dataLayer}
+\end{figure}
+
+\subsection{UserRepository}
+Das UserRepository stellt die Schnittstelle zwischen der Geschäftslogik und der Datenquelle für Nutzer dar. Es bietet Methoden zur Abfrage, Aktualisierung und Speicherung von Nutzern speichert das Token zur Authentifizierung des Nutzers bei dem Server.
+\subsubsection{Attribute}
+\paragraph{token: String}
+Das Token zur Authentifizierung des Nutzers mit dem Server. Es handelt sich um ein privates Attribut, das nur über einen Getter gelesen werden kann. Das Token entspricht dem JWT-Token, das der Server nach der Authentifizierung des Nutzers zurückgibt. Darin sind unteranderem die Nutzer-ID und die Gültigkeitsdauer des Tokens kodiert enthalten.
+\paragraph{currentUser: User}
+Das User-Objekt, das den aktuell angemeldeten Nutzer repräsentiert. Es handelt sich um ein privates Attribut, das nur über einen Getter gelesen werden kann.
+\subsubsection{Methoden}
+\paragraph{getToken(): String}
+Gibt das Token zur Authentifizierung des Nutzers bei dem Server zurück.
+\paragraph{getCurrentUser(): User}
+Gibt das User-Objekt, das den aktuell angemeldeten Nutzer repräsentiert, zurück.
+\paragraph{login(String email, String password): Future<void>}
+Es wird eine Anfrage zum Nutzer Anmelden an den Server gestellt. Nimmt als Parameter die E-Mail-Adresse und das Passwort des Nutzers entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Anmeldung erfolgreich war. Wenn die Anmeldung fehlschlägt, wird eine Exception geworfen. Die Methode speichert das Token in dem privaten Attribut token und das User-Objekt, das den aktuell angemeldeten Nutzer repräsentiert, in dem privaten Attribut currentUser.
+\paragraph{logout(): Future<void>}
+Es wird eine Anfrage an den Server zum Abmelden des Nutzers gestellt. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Abmeldung erfolgreich war. Wenn die Abmeldung fehlschlägt, wird eine Exception geworfen. Die Methode löscht das Token aus dem privaten Attribut token und das User-Objekt aus dem privaten Attribut currentUser.
+\paragraph{register(String email, String password, String username): Future<void>}
+Es wird eine Anfrage an den Server gestellt, einen neuen Nutzer zu registrieren. Nimmt als Parameter die E-Mail-Adresse, das Passwort und den Nutzernamen des Nutzers entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Registrierung erfolgreich war. Wenn die Registrierung fehlschlägt, wird eine Exception geworfen. Die Methode speichert das Token in dem privaten Attribut token und das User-Objekt, das den aktuell angemeldeten Nutzer repräsentiert, in dem privaten Attribut currentUser.
+\paragraph{updateUser(User user): Future<void>}
+Es wird eine Anfrage an den Server gesendet, den angemeldeten Nutzer zu aktualisieren. Die Methode aktualisiert das User-Objekt, das den aktuell angemeldeten Nutzer repräsentiert, in dem privaten Attribut currentUser.
+Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Anfrage erfolgreich war. Wenn die Anfrage fehlschlägt, wird eine Exception geworfen.
+\paragraph{deleteAccount(): Future<void>}
+Es wird eine Anfrage an den Server gesendet, um den Account des aktuell angemeldeten Nutzers zu löschen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Anfrage erfolgreich war. Wenn die Anfrage fehlschlägt, wird eine Exception geworfen. Die Methode führt im Anschluss die Methode logout() aus.
+\paragraph{resetPassword(String email): Future<void>}
+Es wird eine Anfrage an den Server zum Zurücksetzen des Passworts gesendet. Nimmt als Parameter die E-Mail-Adresse des Nutzers entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn der Server eine E-Mail zum Zurücksetzen des Passworts versendet hat. Wenn das Versenden fehlschlägt, wird eine Exception geworfen.
+
+\subsection{GroupRepository}
+Das GroupRepository stellt die Schnittstelle zwischen der Geschäftslogik und der Datenquelle für Gruppen dar. Es bietet Methoden zur Abfrage, Aktualisierung und Speicherung von Gruppen.
+\subsubsection{Attribute}
+\paragraph{userRepository: UserRepository}
+Das UserRepository-Objekt, das das GroupRepository-Objekt verwendet. Es handelt sich um ein privates Attribut. Es wird später verwendet, um das Token zur Authentifizierung des Nutzers bei dem Server für Anfragen zu erhalten.
+\subsubsection{Methoden}
+\paragraph{<<construtor>> GroupRepository(UserRepository userRepository): GroupRepository}
+Konstruktor der Klasse. Initialisiert das Attribut userRepository mit dem übergebenen UserRepository-Objekt.
+\paragraph{fetchAllGroupsForUser(): Future<List<Group>>}
+Fragt alle Gruppen des angemeldeten Nutzers beim Server ab und gibt diese als Liste zurück. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Abfrage erfolgreich war. Wenn die Abfrage fehlschlägt, wird eine Exception geworfen.
+\paragraph{joinGroup(String joiningLink): Future<void>}
+Es wird eine Anfrage an den Server zum Beitritt des aktuellen Nutzers zu einer Gruppe mit dem übergebenen Beitrittslink gestellt. Nimmt als Parameter den Beitrittslink der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn der Nutzer erfolgreich der Gruppe beigetreten ist. Wenn der Nutzer der Gruppe nicht beitreten kann, wird eine Exception geworfen.
+\paragraph{deleteGroup(String groupId): Future<void>}
+Es wird eine Anfrage an den Server zum Löschen einer Gruppe mit der übergebenen Gruppen-ID gestellt. Nimmt als Parameter die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Gruppe erfolgreich gelöscht wurde. Wenn die Gruppe nicht gelöscht werden kann, wird eine Exception geworfen.
+\paragraph{leaveGroup(String groupId): Future<void>}
+Es wird eine Anfrage an den Server zum Austritt des aktuellen Nutzers aus einer Gruppe mit der übergebenen Gruppen-ID gestellt. Nimmt als Parameter die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn der Nutzer erfolgreich die Gruppe verlassen hat. Wenn der Nutzer die Gruppe nicht verlassen kann, wird eine Exception geworfen.
+\paragraph{createGroup(String name): Future<void>}
+Es wird eine Anfrage an den Server zum Erstellen einer neuen Gruppe mit dem übergebenen Namen gestellt. Nimmt als Parameter den Namen der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Gruppe erfolgreich erstellt wurde. Wenn die Gruppe nicht erstellt werden kann, wird eine Exception geworfen.
+\subsection{AdminRepository}
+Das AdminRepository stellt die Schnittstelle zwischen der Geschäftslogik und den Server-Schnittstellen für verschiedene Administratoraktionen dar.
+\subsubsection{Attribute}
+\paragraph{userRepository: UserRepository}
+Das UserRepository-Objekt, das das AdminRepository-Objekt verwendet. Es handelt sich um ein privates Attribut. Es wird später verwendet, um das Token zur Authentifizierung des Nutzers bei dem Server für Anfragen zu erhalten.
+\subsubsection{Methoden}
+\paragraph{<<construtor>> AdminRepository(UserRepository userRepository): AdminRepository}
+Konstruktor der Klasse. Initialisiert das Attribut userRepository mit dem übergebenen UserRepository-Objekt.
+\paragraph{makeAdmin(String userId, String groupId): Future<void>}
+Es wird eine Anfrage an den Server gestellt, um den Nutzer mit der übergebenen ID zum Administrator der Gruppe mit der übergebenen ID zu machen. Nimmt als Parameter die ID des Nutzers und die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn der Nutzer erfolgreich zum Administrator der Gruppe gemacht wurde. Wenn der Nutzer nicht zum Administrator der Gruppe gemacht werden kann, wird eine Exception geworfen.
+
+\paragraph{removeAdminStatus(String userId, String groupId): Future<void>}
+Es wird eine Anfrage an den Server gestellt, um den Nutzer mit der übergebenen ID den Administratorstatus der Gruppe mit der übergebenen ID zu entziehen. Nimmt als Parameter die ID des Nutzers und die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn der Nutzer erfolgreich den Administratorstatus der Gruppe entzogen bekommen hat. Wenn der Nutzer nicht den Administratorstatus der Gruppe entzogen bekommen kann, wird eine Exception geworfen.
+\paragraph{kickUser(String userId, String groupId): Future<void>}
+Es wird eine Anfrage an den Server gestellt, um den Nutzer mit der übergebenen ID aus der Gruppe mit der übergebenen ID zu entfernen. Nimmt als Parameter die ID des Nutzers und die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn der Nutzer erfolgreich aus der Gruppe entfernt wurde. Wenn der Nutzer nicht aus der Gruppe entfernt werden kann, wird eine Exception geworfen.
+\paragraph{banUser(String userId, String groupId): Future<void>}
+Es wird eine Anfrage an den Server gestellt, um den Nutzer mit der übergebenen ID aus der Gruppe mit der übergebenen ID zu bannen. Nimmt als Parameter die ID des Nutzers und die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn der Nutzer erfolgreich aus der Gruppe gebannt wurde. Wenn der Nutzer nicht aus der Gruppe gebannt werden kann, wird eine Exception geworfen.
+\paragraph{setCensored(String recipeId, bool value): Future<void>}
+Setzt das Rezept mit der übergebenen ID als zensiert. Nimmt als Parameter die ID des Rezepts und einen boolschen Wert, der angibt, ob das Rezept als zensiert gesetzt oder entfernt werden soll, entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn das Rezept erfolgreich als zensiert gesetzt oder entfernt wurde. Wenn das Rezept nicht als zensiert gesetzt oder entfernt werden kann, wird eine Exception geworfen.
+
+\subsection{RemoteRecipeRepository}
+Das RemoteRecipeRepository stellt die Schnittstelle zwischen der Geschäftslogik und den Server-Schnittstellen für Rezepte dar.
+\subsubsection{Attribute}
+\paragraph{userRepository: UserRepository}
+Das UserRepository-Objekt, das das RemoteRecipeRepository-Objekt verwendet. Es handelt sich um ein privates Attribut. Es wird später verwendet, um das Token zur Authentifizierung des Nutzers bei dem Server für Anfragen zu erhalten.
+\subsubsection{Methoden}
+\paragraph{<<construtor>> RemoteRecipeRepository(UserRepository userRepository): RemoteRecipeRepository}
+Konstruktor der Klasse. Initialisiert das Attribut userRepository mit dem übergebenen UserRepository-Objekt.
+\paragraph{fetchRecipeById(String recipeId): Future<Recipe>}
+Fragt das Rezept mit der übergebenen ID vom Server ab. Nimmt als Parameter die ID des Rezepts entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn das Rezept erfolgreich vom Server abgefragt wurde. Wenn das Rezept nicht vom Server abgefragt werden kann, wird eine Exception geworfen.
+\paragraph{fetchAllRecipesForUser(): Future<List<Recipe>>}
+Fragt alle Rezepte aus Gruppen des aktuellen Nutzers vom Server ab. Nimmt keine Parameter entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Rezepte erfolgreich vom Server abgefragt wurden. Wenn die Rezepte nicht vom Server abgefragt werden können, wird eine Exception geworfen. Speihert zudem alle Rezepte in den lokalen Speicher.
+\paragraph{fetchOwnRecipes(): Future<List<Recipe>>}
+Fragt alle Rezepte, die vom aktuellen Nutzer erstellt wurden, vom Server ab. Nimmt keine Parameter entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Rezepte erfolgreich vom Server abgefragt wurden. Wenn die Rezepte nicht vom Server abgefragt werden können, wird eine Exception geworfen.
+\paragraph{createRecipe(Recipe recipe): Future<void>}
+Erstellt ein neues Rezept auf dem Server. Nimmt als Parameter das Rezept, das erstellt werden soll, entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn das Rezept erfolgreich erstellt wurde. Wenn das Rezept nicht erstellt werden kann, wird eine Exception geworfen.
+\paragraph{deleteRecipe(String recipeId): Future<void>}
+Löscht das Rezept mit der übergebenen ID vom Server. Nimmt als Parameter die ID des Rezepts entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn das Rezept erfolgreich gelöscht wurde. Wenn das Rezept nicht gelöscht werden kann, wird eine Exception geworfen.
+\paragraph{updateRecipe(String recipeId, Recipe recipe): Future<void>}
+Aktualisiert das Rezept mit der übergebenen ID auf dem Server. Nimmt als Parameter die ID des Rezepts und das aktualisierte Rezept entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn das Rezept erfolgreich aktualisiert wurde. Wenn das Rezept nicht aktualisiert werden kann, wird eine Exception geworfen.
+\paragraph{setFavourite(String recipeId, bool value): Futre<void>}
+Setzt das Rezept mit der übergebenen ID als Favorit des aktuellen Nutzers. Nimmt als Parameter die ID des Rezepts und einen boolschen Wert, der angibt, ob das Rezept als Favorit gesetzt oder entfernt werden soll, entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn das Rezept erfolgreich als Favorit gesetzt oder entfernt wurde. Wenn das Rezept nicht als Favorit gesetzt oder entfernt werden kann, wird eine Exception geworfen.
+
+\subsection{LocalRecipeRepository}
+Das LocalRecipeRepository stellt die Schnittstelle zwischen der Geschäftslogik und dem lokalen Speicher für Rezepte dar.
+\subsubsection{Methoden}
+\paragraph{fetchRecipeById(String recipeId): Future<Recipe>}
+Fragt das Rezept mit der übergebenen ID aus dem lokalen Speicher ab. Nimmt als Parameter die ID des Rezepts entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn das Rezept erfolgreich aus dem lokalen Speicher abgefragt wurde. Wenn das Rezept nicht aus dem lokalen Speicher abgefragt werden kann, wird eine Exception geworfen.
+\paragraph{fetchAllRecipesForUser(): Future<List<Recipe>>}
+Fragt alle Rezepte aus Gruppen des aktuellen Nutzers aus dem lokalen Speicher ab. Nimmt keine Parameter entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Rezepte erfolgreich aus dem lokalen Speicher abgefragt wurden. Wenn die Rezepte nicht aus dem lokalen Speicher abgefragt werden können, wird eine Exception geworfen.
+\paragraph{fetchOwnRecipes(): Future<List<Recipe>>}
+Fragt alle Rezepte, die vom aktuellen Nutzer erstellt wurden, aus dem lokalen Speicher ab. Nimmt keine Parameter entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Rezepte erfolgreich aus dem lokalen Speicher abgefragt wurden. Wenn die Rezepte nicht aus dem lokalen Speicher abgefragt werden können, wird eine Exception geworfen.
+
+\section{Application Layer}
+Der Application Layer ist eine weitere wichtige Komponente einer App. Seine Hauptaufgabe besteht darin, die Geschäftslogik der Anwendung zu implementieren und die Kernfunktionalität zu verwalten. Der Application Layer enthält verschiedene Klassen und Methoden, die die Regeln und Abläufe der Anwendung definieren. Er ist unabhängig von der Benutzeroberfläche und den spezifischen Details der Datenpersistenz. Stattdessen konzentriert sich der Application Layer darauf, die Kernfunktionalität der App zu modellieren und sicherzustellen, dass diese korrekt und effizient ausgeführt wird. Dadurch wird die Wiederverwendbarkeit, Testbarkeit und Flexibilität der Anwendung verbessert. Der Application Layer fungiert als Vermittler zwischen dem Presentation Layer und dem Data Layer und ermöglicht eine saubere Trennung der Verantwortlichkeiten in der App-Architektur. 
+Er enthält in erster Linie viele verschiedene Services, die die verschiedenen Entitäten verwalten.
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width = \textwidth]{images/applicationLayer/applicationLayer.pdf}
+    \caption{Klassendiagramm des Application Layer}
+    \label{fig:application-layer}
+\end{figure}
+
+Nun werden die einzelnen Klassen des Application Layers beschrieben.
+
+\subsection{IngredientService}
+Der Service dient dazu, die Vorschläge für Zutatennamen zu finden und zu filtern.
+\subsubsection{Attribute}
+\paragraph{ingredientRepository: IngredientRepository}
+Das IngredientRepository, das zum Zugriff auf die Zutatenvorschläge verwendet wird. Es wird im Konstruktor initialisiert und ist privat.
+\subsubsection{Methoden}
+\paragraph{<<constructor>> IngredientService(IngredientRepository ingredientRepository): IngredientService}
+Konstruktor für den IngredientService. Initialisiert das IngredientRepository, das zum Zugriff auf die Zutatenvorschläge verwendet wird. Nimmt als Parameter das IngredientRepository entgegen.
+\paragraph{getIngredientSuggestions(String searchText): Future<List<String>>}
+Gibt eine Liste an Zeichenketten zurück, die Vorschläge für Zutatennamen darstellen. Nimmt als Parameter eine Zeichenkette entgegen, die die Suche nach Zutatennamen beschreibt. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Vorschläge erfolgreich abgefragt wurden. Wenn die Vorschläge nicht abgefragt werden können, wird eine Exception geworfen. Die Methode ruft zum Zugriff auf die Zutatennamen eine Methode des IngredientRepository auf.
+
+\subsection{UserService}
+Der Service dient dazu, die Nutzer zu verwalten.
+\subsubsection{Attribute}
+\paragraph{userRepository: UserRepository}
+Das UserRepository, das zum Zugriff auf die Nutzer verwendet wird. Es wird im Konstruktor initialisiert und ist privat.
+\subsubsection{Methoden}
+\paragraph{<<constructor>> UserService(UserRepository userRepository): UserService}
+Konstruktor für den UserService. Initialisiert das UserRepository, das zum Zugriff auf die Nutzer verwendet wird. Nimmt als Parameter das UserRepository entgegen.
+\paragraph{login(String email, String password): Future<void>}
+Leitet die Loginanfrage an das zuständige Repository weiter. Nimmt als Parameter die E-Mail-Adresse und das Passwort des Nutzers entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn der Nutzer erfolgreich eingeloggt wurde. Wenn der Nutzer nicht eingeloggt werden kann, wird eine Exception geworfen.
+\paragraph{logout(): Future<void>}
+Leitet die Logoutanfrage an das zuständige Repository weiter. Nimmt keine Parameter entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn der Nutzer erfolgreich ausgeloggt wurde. Wenn der Nutzer nicht ausgeloggt werden kann, wird eine Exception geworfen.
+\paragraph{register(String email, String password): Future<void>}
+Leitet die Registrierungsanfrage an das zuständige Repository weiter. Nimmt als Parameter die E-Mail-Adresse und das Passwort des Nutzers entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn der Nutzer erfolgreich registriert wurde. Wenn der Nutzer nicht registriert werden kann, wird eine Exception geworfen.
+\paragraph{deleteAccount(): Future<void>}
+Leitet die Anfrage zum Löschen des Nutzerkontos an das zuständige Repository weiter. Nimmt keine Parameter entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn das Nutzerkonto erfolgreich gelöscht wurde. Wenn das Nutzerkonto nicht gelöscht werden kann, wird eine Exception geworfen.
+\paragraph{resetPassword(String email): Future<void>}
+Leitet die Anfrage zum Zurücksetzen des Passworts an das zuständige Repository weiter. Nimmt als Parameter die E-Mail-Adresse des Nutzers entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn das Passwort erfolgreich zurückgesetzt wurde. Wenn das Passwort nicht zurückgesetzt werden kann, wird eine Exception geworfen.
+\paragraph{setProfileImage(File image): Future<void>}
+Leitet eine Anfrage zum Aktualisieren des Nutzers an das zuständige Repository weiter, indem ein Nutzer-Objekt mit verändertem Profilbild erzeugt wird. Nimmt als Parameter ein File-Objekt entgegen, das das neue Profilbild des Nutzers darstellt. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn das Profilbild erfolgreich aktualisiert wurde. Wenn das Profilbild nicht aktualisiert werden kann, wird eine Exception geworfen.
+\paragraph{removeProfileImage(): Future<void>}
+Leitet eine Anfrage zum Aktualisieren des Nutzers an das zuständige Repository weite, indem ein Nutzer-Objekt ohne Profilbild erzeugt wird. Nimmt keine Parameter entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn das Profilbild erfolgreich aktualisiert wurde. Wenn das Profilbild nicht aktualisiert werden kann, wird eine Exception geworfen.
+\paragraph{setUserName(String value): Future<void>}
+Leitet eine Anfrage zum Aktualisieren des Nutzers an das zuständige Repository weiter, indem ein Nutzer-Objekt mit verändertem Nutzernamen erzeugt wird. Nimmt als Parameter eine Zeichenkette entgegen, die den neuen Nutzernamen darstellt. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn der Nutzername erfolgreich aktualisiert wurde. Wenn der Nutzername nicht aktualisiert werden kann, wird eine Exception geworfen.
+
+\subsection{GroupService}
+Der Service dient dazu, die Gruppen zu verwalten.
+\subsubsection{Attribute}
+\paragraph{groupRepository: GroupRepository}
+Das GroupRepository, das zum Zugriff auf die Gruppen verwendet wird. Es wird im Konstruktor initialisiert und ist privat.
+\subsubsection{Methoden}
+\paragraph{<<constructor>> GroupService(GroupRepository groupRepository): GroupService}
+Konstruktor für den GroupService. Initialisiert das GroupRepository, das zum Zugriff auf die Gruppen verwendet wird. Nimmt als Parameter das GroupRepository entgegen.
+\paragraph{getAllGroupsForUser(): Future<List<Group>>}
+Leitet die Anfrage zum Abrufen aller Gruppen, in denen der Nutzer Mitglied ist, an das zuständige Repository weiter. Nimmt keine Parameter entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Gruppen erfolgreich abgerufen wurden. Wenn die Gruppen nicht abgerufen werden können, wird eine Exception geworfen.
+\paragraph{joinGroup(String joiningLink): Future<void>}
+Leitet die Anfrage zum Beitreten einer Gruppe an das zuständige Repository weiter. Nimmt als Parameter den Beitrete-Link der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn der Nutzer erfolgreich der Gruppe beigetreten ist. Wenn der Nutzer nicht der Gruppe beitreten kann, wird eine Exception geworfen.
+\paragraph{createGroup(String groupName): Future<void>}
+Leitet die Anfrage zum Erstellen einer Gruppe an das zuständige Repository weiter. Nimmt als Parameter den Namen der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Gruppe erfolgreich erstellt wurde. Wenn die Gruppe nicht erstellt werden kann, wird eine Exception geworfen.
+\paragraph{deleteGroup(String groupId): Future<void>}
+Leitet die Anfrage zum Löschen einer Gruppe an das zuständige Repository weiter. Nimmt als Parameter die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Gruppe erfolgreich gelöscht wurde. Wenn die Gruppe nicht gelöscht werden kann, wird eine Exception geworfen.
+\paragraph{leaveGroup(String groupId): Future<void>}
+Leitet die Anfrage zum Verlassen einer Gruppe an das zuständige Repository weiter. Nimmt als Parameter die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn der Nutzer erfolgreich die Gruppe verlassen hat. Wenn der Nutzer die Gruppe nicht verlassen kann, wird eine Exception geworfen.
+\paragraph{setGroupName(String groupId, String groupName): Future<void>}
+Leitet die Anfrage zum Aktualisieren einer Gruppe an das zuständige Repository weiter, indem ein neues Gruppen-Objekt mit aktualisiertem Namen erzeugt wird. Nimmt als Parameter die ID der Gruppe und den neuen Namen der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Gruppe erfolgreich aktualisiert wurde. Wenn die Gruppe nicht aktualisiert werden kann, wird eine Exception geworfen.
+
+\subsection{AdminService}
+Der Service dient dazu, eine Schnittstelle für verschiedene Administratoraktionen bereitzustellen.
+\subsubsection{Attribute}
+\paragraph{adminRepository: AdminRepository}
+Das AdminRepository, das zum Zugriff auf die Administratoraktionen verwendet wird. Es wird im Konstruktor initialisiert und ist privat.
+\subsubsection{Methoden}
+\paragraph{<<constructor>> AdminService(AdminRepository adminRepository): AdminService}
+Konstruktor für den AdminService. Initialisiert das AdminRepository, das zum Zugriff auf die Administratoraktionen verwendet wird. Nimmt als Parameter das AdminRepository entgegen.
+\paragraph{makeAdmin(String userId, String groupId): Future<void>}
+Leitet die Anfrage zum Ernennen eines Nutzers zum Administrator einer Gruppe an das zuständige Repository weiter. Nimmt als Parameter die ID des Nutzers und die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn der Nutzer erfolgreich zum Administrator ernannt wurde. Wenn der Nutzer nicht zum Administrator ernannt werden kann, wird eine Exception geworfen.
+\paragraph{removeAdminStatus(String userId, String groupId): Future<void>}
+Leitet die Anfrage zum Entfernen des Administratorstatus eines Nutzers einer Gruppe an das zuständige Repository weiter. Nimmt als Parameter die ID des Nutzers und die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn der Administratorstatus des Nutzers erfolgreich entfernt wurde. Wenn der Administratorstatus des Nutzers nicht entfernt werden kann, wird eine Exception geworfen.
+\paragraph{kickUser(String userId, String groupId): Future<void>}
+Leitet die Anfrage zum Entfernen eines Nutzers aus einer Gruppe an das zuständige Repository weiter. Nimmt als Parameter die ID des Nutzers und die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn der Nutzer erfolgreich aus der Gruppe entfernt wurde. Wenn der Nutzer nicht aus der Gruppe entfernt werden kann, wird eine Exception geworfen.
+\paragraph{banUser(String userId, String groupId): Future<void>}
+Leitet die Anfrage zum Bannen eines Nutzers aus einer Gruppe an das zuständige Repository weiter. Nimmt als Parameter die ID des Nutzers und die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn der Nutzer erfolgreich aus der Gruppe gebannt wurde. Wenn der Nutzer nicht aus der Gruppe gebannt werden kann, wird eine Exception geworfen.
+\paragraph{toggleCensoring(Recipe recipe, String groupId): Future<void>}
+Leitet die Anfrage zum Aktivieren/Deaktivieren der Zensur eines Rezepts in einer Gruppe an das zuständige Repository weiter. Nimmt als Parameter das Rezept und die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Zensur des Rezepts erfolgreich geändert wurde. Wenn die Zensur des Rezepts nicht geändert werden kann, wird eine Exception geworfen.
+
+\subsection{RecipeService}
+Der Service dient dazu, die Rezepte zu verwalten.
+\subsubsection{Attribute}
+\paragraph{localRecipeRepository: LocalRecipeRepository}
+Das Repository, das zum Zugriff auf die Rezepte im Systemspeicher verwendet wird. Es wird im Konstruktor initialisiert und ist privat. Besteht keine Verbindung zum Internet wird dieses Repository von den Methoden angesteuert.
+\paragraph{remoteRecipeRepository: RemoteRecipeRepository}
+Das Repository, das zum Zugriff auf die Rezepte in der Datenbank verwendet wird. Es wird im Konstruktor initialisiert und ist privat. Besteht eine Verbindung zum Internet wird dieses Repository von den Methoden angesteuert.
+\subsubsection{Methoden}
+\paragraph{<<constructor>> RecipeService(LocalRecipeRepository localRecipeRepository, RemoteRecipeRepository remoteRecipeRepository): RecipeService}
+Konstruktor für den RecipeService. Initialisiert die Repositories, die zum Zugriff auf die Rezepte verwendet werden. Nimmt als Parameter das LocalRecipeRepository und das RemoteRecipeRepository entgegen.
+\paragraph{getRecipeById(String recipeId): Future<Recipe>}
+Leitet die Anfrage zum Abrufen eines Rezepts an das zuständige Repository weiter. Nimmt als Parameter die ID des Rezepts entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn das Rezept erfolgreich abgerufen wurde. Wenn das Rezept nicht abgerufen werden kann, wird eine Exception geworfen.
+\paragraph{getAllRecipesForUser(): Future<List<Recipe>>}
+Leitet die Anfrage zum Abrufen aller Rezepte aus den Gruppen des Nutzers an das zuständige Repository weiter. Nimmt keine Parameter entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Rezepte erfolgreich abgerufen wurden. Wenn die Rezepte nicht abgerufen werden können, wird eine Exception geworfen.
+\paragraph{getOwnRecipes(): Future<List<Recipe>>}
+Leitet die Anfrage zum Abrufen aller eigenen Rezepte des Nutzers an das zuständige Repository weiter. Nimmt keine Parameter entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die Rezepte erfolgreich abgerufen wurden. Wenn die Rezepte nicht abgerufen werden können, wird eine Exception geworfen.
+\paragraph{createRecipe(Recipe recipe): Future<void>}
+Leitet die Anfrage zum Erstellen eines Rezepts an das zuständige Repository weiter. Nimmt als Parameter das Rezept entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn das Rezept erfolgreich erstellt wurde. Wenn das Rezept nicht erstellt werden kann, wird eine Exception geworfen.
+\paragraph{deleteRecipe(String recipeId)}
+Leitet die Anfrage zum Löschen eines Rezepts an das zuständige Repository weiter. Nimmt als Parameter die ID des Rezepts entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn das Rezept erfolgreich gelöscht wurde. Wenn das Rezept nicht gelöscht werden kann, wird eine Exception geworfen.
+\paragraph{updateRecipe(Recipe recipe): Future<void>}
+Leitet die Anfrage zum Aktualisieren eines Rezepts an das zuständige Repository weiter. Nimmt als Parameter das Rezept mit den bereits aktualisierten Werten entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn das Rezept erfolgreich aktualisiert wurde. Wenn das Rezept nicht aktualisiert werden kann, wird eine Exception geworfen.
+\paragraph{toggleFavourite(Recipe recipe): Future<void>}
+Leitet die Anfrage zum Aktivieren/Deaktivieren eines Rezepts als Favorit an das zuständige Repository weiter. Nimmt als Parameter das Rezept entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn das Rezept erfolgreich als Favorit markiert wurde. Wenn das Rezept nicht als Favorit markiert werden kann, wird eine Exception geworfen.
+\paragraph{togglePrivate(Recipe recipe): Future<void>}
+Leitet die Anfrage zum Aktivieren/Deaktivieren eines Rezepts als privat an das zuständige Repository weiter. Nimmt als Parameter das Rezept entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn das Rezept erfolgreich als privat markiert wurde. Wenn das Rezept nicht als privat markiert werden kann, wird eine Exception geworfen.
+\paragraph{reportRecipe(String recipeId): Future<void>}
+Leitet die Anfrage zum Melden eines Rezepts an das zuständige Repository weiter. Nimmt als Parameter die ID des Rezepts entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn das Rezept erfolgreich gemeldet wurde. Wenn das Rezept nicht gemeldet werden kann, wird eine Exception geworfen.
+\paragraph{exportRecipe(Recipe recipe): Future<void>}
+Erstellt eine PDF-Datei mit Hilfe der PdfExporter-Klasse. Nimmt als Parameter das Rezept entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die PDF-Datei erfolgreich erstellt wurde. Wenn die PDF-Datei nicht erstellt werden kann, wird eine Exception geworfen.
+\subsection{PdfExporter}
+Der PdfExporter dient dazu, ein Template und Methoden zur Verfügung zu stellen, um ein Rezept als PDF-Datei zu exportieren.
+\subsubsection{Methoden}
+\paragraph{PdfExporter.exportRecipe(Recipe recipe): Future<void>}
+Erstellt eine PDF-Datei, die das Rezept enthält und exportiert dieses anschließend. Nimmt als Parameter das Rezept entgegen. Die Methode ist asynchron und gibt ein Future-Objekt zurück. Das Future-Objekt wird aufgelöst, wenn die PDF-Datei erfolgreich erstellt und exportiert wurde. Wenn die PDF-Datei nicht erstellt und exportiert werden kann, wird eine Exception geworfen.
+\subsection{ProviderFactory}
+Die ProviderFactory dient dazu, die Riverpod-Provider zu erstellen. Mehr zu den Providern in \ref{sec:riverpod}.
+\subsubsection{Methoden}
+\paragraph{ProviderFactory.makeProviders(): void}
+Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Parameter entgegen.
+\newpage
 \section{Presentation Layer}
 \begin{figure}[htp]
     \centering
@@ -312,7 +565,7 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
 \newpage
 
 \subsection{Hauptansicht}
-    Die Klassen beinhaltet alle nötigen Funktionen und Attribute um die Hauptansicht darzustellen.
+    Die Klassen beinhalten alle nötigen Funktionen und Attribute, um die Hauptansicht darzustellen.
 
     \subsubsection{MainViewPage}
         \paragraph*{Methoden}
@@ -326,10 +579,12 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
 
     \subsubsection{TopBar}
         \paragraph*{Attribut}
+
             \subparagraph*{keyword: TextEdittingController} - Durch den Nutzer eingegebene Zeichenkette für die Suche.
 
         \paragraph*{Methode}
             \subparagraph*{ search(keyword: TextEdittingController)} - Durchsucht alle Rezepte und gibt die aus, deren Rezepttitel zu dem Schlagwort passen.
+
 
     \subsubsection{AppBar} \label{sec:AppBar}
         \paragraph*{Attribute}
@@ -343,13 +598,15 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
             \subparagraph*{recipeCreationView()} - Die Rezept-Erstellungs-Ansicht wird aufgerufen.
             \subparagraph*{settingsView()} - Die Einstellungsansicht wird aufgerufen.
 
+
     \subsubsection{InformationElement} \label{sec:InformationElement}
         \paragraph*{Attribute}
             \subparagraph*{information: InformationKategories} - Gibt an welche Information in dem Widget dargestellt werden soll.
             \subparagraph*{text: string} - Der Text der in dem Widget angezeigt werden kann.
 
         \paragraph*{Methoden}
-            \subparagraph*{InformationElement(information: InformationKategories - notNull, text: string)} - Konstruktor für ein Information Widget. Eine Information Kategorie muss angegeben werden.
+            \subparagraph*{InformationElement(information: InformationKategories - notNull, text: string)} - Der Konstruktor für ein Information Widget. Eine Information Kategorie muss angegeben werden.
+
 
     \subsubsection{SortingMethods}
         Ein Enum der alle Sortierung Methoden beinhält.
@@ -371,7 +628,8 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
             \subparagraph*{labelHalal} - Die Rezepte werden nach dem \gls{label} halal gefiltert.
             \subparagraph*{labelKoscher} - Die Rezepte werden nach dem \gls{label} koscher gefiltert.
 
-    \subsubsection{InformationKategories} \label{sec:InformationKategories}
+
+    \subsubsection{InformationCategories} \label{sec:InformationCategories}
         Ein Enum der alle Information Kategorien beinhält.
         \paragraph*{Content}
             \subparagraph*{duration} - Das Widget gibt die Zubereitungsdauer an.
@@ -383,7 +641,7 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
             \subparagraph*{labelGlutenFree} - Das Widget gibt das \gls{label} Gluten frei an.
             \subparagraph*{labelHalal} - Das Widget gibt das \gls{label} halal an.
             \subparagraph*{labelKoscher} - Das Widget gibt das \gls{label} koscher an.
-        
+
     \subsubsection*{RecipeElement (\autoref{sec:InformationElement})}
 
     \begin{figure}[htp]
@@ -417,7 +675,7 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
 
     \subsubsection*{InformationElement (\autoref{sec:InformationElement})}
 
-    \subsubsection*{InformationKategories (\autoref{sec:InformationKategories})}
+    \subsubsection{InformationCategories (\autoref{sec:InformationCategories})}
 
     \begin{figure}[htp]
         \begin{minipage}
@@ -456,7 +714,8 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
 
     \subsubsection*{InformationElement (\autoref{sec:InformationElement})}
 
-    \subsubsection*{InformationKategories (\autoref{sec:InformationKategories})}
+    \subsubsection{InformationCategories (\autoref{sec:InformationCategories})}
+
     \begin{figure}[htp]
         \begin{minipage}
             [t]{0.49\textwidth}
@@ -511,7 +770,7 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
             \newpage
 
 \subsection{Anmeldungsansicht}
-    Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Anmeldungsansicht darzustellen.
+    Die Klassen beinhalten alle nötigen Funktionen und Attribute, um die Anmeldungsansicht darzustellen.
 
     \subsubsection{LoginPagePage}
         \paragraph*{Methode}
@@ -524,7 +783,7 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
 
         \paragraph*{Methoden}
 
-            \subparagraph*{login(email: string, password: string)} - Überprüft die Eingaben und ruft die Funktionen createGroupe() im UserRepository auf.
+            \subparagraph*{login(email: string, password: string)} - Überprüft die Eingaben und ruft die Funktionen createGroup() im UserRepository auf.
             \subparagraph*{resetPasswordView()} -  Die Passwort-Zurücksetzen-Ansicht wird aufgerufen.
             \subparagraph*{registerView()} -  Die Registrierungsansicht wird aufgerufen.
 
@@ -548,16 +807,15 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
 \subsection{Gruppen-Erstellungs-Ansicht}
     Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Gruppen-Erstellungs-Ansicht darzustellen.
 
-    \subsubsection{GroupeCreationPage}
+    \subsubsection{GroupCreationPage}
         \paragraph*{Methode}
-            \subparagraph*{createState: State<GroupeCreationPageState>} - Konstruktor für den GroupeCreationPageState.
+            \subparagraph*{createState: State<GroupCreationPageState>} - Konstruktor für den GroupCreationPageState.
     
-    \subsubsection{GroupeCreationPageState}
+    \subsubsection{GroupCreationPageState}
         \paragraph*{Attribut}
-            \subparagraph*{groupeNameController: TextEdittingController} - Die eingegebene Zeichenkette für den Namen der neuen Gruppe.
+            \subparagraph*{GroupNameController: TextEdittingController} - Die eingegebene Zeichenkette für den Namen der neuen Gruppe.
 
         \paragraph*{Methoden}
-
             \subparagraph*{createGroupe(name: string)} - Überprüft den Gruppenname und ruft die Funktionen createGroupe() im GroupeService auf.
             \subparagraph*{joinGroupeView()} -  Die Gruppen-Beitritts-Ansicht wird aufgerufen.
             \subparagraph*{mainView()} - Die Hauptansicht wird aufgerufen.
@@ -622,25 +880,27 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
 
     \subsubsection{GroupDetailPage}
         \paragraph*{Attribut}
-            \subparagraph*{group: Group} - Die Gruppe dessen Details dargestellt werden.
-            \subparagraph*{newTitle: TextEdittingController} - Die eingegeben Zeichenkette für den neunen Gruppennamen.
+            \subparagraph*{group: Group} - Die Gruppe, deren Details dargestellt werden.
+            \subparagraph*{newTitle: TextEdittingController} - Die eingegebe Zeichenkette für den neuen Gruppennamen.
 
         \paragraph*{Methoden}
             \subparagraph*{GroupDetailPage(group: Group - notNull)} - Ein Konstruktor für eine GroupDetailPage. Der Parameter muss angegeben werden. 
             \subparagraph*{setGroupTitle(newTitle: string)} - Die Eingabe wird Überprüft und die Funktion setGroupName() im GroupeService wird aufgerufen.
             \subparagraph*{deleteGroup()} - Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion kickUser() im GroupeService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
             \subparagraph*{leaveGroup()} - Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion leaveGroup() im GroupeService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
+
             \subparagraph*{getQRCode()} - Die QR-Code-Ansicht wird aufgerufen.
-            \subparagraph*{getGroupeTitel()} - Der Gruppen Titel wird in die Zwischenablage gespeichert.
+            \subparagraph*{getGroupTitel()} - Der Gruppentitel wird in der Zwischenablage gespeichert.
 
     \subsubsection{ConfirmationElement} \label{sec:ConfirmationElement}
         \paragraph*{Attribut}
-            \subparagraph*{text: string} - Der Text der Angezeigt werden soll im Widget.
+            \subparagraph*{text: string} - Der Text, der im Widget angezeigt werden soll.
 
         \paragraph*{Methoden}
             \subparagraph*{ConfirmationElement(text: string - notNull)} - Ein Konstruktor für ein ConfirmationElement, wobei ein Text angegeben werden muss.
             \subparagraph*{decline()} - Dem Erzeugter wird true zurückgegeben.
             \subparagraph*{accept()} - Dem Erzeugter wird false zurückgegeben.
+
 
     \subsubsection{OptionElement}
         \paragraph*{Attribut}
@@ -653,11 +913,12 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
             \subparagraph*{makeAdmin()} - Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion makeAdmin() im UserSettingsService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
             \subparagraph*{removeAdminStatus()} - Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion removeAdminStatus() im UserSettingsService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
 
+
     \subsubsection{RecipeElement} \label{sec:RecipeElement}
         \paragraph*{Attribut}
             \subparagraph*{recipe: Recipe} - Das darzustellende Rezept.
-            \subparagraph*{view: Boolean} - Ein Boolean der Angibt ob die Sichtbarkeit des Rezepts verändert werden darf oder nicht.
-            \subparagraph*{settingsView: Boolean} - Eine Boolean der angibt ob das Widget in der Einstellungsansicht verwendet wird.
+            \subparagraph*{view: Boolean} - Ein Boolean der angibt, ob die Sichtbarkeit des Rezepts verändert werden darf oder nicht.
+            \subparagraph*{settingsView: Boolean} - Ein Boolean der angibt, ob das Widget in der Einstellungsansicht verwendet wird.
 
         \paragraph*{Methoden}
             \subparagraph*{RecipeElement(recipe: Recipe - notNull, view: boolean - notNull, settingsView: boolean - notNull)} - Ein Konstruktor für ein RecipeElement. Alle Parameter müssen angegeben werden.
@@ -667,6 +928,7 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
 
     \subsubsection{UserElement} 
         \paragraph*{Attribut}
+
             \subparagraph*{user: User} - Der darzustellende User.
             \subparagraph*{isOwnAccount: Boolean} - Ein Boolean der Angibt ob es sich um den eigenen Account handelt.
 
@@ -674,26 +936,26 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
             \subparagraph*{UserElement(user: User - notNull, isOwnAccount: bool - notNull)} - Ein Konstruktor für ein UserElement. Alle Parameter müssen angegeben werden.
             \subparagraph*{options()} - Das OptionElement wird aufgerufen.
 
-    \subsubsection*{ReturnButton (\autoref{sec:ReturnButton})}
+        \subsubsection*{ReturnButton (\autoref{sec:ReturnButton})}
 
-    \subsubsection*{ConfirmationElement (\autoref{sec:ConfirmationElement})}
+        \subsubsection*{ConfirmationElement (\autoref{sec:ConfirmationElement})}
 
-    \begin{figure}[htp]
-        \begin{minipage}
-            [t]{0.49\textwidth}
-            \centering
-            \includegraphics[height=80mm]{images/Presentation-layer/GroupDetailView.jpg}
-            \caption{Gruppen-Detail-Ansicht}
-        \end{minipage}
-        \begin{minipage}
-            [t]{0.49\textwidth}
-            \centering
-            \includegraphics[width=0.95\textwidth]{images/Presentation-layer/GroupDetailViewClass.png}
-            \caption{Klassen für Gruppen-Detail-Ansicht}
-        \end{minipage}
-    \end{figure}    
-        
-    \newpage
+        \begin{figure}[htp]
+            \begin{minipage}
+                [t]{0.49\textwidth}
+                \centering
+                \includegraphics[height=80mm]{images/Presentation-layer/GroupDetailView.jpg}
+                \caption{Gruppen-Detail-Ansicht}
+            \end{minipage}
+            \begin{minipage}
+                [t]{0.49\textwidth}
+                \centering
+                \includegraphics[width=0.95\textwidth]{images/Presentation-layer/GroupDetailViewClass.png}
+                \caption{Klassen für Gruppen-Detail-Ansicht}
+            \end{minipage}
+        \end{figure}    
+
+        \newpage
 
     \subsection{Rezept-Erstellungs-Ansicht}
         Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Rezept-Erstell-Ansicht darzustellen.
@@ -790,6 +1052,7 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
                 \subparagraph*{iconId: String} - Die Id des Icons, welches dargestellt werden soll.
         
         \subsubsection*{ReturnButton (\autoref{sec:ReturnButton})}
+
 
         \begin{figure}[htp]
             \begin{minipage}
@@ -894,89 +1157,166 @@ Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
             \caption{Klassen für QR-Code-Ansicht}
         \end{minipage}
     \end{figure}    
-        
     \newpage
 
 \newpage
 
-\section{REST-Webservice}
+\section{REST-Webserver}
+Um seinen Account zu verwalten, Rezepte aufzurufen oder mit Gruppe interagieren zu können benötigt man die Verbindung zum Server.
+Um die Anfragen performant und flexibel zu gestalten, verwendet das Projekt Node.js in Verbindung mit dem Express.js Framework. 
+Express.js ermöglicht es einfach einen robusten Webservice zu entwickeln. Dazu bietet Express.js eine Menge an Dienstprogrammmethoden an um das ganze zu ermöglichen.
+Als Programmiersprache verwenden wir Serverseitig TypeScript. Typescript ist eine freie und quelloffene Programmiersprache, die statische Typisierung zu JavaScript hinzufügt.
+Das ermöglicht es Sprachkonstrukte wie Klassen, Vererbungen und Module zu verwenden um unser Projekt sowohl client- als auch serverseitig objektorientiert zu entwickeln.
+Das machte es einfacher den Aufbau des Servers zu strukturieren und auf Langzeit Wartbarkeit zu garantieren. Mit TypeScript als eines der meistgenutzten Programmiersprachen und Node.js als eines der meist beliebtesten Technologien wollen wir zudem eine hohe Zukunftssicherheit mit unserer Wahl garantieren.
 
 \subsection{Server}
+In einer Express-Anwendung bezieht sich der Begriff "Server" auf den Hauptkomponente, die die Anfragen von Clients empfängt.
+Der Server ist dafür verantwortlich die Verbindung mit der Datenbank und Firebase (siehe Nutzerverwaltung) aufzubauen und die Application zu starten.
+% TODO Referenz Nutzerverwaltung
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width = 0.3\textwidth]{images/webserver/server.pdf}
+    \caption{Klasse Server des Webservers}
+    \label{fig:server}
+\end{figure}
+
 \subsection*{Attribute}
-\paragraph{port: number} Durch das Attribut port lässt sich einstellen auf welchen Port Anfragen an den Server zulässig sind.
-Port ist vom Type number.
-\paragraph{firebaseCredentials: any}
-\paragraph{express: express.Application}
-\paragraph{app: App}
-\paragraph{}
+\paragraph{port: number}Durch das Attribut \texttt{port} lässt sich einstellen auf welchen Port Anfragen an den Server zulässig sind. Es soll möglich sein, die Wahl des Ports durch eine Umgebungsvariable zu wählen. Wird kein Port durch eine Umgebungsvariable definiert, so soll der Server über den Port 3000 erreichbar sein.
+\texttt{Port} ist vom Type number.
+\paragraph{express: express.Application}Express repräsentiert die Express Applikation die beim Start durch \texttt{express.listen()} Anfragen an den Port annimmt.
+Express ist vom Typ express.Application. Es handelt sich um ein privates Attribut.
+\paragraph{application: Application}Application vom Typ Application repräsentiert das nach dem Start erzeugte Objekt der Klasse Application.
 
-\subsection*{Methode}
-\paragraph{public <<create>> constructor(): void}
-\paragraph{public start(): void}
-\paragraph{private connectToDatabase(): void}
-\paragraph{private connectToFirebase(): void}
-\paragraph{private createServer(): void}
+\subsection*{Methoden}
+\paragraph{<<create>> constructor(): void}Konstruktor der Klasse Server, die beim Starten des Servers aufgerufen wird um ein neues Objekt der Klasse Server zu erzeugen. Der Konstruktor gibt keinen Wert zurück.
+\paragraph{start(): void}Durch Aufruf der Funktion \texttt{start()} wird der Server gestartet. Dazu wird im inneren der Funktion die privaten Funktionen \texttt{connectToDatabase()}, \texttt{connectToFirebase()} und \texttt{createServer()} aufgerufen.
+\paragraph{connectToDatabase(): boolean}Diese Funktion wird benötigt um die Verbindung der Datenbank herzustellen. Bei erfolgreicher Verbindung wir \texttt{true} zurückgegeben.
+\paragraph{connectToFirebase(): boolean}Durch diese Funktion wird die Verbindung mit Firebase aufgebaut. Bei erfolgreicher Verbindung wird \texttt{true} zurückgegeben.
+\paragraph{createServer(): boolean}Beim Aufrufen der create Server Funktion wird eine die der der Server mithilfe von \texttt{express.listen()} gestartet. Beim erfolgreichen Starten des Servers wird \texttt{true} zurückgegeben.
 
 
-\subsection{App}
+\subsection{Application}
+Die Application-Klasse wird durch den Aufruf von express() erstellt, der eine neue Express-Anwendung erzeugt. Dieses express()-Objekt enthält eine Reihe von Methoden, die verwendet werden können, um Routen, Middleware und andere Funktionen zu definieren, die für den Betrieb der Anwendung erforderlich sind.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width = 0.3\textwidth]{images/webserver/application.pdf}
+    \caption{Klasse Application des Webservers}
+    \label{fig:application}
+\end{figure}
+
 \subsubsection*{Attribute}
-\paragraph{app: express.Application}
-\paragraph{authentificationRoutes: AuthentificationRouter}
-\paragraph{recipeRoutes: RecipeRouter}
-\paragraph{groupRoutes: GroupRouter}
-\paragraph{userRoutes: UserRouter}
-\paragraph{IngredientRouter}
+\paragraph{private application: express.Application}Das Attribut \texttt{application} speichert die \newline
+\texttt{express.Application}, die beim erzeugen des Objekts dem Konstruktor mitgeben wird.
+Durch dieses Attribut bekommt die Klasse Applikation mitgeteilt, auf welcher \texttt{express.Application} die in dieser Klasse erzeugten Routing-Punkte angewendet werden sollen.
+\texttt{Application} ist vom Typ \texttt{express.Application}.
+\paragraph{authentificationRoutes: AuthentificationRouter}Dieses Attribut repräsentiert den \texttt{AuthentificationRouter} in der Express.js Anwendung. \texttt{AuthenthificationRouter} ist vom Typ \texttt{AuthentificationRouter}.
+\paragraph{recipeRoutes: RecipeRouter}Dieses Attribut repräsentiert den \texttt{RecipeRouter} in der Express.js Anwendung. \texttt{RecipeRouter} ist vom Typ \texttt{RecipeRouter}.
+\paragraph{groupRoutes: GroupRouter}Das Attribut für den \texttt{GroupRouter}. \texttt{groupRouter} ist vom Typ \texttt{GroupRouter}.
+\paragraph{userRoutes: UserRouter}Das Attribut für den \texttt{UserRouter}. \texttt{userRouter} ist vom Typ \texttt{UserRouter}.
+\paragraph{adminRouter: AdminRouter}Das Attribut für den \texttt{AdminRouter}. \texttt{adminRouter} ist vom Typ \texttt{AdminRouter}.
+\paragraph{ingredientRouter: IngredientRouter}Das Attribut für den \texttt{Ingredient Router}. \texttt{ingredientRouter} ist vom Typ \texttt{IngredientRouter}.
 
 \subsubsection*{Methode}
-\paragraph{public <<create> constructor(express.Application): void}
-\paragraph{private initializeMiddleware(): void}
-\paragraph{private initializeRoutes(): void}
-\paragraph{privtate initializeErrorHandlers(): void}
+\paragraph{<<create> constructor(express.Application): void}Konstruktor für die Klasse \texttt{Application}.
+\paragraph{initializeMiddleware(): void}Mit dieser Methode wird die Middleware initialisiert. Hier ist es möglich die eingehenden Anfragen vorzubehandeln, bevor sie an die eigentlichen Routstellen weitergeleitet werden.
+Eine Middleware die beispielsweise zwischengeschaltet werden kann wäre Morgan. Morgan ermöglicht es HTTP anfragen zu loggen.
+\paragraph{initializeRoutes(): void}Mit dieser Methode werden die Routen initialisiert.
+\paragraph{initializeErrorHandlers(): void}Mit dieser Methode Werden Error-Handler initialisiert. Diese wird benötigt, wenn beispielsweise eine Anfrage an keine gültige Route gestellt wird.
 
 \subsection{Router}
-\subsubsection{AbstractRouter}
-\subsubsection*{Attribute}
-\paragraph{protected router: express.Router}
-\paragraph{protected controller: AbstractController}
-\paragraph{protected checkAuthorization: CheckAuthorization}
-\paragraph{protected checkAuth: any}
+Ein Router kann als eine Art Zwischenschicht betrachtet werden, die HTTP-Anfragen an die entsprechenden Controller weiterleitet.
+Er hilft dabei, den Code zu strukturieren und die Handhabung von Routen in einer modularen und organisierten Weise zu ermöglichen.
+Ein Router in Express wird durch die Verwendung des \texttt{express.Router()}-Objekts erstellt.
+Dieses Objekt stellt eine Miniaturversion der Express-Anwendung dar und kann Routen und Endpunkte definieren, ähnlich wie die Hauptanwendung.
+Ein Router kann mit einem Pfad oder Präfix konfiguriert werden, der angibt, unter welchem Pfad seine Routen verfügbar sein sollen.
 
-\subsubsection*{Methode}
-\paragraph{public <<create>> constructor(): void}
-\paragraph{protected abstract setupRoutes(): void}
-\paragraph{public getRouter(): express.Router}
+Ein Router kann dabei mehrere Routen definieren, indem verschiedene HTTP-Methoden wie \texttt{GET}, \texttt{POST}, \texttt{PUT}, \texttt{DELETE} usw. verwendet werden.
+Jede Route kann einen oder mehrere Handler haben, die ausgeführt werden, wenn die Route mit einer Anfrage übereinstimmt.
+Diese Handler sind Funktionen, die Zugriff auf die Anfrage- und Antwortobjekte haben und die erforderlichen Aktionen durchführen.
+Router ermöglichen es, den Code in einer Express-Anwendung besser zu organisieren, indem sie verwandte Routen und deren Handler gruppieren.
+Dies erleichtert die Wartung, Skalierbarkeit und Lesbarkeit des Codes.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width = 1\textwidth]{images/webserver/router.pdf}
+    \caption{Router-Klassen des Webservers}
+    \label{fig:router}
+\end{figure}
+
+\subsubsection{AbstractRouter}
+Der \texttt{AbstractRouter} ist eine abstrakte Repräsentation eines Routers. So kann ein grundlegender Aufbau für alle Router garantiert werden. Alle Router erben von dieser Klasse \texttt{AbstractRouter}.
+\subsubsection*{Attribute}
+\paragraph{router: express.Router}Attribut, dass einen Router in Express repräsentiert. Das zugehörige Objekt soll beim Konstruktoraufruf erzeugt werden. 
+\paragraph{controller: AbstractController}Attribut, dass einen abstrakten Controller repräsentiert. Mit diesem Attribut wird in den jeweiligen Routern der dazu passende Controller gespeichert.
+\paragraph{checkAuthorization: CheckAuthorization}
+\paragraph{checkAuth: any}
+
+\subsubsection*{Methoden}
+\paragraph{<<create>> constructor(): void}Konstruktor der Klasse \texttt{AbstractRouter}. Wir zum erzeugen des Objekts benötigt.
+\paragraph{abstract setupRoutes(): void}Diese abstrakte Methode definiert einen Methode die die Kinderklassen implementieren müssen.
+\paragraph{getRouter(): express.Router}Getter-Methode für das Attribut \texttt{router}.
+
 
 \subsubsection{AuthentificationRouter}
-\subsubsection*{Methode}
-\paragraph{public <<create>> constructor(): void}
-\paragraph{protected setupRoutes(): void}
+Der AuthentificationRouter ist speziell für die Verarbeitung von Authentifizierungsanfragen zuständig. 
+\subsubsection*{Methoden}
+\paragraph{<<create>> constructor(): void}Konstruktor zum erzeugen des Objekts der Klasse \texttt{AuthentificationRouter}.
+\paragraph{setupRoutes(): void}Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
 \subsubsection{RecipeRouter}
-\subsubsection*{Methode}
-\paragraph{public <<create>> constructor(): void}
-\paragraph{protected setupRoutes(): void}
+Der RecipeRouter ist für die Verwaltung der Routen und Endpunkte verantwortlich, die mit Rezepten zusammenhängen.
+\subsubsection*{Methoden}
+\paragraph{<<create>> constructor(): void}Konstruktor zum erzeugen des Objekts der Klasse \texttt{RecipeRouter}.
+\paragraph{setupRoutes(): void}Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
 \subsubsection{GroupRouter}
-\subsubsection*{Methode}
-\paragraph{public <<create>> constructor(): void}
-\paragraph{protected setupRoutes(): void}
+Der GroupRouter ist verantwortlich für die Verwaltung der Routen und Endpunkte, die mit Gruppen in der Anwendung zusammenhängen.
+\subsubsection*{Methoden}
+\paragraph{<<create>> constructor(): void}Konstruktor zum erzeugen des Objekts der Klasse \texttt{GroupRouter}.
+\paragraph{setupRoutes(): void}Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
 \subsubsection{UserRouter}
+Der UserRouter ist für die Verwaltung von Routen und Endpunkten zuständig, die mit Benutzeraktionen und -informationen zusammenhängen.
 \subsubsection*{Methode}
-\paragraph{public <<create>> constructor(): void}
-\paragraph{protected setupRoutes(): void}
+\paragraph{<<create>> constructor(): void}Konstruktor zum erzeugen des Objekts der Klasse \texttt{UserRouter}.
+\paragraph{setupRoutes(): void}Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
 \subsubsection{IngredientRouter}
-\subsubsection*{Methode}
-\paragraph{public <<create>> constructor(): void}
-\paragraph{protected setupRoutes(): void}
+Der IngredientRouter ist verantwortlich für die Verwaltung von Routen und Endpunkten, die mit Zutaten in der Anwendung zusammenhängen.
+\subsubsection*{Methoden}
+\paragraph{<<create>> constructor(): void}Konstruktor zum erzeugen des Objekts der Klasse \texttt{IngredientRouter}.
+\paragraph{setupRoutes(): void}Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
+
+\subsubsection{AdminRouter}
+Der Admin ist verantwortlich für die Verwaltung von Routen und Endpunkten, die mit Administrator Interaktionen zusammenhängen.
+\subsubsection*{Methoden}
+\paragraph{<<create>> constructor(): void}Konstruktor zum erzeugen des Objekts der Klasse \texttt{AdminRouter}.
+\paragraph{setupRoutes(): void}Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
 \subsection{Middleware}
+Durch die Middleware können Anfragen vorher bearbeitet werden, bevor sie zu den eigentlichen Routingstellen gehen.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width = 1\textwidth]{images/webserver/middleware.pdf}
+    \caption{Middleware-Klassen des Webservers}
+    \label{fig:middleware}
+\end{figure}
+
 \subsubsection{CheckAuthorization}
+Mit check
 \subsubsection*{Methode}
 \paragraph{authChecker(req: any, res, any, next: any): void}
 
 \subsection{Controller}
+In einer Express-Anwendung bezieht sich der Begriff "Controller" auf eine Komponente oder eine Sammlung von Funktionen, die dazu dienen, die Logik für bestimmte Routen oder Endpunkte zu implementieren.
+Der Controller ist für die Verarbeitung von Anfragen zuständig, die an eine bestimmte Route gesendet werden, und für die Rückgabe von entsprechenden Antworten.
+Der Controller agiert als eine Art Vermittler zwischen den Routen und der eigentlichen Geschäftslogik der Anwendung.
+Ein Controller ist ein Objekt, das Handler-Funktionen für verschiedene Routen bereitstellt.
+Diese Handler-Funktionen werden als Callback-Funktionen für die entsprechenden Routen registriert und nehmen die Anfrage (\texttt{req}) und die Antwort (\texttt{res}) als Parameter entgegen.
+
 \subsubsection{AbstractController}
 \subsubsection*{Methode}
 
@@ -1018,12 +1358,31 @@ Port ist vom Type number.
 
 \newpage
 
+\section{Nutzerverwaltung mit Firebase}
+Um SpiceSquad nutzen zu können muss ein Nutzer sich registrieren oder einloggen sofern er schon einen Account besitzt.
+Durch die Kenntnis der Identität eines Benutzer ermöglicht es SpiceSquad zum einen die Benutzerdaten in einer Datenbank auf einem Server sicher zu speichern und zum anderen diese Daten auf anderen Geräten wieder abzurufen um auf allen Geräten des Nutzers die selbe personalisierte Erfahrung zu gewährleisten.
+Um unseren Nutzern eine sichere und reibungslose Nutzerverwaltung gewährleisten zu können verwendet SpiceSquad Firebase-Authentifizierung als Dienst zur Nutzerverwaltung.
+Firebase-Authentifizierung ermöglicht es sicher Nutzerdaten zu speicher und anfragen an den Server von angemeldeten Nutzer zu authentifizieren.
+Hierbei verwendet Firebase sogenannte JWT (JSON Web Token), die bei Firebase ID Token genannt werden.
+ID Token müssen durch regelmäßige Anfragen erneuert werden.
+Ein Beispiel wie die Verifizierung durch ID Token funktioniert findet man in dem Abschnitt Ablaufbeschreibung.
+Firebase anfragen, die Firebase direkt betreffen, sollen über den \texttt{AuthentificationRouter} laufen.
+Die beinhaltet beispielsweise das registrieren, einloggen und rücksetzen des Passworts.
+SpiceSquad verwendet diese Token um anfragen an die REST-API zu verifizieren und diese gleich einem Nutzer zuzuweisen.
+Wir haben uns beim Entwurf entschieden, jede Kommunikation nur zwischen Client (Android-App) und Server (REST Webserver) laufen zu lassen. Das heißt, dass alle Anfragen an Firebase erst über den REST Webserver laufen und dann anschließend an Firebase weitergeleitet werden.
+Grund für diese Entscheidung, war die, dass wir unsere App nur direkt mit unserem Server kommunizieren lassen wollen. Damit wollen wir uns auf der Seite der App so unabhängig von anderen dienst machen wie möglich.
+
+\subsection{Passwort zurücksetzen}
+Wie vorher erwähnt sollen Passwörter von Nutzer zurückgesetzt werden können. Beim Rücksetzen soll der Nutzer eine Mail mit einem Link zum zurücksetzen seines Passworts erhalten.
+Das alles wird von Firebase-Authentifizierung bereits bereitgestellt. SpiceSquad bedient sich also für dieses Funktion bei Firebase-Authentifizierung.
+\newpage
+
 \section{Datenbank}
 Die zugrundeliegende Datenbank soll möglichst nah an unseren Entitäten orientiert sein, um inkonsistente Daten zu vermeiden. Daher wird für das Projekt die Datenbank "PostgreSQL" verwendet. Sie unterstützt relationale Datenformate und ist daher optimal für unsere Anforderungen geeignet. Zudem ist sie Open-Source und kostenlos und erfreut sich seit 35 Jahren großer Beliebtheit.
 \subsection{Datenbankschema}
 \begin{figure}[htp]
     \centering
-    \includegraphics[width = \linewidth]{images/Database/schema.png}
+    \includegraphics[width = \linewidth]{images/database/databaseSchema.pdf}
     \caption{Datenbankschema}
 \end{figure}
 Im Datenbankschema werden die einzelnen Entitäten der App abgebildet. Die einzelnen Tabellen werden nun genauer erläutert.
@@ -1045,7 +1404,7 @@ Die Tabelle "Recipe" enthält die Rezepte und besitzt die folgenden Attribute:
 \newpage
 \subsubsection{Ingredient}
 Die Tabelle "Ingredient" enthält die Zutaten, die den eizelnen Rezepten zugeordnet sind und besitzt die folgenden Attribute:
-\paragraph{id (uuid - primary key):} Die Id stellt den Primärschlüssel der Zutat dar und muss daher nicht leer und eindeutig sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
+\paragraph{id (uuid - primary key):} Die Id stellt den Primärschlüssel der Zutat dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
 \paragraph{name (varchar(32) - not null):} Der Name der Zutat. Der Datentyp ist \Gls{varchar}. Er darf nicht leer und maximal 32 Zeichen lang sein.
 \paragraph{icon\_name (varchar(32))} Der Name des Icons, das die Zutat repräsentiert. Der Datentyp ist \Gls{varchar}. Er ist maximal 32 Zeichen lang.
 \paragraph{amount (int - not null):} Die Menge der Zutat in der jeweiligen Einheit. Sie darf nicht leer sein und der Datentyp ist Integer.
@@ -1094,12 +1453,19 @@ Die Tabelle "CensoredRecipe" repräsentiert die Many-To-Many-Beziehung zwischen 
 \paragraph{group\_id (uuid - not null, foreign key):} Hierbei handelt es sich um die Id der Gruppe, zu der der Administrator gehört, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
 \newpage
 
+\subsection{BannedUser}
+Die Tabelle "BannedUser" repräsentiert die Many-To-Many-Beziehung zwischen den Gruppen und den Benutzern, die von den jeweiligen Administratoren aus der Gruppe verbannt wurden. Sie besitzt die folgenden Attribute:
+\paragraph{id (uuid - primary key):} Die Id stellt den Primärschlüssel der Beziehung dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
+\paragraph{user\_id (uuid - not null, foreign key):} Hierbei handelt es sich um die Id des Benutzers, der verbannt wurde, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
+\paragraph{group\_id (uuid - not null, foreign key):} Hierbei handelt es sich um die Id der Gruppe, zu der der Administrator gehört, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
+\newpage
+
 \section{Ablaufbeschreibung}
 
 \section{Klassenindex}
 \subsection{Client-Klassen}
 \subsection{Server-Klassen}
-
+\newpage
 \section{Glossar}
 \printglossary[style=altlist]
 \end{document}
