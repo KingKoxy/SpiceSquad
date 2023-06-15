@@ -26,3 +26,4 @@ entwurfsheft.glsdefs
 entwurfsheft.ist
 glossary.aux
 entwurfsheft/entwurfsheft.tex
+*.code-workspace
