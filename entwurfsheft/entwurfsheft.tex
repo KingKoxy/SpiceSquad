@@ -575,6 +575,28 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
 \newpage
 \section{Riverpod und Provider}
 \label{sec:riverpod}
+\subsection{Riverpod}
+Der Sinn von Riverpod liegt darin, die Verwaltung von Zuständen und Abhängigkeiten in Flutter-Apps zu vereinfachen. Riverpod ist eine leistungsstarke und benutzerfreundliche State-Management-Bibliothek, die auf dem Konzept von "Provider" basiert. Mit Riverpod können Entwickler effizient und flexibel Zustände verwalten, Dienste bereitstellen und Abhängigkeiten zwischen verschiedenen Teilen der App verknüpfen. Dies erleichtert die Skalierbarkeit, Wiederverwendbarkeit und Testbarkeit von Flutter-Apps, da der Code klar strukturiert ist und das Trennen von Zuständen und UI-Logik erleichtert wird. Riverpod bietet eine intuitive Syntax, unterstützt einen deklarativen Ansatz zur Definition von Providern und ermöglicht das einfache Aktualisieren von Zuständen durch Nutzung des \glslink{ChangeNotifier}{ChangeNotifier-Konzepts}. Insgesamt erleichtert Riverpod die Entwicklung von Flutter-Apps und trägt dazu bei, den Code sauberer, wartbarer und effizienter zu gestalten.
+\subsection{Provider}
+Provider sind spezielle Objekte, die dazu dienen, Werte oder Abhängigkeiten in Flutter-Apps bereitzustellen. Sie fungieren als eine Art Container, der den Zugriff auf diese Werte oder Dienste innerhalb der App ermöglicht.
+
+Es gibt verschiedene Arten von Providern in Riverpod, wie z.B. \texttt{Provider}, \texttt{ChangeNotifierProvider} und \texttt{FutureProvider}. Jeder Provider hat eine spezifische Funktionalität, abhängig von den Anforderungen der Anwendung.
+
+Der \texttt{Provider} stellt einen Wert bereit, der in der gesamten App verwendet werden kann. Dies kann beispielsweise ein Zustandswert, ein Konfigurationswert oder ein Dienstobjekt sein.
+
+Der \texttt{ChangeNotifierProvider} basiert auf dem Konzept des \Gls{ChangeNotifier} aus dem Flutter-Framework und ermöglicht das Verwalten und Aktualisieren von Zuständen in einer Flutter-App. Es stellt einen \Gls{ChangeNotifier} bereit, der Änderungen an seinen Abonnenten meldet.
+
+Der \texttt{FutureProvider} ist speziell für den Umgang mit asynchronen Operationen geeignet. Er stellt einen Wert bereit, der auf eine zukünftige Antwort wartet, z.B. eine Datenabfrage von einer API.
+
+Provider werden in der Hierarchie der Flutter-Widgets platziert und können über den Widget-Tree hinweg zugänglich gemacht werden. Dadurch können sie in verschiedenen Teilen der App genutzt werden, indem sie mit dem entsprechenden Provider verbunden werden.
+
+Die Verwendung von Providern in Riverpod ermöglicht eine saubere Trennung von Zuständen und Logik, fördert die Wiederverwendbarkeit und erleichtert das Testen von Flutter-Apps.
+\subsection{Verwendete Provider}
+In der App werden die folgenden Provider benutzt.
+\paragraph{\texttt{userRepositoryProvider: Provider<UserRepository>}} Stellt ein \texttt{UserRepository}-Objekt bereit, das für die Kommunikation mit dem Server für die Verwaltung der Benutzerdaten und des Tokens zuständig ist.
+\paragraph{\texttt{userServiceProvider: Provider<UserService>}} Stellt ein \texttt{UserService}-Objekt bereit, das für die Kommunikation mit dem Server für die Verwaltung der Benutzerdaten zuständig ist.
+
+\paragraph{\texttt{recipeRepositoryProvider: Provider<RecipeRepository>}} Stellt ein \texttt{RecipeRepository}-Objekt bereit, das für die Verwaltung der Rezeptdaten zuständig ist.
 
 \newpage
 \section{Presentation Layer}
