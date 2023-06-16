@@ -314,7 +314,7 @@ Gibt an, ob das Mitglied Administrator der Gruppe, der es zugeordnet ist, ist.
 \subsubsection*{Methoden}
 \paragraph{\texttt{getIsAdmin(): bool}}
 Gibt zurück, ob das Mitglied Administrator der Gruppe, der es zugeordnet ist, ist.
-\paragraph{\texttt{factory GroupMember.fromJson(Map<String, dynamic> json): GroupMember}} Factory-Methode zum Erstellen eines \texttt{GroupMember}-Objekts aus einem \glslink{JSON}{JSON-Objekt}. Sie wird verwendet, um die Daten, die vom Server geschickt werden und in \Gls{JSON} vorliegen, in ein \texttt{GroupMember}-Objekt umzuwandeln. Die Methode ist statisch, da sie kein \texttt{GroupMember}-Objekt benötigt, um aufgerufen zu werden. Nimmt als Parameter das bereits in eine \Gls{Map} umgewandelte \glslink{JSON}{JSON-Objekt} entgegen und gibt ein \texttt{GroupMember}-Objekt zurück.
+\paragraph{\texttt{factory GroupMember.fromJson(Map<String, dynamic> json): GroupMember}} Factory-Methode zum Erstellen eines \texttt{GroupMember}-Objekts aus einem \glslink{JSON}{JSON-Objekt}. Sie wird verwendet, um die Daten, die vom Server geschickt werden und in \Gls{JSON} vorliegen, in ein \texttt{GroupMember}-Objekt umzuwandeln. Die Methode ist statisch, da sie kein \texttt{GroupMember}-Objekt benötigt, um aufgerufen zu werden. Nimmt als Parameter das bereits in eine \Gls{map} umgewandelte \glslink{JSON}{JSON-Objekt} entgegen und gibt ein \texttt{GroupMember}-Objekt zurück.
 \newpage
 \subsection{\texttt{GroupRecipe}}
 Die Klasse \texttt{GroupRecipe} repräsentiert ein Rezept, das einer konkreten Gruppe zugeordnet wurde. Sie erbt von der Klasse \texttt{Recipe}.
