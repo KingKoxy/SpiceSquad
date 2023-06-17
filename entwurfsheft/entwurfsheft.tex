@@ -13,6 +13,7 @@
 \usepackage{caption}        % add captions
 \usepackage{adjustbox}      % add adjustmentbox
 \usepackage{csquotes}
+\usepackage{multicol}
  
 % Set footer and header bar
 \usepackage[headsepline, footsepline]{scrlayer-scrpage}
@@ -138,7 +139,7 @@ Der Domain Layer enthält in erster Linie die Models der einzelnen Entitäten. D
     \label{fig:domain-layer}
 \end{figure}
 \newpage
-\subsection{\texttt{User}}
+\subsection{\texttt{User}}\label{sec:user}
 Die Klasse \texttt{User} repräsentiert einen Nutzer der App.
 \subsubsection*{Attribute}
 Alle Attribute sind privat und können nur über einen Getter gelesen werden.
@@ -159,7 +160,7 @@ Gibt den Nutzernamen des Nutzers zurück.
 \paragraph{\texttt{factory User.fromJson(Map<String, dynamic> json): User}} Factory-Methode, die dazu dient, ein \texttt{User}-Objekt aus einem \glslink{JSON}{JSON-Objekt} zu erstellen. Sie wird verwendet, um die Daten, die vom Server geschickt werden und in \Gls{JSON} vorliegen, in ein \texttt{User}-Objekt umzuwandeln. Die Methode ist statisch, da sie kein \texttt{User}-Objekt benötigt, um aufgerufen zu werden. Nimmt als Parameter das bereits in eine Map umgewandelte \glslink{JSON}{JSON-Objekt} entgegen und gibt ein \texttt{User}-Objekt zurück.
 \newpage
 
-\subsection{\texttt{Recipe}}
+\subsection{\texttt{Recipe}}\label{sec:recipe}
 Die Klasse \texttt{Recipe} repräsentiert ein Rezept.
 \subsubsection*{Attribute}
 Alle Attribute sind privat und können nur über Getter-Methoden abgerufen werden.
@@ -237,7 +238,7 @@ Gibt zurück, ob das Rezept privat ist.
 Es handelt sich um eine Factory-Methode, die \texttt{Recipe}-Objekte aus \glslink{JSON}{JSON-Objekten} erstellen kann. Sie wird verwendet, um die Daten, die vom Server geschickt werden und in \Gls{JSON} vorliegen, in ein \texttt{Recipe}-Objekt umzuwandeln. Die Methode ist statisch, da sie kein \texttt{Recipe}-Objekt benötigt, um aufgerufen zu werden. Nimmt als Parameter das bereits in eine Map umgewandelte \glslink{JSON}{JSON-Objekt} entgegen und gibt ein \texttt{Recipe}-Objekt zurück.
 
 \newpage
-\subsection{\texttt{Ingredient}}
+\subsection{\texttt{Ingredient}}\label{sec:ingredient}
 Die Klasse \texttt{Ingredient} repräsentiert eine Zutat, die einem Rezept zugeordnet ist.
 \subsubsection*{Attribute}
 Alle Attribute sind privat und können nur über Getter-Methoden abgerufen werden.
@@ -267,7 +268,7 @@ Gibt die Einheit der Zutatenmenge zurück.
 Dies ist eine Factory-Methode zum Erstellen eines \texttt{Ingredient}-Objekts aus einem \glslink{JSON}{JSON-Objekt}. Sie wird verwendet, um die Daten, die vom Server geschickt werden und in \Gls{JSON} vorliegen, in ein \texttt{Ingredient}-Objekt umzuwandeln. Die Methode ist statisch, da sie kein \texttt{Ingredient}-Objekt benötigt, um aufgerufen zu werden. Nimmt als Parameter das bereits in eine Map umgewandelte \glslink{JSON}{JSON-Objekt} entgegen und gibt ein \texttt{Ingredient}-Objekt zurück.
 
 \newpage
-\subsection{\texttt{Difficulty}}
+\subsection{\texttt{Difficulty}}\label{sec:difficulty}
 Der Enum \texttt{Difficulty} repräsentiert die Schwierigkeit eines Rezepts. Er kann folgende Werte annehmen:
 \begin{itemize}
     \item \texttt{EASY}
@@ -276,7 +277,7 @@ Der Enum \texttt{Difficulty} repräsentiert die Schwierigkeit eines Rezepts. Er 
 \end{itemize}
 \newpage
 
-\subsection{\texttt{Group}}
+\subsection{\texttt{Group}}\label{sec:group}
 Die Klasse \texttt{Group} repräsentiert eine Gruppe bzw. Squad von Nutzern.
 \subsubsection*{Attribute}
 Alle Attribute sind privat und können nur über einen Getter gelesen werden.
@@ -305,7 +306,7 @@ Gibt die Liste der Rezepte der Gruppe zurück.
 \paragraph{\texttt{factory Group.fromJson(Map<String, dynamic> json): Group}} Factory-Methode zur Erstellung eines \texttt{Group}-Objekts aus einem \glslink{JSON}{JSON-Objekt}. Sie wird verwendet, um die Daten, die vom Server geschickt werden und in \Gls{JSON} vorliegen, in ein \texttt{Group}-Objekt umzuwandeln. Die Methode ist statisch, da sie kein \texttt{Group}-Objekt benötigt, um aufgerufen zu werden. Nimmt als Parameter das bereits in eine Map umgewandelte \glslink{JSON}{JSON-Objekt} entgegen und gibt ein \texttt{Group}-Objekt zurück.
 
 \newpage
-\subsection{\texttt{GroupMember}}
+\subsection{\texttt{GroupMember}}\label{sec:groupmember}
 Die Klasse \texttt{GroupMember} repräsentiert ein Mitglied einer Gruppe. Sie erbt von der Klasse \texttt{User}.
 \subsubsection*{Attribute}
 Alle Attribute sind privat und können nur über einen Getter gelesen werden.
@@ -316,7 +317,7 @@ Gibt an, ob das Mitglied Administrator der Gruppe, der es zugeordnet ist, ist.
 Gibt zurück, ob das Mitglied Administrator der Gruppe, der es zugeordnet ist, ist.
 \paragraph{\texttt{factory GroupMember.fromJson(Map<String, dynamic> json): GroupMember}} Es handelt sich um eine Factory-Methode zum Erstellen eines \texttt{GroupMember}-Objekts aus einem \glslink{JSON}{JSON-Objekt}. Sie wird verwendet, um die Daten, die vom Server geschickt werden und in \Gls{JSON} vorliegen, in ein \texttt{GroupMember}-Objekt umzuwandeln. Die Methode ist statisch, da sie kein \texttt{GroupMember}-Objekt benötigt, um aufgerufen zu werden. Nimmt als Parameter das bereits in eine \Gls{map} umgewandelte \glslink{JSON}{JSON-Objekt} entgegen und gibt ein \texttt{GroupMember}-Objekt zurück.
 \newpage
-\subsection{\texttt{GroupRecipe}}
+\subsection{\texttt{GroupRecipe}}\label{sec:grouprecipe}
 Die Klasse \texttt{GroupRecipe} repräsentiert ein Rezept, das einer konkreten Gruppe zugeordnet wurde. Sie erbt von der Klasse \texttt{Recipe}.
 \subsubsection*{Attribute}
 Alle Attribute sind privat und können nur über einen Getter gelesen werden.
@@ -338,7 +339,7 @@ Nun sollen die einzelnen Repository-Klassen vorgestellt werden. Die Klassen sind
     \label{fig:dataLayer}
 \end{figure}
 \newpage
-\subsection{\texttt{UserRepository}}
+\subsection{\texttt{UserRepository}}\label{sec:userrepository}
 Das \texttt{UserRepository} stellt die Schnittstelle zwischen der Geschäftslogik und der Datenquelle für Nutzer dar. Es bietet Methoden zur Abfrage, Aktualisierung und Speicherung von Nutzern speichert das Token zur Authentifizierung des Nutzers bei dem Server.
 \subsubsection*{Attribute}
 \paragraph{\texttt{token: String}}
@@ -365,7 +366,7 @@ Es wird eine Anfrage an den Server gesendet, um den Account des aktuell angemeld
 Es wird eine Anfrage an den Server zum Zurücksetzen des Passworts gesendet. Nimmt als Parameter die E-Mail-Adresse des Nutzers entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn der Server eine E-Mail zum Zurücksetzen des Passworts versendet hat. Wenn das Versenden fehlschlägt, wird eine Exception geworfen.
 
 \newpage
-\subsection{\texttt{GroupRepository}}
+\subsection{\texttt{GroupRepository}}\label{sec:grouprepository}
 Das \texttt{GroupRepository} stellt die Schnittstelle zwischen der Geschäftslogik und der Datenquelle für Gruppen dar. Es bietet Methoden zur Abfrage, Aktualisierung und Speicherung von Gruppen.
 \subsubsection*{Attribute}
 \paragraph{\texttt{userRepository: UserRepository}}
@@ -385,7 +386,7 @@ Es wird eine Anfrage an den Server zum Austritt des aktuellen Nutzers aus einer 
 Es wird eine Anfrage an den Server zum Erstellen einer neuen Gruppe mit dem übergebenen Namen gestellt. Nimmt als Parameter den Namen der Gruppe entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn die Gruppe erfolgreich erstellt wurde. Wenn die Gruppe nicht erstellt werden kann, wird eine Exception geworfen.
 
 \newpage
-\subsection{\texttt{AdminRepository}}
+\subsection{\texttt{AdminRepository}}\label{sec:adminrepository}
 Das \texttt{AdminRepository} stellt die Schnittstelle zwischen der Geschäftslogik und den Server-Schnittstellen für verschiedene Administratoraktionen dar.
 \subsubsection*{Attribute}
 \paragraph{\texttt{userRepository: UserRepository}}
@@ -405,7 +406,7 @@ Es wird eine Anfrage an den Server gestellt, um den Nutzer mit der übergebenen 
 \paragraph{\texttt{setCensored(String recipeId, bool value): Future<void>}}
 Zensiert das Rezept, das die gegebene ID besitzt. Nimmt als Parameter die ID des Rezepts und einen boolschen Wert, der angibt, ob das Rezept als zensiert gesetzt oder entfernt werden soll, entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn das Rezept erfolgreich als zensiert gesetzt oder entfernt wurde. Wenn das Rezept nicht als zensiert gesetzt oder entfernt werden kann, wird eine Exception geworfen.
 \newpage
-\subsection{\texttt{RemoteRecipeRepository}}
+\subsection{\texttt{RemoteRecipeRepository}}\label{sec:remotereciperepository}
 Das \texttt{RemoteRecipeRepository} stellt die Schnittstelle zwischen der Geschäftslogik und den Server-Schnittstellen für Rezepte dar.
 \subsubsection*{Attribute}
 \paragraph{\texttt{userRepository: UserRepository}}
@@ -424,7 +425,7 @@ Löscht das Rezept mit der übergebenen ID vom Server. Nimmt als Parameter die I
 \paragraph{\texttt{setFavourite(String recipeId, bool value): Future<void>}}
 Setzt das Rezept mit der übergebenen ID als Favorit des aktuellen Nutzers. Nimmt als Parameter die ID des Rezepts und einen boolschen Wert, der angibt, ob das Rezept als Favorit gesetzt oder entfernt werden soll, entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn das Rezept erfolgreich als Favorit gesetzt oder entfernt wurde. Wenn das Rezept nicht als Favorit gesetzt oder entfernt werden kann, wird eine Exception geworfen.
 \newpage
-\subsection{\texttt{LocalRecipeRepository}}
+\subsection{\texttt{LocalRecipeRepository}}\label{sec:localreciperepository}
 Das \texttt{LocalRecipeRepository} stellt die Schnittstelle zwischen der Geschäftslogik und dem lokalen Speicher für Rezepte dar.
 \subsubsection*{Methoden}
 \paragraph{\texttt{fetchAllRecipesForUser(): Future<List<Recipe>>}}
@@ -473,9 +474,9 @@ Der Zustand, der durch den \texttt{AsyncNotifier} verwaltet wird. Er ist privat 
 \paragraph{\texttt{build(): FutureOr<T>}}
 Abstrakte Methode, die in den Unterklassen implementiert werden muss. Der Rückgabewert legt den Initialwert des Zustands fest.
 \newpage
-
-\subsection{\texttt{UserService}}
+\subsection{\texttt{UserService}}\label{sec:userservice}
 Der Service dient dazu, die Nutzer zu verwalten. Er erbt von der Klasse \texttt{AsyncNotifier<User?>}.  Das Attribut \texttt{state} enthält, immer wenn Daten verfügbar sind, den aktuellen Nutzer oder \texttt{null}, wenn kein Nutzer angemeldet ist.
+
 \subsubsection*{Attribute}
 \paragraph{\texttt{userRepository: UserRepository}}
 Das \texttt{UserRepository}, das zum Zugriff auf die Nutzer verwendet wird. Es wird im Konstruktor initialisiert und ist privat.
@@ -502,7 +503,7 @@ Leitet eine Anfrage zum Aktualisieren des Nutzers an das zuständige Repository 
 Stellt eine Anfrage zum Aktualisieren des Nutzers an das zuständige Repository, indem ein \texttt{User}-Objekt mit verändertem Nutzernamen erzeugt wird. Nimmt als Parameter eine Zeichenkette entgegen, die den neuen Nutzernamen darstellt. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn der Nutzername erfolgreich aktualisiert wurde. Wenn der Nutzername nicht aktualisiert werden kann, wird eine Exception geworfen. Der aktualisierte Nutzer wird in dem Attribut \texttt{state} gespeichert.
 
 \newpage
-\subsection{\texttt{GroupService}}
+\subsection{\texttt{GroupService}}\label{sec:groupservice}
 Der Service dient dazu, die Gruppen zu verwalten. Er erbt von der Klasse \texttt{AsyncNotifier<List <Group>>}. Das Attribut \texttt{state} enthält, immer wenn Daten verfügbar sind, alle Gruppen des aktuellen Nutzers.
 \subsubsection*{Attribute}
 \paragraph{\texttt{groupRepository: GroupRepository}}
@@ -536,7 +537,7 @@ Leitet die Anfrage zum Bannen eines Nutzers aus einer Gruppe an das zuständige 
 Stellt eine Anfrage, um die Zensur eines Rezeptes in einer Gruppe zu aktivieren/deaktivieren, an das zuständige Repository. Fragt im Anschluss erneut die Gruppen des Nutzers ab und aktualisiert den \texttt{state}. Nimmt als Parameter das Rezept und die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn die Zensur des Rezepts erfolgreich geändert wurde. Wenn die Zensur des Rezepts nicht geändert werden kann, wird eine Exception geworfen.
 
 \newpage
-\subsection{\texttt{RecipeService}}
+\subsection{\texttt{RecipeService}}\label{sec:recipeservice}
 Der Service dient dazu, die Rezepte zu verwalten. Er erbt von der Klasse \texttt{AsyncNotifier<void>}. Das Attribut \texttt{state} enthält, immer wenn Daten verfügbar sind, die Liste der Rezepte, die der angemeldete Nutzer sehen darf.
 \subsubsection*{Attribute}
 \paragraph{\texttt{localRecipeRepository: LocalRecipeRepository}}
@@ -563,12 +564,11 @@ Leitet die Anfrage zum Melden eines Rezepts an das zuständige Repository weiter
 \paragraph{\texttt{exportRecipe(Recipe recipe): Future<void>}}
 Erstellt eine PDF-Datei mit Hilfe der Klasse \texttt{PdfExporter}. Nimmt als Parameter das Rezept entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn die PDF-Datei erfolgreich erstellt wurde. Wenn die PDF-Datei nicht erstellt werden kann, wird eine Exception geworfen.
 \newpage
-\subsection{\texttt{PdfExporter}}
+\subsection{\texttt{PdfExporter}}\label{sec:pdfexporter}
 Der \texttt{PdfExporter} dient dazu, ein Template und Methoden zur Verfügung zu stellen, um ein Rezept als PDF-Datei zu exportieren.
 \subsubsection*{Methoden}
 \paragraph{\texttt{PdfExporter.exportRecipe(Recipe recipe): Future<void>}}
 Erstellt eine PDF-Datei, die das Rezept enthält und exportiert dieses anschließend. Nimmt als Parameter das Rezept entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn die PDF-Datei erfolgreich erstellt und exportiert wurde. Wenn die PDF-Datei nicht erstellt und exportiert werden kann, wird eine Exception geworfen.
-
 \newpage
 \section{Presentation Layer}
 \begin{figure}[htp]
@@ -583,17 +583,17 @@ Erstellt eine PDF-Datei, die das Rezept enthält und exportiert dieses anschlie�
 \subsection{Hauptansicht}
 Die Klassen beinhalten alle nötigen Funktionen und Attribute, um die Hauptansicht darzustellen.
 
-\subsubsection{MainViewPage}
+\subsubsection{MainViewPage}\label{sec:MainViewPage}
 \subsubsection*{Methode}
 \paragraph*{createState: State<MainViewPageState>} Der Konstruktor für den MainViewPageState.
 
-\subsubsection{MainViewPageState}
+\subsubsection{MainViewPageState}\label{sec:MainViewPageState}
 \subsubsection*{Methode}
 
 \paragraph*{filtering(filter: FilteringMethods)} Alle Rezepte werden dem Filterkriterium gefiltert.
 \paragraph*{sorting(sort: SortingMethods)} Alle Rezepte werden nach dem Sortierkriterium sortiert.
 
-\subsubsection{TopBar}
+\subsubsection{TopBar}\label{sec:TopBar}
 \subsubsection*{Attribute}
 \paragraph*{keyword: TextEdittingController} Durch den Nutzer eingegebene Zeichenkette für die Suche.
 
@@ -601,7 +601,7 @@ Die Klassen beinhalten alle nötigen Funktionen und Attribute, um die Hauptansic
 \paragraph*{ search(keyword: TextEdittingController)} Durchsucht alle Rezepte und gibt die aus, deren Rezepttitel zu dem Schlagwort passen.
 
 
-\subsubsection{AppBar} \label{sec:AppBar}
+\subsubsection{AppBar} \label{sec:AppBar}\label{sec:AppBar}
 \subsubsection*{Attribute}
 \paragraph*{mainView: Boolean} Der Boolean gibt an ob das AppBar Element in Hauptansicht verwendet wird.
 \paragraph*{recipeCreationView: Boolean} Der Boolean gibt an ob das AppBar Element in Rezept-Erstellungs-Ansicht verwendet wird.
@@ -614,7 +614,7 @@ Die Klassen beinhalten alle nötigen Funktionen und Attribute, um die Hauptansic
 \paragraph*{settingsView()} Die Einstellungsansicht wird aufgerufen.
 
 
-\subsubsection{InformationElement} \label{sec:InformationElement}
+\subsubsection{InformationElement}\label{sec:InformationElement}
 \subsubsection*{Attribute}
 \paragraph*{information: InformationCategories} Gibt an, welche Information in dem Widget dargestellt werden soll.
 \paragraph*{text: string} Der Text, der in dem Widget angezeigt werden kann.
@@ -623,14 +623,14 @@ Die Klassen beinhalten alle nötigen Funktionen und Attribute, um die Hauptansic
 \paragraph*{InformationWidget(required information: InformationCategories , text: string)} Konstruktor für Information Element. Eine Information Kategorie muss angegeben werden.
 
 
-\subsubsection{SortingMethods}
+\subsubsection{SortingMethods}\label{sec:SortingMethods}
 Ein Enum, der alle Sortierungsmethoden beinhält.
 \subsubsection*{Content}
 \paragraph*{alphabetical} Die Rezepte werden alphabetisch sortiert.
 \paragraph*{difficulty} Die Rezepte werden nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} sortiert.
 \paragraph*{date} Die Rezepte werden nach dem Hinzufügedatum sortiert.
 
-\subsubsection{FilteringMehods}
+\subsubsection{FilteringMehods}\label{sec:FilteringMehods}
 Ein Enum, der alle Filter Methoden beinhält.
 \subsubsection*{Content}
 \paragraph*{favorites} Die Rezepte werden nach Favoriten gefiltert.
@@ -644,7 +644,7 @@ Ein Enum, der alle Filter Methoden beinhält.
 \paragraph*{labelKoscher} Die Rezepte werden nach dem \gls{label} koscher gefiltert.
 
 
-\subsubsection{InformationCategories} \label{sec:InformationCategories}
+\subsubsection{InformationCategories}\label{sec:InformationCategories}
 Ein Enum der alle Information Kategorien beinhält.
 \subsubsection*{Content}
 \paragraph*{duration} Das Widget gibt die Zubereitungsdauer an.
@@ -677,11 +677,11 @@ Ein Enum der alle Information Kategorien beinhält.
 \subsection{Rezeptansicht}
 Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Hauptansicht darzustellen.
 
-\subsubsection{RecipeViewPage}
+\subsubsection{RecipeViewPage}\label{sec:RecipeViewPage}
 \subsubsection*{Methode}
 \paragraph*{createState: State<RecipeViewPageState>} Konstruktor für den RecipeViewPageState.
 
-\subsubsection{recipeViewPageState}
+\subsubsection{recipeViewPageState}\label{sec:recipeViewPageState}
 \subsubsection*{Attribute}
 \paragraph*{portions: TextEdittingController} Eingegebene Ganzzahl für die die Zutatenmengen berechnet werden. Ist standardmäßig auf der Portionsgröße, die beim Rezepterstellen angegeben worden ist.
 
@@ -712,11 +712,11 @@ Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Hauptansich
 \subsection{Registrierungsansicht}
 Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Registrierungsansicht darzustellen.
 
-\subsubsection{RegisterPage}
+\subsubsection{RegisterPage}\label{sec:RegisterPage}
 \subsubsection*{Methode}
 \paragraph*{createState: State<RegisterPageState>} Konstruktor für den RegisterPageState.
 
-\subsubsection{RegisterPageState}
+\subsubsection{RegisterPageState}\label{sec:RegisterPageState}
 \subsubsection*{Attribute}
 \paragraph*{usernameController: TextEdittingController} Die eingegebene Zeichenkette für den Benutzernamen des neuen Users.
 \paragraph*{emailController: TextEdittingController} Die eingegebene Zeichenkette für die E-Mail-Adresse des neuen Users.
@@ -751,11 +751,11 @@ Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Registrieru
 \subsection{Passwort-Zurücksetzen-Ansicht}
 Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Passwort-Zurücksetzen-Ansicht darzustellen.
 
-\subsubsection{ResetPasswordPage}
+\subsubsection{ResetPasswordPage}\label{sec:ResetPasswordPage}
 \subsubsection*{Methode}
 \paragraph*{createState: State<ResetPasswordPageState>} Konstruktor für den ResetPasswordPageState.
 
-\subsubsection{ResetPasswordPageState}
+\subsubsection{ResetPasswordPageState}\label{sec:ResetPasswordPageState}
 \subsubsection*{Attribute}
 \paragraph*{emailController: TextEdittingController} Die eingegebene Zeichenkette für die E-Mail-Adresse des Users.
 
@@ -763,7 +763,7 @@ Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Passwort-Zu
 \paragraph*{resetPassword(email: string)} Überprüft die Korrektheit der E-Mail-Adresse und ruft die Funktionen resetPassword() im UserRepository auf.
 \paragraph*{LoginView()} Die Loginansicht wird aufgerufen.
 
-\subsubsection{ReturnButton} \label{sec:ReturnButton}
+\subsubsection{ReturnButton}\label{sec:ReturnButton}
 \subsubsection*{Methode}
 \paragraph*{prevoiusView()} Die vorherige Ansicht wird aufgerufen. Es werden keine Daten gespeichert die in der Ansicht angegeben worden sind.
 
@@ -787,11 +787,11 @@ Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Passwort-Zu
 \subsection{Anmeldungsansicht}
 Die Klassen beinhalten alle nötigen Funktionen und Attribute, um die Anmeldungsansicht darzustellen.
 
-\subsubsection{LoginPagePage}
+\subsubsection{LoginPagePage}\label{sec:LoginPagePage}
 \subsubsection*{Methode}
 \paragraph*{createState: State<LoginPageState>} Konstruktor für den LoginPageState.
 
-\subsubsection{LoginPageState}
+\subsubsection{LoginPageState}\label{sec:LoginPageState}
 \subsubsection*{Attribute}
 \paragraph*{emailController: TextEdittingController} Die eingegebene Zeichenkette für die E-Mail-Adresse des Users.
 \paragraph*{passwortController: TextEdittingController} Die eingegebene Zeichenkette für das Passwort des Users.
@@ -821,11 +821,11 @@ Die Klassen beinhalten alle nötigen Funktionen und Attribute, um die Anmeldungs
 \subsection{Gruppen-Erstellungs-Ansicht}
 Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Gruppen-Erstellungs-Ansicht darzustellen.
 
-\subsubsection{GroupCreationPage}
+\subsubsection{GroupCreationPage}\label{sec:GroupCreationPage}
 \subsubsection*{Methode}
 \paragraph*{createState: State<GroupCreationPageState>} Konstruktor für den GroupCreationPageState.
 
-\subsubsection{GroupCreationPageState}
+\subsubsection{GroupCreationPageState}\label{sec:GroupCreationPageState}
 \subsubsection*{Attribute}
 \paragraph*{GroupNameController: TextEdittingController} Die eingegebene Zeichenkette für den Namen der neuen Gruppe.
 
@@ -858,11 +858,11 @@ Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Gruppen-Ers
 \subsection{Gruppen-Beitritts-Ansicht}
 Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Gruppen-Beitritts-Ansicht darzustellen.
 
-\subsubsection{GroupJoiningPage}
+\subsubsection{GroupJoiningPage}\label{sec:GroupJoiningPage}
 \subsubsection*{Methode}
 \paragraph*{createState: State<GroupJoiningPageState>} Der Konstruktor für den GroupJoiningPageState.
 
-\subsubsection{GroupJoiningPageState}
+\subsubsection{GroupJoiningPageState}\label{sec:GroupJoiningPageState}
 \subsubsection*{Attribute}
 \paragraph*{groupeNameController: TextEdittingController} Die eingegebene Zeichenkette für den Namen der beizutreten Gruppe.
 
@@ -872,7 +872,7 @@ Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Gruppen-Bei
 \paragraph*{createGroupeView()}  Die Gruppen-Beitritts-Ansicht wird aufgerufen.
 \paragraph*{mainView()} Die Hauptansicht wird aufgerufen.
 
-\subsubsection*{CameraElement}
+\subsubsection*{CameraElement}\label{sec:CameraElement}
 \subsubsection*{Attribute}
 \paragraph*{barcodes: List<Barcode>}  Der gescannte QR-Code.
 
@@ -896,7 +896,7 @@ Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Gruppen-Bei
 \subsection{Gruppen-Detail-Ansicht}
 Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Gruppen-Detail-Ansicht darzustellen.
 
-\subsubsection{GroupDetailPage}
+\subsubsection{GroupDetailPage}\label{sec:GroupDetailPage}
 \subsubsection*{Attribute}
 \paragraph*{group: Group} Die Gruppe, deren Details dargestellt werden.
 \paragraph*{newTitle: TextEdittingController} Die eingegebe Zeichenkette für den neuen Gruppennamen.
@@ -920,7 +920,7 @@ Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Gruppen-Det
 \paragraph*{accept()} Dem Erzeugter wird false zurückgegeben.
 
 
-\subsubsection{OptionElement}
+\subsubsection{OptionElement}\label{sec:OptionElement}
 \subsubsection*{Attribute}
 \paragraph*{user: User} Der darzustellende User.
 
@@ -932,7 +932,7 @@ Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Gruppen-Det
 \paragraph*{removeAdminStatus()} Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion removeAdminStatus() im UserSettingsService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
 
 
-\subsubsection{RecipeElement} \label{sec:RecipeElement}
+\subsubsection{RecipeElement}\label{sec:RecipeElement}
 \subsubsection*{Attribute}
 \paragraph*{recipe: Recipe} Das darzustellende Rezept.
 \paragraph*{view: Boolean} Ein Boolean der angibt, ob die Sichtbarkeit des Rezepts verändert werden darf oder nicht.
@@ -944,7 +944,7 @@ Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Gruppen-Det
 \paragraph*{delete()} Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion deleteRecipe() im RecipeService aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
 \paragraph*{export()} Die Funktion exportRecipe() im RecipeService wird aufgerufen.
 
-\subsubsection{UserElement}
+\subsubsection{UserElement}\label{sec:UserElement}
 \subsubsection*{Attribute}
 
 \paragraph*{user: User} Der darzustellende User.
@@ -978,11 +978,11 @@ Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Gruppen-Det
 \subsection{Rezept-Erstellungs-Ansicht}
 Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Rezept-Erstell-Ansicht darzustellen.
 
-\subsubsection{RecipeCreationPage}
+\subsubsection{RecipeCreationPage}\label{sec:RecipeCreationPage}
 \subsubsection*{Methode}
 \paragraph*{createState: State<RecipeCreationPageState>} Konstruktor für den RecipeCreationPageState.
 
-\subsubsection{RecipeCreationPageState}
+\subsubsection{RecipeCreationPageState}\label{sec:RecipeCreationPageState}
 \subsubsection*{Attribute}
 \paragraph*{image: blob} Hochgeladenes Bild, welches den anderen Nutzern in der Rezeptansicht angezeigt werden soll.
 \paragraph*{title: TextEdittingController (notNull)} Die eingegebene Zeichenkette für den Titel des Rezepts. Die Zeichenkette kann maximal 64 Zeichen lang sein und muss ausgefüllt sein.
@@ -1000,14 +1000,14 @@ Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Rezept-Erst
 \paragraph*{addIngredient()} Die Page AddIngredientPage wird aufgerufen.
 \paragraph*{recipeSave()} Die Methode ruft, abhängig davon ob das Rezept neu erstellt wird oder nur verändert wurde, entweder recipeCreation() oder recipeChange() auf.
 
-\subsubsection{Difficulty}
+\subsubsection{Difficulty}\label{sec:Difficulty}
 Ein Enum der alle \glslink{schwierigkeit}{Schwierigkeitsgrade} beinhält.
 \subsubsection*{Content}
 \paragraph*{easy} Der \glslink{schwierigkeit}{Schwierigkeitsgrad} einfach.
 \paragraph*{medium} Der \glslink{schwierigkeit}{Schwierigkeitsgrad} mittel.
 \paragraph*{hard} Der \glslink{schwierigkeit}{Schwierigkeitsgrad} schwer.
 
-\subsubsection*{IngredientElement}
+\subsubsection*{IngredientElement}\label{sec:IngredientElement}
 Die Klasse beschreibt eine Widget dass eine Zutat darstellt.
 \subsubsection*{Attribute}
 \paragraph*{ingredient: Ingredient} Die darzustellende Zutat.
@@ -1042,11 +1042,11 @@ Die Klasse beschreibt eine Widget dass eine Zutat darstellt.
 \subsection{Zutaten-Auswahl-Ansicht}
 Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Zutaten-Auswahl-Ansicht darzustellen.
 
-\subsubsection{AddIngredientPage}
+\subsubsection{AddIngredientPage}\label{sec:AddIngredientPage}
 \subsubsection*{Methode}
 \paragraph*{createState: State<AddIngredientPageState>} Der Konstruktor für den AddIngredientPageState.
 
-\subsubsection{AddIngredientPageState}
+\subsubsection{AddIngredientPageState}\label{sec:AddIngredientPageState}
 \subsubsection*{Attribute}
 \paragraph*{ingredientController: TextEdittingController} Die eingegebene Zeichenkette für den Namen der neunen Zutat.
 
@@ -1054,18 +1054,18 @@ Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Zutaten-Aus
 \paragraph*{searchIngredient(input: string)} Überprüft die Eingabe und ruft die Funktion getAllIngredientNames() im IngredientService auf.
 \paragraph*{addIngredient(ingredient: Ingredient)}  Erstellt aus den Eingaben ein Objekt der Klasse Ingredient und kehrt zurück zur Rezept-Erstellungs-Ansicht.
 
-\subsubsection*{Ingredient}
+\subsubsection*{Ingredient}\label{sec:Ingredient}
 \subsubsection*{Attribute}
 \paragraph*{name: string} Der Name der Zutat.
 \paragraph*{iconId: string} Die Id des Icons, welche zu der Zutat ausgewählt worden ist.
 \paragraph*{amount: int} Die Mengenangabe für die Zutat.
 \paragraph*{unit: string} Die Einheit der Mengenangabe.
 
-\subsubsection*{ChoseIconElement}
+\subsubsection*{ChoseIconElement}\label{sec:ChoseIconElement}
 \subsubsection*{Methode}
 \paragraph*{choseIcon(iconId: String)} Speichert das ausgewählte Icon mit der Zutat ab.
 
-\paragraph*{IconElement}
+\paragraph*{IconElement}\label{sec:IconElement}
 \subsubsection*{Attribute}
 \paragraph*{iconId: String} Die Id des Icons, welches dargestellt werden soll.
 
@@ -1092,11 +1092,11 @@ Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Zutaten-Aus
 \subsection{Verwaltungsansicht}
 Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Verwaltungsansicht darzustellen.
 
-\subsubsection{SettingsPage}
+\subsubsection{SettingsPage}\label{sec:SettingsPage}
 \subsubsection*{Methode}
 \paragraph*{createState: State<SettingsPageState>} Der Konstruktor für den SettingsPageState.
 
-\subsubsection{SettingsPageState}
+\subsubsection{SettingsPageState}\label{sec:SettingsPageState}
 \subsubsection*{Attribute}
 \paragraph*{newUsernameController: TextEdittingController} Die eingegebene Zeichenkette für den neuen Nutzernamen des Benutzers.
 
@@ -1108,11 +1108,11 @@ Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Verwaltungs
 \paragraph*{recipeCreationView()} Die Rezept-Erstellungs-Ansicht wird aufgerufen.
 \paragraph*{deleteAccount()} Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion deleteAccount() im UserService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
 
-\subsubsection{LogoutButton}
+\subsubsection{LogoutButton}\label{sec:LogoutButton}
 \subsubsection*{Methode}
 \paragraph*{logout()} Die Funktion logout() im UserService wird aufgerufen.
 
-\subsubsection*{GroupElement}
+\subsubsection*{GroupElement}\label{sec:GroupElement}
 \subsubsection*{Attribute}
 \paragraph*{group: Group} Die darzustellende Gruppe.
 
@@ -1150,7 +1150,7 @@ Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Verwaltungs
 \subsection{QR-Code-Ansicht}
 Die Klassen beinhalten alle nötigen Funktionen und Attribute um die QR-Code-Ansicht darzustellen.
 
-\subsubsection{QrCodePage}
+\subsubsection{QrCodePage}\label{sec:QrCodePage}
 \subsubsection*{Attribute}
 \paragraph*{group: Group}
 
@@ -1195,7 +1195,9 @@ Das machte es einfacher den Aufbau des Servers zu strukturieren und auf Langzeit
     \label{fig:webserver}
 \end{figure}
 
-\subsection{Server}
+\newpage
+
+\subsection{Server}\label{sec:Server}
 In einer Express-Anwendung bezieht sich der Begriff "Server" auf den Hauptkomponente, die die Anfragen von Clients empfängt.
 Der Server ist dafür verantwortlich die Verbindung mit der Datenbank und Firebase (siehe Nutzerverwaltung) aufzubauen und die Application zu starten.
 % TODO Referenz Nutzerverwaltung
@@ -1208,21 +1210,30 @@ Der Server ist dafür verantwortlich die Verbindung mit der Datenbank und Fireba
 \end{figure}
 
 \subsection*{Attribute}
-\paragraph{port: number}Durch das Attribut \texttt{port} lässt sich einstellen auf welchen Port Anfragen an den Server zulässig sind. Es soll möglich sein, die Wahl des Ports durch eine Umgebungsvariable zu wählen. Wird kein Port durch eine Umgebungsvariable definiert, so soll der Server über den Port 3000 erreichbar sein.
+\paragraph{port: number}
+Durch das Attribut \texttt{port} lässt sich einstellen auf welchen Port Anfragen an den Server zulässig sind. Es soll möglich sein, die Wahl des Ports durch eine Umgebungsvariable zu wählen. Wird kein Port durch eine Umgebungsvariable definiert, so soll der Server über den Port 3000 erreichbar sein.
 \texttt{Port} ist vom Type number.
-\paragraph{express: express.Application}Express repräsentiert die Express Applikation die beim Start durch \texttt{express.listen()} Anfragen an den Port annimmt.
+\paragraph{express: express.Application}
+Express repräsentiert die Express Applikation die beim Start durch \texttt{express.listen()} Anfragen an den Port annimmt.
 Express ist vom Typ express.Application. Es handelt sich um ein privates Attribut.
-\paragraph{application: Application}Application vom Typ Application repräsentiert das nach dem Start erzeugte Objekt der Klasse Application.
+\paragraph{application: Application}
+Application vom Typ Application repräsentiert das nach dem Start erzeugte Objekt der Klasse Application.
 
 \subsection*{Methode}
-\paragraph{<<create>> constructor(): void}Konstruktor der Klasse Server, die beim Starten des Servers aufgerufen wird um ein neues Objekt der Klasse Server zu erzeugen. Der Konstruktor gibt keinen Wert zurück.
-\paragraph{start(): void}Durch Aufruf der Funktion \texttt{start()} wird der Server gestartet. Dazu wird im inneren der Funktion die privaten Funktionen \texttt{connectToDatabase()}, \texttt{connectToFirebase()} und \texttt{createServer()} aufgerufen.
-\paragraph{connectToDatabase(): boolean}Diese Funktion wird benötigt um die Verbindung der Datenbank herzustellen. Bei erfolgreicher Verbindung wir \texttt{true} zurückgegeben.
-\paragraph{connectToFirebase(): boolean}Durch diese Funktion wird die Verbindung mit Firebase aufgebaut. Bei erfolgreicher Verbindung wird \texttt{true} zurückgegeben.
-\paragraph{createServer(): boolean}Beim Aufrufen der create Server Funktion wird eine die der der Server mithilfe von \texttt{express.listen()} gestartet. Beim erfolgreichen Starten des Servers wird \texttt{true} zurückgegeben.
+\paragraph{<<create>> constructor(): void}
+Konstruktor der Klasse Server, die beim Starten des Servers aufgerufen wird um ein neues Objekt der Klasse Server zu erzeugen. Der Konstruktor gibt keinen Wert zurück.
+\paragraph{start(): void}
+Durch Aufruf der Funktion \texttt{start()} wird der Server gestartet. Dazu wird im inneren der Funktion die privaten Funktionen \texttt{connectToDatabase()}, \texttt{connectToFirebase()} und \texttt{createServer()} aufgerufen.
+\paragraph{connectToDatabase(): boolean}
+Diese Funktion wird benötigt um die Verbindung der Datenbank herzustellen. Bei erfolgreicher Verbindung wir \texttt{true} zurückgegeben.
+\paragraph{connectToFirebase(): boolean}
+Durch diese Funktion wird die Verbindung mit Firebase aufgebaut. Bei erfolgreicher Verbindung wird \texttt{true} zurückgegeben.
+\paragraph{createServer(): boolean}
+Beim Aufrufen der create Server Funktion wird eine die der der Server mithilfe von \texttt{express.listen()} gestartet. Beim erfolgreichen Starten des Servers wird \texttt{true} zurückgegeben.
 
+\newpage
 
-\subsection{Application}
+\subsection{Application}\label{sec:Application}
 Die Application-Klasse wird durch den Aufruf von \texttt{express()} erstellt, der eine neue Express-Anwendung erzeugt. Dieses \texttt{express()}-Objekt enthält eine Reihe von Methoden, die verwendet werden können, um Routen, Middleware und andere Funktionen zu definieren, die für den Betrieb der Anwendung erforderlich sind.
 
 \begin{figure}[htp]
@@ -1232,28 +1243,42 @@ Die Application-Klasse wird durch den Aufruf von \texttt{express()} erstellt, de
     \label{fig:application}
 \end{figure}
 
+
 \subsubsection*{Attribute}
-\paragraph{private application: express.Application}Das Attribut \texttt{application} speichert die \newline
+\paragraph{private application: express.Application}
+Das Attribut \texttt{application} speichert die \newline
 \texttt{express.Application}, die beim erzeugen des Objekts dem Konstruktor mitgeben wird.
 Durch dieses Attribut bekommt die Klasse Applikation mitgeteilt, auf welcher \texttt{express.Application} die in dieser Klasse erzeugten Routing-Punkte angewendet werden sollen.
 \texttt{Application} ist vom Typ \texttt{express.Application}.
-\paragraph{authentificationRoutes: AuthentificationRouter}Dieses Attribut repräsentiert den \newline
+\paragraph{authentificationRoutes: AuthentificationRouter}
+Dieses Attribut repräsentiert den \newline
 \texttt{AuthentificationRouter} in der Express.js Anwendung. \texttt{AuthenthificationRouter} ist vom Typ \texttt{AuthentificationRouter}.
-\paragraph{recipeRoutes: RecipeRouter}Dieses Attribut repräsentiert den \texttt{RecipeRouter} in der Express.js Anwendung. \texttt{RecipeRouter} ist vom Typ \texttt{RecipeRouter}.
-\paragraph{groupRoutes: GroupRouter}Das Attribut für den \texttt{GroupRouter}. \texttt{groupRouter} ist vom \newline
+\paragraph{recipeRoutes: RecipeRouter}
+Dieses Attribut repräsentiert den \texttt{RecipeRouter} in der Express.js Anwendung. \texttt{RecipeRouter} ist vom Typ \texttt{RecipeRouter}.
+\paragraph{groupRoutes: GroupRouter}
+Das Attribut für den \texttt{GroupRouter}. \texttt{groupRouter} ist vom \newline
 Typ \texttt{GroupRouter}.
-\paragraph{userRoutes: UserRouter}Das Attribut für den \texttt{UserRouter}. \texttt{userRouter} ist vom Typ \newline
+\paragraph{userRoutes: UserRouter}
+Das Attribut für den \texttt{UserRouter}. \texttt{userRouter} ist vom Typ \newline
 \texttt{UserRouter}.
-\paragraph{adminRouter: AdminRouter}Das Attribut für den \texttt{AdminRouter}. \texttt{adminRouter} ist vom Typ \texttt{AdminRouter}.
-\paragraph{ingredientRouter: IngredientRouter}Das Attribut für den \texttt{IngredientRouter}. \newline
+\paragraph{adminRouter: AdminRouter}
+Das Attribut für den \texttt{AdminRouter}. \texttt{adminRouter} ist vom Typ \texttt{AdminRouter}.
+\paragraph{ingredientRouter: IngredientRouter}
 \texttt{ingredientRouter} ist vom Typ \texttt{IngredientRouter}.
+Das Attribut für den \texttt{IngredientRouter}. \newline
 
 \subsubsection*{Methode}
-\paragraph{<<create> constructor(express.Application): void}Konstruktor für die Klasse \texttt{Application}.
-\paragraph{initializeMiddleware(): void}Mit dieser Methode wird die Middleware initialisiert. Hier ist es möglich die eingehenden Anfragen vorzubehandeln, bevor sie an die eigentlichen Routstellen weitergeleitet werden.
+\paragraph{<<create> constructor(express.Application): void}
+Konstruktor für die Klasse \texttt{Application}.
+\paragraph{initializeMiddleware(): void}
+Mit dieser Methode wird die Middleware initialisiert. Hier ist es möglich die eingehenden Anfragen vorzubehandeln, bevor sie an die eigentlichen Routstellen weitergeleitet werden.
 Eine Middleware die beispielsweise zwischengeschaltet werden kann wäre Morgan. Morgan ermöglicht es HTTP anfragen zu loggen.
-\paragraph{initializeRoutes(): void}Mit dieser Methode werden die Routen initialisiert.
-\paragraph{initializeErrorHandlers(): void}Mit dieser Methode Werden Error-Handler initialisiert. Diese wird benötigt, wenn beispielsweise eine Anfrage an keine gültige Route gestellt wird.
+\paragraph{initializeRoutes(): void}
+Mit dieser Methode werden die Routen initialisiert.
+\paragraph{initializeErrorHandlers(): void}
+Mit dieser Methode Werden Error-Handler initialisiert. Diese wird benötigt, wenn beispielsweise eine Anfrage an keine gültige Route gestellt wird.
+
+\newpage
 
 \subsection{Router}
 Ein Router kann als eine Art Zwischenschicht betrachtet werden, die HTTP-Anfragen an die entsprechenden Controller weiterleitet.
@@ -1275,58 +1300,77 @@ Dies erleichtert die Wartung, Skalierbarkeit und Lesbarkeit des Codes.
     \label{fig:router}
 \end{figure}
 
-\subsubsection{AbstractRouter}
+\subsubsection{AbstractRouter}\label{sec:AbstractRouter}
 Der \texttt{AbstractRouter} ist eine abstrakte Repräsentation eines Routers. So kann ein grundlegender Aufbau für alle Router garantiert werden. Alle Router erben von dieser Klasse \texttt{AbstractRouter}.
 \subsubsection*{Attribute}
-\paragraph{router: express.Router}Attribut, dass einen Router in Express repräsentiert. Das zugehörige Objekt soll beim Konstruktoraufruf erzeugt werden.
-\paragraph{controller: AbstractController}Attribut, dass einen abstrakten Controller repräsentiert. Mit diesem Attribut wird in den jeweiligen Routern der dazu passende Controller gespeichert.
-\paragraph{checkAuthorization: CheckAuthorization}
-\paragraph{checkAuth: any}
+\paragraph{router: express.Router}
+Attribut, dass einen Router in Express repräsentiert. Das zugehörige Objekt soll beim Konstruktoraufruf erzeugt werden. 
+\paragraph{controller: AbstractController}
+Attribut, dass einen abstrakten Controller repräsentiert. Mit diesem Attribut wird in den jeweiligen Routern der dazu passende Controller gespeichert.
+\paragraph{checkAuthorization: CheckAuthorization} % TODO
+\paragraph{checkAuth: any} % TODO Datentyp
 
 \subsubsection*{Methoden}
-\paragraph{<<create>> constructor(): void}Konstruktor der Klasse \texttt{AbstractRouter}. Wir zum erzeugen des Objekts benötigt.
-\paragraph{abstract setupRoutes(): void}Diese abstrakte Methode definiert einen Methode die die Kinderklassen implementieren müssen.
-\paragraph{getRouter(): express.Router}Getter-Methode für das Attribut \texttt{router}.
+\paragraph{<<create>> constructor(): void}
+Konstruktor der Klasse \texttt{AbstractRouter}. Wir zum erzeugen des Objekts benötigt.
+\paragraph{abstract setupRoutes(): void}
+Diese abstrakte Methode definiert einen Methode die die Kinderklassen implementieren müssen.
+\paragraph{getRouter(): express.Router}
+Getter-Methode für das Attribut \texttt{router}.
 
 
-\subsubsection{AuthentificationRouter}
-Der AuthentificationRouter ist speziell für die Verarbeitung von Authentifizierungsanfragen zuständig.
+\subsubsection{AuthentificationRouter}\label{sec:AuthentificationRouter}
+Der \texttt{AuthentificationRouter} ist speziell für die Verarbeitung von Authentifizierungsanfragen zuständig.
 \subsubsection*{Methoden}
-\paragraph{<<create>> constructor(): void}Konstruktor zum erzeugen des Objekts der Klasse \newline
+\paragraph{<<create>> constructor(): void}
+Konstruktor zum erzeugen des Objekts der Klasse \newline
 \texttt{AuthentificationRouter}.
-\paragraph{setupRoutes(): void}Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
+\paragraph{setupRoutes(): void}
+Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
-\subsubsection{RecipeRouter}
-Der RecipeRouter ist für die Verwaltung der Routen und Endpunkte verantwortlich, die mit Rezepten zusammenhängen.
+\subsubsection{RecipeRouter}\label{sec:RecipeRouter}
+Der \texttt{RecipeRouter} ist für die Verwaltung der Routen und Endpunkte verantwortlich, die mit Rezepten zusammenhängen.
 \subsubsection*{Methoden}
-\paragraph{<<create>> constructor(): void}Konstruktor zum erzeugen des Objekts der Klasse \newline
+\paragraph{<<create>> constructor(): void}
+Konstruktor zum erzeugen des Objekts der Klasse \newline
 \texttt{RecipeRouter}.
-\paragraph{setupRoutes(): void}Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
+\paragraph{setupRoutes(): void}
+Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
-\subsubsection{GroupRouter}
-Der GroupRouter ist verantwortlich für die Verwaltung der Routen und Endpunkte, die mit Gruppen in der Anwendung zusammenhängen.
+\subsubsection{GroupRouter}\label{sec:GroupRouter}
+Der \texttt{GroupRouter} ist verantwortlich für die Verwaltung der Routen und Endpunkte, die mit Gruppen in der Anwendung zusammenhängen.
 \subsubsection*{Methoden}
-\paragraph{<<create>> constructor(): void}Konstruktor zum erzeugen des Objekts der Klasse \newline
+\paragraph{<<create>> constructor(): void}
+Konstruktor zum erzeugen des Objekts der Klasse \newline
 \texttt{GroupRouter}.
-\paragraph{setupRoutes(): void}Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
+\paragraph{setupRoutes(): void}
+Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
-\subsubsection{UserRouter}
-Der UserRouter ist für die Verwaltung von Routen und Endpunkten zuständig, die mit Benutzeraktionen und -informationen zusammenhängen.
+\subsubsection{UserRouter}\label{sec:UserRouter}
+Der \texttt{UserRouter} ist für die Verwaltung von Routen und Endpunkten zuständig, die mit Benutzeraktionen und -informationen zusammenhängen.
 \subsubsection*{Methode}
-\paragraph{<<create>> constructor(): void}Konstruktor zum erzeugen des Objekts der Klasse \texttt{UserRouter}.
-\paragraph{setupRoutes(): void}Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
+\paragraph{<<create>> constructor(): void}
+Konstruktor zum erzeugen des Objekts der Klasse \texttt{UserRouter}.
+\paragraph{setupRoutes(): void}
+Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
-\subsubsection{IngredientRouter}
-Der IngredientRouter ist verantwortlich für die Verwaltung von Routen und Endpunkten, die mit Zutaten in der Anwendung zusammenhängen.
+\subsubsection{IngredientRouter}\label{sec:IngredientRouter}
+Der \texttt{IngredientRouter} ist verantwortlich für die Verwaltung von Routen und Endpunkten, die mit Zutaten in der Anwendung zusammenhängen.
 \subsubsection*{Methoden}
-\paragraph{<<create>> constructor(): void}Konstruktor zum erzeugen des Objekts der Klasse \texttt{IngredientRouter}.
-\paragraph{setupRoutes(): void}Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
+\paragraph{<<create>> constructor(): void}
+Konstruktor zum erzeugen des Objekts der Klasse \texttt{IngredientRouter}.
+\paragraph{setupRoutes(): void}
+Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
-\subsubsection{AdminRouter}
-Der Admin ist verantwortlich für die Verwaltung von Routen und Endpunkten, die mit Administrator Interaktionen zusammenhängen.
+\subsubsection{AdminUserRouter}\label{sec:AdminUserRouter}
+Der \texttt{AdminUserRouter} ist verantwortlich für die Verwaltung von Routen und Endpunkten, die mit Administrator Interaktionen zusammenhängen.
 \subsubsection*{Methoden}
-\paragraph{<<create>> constructor(): void}Konstruktor zum erzeugen des Objekts der Klasse \texttt{AdminRouter}.
-\paragraph{setupRoutes(): void}Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
+\paragraph{<<create>> constructor(): void}
+Konstruktor zum erzeugen des Objekts der Klasse \texttt{AdminRouter}.
+\paragraph{setupRoutes(): void}
+Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
+
+\newpage
 
 \subsection{Middleware}
 Durch die Middleware können Anfragen vorher bearbeitet werden, bevor sie zu den eigentlichen Routingstellen gehen.
@@ -1338,10 +1382,13 @@ Durch die Middleware können Anfragen vorher bearbeitet werden, bevor sie zu den
     \label{fig:middleware}
 \end{figure}
 
-\subsubsection{CheckAuthorization}
-Mit check
-\subsubsection*{Methode}
-\paragraph{authChecker(req: any, res, any, next: any): void}
+\subsubsection{CheckAuthorization}\label{sec:CheckAuthorization}
+Mit \texttt{CheckAuthorization} kann vor einer Anfrage an einen Router gescheckt werde, ob die Anfrage von Nutzer mit validen Firebase Id Token kommt. % Referenz Nutzerverwaltung mit Firebase
+\subsubsection*{Methoden}
+\paragraph{authChecker(req: express.Request, res: express.Response, next: express.NextFunction): void}
+Mit dieser Methode wird durch eine Abfrage an Firebase überprüft, ob das Id Token valide ist.
+
+\newpage
 
 \subsection{Controller}
 In einer Express-Anwendung bezieht sich der Begriff "Controller" auf eine Komponente oder eine Sammlung von Funktionen, die dazu dienen, die Logik für bestimmte Routen oder Endpunkte zu implementieren.
@@ -1350,6 +1397,8 @@ Der Controller agiert als eine Art Vermittler zwischen den Routen und der eigent
 Ein Controller ist ein Objekt, das Handler-Funktionen für verschiedene Routen bereitstellt.
 Diese Handler-Funktionen werden als Callback-Funktionen für die entsprechenden Routen registriert und nehmen die Anfrage (\texttt{req}) und die Antwort (\texttt{res}) als Parameter entgegen.
 
+
+
 \begin{figure}[htp]
     \centering
     \includegraphics[width = 1\textwidth]{images/webserver/controller.pdf}
@@ -1357,44 +1406,100 @@ Diese Handler-Funktionen werden als Callback-Funktionen für die entsprechenden 
     \label{fig:controller}
 \end{figure}
 
-\subsubsection{AbstractController}
+\subsubsection{AbstractController}\label{sec:AbstractController}
+Der \texttt{AbstractController} beschreibt ein abstrakte Darstellung eines Controllers. Alle Controller erben von dieser Klasse.
+
+\subsubsection{AuthentificationController}\label{sec:AuthentificationController}
+Der \texttt{AuthentificationController} ist verantwortlich für alle Anfragen, die mit der Nutzerverwaltung in Firebase direkt etwas zu zun haben. Das heißt konkret das Registrieren, Einloggen und Passwort zurücksetzen des Nutzers.
+\subsubsection*{Methoden}
+\paragraph{public userRegister(req: express.Request, res: express.Response): void}
+Diese Methode sorgt dafür, dass der Nutzer sich registrieren kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Benutzername, Passwort und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob die Registrierung erfolgreich war oder Fehler aufgetreten sind.
+\paragraph{public userLogin(req: express.Request, res: express.Response): void}\
+Diese Methode sorgt dafür, dass der Nutzer sich einloggen kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Benutzername, Passwort und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob das Einloggen erfolgreich war oder Fehler aufgetreten sind. 
+\paragraph{userResetPassword(req: express.Request, res: express.Response): void}
+Diese Methode sorgt dafür, dass der Nutzer sein Passwort zurücksetzen lassen kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Benutzername übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob die Anfrage zum Passwort zurücksetzen erfolgreich war oder Fehler aufgetreten sind. 
+
+\subsubsection{RecipeController}\label{sec:RecipeController}
+Der \texttt{RecipeController} ist verantwortlich für alle Anfragen, die mit den Rezepten zu tun haben.
 \subsubsection*{Methode}
+\paragraph{recipePost(req: express.Request, res: express.Response): Promise<void>}
+Mit der Methode \texttt{recipePost} kann ein neues Rezept erstellt werden und in der Datenbank gespeichert werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Rezeptname, Rezeptbeschreibung, Zutaten, Zubereitung und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob das Erstellen des Rezepts erfolgreich war oder Fehler aufgetreten sind.
+Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
+\paragraph{recipeDelete(req: express.Request, res: express.Response): Promise<void>}
+Mit der Methode \texttt{recipeDelete} kann ein Rezept gelöscht werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Rezeptname, Rezeptbeschreibung, Zutaten, Zubereitung und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob das Löschen des Rezepts erfolgreich war oder Fehler aufgetreten sind.
+Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
+\paragraph{recipePatch(req: express.Request, res: express.Response): Promise<void>}
+Diese Methode sorgt dafür, dass ein Rezept bearbeitet werden kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Rezeptname, Rezeptbeschreibung, Zutaten, Zubereitung und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob das Bearbeiten des Rezepts erfolgreich war oder Fehler aufgetreten sind.
+Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
+\paragraph{recipeGetById(req: express.Request, res: express.Response): Promise<void>}
+Durch die Methode \texttt{recipeGetById} kann ein Rezept anhand seiner Id abgerufen werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Rezeptname, Rezeptbeschreibung, Zutaten, Zubereitung und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob das Abrufen des Rezepts erfolgreich war oder Fehler aufgetreten sind.
+Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
+\paragraph{recipesGetAllForUser(req: express.Request, res: express.Response): Promise<void>}
+Mit der Methode \texttt{recipesGetAllForUser} können alle Rezepte eines Nutzers abgerufen werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Rezeptname, Rezeptbeschreibung, Zutaten, Zubereitung und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob das Abrufen der Rezepte erfolgreich war oder Fehler aufgetreten sind.
+Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
+\paragraph{recipeSetFavorite(req: express.Request, res: express.Response): Promise<void>}
+Durch die Methode \texttt{recipeSetFavorite} kann ein Rezept als Favorit markiert werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Rezept Id und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob das Markieren des Rezepts als Favorit erfolgreich war oder Fehler aufgetreten sind.
+Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
+\paragraph{recipeGetOwn(req: express.Request, res: express.Response): Promise<void>}
+Mit der Methode \texttt{recipeGetOwn} können alle Rezepte eines Nutzers abgerufen werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Rezeptname, Rezeptbeschreibung, Zutaten, Zubereitung und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob das Abrufen der Rezepte erfolgreich war oder Fehler aufgetreten sind.
+Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
+\paragraph{recipeReport(req: express.Request, res: express.Response): Promise<void>}
+Mit der Methode \texttt{recipeReport} kann ein Rezept gemeldet werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Rezept Id und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Melden des Rezepts erfolgreich war oder Fehler aufgetreten sind.
+Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
+\paragraph{recipeGetPDF(req: express.Request, res: express.Response): Promise<void>}
+Mit der Methode \texttt{recipeGetPDF} kann ein Rezept als PDF abgerufen werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Rezept Id und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Abrufen des Rezepts als PDF erfolgreich war oder Fehler aufgetreten sind.
+Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
 
 
-\subsubsection{AuthentificationController}
+\subsubsection{GroupController}\label{sec:GroupController}
+Der \texttt{GroupController} ist verantwortlich für alle Anfragen, die mit den Gruppen zu tun haben. Darunter fallen das Erstellen, Löschen, Bearbeiten, Beitreten und Verlassen von Gruppen.
 \subsubsection*{Methode}
-\paragraph{public userRegister(req: any, res: any, next: any): void}
-\paragraph{public userLogin(req: any, res: any, next: any): void}
-\paragraph{userResetPassword(req: any, res: any, next: any): void}
-\paragraph{}
+\paragraph{groupPost(req: express.Request, res: express.Response): void}
+Mit der Methode \texttt{groupPost} kann eine neue Gruppe erstellt werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Gruppenname, Gruppenbeschreibung und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Erstellen der Gruppe erfolgreich war oder Fehler aufgetreten sind.
+Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
+\paragraph{groupDelete(req: express.Request, res: express.Response): void}
+Diese Methode sorgt dafür, dass eine Gruppe gelöscht werden kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Gruppenname, Gruppenbeschreibung und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Löschen der Gruppe erfolgreich war oder Fehler aufgetreten sind.
+Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
+\paragraph{groupGetById(req: express.Request, res: express.Response): void}
+Durch diese Methode kann eine Gruppe anhand ihrer Id abgerufen werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Gruppenname, Gruppenbeschreibung und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Abrufen der Gruppe erfolgreich war oder Fehler aufgetreten sind.
+Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
+\paragraph{groupPatch(req: express.Request, res: express.Response): void}
+Diese Methode sorgt dafür, dass eine Gruppe bearbeitet werden kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Gruppenname, Gruppenbeschreibung und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Bearbeiten der Gruppe erfolgreich war oder Fehler aufgetreten sind.
+Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
+\paragraph{groupJoin(req: express.Request, res: express.Response): void}
+Mit der Methode \texttt{groupJoin} kann ein Nutzer einer Gruppe beitreten. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Gruppen Id und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen ob das Beitreten der Gruppe erfolgreich war oder Fehler aufgetreten sind.
+Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
+\paragraph{groupLeave(req: express.Request, res: express.Response): void}
+Mit der Methode \texttt{groupLeave} kann ein Nutzer einer Gruppe beitreten. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Gruppen Id und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen ob das Verlassen der Gruppe erfolgreich war oder Fehler aufgetreten sind.
+Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
 
-\subsubsection{RecipeController}
+\subsubsection{UserController}\label{sec:UserController}
+Der \texttt{UserController} ist verantwortlich für alle Anfragen, die mit den Nutzern zu tun haben, wie das ändern der Nutzerdaten oder das Löschen des Nutzers.
 \subsubsection*{Methode}
-\paragraph{public recipePost(req: any, res: any, next: any): void}
-\paragraph{public recipeDelete(req: any, res: any, next: any): void}
-\paragraph{public recipePatch(req: any, res: any, next: any): void}
-\paragraph{public recipeGet(req: any, res: any, next: any): void}
-\paragraph{public recipeGetAll(req: any, res: any, next: any): void}
-\paragraph{public recipeSetFavorite(req: any, res: any, next: any): void}
-\paragraph{public recipeGetByGroup(req: any, res: any, next: any): void}
+\paragraph{userDelete(req: express.Request, res: express.Response): void}
+Mit der Methode \texttt{userDelete} kann ein Nutzer gelöscht werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Nutzername und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen ob das Löschen des Nutzers erfolgreich war oder Fehler aufgetreten sind.
+Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
+\paragraph{userPatch(req: express.Request, res: express.Response): void}
+Diese Methode sorgt dafür, dass ein Nutzer bearbeitet werden kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Nutzername und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen ob das Bearbeiten des Nutzers erfolgreich war oder Fehler aufgetreten sind.
+Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
 
-\subsubsection{GroupController}
+\subsubsection{IngredientController}\label{sec:IngredientController}
+Der \texttt{IngredientController} ist verantwortlich für alle Anfragen, die mit den Zutaten zu tun haben, wie das Abrufen von Zutaten.
 \subsubsection*{Methode}
-\paragraph{public groupPost(req: any, res: any, next: any): void}
-\paragraph{public groupDelete(req: any, res: any, next: any): void}
-\paragraph{public groupGetById(req: any, res: any, next: any): void}
-\paragraph{public groupPatch(req: any, res: any, next: any): void}
-\paragraph{public groupJoin(req: any, res: any, next: any): void}
-\paragraph{public groupLeave(req: any, res: any, next: any): void}
+\paragraph{ingredientGetAll(req: express.Request, res: express.Response): void}
+Mit der Methode \texttt{ingredientGetAll} können alle Zutaten abgerufen werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Zutaten Id und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen ob das Abrufen der Zutaten erfolgreich war oder Fehler aufgetreten sind. Bei erfolgreichen Abrufen, werden alle Zutaten mit dem Response zurückgegeben.
+Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
 
-\subsubsection{UserController}
-\subsubsection*{Methode}
-\paragraph{public userDelete(req: any, res: any, next: any): void}
-\paragraph{public userPatch(req: any, res: any, next: any): void}
+\subsubsection{AdminUserController}\label{sec:AdminUserController}
+Der \texttt{AdminUserController} ist verantwortlich für alle Anfragen, die mit der Adminrolle zu tun haben, wie das Hinzufügen, Löschen von Admins, aber auch das Kicken und Bannen von Nutzern.
+\subsubsection*{Methoden}
+\paragraph{makeAdmin(req: express.Request, res: express.Response): void}
+Mit der 
+\paragraph{removeAdminStatus(req: express.Request, res: express.Response): void}
+\paragraph{kickUser(req: express.Request, res: express.Response): void}
+\paragraph{banUser(req: express.Request, res: express.Response): void}
+\paragraph{setCensored(req: express.Request, res: express.Response): void}
 
-\subsubsection{IngredientController}
-\subsubsection*{Methode}
-\paragraph{ingredientGetAll(req: any, res: any, next: any): void}
 
 \newpage
 
@@ -1502,9 +1607,64 @@ Die Tabelle "BannedUser" repräsentiert die Many-To-Many-Beziehung zwischen den 
 
 \section{Ablaufbeschreibung}
 
+\newpage
 \section{Klassenindex}
 \subsection{Client-Klassen}
+\begin{multicols}{2}
+    \begin{itemize}[label={}]
+        \item \nameref{sec:user}
+        \item \nameref{sec:recipe}
+        \item \nameref{sec:ingredient}
+        \item \nameref{sec:difficulty}
+        \item \nameref{sec:group}
+        \item \nameref{sec:groupmember}
+        \item \nameref{sec:grouprecipe}
+        \item \nameref{sec:userrepository}
+        \item \nameref{sec:grouprepository}
+        \item \nameref{sec:remotereciprepository}
+        \item \nameref{sec:localreciperepository}
+        \item \nameref{sec:ingredientservice}
+        \item \nameref{sec:userservice}
+        \item \nameref{sec:recipeservice}
+        \item \nameref{sec:groupservice}
+        \item \nameref{sec:adminservice}
+        \item \nameref{sec:recipeservice}
+        \item \nameref{sec:pdfexporter}
+        \item \nameref{sec:providerfactory}
+        \item \nameref{sec:MainViewPage}
+        \item \nameref{sec:MainViewPageState}
+        \item \nameref{sec:TopBar}
+        \item \nameref{sec:AppBar}
+        \item \nameref{sec:InformationElement}
+        \item \nameref{sec:SortingMethods}
+        \item \nameref{sec:FilteringMehods}
+        \item \nameref{sec:InformationCategories}
+        \item \nameref{sec:RecipeViewPage}
+        \item \nameref{sec:recipeviewpagestate}
+        \item \nameref{sec:}
+    \end{itemize}
+\end{multicols}
 \subsection{Server-Klassen}
+\begin{multicols}{2}
+    \begin{itemize}[label={}]
+        \item \nameref{sec:Server}
+        \item \nameref{sec:Application}
+        \item \nameref{sec:AbstractRouter}
+        \item \nameref{sec:AuthentificationRouter}
+        \item \nameref{sec:RecipeRouter}
+        \item \nameref{sec:GroupRouter}
+        \item \nameref{sec:UserRouter}
+        \item \nameref{sec:IngredientRouter}
+        \item \nameref{sec:AdminUserRouter}
+        \item \nameref{sec:AbstractController}
+        \item \nameref{sec:AuthentificationController}
+        \item \nameref{sec:RecipeController}
+        \item \nameref{sec:GroupController}
+        \item \nameref{sec:UserController}
+        \item \nameref{sec:IngredientController}
+        \item \nameref{sec:AdminUserController}
+    \end{itemize}
+\end{multicols}
 \newpage
 \section{Glossar}
 \printglossary[style=altlist]
