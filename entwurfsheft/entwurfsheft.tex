@@ -466,6 +466,7 @@ Er enthält in erster Linie viele verschiedene Services, die die verschiedenen E
 Nun werden die einzelnen Klassen des Application Layers beschrieben.
 \newpage
 \subsection{\texttt{AsyncNotifier<T>}}
+\label{sec:asyncNotifier}
 Die Klasse ist Teil von Riverpod. Sie ermöglicht es Zustände asynchron zu aktualisieren. Dies ist nützlich, wenn der Wert von einer asynchronen Operation abhängt, z.B. einer Datenabfrage von einer API. Durch ihn kann eine automatische Aktualisierung der Daten veranlasst werden, wenn beispielsweise eine API-Anfrage abgeschlossen wurde.
 \subsubsection*{Attribute}
 \paragraph{\texttt{state: AsyncValue<T>}}
@@ -601,7 +602,7 @@ Die Klassen beinhalten alle nötigen Funktionen und Attribute, um die Hauptansic
 \paragraph*{ search(keyword: TextEdittingController)} Durchsucht alle Rezepte und gibt die aus, deren Rezepttitel zu dem Schlagwort passen.
 
 
-\subsubsection{AppBar} \label{sec:AppBar}\label{sec:AppBar}
+\subsubsection{AppBar} \label{sec:AppBar}
 \subsubsection*{Attribute}
 \paragraph*{mainView: Boolean} Der Boolean gibt an ob das AppBar Element in Hauptansicht verwendet wird.
 \paragraph*{recipeCreationView: Boolean} Der Boolean gibt an ob das AppBar Element in Rezept-Erstellungs-Ansicht verwendet wird.
@@ -1017,7 +1018,7 @@ Die Klasse beschreibt eine Widget dass eine Zutat darstellt.
 
 \subsubsection*{InformationElement (\ref{sec:InformationElement})}
 
-\subsubsection*{InformationKategories (\ref{sec:InformationKategories})}
+\subsubsection*{InformationKategories}
 
 \subsubsection*{ReturnButton (\ref{sec:ReturnButton})}
 
@@ -1621,16 +1622,13 @@ Die Tabelle "BannedUser" repräsentiert die Many-To-Many-Beziehung zwischen den 
         \item \nameref{sec:grouprecipe}
         \item \nameref{sec:userrepository}
         \item \nameref{sec:grouprepository}
-        \item \nameref{sec:remotereciprepository}
+        \item \nameref{sec:remotereciperepository}
         \item \nameref{sec:localreciperepository}
-        \item \nameref{sec:ingredientservice}
         \item \nameref{sec:userservice}
         \item \nameref{sec:recipeservice}
         \item \nameref{sec:groupservice}
-        \item \nameref{sec:adminservice}
         \item \nameref{sec:recipeservice}
         \item \nameref{sec:pdfexporter}
-        \item \nameref{sec:providerfactory}
         \item \nameref{sec:MainViewPage}
         \item \nameref{sec:MainViewPageState}
         \item \nameref{sec:TopBar}
@@ -1640,8 +1638,6 @@ Die Tabelle "BannedUser" repräsentiert die Many-To-Many-Beziehung zwischen den 
         \item \nameref{sec:FilteringMehods}
         \item \nameref{sec:InformationCategories}
         \item \nameref{sec:RecipeViewPage}
-        \item \nameref{sec:recipeviewpagestate}
-        \item \nameref{sec:}
     \end{itemize}
 \end{multicols}
 \subsection{Server-Klassen}
