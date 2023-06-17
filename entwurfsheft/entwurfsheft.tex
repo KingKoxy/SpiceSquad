@@ -537,7 +537,7 @@ Stellt eine Anfrage, um die Zensur eines Rezeptes in einer Gruppe zu aktivieren/
 
 \newpage
 \subsection{\texttt{RecipeService}}
-Der Service dient dazu, die Rezepte zu verwalten. Er erbt von der Klasse \texttt{AsyncNotifier<void>}. Das Attribut \texttt{state} enthält, immer wenn Daten verfügbar sind, eine Liste von Rezepten.
+Der Service dient dazu, die Rezepte zu verwalten. Er erbt von der Klasse \texttt{AsyncNotifier<void>}. Das Attribut \texttt{state} enthält, immer wenn Daten verfügbar sind, die Liste der Rezepte, die der angemeldete Nutzer sehen darf.
 \subsubsection*{Attribute}
 \paragraph{\texttt{localRecipeRepository: LocalRecipeRepository}}
 Das Repository, das zum Zugriff auf die Rezepte im Systemspeicher verwendet wird. Es wird im Konstruktor initialisiert und ist privat. Besteht keine Verbindung zum Internet wird dieses Repository von den Methoden angesteuert.
