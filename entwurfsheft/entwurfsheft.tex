@@ -488,9 +488,18 @@ Erstellt eine PDF-Datei, die das Rezept enthält und exportiert dieses anschlie�
 \newpage
 
 \section{Presentation Layer}
+Der Presentation Layer in der Android-App-Entwicklung ist für die Darstellung der Benutzeroberfläche (UI) und die Kommunikation mit dem Benutzer verantwortlich. Er fungiert als Bindeglied zwischen dem Benutzer und den darunterliegenden Schichten wie der Datenquelle und der Geschäftslogik. Die Hauptaufgabe des Presentation Layers besteht darin, die Benutzerinteraktion zu ermöglichen, Benutzereingaben zu verarbeiten, Daten aus anderen Schichten abzurufen und anzuzeigen, und Feedback an den Benutzer zu liefern. Es umfasst die Aktivitäten, Zustände und Teilansichten, die zur Darstellung der UI verwendet werden. Der Zweck des Presentation Layers besteht darin, eine benutzerfreundliche und ansprechende Benutzeroberfläche bereitzustellen, die die Benutzererfahrung optimiert und eine effektive Kommunikation zwischen Benutzer und Anwendung ermöglicht. Durch eine klare Trennung des Presentation Layers von anderen Schichten kann die Wartbarkeit, Testbarkeit und Wiederverwendbarkeit der App verbessert werden.
+
+In den folgenden Klassendiagrammen wurden zur Übersichtlichkeit Assoziationen zum Domain Layer weggelassen. Sie werden jedoch als Attribut aufgeführt und im zugehörigen Text beschrieben. Zudem wurden drei Schlüsselwörter benutzt, die nun erläutert werden sollen.
+
+\paragraph{<<StatelessWidget>>}
+Impliziert, das die Klasse mit diesem Schlüsselwort von der Flutterklasse \texttt{StatelessWidget} erbt. Dieses besitzt verschiedene Methoden, die die Darstellung des Widgets ermöglichen. Die wichtigste Methode ist \texttt{build}, die das Widget zurückgibt, welches dargestellt werden soll.
+\paragraph{<<StatefulWidget>>}
+Impliziert, das die Klasse mit diesem Schlüsselwort von der Flutterklasse \texttt{StatefulWidget} erbt. Diese Klasse besitzt zusätzlich eine \texttt{State}-Klasse, die die Zustände des Widgets verwaltet. Die Klasse \texttt{State} besitzt die Methode \texttt{build}, die das Widget zurückgibt, welches dargestellt werden soll. Da die vielen State-Klassen, das Klassendiagramm stark unübersichtlich machen würden, jedoch einfach zu implementieren und zu verstehen sind, wurden diese weggelassen.
+\paragraph{<<FlutterWidget>>} Klassen mit diesem Schlüsselwort stammen aus dem Flutter-Framework. Sie werden nur verwendet, um Vererbungen zu verdeutlichen und daher wurden Attribute weggelassen. Bei Bedarf können sie in der Flutter-Dokumentation nachgeschlagen werden.
 \begin{figure}[htp]
     \centering
-    \includegraphics[width = \textwidth]{images/presentationLayer/presentationLayer.png}
+    \includegraphics[width = \textwidth]{images/presentationLayer/presentationLayer.pdf}
     \caption{Klassendiagramm des Presentation Layer}
     \label{fig:presentation-layer}
 \end{figure}
