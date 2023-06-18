@@ -503,9 +503,37 @@ Impliziert, das die Klasse mit diesem Schlüsselwort von der Flutterklasse \text
     \caption{Klassendiagramm des Presentation Layer}
     \label{fig:presentation-layer}
 \end{figure}
-
 \newpage
 
+\subsection{\texttt{LoginScreen}}
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=80mm]{images/presentationLayer/uiElements/loginScreen.jpg}
+        \caption{Loginansicht}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/loginScreen.pdf}
+        \caption{Klassendiagramm des LoginScreens}
+    \end{minipage}
+\end{figure}
+\label{sec:loginScreen}
+Die Klasse bildet die Loginansicht ab.
+\subsubsection*{Attribute}
+\paragraph{emailController: TextEditingController} 
+Der Controller, die die Eingabe der E-Mail-Adresse des Nutzers verwaltet. Über ihn kann der Wert des Eingabefelds abgerufen werden oder eine Fehlermeldung angezeigt werden.
+\paragraph{passwordController: TextEditingController}
+Der Controller, die die Eingabe des Passworts des Nutzers verwaltet. Über ihn kann der Wert des Eingabefelds abgerufen werden oder eine Fehlermeldung angezeigt werden.
+\subsubsection*{Methoden}
+\paragraph{login(): Future<void>}
+Leitet eine Loginanfrage über einen Provider an den zuständigen Service weiter. Im Anschluss werden, je nachdem ob die Anfrage erfolgreich war oder nicht, Fehlermeldungen an den entsprechenden Eingabefeldern angezeigt, oder der Nutzer zur Hauptansicht weitergeleitet.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \subsection{Hauptansicht}
 Die Klassen beinhalten alle nötigen Funktionen und Attribute, um die Hauptansicht darzustellen.
 
