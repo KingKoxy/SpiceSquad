@@ -554,23 +554,26 @@ Die ProviderFactory dient dazu, die Riverpod-Provider zu erstellen. Mehr zu den 
 \paragraph{ProviderFactory.makeProviders(): void}
 Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Parameter entgegen.
 \newpage
+
+
 \section{Presentation Layer}
-\begin{figure}[htp]
-    \centering
-    \includegraphics[width = \textwidth]{images/presentationLayer/presentationLayer.png}
-    \caption{Klassendiagramm des Presentation Layer}
-    \label{fig:presentation-layer}
-\end{figure}
+    \begin{figure}[htp]
+        \centering
+        \includegraphics[width = \textwidth]{images/Presentation-layer/PresentationLayer.pdf}
+        \caption{Klassendiagramm des Presentation Layer}
+        \label{fig:presentation-layer}
+    \end{figure}
 
 \newpage
 
 \subsection{Häufig verwendete Klassen}
-    Hier sind alle Klassen aufgeführt die mehrmals in mehreren Ansichten verwendet werden.
+    Hier sind alle Klassen aufgeführt die von mehreren Klassen verwendet werden.
 
     \subsubsection{InformationElement} \label{sec:InformationElement}
+        Stellt ein Informations Element da. Erbt von der Klasse \texttt{StatelessWidget}. Die Klasse \ref{sec:InformationCategories} wird verwendet.
         \subsubsection*{Attribute}
-            \paragraph*{\texttt{information: InformationKategories}} Gibt an welche Information in dem Widget dargestellt werden soll.
-            \paragraph*{\texttt{text: string}} Der Text der in dem Widget angezeigt werden kann.
+            \paragraph*{\texttt{information: InformationKategories}} Gibt an welche Information in dem Widget dargestellt werden.
+            \paragraph*{\texttt{text: string}} Der Text der in dem Element angezeigt werden kann.
 
         \subsubsection*{Methoden}
             \paragraph*{\texttt{InformationElement(information: InformationKategories - notNull, text: string)}} Der Konstruktor für ein Information Widget. Eine Information Kategorie muss angegeben werden.
@@ -579,49 +582,54 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
     \subsubsection{InformationCategories} \label{sec:InformationCategories}
         Ein Enum der alle Information Kategorien beinhält.
         \subsubsection*{Content}
-            \paragraph*{\texttt{duration}} Das Widget gibt die Zubereitungsdauer an.
-            \paragraph*{\texttt{difficultyEasy}} Das Widget gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} einfach an.
-            \paragraph*{\texttt{difficultyMedium}} Das Widget gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} mittel an.
-            \paragraph*{\texttt{difficultyHard}} Das Widget gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} schwer an.
-            \paragraph*{\texttt{labelVegetarian}} Das Widget gibt das \gls{label} vegetarisch an.
-            \paragraph*{\texttt{labelVegan}} Das Widget gibt das \gls{label} vegan an.
-            \paragraph*{\texttt{labelGlutenFree}} Das Widget gibt das \gls{label} Gluten frei an.
-            \paragraph*{\texttt{labelHalal}} Das Widget gibt das \gls{label} halal an.
-            \paragraph*{\texttt{labelKosher}} Das Widget gibt das \gls{label} koscher an.
+            \paragraph*{\texttt{duration}} Das Element gibt die Zubereitungsdauer an.
+            \paragraph*{\texttt{difficultyEasy}} Das Element gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} einfach an.
+            \paragraph*{\texttt{difficultyMedium}} Das Element gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} mittel an.
+            \paragraph*{\texttt{difficultyHard}} Das Element gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} schwer an.
+            \paragraph*{\texttt{labelVegetarian}} Das Element gibt das \gls{label} vegetarisch an.
+            \paragraph*{\texttt{labelVegan}} Das Element gibt das \gls{label} vegan an.
+            \paragraph*{\texttt{labelGlutenFree}} Das Element gibt das \gls{label} glutenfrei an.
+            \paragraph*{\texttt{labelHalal}} Das Element gibt das \gls{label} halal an.
+            \paragraph*{\texttt{labelKosher}} Das Element gibt das \gls{label} koscher an.
 
     \subsubsection{AppBar} \label{sec:AppBar}
+        Die Klasse stellt die App Bar da. Erbt von der Klasse \texttt{StatelessWidget}. Bietet dem User die Möglichkeit zwischen den Sichten schnell hin und her zu wechseln.
         \subsubsection*{Attribute}
             \paragraph*{\texttt{mainView: Boolean}} Der Boolean gibt an ob das AppBar Widget in Hauptansicht verwendet wird.
             \paragraph*{\texttt{recipeCreationView: Boolean}} Der Boolean gibt an ob das AppBar Widget in Rezept-Erstellungs-Ansicht verwendet wird.
             \paragraph*{\texttt{settingsView: Boolean}} Der Boolean gibt an ob das AppBar Widget in Einstellungsansicht verwendet wird.
             
         \subsubsection*{Methoden}
-            \paragraph*{\texttt{AppBar(mainView: Boolean - notNull, recipeCreationView: Boolean - notNull, settingsView: Boolean - notNull)}} Der Konstruktor für den AppBar. Alle Parameter müssen angegeben werden. 
+            \paragraph*{\texttt{AppBar(mainView: Boolean - notNull, recipeCreationView: Boolean - notNull, settingsView: Boolean - notNull)}} Der Konstruktor für den \texttt{AppBar}. Alle Parameter müssen angegeben werden. 
             \paragraph*{\texttt{mainView()}} Die Hauptansicht wird aufgerufen.
             \paragraph*{\texttt{recipeCreationView()}} Die Rezept-Erstellungs-Ansicht wird aufgerufen.
             \paragraph*{\texttt{settingsView()}} Die Einstellungsansicht wird aufgerufen.
 
-    \subsubsection{ReturnButton} \label{sec:ReturnButton} 
+    \subsubsection{ReturnButton} \label{sec:ReturnButton}
+        Die Klasse stellt den Zurück-Button da. Erbt von der Klasse \texttt{StatelessWidget}.
         \subsubsection*{Methoden}
             \paragraph*{\texttt{prevoiusView()}} Die vorherige Ansicht wird aufgerufen. Es werden keine Daten gespeichert die in der Ansicht angegeben worden sind.
     
     \subsubsection{RecipeListElement} \label{sec:RecipeListElement}
+        Die Klasse stellt eine Rezept Element in einer List da. Erbt von der Klasse \texttt{StatelessWidget}.
         \subsubsection*{Attribut}
             \paragraph*{\texttt{recipe: Recipe}} Das darzustellende Rezept.
             \paragraph*{\texttt{private: Boolean}} Ein Boolean der angibt, ob die Sichtbarkeit des Rezepts verändert werden darf oder nicht.
             \paragraph*{\texttt{settingsView: Boolean}} Ein Boolean der angibt, ob das Widget in der Einstellungsansicht verwendet wird.
-            \subsubsection*{Methoden}
-            \paragraph*{\texttt{RecipeListElement(recipe: Recipe - notNull, view: boolean - notNull, settingsView: boolean - notNull)}} Ein Konstruktor für ein RecipeListElement. Alle Parameter müssen angegeben werden.
+
+        \subsubsection*{Methoden}
+            \paragraph*{\texttt{RecipeListElement(recipe: Recipe - notNull, view: boolean - notNull, settingsView: boolean - notNull)}} Ein Konstruktor für ein  \texttt{RecipeListElement}. Alle Parameter müssen angegeben werden.
             \paragraph*{\texttt{togglePrivate()}} Die Sichtbarkeit des Rezepts für die Gruppe ausgeblendet werden soll, wenn settingsView false ist. Wenn settingsView auf true steht wird das Rezept für alle Gruppen ausgeblendet.
-            \paragraph*{\texttt{delete()}} Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion deleteRecipe() im RecipeService aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
+            \paragraph*{\texttt{delete()}} Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion \texttt{deleteRecipe()} im \texttt{RecipeService} aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
             \paragraph*{\texttt{export()}} Die Funktion exportRecipe() im RecipeService wird aufgerufen.
 
     \subsubsection{ConfirmationElement} \label{sec:ConfirmationElement}
+        Die Klasse stellt ein Bestätigungs Element da. Es bietet zwei auswahlmöglichkeiten und gibt die Information an die aufrufende Funktion weiter. Erbt von der Klasse \texttt{StatelessWidget}.
         \subsubsection*{Attribut}
-            \paragraph*{\texttt{text: string}} Der Text, der im Widget angezeigt werden soll.
+            \paragraph*{\texttt{text: string}} Der anzuzeigende Text des Elements
 
         \subsubsection*{Methoden}
-            \paragraph*{\texttt{ConfirmationElement(text: string - notNull)}} Ein Konstruktor für ein ConfirmationElement, wobei ein Text angegeben werden muss.
+            \paragraph*{\texttt{ConfirmationElement(text: string - notNull)}} Ein Konstruktor für ein \texttt{ConfirmationElement}. Der Parameter muss angegeben werden.
             \paragraph*{\texttt{decline()}} Dem Erzeugter wird true zurückgegeben.
             \paragraph*{\texttt{accept()}} Dem Erzeugter wird false zurückgegeben.
 
@@ -631,7 +639,7 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
     \subsubsection{RegisterPage}
         Stellt das Hauptelement der Ansicht da. Erbt von der Klasse \texttt{StatefullWidget}. Benutzt die Klasse \texttt{RegisterPageState}.
         \subsubsection*{Methode}
-            \paragraph*{\texttt{createState: State<RegisterPageState>}} Der Konstruktor für den RegisterPageState.
+            \paragraph*{\texttt{createState: State<RegisterPageState>}} Der Konstruktor für den \texttt{RegisterPageState}.
     
     \subsubsection{RegisterPageState}
         Der Zustand von der \texttt{RegisterPage}. Erbt von der Klasse \texttt{State}.
@@ -642,7 +650,7 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
             \paragraph*{\texttt{repeatedPassword: TextEdittingController}} Die eingegebene Zeichenkette für das wiederholte Passwort des neuen Accounts.
          
         \subsubsection*{Methoden}
-            \paragraph*{\texttt{register(username: string, email: string, password: string, repeatedPassword: string)}} Überprüft ob das eingegeben Passwort mit dem wiederholten Passwort übereinstimmt und ruft dann die Funktion register() im UserRepository auf.
+            \paragraph*{\texttt{register(username: string, email: string, password: string, repeatedPassword: string)}} Überprüft ob das eingegeben Passwort mit dem wiederholten Passwort übereinstimmt und ruft dann die Funktion \texttt{register()} im \texttt{UserService} auf.
             \paragraph*{\texttt{login()}} Die Loginansicht wird aufgerufen.
 
     \begin{figure}[htp]
@@ -658,7 +666,7 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
             \includegraphics[width=0.95\textwidth]{images/Presentation-layer/RegisterViewClass.pdf}
             \caption{Klassen für Registrierungsansicht}
         \end{minipage}
-    \end{figure}    
+    \end{figure} 
         
 \newpage
 
@@ -668,7 +676,7 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
     \subsubsection{LoginPage}
         Stellt das Hauptelement der Ansicht da. Erbt von der Klasse \texttt{StatefullWidget}. Benutzt die Klasse \texttt{LoginPageState}.
         \subsubsection*{Methode}
-            \paragraph*{\texttt{createState: State<LoginPageState>}} Der Konstruktor für den LoginPageState.
+            \paragraph*{\texttt{createState: State<LoginPageState>}} Der Konstruktor für den \texttt{LoginPageState}.
     
     \subsubsection{LoginPageState}
         Der Zustand von der \texttt{LoginPage}. Erbt von der Klasse \texttt{State}.
@@ -677,9 +685,9 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
             \paragraph*{\texttt{passwortController: TextEdittingController}} Die eingegebene Zeichenkette für das Passwort des Users.
 
         \subsubsection*{Methoden}
-            \paragraph*{\texttt{login(email: string, password: string)}} Überprüft die Eingaben und ruft die Funktionen createGroup() im UserRepository auf.
-            \paragraph*{\texttt{resetPasswordView()}}  Die Passwort-Zurücksetzen-Ansicht wird aufgerufen.
-            \paragraph*{\texttt{registerView()}}  Die Registrierungsansicht wird aufgerufen.
+            \paragraph*{\texttt{login(email: string, password: string)}} Überprüft die Eingaben und ruft die Funktionen \texttt{createGroup()} im \texttt{UserService} auf.
+            \paragraph*{\texttt{resetPasswordView()}} Die Passwort-Zurücksetzen-Ansicht wird aufgerufen.
+            \paragraph*{\texttt{registerView()}} Die Registrierungsansicht wird aufgerufen.
 
     \begin{figure}[htp]
         \begin{minipage}
@@ -694,7 +702,7 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
             \includegraphics[width=0.95\textwidth]{images/Presentation-layer/LoginViewClass.pdf}
             \caption{Klassen für Anmeldungsansicht}
         \end{minipage}
-    \end{figure}    
+    \end{figure} 
         
     \newpage
 
@@ -704,7 +712,7 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
     \subsubsection{ResetPasswordPage}
         Stellt das Hauptelement der Ansicht da. Erbt von der Klasse \texttt{StatefullWidget}. Benutzt die Klasse \texttt{ResetPasswordPageState}. 
         \subsubsection*{Methode}
-            \paragraph*{\texttt{createState: State<ResetPasswordPageState>}} Der Konstruktor für den ResetPasswordPageState.
+            \paragraph*{\texttt{createState: State<ResetPasswordPageState>}} Der Konstruktor für den \texttt{ResetPasswordPageState}.
     
     \subsubsection{ResetPasswordPageState}
         Der Zustand von der \texttt{ResetPasswordPage}. Erbt von der Klasse \texttt{State}. Die Klasse \ref{sec:ReturnButton} wird verwendet.
@@ -712,7 +720,7 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
             \paragraph*{\texttt{emailController: TextEdittingController}} Die eingegebene Zeichenkette für die E-Mail-Adresse des Users.
     
         \subsubsection*{Methoden}
-            \paragraph*{\texttt{resetPassword(email: string)}} Überprüft ob die Korrektheit der E-Mail-Adresse und ruft die Funktionen resetPassword() im UserRepository auf.
+            \paragraph*{\texttt{resetPassword(email: string)}} Überprüft ob die Korrektheit der E-Mail-Adresse und ruft die Funktionen \texttt{resetPassword()} im \texttt{UserRepository} auf.
             \paragraph*{\texttt{LoginView()}} Die Loginansicht wird aufgerufen.
     
             \begin{figure}[htp]
@@ -728,7 +736,7 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
                     \includegraphics[width=0.95\textwidth]{images/Presentation-layer/PasswordResetViewClass.pdf}
                     \caption{Klassen für Passwort-Zurücksetzen-Ansicht}
                 \end{minipage}
-            \end{figure}    
+            \end{figure} 
         
             \newpage
 
@@ -736,28 +744,28 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
     Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Gruppen-Beitritts-Ansicht darzustellen.
 
     \subsubsection{GroupJoiningPage}
-    Stellt das Hauptelement der Ansicht da. Erbt von der Klasse \texttt{StatefullWidget}. Benutzt die Klasse \texttt{GroupJoiningPageState}. 
+        Stellt das Hauptelement der Ansicht da. Erbt von der Klasse \texttt{StatefullWidget}. Benutzt die Klasse \texttt{GroupJoiningPageState}. 
         \subsubsection*{Methode}
-            \paragraph*{\texttt{createState: State<GroupJoiningPageState>}} Der Konstruktor für den GroupJoiningPageState.
+            \paragraph*{\texttt{createState: State<GroupJoiningPageState>}} Der Konstruktor für den \texttt{GroupJoiningPageState}.
     
     \subsubsection{GroupJoiningPageState}
-    Der Zustand von der \texttt{GroupJoiningPage}. Erbt von der Klasse \texttt{State}.
+        Der Zustand von der \texttt{GroupJoiningPage}. Erbt von der Klasse \texttt{State}.
         \subsubsection*{Attribut}
             \paragraph*{\texttt{groupeNameController: TextEdittingController}} Die eingegebene Zeichenkette für den Namen der beizutreten Gruppe.
 
         \subsubsection*{Methoden}
-            \paragraph*{\texttt{joinGroup(groupId?: string)}} Überprüft den Gruppenname und ruft die Funktionen joinGroupe() im GroupeService auf. Der Parameter ist optional.
+            \paragraph*{\texttt{joinGroup(groupId?: string)}} Überprüft den Gruppenname und ruft die Funktionen \texttt{joinGroupe()} im \texttt{GroupeService} auf. Der Parameter ist optional.
             \paragraph*{\texttt{joinGroupQr()}} Das CameraElement wird aufgerufen.
-            \paragraph*{\texttt{createGroupeView()}}  Die Gruppen-Beitritts-Ansicht wird aufgerufen.
+            \paragraph*{\texttt{createGroupeView()}} Die Gruppen-Beitritts-Ansicht wird aufgerufen.
             \paragraph*{\texttt{mainView()}} Die Hauptansicht wird aufgerufen.
     
     \subsubsection*{CameraElement}
-    Die Klasse stellt das Element dar, welches aufgerufen wenn die Systemkameraverwendet wird um einen QR-Code zu scnannen. Dafür wird die Klasse \texttt{mobileScanner} aus dem Paket \texttt{mobile\_scanner} verwendet. Die Klasse erbt von der Klasse \texttt{StatelessWidget}.
+        Die Klasse stellt das Element dar, welches aufgerufen wenn die Systemkameraverwendet wird um einen QR-Code zu scnannen. Dafür wird die Klasse \texttt{mobileScanner} aus dem Paket \texttt{mobile\_scanner} verwendet. Die Klasse erbt von der Klasse \texttt{StatelessWidget}.
         \subsubsection*{Attribut}
-            \paragraph*{\texttt{barcodes: List<Barcode>}}  Der gescannte QR-Code.
+            \paragraph*{\texttt{barcodes: List<Barcode>}} Der gescannte QR-Code.
 
         \subsubsection*{Methoden}
-            \paragraph*{\texttt{joinGroup()}} Die Daten aus dem QR-Code werden überprüft und die Funktion joinGroup() der Klasse \texttt{GroupJoiningPageState} wird aufgerufen.
+            \paragraph*{\texttt{joinGroup()}} Die Daten aus dem QR-Code werden überprüft und die Funktion \texttt{joinGroup()} der Klasse \texttt{GroupJoiningPageState} wird aufgerufen.
     
     \begin{figure}[htp]
         \begin{minipage}
@@ -772,7 +780,7 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
             \includegraphics[width=0.95\textwidth]{images/Presentation-layer/GroupJoiningViewClass.pdf}
             \caption{Klassen für Gruppen-Beitritts-Ansicht}
         \end{minipage}
-    \end{figure}    
+    \end{figure} 
         
     \newpage        
 
@@ -782,7 +790,7 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
     \subsubsection{GroupCreationPage}
     Stellt das Hauptelement der Ansicht da. Erbt von der Klasse \texttt{StatefullWidget}. Benutzt die Klasse \texttt{GroupCreationPageState}. 
         \subsubsection*{Methode}
-            \paragraph*{\texttt{createState: State<GroupCreationPageState>}} Der Konstruktor für den GroupCreationPageState.
+            \paragraph*{\texttt{createState: State<GroupCreationPageState>}} Der Konstruktor für den \texttt{GroupCreationPageState}.
     
     \subsubsection{GroupCreationPageState}
     Der Zustand von der \texttt{GroupCreationPage}. Erbt von der Klasse \texttt{State}.
@@ -790,7 +798,7 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
             \paragraph*{\texttt{GroupNameController: TextEdittingController}} Die eingegebene Zeichenkette für den Namen der neuen Gruppe.
 
         \subsubsection*{Methoden}
-            \paragraph*{\texttt{createGroupe(name: string)}} Überprüft den Gruppenname und ruft die Funktionen createGroupe() im GroupeService auf.
+            \paragraph*{\texttt{createGroupe(name: string)}} Überprüft den Gruppenname und ruft die Funktionen \texttt{createGroupe()} im \texttt{GroupeService} auf.
             \paragraph*{\texttt{joinGroupeView()}} Die Gruppen-Beitritts-Ansicht wird aufgerufen.
             \paragraph*{\texttt{mainView()}} Die Hauptansicht wird aufgerufen.
 
@@ -807,7 +815,7 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
             \includegraphics[width=0.95\textwidth]{images/Presentation-layer/GroupCreationViewClass.pdf}
             \caption{Klassen für Gruppen-Erstellungs-Ansicht}
         \end{minipage}
-    \end{figure}    
+    \end{figure} 
         
     \newpage
 
@@ -884,12 +892,12 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
     \subsubsection{RecipeViewPage}
     Stellt das Hauptelement der Ansicht da. Erbt von der Klasse \texttt{StatefullWidget}. Benutzt die Klasse \texttt{RecipeViewPageState}.
         \subsubsection*{Methode}
-            \paragraph*{\texttt{createState: State<RecipeViewPageState>}} Konstruktor für den RecipeViewPageState.
+            \paragraph*{\texttt{createState: State<RecipeViewPageState>}} Der Konstruktor für den \texttt{RecipeViewPageState}.
         
     \subsubsection{recipeViewPageState}
     Der Zustand von der \texttt{RecipeViewPage}. Erbt von der Klasse \texttt{State}. Die Klassen \ref{sec:ReturnButton}, \ref{sec:InformationElement} und \ref{sec:AppBar} werden verwendet.
         \subsubsection*{Attribut}
-            \paragraph*{\texttt{portions: TextEdittingController}} Eingegebene Ganzzahl für die die Zutatenmengen berechnet werden.
+            \paragraph*{\texttt{portions: TextEdittingController}} Die eingegebene Ganzzahl für die die Zutatenmengen berechnet werden.
     
         \subsubsection*{Methode}
             \paragraph*{\texttt{changePortions(portions: int)}} Die neuen Mengenangaben für die Zutaten werden berechnet.
@@ -908,7 +916,7 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
             \includegraphics[width=0.95\textwidth]{images/Presentation-layer/RecipeViewClass.pdf}
             \caption{Klassen für Rezeptansicht}
         \end{minipage}
-    \end{figure}    
+    \end{figure} 
 
     \newpage
 
@@ -916,29 +924,29 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
     Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Rezept-Erstell-Ansicht darzustellen.
 
     \subsubsection{RecipeCreationPage}
-    Stellt das Hauptelement der Ansicht da. Erbt von der Klasse \texttt{StatefullWidget}. Benutzt die Klasse \texttt{RecipeCreationPageState}.
+        Stellt das Hauptelement der Ansicht da. Erbt von der Klasse \texttt{StatefullWidget}. Benutzt die Klasse \texttt{RecipeCreationPageState}.
         \subsubsection*{Methode}
-            \paragraph*{\texttt{createState: State<RecipeCreationPageState>}} Konstruktor für den RecipeCreationPageState.
+            \paragraph*{\texttt{createState: State<RecipeCreationPageState>}} Der Konstruktor für den \texttt{RecipeCreationPageState}.
 
     \subsubsection{RecipeCreationPageState}
-    Der Zustand von der \texttt{RecipeCreationPage}. Erbt von der Klasse \texttt{State}. Die Klassen \ref{sec:ReturnButton}, \ref{sec:InformationElement} und \ref{sec:AppBar} werden verwendet.
+        Der Zustand von der \texttt{RecipeCreationPage}. Erbt von der Klasse \texttt{State}. Die Klassen \ref{sec:ReturnButton}, \ref{sec:InformationElement} und \ref{sec:AppBar} werden verwendet.
         \subsubsection*{Attribute}
-            \paragraph*{\texttt{image: blob}} Hochgeladenes Bild, welches den anderen Nutzern in der Rezeptansicht angezeigt werden soll.
-            \paragraph*{\texttt{title: TextEdittingController}} Die eingegebene Zeichenkette für den Titel des Rezepts. Die Zeichenkette kann maximal 64 Zeichen lang sein und muss ausgefüllt sein.
+            \paragraph*{\texttt{image: blob}} Das hochgeladenes Bild, welches den anderen Nutzern in der Rezeptansicht angezeigt werden soll.
+            \paragraph*{\texttt{title: TextEdittingController}} Die eingegebene Zeichenkette für den Titel des Rezepts. Die Zeichenkette kann maximal 64 Zeichen lang sein.
             \paragraph*{\texttt{is\_Vegetarian: Boolean}} Der vom Nutzer angegebene Boolean, ob das \gls{label} Vegetarisch dem Leser angezeigt werden soll. Ist standartmäßig auf false.
             \paragraph*{\texttt{is\_Vegan: Boolean}} Der vom Nutzer angegebene Boolean, ob das \gls{label} Vegan dem Leser angezeigt werden soll. Ist standartmäßig auf false.
-            \paragraph*{\texttt{is\_GlutenFree: Boolean}} Der vom Nutzer angegebene Boolean, ob das \gls{label} Glutenfrei dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
-            \paragraph*{\texttt{is\_Halal: Boolean}} Der vom Nutzer angegebene Boolean, ob das \gls{label} Halal dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
-            \paragraph*{\texttt{is\_Kosher: Boolean}} Der vom Nutzer angegebene Boolean, ob das \gls{label} Koscher dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
-            \paragraph*{\texttt{duration: TextEdittingController}} Die vom Nutzer eingegebene Ganzzahl, welche die Zubereitungszeit in Minuten angibt. Muss angegeben werden.
-            \paragraph*{\texttt{difficulty: Difficulty}} Die vom Nutzer ausgewählte \gls{schwierigkeit} des Rezepts. Muss angegeben werden. 
+            \paragraph*{\texttt{is\_GlutenFree: Boolean}} Der vom Nutzer angegebene Boolean, ob das \gls{label} Glutenfrei dem Leser angezeigt werden soll. Ist standartmäßig auf false.
+            \paragraph*{\texttt{is\_Halal: Boolean}} Der vom Nutzer angegebene Boolean, ob das \gls{label} Halal dem Leser angezeigt werden soll. Ist standartmäßig auf false.
+            \paragraph*{\texttt{is\_Kosher: Boolean}} Der vom Nutzer angegebene Boolean, ob das \gls{label} Koscher dem Leser angezeigt werden soll. Ist standartmäßig auf false.
+            \paragraph*{\texttt{duration: TextEdittingController}} Die vom Nutzer eingegebene Ganzzahl, welche die Zubereitungszeit in Minuten angibt.
+            \paragraph*{\texttt{difficulty: Difficulty}} Die vom Nutzer ausgewählte \gls{schwierigkeit} des Rezepts. 
             \paragraph*{\texttt{defaultPortionAmount: TextEdittingController}} Die vom Nutzer eingegebene Ganzzahl, welche die Anzahal standardmäßigen Portionen für das Rezept angibt.
             \paragraph*{\texttt{ingredients: Ingredients[]}} Eine Liste an Ingerdients, welche in der AddIngredientPage erstellt wurde.
-            \paragraph*{\texttt{instructions: TextEdittingController (notNull)}} Die vom Nutzer angegeben Zeichenkette für die Beschreibung des Rezepts. Muss angegeben werden.
+            \paragraph*{\texttt{instructions: TextEdittingController (notNull)}} Die vom Nutzer angegeben Zeichenkette für die Beschreibung des Rezepts.
 
         \subsubsection*{Methoden}
-            \paragraph*{\texttt{addIngredient()}} Die Page AddIngredientPage wird aufgerufen.
-            \paragraph*{\texttt{recipeSave()}} Die Methode ruft, abhängig davon ob das Rezept neu erstellt wird oder nur verändert wurde, entweder recipeCreation() oder recipeChange() auf.
+            \paragraph*{\texttt{addIngredient()}} Die Page \texttt{AddIngredientPage} wird aufgerufen.
+            \paragraph*{\texttt{recipeSave()}} Die Methode ruft, abhängig davon ob das Rezept neu erstellt wird oder nur verändert wurde, entweder \texttt{recipeCreation()} oder \texttt{recipeChange()} auf.
         
     \subsubsection{Difficulty}
             Ein Enum der alle \glslink{schwierigkeit}{Schwierigkeitsgrade} beinhält.
@@ -953,7 +961,7 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
                 \paragraph*{\texttt{ingredient: Ingredient}} Die darzustellende Zutat.
 
             \subsubsection*{Methoden}
-                \paragraph*{\texttt{delete()}} Das IngredientElement wird nicht mehr in der Rezept-Erstellungs-Ansicht angezeigt und ist die Zutat ist nicht mehr teil des Rezepts.
+                \paragraph*{\texttt{delete()}} Das \texttt{IngredientElement} wird nicht mehr in der Rezept-Erstellungs-Ansicht angezeigt und ist die Zutat ist nicht mehr teil des Rezepts.
 
         \begin{figure}[htp]
                 \begin{minipage}
@@ -976,26 +984,26 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
         Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Zutaten-Auswahl-Ansicht darzustellen.
     
         \subsubsection{AddIngredientPage}
-        Stellt das Hauptelement der Ansicht da. Erbt von der Klasse \texttt{StatefullWidget}. Benutzt die Klasse \texttt{AddIngredientPageState}.
+            Stellt das Hauptelement der Ansicht da. Erbt von der Klasse \texttt{StatefullWidget}. Benutzt die Klasse \texttt{AddIngredientPageState}.
             \subsubsection*{Methode}
-                \paragraph*{\texttt{createState: State<AddIngredientPageState>}} Der Konstruktor für den AddIngredientPageState.
+                \paragraph*{\texttt{createState: State<AddIngredientPageState>}} Der Konstruktor für den \texttt{AddIngredientPageState}.
         
         \subsubsection{AddIngredientPageState}
-        Der Zustand von der \texttt{AddIngredientPage}. Erbt von der Klasse \texttt{State}. Die Klassen \ref{sec:ReturnButton} und \texttt{Ingredient} werden verwendet.
+            Der Zustand von der \texttt{AddIngredientPage}. Erbt von der Klasse \texttt{State}. Die Klassen \ref{sec:ReturnButton} und \texttt{Ingredient} werden verwendet.
             \subsubsection*{Attribut}
                 \paragraph*{\texttt{ingredientController: TextEdittingController}} Die eingegebene Zeichenkette für den Namen der neunen Zutat.
     
             \subsubsection*{Methoden}
-                \paragraph*{\texttt{searchIngredient(input: string)}} Überprüft die Eingabe und ruft die Funktion getAllIngredientNames() im IngredientService auf.
-                \paragraph*{\texttt{addIngredient(ingredient: Ingredient)}}  Erstellt aus den Eingaben ein Objekt der Klasse Ingredient und kehrt zurück zur Rezept-Erstellungs-Ansicht.
+                \paragraph*{\texttt{searchIngredient(input: string)}} Überprüft die Eingabe und ruft die Funktion \texttt{getAllIngredientNames()} im \texttt{IngredientService} auf.
+                \paragraph*{\texttt{addIngredient(ingredient: Ingredient)}} Erstellt aus den Eingaben ein Objekt der Klasse \texttt{Ingredient} und kehrt zurück zur Rezept-Erstellungs-Ansicht.
 
         \subsubsection*{ChoseIconElement}
-        Die Klasse stellt das ChoseIconElement da und ermöglicht es den User ein Icon für die Zutat auszuwählen. Bei Berührung klappt sich eine Liste an \texttt{IconElements} aus.
+            Die Klasse stellt das \texttt{ChoseIconElement} da und ermöglicht es den User ein Icon für die Zutat auszuwählen. Bei Berührung klappt sich eine Liste an \texttt{IconElements} aus.
             \subsubsection*{Methode}
                 \paragraph*{\texttt{choseIcon(iconId: String)}} Speichert das ausgewählte Icon mit der Zutat ab.
 
         \subsubsection*{\texttt{IconElement}}
-        Die Klasse stellt ein Icon für eine Zutat da.
+            Die Klasse stellt ein Icon für eine Zutat da.
             \subsubsection*{Attribut}
                 \paragraph*{\texttt{iconId: String}} Die Id des Icons, welches dargestellt werden soll.
 
@@ -1012,7 +1020,7 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
                 \includegraphics[width=0.95\textwidth]{images/Presentation-layer/IngredientPickerViewClass.pdf}
                 \caption{Klassen für Zutaten-Auswahl-Ansicht}
             \end{minipage}
-        \end{figure}    
+        \end{figure} 
             
         \newpage
 
@@ -1020,12 +1028,12 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
     Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Verwaltungsansicht darzustellen.
 
     \subsubsection{SettingsPage}
-    Stellt das Hauptelement der Ansicht da. Erbt von der Klasse \texttt{StatefullWidget}. Benutzt die Klasse \texttt{SettingsPageState}.
+        Stellt das Hauptelement der Ansicht da. Erbt von der Klasse \texttt{StatefullWidget}. Benutzt die Klasse \texttt{SettingsPageState}.
         \subsubsection*{Methode}
-            \paragraph*{\texttt{createState: State<SettingsPageState>}} Der Konstruktor für den SettingsPageState.
+            \paragraph*{\texttt{createState: State<SettingsPageState>}} Der Konstruktor für den \texttt{SettingsPageState}.
     
     \subsubsection{SettingsPageState}
-    Der Zustand von der \texttt{SettingsPage}. Erbt von der Klasse \texttt{State}. Die Klassen \ref{sec:RecipeListElement}, \ref{sec:ConfirmationElement}, \ref{sec:ReturnButton} und \ref{sec:AppBar}werden verwendet.
+        Der Zustand von der \texttt{SettingsPage}. Erbt von der Klasse \texttt{State}. Die Klassen \ref{sec:RecipeListElement}, \ref{sec:ConfirmationElement}, \ref{sec:ReturnButton} und \ref{sec:AppBar}werden verwendet.
         \subsubsection*{Attribut}
             \paragraph*{\texttt{newUsernameController: TextEdittingController}} Die eingegebene Zeichenkette für den neuen Nutzernamen des Benutzers.
 
@@ -1038,18 +1046,18 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
             \paragraph*{\texttt{deleteAccount()}} Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion deleteAccount() im UserService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts. 
     
     \subsubsection{LogoutButton}
-    Die Klasse stellt den LoggoutButton da. Erbt von der Klasse \texttt{StatelessWidget}.
+        Die Klasse stellt den LoggoutButton da. Erbt von der Klasse \texttt{StatelessWidget}.
         \subsubsection*{Methode}
-            \paragraph*{\texttt{logout()}} Die Funktion logout() im UserService wird aufgerufen.
+            \paragraph*{\texttt{logout()}} Die Funktion \texttt{logout()} im \texttt{UserService} wird aufgerufen.
             
     \subsubsection*{GroupElement}
-    Die Klasse stellt ein Gruppen Element in der List an Gruppen da. Erbt von der Klasse \texttt{StatelessWidget}.
+        Die Klasse stellt ein Gruppen Element in der List an Gruppen da. Erbt von der Klasse \texttt{StatelessWidget}.
         \subsubsection*{Attribut}
             \paragraph*{\texttt{group: Group}} Die darzustellende Gruppe.
 
         \subsubsection*{Methoden}
-            \paragraph*{\texttt{GroupElement(group: Group - notNull)}} Der Konstruktor für ein GroupElement. Der Parameter muss angegeben werden.
-            \paragraph*{\texttt{leaveGroup()}} Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion leaveGroup() im GroupService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
+            \paragraph*{\texttt{GroupElement(group: Group - notNull)}} Der Konstruktor für ein \texttt{GroupElement}. Der Parameter muss angegeben werden.
+            \paragraph*{\texttt{leaveGroup()}} Das \texttt{ConfirmationElement} wird aufgerufen und bei positiver Rückmeldung wird die Funktion \texttt{leaveGroup()} im \texttt{GroupService} wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
             \paragraph*{\texttt{groupeDetailView()}} Die Gruppen-Detail-Ansicht wird aufgerufen.
             
     \begin{figure}[htp]
@@ -1065,7 +1073,7 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
             \includegraphics[width=0.95\textwidth]{images/Presentation-layer/SettingsViewClass.pdf}
             \caption{Klassen für Verwaltungsansicht}
         \end{minipage}
-    \end{figure}    
+    \end{figure} 
         
     \newpage
 
@@ -1075,33 +1083,22 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
     \subsubsection{GroupDetailPage}
         Stellt das Hauptelement der Ansicht da. Erbt von der Klasse \texttt{StatefullWidget}. Benutzt die Klasse \texttt{GroupDetailPageState}.
         \subsubsection*{Methode}
-            \paragraph*{\texttt{createState: State<GroupDetailPageState>}} Der Konstruktor für den GroupDetailPageState.
+            \paragraph*{\texttt{createState: State<GroupDetailPageState>}} Der Konstruktor für den \texttt{GroupDetailPageState}.
 
     \subsubsection{GroupDetailPageState}
         Der Zustand von der \texttt{SettingsPage}. Erbt von der Klasse \texttt{State}. Die Klassen \ref{sec:RecipeListElement}, \ref{sec:ConfirmationElement}, \ref{sec:ReturnButton} und \ref{sec:AppBar} werden verwendet.
         \subsubsection*{Attribut}
-            \paragraph*{\texttt{group: Group}} Die Gruppe, deren Details dargestellt werden.
+            \paragraph*{\texttt{group: Group}} Die darzustellenden Gruppendetails.
             \paragraph*{\texttt{newTitle: TextEdittingController}} Die eingegebe Zeichenkette für den neuen Gruppennamen.
 
         \subsubsection*{Methoden}
-            \paragraph*{\texttt{GroupDetailPage(group: Group - notNull)}} Ein Konstruktor für eine GroupDetailPage. Der Parameter muss angegeben werden. 
-            \paragraph*{\texttt{setGroupTitle(newTitle: string)}} Die Eingabe wird Überprüft und die Funktion setGroupName() im GroupeService wird aufgerufen.
-            \paragraph*{\texttt{deleteGroup()}} Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion kickUser() im GroupeService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
-            \paragraph*{\texttt{leaveGroup()}} Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion leaveGroup() im GroupeService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
+            \paragraph*{\texttt{GroupDetailPage(group: Group - notNull)}} Ein Konstruktor für eine \texttt{GroupDetailPage}. Der Parameter muss angegeben werden. 
+            \paragraph*{\texttt{setGroupTitle(newTitle: string)}} Die Eingabe wird Überprüft und die Funktion \texttt{setGroupName()} im \texttt{GroupeService} wird aufgerufen.
+            \paragraph*{\texttt{deleteGroup()}} Das \texttt{ConfirmationElement} wird aufgerufen und bei positiver Rückmeldung wird die Funktion  \texttt{kickUser()} im  \texttt{GroupeService} wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
+            \paragraph*{\texttt{leaveGroup()}} Das \texttt{ConfirmationElement} wird aufgerufen und bei positiver Rückmeldung wird die Funktion  \texttt{leaveGroup()} im \texttt{GroupeService} wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
 
             \paragraph*{\texttt{getQRCode()}} Die QR-Code-Ansicht wird aufgerufen.
             \paragraph*{\texttt{getGroupTitel()}} Der Gruppentitel wird in der Zwischenablage gespeichert.
-
-    \subsubsection{ConfirmationElement} \label{sec:ConfirmationElement}
-        Die Klasse stellt das Zustimmungs Element da. Es erscheint mit einer Nachricht und bittet dabei um die Bestätigung. Erbt von der Klasse \texttt{StatelessWidget}.
-        \subsubsection*{Attribut}
-            \paragraph*{\texttt{text: string}} Der Text, der im Widget angezeigt werden soll.
-
-        \subsubsection*{Methoden}
-            \paragraph*{\texttt{ConfirmationElement(text: string - notNull)}} Ein Konstruktor für ein ConfirmationElement, wobei ein Text angegeben werden muss.
-            \paragraph*{\texttt{decline()}} Dem Erzeugter wird true zurückgegeben.
-            \paragraph*{\texttt{accept()}} Dem Erzeugter wird false zurückgegeben.
-
 
     \subsubsection{OptionElement}
         Die Klasse stellt das OptionenElement da. Es zeigt alle Optionen an die der User hat bei dem User. Erbt von der Klasse \texttt{StatelessWidget}.
@@ -1109,11 +1106,11 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
             \paragraph*{\texttt{user: User}} Der darzustellende User.
 
         \subsubsection*{Methoden}
-            \paragraph*{\texttt{OptionElement(user: User - notNull)}} Ein Konstruktor für ein OptionElement. Der Parameter muss angegeben werden. 
-            \paragraph*{\texttt{kickUser()}} Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion kickUser() im UserSettingsService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
-            \paragraph*{\texttt{banUser()}} Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion banUser() im UserSettingsService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
-            \paragraph*{\texttt{makeAdmin()}} Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion makeAdmin() im UserSettingsService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
-            \paragraph*{\texttt{removeAdminStatus()}} Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion removeAdminStatus() im UserSettingsService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
+            \paragraph*{\texttt{OptionElement(user: User - notNull)}} Ein Konstruktor für ein \texttt{OptionElement}. Der Parameter muss angegeben werden. 
+            \paragraph*{\texttt{kickUser()}} Das \texttt{ConfirmationElement} wird aufgerufen und bei positiver Rückmeldung wird die Funktion \texttt{kickUser()} im \texttt{UserSettingsService} wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
+            \paragraph*{\texttt{banUser()}} Das \texttt{ConfirmationElement} wird aufgerufen und bei positiver Rückmeldung wird die Funktion \texttt{banUser()} im \texttt{UserSettingsService} wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
+            \paragraph*{\texttt{makeAdmin()}} Das \texttt{ConfirmationElement} wird aufgerufen und bei positiver Rückmeldung wird die Funktion \texttt{makeAdmin()} im \texttt{UserSettingsService} wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
+            \paragraph*{\texttt{removeAdminStatus()}} Das \texttt{ConfirmationElement} wird aufgerufen und bei positiver Rückmeldung wird die Funktion \texttt{removeAdminStatus()} im \texttt{UserSettingsService} wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
 
     \subsubsection{UserElement} 
         Die Klasse stellt das User Element da. Dabei zeigt es in der Liste an Nutzer einen Nutzer an mit allen Möglichkeiten. Die Klasse \texttt{OptionElement} wirdverwendet.
@@ -1122,8 +1119,8 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
             \paragraph*{\texttt{isOwnAccount: Boolean}} Ein Boolean der Angibt ob es sich um den eigenen Account handelt.
 
         \subsubsection*{Methoden}
-            \paragraph*{\texttt{UserElement(user: User - notNull, isOwnAccount: bool - notNull)}} Ein Konstruktor für ein UserElement. Alle Parameter müssen angegeben werden.
-            \paragraph*{\texttt{options()}} Das OptionElement wird aufgerufen.
+            \paragraph*{\texttt{UserElement(user: User - notNull, isOwnAccount: bool - notNull)}} Ein Konstruktor für ein \texttt{UserElement}. Alle Parameter müssen angegeben werden.
+            \paragraph*{\texttt{options()}} Das \texttt{OptionElement} wird aufgerufen.
 
         \begin{figure}[htp]
             \begin{minipage}
@@ -1138,7 +1135,7 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
                 \includegraphics[width=0.95\textwidth]{images/Presentation-layer/GroupDetailViewClass.pdf}
                 \caption{Klassen für Gruppen-Detail-Ansicht}
             \end{minipage}
-        \end{figure}    
+        \end{figure} 
 
         \newpage
 
@@ -1151,7 +1148,7 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
             \paragraph*{\texttt{group: Group}}
 
         \subsubsection*{Methode}
-            \paragraph*{\texttt{QrCodePage(group: Group - notNull)}} Der Konstruktor für eine QrCodePage. Der Parameter muss angegeben werden.
+            \paragraph*{\texttt{QrCodePage(group: Group - notNull)}} Der Konstruktor für eine \texttt{QrCodePage}. Der Parameter muss angegeben werden.
 
     \begin{figure}[htp]
         \begin{minipage}
@@ -1166,7 +1163,7 @@ Legt alle Provider an, die für die Anwendung benötigt werden. Nimmt keine Para
             \includegraphics[width=0.95\textwidth]{images/Presentation-layer/QRCodeViewClass.pdf}
             \caption{Klassen für QR-Code-Ansicht}
         \end{minipage}
-    \end{figure}    
+    \end{figure} 
     \newpage
 
 \newpage
