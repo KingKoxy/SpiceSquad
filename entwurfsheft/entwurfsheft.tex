@@ -515,13 +515,24 @@ Eigene Widgets, die in mehreren Klassen verwendet werden, werden in einem eigene
 \end{figure}
 
 \subsubsection{\texttt{AddButton}}
-Der \texttt{AddButton} ist ein Button, der ein Plus-Symbol enthält. Er wird verwendet, um ein neues Element hinzuzufügen.
+Der \texttt{AddButton} ist ein Button, der ein Plus-Symbol enthält. Er wird verwendet, um ein neues Element hinzuzufügen. Er erbt von der Flutter-Klasse \texttt{ElevatedButton}.
 \begin{figure}[htp]
     \centering
     \includegraphics[height = .5cm]{images/presentationLayer/uiElements/addButton.png}
     \caption{Darstellung des AddButtons}
 \end{figure}
-
+\paragraph{Konstruktor}
+Der Konstruktor nimmt eine Funktion \texttt{onPressed} entgegen, die ausgeführt wird, wenn der Button gedrückt wird.
+\subsubsection{\texttt{CTAButton}}
+Der \texttt{CTAButton} (Call-To-Action-Button) ist ein Button, der eine Aktion ausführt. Er erbt von der Flutter-Klasse \texttt{ElevatedButton}. Er zeichnet sich vor allem durch seine rote Farbe aus.
+\begin{figure}[htp]
+    \centering
+    \includegraphics[height = .8cm]{images/presentationLayer/uiElements/ctaButton.png}
+    \caption{Darstellung eines CTAButtons}
+\end{figure}
+\paragraph{Konstruktor}
+Der Konstruktor nimmt eine Funktion \texttt{onPressed} entgegen, die ausgeführt wird, wenn der Button gedrückt wird. Zudem kann ein String \texttt{text} übergeben werden, der den Text des Buttons bestimmt.
+\newpage
 \subsection{\texttt{LoginScreen}}
 Die Klasse bildet die Loginansicht ab. Sie verwendet die Klassen \texttt{SimpleTextField} und \texttt{CTAButton} aus dem Ordner \texttt{commonWidgets}. Die Klasse \texttt{LoginScreen} ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt.
 \begin{figure}[htp]
