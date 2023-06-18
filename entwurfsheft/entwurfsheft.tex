@@ -521,17 +521,38 @@ Der \texttt{AddButton} ist ein Button, der ein Plus-Symbol enthält. Er wird ver
     \includegraphics[height = .5cm]{images/presentationLayer/uiElements/addButton.png}
     \caption{Darstellung des AddButtons}
 \end{figure}
-\paragraph{Konstruktor}
+\subsubsection*{Konstruktor}
 Der Konstruktor nimmt eine Funktion \texttt{onPressed} entgegen, die ausgeführt wird, wenn der Button gedrückt wird.
 \subsubsection{\texttt{CTAButton}}
 Der \texttt{CTAButton} (Call-To-Action-Button) ist ein Button, der eine Aktion ausführt. Er erbt von der Flutter-Klasse \texttt{ElevatedButton}. Er zeichnet sich vor allem durch seine rote Farbe aus.
 \begin{figure}[htp]
     \centering
-    \includegraphics[height = .8cm]{images/presentationLayer/uiElements/ctaButton.png}
+    \includegraphics[height = 1cm]{images/presentationLayer/uiElements/ctaButton.png}
     \caption{Darstellung eines CTAButtons}
 \end{figure}
-\paragraph{Konstruktor}
+\subsubsection*{Konstruktor}
 Der Konstruktor nimmt eine Funktion \texttt{onPressed} entgegen, die ausgeführt wird, wenn der Button gedrückt wird. Zudem kann ein String \texttt{text} übergeben werden, der den Text des Buttons bestimmt.
+
+\subsubsection{\texttt{SimpleTextField}}
+Der \texttt{SimpleTextField} ist ein Textfeld, das verwendet wird, um Text einzugeben. Er erbt von der Flutter-Klasse \texttt{TextField}.
+\begin{figure}[htp]
+    \centering
+    \includegraphics[height = 1cm]{images/presentationLayer/uiElements/simpleTextField.png}
+    \caption{Darstellung eines SimpleTextFields}
+\end{figure}
+\subsubsection*{Konstruktor} Der Konstruktor kann einen TextEditingController \texttt{controller} entgegennehmen, der verwendet wird, um den Text zu verwalten. Zudem kann ein String \texttt{hintText} übergeben werden, der als Platzhalter im Textfeld dient. Eine Funktion \texttt{onChanged} kann übergeben werden, die ausgeführt wird, wenn sich der Text im Textfeld ändert. Zuletzt kann ein Boolean \texttt{obscuredText} übergeben werden, der bestimmt, ob der Text im Textfeld versteckt wird. Dies wird beispielsweise bei Passwörtern verwendet.
+
+\subsubsection{\texttt{FavouriteButton}}
+Der \texttt{FavouriteButton} ist ein Button, der ein Herz-Symbol enthält. Er wird verwendet, um ein Element zu den Favoriten hinzuzufügen. Er erbt von der Flutter-Klasse \texttt{IconButton} und ist je nach übergebenem Wert ausgefüllt oder leer.
+\begin{figure}[htp]
+    \centering
+    \includegraphics[height = .5cm]{images/presentationLayer/uiElements/favouriteButton.png}
+    \caption{Darstellung des FavouriteButtons im gefüllten Zustand}
+\end{figure}
+\subsubsection*{Konstruktor}
+Der Konstruktor nimmt eine Funktion \texttt{onPressed} entgegen, die ausgeführt wird, wenn der Button gedrückt wird. Zudem kann ein Boolean \texttt{value} übergeben werden, der bestimmt, ob der Button gefüllt oder leer ist.
+
+
 \newpage
 \subsection{\texttt{LoginScreen}}
 Die Klasse bildet die Loginansicht ab. Sie verwendet die Klassen \texttt{SimpleTextField} und \texttt{CTAButton} aus dem Ordner \texttt{commonWidgets}. Die Klasse \texttt{LoginScreen} ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt.
