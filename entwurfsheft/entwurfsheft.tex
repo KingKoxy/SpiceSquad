@@ -22,7 +22,7 @@ In weiteren Kapiteln wird der REST-Webservice und die Datenbankstruktur beschrie
 
 \subsection{Semantik der UML-Diagramme}
 Im Folgenden wird eine abgewandelte Version der Standard-UML-Klassendiagramme verwendet. Alle Attribute, einschließlich solcher, die auf andere Klassen verweisen, werden direkt in der Klasse angegeben. Assoziationspfeile stehen lediglich für die "depends on"-Beziehung, was bedeutet, dass eine Klasse eine andere Klasse benötigt oder importieren muss. Die genaue Art der Beziehung zwischen den Klassen wird im begleitenden Text erklärt. Konstruktoren werden in der Form \texttt{Klasse(Parameter parameter): Klasse} angegeben. Im UML-Diagramm können auch Klassen aus der Dart-Sprache oder dem Flutter-Framework sowie Generics als Typ verwendet werden. Die Notation \texttt{attribut: Klasse?} bedeutet, dass das Attribut einen Null-Typ haben darf. Falls dies nicht explizit angegeben ist, ist dies nicht der Fall.
-
+Wir behalten uns vor weiter private Attribute und Methoden hinzuzufügen, die nicht im Diagramm aufgeführt sind, um die Implementierung zu erleichtern.
 \section{Struktur}
 
 \subsection{Client-Server-Architektur}
@@ -486,6 +486,7 @@ Der \texttt{PdfExporter} dient dazu, ein Template und Methoden zur Verfügung zu
 \paragraph{\texttt{PdfExporter.exportRecipe(Recipe recipe): Future<void>}}
 Erstellt eine PDF-Datei, die das Rezept enthält und exportiert dieses anschließend. Nimmt als Parameter das Rezept entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn die PDF-Datei erfolgreich erstellt und exportiert wurde. Wenn die PDF-Datei nicht erstellt und exportiert werden kann, wird eine Exception geworfen.
 \newpage
+
 \section{Presentation Layer}
 \begin{figure}[htp]
     \centering
