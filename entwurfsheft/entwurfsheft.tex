@@ -589,8 +589,15 @@ Das \texttt{PortionAmountField} ist ein Textfeld, das verwendet wird, um die Anz
 \paragraph*{Konstruktor}
 Der Konstruktor nimmt eine Funktion \texttt{onChange} entgegen, die ausgeführt wird, wenn sich der Text im Textfeld ändert. Zudem muss ein Integer \texttt{portionAmount} übergeben werden, der den initialen Wert des Textfelds bestimmt.
 
-
+\subsubsection{\texttt{NavBar}}
+Die \texttt{NavBar} ist eine Navigationsleiste, die am unteren Rand der App angezeigt wird. Sie erbt von der Flutter-Klasse \texttt{BottomNavigationBar}. Es kann zur Rezept-Erstellungs-Ansicht, zur Hauptansicht und zur Einstellungsansicht navigiert werden.
+\begin{figure}[htp]
+    \centering
+    \includegraphics[height = 1cm]{images/presentationLayer/uiElements/navBar.png}
+    \caption{Darstellung der NavBar}
+\end{figure}
 \newpage
+
 \subsection{\texttt{LoginScreen}}
 Die Klasse bildet die Loginansicht ab. Sie verwendet die Klassen \texttt{SimpleTextField} und \texttt{CTABut\-ton} aus dem Ordner \texttt{commonWidgets}. Die Klasse \texttt{LoginScreen} ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt.
 \begin{figure}[htp]
