@@ -200,7 +200,7 @@ Alle Attribute sind privat und können nur über einen Getter gelesen werden.
 Die eindeutige ID der Gruppe. Diese wird vom Server vergeben und ist somit nicht vom Nutzer selbst zu setzen.
 \paragraph{\texttt{name: String}}
 Der Name der Gruppe.
-\paragraph{\texttt{joiningLink: String}}
+\paragraph{\texttt{groupCode: String}}
 Das Gruppenkürzel der Gruppe. Es wird verwendet, um einer Gruppe beizutreten.
 \paragraph{\texttt{members: List<GroupMember>}}
 Die Liste der Mitglieder der Gruppe. Die Liste ist nicht leer, da eine Gruppe mindestens einen Nutzer enthalten muss.
@@ -212,7 +212,7 @@ Die Liste der Rezepte, die von Mitgliedern der Gruppe erstellt wurden.
 Gibt die ID der Gruppe zurück.
 \paragraph{\texttt{getName(): String}}
 Gibt den Namen der Gruppe zurück.
-\paragraph{\texttt{getJoiningLink(): String}}
+\paragraph{\texttt{getGroupCode(): String}}
 Gibt das Gruppenkürzel der Gruppe zurück.
 \paragraph{\texttt{getMembers(): List<GroupMember>}}
 Gibt die Liste der Mitglieder der Gruppe zurück.
@@ -291,7 +291,7 @@ Das \texttt{GroupRepository} stellt die Schnittstelle zwischen der Geschäftslog
 Konstruktor. Initialisiert das Attribut \texttt{userRepository} mit dem übergebenen \texttt{UserRepository}-Objekt.
 \paragraph{\texttt{fetchAllGroupsForUser(): Future<List<Group>>}}
 Fragt alle Gruppen des aktuellen Nutzers beim Server ab und gibt diese als Liste zurück. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn die Abfrage erfolgreich war. Wenn die Abfrage fehlschlägt, wird eine Exception geworfen.
-\paragraph{\texttt{joinGroup(String joiningLink): Future<void>}}
+\paragraph{\texttt{joinGroup(String groupCode): Future<void>}}
 Es wird eine Anfrage an den Server zum Beitritt des aktuellen Nutzers zu einer Gruppe mit dem übergebenen Beitrittslink gestellt. Nimmt als Parameter den Beitrittslink der Gruppe entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn der Nutzer erfolgreich der Gruppe beigetreten ist. Wenn der Nutzer der Gruppe nicht beitreten kann, wird eine Exception geworfen.
 \paragraph{\texttt{deleteGroup(String groupId): Future<void>}}
 Es wird eine Anfrage an den Server zum Löschen einer Gruppe mit der übergebenen Gruppen-ID gestellt. Nimmt als Parameter die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn die Gruppe erfolgreich gelöscht wurde. Wenn die Gruppe nicht gelöscht werden kann, wird eine Exception geworfen.
@@ -431,7 +431,7 @@ Das \texttt{AdminRepository}, das zum Zugriff auf die Administratoraktionen verw
 Konstruktor. Initialisiert das \texttt{GroupRepository}, das zum Zugriff auf die Gruppen verwendet wird, und das \texttt{AdminRe\-pository}, das zum Zugriff auf die Administratoraktionen dient. Nimmt als Parameter die beiden Repositorys entgegen.
 \paragraph{\texttt{build(): FutureOr<List<Group>>}}
 Implementiert die abstrakte Methode \texttt{build()} der Klasse \texttt{AsyncNotifier}. Gibt den Initialwert des Zustands zurück. In diesem Fall ist der Initialwert \texttt{groupRepository.fetchAllGroupsForUser()}.
-\paragraph{\texttt{joinGroup(String joiningLink): Future<void>}}
+\paragraph{\texttt{joinGroup(String groupCode): Future<void>}}
 Leitet die Anfrage zum Beitreten einer Gruppe an das zuständige Repository weiter. Fragt im Anschluss erneut die Gruppen des Nutzers ab und aktualisiert den \texttt{state}. Nimmt als Parameter das Gruppenkürzel der Gruppe entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn der Nutzer erfolgreich der Gruppe beigetreten ist. Wenn der Nutzer nicht der Gruppe beitreten kann, wird eine Exception geworfen.
 \paragraph{\texttt{createGroup(String groupName): Future<void>}}
 Leitet die Anfrage zum Erstellen einer Gruppe an das zuständige Repository weiter. Fragt im Anschluss erneut die Gruppen des Nutzers ab und aktualisiert den \texttt{state}. Nimmt als Parameter den Namen der Gruppe entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn die Gruppe erfolgreich erstellt wurde. Wenn die Gruppe nicht erstellt werden kann, wird eine Exception geworfen.
@@ -673,7 +673,29 @@ Der Controller, der die Eingabe der E-Mail-Ad\-resse des Nutzers verwaltet. Übe
 \subsubsection*{Methoden}
 \paragraph{\texttt{resetPassword(): void}}
 Leitet eine Registrierungsanfrage über einen Provider an den zuständigen Service weiter. Zeigt bei Erfolg einen Dialog an, dass die Anfrage erfolgreich war. Im Anschluss wird der Nutzer zur Anmeldeansicht (\ref{sec:loginScreen}) weitergeleitet.
+\newpage
 
+\subsection{\texttt{GroupJoiningScreen}}
+Die Klasse bildet die Gruppen-Beitritts-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=80mm]{images/presentationLayer/uiElements/groupJoiningScreen.jpg}
+        \caption{Gruppen-Beitritts-Ansicht}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/groupJoiningScreen.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Group\-Joining\-Screens}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{showSkip: bool}}
+Wenn der Boolean wahr ist, wird oben rechts ein Überspringen-Knopf angezeigt, der zur Hauptansicht (\ref{sec:mainScreen}) leitet. Er wird bei der Initialisierung des Widgets aus dem \Gls{BuildContext} gelesen, oder auf falsch gesetzt, wenn dort kein Wert eingetragen ist.
+\paragraph{\texttt{groupCodeController: TextEditingController}}
+%TODO: continue here
 \newpage
 \section{REST-Webserver}
 Um seinen Account zu verwalten, Rezepte aufzurufen oder mit Gruppe interagieren zu können benötigt man die Verbindung zum Server.
