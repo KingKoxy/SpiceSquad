@@ -515,7 +515,8 @@ Eigene Widgets, die in mehreren Klassen verwendet werden, werden in einem eigene
 \end{figure}
 
 \subsubsection{\texttt{AddButton}}
-Der \texttt{AddButton} ist ein Button, der ein Plus-Symbol enthält. Er wird verwendet, um ein neues Element hinzuzufügen. Er erbt von der Flutter-Klasse \texttt{ElevatedButton}.
+\label{sec:addButton}
+Der \texttt{AddButton} ist ein Button, der ein Plus-Symbol enthält. Er wird verwendet, um ein neues Element hinzuzufügen. Er erbt von der Flutter-Klasse \texttt{IconButton}.
 \begin{figure}[htp]
     \centering
     \includegraphics[height = .5cm]{images/presentationLayer/uiElements/addButton.png}
@@ -523,8 +524,10 @@ Der \texttt{AddButton} ist ein Button, der ein Plus-Symbol enthält. Er wird ver
 \end{figure}
 \paragraph*{Konstruktor}
 Der Konstruktor nimmt eine Funktion \texttt{onPressed} entgegen, die ausgeführt wird, wenn der Button gedrückt wird.
+
 \subsubsection{\texttt{RemoveButton}}
-Der \texttt{RemoveButton} ist ein Button, der ein Kreuz-Symbol enthält. Er wird verwendet, um ein Element zu entfernen. Er erbt von der Flutter-Klasse \texttt{ElevatedButton}.
+\label{sec:removeButton}
+Der \texttt{RemoveButton} ist ein Button, der ein Kreuz-Symbol enthält. Er wird verwendet, um ein Element zu entfernen. Er erbt von der Flutter-Klasse \texttt{IconButton}.
 \begin{figure}[htp]
     \centering
     \includegraphics[height = .5cm]{images/presentationLayer/uiElements/removeButton.png}
@@ -533,26 +536,8 @@ Der \texttt{RemoveButton} ist ein Button, der ein Kreuz-Symbol enthält. Er wird
 \paragraph*{Konstruktor}
 Der Konstruktor nimmt eine Funktion \texttt{onPressed} entgegen, die ausgeführt wird, wenn der Button gedrückt wird.
 
-\subsubsection{\texttt{CTAButton}}
-Der \texttt{CTAButton} (Call-To-Action-Button) ist ein Button, der eine Aktion ausführt. Er erbt von der Flutter-Klasse \texttt{ElevatedButton}. Er zeichnet sich vor allem durch seine rote Farbe aus.
-\begin{figure}[htp]
-    \centering
-    \includegraphics[height = 1cm]{images/presentationLayer/uiElements/ctaButton.png}
-    \caption{Darstellung eines CTAButtons}
-\end{figure}
-\paragraph*{Konstruktor}
-Der Konstruktor nimmt eine Funktion \texttt{onPressed} entgegen, die ausgeführt wird, wenn der Button gedrückt wird. Zudem kann ein String \texttt{text} übergeben werden, der den Text des Buttons bestimmt.
-
-\subsubsection{\texttt{SimpleTextField}}
-Der \texttt{SimpleTextField} ist ein Textfeld, das verwendet wird, um Text einzugeben. Er erbt von der Flutter-Klasse \texttt{TextField}.
-\begin{figure}[htp]
-    \centering
-    \includegraphics[height = 1cm]{images/presentationLayer/uiElements/simpleTextField.png}
-    \caption{Darstellung eines SimpleTextFields}
-\end{figure}
-\paragraph*{Konstruktor} Der Konstruktor kann einen TextEditingController \texttt{controller} entgegennehmen, der verwendet wird, um den Text zu verwalten. Zudem kann ein String \texttt{hintText} übergeben werden, der als Platzhalter im Textfeld dient. Eine Funktion \texttt{onChanged} kann übergeben werden, die ausgeführt wird, wenn sich der Text im Textfeld ändert. Zuletzt kann ein Boolean \texttt{obscuredText} übergeben werden, der bestimmt, ob der Text im Textfeld versteckt wird. Dies wird beispielsweise bei Passwörtern verwendet.
-
 \subsubsection{\texttt{FavouriteButton}}
+\label{sec:favouriteButton}
 Der \texttt{FavouriteButton} ist ein Button, der ein Herz-Symbol enthält. Er wird verwendet, um ein Element zu den Favoriten hinzuzufügen. Er erbt von der Flutter-Klasse \texttt{IconButton} und ist je nach übergebenem Wert ausgefüllt oder leer.
 \begin{figure}[htp]
     \centering
@@ -561,7 +546,9 @@ Der \texttt{FavouriteButton} ist ein Button, der ein Herz-Symbol enthält. Er wi
 \end{figure}
 \paragraph*{Konstruktor}
 Der Konstruktor nimmt eine Funktion \texttt{onPressed} entgegen, die ausgeführt wird, wenn der Button gedrückt wird. Zudem kann ein Boolean \texttt{value} übergeben werden, der bestimmt, ob der Button gefüllt oder leer ist.
+
 \subsubsection{\texttt{BackButton}}
+\label{sec:backButton}
 Der \texttt{BackButton} ist ein Button, der ein Pfeil-Symbol enthält. Er wird verwendet, um zur vorherigen Ansicht zurückzukehren. Er erbt von der Flutter-Klasse \texttt{IconButton}.
 \begin{figure}[htp]
     \centering
@@ -570,7 +557,9 @@ Der \texttt{BackButton} ist ein Button, der ein Pfeil-Symbol enthält. Er wird v
 \end{figure}
 \paragraph*{Konstruktor}
 Der Konstruktor nimmt eine Funktion \texttt{onPressed} entgegen, die ausgeführt wird, wenn der Button gedrückt wird.
+
 \subsubsection{\texttt{TagItem}}
+\label{sec:tagItem}
 Das \texttt{TagItem} ist ein Widget, das ein Symbol und Text enthält. Er wird verwendet, um z.B. Label eines Rezepts zu repräsentieren. Es handelt sich um ein \texttt{StatelessWidget}, da es keinen eigenen Zustand besitzt.
 \begin{figure}[htp]
     \centering
@@ -579,7 +568,9 @@ Das \texttt{TagItem} ist ein Widget, das ein Symbol und Text enthält. Er wird v
 \end{figure}
 \paragraph*{Konstruktor}
 Der Konstruktor nimmt einen String \texttt{text} entgegen, der den Text des Widgets bestimmt. Zudem muss ein IconData \texttt{icon} übergeben werden, der das Symbol des Widgets bestimmt.
+
 \subsubsection{\texttt{PortionAmountField}}
+\label{sec:portionAmountField}
 Das \texttt{PortionAmountField} ist ein Textfeld, das verwendet wird, um die Anzahl der Portionen anzugeben. Es handelt sich um ein \texttt{StatelessWidget}, da es keinen eigenen Zustand besitzt.
 \begin{figure}[htp]
     \centering
@@ -590,6 +581,7 @@ Das \texttt{PortionAmountField} ist ein Textfeld, das verwendet wird, um die Anz
 Der Konstruktor nimmt eine Funktion \texttt{onChange} entgegen, die ausgeführt wird, wenn sich der Text im Textfeld ändert. Zudem muss ein Integer \texttt{portionAmount} übergeben werden, der den initialen Wert des Textfelds bestimmt.
 
 \subsubsection{\texttt{NavBar}}
+\label{sec:navBar}
 Die \texttt{NavBar} ist eine Navigationsleiste, die am unteren Rand der App angezeigt wird. Sie erbt von der Flutter-Klasse \texttt{BottomNavigationBar}. Es kann zur Rezept-Erstellungs-Ansicht, zur Hauptansicht und zur Einstellungsansicht navigiert werden.
 \begin{figure}[htp]
     \centering
@@ -599,7 +591,8 @@ Die \texttt{NavBar} ist eine Navigationsleiste, die am unteren Rand der App ange
 \newpage
 
 \subsection{\texttt{LoginScreen}}
-Die Klasse bildet die Loginansicht ab. Sie verwendet die Klassen \texttt{SimpleTextField} und \texttt{CTABut\-ton} aus dem Ordner \texttt{commonWidgets}. Die Klasse \texttt{LoginScreen} ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt.
+\label{sec:loginScreen}
+Die Klasse bildet die Loginansicht ab. Die Klasse \texttt{LoginScreen} ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt.
 \begin{figure}[htp]
     \begin{minipage}
         [t]{0.49\textwidth}
@@ -614,619 +607,74 @@ Die Klasse bildet die Loginansicht ab. Sie verwendet die Klassen \texttt{SimpleT
         \caption{Klassendiagramm des Login\-Screens}
     \end{minipage}
 \end{figure}
-\label{sec:loginScreen}
 \subsubsection*{Attribute}
-\paragraph{emailController: TextEditingController} 
-Der Controller, die die Eingabe der E-Mail-Adresse des Nutzers verwaltet. Über ihn kann der Wert des Eingabefelds abgerufen werden oder eine Fehlermeldung angezeigt werden.
-\paragraph{passwordController: TextEditingController}
-Der Controller, die die Eingabe des Passworts des Nutzers verwaltet. Über ihn kann der Wert des Eingabefelds abgerufen werden oder eine Fehlermeldung angezeigt werden.
+\paragraph{\texttt{emailController: TextEditingController}}
+Der Controller, der die Eingabe der E-Mail-Ad\-resse des Nutzers verwaltet. Über ihn kann der Wert des Eingabefelds abgerufen werden oder eine Fehlermeldung angezeigt werden.
+\paragraph{\texttt{passwordController: TextEditingController}}
+Der Controller, der die Eingabe des Passworts des Nutzers verwaltet. Über ihn kann der Wert des Eingabefelds abgerufen werden oder eine Fehlermeldung angezeigt werden.
 \subsubsection*{Methoden}
-\paragraph{login(): Future<void>}
-Leitet eine Loginanfrage über einen Provider an den zuständigen Service weiter. Im Anschluss werden, je nachdem ob die Anfrage erfolgreich war oder nicht, Fehlermeldungen an den entsprechenden Eingabefeldern angezeigt, oder der Nutzer zur Hauptansicht weitergeleitet.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
-\subsection{Hauptansicht}
-Die Klassen beinhalten alle nötigen Funktionen und Attribute, um die Hauptansicht darzustellen.
-
-\subsubsection{MainViewPage}\label{sec:MainViewPage}
-\subsubsection*{Methode}
-\paragraph*{createState: State<MainViewPageState>} Der Konstruktor für den MainViewPageState.
-
-\subsubsection{MainViewPageState}\label{sec:MainViewPageState}
-\subsubsection*{Methode}
-
-\paragraph*{filtering(filter: FilteringMethods)} Alle Rezepte werden dem Filterkriterium gefiltert.
-\paragraph*{sorting(sort: SortingMethods)} Alle Rezepte werden nach dem Sortierkriterium sortiert.
-
-\subsubsection{TopBar}\label{sec:TopBar}
-\subsubsection*{Attribute}
-\paragraph*{keyword: TextEdittingController} Durch den Nutzer eingegebene Zeichenkette für die Suche.
-
-\subsubsection*{Methode}
-\paragraph*{ search(keyword: TextEdittingController)} Durchsucht alle Rezepte und gibt die aus, deren Rezepttitel zu dem Schlagwort passen.
-
-
-\subsubsection{AppBar} \label{sec:AppBar}
-\subsubsection*{Attribute}
-\paragraph*{mainView: Boolean} Der Boolean gibt an ob das AppBar Element in Hauptansicht verwendet wird.
-\paragraph*{recipeCreationView: Boolean} Der Boolean gibt an ob das AppBar Element in Rezept-Erstellungs-Ansicht verwendet wird.
-\paragraph*{settingsView: Boolean} Der Boolean gibt an ob das AppBar Element in Einstellungsansicht verwendet wird.
-
-\subsubsection*{Methode}
-\paragraph*{AppBar(required mainView: Boolean ,required recipeCreationView: Boolean ,required settingsView: Boolean )} Der Konstruktor für den AppBar. Alle Parameter müssen angegeben werden.
-\paragraph*{mainView()} Die Hauptansicht wird aufgerufen.
-\paragraph*{recipeCreationView()} Die Rezept-Erstellungs-Ansicht wird aufgerufen.
-\paragraph*{settingsView()} Die Einstellungsansicht wird aufgerufen.
-
-
-\subsubsection{InformationElement}\label{sec:InformationElement}
-\subsubsection*{Attribute}
-\paragraph*{information: InformationCategories} Gibt an, welche Information in dem Widget dargestellt werden soll.
-\paragraph*{text: string} Der Text, der in dem Widget angezeigt werden kann.
-
-\subsubsection*{Methode}
-\paragraph*{InformationWidget(required information: InformationCategories , text: string)} Konstruktor für Information Element. Eine Information Kategorie muss angegeben werden.
-
-
-\subsubsection{SortingMethods}\label{sec:SortingMethods}
-Ein Enum, der alle Sortierungsmethoden beinhält.
-\subsubsection*{Content}
-\paragraph*{alphabetical} Die Rezepte werden alphabetisch sortiert.
-\paragraph*{difficulty} Die Rezepte werden nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} sortiert.
-\paragraph*{date} Die Rezepte werden nach dem Hinzufügedatum sortiert.
-
-\subsubsection{FilteringMethods}\label{sec:FilteringMethods}
-Ein Enum, der alle Filter Methoden beinhält.
-\subsubsection*{Content}
-\paragraph*{favorites} Die Rezepte werden nach Favoriten gefiltert.
-\paragraph*{difficultyEasy} Die Rezepte werden nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} einfach gefiltert.
-\paragraph*{difficultyMedium} Die Rezepte werden nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} mittel gefiltert.
-\paragraph*{difficultyHard} Die Rezepte werden nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} schwer gefiltert.
-\paragraph*{labelVegetarian} Die Rezepte werden nach dem \gls{label} vegetarisch gefiltert.
-\paragraph*{labelVegan} Die Rezepte werden nach dem \gls{label} vegan gefiltert.
-\paragraph*{labelGlutenFree} Die Rezepte werden nach dem \gls{label} glutenfrei gefiltert.
-\paragraph*{labelHalal} Die Rezepte werden nach dem \gls{label} halal gefiltert.
-\paragraph*{labelKoscher} Die Rezepte werden nach dem \gls{label} koscher gefiltert.
-
-
-\subsubsection{InformationCategories}\label{sec:InformationCategories}
-Ein Enum der alle Information Kategorien beinhält.
-\subsubsection*{Content}
-\paragraph*{duration} Das Widget gibt die Zubereitungsdauer an.
-\paragraph*{difficultyEasy} Das Widget gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} einfach an.
-\paragraph*{difficultyMedium} Das Widget gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} mittel an.
-\paragraph*{difficultyHard} Das Widget gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} schwer an.
-\paragraph*{labelVegetarian} Das Widget gibt das \gls{label} vegetarisch an.
-\paragraph*{labelVegan} Das Widget gibt das \gls{label} vegan an.
-\paragraph*{labelGlutenFree} Das Widget gibt das \gls{label} glutenfrei an.
-\paragraph*{labelHalal} Das Widget gibt das \gls{label} halal an.
-\paragraph*{labelKoscher} Das Widget gibt das \gls{label} koscher an.
-
-\subsubsection*{RecipeElement (\ref{sec:InformationElement})}
-
-\begin{figure}[htp]
-    \begin{minipage}
-        [t]{0.49\textwidth}
-        \centering
-        \includegraphics[height=80mm]{images/Presentation-layer/MainView.jpg}
-        \caption{Hauptansicht}
-    \end{minipage}
-    \begin{minipage}
-        [t]{0.49\textwidth}
-        \centering
-        \includegraphics[width=0.95\textwidth]{images/Presentation-layer/MainViewClass.png}
-        \caption{Klassen für Hauptansicht}
-    \end{minipage}
-\end{figure}
-
-\subsection{Rezeptansicht}
-Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Hauptansicht darzustellen.
-
-\subsubsection{RecipeViewPage}\label{sec:RecipeViewPage}
-\subsubsection*{Methode}
-\paragraph*{createState: State<RecipeViewPageState>} Konstruktor für den RecipeViewPageState.
-
-\subsubsection{recipeViewPageState}\label{sec:RecipeViewPageState}
-\subsubsection*{Attribute}
-\paragraph*{portions: TextEdittingController} Eingegebene Ganzzahl für die die Zutatenmengen berechnet werden. Ist standardmäßig auf der Portionsgröße, die beim Rezepterstellen angegeben worden ist.
-
-\subsubsection*{Methode}
-\paragraph*{changePortions(portions: int)} Die neuen Mengenangaben für die Zutaten werden berechnet.
-
-\subsubsection*{InformationElement (\ref{sec:InformationElement})}
-
-\subsubsection{InformationCategories (\ref{sec:InformationCategories})}
-
-\begin{figure}[htp]
-    \begin{minipage}
-        [t]{0.49\textwidth}
-        \centering
-        \includegraphics[height=80mm]{images/Presentation-layer/RecipeView.jpg}
-        \caption{Rezeptansicht}
-    \end{minipage}
-    \begin{minipage}
-        [t]{0.49\textwidth}
-        \centering
-        \includegraphics[width=0.95\textwidth]{images/Presentation-layer/RecipeViewClass.png}
-        \caption{Klassen für Rezeptansicht}
-    \end{minipage}
-\end{figure}
+\paragraph{\texttt{login(): void}}
+Leitet eine Loginanfrage über einen Provider an den zuständigen Service weiter. Im Anschluss werden, jenachdem ob die Anfrage erfolgreich war oder nicht, Fehlermeldungen an den entsprechenden Eingabefeldern angezeigt, oder der Nutzer zur Hauptansicht (\ref{sec:mainScreen}) weitergeleitet.
 
 \newpage
-
-\subsection{Registrierungsansicht}
-Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Registrierungsansicht darzustellen.
-
-\subsubsection{RegisterPage}\label{sec:RegisterPage}
-\subsubsection*{Methode}
-\paragraph*{createState: State<RegisterPageState>} Konstruktor für den RegisterPageState.
-
-\subsubsection{RegisterPageState}\label{sec:RegisterPageState}
-\subsubsection*{Attribute}
-\paragraph*{usernameController: TextEdittingController} Die eingegebene Zeichenkette für den Benutzernamen des neuen Users.
-\paragraph*{emailController: TextEdittingController} Die eingegebene Zeichenkette für die E-Mail-Adresse des neuen Users.
-\paragraph*{passwordController: TextEdittingController} Die eingegebene Zeichenkette für das Passwort des neuen Accounts für den neuen User.
-\paragraph*{repeatedPassword: TextEdittingController} Die eingegebene Zeichenkette für das wiederholte Passwort des neuen Accounts.
-
-\subsubsection*{Methode}
-\paragraph*{register(username: string, email: string, password: string, repeatedPassword: string)} Überprüft, ob das eingegeben Passwort mit dem wiederholten Passwort übereinstimmt und ruft dann die Funktion register() im UserRepository auf.
-\paragraph*{login()} Die Loginansicht wird aufgerufen.
-
-\subsubsection*{InformationElement (\ref{sec:InformationElement})}
-
-\subsubsection{InformationCategories (\ref{sec:InformationCategories})}
-
+\subsection{\texttt{RegisterScreen}}
+\label{sec:registerScreen}
+Die Klasse bildet die Registrierungsansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt.
 \begin{figure}[htp]
     \begin{minipage}
         [t]{0.49\textwidth}
         \centering
-        \includegraphics[height=80mm]{images/Presentation-layer/RegisterView.jpg}
+        \includegraphics[height=80mm]{images/presentationLayer/uiElements/registerScreen.jpg}
         \caption{Registrierungsansicht}
     \end{minipage}
     \begin{minipage}
         [t]{0.49\textwidth}
         \centering
-        \includegraphics[width=0.95\textwidth]{images/Presentation-layer/RegisterViewClass.png}
-        \caption{Klassen für Registrierungsansicht}
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/registerScreen.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Register\-Screens}
     \end{minipage}
 \end{figure}
-
+\subsubsection*{Attribute}
+\paragraph{\texttt{userNameController: TextEditingController}}
+Der Controller, der die Eingabe des Benutzernamens des Nutzers verwaltet. Über ihn kann der Wert des Eingabefelds abgerufen werden oder eine Fehlermeldung angezeigt werden.
+\paragraph{\texttt{emailController: TextEditingController}}
+Der Controller, der die Eingabe der E-Mail-Ad\-resse des Nutzers verwaltet. Über ihn kann der Wert des Eingabefelds abgerufen werden oder eine Fehlermeldung angezeigt werden.
+\paragraph{\texttt{passwordController: TextEditingController}}
+Der Controller, der die Eingabe des Passworts des Nutzers verwaltet. Über ihn kann der Wert des Eingabefelds abgerufen werden oder eine Fehlermeldung angezeigt werden.
+\paragraph{\texttt{passwordRepeatController: TextEditingController}}
+Der Controller, der die Eingabe der Passwortwiederholung des Nutzers verwaltet. Über ihn kann der Wert des Eingabefelds abgerufen werden oder eine Fehlermeldung angezeigt werden.
+\subsubsection*{Methoden}
+\paragraph{\texttt{register(): void}}
+Leitet eine Registrierungsanfrage über einen Provider an den zuständigen Service weiter. Im Anschluss werden, jenachdem ob die Anfrage erfolgreich war oder nicht, Fehlermeldungen an den entsprechenden Eingabefeldern angezeigt, oder der Nutzer zur Gruppen-Beitritts-Ansicht (\ref{sec:groupJoiningScreen}) weitergeleitet.
 \newpage
 
-\subsection{Passwort-Zurücksetzen-Ansicht}
-Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Passwort-Zurücksetzen-Ansicht darzustellen.
-
-\subsubsection{ResetPasswordPage}\label{sec:ResetPasswordPage}
-\subsubsection*{Methode}
-\paragraph*{createState: State<ResetPasswordPageState>} Konstruktor für den ResetPasswordPageState.
-
-\subsubsection{ResetPasswordPageState}\label{sec:ResetPasswordPageState}
-\subsubsection*{Attribute}
-\paragraph*{emailController: TextEdittingController} Die eingegebene Zeichenkette für die E-Mail-Adresse des Users.
-
-\subsubsection*{Methode}
-\paragraph*{resetPassword(email: string)} Überprüft die Korrektheit der E-Mail-Adresse und ruft die Funktionen resetPassword() im UserRepository auf.
-\paragraph*{LoginView()} Die Loginansicht wird aufgerufen.
-
-\subsubsection{ReturnButton}\label{sec:ReturnButton}
-\subsubsection*{Methode}
-\paragraph*{prevoiusView()} Die vorherige Ansicht wird aufgerufen. Es werden keine Daten gespeichert die in der Ansicht angegeben worden sind.
-
+\subsection{\texttt{PasswordResetScreen}}
+\label{sec:passwordResetScreen}
+Die Klasse bildet die Passwort-Zurücksetzen-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt. Sie verwendet die Klasse \texttt{BackButton} aus dem \texttt{common\_widgets}-Package.
 \begin{figure}[htp]
     \begin{minipage}
         [t]{0.49\textwidth}
         \centering
-        \includegraphics[height=80mm]{images/Presentation-layer/PasswordResetView.jpg}
+        \includegraphics[height=80mm]{images/presentationLayer/uiElements/passwordResetScreen.jpg}
         \caption{Passwort-Zurücksetzen-Ansicht}
     \end{minipage}
     \begin{minipage}
         [t]{0.49\textwidth}
         \centering
-        \includegraphics[width=0.95\textwidth]{images/Presentation-layer/PasswordResetViewClass.png}
-        \caption{Klassen für Passwort-Zurücksetzen-Ansicht}
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/passwordResetScreen.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Password\-Reset\-Screens}
     \end{minipage}
 \end{figure}
 
-\newpage
-
-%\subsection{Anmeldungsansicht}
-% Die Klassen beinhalten alle nötigen Funktionen und Attribute, um die Anmeldungsansicht darzustellen.
-
-% \subsubsection{LoginPagePage}\label{sec:LoginPagePage}
-% \subsubsection*{Methode}
-% \paragraph*{createState: State<LoginPageState>} Konstruktor für den LoginPageState.
-
-% \subsubsection{LoginPageState}\label{sec:LoginPageState}
-% \subsubsection*{Attribute}
-% \paragraph*{emailController: TextEdittingController} Die eingegebene Zeichenkette für die E-Mail-Adresse des Users.
-% \paragraph*{passwortController: TextEdittingController} Die eingegebene Zeichenkette für das Passwort des Users.
-
-% \subsubsection*{Methode}
-% \paragraph*{login(email: string, password: string)} Überprüft die Eingaben und ruft die Funktionen createGroup() im UserRepository auf.
-% \paragraph*{resetPasswordView()}  Die Passwort-Zurücksetzen-Ansicht wird aufgerufen.
-% \paragraph*{registerView()}  Die Registrierungsansicht wird aufgerufen.
-
-% \begin{figure}[htp]
-%     \begin{minipage}
-%         [t]{0.49\textwidth}
-%         \centering
-%         \includegraphics[height=80mm]{images/Presentation-layer/LoginView.jpg}
-%         \caption{Anmeldungsansicht}
-%     \end{minipage}
-%     \begin{minipage}
-%         [t]{0.49\textwidth}
-%         \centering
-%         \includegraphics[width=0.95\textwidth]{images/Presentation-layer/LoginViewClass.png}
-%         \caption{Klassen für Anmeldungsansicht}
-%     \end{minipage}
-% \end{figure}
-
-% \newpage
-
-\subsection{Gruppen-Erstellungs-Ansicht}
-Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Gruppen-Erstellungs-Ansicht darzustellen.
-
-\subsubsection{GroupCreationPage}\label{sec:GroupCreationPage}
-\subsubsection*{Methode}
-\paragraph*{createState: State<GroupCreationPageState>} Konstruktor für den GroupCreationPageState.
-
-\subsubsection{GroupCreationPageState}\label{sec:GroupCreationPageState}
 \subsubsection*{Attribute}
-\paragraph*{GroupNameController: TextEdittingController} Die eingegebene Zeichenkette für den Namen der neuen Gruppe.
+\paragraph{\texttt{emailController: TextEditingController}}
+Der Controller, der die Eingabe der E-Mail-Ad\-resse des Nutzers verwaltet. Über ihn kann der Wert des Eingabefelds abgerufen werden oder eine Fehlermeldung angezeigt werden.
 
-\subsubsection*{Methode}
-\paragraph*{createGroupe(name: string)} Überprüft den Gruppenname und ruft die Funktionen createGroupe() im GroupeService auf.
-\paragraph*{joinGroupeView()}  Die Gruppen-Beitritts-Ansicht wird aufgerufen.
-\paragraph*{mainView()} Die Hauptansicht wird aufgerufen.
-
-
-\paragraph*{createGroup(name: string)} Überprüft den Gruppennamen und ruft die Funktionen createGroup() im GroupService auf.
-\paragraph*{joinGroupView()}  Die Gruppen-Beitritts-Ansicht wird aufgerufen.
-
-\begin{figure}[htp]
-    \begin{minipage}
-        [t]{0.49\textwidth}
-        \centering
-        \includegraphics[height=80mm]{images/Presentation-layer/GroupCreationView.jpg}
-        \caption{Gruppen-Erstellungs-Ansicht}
-    \end{minipage}
-    \begin{minipage}
-        [t]{0.49\textwidth}
-        \centering
-        \includegraphics[width=0.95\textwidth]{images/Presentation-layer/GroupCreationViewClass.png}
-        \caption{Klassen für Gruppen-Erstellungs-Ansicht}
-    \end{minipage}
-\end{figure}
+\subsubsection*{Methoden}
+\paragraph{\texttt{resetPassword(): void}}
+Leitet eine Registrierungsanfrage über einen Provider an den zuständigen Service weiter. Zeigt bei Erfolg einen Dialog an, dass die Anfrage erfolgreich war. Im Anschluss wird der Nutzer zur Anmeldeansicht (\ref{sec:loginScreen}) weitergeleitet.
 
 \newpage
-
-\subsection{Gruppen-Beitritts-Ansicht}
-Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Gruppen-Beitritts-Ansicht darzustellen.
-
-\subsubsection{GroupJoiningPage}\label{sec:GroupJoiningPage}
-\subsubsection*{Methode}
-\paragraph*{createState: State<GroupJoiningPageState>} Der Konstruktor für den GroupJoiningPageState.
-
-\subsubsection{GroupJoiningPageState}\label{sec:GroupJoiningPageState}
-\subsubsection*{Attribute}
-\paragraph*{groupeNameController: TextEdittingController} Die eingegebene Zeichenkette für den Namen der beizutreten Gruppe.
-
-\subsubsection*{Methode}
-\paragraph*{joinGroup()} Überprüft den Gruppenname und ruft die Funktionen joinGroupe() im GroupeService auf.
-\paragraph*{joinGroupQr()} Das CameraElement wird aufgerufen.
-\paragraph*{createGroupeView()}  Die Gruppen-Beitritts-Ansicht wird aufgerufen.
-\paragraph*{mainView()} Die Hauptansicht wird aufgerufen.
-
-\subsubsection*{CameraElement}\label{sec:CameraElement}
-\subsubsection*{Attribute}
-\paragraph*{barcodes: List<Barcode>}  Der gescannte QR-Code.
-
-\begin{figure}[htp]
-    \begin{minipage}
-        [t]{0.49\textwidth}
-        \centering
-        \includegraphics[height=80mm]{images/Presentation-layer/GroupJoiningView.jpg}
-        \caption{Gruppen-Beitritts-Ansicht}
-    \end{minipage}
-    \begin{minipage}
-        [t]{0.49\textwidth}
-        \centering
-        \includegraphics[width=0.95\textwidth]{images/Presentation-layer/GroupJoiningViewClass.pdf}
-        \caption{Klassen für Gruppen-Beitritts-Ansicht}
-    \end{minipage}
-\end{figure}
-
-\newpage
-
-\subsection{Gruppen-Detail-Ansicht}
-Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Gruppen-Detail-Ansicht darzustellen.
-
-\subsubsection{GroupDetailPage}\label{sec:GroupDetailPage}
-\subsubsection*{Attribute}
-\paragraph*{group: Group} Die Gruppe, deren Details dargestellt werden.
-\paragraph*{newTitle: TextEdittingController} Die eingegebe Zeichenkette für den neuen Gruppennamen.
-
-\subsubsection*{Methode}
-\paragraph*{GroupDetailPage(required group: Group)} Ein Konstruktor für eine GroupDetailPage. Der Parameter muss angegeben werden.
-\paragraph*{setGroupTitle(newTitle: string)} Die Eingabe wird Überprüft und die Funktion setGroupName() im GroupeService wird aufgerufen.
-\paragraph*{deleteGroup()} Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion kickUser() im GroupeService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
-\paragraph*{leaveGroup()} Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion leaveGroup() im GroupeService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
-
-\paragraph*{getQRCode()} Die QR-Code-Ansicht wird aufgerufen.
-\paragraph*{getGroupTitel()} Der Gruppentitel wird in der Zwischenablage gespeichert.
-
-\subsubsection{ConfirmationElement} \label{sec:ConfirmationElement}
-\subsubsection*{Attribute}
-\paragraph*{text: string} Der Text, der im Widget angezeigt werden soll.
-
-\subsubsection*{Methode}
-\paragraph*{ConfirmationElement(required text: string)} Ein Konstruktor für ein ConfirmationElement, wobei ein Text angegeben werden muss.
-\paragraph*{decline()} Dem Erzeugter wird true zurückgegeben.
-\paragraph*{accept()} Dem Erzeugter wird false zurückgegeben.
-
-
-\subsubsection{OptionElement}\label{sec:OptionElement}
-\subsubsection*{Attribute}
-\paragraph*{user: User} Der darzustellende User.
-
-\subsubsection*{Methode}
-\paragraph*{OptionElement(required user: User)} Ein Konstruktor für ein OptionElement. Der Parameter muss angegeben werden.
-\paragraph*{kickUser()} Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion kickUser() im UserSettingsService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
-\paragraph*{banUser()} Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion banUser() im UserSettingsService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
-\paragraph*{makeAdmin()} Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion makeAdmin() im UserSettingsService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
-\paragraph*{removeAdminStatus()} Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion removeAdminStatus() im UserSettingsService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
-
-
-\subsubsection{RecipeElement}\label{sec:RecipeElement}
-\subsubsection*{Attribute}
-\paragraph*{recipe: Recipe} Das darzustellende Rezept.
-\paragraph*{view: Boolean} Ein Boolean der angibt, ob die Sichtbarkeit des Rezepts verändert werden darf oder nicht.
-\paragraph*{settingsView: Boolean} Ein Boolean der angibt, ob das Widget in der Einstellungsansicht verwendet wird.
-
-\subsubsection*{Methode}
-\paragraph*{RecipeElement(required recipe: Recipe,required view: boolean,required settingsView: boolean)} Ein Konstruktor für ein RecipeElement. Alle Parameter müssen angegeben werden.
-\paragraph*{togglePrivate()} Die Sichtbarkeit des Rezepts für die Gruppe ausgeblendet werden soll, wenn settingsView false ist. Wenn settingsView auf true steht wird das Rezept für alle Gruppen ausgeblendet.
-\paragraph*{delete()} Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion deleteRecipe() im RecipeService aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
-\paragraph*{export()} Die Funktion exportRecipe() im RecipeService wird aufgerufen.
-
-\subsubsection{UserElement}\label{sec:UserElement}
-\subsubsection*{Attribute}
-
-\paragraph*{user: User} Der darzustellende User.
-\paragraph*{isOwnAccount: Boolean} Ein Boolean der Angibt ob es sich um den eigenen Account handelt.
-
-\subsubsection*{Methode}
-\paragraph*{UserElement(required user: User,required isOwnAccount: bool)} Ein Konstruktor für ein UserElement. Alle Parameter müssen angegeben werden.
-\paragraph*{options()} Das OptionElement wird aufgerufen.
-
-\subsubsection*{ReturnButton (\ref{sec:ReturnButton})}
-
-\subsubsection*{ConfirmationElement (\ref{sec:ConfirmationElement})}
-
-\begin{figure}[htp]
-    \begin{minipage}
-        [t]{0.49\textwidth}
-        \centering
-        \includegraphics[height=80mm]{images/Presentation-layer/GroupDetailView.jpg}
-        \caption{Gruppen-Detail-Ansicht}
-    \end{minipage}
-    \begin{minipage}
-        [t]{0.49\textwidth}
-        \centering
-        \includegraphics[width=0.95\textwidth]{images/Presentation-layer/GroupDetailViewClass.png}
-        \caption{Klassen für Gruppen-Detail-Ansicht}
-    \end{minipage}
-\end{figure}
-
-\newpage
-
-\subsection{Rezept-Erstellungs-Ansicht}
-Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Rezept-Erstell-Ansicht darzustellen.
-
-\subsubsection{RecipeCreationPage}\label{sec:RecipeCreationPage}
-\subsubsection*{Methode}
-\paragraph*{createState: State<RecipeCreationPageState>} Konstruktor für den RecipeCreationPageState.
-
-\subsubsection{RecipeCreationPageState}\label{sec:RecipeCreationPageState}
-\subsubsection*{Attribute}
-\paragraph*{image: blob} Hochgeladenes Bild, welches den anderen Nutzern in der Rezeptansicht angezeigt werden soll.
-\paragraph*{title: TextEdittingController (notNull)} Die eingegebene Zeichenkette für den Titel des Rezepts. Die Zeichenkette kann maximal 64 Zeichen lang sein und muss ausgefüllt sein.
-\paragraph*{is\_Vegetarian: Boolean} Der vom Nutzer angegebene Boolean, ob das \gls{label} Vegetarisch dem Leser angezeigt werden soll. Ist standartmäßig auf false.
-\paragraph*{is\_Vegan: Boolean} Der vom Nutzer angegebene Boolean, ob das \gls{label} Vegan dem Leser angezeigt werden soll. Ist standartmäßig auf false.
-\paragraph*{is\_GlutenFree: Boolean} Der vom Nutzer angegebene Boolean, ob das \gls{label} Glutenfrei dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
-\paragraph*{is\_Halal: Boolean} Der vom Nutzer angegebene Boolean, ob das \gls{label} Halal dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
-\paragraph*{is\_Kosher: Boolean} Der vom Nutzer angegebene Boolean, ob das \gls{label} Koscher dem Leser angezeigt werden soll.  Ist standartmäßig auf false.
-\paragraph*{duration: TextEdittingController (notNull)} Die vom Nutzer eingegebene Ganzzahl, welche die Zubereitungszeit in Minuten angibt. Muss angegeben werden.
-\paragraph*{difficulty: Difficulty (notNull)} Die vom Nutzer ausgewählte \gls{schwierigkeit} des Rezepts. Muss angegeben werden.
-\paragraph*{ingredients: Ingredients[]} Eine Liste an Ingerdients, welche in der AddIngredientPage erstellt wurde.
-\paragraph*{instructions: TextEdittingController (notNull)} Die vom Nutzer angegeben Zeichenkette für die Beschreibung des Rezepts. Muss angegeben werden.
-
-\subsubsection*{Methode}
-\paragraph*{addIngredient()} Die Page AddIngredientPage wird aufgerufen.
-\paragraph*{recipeSave()} Die Methode ruft, abhängig davon ob das Rezept neu erstellt wird oder nur verändert wurde, entweder recipeCreation() oder recipeChange() auf.
-
-\subsubsection{Difficulty}\label{sec:Difficulty}
-Ein Enum der alle \glslink{schwierigkeit}{Schwierigkeitsgrade} beinhält.
-\subsubsection*{Content}
-\paragraph*{easy} Der \glslink{schwierigkeit}{Schwierigkeitsgrad} einfach.
-\paragraph*{medium} Der \glslink{schwierigkeit}{Schwierigkeitsgrad} mittel.
-\paragraph*{hard} Der \glslink{schwierigkeit}{Schwierigkeitsgrad} schwer.
-
-\subsubsection*{IngredientElement}\label{sec:IngredientElement}
-Die Klasse beschreibt eine Widget dass eine Zutat darstellt.
-\subsubsection*{Attribute}
-\paragraph*{ingredient: Ingredient} Die darzustellende Zutat.
-
-\subsubsection*{Methode}
-\paragraph*{delete()} Das IngredientElement wird nicht mehr in der Rezept-Erstellungs-Ansicht angezeigt und ist die Zutat ist nicht mehr teil des Rezepts.
-
-\subsubsection*{InformationElement (\ref{sec:InformationElement})}
-
-\subsubsection*{InformationKategories}
-
-\subsubsection*{ReturnButton (\ref{sec:ReturnButton})}
-
-\subsubsection*{AppBar (\ref{sec:AppBar})}
-\begin{figure}[htp]
-    \begin{minipage}
-        [t]{0.49\textwidth}
-        \centering
-        \includegraphics[height=80mm]{images/Presentation-layer/RecipeCreationView.jpg}
-        \caption{Rezept-Erstellungs-Ansicht}
-    \end{minipage}
-    \begin{minipage}
-        [t]{0.49\textwidth}
-        \centering
-        \includegraphics[width=0.95\textwidth]{images/Presentation-layer/RecipeCreationViewClass.pdf}
-        \caption{Klassen für Rezept-Erstellungs-Ansicht}
-    \end{minipage}
-\end{figure}
-
-\newpage
-
-\subsection{Zutaten-Auswahl-Ansicht}
-Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Zutaten-Auswahl-Ansicht darzustellen.
-
-\subsubsection{AddIngredientPage}\label{sec:AddIngredientPage}
-\subsubsection*{Methode}
-\paragraph*{createState: State<AddIngredientPageState>} Der Konstruktor für den AddIngredientPageState.
-
-\subsubsection{AddIngredientPageState}\label{sec:AddIngredientPageState}
-\subsubsection*{Attribute}
-\paragraph*{ingredientController: TextEdittingController} Die eingegebene Zeichenkette für den Namen der neunen Zutat.
-
-\subsubsection*{Methode}
-\paragraph*{searchIngredient(input: string)} Überprüft die Eingabe und ruft die Funktion getAllIngredientNames() im IngredientService auf.
-\paragraph*{addIngredient(ingredient: Ingredient)}  Erstellt aus den Eingaben ein Objekt der Klasse Ingredient und kehrt zurück zur Rezept-Erstellungs-Ansicht.
-
-\subsubsection*{Ingredient}\label{sec:Ingredient}
-\subsubsection*{Attribute}
-\paragraph*{name: string} Der Name der Zutat.
-\paragraph*{iconId: string} Die Id des Icons, welche zu der Zutat ausgewählt worden ist.
-\paragraph*{amount: int} Die Mengenangabe für die Zutat.
-\paragraph*{unit: string} Die Einheit der Mengenangabe.
-
-\subsubsection*{ChoseIconElement}\label{sec:ChoseIconElement}
-\subsubsection*{Methode}
-\paragraph*{choseIcon(iconId: String)} Speichert das ausgewählte Icon mit der Zutat ab.
-
-\paragraph*{IconElement}\label{sec:IconElement}
-\subsubsection*{Attribute}
-\paragraph*{iconId: String} Die Id des Icons, welches dargestellt werden soll.
-
-\subsubsection*{ReturnButton (\ref{sec:ReturnButton})}
-
-
-\begin{figure}[htp]
-    \begin{minipage}
-        [t]{0.49\textwidth}
-        \centering
-        \includegraphics[height=80mm]{images/Presentation-layer/IngredientPickerView.jpg}
-        \caption{Zutaten-Auswahl-Ansicht}
-    \end{minipage}
-    \begin{minipage}
-        [t]{0.49\textwidth}
-        \centering
-        \includegraphics[width=0.95\textwidth]{images/Presentation-layer/IngredientPickerViewClass.pdf}
-        \caption{Klassen für Zutaten-Auswahl-Ansicht}
-    \end{minipage}
-\end{figure}
-
-\newpage
-
-\subsection{Verwaltungsansicht}
-Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Verwaltungsansicht darzustellen.
-
-\subsubsection{SettingsPage}\label{sec:SettingsPage}
-\subsubsection*{Methode}
-\paragraph*{createState: State<SettingsPageState>} Der Konstruktor für den SettingsPageState.
-
-\subsubsection{SettingsPageState}\label{sec:SettingsPageState}
-\subsubsection*{Attribute}
-\paragraph*{newUsernameController: TextEdittingController} Die eingegebene Zeichenkette für den neuen Nutzernamen des Benutzers.
-
-\subsubsection*{Methode}
-\paragraph*{setProfileImage(image: Image)} Überprüft das Hochgeladene Bild und ruft die Funktion setProfileImage() im UserService auf.
-\paragraph*{removeProfileImage()} Ruft die Funktion removeProfileImage() im UserService auf.
-\paragraph*{setUserName(value: string)} Überprüft die Eingabe und ruft die Funktion setUserName() im UserService auf.
-\paragraph*{joinGroup()} Die Gruppen-Beitritts-Ansicht wird aufgerufen.
-\paragraph*{recipeCreationView()} Die Rezept-Erstellungs-Ansicht wird aufgerufen.
-\paragraph*{deleteAccount()} Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion deleteAccount() im UserService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
-
-\subsubsection{LogoutButton}\label{sec:LogoutButton}
-\subsubsection*{Methode}
-\paragraph*{logout()} Die Funktion logout() im UserService wird aufgerufen.
-
-\subsubsection*{GroupElement}\label{sec:GroupElement}
-\subsubsection*{Attribute}
-\paragraph*{group: Group} Die darzustellende Gruppe.
-
-\subsubsection*{Methode}
-\paragraph*{GroupElement(required group: Group)} Der Konstruktor für ein GroupElement. Der Parameter muss angegeben werden.
-\paragraph*{leaveGroup()} Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion leaveGroup() im GroupService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
-\paragraph*{groupeDetailView()} Die Gruppen-Detail-Ansicht wird aufgerufen.
-
-\subsubsection*{RecipeElement (\ref{sec:RecipeElement})}
-
-\subsubsection*{ConfirmationElement (\ref{sec:ConfirmationElement})}
-
-\subsubsection*{ReturnButton (\ref{sec:ReturnButton})}
-
-\subsubsection*{AppBar (\ref{sec:AppBar})}
-
-\begin{figure}[htp]
-
-    \begin{minipage}
-        [t]{0.49\textwidth}
-        \centering
-        \includegraphics[height=80mm]{images/Presentation-layer/SettingsView.jpg}
-        \caption{Verwaltungsansicht}
-    \end{minipage}
-    \begin{minipage}
-        [t]{0.49\textwidth}
-        \centering
-        \includegraphics[width=0.95\textwidth]{images/Presentation-layer/GroupCreationViewClass.png}
-        \caption{Klassen für Verwaltungsansicht}
-    \end{minipage}
-\end{figure}
-
-\newpage
-
-\subsection{QR-Code-Ansicht}
-Die Klassen beinhalten alle nötigen Funktionen und Attribute um die QR-Code-Ansicht darzustellen.
-
-\subsubsection{QrCodePage}\label{sec:QrCodePage}
-\subsubsection*{Attribute}
-\paragraph*{group: Group}
-
-\subsubsection*{Methode}
-\paragraph*{QrCodePage(required group: Group)} Der Konstruktor für eine QrCodePage. Der Parameter muss angegeben werden.
-
-\subsubsection*{ReturnButton (\ref{sec:ReturnButton})}
-
-\subsubsection*{AppBar (\ref{sec:AppBar})}
-
-
-\begin{figure}[htp]
-    \begin{minipage}
-        [t]{0.49\textwidth}
-        \centering
-        \includegraphics[height=80mm]{images/Presentation-layer/QRCodeView.jpg}
-        \caption{QR-Code-Ansicht}
-    \end{minipage}
-    \begin{minipage}
-        [t]{0.49\textwidth}
-        \centering
-        \includegraphics[width=0.95\textwidth]{images/Presentation-layer/QRCodeViewClass.pdf}
-        \caption{Klassen für QR-Code-Ansicht}
-    \end{minipage}
-\end{figure}
-\newpage
-
-\newpage
-
 \section{REST-Webserver}
 Um seinen Account zu verwalten, Rezepte aufzurufen oder mit Gruppe interagieren zu können benötigt man die Verbindung zum Server.
 Um die Anfragen performant und flexibel zu gestalten, verwendet das Projekt Node.js in Verbindung mit dem Express.js Framework.
@@ -1349,7 +797,7 @@ Dies erleichtert die Wartung, Skalierbarkeit und Lesbarkeit des Codes.
 Der \texttt{AbstractRouter} ist eine abstrakte Repräsentation eines Routers. So kann ein grundlegender Aufbau für alle Router garantiert werden. Alle Router erben von dieser Klasse \texttt{AbstractRouter}.
 \subsubsection*{Attribute}
 \paragraph{\texttt{router: express.Router}}
-Attribut, dass einen Router in Express repräsentiert. Das zugehörige Objekt soll beim Konstruktoraufruf erzeugt werden. 
+Attribut, dass einen Router in Express repräsentiert. Das zugehörige Objekt soll beim Konstruktoraufruf erzeugt werden.
 \paragraph{\texttt{controller: AbstractController}}
 Attribut, dass einen abstrakten Controller repräsentiert. Mit diesem Attribut wird in den jeweiligen Routern der dazu passende Controller gespeichert.
 \paragraph{\texttt{checkAuthorization: CheckAuthorization}} % TODO
@@ -1445,9 +893,9 @@ Der \texttt{AuthentificationController} ist verantwortlich für alle Anfragen, d
 
 Diese Methode sorgt dafür, dass der Nutzer sich registrieren kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Benutzername, Passwort und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob die Registrierung erfolgreich war oder Fehler aufgetreten sind.
 \paragraph{\texttt{public userLogin(req: express.Request, res: express.Response): void}}
-Diese Methode sorgt dafür, dass der Nutzer sich einloggen kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Benutzername, Passwort und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob das Einloggen erfolgreich war oder Fehler aufgetreten sind. 
+Diese Methode sorgt dafür, dass der Nutzer sich einloggen kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Benutzername, Passwort und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob das Einloggen erfolgreich war oder Fehler aufgetreten sind.
 \paragraph{\texttt{userResetPassword(req: express.Request, res: express.Response): void}}
-Diese Methode sorgt dafür, dass der Nutzer sein Passwort zurücksetzen lassen kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Benutzername übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob die Anfrage zum Passwort zurücksetzen erfolgreich war oder Fehler aufgetreten sind. 
+Diese Methode sorgt dafür, dass der Nutzer sein Passwort zurücksetzen lassen kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Benutzername übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob die Anfrage zum Passwort zurücksetzen erfolgreich war oder Fehler aufgetreten sind.
 
 \subsubsection{\texttt{RecipeController}}\label{sec:RecipeController}
 Der \texttt{RecipeController} ist verantwortlich für alle Anfragen, die mit den Rezepten zu tun haben.
@@ -1714,7 +1162,7 @@ Die Tabelle "BannedUser" repräsentiert die Many-To-Many-Beziehung zwischen den 
         \item \nameref{sec:RecipeController}
         \item \nameref{sec:RecipeRouter}
         \item \nameref{sec:Server}
-        \item \nameref{sec:UserRouter} 
+        \item \nameref{sec:UserRouter}
         \item \nameref{sec:UserController}
     \end{itemize}
 \end{multicols}
