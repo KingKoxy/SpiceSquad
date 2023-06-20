@@ -1447,6 +1447,56 @@ Mit der Methode \texttt{banUser} kann ein Nutzer aus einer Gruppe gebannt werden
 \paragraph{\texttt{setCensored(req: express.Request, res: express.Response): void}}
 Mit der Methode \texttt{setCensored} kann ein Nutzer zensiert werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Nutzer Id und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Zensieren des Nutzers erfolgreich war oder Fehler aufgetreten sind.
 
+\subsection{Mailer}
+Mithilfe des Mailers können E-Mails an Nutzer versendet werden. Dies wird dann benötigt, wenn man ein Rezept melden möchte.
+Der Mailer besteht im wesentlichen aus zwei Komponenten einmal der Klasse \texttt{MailSender}, die für das Versenden der E-Mails zuständig ist und der \texttt{MaiBuilder}-Komponente, die für das Erstellen der E-Mails zuständig ist.
+Für den Mailer wird die Bibliothek \texttt{nodemailer} verwendet.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width = 1\textwidth]{images/webserver/mailer.pdf}
+    \caption{Mailer-Komponente des Webservers}
+    \label{fig:mailer}
+\end{figure}
+
+\subsubsection{\texttt{MailSender}}\label{sec:MailSender}
+Die Klasse \texttt{MailSender} ist für das Versenden der E-Mails zuständig.
+
+\subsubsection*{Attribute}
+\paragraph{\texttt{transporter: nodemailer.Transporter}}
+Attribut, das einen Transporter für das Versenden der E-Mails repräsentiert. Das zugehörige Objekt soll beim Konstruktoraufruf erzeugt werden.
+\subsubsection*{Methoden}
+\paragraph{\texttt{sendEmail(mailOptions: nodemailer.SendMailOptions): Promise<nodemailer.SendMessageInfo>}}
+Mit dieser Methode wird eine E-Mail versendet. Der \texttt{mailOptions}-Parameter enthält Informationen über die E-Mail, die versendet werden soll. Der Rückgabewert ist vom Typ \texttt{Promise<nodemailer.SendMessageInfo>}, da die Funktion asynchron ausgeführt wird.
+
+\subsubsection{\texttt{AbstractMailBuilder}}\label{sec:AbstractMailBuilder}
+Die Klasse \texttt{AbstractMailBuilder} ist eine abstrakte Repräsentation eines MailBuilders. So kann ein grundlegender Aufbau für alle MailBuilder garantiert werden. Alle MailBuilder erben von dieser Klasse.
+\subsubsection*{Attribute}
+\paragraph{\texttt{sender: string}}
+Attribut, das die E-Mail-Adresse des Absenders repräsentiert.
+\paragraph{\texttt{receiver: string}}
+Attribut, das die E-Mail-Adresse des Empfängers repräsentiert.
+\paragraph{\texttt{subject: string}}
+Attribut, das den Betreff der E-Mail repräsentiert.
+\paragraph{\texttt{html: string}}
+Attribut, das den HTML-Inhalt der E-Mail repräsentiert.
+
+\subsubsection*{Methoden}
+\paragraph{\texttt{getMail(): nodemailer.SendMailOptions}}\label{sec:getMail}
+Mit dieser Methode wird ein Objekt vom Typ \texttt{nodemailer.SendMailOptions} zurückgegeben, das die E-Mail repräsentiert.
+
+\subsubsection{\texttt{ReportMailBuilder}}\label{sec:ReportMailBuilder}
+Die Klasse \texttt{ReportMailBuilder} ist für das Erstellen von E-Mails zuständig, die versendet werden, wenn ein Rezept gemeldet wird.
+\subsubsection*{Attribute}
+\paragraph{\texttt{htmlPath: string}}
+Attribut, das den Pfad zur HTML-Datei repräsentiert, die als Inhalt der E-Mail verwendet werden soll.
+\paragraph{\texttt{htmlText: string}}
+Attribut, das den Inhalt der HTML-Datei repräsentiert.
+
+\subsubsection*{Methoden}
+\paragraph{\texttt{<<create>> constructor(reciever: string, adminUsername: string, recipeTitle: string, reportedUsername: string): void}}
+Mit diesem Konstruktor wird ein Objekt vom Typ \texttt{ReportMailBuilder} erzeugt. Der \texttt{receiver}-Parameter enthält die E-Mail-Adresse des Empfängers. Der \texttt{adminUsername}-Parameter enthält den Benutzernamen des Admins, dem das Rezept gemeldet wird. Der \texttt{recipeTitle}-Parameter enthält den Titel des Rezepts, das gemeldet wurde. Der \texttt{reportedUsername}-Parameter enthält den Benutzernamen des Nutzers, der das Rezept erstellt hat.
+
 \section{HTTP-Anfragen und API-Endpunkte}
 Wie schon im Einführungstext zum Abschnitt Webserver erwähnt, werden alle Anfragen an den Webserver über HTTP gestellt.
 Um die Anfragen zu verarbeiten, werden die Anfragen an die entsprechenden Router weitergeleitet.
@@ -1474,7 +1524,7 @@ Der zugehörige Router ist der \texttt{AuthentificationRouter} (siehe \nameref{s
 In der Anfrage müssen der Name, die E-Mail-Adresse und das Passwort des Nutzers angegeben werden.
 
 \paragraph{Response}
-Im Erfolgsfall wird ein Statuscode 200 und der JWT
+Im Erfolgsfall wird ein Statuscode 200 und der JWT des Nutzers zurückgegeben.
 
 \subsubsection*{POST /auth/login}
 \paragraph{Request}
@@ -1540,6 +1590,10 @@ Der JWT wird dabei im Header der Anfrage mitgeschickt.
 Die Gültigkeit der Adminrolle wird vor Anfrage an die entsprechenden Endpunkte überprüft.
 
 \subsubsection*{PATCH /admin/:groupId/makeAdmin/:userId}
+\paragraph{Request}
+
+\paragraph{Response}
+
 \subsubsection*{PATCH /admin/:groupId/removeAdminStatus/:userId}
 \subsubsection*{PATCH /admin/:groupId/kickUser/:userId}
 \subsubsection*{PATCH /admin/:groupId/banUser/:userId}
