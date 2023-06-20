@@ -186,9 +186,9 @@ Dies ist eine Factory-Methode zum Erstellen eines \texttt{Ingredient}-Objekts au
 \subsection{\texttt{Difficulty}}\label{sec:difficulty}
 Der Enum \texttt{Difficulty} repräsentiert die Schwierigkeit eines Rezepts. Er kann folgende Werte annehmen:
 \begin{itemize}
-    \item \texttt{EASY}
-    \item \texttt{MEDIUM}
-    \item \texttt{HARD}
+    \item \texttt{easy}
+    \item \texttt{medium}
+    \item \texttt{hard}
 \end{itemize}
 \newpage
 
@@ -650,7 +650,7 @@ Leitet eine Registrierungsanfrage über einen Provider an den zuständigen Servi
 
 \subsection{\texttt{PasswordResetScreen}}
 \label{sec:passwordResetScreen}
-Die Klasse bildet die Passwort-Zurücksetzen-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt. Sie verwendet die Klasse \texttt{BackButton} aus dem \texttt{common\_widgets}-Package.
+Die Klasse bildet die Passwort-Zurücksetzen-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt. Sie verwendet die Klasse \hyperref[sec:backButton]{\texttt{BackButton}} aus dem \texttt{common\_widgets}-Package.
 \begin{figure}[htp]
     \begin{minipage}
         [t]{0.49\textwidth}
@@ -672,10 +672,11 @@ Der Controller, der die Eingabe der E-Mail-Ad\-resse des Nutzers verwaltet. Übe
 
 \subsubsection*{Methoden}
 \paragraph{\texttt{resetPassword(): void}}
-Leitet eine Registrierungsanfrage über einen Provider an den zuständigen Service weiter. Zeigt bei Erfolg einen Dialog an, dass die Anfrage erfolgreich war. Im Anschluss wird der Nutzer zur Anmeldeansicht (\ref{sec:loginScreen}) weitergeleitet.
+Leitet eine Registrierungsanfrage über einen Provider an den zuständigen Service weiter. Zeigt bei Erfolg einen \Gls{Dialog} an, dass die Anfrage erfolgreich war. Im Anschluss wird der Nutzer zur Anmeldeansicht (\ref{sec:loginScreen}) weitergeleitet.
 \newpage
 
 \subsection{\texttt{GroupJoiningScreen}}
+\label{sec:groupJoiningScreen}
 Die Klasse bildet die Gruppen-Beitritts-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt.
 Befindet sich die Registrierungsansicht (\ref{sec:registrationScreen}) im Navigations-Stack, wird ein Überspringen-Knopf angezeigt, der zur Hauptansicht (\ref{sec:mainScreen}) führt.
 Drückt der Nutzer auf den Knopf "Mit QR-Code beitreten" wird er zur QR-Code-Scan-Ansicht (\ref{sec:qrCodeScanScreen}) weitergeleitet. Gibt die Ansicht einen String zurück, wird eine Gruppenbeitrittsanfrage über einen Provider an den zuständigen Service weitergeleitet. Im Anschluss wird der Nutzer, jenachdem ob der Nutzer von der Registrierungsansicht (\ref{sec:registrationScreen}) kommt oder nicht, zur Hauptansicht (\ref{sec:mainScreen}) oder zur vorherigen Ansicht weitergeleitet.
@@ -698,17 +699,17 @@ Drückt der Nutzer auf den Knopf "Mit QR-Code beitreten" wird er zur QR-Code-Sca
 Der Controller, der die Eingabe des Gruppencodes des Nutzers verwaltet. Über ihn kann der Wert des Eingabefelds abgerufen werden oder eine Fehlermeldung angezeigt werden.
 \subsubsection*{Methoden}
 \paragraph{\texttt{joinGroupByCode(): void}}
-Leitet eine Gruppenbeitrittsanfrage über einen Provider an den zuständigen Service weiter, wobei das Gruppenkürzel übergegeben wird. Zeigt bei Erfolg einen Dialog an, dass die Anfrage erfolgreich war. Im Anschluss wird der Nutzer entweder zur Hauptansicht (\ref{sec:mainScreen}) oder zur vorherigen Ansicht weitergeleitet. Dies hängt davon ab, ob die Registrierungsansicht (\ref{sec:registrationScreen}) im Navigations-Stack ist.
+Leitet eine Gruppenbeitrittsanfrage über einen Provider an den zuständigen Service weiter, wobei das Gruppenkürzel übergegeben wird. Zeigt bei Erfolg einen \Gls{Dialog} an, dass die Anfrage erfolgreich war. Im Anschluss wird der Nutzer entweder zur Hauptansicht (\ref{sec:mainScreen}) oder zur vorherigen Ansicht weitergeleitet. Dies hängt davon ab, ob die Registrierungsansicht (\ref{sec:registrationScreen}) im Navigations-Stack ist.
 \newpage
 
 \subsection{\texttt{QRScannerScreen}}
 \label{sec:qrScannerScreen}
-Die Klasse bildet die QR-Scanner-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt. Sie verwendet die Klasse \texttt{BackButton} aus dem \texttt{common\_widgets}-Package. Es handelt sich um eine Ansicht, die die Kameraansicht des Smartphones zeigt. 
+Die Klasse bildet die QR-Scanner-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt. Sie verwendet die Klasse \hyperref[sec:backButton]{\texttt{BackButton}} aus dem \texttt{common\_widgets}-Package. Es handelt sich um eine Ansicht, die die Kameraansicht des Smartphones zeigt.
 \begin{figure}
     [htp]
     \centering
     \includegraphics[width=.49\textwidth]{images/presentationLayer/classDiagrams/qrScannerScreen.pdf}
-    \caption{Klassendiagramm des QR\-Scanner\-Screens} 
+    \caption{Klassendiagramm des QR\-Scanner\-Screens}
 \end{figure}
 \subsubsection*{Methoden}
 \paragraph{\texttt{onScanSuccessful(String scannedText): void}}
@@ -738,11 +739,193 @@ Befindet sich die Registrierungsansicht (\ref{sec:registrationScreen}) im Naviga
 Der Controller, der die Eingabe des Gruppennamens durch den Nutzer verwaltet. Über ihn kann der Wert des Eingabefelds abgerufen werden oder eine Fehlermeldung angezeigt werden.
 \subsubsection*{Methoden}
 \paragraph{\texttt{createGroup(): void}}
-Leitet eine Gruppenerstellungsanfrage über einen Provider an den zuständigen Service weiter, wobei der Gruppenname übergeben wird. Zeigt bei Erfolg einen Dialog an, dass die Anfrage erfolgreich war. Im Anschluss wird der Nutzer entweder zur Hauptansicht (\ref{sec:mainScreen}) oder zur vorherigen Ansicht weitergeleitet. Dies hängt davon ab, ob die Registrierungsansicht (\ref{sec:registrationScreen}) im Navigations-Stack ist.
+Leitet eine Gruppenerstellungsanfrage über einen Provider an den zuständigen Service weiter, wobei der Gruppenname übergeben wird. Zeigt bei Erfolg einen \Gls{Dialog} an, dass die Anfrage erfolgreich war. Im Anschluss wird der Nutzer entweder zur Hauptansicht (\ref{sec:mainScreen}) oder zur vorherigen Ansicht weitergeleitet. Dies hängt davon ab, ob die Registrierungsansicht (\ref{sec:registrationScreen}) im Navigations-Stack ist.
 \newpage
 
-\subsection{\texttt{MainScreen}}
+\subsection{\texttt{main\_screen}}
+Das Package \texttt{main\_screen} enthält alle Klassen für die Hauptansicht der App. Der anzuzeigende Screen ist in der Klasse \hyperref[sec:mainScreen]{\texttt{MainScreen}} implementiert
+\begin{figure}
+    [htp]
+    \centering
+    \includegraphics[width=\textwidth]{images/presentationLayer/classDiagrams/mainScreenWhole.pdf}
+    \caption{Klassendiagramm des Pakets main\_screen}
+\end{figure}
+\newpage
+\subsubsection{MainScreen}
+\label{sec:mainScreen}
+Die Klasse bildet die Hauptansicht der App ab. Sie ist ein \texttt{StatefulWidget}, da sie den Zustand \texttt{filteredRecipes} verwaltet und anzeigt. Sie bildet für jedes Rezept eine \texttt{RecipeCard} ab. Zudem gibt es zwei Widgets zur Auswahl der Sortierung und Filterung der Rezepte.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=80mm]{images/presentationLayer/uiElements/mainScreen.jpg}
+        \caption{Hauptansicht der App}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/mainScreen.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Main\-Screens}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{filteredRecipes: List<Recipe>}}
+Die Liste der Rezepte, die aktuell angezeigt werden. Sie wird durch die Auswahl der Sortierung und Filterung bestimmt.
+\paragraph{\texttt{filterCategories: List<FilterCategory}}
+Die Liste der Filterkategorien, die aktuell ausgewählt sind.
+\paragraph{\texttt{sortCategory: SortCategory}}
+Die aktuell ausgewählte Sortierung.
+\paragraph{\texttt{sortAscending: bool}}
+Gibt an, ob die Sortierung aufsteigend ist.
+\paragraph{\texttt{searchText: String}}
+Der aktuell eingegebene Suchtext.
+\subsubsection*{Methoden}
+\paragraph{\texttt{runFiltersAndSort(): void}}
+Wendet die aktuell ausgewählten Filter, die Suche und die Sortierung auf die Liste aller Rezepte an und speichert das Ergebnis in \texttt{filteredRecipes}. Wird immer aufgerufen, nachdem sich eine der Einstellungen geändert hat.
+\newpage
+\subsubsection{RecipeCard}
+\label{sec:recipeCard}
+Die Klasse bildet eine Rezeptkarte ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt. Sie verwendet die Klasse \hyperref[sec:favouriteButton]{\texttt{FavouriteButton}} aus dem Package \texttt{common\_widgets}.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=.8\textwidth]{images/presentationLayer/uiElements/recipeCard.png}
+        \caption{Abbildung einer Rezeptkarte}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/recipeCard.pdf}
+        \caption{\protect\raggedright Klassendiagramm der Recipe\-Card}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{recipe: Recipe}}
+Das Rezept, das angezeigt werden soll.
+\subsubsection*{Methoden}
+\paragraph{\texttt{RecipeItem(Recipe recipe): RecipeItem}}
+Konstruktor, der das anzuzeigende Rezept übergeben bekommt.
+\paragraph{\texttt{toggleFavourite(): void}}
+Leitet eine Anfrage über den zugehörigen Provider an den zuständigen Service weiter, um das Rezept als Favorit zu markieren oder die Markierung aufzuheben.
+\newpage
+\subsubsection{\texttt{FilterSelectionWidget}}
+Die Klasse stellt ein Widget bereit, mit dem der Nutzer die Filterkategorien auswählen kann. Sie ist ein \texttt{StatefulWidget}, da sie den Zustand \texttt{selectedCategories} verwaltet. Wird auf das Widget gedrückt, öffnet sich ein \Gls{Dialog}, in dem die Filterkategorien ausgewählt werden können.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1.5cm]{images/presentationLayer/uiElements/filterSelectionWidget.png}
+        \caption{\protect\raggedright Abbildung des Filter\-Selection\-Widgets}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/filterSelectionWidget.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Filter\-Selection\-Widgets}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{selectedFilters: List<FilterCategory>}}
+Die Liste der aktuell ausgewählten Filterkategorien.
+\paragraph{\texttt{onChange(List<FilterCategory> value): void}} Callback-Methode, die ausgeführt wird wenn sich die Auswahl der Filterkategorien ändert und die neue Auswahl als Parameter übergeben bekommt.
+\subsubsection*{Methoden}
+\paragraph{\texttt{FilterSelectionWidget(List<FilterCategory> selectedFilters, void onChange(List<FilterCategory> value)): FilterSelectionWidget}}
+Konstruktor, der die aktuell ausgewählten Filterkategorien und die Callback-Methode übergeben bekommt.
+\newpage
 
+\subsubsection{\texttt{FilterCategory}}
+\begin{figure}
+    [htp]
+    \centering
+    \includegraphics[width=0.3\textwidth]{images/presentationLayer/classDiagrams/filterCategory.pdf}
+    \caption{Klassendiagramm des Enums Filter\-Category}
+\end{figure}
+Der Enum \texttt{FilterCategory} bildet die Filterkategorien ab. Die Kategorien sind:
+\begin{itemize}
+    \item \texttt{favourite}
+    \item \texttt{difficultyEasy}
+    \item \texttt{difficultyMedium}
+    \item \texttt{difficultyHard}
+    \item \texttt{labelVegan}
+    \item \texttt{labelVegetarian}
+    \item \texttt{labelGlutenFree}
+    \item \texttt{labelKosher}
+    \item \texttt{labelHalal}
+\end{itemize}
+\subsubsection*{Methoden}
+\paragraph{\texttt{matches(Recipe recipe): bool}}
+Gibt an, ob das übergebene Rezept zu der Filterkategorie passt. Kann zum Filtern einer Rezeptliste benutzt werden.
+\newpage
+
+\subsubsection{\texttt{SortSelectionWidget}}
+Die Klasse stellt ein Widget bereit, mit dem der Nutzer die Sortierung auswählen kann. Sie ist ein \texttt{StatefulWidget}, da sie die Zustände \texttt{sortCategory} und \texttt{ascending} verwaltet. Wird auf das Widget gedrückt, öffnet sich ein \Gls{Dialog}, in dem die Sortierung ausgewählt werden kann.
+
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1.5cm]{images/presentationLayer/uiElements/sortSelectionWidget.png}
+        \caption{\protect\raggedright Abbildung des Sort\-Selection\-Widgets}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/sortSelectionWidget.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Sort\-Selection\-Widgets}
+    \end{minipage}
+\end{figure}
+
+\subsubsection*{Attribute}
+\paragraph{\texttt{sortCategory: SortCategory}}
+Die aktuell ausgewählte Sortierungskategorie.
+\paragraph{\texttt{ascending: bool}}
+Gibt an, ob die Sortierung aufsteigend sein soll.
+\paragraph{\texttt{onChange(SortCategory sortCategory, bool ascending): void}} Callback-Methode, die ausgeführt wird wenn sich die Auswahl der Sortierung ändert und die neue Auswahl als Parameter übergeben bekommt.
+\subsubsection*{Methoden}
+\paragraph{\texttt{SortSelectionWidget(SortCategory sortCategory, bool ascending, void onChange(SortCategory sortCategory, bool ascending)): SortSelectionWidget}}
+Konstruktor, der die aktuell ausgewählte Sortierungskategorie, die Sortierrichtung und die Callback-Methode übergeben bekommt.
+\newpage
+\subsubsection{\texttt{SortCategory}}
+\begin{figure}
+    [htp]
+    \centering
+    \includegraphics[width=0.3\textwidth]{images/presentationLayer/classDiagrams/sortCategory.pdf}
+    \caption{Klassendiagramm des Enums Sort\-Category}
+\end{figure}
+Der Enum \texttt{SortCategory} bildet die Sortierungskategorien ab. Die Kategorien sind:
+\begin{itemize}
+    \item \texttt{title}
+    \item \texttt{difficulty}
+    \item \texttt{creationDate}
+\end{itemize}
+\subsubsection*{Methoden}
+\paragraph{\texttt{compare(Recipe a, Recipe b): int}}
+Vergleicht zwei Rezepte anhand der Sortierungskategorie und gibt an, welches Rezept zuerst kommen soll. Kann zum Sortieren einer Rezeptliste mit Hilfe von \texttt{List.sort()} benutzt werden.
+\newpage
+
+\subsubsection{\texttt{SearchFieldWidget}}
+Die Klasse stellt ein Widget bereit, mit dem der Nutzer nach Rezepten suchen kann. Sie ist ein \texttt{StatelessWidget}, da sie selbst keinen Zustand verwaltet, der die UI aktualisieren muss. Das übernimmt das zugrundeliegende Textfeld.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=.95\textwidth]{images/presentationLayer/uiElements/searchFieldWidget.png}
+        \caption{\protect\raggedright Abbildung des Search\-Field\-Widgets}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/searchFieldWidget.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Search\-Field\-Widgets}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{onChange(String value): void}}
+Callback-Methode, die ausgeführt wird wenn sich der Inhalt des Textfelds ändert und den neuen Inhalt als Parameter übergeben bekommt.
+\subsubsection*{Methoden}
+\paragraph{\texttt{SearchFieldWidget(void onChange(String value)): SearchFieldWidget}}
+Konstruktor, der die Callback-Methode übergeben bekommt.
 \newpage
 \section{REST-Webserver}
 Um seinen Account zu verwalten, Rezepte aufzurufen oder mit Gruppe interagieren zu können benötigt man die Verbindung zum Server.
