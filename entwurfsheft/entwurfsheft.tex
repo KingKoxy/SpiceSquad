@@ -678,6 +678,7 @@ Leitet eine Registrierungsanfrage über einen Provider an den zuständigen Servi
 \subsection{\texttt{GroupJoiningScreen}}
 Die Klasse bildet die Gruppen-Beitritts-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt.
 Befindet sich die Registrierungsansicht (\ref{sec:registrationScreen}) im Navigations-Stack, wird ein Überspringen-Knopf angezeigt, der zur Hauptansicht (\ref{sec:mainScreen}) führt.
+Drückt der Nutzer auf den Knopf "Mit QR-Code beitreten" wird er zur QR-Code-Scan-Ansicht (\ref{sec:qrCodeScanScreen}) weitergeleitet. Gibt die Ansicht einen String zurück, wird eine Gruppenbeitrittsanfrage über einen Provider an den zuständigen Service weitergeleitet. Im Anschluss wird der Nutzer, jenachdem ob der Nutzer von der Registrierungsansicht (\ref{sec:registrationScreen}) kommt oder nicht, zur Hauptansicht (\ref{sec:mainScreen}) oder zur vorherigen Ansicht weitergeleitet.
 \begin{figure}[htp]
     \begin{minipage}
         [t]{0.49\textwidth}
@@ -700,6 +701,20 @@ Der Controller, der die Eingabe des Gruppencodes des Nutzers verwaltet. Über ih
 Leitet eine Gruppenbeitrittsanfrage über einen Provider an den zuständigen Service weiter, wobei das Gruppenkürzel übergegeben wird. Zeigt bei Erfolg einen Dialog an, dass die Anfrage erfolgreich war. Im Anschluss wird der Nutzer entweder zur Hauptansicht (\ref{sec:mainScreen}) oder zur vorherigen Ansicht weitergeleitet. Dies hängt davon ab, ob die Registrierungsansicht (\ref{sec:registrationScreen}) im Navigations-Stack ist.
 \newpage
 
+\subsection{\texttt{QRScannerScreen}}
+\label{sec:qrScannerScreen}
+Die Klasse bildet die QR-Scanner-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt. Sie verwendet die Klasse \texttt{BackButton} aus dem \texttt{common\_widgets}-Package. Es handelt sich um eine Ansicht, die die Kameraansicht des Smartphones zeigt. 
+\begin{figure}
+    [htp]
+    \centering
+    \includegraphics[width=.49\textwidth]{images/presentationLayer/classDiagrams/qrScannerScreen.pdf}
+    \caption{Klassendiagramm des QR\-Scanner\-Screens} 
+\end{figure}
+\subsubsection*{Methoden}
+\paragraph{\texttt{onScanSuccessful(String scannedText): void}}
+Wird ein QR-Code erkannt, so wird diese Methode mit dem entschlüsselten Text aufgerufen. Sie validiert, ob es sich um ein Gruppenkürzel handelt und gibt es bei Erfolg an die vorherige Ansicht zurück. Die Erkennung des QR-Codes erfolgt über das Flutter-Package \texttt{mobile\_scanner}.
+
+\newpage
 \subsection{\texttt{GroupCreationScreen}}
 \label{sec:groupCreationScreen}
 Die Klasse bildet die Gruppen-Erstellungs-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt.
@@ -724,6 +739,9 @@ Der Controller, der die Eingabe des Gruppennamens durch den Nutzer verwaltet. Ü
 \subsubsection*{Methoden}
 \paragraph{\texttt{createGroup(): void}}
 Leitet eine Gruppenerstellungsanfrage über einen Provider an den zuständigen Service weiter, wobei der Gruppenname übergeben wird. Zeigt bei Erfolg einen Dialog an, dass die Anfrage erfolgreich war. Im Anschluss wird der Nutzer entweder zur Hauptansicht (\ref{sec:mainScreen}) oder zur vorherigen Ansicht weitergeleitet. Dies hängt davon ab, ob die Registrierungsansicht (\ref{sec:registrationScreen}) im Navigations-Stack ist.
+\newpage
+
+\subsection{\texttt{MainScreen}}
 
 \newpage
 \section{REST-Webserver}
