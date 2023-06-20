@@ -91,19 +91,19 @@ Das Datum, an dem das Rezept hochgeladen wurde.
 \paragraph{\texttt{duration: int}}
 Die Dauer zum Nachkochen des Rezepts in Minuten.
 \paragraph{\texttt{difficulty: Difficulty}}
-Die Schwierigkeit des Rezepts.
+Die \Gls{schwierigkeit} des Rezepts.
 \paragraph{\texttt{image: Uint8List?}}
 Das Bild des Rezepts. Der Typ Uint8List ist ein Array von Bytes, welches das Bild in binärer Form enthält. Dieses Attribut ist optional, da nicht jedes Rezept ein Bild haben muss.
 \paragraph{\texttt{isVegetartian: bool}}
-Gibt an, ob das Label "Vegetarisch" aktiviert ist.
+Gibt an, ob das \Gls{label} "Vegetarisch" aktiviert ist.
 \paragraph{\texttt{isVegan: bool}}
-Gibt an, ob das Label "Vegan" aktiviert ist.
+Gibt an, ob das \Gls{label} "Vegan" aktiviert ist.
 \paragraph{\texttt{isGlutenFree: bool}}
-Gibt an, ob das Label "Glutenfrei" aktiviert ist.
+Gibt an, ob das \Gls{label} "Glutenfrei" aktiviert ist.
 \paragraph{\texttt{isHalal: bool}}
-Gibt an, ob das Label "Halal" aktiviert ist.
+Gibt an, ob das \Gls{label} "Halal" aktiviert ist.
 \paragraph{\texttt{isKosher: bool}}
-Gibt an, ob das Label "Koscher" aktiviert ist.
+Gibt an, ob das \Gls{label} "Koscher" aktiviert ist.
 \paragraph{\texttt{ingredients: List<Ingredient>}}
 Die Liste der Zutaten, die für das Rezept benötigt werden.
 \paragraph{\texttt{instructions: String}}
@@ -127,7 +127,7 @@ Gibt das Datum, an dem das Rezept hochgeladen wurde, zurück.
 \paragraph{\texttt{getDuration(): int}}
 Gibt die Dauer zum Nachkochen des Rezepts in Minuten zurück.
 \paragraph{\texttt{getDifficulty(): Difficulty}}
-Gibt die Schwierigkeit des Rezepts zurück.
+Gibt die \Gls{schwierigkeit} des Rezepts zurück.
 \paragraph{\texttt{getImage(): Uint8List?}}
 Gibt das Bild des Rezepts zurück. Ist kein Bild gesetzt, wird null zurückgegeben.
 \paragraph{\texttt{getIsVegetarian(): bool}}
@@ -185,7 +185,7 @@ Dies ist eine Factory-Methode zum Erstellen eines \texttt{Ingredient}-Objekts au
 
 \newpage
 \subsection{\texttt{Difficulty}}\label{sec:difficulty}
-Der Enum \texttt{Difficulty} repräsentiert die Schwierigkeit eines Rezepts. Er kann folgende Werte annehmen:
+Der Enum \texttt{Difficulty} repräsentiert die \Gls{schwierigkeit} eines Rezepts. Er kann folgende Werte annehmen:
 \begin{itemize}
     \item \texttt{EASY}
     \item \texttt{MEDIUM}
@@ -548,12 +548,12 @@ Erstellt eine PDF-Datei, die das Rezept enthält und exportiert dieses anschlie�
         Die Klasse stellt eine Rezept Element in einer List da. Erbt von der Klasse \texttt{StatelessWidget}.
         \subsubsection*{Attribut}
             \paragraph*{\texttt{recipe: Recipe}} Das darzustellende Rezept.
-            \paragraph*{\texttt{private: Boolean}} Ein Boolean der angibt, ob die Sichtbarkeit des Rezepts verändert werden darf oder nicht.
+            \paragraph*{\texttt{private: Boolean}} Ein Boolean der angibt, ob die \Gls{sichtbarkeit} des Rezepts verändert werden darf oder nicht.
             \paragraph*{\texttt{settingsView: Boolean}} Ein Boolean der angibt, ob das Widget in der Einstellungsansicht verwendet wird.
 
         \subsubsection*{Methoden}
             \paragraph*{\texttt{RecipeListElement(recipe: Recipe - notNull, view: boolean - notNull, settingsView: boolean - notNull)}} Ein Konstruktor für ein  \texttt{RecipeListElement}. Alle Parameter müssen angegeben werden.
-            \paragraph*{\texttt{togglePrivate()}} Die Sichtbarkeit des Rezepts für die Gruppe ausgeblendet werden soll, wenn settingsView false ist. Wenn settingsView auf true steht wird das Rezept für alle Gruppen ausgeblendet.
+            \paragraph*{\texttt{togglePrivate()}} Die \Gls{sichtbarkeit} des Rezepts für die Gruppe ausgeblendet werden soll, wenn settingsView false ist. Wenn settingsView auf true steht wird das Rezept für alle Gruppen ausgeblendet.
             \paragraph*{\texttt{delete()}} Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion \texttt{deleteRecipe()} im \texttt{RecipeService} aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
             \paragraph*{\texttt{export()}} Die Funktion exportRecipe() im RecipeService wird aufgerufen.
 
@@ -865,7 +865,7 @@ Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Gruppen-Ers
     \subsubsection{RecipeCreationPageState}
         Der Zustand von der \texttt{RecipeCreationPage}. Erbt von der Klasse \texttt{State}. Die Klassen \ref{sec:ReturnButton}, \ref{sec:InformationElement} und \ref{sec:AppBar} werden verwendet.
         \subsubsection*{Attribute}
-            \paragraph*{\texttt{image: blob}} Das hochgeladenes Bild, welches den anderen Nutzern in der Rezeptansicht angezeigt werden soll.
+            \paragraph*{\texttt{image: \glslink{blob}{blob}}} Das hochgeladenes Bild, welches den anderen Nutzern in der Rezeptansicht angezeigt werden soll.
             \paragraph*{\texttt{title: TextEdittingController}} Die eingegebene Zeichenkette für den Titel des Rezepts. Die Zeichenkette kann maximal 64 Zeichen lang sein.
             \paragraph*{\texttt{is\_Vegetarian: Boolean}} Der vom Nutzer angegebene Boolean, ob das \gls{label} Vegetarisch dem Leser angezeigt werden soll. Ist standartmäßig auf false.
             \paragraph*{\texttt{is\_Vegan: Boolean}} Der vom Nutzer angegebene Boolean, ob das \gls{label} Vegan dem Leser angezeigt werden soll. Ist standartmäßig auf false.
