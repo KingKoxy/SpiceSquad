@@ -1278,32 +1278,31 @@ Getter-Methode für das Attribut \texttt{router}.
 
 \subsubsection{\texttt{AuthentificationRouter}}\label{sec:AuthentificationRouter}
 Der \texttt{AuthentificationRouter} ist speziell für die Verarbeitung von Authentifizierungsanfragen zuständig.
-\subsubsection*{Methoden}
+\subsubsection*{Methode}
 \paragraph{\texttt{setupRoutes(): void}}
 Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
 \subsubsection{\texttt{RecipeRouter}}\label{sec:RecipeRouter}
 Der \texttt{RecipeRouter} ist für die Verwaltung der Routen und Endpunkte verantwortlich, die mit Rezepten zusammenhängen.
-\subsubsection*{Methoden}
-\texttt{RecipeRouter}.
+\subsubsection*{Methode}
 \paragraph{\texttt{setupRoutes(): void}}
 Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
 \subsubsection{\texttt{GroupRouter}}\label{sec:GroupRouter}
 Der \texttt{GroupRouter} ist verantwortlich für die Verwaltung der Routen und Endpunkte, die mit Gruppen in der Anwendung zusammenhängen.
-\subsubsection*{Methoden}
+\subsubsection*{Methode}
 \paragraph{\texttt{setupRoutes(): void}}
 Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
 \subsubsection{\texttt{UserRouter}}\label{sec:UserRouter}
 Der \texttt{UserRouter} ist für die Verwaltung von Routen und Endpunkten zuständig, die mit Benutzeraktionen und -informationen zusammenhängen.
-\subsubsection*{Methoden}
+\subsubsection*{Methode}
 \paragraph{\texttt{setupRoutes(): void}}
 Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
 \subsubsection{\texttt{IngredientRouter}}\label{sec:IngredientRouter}
 Der \texttt{IngredientRouter} ist verantwortlich für die Verwaltung von Routen und Endpunkten, die mit Zutaten in der Anwendung zusammenhängen.
-\subsubsection*{Methoden}
+\subsubsection*{Methode}
 \paragraph{\texttt{setupRoutes(): void}}
 Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
@@ -1320,7 +1319,7 @@ Durch die Middleware können Anfragen vorher bearbeitet werden, bevor sie zu den
 
 \begin{figure}[htp]
     \centering
-    \includegraphics[width = 1\textwidth]{images/webserver/middleware.pdf}
+    \includegraphics[width = 0.7\textwidth]{images/webserver/middleware.pdf}
     \caption{Middleware-Klassen des Webservers}
     \label{fig:middleware}
 \end{figure}
@@ -1448,8 +1447,103 @@ Mit der Methode \texttt{banUser} kann ein Nutzer aus einer Gruppe gebannt werden
 \paragraph{\texttt{setCensored(req: express.Request, res: express.Response): void}}
 Mit der Methode \texttt{setCensored} kann ein Nutzer zensiert werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Nutzer Id und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Zensieren des Nutzers erfolgreich war oder Fehler aufgetreten sind.
 
-\section{HTTP-Anfrage}
+\section{HTTP-Anfragen und API-Endpunkte}
+Wie schon im Einführungstext zum Abschnitt Webserver erwähnt, werden alle Anfragen an den Webserver über HTTP gestellt.
+Um die Anfragen zu verarbeiten, werden die Anfragen an die entsprechenden Router weitergeleitet.
+Die Anfragen werden dabei in der Form von JSON-Objekten an den Webserver gesendet.
+Im Kopf der Anfrage wird dabei der Typ der Anfrage angegeben, sowie das JWT (JSON Web Token) des Nutzers, der die Anfrage stellt (siehe \nameref{sec:Nutzerverwaltung}).
+Im Body der Anfrage werden die Daten der Anfrage übergeben.
+Die Anfragen werden dabei an die entsprechenden Endpunkte der API gesendet.
+Die Endpunkte der API sind dabei die Routen, die die Anfragen annehmen.
+Jeder Endpunkt in einer REST-API ist mit einer HTTP-Methode verbunden und definiert eine bestimmte Aktion, die ausgeführt werden soll.
+Die HTTP-Methoden, die von der API verwendet werden, sind \texttt{GET}, \texttt{POST}, \texttt{PUT}, \texttt{DELETE} und \texttt{PATCH}.
 
+Im folgenden wollen wir die verschiedenen Anfragen und Endpunkte der API beschreiben.
+Dafür werden wir die verschiedenen Anfragen nach den Routen gruppieren, die sie verwenden.
+Aufgeführt werden dabei nur die Endpunkte, die für die App relevant sind. 
+Das heißt alle Endpunkte, die einen Controller besitzen, der für die App relevant ist.
+Dazu wird angegeben, welche Daten die Anfrage (Request) im Head und Body der Anfrage enthält.
+Außerdem wird angegeben, welche Daten die Anfrage zurückgibt (Response).
+
+\subsection{/auth}
+Die Route \texttt{/auth} ist die Route, die für alle Anfragen zuständig ist, die mit der Nutzerverwaltung zu tun haben.
+Der zugehörige Router ist der \texttt{AuthentificationRouter} (siehe \nameref{sec:AuthentificationRouter}).
+
+\subsubsection*{POST /auth/register}
+\paragraph{Request}
+In der Anfrage müssen der Name, die E-Mail-Adresse und das Passwort des Nutzers angegeben werden.
+
+\paragraph{Response}
+Im Erfolgsfall wird ein Statuscode 200 und der JWT
+
+\subsubsection*{POST /auth/login}
+\paragraph{Request}
+\paragraph{Response}
+\subsubsection*{POST /auth/resetPassword}
+
+\subsection{/recipe}
+Die Route \texttt{/recipe} ist die Route, die für alle Anfragen zuständig ist, die mit Rezepten zu tun haben.
+Der zugehörige Router ist der \texttt{RecipeRouter} (siehe \nameref{sec:RecipeRouter}).
+
+Anfragen an diese Route müssen mit einem gültigen JWT versehen sein, da nur angemeldete Nutzer Rezepte erstellen können.
+Der JWT wird dabei im Header der Anfrage mitgeschickt.
+
+\subsubsection*{POST /recipe}
+\subsubsection*{DELETE /recipe/:id}
+\subsubsection*{PATCH /recipe/:id}
+\subsubsection*{GET /recipe/:id}
+\subsubsection*{GET /recipe/own}
+\subsubsection*{PATCH /recipe/favorite}
+\subsubsection*{POST /recipe/report}
+
+\subsection{/group}
+Die Route \texttt{/group} ist die Route, die für alle Anfragen zuständig ist, die mit Gruppen zu tun haben.
+Der zugehörige Router ist der \texttt{GroupRouter} (siehe \nameref{sec:GroupRouter}).
+
+Die Anfragen an diese Route müssen mit einem gültigen JWT versehen sein, da nur angemeldete Nutzer Gruppen erstellen können.
+Der JWT wird dabei im Header der Anfrage mitgeschickt.
+
+\subsubsection*{POST /group}
+
+\subsubsection*{DELETE /group/:id}
+\subsubsection*{PATCH /group/:id}
+\subsubsection*{PATCh /group/:id/join}
+\subsubsection*{PATCH /group/:id/leave}
+\subsubsection*{GET /group}
+
+\subsection{/user}
+Die Route \texttt{/user} ist die Route, die für alle Anfragen zuständig ist, die mit Nutzern zu tun haben.
+Der zugehörige Router ist der \texttt{UserRouter} (siehe \nameref{sec:UserRouter}).
+
+Die Anfragen an diese Route müssen mit einem gültigen JWT versehen sein, da nur angemeldete Nutzer Nutzerdaten ändern können.
+Der JWT wird dabei im Header der Anfrage mitgeschickt.
+
+\subsubsection*{DELETE /user/:id}
+\subsubsection*{PATCH /user/:id}
+
+\subsection{/ingredient}
+Die Route \texttt{/ingredient} ist die Route, die für alle Anfragen zuständig ist, die mit Zutaten zu tun haben.
+Der zugehörige Router ist der \texttt{IngredientRouter} (siehe \nameref{sec:IngredientRouter}).
+
+Die Anfragen an diese Route müssen mit einem gültigen JWT versehen sein, da nur angemeldete Nutzer Zutaten abrufen können.
+Der JWT wird dabei im Header der Anfrage mitgeschickt.
+
+
+\subsubsection*{GET /ingredient}
+
+\subsection{/admin}
+Die Route \texttt{/admin} ist die Route, die für alle Anfragen zuständig ist, die mit der Adminrolle zu tun haben.
+Der zugehörige Router ist der \texttt{AdminUserRouter} (siehe \nameref{sec:AdminUserRouter}).
+
+Die Anfragen an diese Route müssen mit einem gültigen JWT versehen sein, da nur angemeldete Nutzer mit der Adminrolle Adminaktionen ausführen können.
+Der JWT wird dabei im Header der Anfrage mitgeschickt.
+Die Gültigkeit der Adminrolle wird vor Anfrage an die entsprechenden Endpunkte überprüft.
+
+\subsubsection*{PATCH /admin/:groupId/makeAdmin/:userId}
+\subsubsection*{PATCH /admin/:groupId/removeAdminStatus/:userId}
+\subsubsection*{PATCH /admin/:groupId/kickUser/:userId}
+\subsubsection*{PATCH /admin/:groupId/banUser/:userId}
+\subsubsection*{PATCH /admin/:groupId/setCensored/:userId}
 
 \newpage
 
