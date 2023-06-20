@@ -33,6 +33,7 @@ Im Folgenden werden die Architekturen von Server und Client näher beschrieben.
 \subsection{Architektur der Android-Applikation}
 Für die Entwicklung der Android-Applikation soll Flutter benutzt werden. Dies bietet einige Vorteile. Flutter ist ein plattformübergreifendes Framework, das es Entwicklern ermöglicht, eine einzige Codebasis zu verwenden, um Apps sowohl für iOS als auch für Android zu erstellen. Dies reduziert den Entwicklungsaufwand erheblich, da Entwickler nicht separate Codes für jede Plattform schreiben müssen. Flutter verwendet die Dart-Programmiersprache, die eine einfache Syntax und eine umfangreiche Bibliothek bietet, um leistungsstarke und ansprechende Benutzeroberflächen zu erstellen. Darüber hinaus verfügt Flutter über eine Hot-Reload-Funktion, die es Entwicklern ermöglicht, Änderungen in Echtzeit zu sehen, was den Entwicklungsprozess beschleunigt. Flutter-Apps sind schnell, reaktionsfähig und bieten eine extrem gute Leistung, da sie direkt auf die nativen Funktionen des Betriebssystems zugreifen. Diese Kombination aus plattformübergreifender Entwicklung, einfacher Sprache, schnellem Entwicklungsprozess und guter Leistung macht Flutter zu einer guten Wahl für die Entwicklung von SpiceSquad.
 
+
 Die Applikation wird in vier große Schichten gegliedert. Dies dient dazu, die Bestandteile der App nach ihrer Funktion zu gruppieren und die Abhängigkeiten zwischen den einzelnen Komponenten zu minimieren. Dadurch wird die Wartbarkeit massiv verbessert und auch die Erweiterbarkeit der Applikation wird durch diese Strukturierung erleichtert. Die Schichten orientieren sich stark an den Empfehlungen von Google für die Architektur von Android Applikationen. Die vier Schichten sind der \textbf{Presentation Layer}, der \textbf{Application Layer}, der \textbf{Domain Layer} und der \textbf{Data Layer}.
 \begin{figure}[htp]
     \centering
@@ -571,7 +572,7 @@ Erstellt eine PDF-Datei, die das Rezept enthält und exportiert dieses anschlie�
 
     \subsubsection{RegisterPage}
         Stellt das Hauptelement der Ansicht da. Erbt von der Klasse \texttt{StatefullWidget}. Benutzt die Klasse \texttt{RegisterPageState}.
-        \subsubsection*{Methode}
+        \subsubsection*{Methoden}
             \paragraph*{\texttt{createState: State<RegisterPageState>}} Der Konstruktor für den \texttt{RegisterPageState}.
     
     \subsubsection{RegisterPageState}
@@ -1101,13 +1102,20 @@ Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Verwaltungs
 
 \newpage
 
-\section{REST-Webserver}
+\section{REST-Webservice}
 Um seinen Account zu verwalten, Rezepte aufzurufen oder mit Gruppe interagieren zu können benötigt man die Verbindung zum Server.
 Um die Anfragen performant und flexibel zu gestalten, verwendet das Projekt Node.js in Verbindung mit dem Express.js Framework.
 Express.js ermöglicht es einfach einen robusten Webservice zu entwickeln. Dazu bietet Express.js eine Menge an Dienstprogrammmethoden an um das ganze zu ermöglichen.
 Als Programmiersprache verwenden wir Serverseitig TypeScript. Typescript ist eine freie und quelloffene Programmiersprache, die statische Typisierung zu JavaScript hinzufügt.
 Das ermöglicht es Sprachkonstrukte wie Klassen, Vererbungen und Module zu verwenden um unser Projekt sowohl client- als auch serverseitig objektorientiert zu entwickeln.
 Das machte es einfacher den Aufbau des Servers zu strukturieren und auf Langzeit Wartbarkeit zu garantieren. Mit TypeScript als eines der meistgenutzten Programmiersprachen und Node.js als eines der meist beliebtesten Technologien wollen wir zudem eine hohe Zukunftssicherheit mit unserer Wahl garantieren.
+
+Anfragen an den Server erfolgen über eine HTTP-Anfrage an eine bestimmte URL. Diese URL besteht zum einen aus der IP-Adresse des Servers und zum anderen aus einem Pfad, der die gewünschte Aktion beschreibt.
+Die Anfragen erfolgen dabei an eine REST-API (Representational State Transfer Application Programming Interface). REST ist ein Programmierparadigma für verteilte Systeme, insbesondere für Webservices.
+Die REST-API ist dabei eine Schnittstelle, die es ermöglicht, dass ein CLient mit dem Server kommunizieren können.
+Die Anfrage enthält dabei Informationen über die gewünschte Aktion und die Daten, die für die Ausführung der Aktion benötigt werden.
+Der Server verarbeitet die Anfrage und sendet eine Antwort zurück.
+Die Antwort enthält dabei Informationen über den Erfolg der Anfrage und die Daten, die für die Ausführung der Aktion benötigt werden.
 
 \begin{figure}[htp]
     \centering
@@ -1120,8 +1128,7 @@ Das machte es einfacher den Aufbau des Servers zu strukturieren und auf Langzeit
 
 \subsection{\texttt{Server}}\label{sec:Server}
 In einer Express-Anwendung bezieht sich der Begriff "Server" auf den Hauptkomponente, die die Anfragen von Clients empfängt.
-Der Server ist dafür verantwortlich die Verbindung mit der Datenbank und Firebase (siehe Nutzerverwaltung) aufzubauen und die Application zu starten.
-% TODO Referenz Nutzerverwaltung
+Der Server ist dafür verantwortlich die Verbindung mit der Datenbank und Firebase \ref{sec:Nutzerverwaltung} aufzubauen und die Application zu starten.
 
 \begin{figure}[htp]
     \centering
@@ -1140,7 +1147,7 @@ Express ist vom Typ express.Application. Es handelt sich um ein privates Attribu
 \paragraph{\texttt{application: Application}}
 Application vom Typ Application repräsentiert das nach dem Start erzeugte Objekt der Klasse Application.
 
-\subsection*{Methode}
+\subsection*{Methoden}
 \paragraph{\texttt{<<create>> constructor(): void}}
 Konstruktor der Klasse Server, die beim Starten des Servers aufgerufen wird um ein neues Objekt der Klasse Server zu erzeugen. Der Konstruktor gibt keinen Wert zurück.
 \paragraph{\texttt{start(): void}}
@@ -1187,8 +1194,10 @@ Das Attribut für den \texttt{AdminRouter}. \texttt{adminRouter} ist vom Typ \te
 \paragraph{\texttt{ingredientRouter: IngredientRouter}}
 \texttt{ingredientRouter} ist vom Typ \texttt{IngredientRouter}.
 Das Attribut für den \texttt{IngredientRouter}. \newline
+\paragraph{\texttt{database: Database}}
+Das Attribut für die Datenbank. \texttt{database} ist vom Typ \texttt{Database}.
 
-\subsubsection*{Methode}
+\subsubsection*{Methoden}
 \paragraph{\texttt{initializeMiddleware(): void}}
 Mit dieser Methode wird die Middleware initialisiert. Hier ist es möglich die eingehenden Anfragen vorzubehandeln, bevor sie an die eigentlichen Routstellen weitergeleitet werden.
 Eine Middleware die beispielsweise zwischengeschaltet werden kann wäre Morgan. Morgan ermöglicht es HTTP anfragen zu loggen.
@@ -1199,10 +1208,41 @@ Mit dieser Methode Werden Error-Handler initialisiert. Diese wird benötigt, wen
 
 \newpage
 
+\subsection{\texttt{Database}}\label{sec:Database}
+Die Datenbank-Klasse ist dafür verantwortlich, die Verbindung mit der Datenbank herzustellen und die Datenbank zu initialisieren.
+Zudem wird über diese Klasse der Zugriff auf die Datenbank ermöglicht.
+Dafür wir ein Pool von Verbindungen zur Datenbank erstellt, der bei Bedarf eine Verbindung zur Datenbank herstellt.
+Eine Pool-Verbindung zu einer Datenbank ist eine Technik, die verwendet wird, um die Effizienz und Skalierbarkeit von Datenbankverbindungen in Anwendungen zu verbessern.
+Statt für jede Anfrage eine neue Verbindung zur Datenbank aufzubauen und anschließend wieder zu schließen, werden vorab eine Gruppe von Verbindungen (Pool) erstellt und beibehalten.
+Auf diese Klasse wird das Singelton-Pattern angewendet, um sicherzustellen, dass nur eine Instanz der Klasse erzeugt wird.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width = 0.3\textwidth]{images/webserver/database.pdf}
+    \caption{Klasse Database des Webservers}
+    \label{fig:database}
+\end{figure}
+
+\subsection*{Attribute}
+\paragraph{\texttt{instance: Database}}
+Das Attribut \texttt{instance} speichert die Instanz der Klasse \texttt{Database}, die beim erzeugen des Objekts dem Konstruktor mitgeben wird.
+Dieses wird benötigt um sicherzustellen, dass nur eine Instanz der Klasse erzeugt wird.
+\paragraph{\texttt{pool: pg.Pool}}
+Das Attribut \texttt{pool} speichert den Pool von Verbindungen zur Datenbank.
+\subsection*{Methoden}
+\paragraph{\texttt{<<create>> constructor(): void}}
+Konstruktor der Klasse Database, die beim Starten des Servers aufgerufen wird um ein neues Objekt der Klasse Database zu erzeugen. Der Konstruktor gibt keinen Wert zurück.
+Wird der Konstruktor ein weiteres mal aufgerufen, so wird die bereits erzeugte Instanz der Klasse zurückgegeben.
+\paragraph{\texttt{cratePool(): void}}
+Mit dieser Methode wird der Pool von Verbindungen zur Datenbank erstellt.
+\paragraph{\texttt{getPool(): pg.Pool}}
+Mit dieser Methode wird der Pool von Verbindungen zur Datenbank zurückgegeben.
+
+
 \subsection{Router}
 Ein Router kann als eine Art Zwischenschicht betrachtet werden, die HTTP-Anfragen an die entsprechenden Controller weiterleitet.
 Er hilft dabei, den Code zu strukturieren und die Handhabung von Routen in einer modularen und organisierten Weise zu ermöglichen.
-Ein Router in Express wird durch die Verwendung des \texttt{express.Router()}-Objekts erstellt.
+Ein Router in Express wird durch die Verwendung des \texttt{express.Router}-Objekts erstellt.
 Dieses Objekt stellt eine Miniaturversion der Express-Anwendung dar und kann Routen und Endpunkte definieren, ähnlich wie die Hauptanwendung.
 Ein Router kann mit einem Pfad oder Präfix konfiguriert werden, der angibt, unter welchem Pfad seine Routen verfügbar sein sollen.
 
@@ -1257,7 +1297,7 @@ Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen 
 
 \subsubsection{\texttt{UserRouter}}\label{sec:UserRouter}
 Der \texttt{UserRouter} ist für die Verwaltung von Routen und Endpunkten zuständig, die mit Benutzeraktionen und -informationen zusammenhängen.
-\subsubsection*{Methode}
+\subsubsection*{Methoden}
 \paragraph{\texttt{setupRoutes(): void}}
 Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
@@ -1325,7 +1365,7 @@ Diese Methode sorgt dafür, dass der Nutzer sein Passwort zurücksetzen lassen k
 
 \subsubsection{\texttt{RecipeController}}\label{sec:RecipeController}
 Der \texttt{RecipeController} ist verantwortlich für alle Anfragen, die mit den Rezepten zu tun haben.
-\subsubsection*{Methode}
+\subsubsection*{Methoden}
 \paragraph{\texttt{recipePost(req: express.Request, res: express.Response): Promise<void>}}
 Mit der Methode \texttt{recipePost} kann ein neues Rezept erstellt werden und in der Datenbank gespeichert werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Rezeptname, Rezeptbeschreibung, Zutaten, Zubereitung und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob das Erstellen des Rezepts erfolgreich war oder Fehler aufgetreten sind.
 Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
@@ -1357,7 +1397,7 @@ Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron 
 
 \subsubsection{\texttt{GroupController}}\label{sec:GroupController}
 Der \texttt{GroupController} ist verantwortlich für alle Anfragen, die mit den Gruppen zu tun haben. Darunter fallen das Erstellen, Löschen, Bearbeiten, Beitreten und Verlassen von Gruppen.
-\subsubsection*{Methode}
+\subsubsection*{Methoden}
 \paragraph{\texttt{groupPost(req: express.Request, res: express.Response): void}}
 Mit der Methode \texttt{groupPost} kann eine neue Gruppe erstellt werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Gruppenname, Gruppenbeschreibung und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Erstellen der Gruppe erfolgreich war oder Fehler aufgetreten sind.
 Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
@@ -1379,7 +1419,7 @@ Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron 
 
 \subsubsection{\texttt{UserController}}\label{sec:UserController}
 Der \texttt{UserController} ist verantwortlich für alle Anfragen, die mit den Nutzern zu tun haben, wie das ändern der Nutzerdaten oder das Löschen des Nutzers.
-\subsubsection*{Methode}
+\subsubsection*{Methoden}
 \paragraph{\texttt{userDelete(req: express.Request, res: express.Response): void}}
 Mit der Methode \texttt{userDelete} kann ein Nutzer gelöscht werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Nutzername und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen ob das Löschen des Nutzers erfolgreich war oder Fehler aufgetreten sind.
 Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
@@ -1389,7 +1429,7 @@ Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron 
 
 \subsubsection{\texttt{IngredientController}}\label{sec:IngredientController}
 Der \texttt{IngredientController} ist verantwortlich für alle Anfragen, die mit den Zutaten zu tun haben, wie das Abrufen von Zutaten.
-\subsubsection*{Methode}
+\subsubsection*{Methoden}
 \paragraph{\texttt{ingredientGetAll(req: express.Request, res: express.Response): void}}
 Mit der Methode \texttt{ingredientGetAll} können alle Zutaten abgerufen werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Zutaten Id und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen ob das Abrufen der Zutaten erfolgreich war oder Fehler aufgetreten sind. Bei erfolgreichen Abrufen, werden alle Zutaten mit dem Response zurückgegeben.
 Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
@@ -1408,10 +1448,12 @@ Mit der Methode \texttt{banUser} kann ein Nutzer aus einer Gruppe gebannt werden
 \paragraph{\texttt{setCensored(req: express.Request, res: express.Response): void}}
 Mit der Methode \texttt{setCensored} kann ein Nutzer zensiert werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Nutzer Id und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen ob das Zensieren des Nutzers erfolgreich war oder Fehler aufgetreten sind.
 
+\section{HTTP-Anfrage}
+
 
 \newpage
 
-\section{Nutzerverwaltung mit Firebase}
+\section{Nutzerverwaltung mit Firebase}\label{sec:Nutzerverwaltung}
 Um SpiceSquad nutzen zu können muss ein Nutzer sich registrieren oder einloggen sofern er schon einen Account besitzt.
 Durch die Kenntnis der Identität eines Benutzer ermöglicht es SpiceSquad zum einen die Benutzerdaten in einer Datenbank auf einem Server sicher zu speichern und zum anderen diese Daten auf anderen Geräten wieder abzurufen um auf allen Geräten des Nutzers die selbe personalisierte Erfahrung zu gewährleisten.
 Um unseren Nutzern eine sichere und reibungslose Nutzerverwaltung gewährleisten zu können verwendet SpiceSquad Firebase-Authentifizierung als Dienst zur Nutzerverwaltung.
@@ -1581,6 +1623,7 @@ Die Tabelle "BannedUser" repräsentiert die Many-To-Many-Beziehung zwischen den 
         \item \nameref{sec:Application}
         \item \nameref{sec:AuthentificationController}
         \item \nameref{sec:AuthentificationRouter}
+        \item \nameref{sec:Database}
         \item \nameref{sec:GroupController}
         \item \nameref{sec:GroupRouter}
         \item \nameref{sec:IngredientController}
