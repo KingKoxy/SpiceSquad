@@ -618,7 +618,7 @@ Leitet eine Loginanfrage über einen Provider an den zuständigen Service weiter
 
 \newpage
 \subsection{\texttt{RegisterScreen}}
-\label{sec:registerScreen}
+\label{sec:registrationScreen}
 Die Klasse bildet die Registrierungsansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt.
 \begin{figure}[htp]
     \begin{minipage}
@@ -677,6 +677,7 @@ Leitet eine Registrierungsanfrage über einen Provider an den zuständigen Servi
 
 \subsection{\texttt{GroupJoiningScreen}}
 Die Klasse bildet die Gruppen-Beitritts-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt.
+Befindet sich die Registrierungsansicht (\ref{sec:registrationScreen}) im Navigations-Stack, wird ein Überspringen-Knopf angezeigt, der zur Hauptansicht (\ref{sec:mainScreen}) führt.
 \begin{figure}[htp]
     \begin{minipage}
         [t]{0.49\textwidth}
@@ -692,10 +693,38 @@ Die Klasse bildet die Gruppen-Beitritts-Ansicht ab. Sie ist ein \texttt{Stateles
     \end{minipage}
 \end{figure}
 \subsubsection*{Attribute}
-\paragraph{\texttt{showSkip: bool}}
-Wenn der Boolean wahr ist, wird oben rechts ein Überspringen-Knopf angezeigt, der zur Hauptansicht (\ref{sec:mainScreen}) leitet. Er wird bei der Initialisierung des Widgets aus dem \Gls{BuildContext} gelesen, oder auf falsch gesetzt, wenn dort kein Wert eingetragen ist.
 \paragraph{\texttt{groupCodeController: TextEditingController}}
-%TODO: continue here
+Der Controller, der die Eingabe des Gruppencodes des Nutzers verwaltet. Über ihn kann der Wert des Eingabefelds abgerufen werden oder eine Fehlermeldung angezeigt werden.
+\subsubsection*{Methoden}
+\paragraph{\texttt{joinGroupByCode(): void}}
+Leitet eine Gruppenbeitrittsanfrage über einen Provider an den zuständigen Service weiter, wobei das Gruppenkürzel übergegeben wird. Zeigt bei Erfolg einen Dialog an, dass die Anfrage erfolgreich war. Im Anschluss wird der Nutzer entweder zur Hauptansicht (\ref{sec:mainScreen}) oder zur vorherigen Ansicht weitergeleitet. Dies hängt davon ab, ob die Registrierungsansicht (\ref{sec:registrationScreen}) im Navigations-Stack ist.
+\newpage
+
+\subsection{\texttt{GroupCreationScreen}}
+\label{sec:groupCreationScreen}
+Die Klasse bildet die Gruppen-Erstellungs-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt.
+Befindet sich die Registrierungsansicht (\ref{sec:registrationScreen}) im Navigations-Stack, wird ein Überspringen-Knopf angezeigt, der zur Hauptansicht (\ref{sec:mainScreen}) führt.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=80mm]{images/presentationLayer/uiElements/groupCreationScreen.jpg}
+        \caption{Gruppen-Erstellungs-Ansicht}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/groupCreationScreen.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Group\-Creation\-Screens}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{groupNameController: TextEditingController}}
+Der Controller, der die Eingabe des Gruppennamens durch den Nutzer verwaltet. Über ihn kann der Wert des Eingabefelds abgerufen werden oder eine Fehlermeldung angezeigt werden.
+\subsubsection*{Methoden}
+\paragraph{\texttt{createGroup(): void}}
+Leitet eine Gruppenerstellungsanfrage über einen Provider an den zuständigen Service weiter, wobei der Gruppenname übergeben wird. Zeigt bei Erfolg einen Dialog an, dass die Anfrage erfolgreich war. Im Anschluss wird der Nutzer entweder zur Hauptansicht (\ref{sec:mainScreen}) oder zur vorherigen Ansicht weitergeleitet. Dies hängt davon ab, ob die Registrierungsansicht (\ref{sec:registrationScreen}) im Navigations-Stack ist.
+
 \newpage
 \section{REST-Webserver}
 Um seinen Account zu verwalten, Rezepte aufzurufen oder mit Gruppe interagieren zu können benötigt man die Verbindung zum Server.
