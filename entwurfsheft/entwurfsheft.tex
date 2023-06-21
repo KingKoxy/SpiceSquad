@@ -238,10 +238,10 @@ Die Klasse \texttt{GroupRecipe} repräsentiert ein Rezept, das einer konkreten G
 \subsubsection*{Attribute}
 Alle Attribute sind privat und können nur über einen Getter gelesen werden.
 \paragraph{\texttt{isCensored: bool}}
-Gibt an, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
+Gibt an, ob das Rezept von einem Administrator der Gruppe ausgeblendet wurde.
 \subsubsection*{Methoden}
 \paragraph{\texttt{getIsCensored(): bool}}
-Gibt zurück, ob das Rezept von einem Administrator der Gruppe zensiert wurde.
+Gibt zurück, ob das Rezept von einem Administrator der Gruppe ausgeblendet wurde.
 \paragraph{\texttt{factory GroupRecipe.fromJson(Map<String, dynamic> json): GroupRecipe}} Es handelt sich um eine Factory-Methode zum Erstellen eines \texttt{GroupRecipe}-Objekts aus einem \glslink{JSON}{JSON-Objekt}. Sie wird verwendet, um die Daten, die vom Server geschickt werden und in \Gls{JSON} vorliegen, in ein \texttt{GroupRecipe}-Objekt umzuwandeln. Die Methode ist statisch, da sie kein \texttt{GroupRecipe}-Objekt benötigt, um aufgerufen zu werden. Nimmt als Parameter das bereits in eine \Gls{map} umgewandelte \glslink{JSON}{JSON-Objekt} entgegen und gibt ein \texttt{GroupRecipe}-Objekt zurück.
 
 \newpage
@@ -320,7 +320,7 @@ Es wird eine Anfrage an den Server gestellt, um den Nutzer mit der übergebenen 
 \paragraph{\texttt{banUser(String userId, String groupId): Future<void>}}
 Es wird eine Anfrage an den Server gestellt, um den Nutzer mit der übergebenen ID aus der Gruppe mit der übergebenen ID zu bannen. Nimmt als Parameter die ID des Nutzers und die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn der Nutzer erfolgreich aus der Gruppe gebannt wurde. Wenn der Nutzer nicht aus der Gruppe gebannt werden kann, wird eine Exception geworfen.
 \paragraph{\texttt{setCensored(String recipeId, bool value): Future<void>}}
-Zensiert das Rezept, das die gegebene ID besitzt. Nimmt als Parameter die ID des Rezepts und einen boolschen Wert, der angibt, ob das Rezept als zensiert gesetzt oder entfernt werden soll, entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn das Rezept erfolgreich als zensiert gesetzt oder entfernt wurde. Wenn das Rezept nicht als zensiert gesetzt oder entfernt werden kann, wird eine Exception geworfen.
+Blendet das Rezept, das die gegebene ID besitzt, aus. Nimmt als Parameter die ID des Rezepts und einen boolschen Wert, der angibt, ob das Rezept ausgeblendet oder entfernt werden soll, entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn das Rezept erfolgreich ausgeblendet oder entfernt wurde. Wenn das Rezept nicht ausgeblendet oder entfernt werden kann, wird eine Exception geworfen.
 \newpage
 \subsection{\texttt{RemoteRecipeRepository}}\label{sec:RemoteRecipeRepository}
 Das \texttt{RemoteRecipeRepository} stellt die Schnittstelle zwischen der Geschäftslogik und den Server-Schnittstellen für Rezepte dar.
@@ -1700,9 +1700,9 @@ Die Tabelle "Admin" repräsentiert die Many-To-Many-Beziehung zwischen den Grupp
 \paragraph{\texttt{group\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die Id der Gruppe, zu der der Benutzer gehört, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
 \newpage
 \subsubsection{CensoredRecipe}
-Die Tabelle "CensoredRecipe" repräsentiert die Many-To-Many-Beziehung zwischen den Gruppen und den Rezepten, die die jeweiligen Administratoren zensiert haben. Sie besitzt die folgenden Attribute:
+Die Tabelle "CensoredRecipe" repräsentiert die Many-To-Many-Beziehung zwischen den Gruppen und den Rezepten, die die jeweiligen Administratoren ausgeblendet haben. Sie besitzt die folgenden Attribute:
 \paragraph{\texttt{id (uuid - primary key):}} Die Id stellt den Primärschlüssel der Beziehung dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
-\paragraph{\texttt{recipe\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die Id des Rezepts, das zensiert wurde, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
+\paragraph{\texttt{recipe\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die Id des Rezepts, das ausgeblendet wurde, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
 \paragraph{\texttt{group\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die Id der Gruppe, zu der der Administrator gehört, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
 \newpage
 
