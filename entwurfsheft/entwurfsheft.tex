@@ -21,17 +21,22 @@ Hierzu wurde zunächst ein umfassendes Klassendiagramm erstellt. Auf diesem basi
 In weiteren Kapiteln wird der REST-Webservice und die Datenbankstruktur beschrieben. Zum besseren Verständnis sind Ablaufbeschreibungen in Form von Sequenzdiagrammen angefügt.
 
 \subsection{Semantik der UML-Diagramme}
-Im Folgenden wird eine abgewandelte Version der Standard-UML-Klassendiagramme verwendet. Alle Attribute, einschließlich solcher, die auf andere Klassen verweisen, werden direkt in der Klasse angegeben. Assoziationspfeile stehen lediglich für die "depends on"-Beziehung, was bedeutet, dass eine Klasse eine andere Klasse benötigt oder importieren muss. Die genaue Art der Beziehung zwischen den Klassen wird im begleitenden Text erklärt. Konstruktoren werden in der Form \texttt{Klasse(Parameter parameter): Klasse} angegeben. Im UML-Diagramm können auch Klassen aus der Dart-Sprache oder dem Flutter-Framework sowie Generics als Typ verwendet werden. Die Notation \texttt{attribut: Klasse?} bedeutet, dass das Attribut einen Null-Typ haben darf. Falls dies nicht explizit angegeben ist, ist dies nicht der Fall.
+Im Folgenden wird eine abgewandelte Version der Standard-UML-Klassendiagramme verwendet. Alle Attribute, einschließlich solcher, die auf andere Klassen verweisen, werden direkt in der Klasse angegeben. Assoziationspfeile stehen lediglich für die "depends on"-Beziehung, was bedeutet, dass eine Klasse eine andere Klasse benötigt oder importieren muss. Die genaue Art der Beziehung zwischen den Klassen wird im begleitenden Text erklärt. Konstruktoren werden in der Form \texttt{Klasse(Parameter parameter): Klasse} angegeben. Im UML-Diagramm können auch Klassen aus der Dart-Sprache, dem Flutter-Framework, aus TypeScript sowie Generics als Typ verwendet werden. Die Notation \texttt{attribut: Klasse?} bedeutet, dass das Attribut einen Null-Typ haben darf. Falls dies nicht explizit angegeben ist, ist dies nicht der Fall.
 
 \section{Struktur}
+Im Abschnitt Struktur wird auf die Architektur der Applikation eingegangen.
+
+Hierbei wird zunächst die Client-Server-Architektur beschrieben.
+Anschließend wird die Architektur der Android-Applikation erläutert.
+Im Anhang befindet sich ein Klassendiagramm, welches die Struktur der Applikation darstellt.
 
 \subsection{Client-Server-Architektur}
 Wie bereits im Pflichtenheft angeführt, haben wir uns für eine Trennung von Client und Server entschieden, um somit eine höchstmögliche Modularität zu gewährleisten und
 Funktionen wie Squads zu ermöglichen. Die Kommunikation erfolgt über REST-Schnittstellen, welche eine einheitliche Schnittstelle mit dem Server bieten und eine einfache Skalierbarkeit ermöglichen.
-Im Folgenden werden die Architekturen von Server und Client näher beschrieben.
+Im weiteren Verlauf des Entwurfshefts werden die Architekturen von Client und Server näher beschrieben.
 
+Für die Entwicklung der Android-Applikation soll Flutter benutzt werden. Dies bietet einige Vorteile. Flutter ist ein plattformübergreifendes Framework, das es Entwicklern ermöglicht, eine einzige Codebasis zu verwenden, um Apps sowohl für Android als auch für iOS zu erstellen. Dies reduziert den Entwicklungsaufwand erheblich, da Entwickler nicht separate Codes für jede Plattform schreiben müssen. Flutter verwendet die Dart-Programmiersprache, die eine einfache Syntax und eine umfangreiche Bibliothek bietet, um leistungsstarke und ansprechende Benutzeroberflächen zu erstellen. Darüber hinaus verfügt Flutter über eine Hot-Reload-Funktion, die es Entwicklern ermöglicht, Änderungen in Echtzeit zu sehen, was den Entwicklungsprozess beschleunigt. Flutter-Apps sind schnell, reaktionsfähig und bieten eine extrem gute Leistung, da sie direkt auf die nativen Funktionen des Betriebssystems zugreifen. Diese Kombination aus plattformübergreifender Entwicklung, einfacher Sprache, schnellem Entwicklungsprozess und guter Leistung macht Flutter zu einer guten Wahl für die Entwicklung von SpiceSquad.
 \subsection{Architektur der Android-Applikation}
-Für die Entwicklung der Android-Applikation soll Flutter benutzt werden. Dies bietet einige Vorteile. Flutter ist ein plattformübergreifendes Framework, das es Entwicklern ermöglicht, eine einzige Codebasis zu verwenden, um Apps sowohl für iOS als auch für Android zu erstellen. Dies reduziert den Entwicklungsaufwand erheblich, da Entwickler nicht separate Codes für jede Plattform schreiben müssen. Flutter verwendet die Dart-Programmiersprache, die eine einfache Syntax und eine umfangreiche Bibliothek bietet, um leistungsstarke und ansprechende Benutzeroberflächen zu erstellen. Darüber hinaus verfügt Flutter über eine Hot-Reload-Funktion, die es Entwicklern ermöglicht, Änderungen in Echtzeit zu sehen, was den Entwicklungsprozess beschleunigt. Flutter-Apps sind schnell, reaktionsfähig und bieten eine extrem gute Leistung, da sie direkt auf die nativen Funktionen des Betriebssystems zugreifen. Diese Kombination aus plattformübergreifender Entwicklung, einfacher Sprache, schnellem Entwicklungsprozess und guter Leistung macht Flutter zu einer guten Wahl für die Entwicklung von SpiceSquad.
 
 
 Die Applikation wird in vier große Schichten gegliedert. Dies dient dazu, die Bestandteile der App nach ihrer Funktion zu gruppieren und die Abhängigkeiten zwischen den einzelnen Komponenten zu minimieren. Dadurch wird die Wartbarkeit massiv verbessert und auch die Erweiterbarkeit der Applikation wird durch diese Strukturierung erleichtert. Die Schichten orientieren sich stark an den Empfehlungen von Google für die Architektur von Android Applikationen. Die vier Schichten sind der \textbf{Presentation Layer}, der \textbf{Application Layer}, der \textbf{Domain Layer} und der \textbf{Data Layer}.
@@ -163,7 +168,7 @@ Die eindeutige ID der Zutat. Diese wird vom Server vergeben und ist somit nicht 
 \paragraph{\texttt{name: String}}
 Der Name der Zutat.
 \paragraph{\texttt{iconId: String}}
-Die Id des Icons, das der Zutat zugeordnet ist.
+Die ID des Icons, das der Zutat zugeordnet ist.
 \paragraph{\texttt{amount: double}}
 Die Menge der Zutat, die für das Rezept benötigt wird.
 \paragraph{\texttt{unit: String}}
@@ -175,7 +180,7 @@ Gibt die ID der Zutat zurück.
 \paragraph{\texttt{getName(): String}}
 Gibt den Namen der Zutat zurück.
 \paragraph{\texttt{getIconId(): String}}
-Gibt die Id des Icons, das der Zutat zugeordnet ist, zurück.
+Gibt die ID des Icons, das der Zutat zugeordnet ist, zurück.
 \paragraph{\texttt{getAmount(): double}}
 Gibt die Menge der Zutat, die für das Rezept benötigt wird, zurück.
 \paragraph{\texttt{getUnit(): String}}
@@ -256,12 +261,14 @@ Nun sollen die einzelnen Repository-Klassen vorgestellt werden. Die Klassen sind
 \end{figure}
 \newpage
 \subsection{\texttt{UserRepository}}\label{sec:UserRepository}
-Das \texttt{UserRepository} stellt die Schnittstelle zwischen der Geschäftslogik und der Datenquelle für Nutzer dar. Es bietet Methoden zur Abfrage, Aktualisierung und Speicherung von Nutzern speichert das Token zur Authentifizierung des Nutzers bei dem Server.
+Das \texttt{UserRepository} stellt die Schnittstelle zwischen der Geschäftslogik und der Datenquelle für Nutzer dar. Es bietet Methoden zur Abfrage, Aktualisierung und Speicherung von Nutzern und speichert das Token zur Authentifizierung des Nutzers bei dem Server.
 \subsubsection*{Attribute}
-\paragraph{\texttt{token: String}}
-Das Token zur Authentifizierung des Nutzers mit dem Server. Es handelt sich um ein privates Attribut, das nur über einen Getter gelesen werden kann. Das Token entspricht dem JWT-Token, das der Server nach der Authentifizierung des Nutzers zurückgibt. Darin sind unteranderem die Nutzer-ID und die Gültigkeitsdauer des Tokens kodiert enthalten.
-\paragraph{\texttt{currentUser: User}}
-Das \texttt{User}-Objekt, das den aktuell angemeldeten Nutzer repräsentiert. Es handelt sich um ein privates Attribut, das nur über einen Getter gelesen werden kann.
+\paragraph{\texttt{idToken: String?}}
+Das ID-Token zur Authentifizierung des Nutzers mit dem Server. Es handelt sich um ein privates Attribut, das nur über einen Getter gelesen werden kann. Das Token entspricht dem \glslink{JWT}{JWT-Token}, das der Server nach der Authentifizierung des Nutzers zurückgibt. Darin sind unteranderem die Nutzer-ID und die Gültigkeitsdauer des Tokens kodiert enthalten. Das Token wird bei jeder Anfrage an den Server mitgeschickt, um den Nutzer zu authentifizieren.
+
+\paragraph{\texttt{refreshToken: String?}}
+Der Refresh-Token zur Authentifizierung des Nutzers mit dem Server. Es handelt sich um ein privates Attribut, das nur über einen Getter gelesen werden kann. Das Token wird verwendet, um ein neues ID-Token zu erhalten, wenn das alte abgelaufen ist. Das Token entspricht dem \glslink{JWT}{JWT-Token}, das der Server nach der Authentifizierung des Nutzers zurückgibt. Darin sind unteranderem die Nutzer-ID und die Gültigkeitsdauer des Tokens kodiert enthalten. Das Token wird bei jeder Anfrage an den Server mitgeschickt, um den Nutzer zu authentifizieren.
+
 \subsubsection*{Methoden}
 \paragraph{\texttt{getToken(): String}}
 Gibt das Token zur Authentifizierung des Nutzers bei dem Server zurück.
@@ -1699,7 +1706,7 @@ Beim erfolgreichen Bearbeiten des Nutzers wird ein Statuscode 200 zurückgegeben
 Die Route \texttt{/ingredient} ist die Route, die für alle Anfragen zuständig ist, die mit Zutaten zu tun haben.
 Der zugehörige Router ist der \texttt{IngredientRouter} (siehe \nameref{sec:IngredientRouter}).
 
-Die Anfragen an diese Route müssen mit einem gültigen JWT versehen sein, da nur angemeldete Nutzer Zutaten abrufen können.
+Die Anfragen an diese Route müssen mit einem gültigen \glslink{idToken}{idToken} versehen sein, da nur angemeldete Nutzer Zutaten abrufen können.
 Der JWT wird dabei im Header der Anfrage mitgeschickt.
 
 
@@ -1903,54 +1910,7 @@ Die Tabelle "BannedUser" repräsentiert die Many-To-Many-Beziehung zwischen den 
 \subsection{Client-Klassen}
 \begin{multicols}{2}
     \begin{itemize}[label={}]
-        \item \nameref{sec:AddIngredientPage}
-        \item \nameref{sec:AddIngredientPageState}
-        \item \nameref{sec:AppBar}
-        \item \nameref{sec:ConfirmationElement}
-        \item \nameref{sec:Difficulty}
-        \item \nameref{sec:FilteringMethods}
-        \item \nameref{sec:GroupCreationPage}
-        \item \nameref{sec:GroupCreationPageState}
-        \item \nameref{sec:GroupDetailPage}
-        \item \nameref{sec:GroupJoiningPage}
-        \item \nameref{sec:GroupJoiningPageState}
-        \item \nameref{sec:GroupRepository}
-        \item \nameref{sec:GroupService}
-        \item \nameref{sec:GroupMember}
-        \item \nameref{sec:GroupRecipe}
-        \item \nameref{sec:InformationCategories}
-        \item \nameref{sec:InformationElement}
-        \item \nameref{sec:ingredient}
-        \item \nameref{sec:LoginPagePage}
-        \item \nameref{sec:LoginPageState}
-        \item \nameref{sec:LogoutButton}
-        \item \nameref{sec:LocalRecipeRepository}
-        \item \nameref{sec:MainViewPage}
-        \item \nameref{sec:MainViewPageState}
-        \item \nameref{sec:OptionElement}
-        \item \nameref{sec:PdfExporter}
-        \item \nameref{sec:QrCodePage}
-        \item \nameref{sec:Recipe}
-        \item \nameref{sec:RecipeCreationPage}
-        \item \nameref{sec:RecipeCreationPageState}
-        \item \nameref{sec:RecipeElement}
-        \item \nameref{sec:RecipeService}
-        \item \nameref{sec:RecipeViewPage}
-        \item \nameref{sec:RecipeViewPageState}
-        \item \nameref{sec:RegisterPage}
-        \item \nameref{sec:RegisterPageState}
-        \item \nameref{sec:RemoteRecipeRepository}
-        \item \nameref{sec:ResetPasswordPage}
-        \item \nameref{sec:ResetPasswordPageState}
-        \item \nameref{sec:ReturnButton}
-        \item \nameref{sec:SettingsPage}
-        \item \nameref{sec:SettingsPageState}
-        \item \nameref{sec:SortingMethods}
-        \item \nameref{sec:TopBar}
-        \item \nameref{sec:User}
-        \item \nameref{sec:UserElement}
-        \item \nameref{sec:UserRepository}
-        \item \nameref{sec:UserService}
+        \item x
     \end{itemize}
 \end{multicols}
 \subsection{Server-Klassen}
