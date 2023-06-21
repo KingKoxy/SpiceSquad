@@ -1780,6 +1780,12 @@ Ein ID-Token ist eine Stunde gültig, neue ID-Tokens können mithilfe eines Refr
 Im Gegensatz zum kurzlebigen ID-Token bleibt das Refresh Token gültig, bis der Nutzer gelöscht bzw der Nutzer sich auf einem Gerät ausloggt. Es kann verwendet werden, um vom Firebase-Server ein neues ID-Token anzufordern. Das Refresh-Token wird beim Login auf dem Gerät des Nutzers gespeichert und ermöglicht eine Authentifizierung ohne erneute Eingabe von Passwort und Email. 
 
 \subsection{Anmeldungsbeispiel}
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width = \linewidth]{images/firebase/sqd_login.pdf}
+    \caption{Anmeldungsbeispiel}
+\end{figure}
+Der Nutzer übergibt Emailadresse und Passwort, diese werden zum Firebase-Server weitergeleitet. Der Firebase-Server gibt Nutzer-ID, ID-Token und Refresh-Token zurück. Die Daten des Nutzers werden mithilfe der Nutzer-ID aus der Datenbank geholt. Anschließend werden Nutzerdaten und Tokens an den Client übergeben, welcher daraufhin in die Hauptansicht wechselt.
 
 \newpage
 
