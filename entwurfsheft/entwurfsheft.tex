@@ -1754,28 +1754,32 @@ Um unseren Nutzern eine sichere und reibungslose Nutzerverwaltung gewährleisten
 Firebase-Authentifizierung ermöglicht es, sicher Nutzerdaten zu speichern und Anfragen an den Server von angemeldeten Nutzern zu authentifizieren.
 Hierbei verwendet Firebase sogenannte JWT (JSON Web Token), die bei Firebase ID Token genannt werden.
 ID Token müssen durch regelmäßige Anfragen erneuert werden.
-Ein Beispiel wie die Verifizierung durch ID Token funktioniert findet man in dem Abschnitt Ablaufbeschreibung.
 Firebase anfragen, die Firebase direkt betreffen, sollen über den \texttt{AuthentificationRouter} laufen.
 Dieser beinhaltet beispielsweise das Registrieren, Einloggen und Zurücksetzen des Passworts.
 SpiceSquad verwendet diese Token um Anfragen an die REST-API zu verifizieren und diese gleich einem Nutzer zuzuweisen.
 Wir haben uns beim Entwurf entschieden, jede Kommunikation nur zwischen Client (Android-App) und Server (REST Webserver) laufen zu lassen. Das heißt, dass alle Anfragen an Firebase erst über den REST Webserver laufen und dann anschließend an Firebase weitergeleitet werden.
-Grund für diese Entscheidung war, dass wir unsere App nur direkt mit unserem Server kommunizieren lassen wollen. Damit wollen wir uns auf der Seite der App so unabhängig von anderen Diensten wie möglich machen.
+Grund für diese Entscheidung war, dass wir unsere Android-Applikation nur direkt mit unserem Server kommunizieren lassen wollen. Damit wollen wir uns auf der Seite der App so unabhängig von anderen Diensten wie möglich machen.
+
+\subsection{Registrierung}
+Bei einer Registrierung wird ein neuer Nutzer angelegt. Dazu muss der Nutzer seine Email-Adresse, ein Passwort und einen Nutzernamen angeben. Email und Passwort werden für eine Registrierung beim Firebase-Server verwendet, welcher eine eindeutige Nutzer-ID zurückgibt. Unter dieser Nutzer-ID werden die Daten des Nutzers in der Datenbank gespeichert. Bei erfolgreicher Anmeldung liefert der Firebase-Server ein Refresh-Token sowie ein ID-Token, welche zur weiteren Authentifizierung des Nutzers benötigt werden.
+
+\subsection{Anmeldung}
+Bei einem Login wird auf ein bereits vorhandenes Profil zugegriffen. Der Nutzer übergibt seine Emailadresse und sein Passwort, welche anschließend vom Firebase-Server bestätigt bzw abgelehnt werden. Bei erfolgreicher Anmeldung liefert der Firebase-Server ein Refresh-Token sowie ein ID-Token, welche zur weiteren Authentifizierung des Nutzers benötigt werden.
+
+\subsection{Abmeldung}
+Der Nutzer kann sich aus der Android-Applikation abmelden. Dabei werden alle gecacheten Daten inklusive des Refresh-Tokens gelöscht.
 
 \subsection{Passwort zurücksetzen}
 Wie vorher erwähnt sollen Passwörter von Nutzer zurückgesetzt werden können. Beim Rücksetzen soll der Nutzer eine Mail mit einem Link zum zurücksetzen seines Passworts erhalten.
 Das alles wird von Firebase-Authentifizierung bereits bereitgestellt. SpiceSquad bedient sich also für dieses Funktion bei Firebase-Authentifizierung.
 
-\subsection{Registrierung}
-Bei einer Registrierung wird ein neuer Nutzer angelegt. Dazu muss der Nutzer seine Email-Adresse, ein Passwort und einen Nutzernamen angeben. Email und Passwort werden für eine Registrierung beim Firebase-Server verwendet, welcher eine eindeutige Nutzer-ID zurückgibt. Unter diser Nutzer-ID werden die Daten des Nutzers in der Datenbank gespeichert. Bei erfolgreicher Anmeldung liefert der Firebase-Server ein Refresh-Token sowie ein Login-Token, welche zur weiteren Authentifizierung des Nutzers benötigt werden.
+\subsection{ID-Token}
+Ein ID-Token ist eine Stunde gültig, neue ID-Tokens können mithilfe eines Refresh-Tokens vom Firebase-Server angefordert werden. Ein ID-Token wird benötigt, um eine aktive Nutzersession zu validieren.
 
-\subsection{Login}
-Bei einem Login wird auf ein bereits vorhandenes Profil zugegriffen. Der Nutzer übergibt seine Emailadresse und sein Passwort, welche anschließend vom Firebase-Server bestätigt bzw abgelehnt werden. Bei erfolgreicher Anmeldung liefert der Firebase-Server ein Refresh-Token sowie ein Login-Token, welche zur weiteren Authentifizierung des Nutzers benötigt werden.
+\subsection{Refresh-Token}
+Im Gegensatz zum kurzlebigen ID-Token bleibt das Refresh Token gültig, bis der Nutzer gelöscht bzw der Nutzer sich auf einem Gerät ausloggt. Es kann verwendet werden, um vom Firebase-Server ein neues ID-Token anzufordern. Das Refresh-Token wird beim Login auf dem Gerät des Nutzers gespeichert und ermöglicht eine Authentifizierung ohne erneute Eingabe von Passwort und Email. 
 
-\subsection{Id Token}
-Ein Id Token ist eine Stunde gültig, neue Id Tokens können mithilfe eines Refresh-Tokens vom Firebase-Server angefordert werden. Ein Id Token wird benötigt, um eine aktive Nutzersession zu validieren.
-
-\subsection{Refresh Token}
-Im Gegensatz zum kurzlebigen Id Token bleibt das Refresh Token gültig, bis der Nutzer gelöscht bzw das Token manuell invalidiert wird (in unserer App nicht relevant). Es kann verwendet werden, um vom Firebase-Server ein neues Id Token anzufordern. Das Refresh Token wird beim Login auf dem Gerät des Nutzers gespeichert und ermöglicht eine Authentifizierung ohne erneute Eingabe von Passwort und Email. 
+\subsection{Anmeldungsbeispiel}
 
 \newpage
 
