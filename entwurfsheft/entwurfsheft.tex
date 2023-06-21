@@ -1217,6 +1217,7 @@ Dafür wird ein Pool von Verbindungen zur Datenbank erstellt, der bei Bedarf ein
 Eine Pool-Verbindung zu einer Datenbank ist eine Technik, die verwendet wird, um die Effizienz und Skalierbarkeit von Datenbankverbindungen in Anwendungen zu verbessern.
 Statt für jede Anfrage eine neue Verbindung zur Datenbank aufzubauen und anschließend wieder zu schließen, werden vorab eine Gruppe von Verbindungen (Pool) erstellt und beibehalten.
 Auf diese Klasse wird das \glslink{Singleton}{Singleton-Pattern} angewendet, um sicherzustellen, dass nur eine Instanz der Klasse erzeugt wird.
+Die Klasse verwendet das Paket \texttt{pg} um die Verbindung zur Datenbank herzustellen.
 
 \begin{figure}[htp]
     \centering
@@ -1274,6 +1275,8 @@ Attribut, das eine Instanz der Klasse \texttt{CheckAuthorization} repräsentiert
 Attribut, das eine Funktion repräsentiert, die die Anfragen an die Routen überprüft. Diese Funktion wird benötigt, um die Anfragen an die Routen zu überprüfen.
 
 \subsubsection*{Methoden}
+\paragraph{\texttt{AbstractRouter(): void}}
+Die Methode ist der Konstruktor der Klasse \texttt{AbstractRouter}.
 \paragraph{\texttt{abstract setupRoutes(): void}}
 Diese abstrakte Methode definiert einen Methode, die die Kindklassen implementieren müssen.
 \paragraph{\texttt{getRouter(): express.Router}}
@@ -1283,36 +1286,48 @@ Getter-Methode für das Attribut \texttt{router}.
 \subsubsection{\texttt{AuthentificationRouter}}\label{sec:AuthentificationRouter}
 Der \texttt{AuthentificationRouter} ist speziell für die Verarbeitung von Authentifizierungsanfragen zuständig.
 \subsubsection*{Methode}
+\paragraph{\texttt{AuthenthificationRouter():void}}
+Die Methode ist der Konstruktor der Klasse \texttt{AuthentificationRouter}.
 \paragraph{\texttt{setupRoutes(): void}}
 Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
 \subsubsection{\texttt{RecipeRouter}}\label{sec:RecipeRouter}
 Der \texttt{RecipeRouter} ist für die Verwaltung der Routen und Endpunkte verantwortlich, die mit Rezepten zusammenhängen.
 \subsubsection*{Methode}
+\paragraph{\texttt{RecipeRouter():void}}
+Die Methode ist der Konstruktor der Klasse \texttt{RecipeRouter}.
 \paragraph{\texttt{setupRoutes(): void}}
 Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
 \subsubsection{\texttt{GroupRouter}}\label{sec:GroupRouter}
 Der \texttt{GroupRouter} ist verantwortlich für die Verwaltung der Routen und Endpunkte, die mit Gruppen in der Anwendung zusammenhängen.
 \subsubsection*{Methode}
+\paragraph{\texttt{GroupRouter():void}}
+Die Methode ist der Konstruktor der Klasse \texttt{GroupRouter}.
 \paragraph{\texttt{setupRoutes(): void}}
 Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
 \subsubsection{\texttt{UserRouter}}\label{sec:UserRouter}
 Der \texttt{UserRouter} ist für die Verwaltung von Routen und Endpunkten zuständig, die mit Benutzeraktionen und -informationen zusammenhängen.
 \subsubsection*{Methode}
+\paragraph{\texttt{UserRouter():void}}
+Die Methode ist der Konstruktor der Klasse \texttt{UserRouter}.
 \paragraph{\texttt{setupRoutes(): void}}
 Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
 \subsubsection{\texttt{IngredientRouter}}\label{sec:IngredientRouter}
 Der \texttt{IngredientRouter} ist verantwortlich für die Verwaltung von Routen und Endpunkten, die mit Zutaten in der Anwendung zusammenhängen.
 \subsubsection*{Methode}
+\paragraph{\texttt{IngredientRouter():void}}
+Die Methode ist der Konstruktor der Klasse \texttt{IngredientRouter}.
 \paragraph{\texttt{setupRoutes(): void}}
 Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
 \subsubsection{\texttt{AdminUserRouter}}\label{sec:AdminUserRouter}
 Der \texttt{AdminUserRouter} ist verantwortlich für die Verwaltung von Routen und Endpunkten, die mit Administratorinteraktionen zusammenhängen.
 \subsubsection*{Methoden}
+\paragraph{\texttt{AdminUserRouter():void}}
+Die Methode ist der Konstruktor der Klasse \texttt{AdminUserRouter}.
 \paragraph{\texttt{setupRoutes(): void}}
 Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
