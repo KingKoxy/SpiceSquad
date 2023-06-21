@@ -1557,7 +1557,7 @@ Im Body der Anfrage werden die Daten der Anfrage übergeben.
 Die Anfragen werden dabei an die entsprechenden Endpunkte der API gesendet.
 Die Endpunkte der API sind dabei die Routen, die die Anfragen annehmen.
 Jeder Endpunkt in einer REST-API ist mit einer HTTP-Methode verbunden und definiert eine bestimmte Aktion, die ausgeführt werden soll.
-Die HTTP-Methoden, die von der API verwendet werden, sind \texttt{GET}, \texttt{POST}, \texttt{PUT}, \texttt{DELETE} und \texttt{PATCH}.
+Die HTTP-Methoden, die von der API verwendet werden, sind \texttt{GET}, \texttt{POST}, \texttt{DELETE} und \texttt{PATCH}.
 
 Im folgenden wollen wir die verschiedenen Anfragen und Endpunkte der API beschreiben.
 Dafür werden wir die verschiedenen Anfragen nach den Routen gruppieren, die sie verwenden.
@@ -1575,7 +1575,7 @@ Der zugehörige Router ist der \texttt{AuthentificationRouter} (siehe \nameref{s
 In der Anfrage müssen der Name, die E-Mail-Adresse und das Passwort des Nutzers angegeben werden.
 
 \paragraph{Response}
-Im Erfolgsfall wird ein Statuscode 200 und der \glslink{JWT}{JWT} des Nutzers zurückgegeben.
+Im Erfolgsfall wird ein Statuscode 200 und der \glslink{idToken}{idToken} des Nutzers zurückgegeben.
 
 \subsubsection*{POST /auth/login}
     \paragraph{Request}
@@ -1591,8 +1591,8 @@ Im Erfolgsfall wird ein Statuscode 200 und der \glslink{JWT}{JWT} des Nutzers zu
 Die Route \texttt{/recipe} ist die Route, die für alle Anfragen zuständig ist, die mit Rezepten zu tun haben.
 Der zugehörige Router ist der \texttt{RecipeRouter} (siehe \nameref{sec:RecipeRouter}).
 
-Anfragen an diese Route müssen mit einem gültigen \glslink{JWT}{JWT} versehen sein, da nur angemeldete Nutzer Rezepte erstellen können.
-Der \glslink{JWT}{JWT} wird dabei im Header der Anfrage mitgeschickt.
+Anfragen an diese Route müssen mit einem gültigen \glslink{idToken}{idToken} versehen sein, da nur angemeldete Nutzer Rezepte erstellen können.
+Der \glslink{idToken}{idToken} wird dabei im Header der Anfrage mitgeschickt.
 
 \subsubsection*{POST /recipe}
 \subsubsection*{DELETE /recipe/:id}
@@ -1606,8 +1606,8 @@ Der \glslink{JWT}{JWT} wird dabei im Header der Anfrage mitgeschickt.
 Die Route \texttt{/group} ist die Route, die für alle Anfragen zuständig ist, die mit Gruppen zu tun haben.
 Der zugehörige Router ist der \texttt{GroupRouter} (siehe \nameref{sec:GroupRouter}).
 
-Die Anfragen an diese Route müssen mit einem gültigen \glslink{JWT}{JWT} versehen sein, da nur angemeldete Nutzer Gruppen erstellen können.
-Der \glslink{JWT}{JWT} wird dabei im Header der Anfrage mitgeschickt.
+Die Anfragen an diese Route müssen mit einem gültigen \glslink{idToken}{idToken} versehen sein, da nur angemeldete Nutzer Gruppen erstellen können.
+Der \glslink{idToken}{idToken} wird dabei im Header der Anfrage mitgeschickt.
 
 \subsubsection*{POST /group}
 
@@ -1621,11 +1621,20 @@ Der \glslink{JWT}{JWT} wird dabei im Header der Anfrage mitgeschickt.
 Die Route \texttt{/user} ist die Route, die für alle Anfragen zuständig ist, die mit Nutzern zu tun haben.
 Der zugehörige Router ist der \texttt{UserRouter} (siehe \nameref{sec:UserRouter}).
 
-Die Anfragen an diese Route müssen mit einem gültigen \glslink{JWT}{JWT} versehen sein, da nur angemeldete Nutzer Nutzerdaten ändern können.
-Der \glslink{JWT}{JWT} wird dabei im Header der Anfrage mitgeschickt.
+Die Anfragen an diese Route müssen mit einem gültigen \glslink{idToken}{idToken} versehen sein, da nur angemeldete Nutzer Nutzerdaten ändern können.
+Der \glslink{idToken}{idToken} wird dabei im Header der Anfrage mitgeschickt.
 
 \subsubsection*{DELETE /user/:id}
+\paragraph{Request}
+In der Anfrage muss die Id des Nutzers angegeben werden, der gelöscht werden soll.
+\paragraph{Response}
+Beim erfolgreichen Löschen des Nutzers wird ein Statuscode 200 zurückgegeben.
+
 \subsubsection*{PATCH /user/:id}
+\paragraph{Request}
+In der Anfrage muss die Id des Nutzers angegeben werden, der bearbeitet werden soll, sowie die neuen Nutzerdaten.
+\paragraph{Response}
+Beim erfolgreichen Bearbeiten des Nutzers wird ein Statuscode 200 zurückgegeben.
 
 \subsection{/ingredient}
 Die Route \texttt{/ingredient} ist die Route, die für alle Anfragen zuständig ist, die mit Zutaten zu tun haben.
@@ -1636,6 +1645,10 @@ Der JWT wird dabei im Header der Anfrage mitgeschickt.
 
 
 \subsubsection*{GET /ingredient}
+\paragraph{Request}
+In der Anfrage muss nichts angegeben werden.
+\paragraph{Response}
+Im Erfolgsfall wird ein Statuscode 200 und die Liste aller Zutaten zurückgegeben.
 
 \subsection{/admin}
 Die Route \texttt{/admin} ist die Route, die für alle Anfragen zuständig ist, die mit der Adminrolle zu tun haben.
@@ -1647,13 +1660,29 @@ Die Gültigkeit der Adminrolle wird vor Anfrage an die entsprechenden Endpunkte 
 
 \subsubsection*{PATCH /admin/:groupId/makeAdmin/:userId}
 \paragraph{Request}
-
+In der Anfrage müssen die Id der Gruppe und die Id des Nutzers angegeben werden, dem der Adminstatus verliehen werden soll.
 \paragraph{Response}
+Im Erfolgsfall wird ein Statuscode 200 zurückgegeben.
 
 \subsubsection*{PATCH /admin/:groupId/removeAdminStatus/:userId}
+\paragraph{Request}
+In der Anfrage müssen die Id der Gruppe und die Id des Nutzers angegeben werden, dem der Adminstatus entzogen werden soll.
+\paragraph{Response}
+Im Erfolgsfall wird ein Statuscode 200 zurückgegeben.
+
 \subsubsection*{PATCH /admin/:groupId/kickUser/:userId}
+\paragraph{Request}
+In der Anfrage müssen die Id der Gruppe und die Id des Nutzers angegeben werden, der gekickt werden soll.
+\paragraph{Response}
+Im Erfolgsfall wird ein Statuscode 200 zurückgegeben.
+
 \subsubsection*{PATCH /admin/:groupId/banUser/:userId}
+\paragraph{Request}
+In der Anfrage müssen die Id der Gruppe und die Id des Nutzers angegeben werden, der gebannt werden soll.
+\paragraph{Response}
+Im Erfolgsfall wird ein Statuscode 200 zurückgegeben.
 \subsubsection*{PATCH /admin/:groupId/setCensored/:userId}
+
 
 \newpage
 
