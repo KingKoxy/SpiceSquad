@@ -1449,7 +1449,7 @@ Mit der Methode \texttt{kickUser} kann ein Nutzer aus einer Gruppe gekickt werde
 \paragraph{\texttt{banUser(req: express.Request, res: express.Response): void}}
 Mit der Methode \texttt{banUser} kann ein Nutzer aus einer Gruppe gebannt werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Nutzer Id und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Bannen des Nutzers erfolgreich war oder Fehler aufgetreten sind.
 \paragraph{\texttt{setCensored(req: express.Request, res: express.Response): void}}
-Mit der Methode \texttt{setCensored} kann ein Nutzer zensiert werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Nutzer Id und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Zensieren des Nutzers erfolgreich war oder Fehler aufgetreten sind.
+Mit der Methode \texttt{setCensored} kann ein Rezept ausgeblendet werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Rezept Id und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Zensieren des Nutzers erfolgreich war oder Fehler aufgetreten sind.
 
 \subsection{Mailer}
 Mithilfe des Mailers können E-Mails an Nutzer versendet werden. Dies wird dann benötigt, wenn man ein Rezept melden möchte.
