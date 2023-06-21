@@ -1552,20 +1552,22 @@ Der zugehörige Router ist der \texttt{AuthentificationRouter} (siehe \nameref{s
 
 \subsubsection*{POST /auth/register}
 \paragraph{Request}
-In der Anfrage müssen der Name, die E-Mail-Adresse und das Passwort des Nutzers angegeben werden.
+In der Anfrage muss der Name, die E-Mail-Adresse und das Passwort des Nutzers angegeben werden.
 
 \paragraph{Response}
 Im Erfolgsfall wird ein Statuscode 200 und der \glslink{JWT}{JWT} des Nutzers zurückgegeben.
 
 \subsubsection*{POST /auth/login}
     \paragraph{Request}
-        In der Anfrage müssen 
+        In der Anfrage muss die E-Mail-Adresse und das Passwort angegeben werden.
     \paragraph{Response}
-
-\paragraph{Request}
-\paragraph{Response}
+        Im Erfolgsfalls wird der Statuscode 200 und der idToken des Nutzers zurückgegeben.
 
 \subsubsection*{POST /auth/resetPassword}
+    \paragraph{Request}
+        In der Anfrage muss die E-Mail-Adresse angegeben werden.
+    \paragraph{Response}
+        Im Erfolgsfalls wird der Statuscode 200 und der idToken des Nutzers zurückgegeben. 
 
 \subsection{/recipe}
 Die Route \texttt{/recipe} ist die Route, die für alle Anfragen zuständig ist, die mit Rezepten zu tun haben.
@@ -1575,12 +1577,40 @@ Anfragen an diese Route müssen mit einem gültigen \glslink{JWT}{JWT} versehen 
 Der \glslink{JWT}{JWT} wird dabei im Header der Anfrage mitgeschickt.
 
 \subsubsection*{POST /recipe}
-\subsubsection*{DELETE /recipe/:id}
-\subsubsection*{PATCH /recipe/:id}
-\subsubsection*{GET /recipe/:id}
-\subsubsection*{GET /recipe/own}
-\subsubsection*{PATCH /recipe/favorite}
+    \paragraph{Request}
+        In der Anfrage muss das Rezept angegeben werden.
+    \paragraph{Response}
+        Im Erfolgsfalls wird der Statuscode 201 zurückgegeben.
+
+\subsubsection*{GET /recipe/id} userid
+    \paragraph{Request}
+        In der Anfrage muss das RezeptID angegeben werden.
+    \paragraph{Response}
+        Im Erfolgsfalls wird der Statuscode 200 und die UserId des Autors zurückgegeben.
+
+\subsubsection*{Delete /recipe/id}
+    \paragraph{Request}
+        In der Anfrage muss das RezeptID angegeben werden.
+    \paragraph{Response}
+        Im Erfolgsfalls wird der Statuscode 200 zurückgegeben.
+
+\subsubsection*{PATCH /recipe/id}
+    \paragraph{Request}
+        In der Anfrage muss das RezeptID und das Rezept angegeben werden.
+    \paragraph{Response}
+        Im Erfolgsfalls wird der Statuscode 200 zurückgegeben.
+
+\subsubsection*{PATCH /recipe/favorite/id}
+    \paragraph{Request}
+        In der Anfrage muss das RezeptID und ein \gls{bool}, ob das Rezept favorisiert ist, angegeben werden.
+    \paragraph{Response}
+        Im Erfolgsfalls wird der Statuscode 200 zurückgegeben.
+        
 \subsubsection*{POST /recipe/report}
+    \paragraph{Request}
+        In der Anfrage muss die RezeptId und die GruppenId angegeben werden.
+    \paragraph{Response}
+        Im Erfolgsfalls wird der Statuscode 200 zurückgegeben.
 
 \subsection{/group}
 Die Route \texttt{/group} ist die Route, die für alle Anfragen zuständig ist, die mit Gruppen zu tun haben.
@@ -1590,12 +1620,40 @@ Die Anfragen an diese Route müssen mit einem gültigen \glslink{JWT}{JWT} verse
 Der \glslink{JWT}{JWT} wird dabei im Header der Anfrage mitgeschickt.
 
 \subsubsection*{POST /group}
-
-\subsubsection*{DELETE /group/:id}
-\subsubsection*{PATCH /group/:id}
-\subsubsection*{PATCh /group/:id/join}
-\subsubsection*{PATCH /group/:id/leave}
-\subsubsection*{GET /group}
+    \paragraph{Request}
+        In der Anfrage muss der Gruppenname angegeben werden.
+    \paragraph{Response}
+        Im Erfolgsfall wird der Statuscode 201 zurückgegeben.
+    
+\subsubsection*{DELETE /group/:groupId/:userId}
+    \paragraph{Request}
+        In der Anfrage muss die GruppenId und die UserId angegeben werden.
+    \paragraph{Response}
+        Im Erfolgsfall wird der Statuscode 200 zurückgegeben.
+        
+\subsubsection*{PATCH /group/:groupeId/:userId}
+    \paragraph{Request}
+        In der Anfrage muss die GruppenId, die UserId und der neue Gruppen Name angegeben werden.
+    \paragraph{Response}
+        Im Erfolgsfall wird der Statuscode 200 zurückgegeben.
+        
+\subsubsection*{PATCH /group/:groupId/:userId/join}
+    \paragraph{Request}
+        In der Anfrage muss der Gruppen Code angegeben werden.
+    \paragraph{Response}
+        Im Erfolgsfall wird der Statuscode 200 zurückgegeben.
+        
+\subsubsection*{PATCH /group/:groupId/:userId/leave}
+    \paragraph{Request}
+        In der Anfrage muss die GruppenId und die UserId angegeben werden.
+    \paragraph{Response}
+        Im Erfolgsfall wird der Statuscode 200 zurückgegeben.
+    
+\subsubsection*{GET /group/:userId}
+    \paragraph{Request}
+        In der Anfrage muss die UserId angegeben werden.
+    \paragraph{Response}
+        Im Erfolgsfall wird der Statuscode 200 und eine Liste alle Gruppen des Users zurückgegeben.
 
 \subsection{/user}
 Die Route \texttt{/user} ist die Route, die für alle Anfragen zuständig ist, die mit Nutzern zu tun haben.
@@ -1605,7 +1663,11 @@ Die Anfragen an diese Route müssen mit einem gültigen \glslink{JWT}{JWT} verse
 Der \glslink{JWT}{JWT} wird dabei im Header der Anfrage mitgeschickt.
 
 \subsubsection*{DELETE /user/:id}
+    \paragraph{Request}
+    \paragraph{Response}
 \subsubsection*{PATCH /user/:id}
+    \paragraph{Request}
+    \paragraph{Response}
 
 \subsection{/ingredient}
 Die Route \texttt{/ingredient} ist die Route, die für alle Anfragen zuständig ist, die mit Zutaten zu tun haben.
@@ -1616,6 +1678,8 @@ Der JWT wird dabei im Header der Anfrage mitgeschickt.
 
 
 \subsubsection*{GET /ingredient}
+    \paragraph{Request}
+    \paragraph{Response}
 
 \subsection{/admin}
 Die Route \texttt{/admin} ist die Route, die für alle Anfragen zuständig ist, die mit der Adminrolle zu tun haben.
@@ -1631,9 +1695,17 @@ Die Gültigkeit der Adminrolle wird vor Anfrage an die entsprechenden Endpunkte 
 \paragraph{Response}
 
 \subsubsection*{PATCH /admin/:groupId/removeAdminStatus/:userId}
+    \paragraph{Request}
+    \paragraph{Response}
 \subsubsection*{PATCH /admin/:groupId/kickUser/:userId}
+    \paragraph{Request}
+    \paragraph{Response}
 \subsubsection*{PATCH /admin/:groupId/banUser/:userId}
+    \paragraph{Request}
+    \paragraph{Response}
 \subsubsection*{PATCH /admin/:groupId/setCensored/:userId}
+    \paragraph{Request}
+    \paragraph{Response}
 
 \newpage
 
@@ -1743,7 +1815,7 @@ Die Tabelle "BannedUser" repräsentiert die Many-To-Many-Beziehung zwischen den 
 \section{Ablaufbeschreibung}
     \subsection{Sequenzdiagrammen Rezeptholen}
             Das Sequenzdiagrammen zeigt den Ablauf von Rezept holen zur Darstellung der Hauptansicht. Dabei besteht zwar eine Verbindung zum Server jedoch ist der Session Token abgelaufen und muss erneuert werden.\\
-            Die Klasse \texttt{MainScreen} der Hauptansicht startet den Vorgang mit dem Aufruf der Funktion \texttt{getAllRecipesForUser()}der Klasse \texttt{RecipeService}. Die Klasse \texttt{RecipeService} implementiert die abstrakte Methode \texttt{build()} der Klasse \texttt{AsyncNotifier}, welche einen Initialwert zurückgibt und den Aufruf \texttt{remoteRecipeReopsitory.fetchAllGroupsForUser()} tätigt, weil eine Verbindung zum Server besteht und nicht auf \texttt{RemoteRecipeRepository} zurückgegriffen werden muss. Die Funktion \texttt{fetchAllGroupsForUser()} der Klasse \texttt{RemoteRecipeRepository} gibt bei der asynchronen Funktionen ein \texttt{Future-}Objekt zurück, welches aufgelöst wird, wenn die Rezepte erfolgreich vom Server abgefragt wurden. Weil der User Token abgelaufen ist gibt der Funktionsaufruf \texttt{verifyToken(JWT)} bei \texttt{Firebase} den Fehlercode auth\slash id-token-expired zurück. Das \texttt{UserRepository} erneuert den Token und der Prozess kann normal weiterlaufen. Der \texttt{RecipeRouter} ruft mit die asynchrone Funktion \texttt{recipesGetAllForUser(req, res)} und erhält dafür ein \texttt{Promise}, welches aufgelöst wird, wenn die Rezepte erfolgreich vom Server abgefragt wurden. Die \texttt{Database} gibt die \texttt{List<Recipe>} zurück und die wird bis zur Klasse \texttt{MainScreen} weitergeleitet. In dem Sequenzdiagrammen wird \texttt{List<Recipe>} durch \texttt{List (Recipe)} ersetzt.
+            Die Klasse \texttt{MainScreen} der Hauptansicht startet den Vorgang mit dem Aufruf der Funktion \texttt{getAllRecipesForUser()}der Klasse \texttt{RecipeService}. Die Klasse \texttt{RecipeService} ruft die Funktion \texttt{fetchAllGroupsForUser()} der Klasse \texttt{RemoteRecipeRepository} auf, weil eine Verbindung zum Server besteht und nicht auf \texttt{LocalRecipeRepository} zurückgegriffen werden muss. Die Funktion \texttt{fetchAllGroupsForUser()} der Klasse \texttt{RemoteRecipeRepository} gibt bei der asynchronen Funktionen ein \texttt{Future-}Objekt zurück, welches aufgelöst wird, wenn die Rezepte erfolgreich vom Server abgefragt wurden. Weil der User Token abgelaufen ist gibt der Funktionsaufruf \texttt{verifyToken(JWT)} bei \texttt{Firebase} den Fehlercode auth\slash id-token-expired zurück. Das \texttt{UserRepository} erneuert den Token und der Prozess kann normal weiterlaufen. Der \texttt{RecipeRouter} ruft mit die asynchrone Funktion \texttt{recipesGetAllForUser(req, res)} und erhält dafür ein \texttt{Promise}, welches aufgelöst wird, wenn die Rezepte erfolgreich vom Server abgefragt wurden. Die \texttt{Database} gibt die \texttt{List<Recipe>} zurück und die wird bis zur Klasse \texttt{MainScreen} weitergeleitet. In dem Sequenzdiagrammen wird \texttt{List<Recipe>} durch \texttt{List (Recipe)} ersetzt.
         
         \begin{figure}[htp]
             \centering
@@ -1755,7 +1827,7 @@ Die Tabelle "BannedUser" repräsentiert die Many-To-Many-Beziehung zwischen den 
     
     \subsection{Sequenzdiagrammen User bannen}
         Das Sequenzdiagrammen zeigt den Ablauf von User bannen. Es wird von einem idealen Ablauf ausgegangen. Der Nutzer hat bereits bestätigt, dass der Nutzer wirklich gebannt werden soll.\\
-        Die Klasse \texttt{GroupDetailScreen} ruft die Funktion \texttt{banUser(UserId,GroupId)} der Klasse \texttt{GroupService} auf. Die Parameter sind die ID des Nutzer und die ID der Gruppe. Es wird ein \texttt{Future}-Objekt zurückgegeben, welches aufgelöst wird, wenn der Nutzer erfolgreich aus der Gruppe gebannt wurde. Die Klasse \texttt{AdminRepository} gibt bei dem Funktionsaufruf von \texttt{banUser(UserId, GroupId)} auch ein \texttt{Future}-Objekt zurück, welches aufgelöst wird, wenn der Nutzer erfolgreich aus der Gruppe gebannt wurde. Die Klasse \texttt{CheckAuthorization} ruft neben der Funktion \texttt{verifyToken(JWT)} von \texttt{Firebase} auch noch die Funktion \texttt{adminStatusChecker(req, res, next())} auf, um nicht nur zu überprüfen ob der User Token aktuell ist, sondern auch ob der User die Admin Rechte besitzt.
+        Die Klasse \texttt{GroupDetailScreen} ruft die Funktion \texttt{banUser(UserId,GroupId)} der Klasse \texttt{GroupService} auf. Die Parameter sind die ID des Nutzer und die ID der Gruppe. Es wird ein \texttt{Future}-Objekt zurückgegeben, welches aufgelöst wird, wenn der Nutzer erfolgreich aus der Gruppe gebannt wurde. Die Klasse \texttt{AdminRepository} gibt bei dem Funktionsaufruf von \texttt{banUser(UserId, GroupId)} auch ein \texttt{Future}-Objekt zurück. Die Klasse \texttt{CheckAuthorization} ruft neben der Funktion \texttt{verifyToken(JWT)} von \texttt{Firebase} auch noch die Funktion \texttt{adminStatusChecker(req, res, next())} auf, um nicht nur zu überprüfen ob der User Token aktuell ist, sondern auch ob der User die Admin Rechte besitzt. Der \texttt{AdminUserController} gibt das Ergebniss zurück an den \texttt{GroupDetailScreen}, wobei alle \texttt{Promise}-Objekte und \texttt{Future}-Objekte aufgelöst werden.
 
         \begin{figure}[htp]
             \centering
