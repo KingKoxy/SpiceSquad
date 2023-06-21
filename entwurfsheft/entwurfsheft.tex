@@ -1285,7 +1285,7 @@ Getter-Methode für das Attribut \texttt{router}.
 
 \subsubsection{\texttt{AuthentificationRouter}}\label{sec:AuthentificationRouter}
 Der \texttt{AuthentificationRouter} ist speziell für die Verarbeitung von Authentifizierungsanfragen zuständig.
-\subsubsection*{Methode}
+\subsubsection*{Methoden}
 \paragraph{\texttt{AuthenthificationRouter():void}}
 Die Methode ist der Konstruktor der Klasse \texttt{AuthentificationRouter}.
 \paragraph{\texttt{setupRoutes(): void}}
@@ -1335,10 +1335,12 @@ Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen 
 
 \subsection{Middleware}
 Durch die Middleware können Anfragen vorher bearbeitet werden, bevor sie zu den eigentlichen Routingstellen gehen.
+So kann beispielsweise geprüft werden ob ein Nutzer den Adminstatus in einer Gruppe hat bevor er eine Anfrage an eine Route stellen darf.
+Es wird in der Middelware auch geprüft, ob der Nutzer überhaupt eine gültige Anfrage stellen darf.
 
 \begin{figure}[htp]
     \centering
-    \includegraphics[width = 0.7\textwidth]{images/webserver/middleware.pdf}
+    \includegraphics[width = 1\textwidth]{images/webserver/middleware.pdf}
     \caption{Middleware-Klassen des Webservers}
     \label{fig:middleware}
 \end{figure}
@@ -1346,8 +1348,18 @@ Durch die Middleware können Anfragen vorher bearbeitet werden, bevor sie zu den
 \subsubsection{\texttt{CheckAuthorization}}\label{sec:CheckAuthorization}
 Mit \texttt{CheckAuthorization} kann vor einer Anfrage an einen Router überprüft werden, ob die Anfrage des Nutzers mit validem Firebase Id Token kommt. % Referenz Nutzerverwaltung mit Firebase
 \subsubsection*{Methoden}
+\paragraph{\texttt{CheckAuthorization(): void)}}
+Die Methode ist der Konstruktor der Klasse \texttt{CheckAuthorization}.
 \paragraph{\texttt{authChecker(req: express.Request, res: express.Response, next: express.NextFunction): void}}
 Mit dieser Methode wird durch eine Abfrage an Firebase überprüft, ob das Id Token valide ist.
+
+\subsubsection{\texttt{CheckAdminStatus}}\label{sec:CheckAdminStatus}
+Mit \texttt{CheckAdminStatus} kann vor einer Anfrage an einen Router überprüft werden, ob der Nutzer den Adminstatus in einer Gruppe hat.
+\subsubsection*{Methoden}
+\paragraph{\texttt{CheckAdminStatus(): void)}}
+Die Methode ist der Konstruktor der Klasse \texttt{CheckAdminStatus}.
+\paragraph{\texttt{adminStatusChecker(req: express.Request, res: express.Response, next: express.NextFunction): void}}
+Mit dieser Methode wird überprüft, ob der Nutzer den Adminstatus in einer Gruppe hat. Es wird in der Datenbank geprüft, ob der Nutzer den Adminstatus in der jeweiligen Gruppe hat.
 
 \newpage
 
