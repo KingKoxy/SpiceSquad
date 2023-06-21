@@ -1725,6 +1725,7 @@ Die Tabelle "BannedUser" repräsentiert die Many-To-Many-Beziehung zwischen den 
     \subsection{Sequenzdiagrammen User bannen}
         Das Sequenzdiagrammen zeigt den Ablauf von User bannen. Es wird von einem idealen Ablauf ausgegangen. Der Nutzer hat bereits bestätigt, dass der Nutzer wirklich gebannt werden soll.\\
         Die Klasse \texttt{GroupDetailScreen} ruft die Funktion \texttt{banUser(UserId,GroupId)} der Klasse \texttt{GroupService} auf. Die Parameter sind die ID des Nutzer und die ID der Gruppe. Es wird ein \texttt{Future}-Objekt zurückgegeben, welches aufgelöst wird, wenn der Nutzer erfolgreich aus der Gruppe gebannt wurde. Die Klasse \texttt{AdminRepository} gibt bei dem Funktionsaufruf von \texttt{banUser(UserId, GroupId)} auch ein \texttt{Future}-Objekt zurück, welches aufgelöst wird, wenn der Nutzer erfolgreich aus der Gruppe gebannt wurde. Die Klasse \texttt{CheckAuthorization} ruft neben der Funktion \texttt{verifyToken(JWT)} von \texttt{Firebase} auch noch die Funktion \texttt{adminStatusChecker(req, res, next())} auf, um nicht nur zu überprüfen ob der User Token aktuell ist, sondern auch ob der User die Admin Rechte besitzt.
+
         \begin{figure}[htp]
             \centering
             \includegraphics[width = \linewidth]{images/processDescription/SequenzdiagrammBanUser.pdf}
