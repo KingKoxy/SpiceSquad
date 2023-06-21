@@ -753,7 +753,7 @@ Das Package \texttt{main\_screen} enthält alle Klassen für die Hauptansicht de
 \newpage
 \subsubsection{MainScreen}
 \label{sec:mainScreen}
-Die Klasse bildet die Hauptansicht der App ab. Sie ist ein \texttt{StatefulWidget}, da sie den Zustand \texttt{filteredRecipes} verwaltet und anzeigt. Sie bildet für jedes Rezept eine \texttt{RecipeCard} ab. Zudem gibt es zwei Widgets zur Auswahl der Sortierung und Filterung der Rezepte.
+Die Klasse bildet die Hauptansicht der App ab. Sie ist ein \texttt{StatefulWidget}, da sie den Zustand \texttt{filteredRecipes} verwaltet und anzeigt. Sie bildet für jedes Rezept eine \texttt{RecipeCard} ab. Zudem gibt es zwei Widgets zur Auswahl der Sortierung und Filterung der Rezepte und eines zum Suchen.
 \begin{figure}[htp]
     \begin{minipage}
         [t]{0.49\textwidth}
@@ -948,6 +948,139 @@ Die Klasse stellt den Bildschirm dar, auf dem die Zubereitungsanweisungen eines 
 Das Rezept, das angezeigt werden soll. Es wird bei der Initialisierung aus dem \Gls{BuildContext} gelesen, wo es vorher hineingeschrieben wurde. 
 \paragraph{\texttt{portionAmount: int}}
 Die Anzahl der Portionen, die der Nutzer kochen möchte. Er kann sie über ein Textfeld setzen, woraufhin die Zutatenmengen angepasst werden.
+\newpage
+
+\subsection{\texttt{recipe\_creation\_screen}}
+Das Package \texttt{mainrecipe\_creation\_screen} enthält alle Klassen für die Rezept-Erstellungs-Ansicht. Der anzuzeigende Screen ist in der Klasse \hyperref[sec:recipeCreationScreen]{\texttt{RecipeCreationScreen}} implementiert
+\begin{figure}
+    [htp]
+    \centering
+    \includegraphics[width=\textwidth]{images/presentationLayer/classDiagrams/recipeCreationScreenWhole.pdf}
+    \caption{Klassendiagramm des Pakets recipe\_creation\_screen}
+\end{figure}
+%TODO: continue here
+\newpage
+\subsubsection{RecipeCreationScreen}
+\label{sec:recipeCreationScreen}
+Die Klasse bildet die Rezept-Erstellungsansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen Zustand verwaltet. Dies übernehmen die einzelnen Teilwidgets. Es werden verschiedene Widgets angezeigt, die es ermöglichen Rezeptdaten einzugeben oder abzuändern.
+\subsubsection*{Attribute}
+\paragraph{\texttt{recipe: Recipe}}
+Soll ein Rezept verändert werden, so wird das Ursprungsrezept über den \Gls{BuildContext} übergeben und in diesem Parameter gespeichert. Andernfalls bleibt der Wert null.
+\newpage
+\subsubsection{\texttt{ImagePickerWidget}}
+\label{sec:imagePickerWidget}
+Die Klasse stellt ein Widget bereit, mit dem der Nutzer ein Bild auswählen oder löschen kann. Sie ist ein \texttt{StatefulWidget}, da sie den Zustand \texttt{image} verwaltet.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=.8\textwidth]{images/presentationLayer/uiElements/imagePickerWidget.png}
+        \caption{\protect\raggedright Abbildung des Image\-Picker\-Widgets}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/imagePickerWidget.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Image\-Picker\-Widgets}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{image: UInt8List?}}
+Das ausgewählte Bild. Ist der Wert null, so wurde noch kein Bild ausgewählt.
+\paragraph{\texttt{onChange(UInt8List? value): void}}
+Callback-Methode, die ausgeführt wird, wenn sich das Bild ändert und das neue Bild als Parameter übergeben bekommt. Ist \texttt{value} null, so soll das Bild gelöscht werden.
+\subsubsection*{Methoden}
+\paragraph{\texttt{ImagePickerWidget(UInt8List? image, void onChange(UInt8List? value)): ImagePickerWidget}}
+Konstruktor, der das Bild und die Callback-Methode übergeben bekommt.
+\newpage
+
+\subsubsection{\texttt{DifficultyPickerWidget}}
+\label{sec:difficultyPickerWidget}
+Die Klasse stellt ein Widget bereit, mit dem der Nutzer die Schwierigkeit des Rezepts auswählen kann. Sie ist ein \texttt{StatefulWidget}, da sie den Zustand \texttt{difficulty} verwaltet. Drückt der Nutzer auf das Widget, öffnet sich ein Drop-Down-Menü, in dem er die Schwierigkeit auswählen kann.
+
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=1cm]{images/presentationLayer/uiElements/difficultyPickerWidget.png}
+        \caption{\protect\raggedright Abbildung des Difficulty\-Picker\-Widgets}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/difficultyPickerWidget.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Difficulty\-Picker\-Widgets}
+    \end{minipage}
+\end{figure}
+
+\subsubsection*{Attribute}
+\paragraph{\texttt{difficulty: Difficulty}}
+Die ausgewählte Schwierigkeit.
+\paragraph{\texttt{onChange(Difficulty value): void}}
+Callback-Methode, die ausgeführt wird, wenn sich die Schwierigkeit ändert und die neue Schwierigkeit als Parameter übergeben bekommt.
+\subsubsection*{Methoden}
+\paragraph{\texttt{DifficultyPickerWidget(Difficulty difficulty, void onChange(Difficulty value)): DifficultyPickerWidget}}
+Konstruktor, der die Schwierigkeit und die Callback-Methode übergeben bekommt.
+\newpage
+\subsubsection{\texttt{IngredientList}}
+\label{sec:ingredientPickerWidget}
+Die Klasse stellt die Liste der Zutaten dar. Sie ist ein \texttt{StatefulWidgget}, da sie den Zustand \texttt{ingredients} verwaltet. Sie erzeugt eine Listenansicht, in der für jedes Rezept ein Item gezeigt wird. Zusätzlich verwendet sie die Klasse \hyperref[sec:addButton]{\texttt{AddButton}} aus dem Package \texttt{common\_widgets}. Drückt man auf den Knopf, wird man zur Zutaten-Erstellungs-Ansicht (\ref{sec:ingredientCreationScreen}) weitergeleitet.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=.95\textwidth]{images/presentationLayer/uiElements/ingredientList.png}
+        \caption{\protect\raggedright Abbildung der Ingredient\-List}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/ingredientList.pdf}
+        \caption{\protect\raggedright Klassendiagramm der Ingredient\-List}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{ingredients: List<Ingredient>}}
+Die Liste der Zutaten.
+\paragraph{\texttt{onChange(List<Ingredient> ingredients): void}}
+Callback-Methode, die ausgeführt wird, wenn sich die Liste der Zutaten ändert und die neue Liste als Parameter übergeben bekommt.
+\subsubsection*{Methoden}
+\paragraph{\texttt{IngredientList(List<Ingredient> ingredients, void onChange(List<Ingredient> ingredients)): IngredientList}}
+Konstruktor, der die Liste der Zutaten und die Callback-Methode übergeben bekommt.
+\newpage
+\subsubsection{\texttt{ToggleableLabelWidget}}
+Die Klasse repräsentiert ein Label, das aktiviert oder deaktiviert werden kann, indem es gedrückt wird. Es ändert entsprechend seine Farbe. Sie ist ein \texttt{StatefulWidget}, da sie den Zustand \texttt{active} verwaltet. Sie erzeugt ein Text-Widget, das aktiviert oder deaktiviert werden kann, indem es gedrückt wird. Es ändert entsprechend seine Farbe. Es verwendet die Klasse \hyperref[sec:tagItem]{\texttt{TagItem}} aus dem Package \texttt{common\_widgets}.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=1cm]{images/presentationLayer/uiElements/toggleableLabelWidget.png}
+        \caption{\protect\raggedright Abbildung des Toggleable\-Label\-Widgets im aktiven Zustand}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/toggleableLabelWidget.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Toggleable\-Label\-Widgets}
+    \end{minipage}
+\end{figure}
+
+\subsubsection*{Attribute}
+\paragraph{\texttt{icon: IconData}}
+Das Icon, das angezeigt wird.
+\paragraph{\texttt{name: String}}
+Der Name, der angezeigt wird.
+\paragraph{\texttt{active: bool}}
+Der Zustand, ob das Label aktiviert ist oder nicht.
+\paragraph{\texttt{onChange(bool value): void}}
+Callback-Methode, die ausgeführt wird, wenn sich der Zustand ändert und den neuen Zustand als Parameter übergeben bekommt.
+\subsubsection*{Methoden}
+\paragraph{\texttt{ToggleableLabelWidget(IconData icon, String name, bool active, void onChange(bool value)): ToggleableLabelWidget}}
+Konstruktor, der das Icon, den Namen, den Zustand und die Callback-Methode übergeben bekommt und setzt.
+\newpage
+
+\subsection{\texttt{ingredient\_picker\_screen}}
+
 \newpage
 \section{REST-Webserver}
 Um seinen Account zu verwalten, Rezepte aufzurufen oder mit Gruppe interagieren zu können benötigt man die Verbindung zum Server.
