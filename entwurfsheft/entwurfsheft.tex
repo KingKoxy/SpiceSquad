@@ -1146,9 +1146,11 @@ Express repräsentiert die Express Applikation, die beim Start durch \texttt{exp
 Express ist vom Typ express.Application. Es handelt sich um ein privates Attribut.
 \paragraph{\texttt{application: Application}}
 Application vom Typ Application repräsentiert das nach dem Start erzeugte Objekt der Klasse Application.
+\paragraph{\texttt{database: Database}}
+Das Attribut für die Datenbank. Es repräsentiert das nach dem Start erzeugte Objekt der Klasse Database. \texttt{database} ist vom Typ \texttt{Database}.
 
 \subsection*{Methoden}
-\paragraph{\texttt{<<create>> constructor(): void}}
+\paragraph{\texttt{Server(): void}}
 Konstruktor der Klasse Server, die beim Starten des Servers aufgerufen wird um ein neues Objekt der Klasse Server zu erzeugen. Der Konstruktor gibt keinen Wert zurück.
 \paragraph{\texttt{start(): void}}
 Durch Aufruf der Funktion \texttt{start()} wird der Server gestartet. Dazu werden in der Funktion die privaten Funktionen \texttt{connectToDatabase()}, \texttt{connectToFirebase()} und \texttt{createServer()} aufgerufen.
@@ -1194,8 +1196,6 @@ Das Attribut für den \texttt{AdminRouter}. \texttt{adminRouter} ist vom Typ \te
 \paragraph{\texttt{ingredientRouter: IngredientRouter}}
 \texttt{ingredientRouter} ist vom Typ \texttt{IngredientRouter}.
 Das Attribut für den \texttt{IngredientRouter}. \newline
-\paragraph{\texttt{database: Database}}
-Das Attribut für die Datenbank. \texttt{database} ist vom Typ \texttt{Database}.
 
 \subsubsection*{Methoden}
 \paragraph{\texttt{initializeMiddleware(): void}}
@@ -1214,7 +1214,7 @@ Zudem wird über diese Klasse der Zugriff auf die Datenbank ermöglicht.
 Dafür wird ein Pool von Verbindungen zur Datenbank erstellt, der bei Bedarf eine Verbindung zur Datenbank herstellt.
 Eine Pool-Verbindung zu einer Datenbank ist eine Technik, die verwendet wird, um die Effizienz und Skalierbarkeit von Datenbankverbindungen in Anwendungen zu verbessern.
 Statt für jede Anfrage eine neue Verbindung zur Datenbank aufzubauen und anschließend wieder zu schließen, werden vorab eine Gruppe von Verbindungen (Pool) erstellt und beibehalten.
-Auf diese Klasse wird das Singelton-Pattern angewendet, um sicherzustellen, dass nur eine Instanz der Klasse erzeugt wird.
+Auf diese Klasse wird das \glslink{Singleton}{Singleton-Pattern} angewendet, um sicherzustellen, dass nur eine Instanz der Klasse erzeugt wird.
 
 \begin{figure}[htp]
     \centering
@@ -1266,8 +1266,10 @@ Der \texttt{AbstractRouter} ist eine abstrakte Repräsentation eines Routers. So
 Attribut, dass einen Router in Express repräsentiert. Das zugehörige Objekt soll beim Konstruktoraufruf erzeugt werden. 
 \paragraph{\texttt{controller: AbstractController}}
 Attribut, das einen abstrakten Controller repräsentiert. Mit diesem Attribut wird in den jeweiligen Routern der dazu passende Controller gespeichert.
-\paragraph{\texttt{checkAuthorization: CheckAuthorization}} % TODO
-\paragraph{\texttt{checkAuth: any}} % TODO Datentyp
+\paragraph{\texttt{checkAuthorization: CheckAuthorization}}
+Attribut, das eine Instanz der Klasse \texttt{CheckAuthorization} repräsentiert. Diese Klasse wird benötigt, um die Anfragen an die Routen zu überprüfen.
+\paragraph{\texttt{authChecker: express.RequestHandler}}
+Attribut, das eine Funktion repräsentiert, die die Anfragen an die Routen überprüft. Diese Funktion wird benötigt, um die Anfragen an die Routen zu überprüfen.
 
 \subsubsection*{Methoden}
 \paragraph{\texttt{abstract setupRoutes(): void}}
@@ -1524,7 +1526,7 @@ Der zugehörige Router ist der \texttt{AuthentificationRouter} (siehe \nameref{s
 In der Anfrage müssen der Name, die E-Mail-Adresse und das Passwort des Nutzers angegeben werden.
 
 \paragraph{Response}
-Im Erfolgsfall wird ein Statuscode 200 und der JWT des Nutzers zurückgegeben.
+Im Erfolgsfall wird ein Statuscode 200 und der \glslink{JWT}{JWT} des Nutzers zurückgegeben.
 
 \subsubsection*{POST /auth/login}
     \paragraph{Request}
@@ -1540,8 +1542,8 @@ Im Erfolgsfall wird ein Statuscode 200 und der JWT des Nutzers zurückgegeben.
 Die Route \texttt{/recipe} ist die Route, die für alle Anfragen zuständig ist, die mit Rezepten zu tun haben.
 Der zugehörige Router ist der \texttt{RecipeRouter} (siehe \nameref{sec:RecipeRouter}).
 
-Anfragen an diese Route müssen mit einem gültigen JWT versehen sein, da nur angemeldete Nutzer Rezepte erstellen können.
-Der JWT wird dabei im Header der Anfrage mitgeschickt.
+Anfragen an diese Route müssen mit einem gültigen \glslink{JWT}{JWT} versehen sein, da nur angemeldete Nutzer Rezepte erstellen können.
+Der \glslink{JWT}{JWT} wird dabei im Header der Anfrage mitgeschickt.
 
 \subsubsection*{POST /recipe}
 \subsubsection*{DELETE /recipe/:id}
@@ -1555,8 +1557,8 @@ Der JWT wird dabei im Header der Anfrage mitgeschickt.
 Die Route \texttt{/group} ist die Route, die für alle Anfragen zuständig ist, die mit Gruppen zu tun haben.
 Der zugehörige Router ist der \texttt{GroupRouter} (siehe \nameref{sec:GroupRouter}).
 
-Die Anfragen an diese Route müssen mit einem gültigen JWT versehen sein, da nur angemeldete Nutzer Gruppen erstellen können.
-Der JWT wird dabei im Header der Anfrage mitgeschickt.
+Die Anfragen an diese Route müssen mit einem gültigen \glslink{JWT}{JWT} versehen sein, da nur angemeldete Nutzer Gruppen erstellen können.
+Der \glslink{JWT}{JWT} wird dabei im Header der Anfrage mitgeschickt.
 
 \subsubsection*{POST /group}
 
@@ -1570,8 +1572,8 @@ Der JWT wird dabei im Header der Anfrage mitgeschickt.
 Die Route \texttt{/user} ist die Route, die für alle Anfragen zuständig ist, die mit Nutzern zu tun haben.
 Der zugehörige Router ist der \texttt{UserRouter} (siehe \nameref{sec:UserRouter}).
 
-Die Anfragen an diese Route müssen mit einem gültigen JWT versehen sein, da nur angemeldete Nutzer Nutzerdaten ändern können.
-Der JWT wird dabei im Header der Anfrage mitgeschickt.
+Die Anfragen an diese Route müssen mit einem gültigen \glslink{JWT}{JWT} versehen sein, da nur angemeldete Nutzer Nutzerdaten ändern können.
+Der \glslink{JWT}{JWT} wird dabei im Header der Anfrage mitgeschickt.
 
 \subsubsection*{DELETE /user/:id}
 \subsubsection*{PATCH /user/:id}
