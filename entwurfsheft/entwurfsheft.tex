@@ -928,7 +928,7 @@ Callback-Methode, die ausgeführt wird wenn sich der Inhalt des Textfelds änder
 Konstruktor, der die Callback-Methode übergeben bekommt.
 \newpage
 \subsection{\texttt{RecipeDetailScreen}}
-Die Klasse stellt den Bildschirm dar, auf dem die Zubereitungsanweisungen eines Rezepts angezeigt werden. Sie ist ein \texttt{StatefulWidget}, da sie den Zustand \texttt{portionAmount} verwaltet. 
+Die Klasse stellt den Bildschirm dar, auf dem die Zubereitungsanweisungen eines Rezepts angezeigt werden. Sie ist ein \texttt{StatefulWidget}, da sie den Zustand \texttt{portionAmount} verwaltet.
 \begin{figure}[htp]
     \begin{minipage}
         [t]{0.49\textwidth}
@@ -945,7 +945,7 @@ Die Klasse stellt den Bildschirm dar, auf dem die Zubereitungsanweisungen eines 
 \end{figure}
 \subsubsection*{Attribute}
 \paragraph{\texttt{recipe: Recipe}}
-Das Rezept, das angezeigt werden soll. Es wird bei der Initialisierung aus dem \Gls{BuildContext} gelesen, wo es vorher hineingeschrieben wurde. 
+Das Rezept, das angezeigt werden soll. Es wird bei der Initialisierung aus dem \Gls{BuildContext} gelesen, wo es vorher hineingeschrieben wurde.
 \paragraph{\texttt{portionAmount: int}}
 Die Anzahl der Portionen, die der Nutzer kochen möchte. Er kann sie über ein Textfeld setzen, woraufhin die Zutatenmengen angepasst werden.
 \newpage
@@ -1133,7 +1133,7 @@ Der Controller für die Einheit der Zutat.
 Validiert die Felder und leitet dann zur vorherigen Ansicht zurück, wobei die eingegebenen Daten als \texttt{Ingredient} über den \Gls{BuildContext} übergeben werden.
 \newpage
 \subsubsection{\texttt{IconPickerWidget}}
-Die Klasse repräsentiert ein Widget, das ein Icon auswählen kann. Es ist ein \texttt{StatefulWidget}, da es den Zustand \texttt{iconName} verwaltet. Drückt der Nutzer auf das Widget öffnet sich ein \Gls{Dialog} mit einer Liste von Icons, aus der der Nutzer eines auswählen kann. 
+Die Klasse repräsentiert ein Widget, das ein Icon auswählen kann. Es ist ein \texttt{StatefulWidget}, da es den Zustand \texttt{iconName} verwaltet. Drückt der Nutzer auf das Widget öffnet sich ein \Gls{Dialog} mit einer Liste von Icons, aus der der Nutzer eines auswählen kann.
 \begin{figure}[htp]
     \begin{minipage}
         [t]{0.49\textwidth}
@@ -1181,6 +1181,28 @@ Der Controller für den Namen der Zutat.
 \subsubsection*{Methoden}
 \paragraph{\texttt{IngredientNameInput(String name, TextEditingController controller): IngredientNameInput}}
 Konstruktor, der den Namen der Zutat und den Controller übergeben bekommt und setzt.
+\newpage
+\subsection{\texttt{QRCodeScreen}}
+\label{sec:qrCodeScreen}
+Die Klasse bildet die QR-Code-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie selbst keinen Zustand verwaltet. Sie zeigt einen QR-Code an, der den Nutzer zu einer Gruppe hinzufügt, wenn er gescannt wird.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=8cm]{images/presentationLayer/uiElements/qrCodeScreen.jpg}
+        \caption{\protect\raggedright Abbildung des QR\-Code\-Screens}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/qrCodeScreen.pdf}
+        \caption{\protect\raggedright Klassendiagramm des QR\-Code\-Screens}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{group: Group}}
+Die Gruppe, die der QR-Code repräsentiert. Sie wird bei der Initialisierung aus dem \Gls{BuildContext} gelesen.
+
 \newpage
 \section{REST-Webserver}
 Um seinen Account zu verwalten, Rezepte aufzurufen oder mit Gruppe interagieren zu können benötigt man die Verbindung zum Server.
