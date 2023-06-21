@@ -1203,6 +1203,8 @@ Mit dieser Methode wird die Middleware initialisiert. Hier ist es möglich, die 
 Eine Middleware, die zum Beispiel zwischengeschaltet werden kann, wäre Morgan. Morgan ermöglicht es, HTTP-Anfragen zu loggen.
 \paragraph{\texttt{initializeRoutes(): void}}
 Mit dieser Methode werden die Routen initialisiert.
+Es werden jeweilige Routes für jeden Router initialisiert. Diese werden benötigt, um die Anfragen an die richtigen Stellen weiterzuleiten.
+Wie genau diese Routen definiert sind wird im Abschnitt \nameref{sec:HTTP-Anfragen und API-Endpunkte}.
 \paragraph{\texttt{initializeErrorHandlers(): void}}
 Mit dieser Methode Werden Error-Handler initialisiert. Diese wird benötigt, wenn beispielsweise eine Anfrage an keine gültige Route gestellt wird.
 
@@ -1499,7 +1501,7 @@ Attribut, das den Inhalt der HTML-Datei repräsentiert.
 \paragraph{\texttt{<<create>> constructor(reciever: string, adminUsername: string, recipeTitle: string, reportedUsername: string): void}}
 Mit diesem Konstruktor wird ein Objekt vom Typ \texttt{ReportMailBuilder} erzeugt. Der \texttt{receiver}-Parameter enthält die E-Mail-Adresse des Empfängers. Der \texttt{adminUsername}-Parameter enthält den Benutzernamen des Admins, dem das Rezept gemeldet wird. Der \texttt{recipeTitle}-Parameter enthält den Titel des Rezepts, das gemeldet wurde. Der \texttt{reportedUsername}-Parameter enthält den Benutzernamen des Nutzers, der das Rezept erstellt hat.
 
-\section{HTTP-Anfragen und API-Endpunkte}
+\section{HTTP-Anfragen und API-Endpunkte} \label{sec:HTTP-Anfragen und API-Endpunkte}
 Wie schon im Einführungstext zum Abschnitt Webserver erwähnt, werden alle Anfragen an den Webserver über HTTP gestellt.
 Um die Anfragen zu verarbeiten, werden die Anfragen an die entsprechenden Router weitergeleitet.
 Die Anfragen werden dabei in der Form von JSON-Objekten an den Webserver gesendet.
