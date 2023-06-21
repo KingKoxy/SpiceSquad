@@ -1182,6 +1182,133 @@ Der Controller für den Namen der Zutat.
 \paragraph{\texttt{IngredientNameInput(String name, TextEditingController controller): IngredientNameInput}}
 Konstruktor, der den Namen der Zutat und den Controller übergeben bekommt und setzt.
 \newpage
+\subsection{\texttt{settings\_screen}}
+Das Package \texttt{settings\_screen} enthält alle Klassen für die Einstellungsansicht. Der anzuzeigende Screen ist in der Klasse \hyperref[sec:settingsScreen]{\texttt{SettingsScreen}} implementiert.
+\begin{figure}
+    [htp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/settingsScreenWhole.pdf}
+    \caption{\protect\raggedright Klassendiagramm des settings\_screen-Packages}
+\end{figure}
+\newpage
+
+\subsubsection{SettingsScreen}
+\label{sec:settingsScreen}
+Die Klasse bildet die Einstellungsansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand verwaltet.
+
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=8cm]{images/presentationLayer/uiElements/settingsScreen.jpg}
+        \caption{\protect\raggedright Abbildung des Settings\-Screens}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/settingsScreen.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Settings\-Screens}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Methoden}
+\paragraph{\texttt{logout(): void}}
+Leitet eine Anfrage zum Abmelden des Nutzers über einen Provider an den zuständigen Service weiter. Leitet dann den Nutzer an die Anmeldeseite weiter.
+\paragraph{\texttt{deleteAccount(): void}}
+Leitet eine Anfrage zum Löschen des Nutzers über einen Provider an den zuständigen Service weiter. Leitet dann den Nutzer an die Anmeldeseite weiter.
+\paragraph{\texttt{renameUser(String newName): void}}
+Leitet eine Anfrage zum Umbenennen des Nutzers über einen Provider an den zuständigen Service weiter.
+\newpage
+\subsubsection{ProfileImagePicker}
+\label{sec:profileImagePicker}
+Die Klasse bildet die Profilbildauswahl ab. Sie ist ein \texttt{StatefulWidget}, da sie den Zustand \texttt{profileImage} verwaltet. Sie zeigt ein Bild an, das der Nutzer auswählen kann.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=3cm]{images/presentationLayer/uiElements/profileImagePicker.png}
+        \caption{\protect\raggedright Abbildung des Profile\-Image\-Pickers}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/profileImagePicker.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Profile\-Image\-Pickers}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{profileImage: UInt8List?}}
+Das Profilbild des Nutzers. Oder \texttt{null}, wenn keines wurde.
+\paragraph{\texttt{onChange(UInt8List? profileImage): void}}
+Callback-Methode, die ausgeführt wird, wenn sich das Profilbild ändert und das neue Profilbild als Parameter übergeben bekommt.
+\subsubsection*{Methoden}
+\paragraph{\texttt{ProfileImagePicker(UInt8List? profileImage, void onChange(UInt8List? profileImage)): ProfileImagePicker}}
+Konstruktor, der das Profilbild und die Callback-Methode übergeben bekommt und setzt.
+\newpage
+\subsubsection{GroupList}
+\label{sec:groupList}
+Die Klasse bildet die Gruppenliste ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand verwaltet. Sie zeigt eine Liste von Gruppen an, bei denen der Nutzer Mitglied ist. 
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=.95\textwidth]{images/presentationLayer/uiElements/groupList.png}
+        \caption{\protect\raggedright Abbildung der Group\-List}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/groupList.pdf}
+        \caption{\protect\raggedright Klassendiagramm der Group\-List}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{groups: List<Group>}}
+Die Liste der Gruppen, die angezeigt werden sollen.
+\subsubsection*{Methoden}
+\paragraph{\texttt{GroupList(List<Group> groups): GroupList}}
+Konstruktor, der die Liste der Gruppen übergeben bekommt und setzt.
+\paragraph{\texttt{leaveGroup(String id): void}}
+Leitet die Anfrage zum Verlassen der Gruppe über einen Provider an den zuständigen Service weiter.
+\newpage
+\subsubsection{\texttt{OwnRecipeList}}
+\label{sec:ownRecipeList}
+Die Klasse bildet die Rezeptliste des Nutzers ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand verwaltet. Sie zeigt eine Liste von Rezepten an, die der Nutzer erstellt hat.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=.95\textwidth]{images/presentationLayer/uiElements/ownRecipeList.png}
+        \caption{\protect\raggedright Abbildung der OwnRecipeList}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/ownRecipeList.pdf}
+        \caption{\protect\raggedright Klassendiagramm der OwnRecipe\-List}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{recipes: List<Recipe>}}
+Die Rezepte, die angezeigt werden sollen.
+\subsubsection*{Methoden}
+\paragraph{\texttt{OwnRecipeList(List<Recipe> recipes): OwnRecipeList}}
+Konstruktor, der die Rezepte übergeben bekommt und setzt.
+\paragraph{\texttt{hideRecipe(String id): void}}
+Leitet eine Anfrage zum Setzen des Rezepts auf privat über einen Provider an den zuständigen Service weiter.
+\paragraph{\texttt{exportRecipe(Recipe recipe): void}}
+Leitet eine Anfrage zum Exportieren des Rezepts über einen Provider an den zuständigen Service weiter.
+\paragraph{\texttt{deleteRecipe(String id): void}}
+Leitet eine Anfrage zum Löschen des Rezepts über einen Provider an den zuständigen Service weiter.
+\newpage
+\subsection{\texttt{group\_detail\_screen}}
+Das Package \texttt{group\_detail\_screen} enthält alle Klassen für die Gruppen-Detaill-Ansicht. Der anzuzeigende Screen ist in der Klasse \hyperref[sec:groupDetailScreen]{\texttt{GroupDetailScreen}} implementiert.
+\begin{figure}
+    [htp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/groupDetailScreenWhole.pdf}
+    \caption{\protect\raggedright Klassendiagramm des group\_detail\_screen-Packages}
+\end{figure}
+\newpage
 \subsection{\texttt{QRCodeScreen}}
 \label{sec:qrCodeScreen}
 Die Klasse bildet die QR-Code-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie selbst keinen Zustand verwaltet. Sie zeigt einen QR-Code an, der den Nutzer zu einer Gruppe hinzufügt, wenn er gescannt wird.
