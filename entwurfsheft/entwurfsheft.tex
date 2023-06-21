@@ -1747,22 +1747,32 @@ Im Erfolgsfall wird ein Statuscode 200 zurückgegeben.
 \newpage
 
 \section{Nutzerverwaltung mit Firebase}\label{sec:Nutzerverwaltung}
-Um SpiceSquad nutzen zu können muss ein Nutzer sich registrieren oder einloggen sofern er schon einen Account besitzt.
-Durch die Kenntnis der Identität eines Benutzer ermöglicht es SpiceSquad zum einen die Benutzerdaten in einer Datenbank auf einem Server sicher zu speichern und zum anderen diese Daten auf anderen Geräten wieder abzurufen um auf allen Geräten des Nutzers die selbe personalisierte Erfahrung zu gewährleisten.
+Um SpiceSquad nutzen zu können, muss sich ein Nutzer registrieren bzw einloggen, sofern er schon einen Account besitzt.
+Die Kenntnis der Identität eines Benutzer ermöglicht es SpiceSquad zum einen, die Benutzerdaten in einer Datenbank auf einem Server sicher zu speichern und zum anderen, diese Daten auf anderen Geräten wieder abzurufen, um auf allen Geräten des Nutzers die selbe personalisierte Erfahrung zu gewährleisten.
 Um unseren Nutzern eine sichere und reibungslose Nutzerverwaltung gewährleisten zu können verwendet SpiceSquad Firebase-Authentifizierung als Dienst zur Nutzerverwaltung.
-Firebase-Authentifizierung ermöglicht es sicher Nutzerdaten zu speicher und anfragen an den Server von angemeldeten Nutzer zu authentifizieren.
+Firebase-Authentifizierung ermöglicht es, sicher Nutzerdaten zu speichern und Anfragen an den Server von angemeldeten Nutzern zu authentifizieren.
 Hierbei verwendet Firebase sogenannte JWT (JSON Web Token), die bei Firebase ID Token genannt werden.
 ID Token müssen durch regelmäßige Anfragen erneuert werden.
 Ein Beispiel wie die Verifizierung durch ID Token funktioniert findet man in dem Abschnitt Ablaufbeschreibung.
 Firebase anfragen, die Firebase direkt betreffen, sollen über den \texttt{AuthentificationRouter} laufen.
-Die beinhaltet beispielsweise das registrieren, einloggen und rücksetzen des Passworts.
-SpiceSquad verwendet diese Token um anfragen an die REST-API zu verifizieren und diese gleich einem Nutzer zuzuweisen.
+Dieser beinhaltet beispielsweise das Registrieren, Einloggen und Zurücksetzen des Passworts.
+SpiceSquad verwendet diese Token um Anfragen an die REST-API zu verifizieren und diese gleich einem Nutzer zuzuweisen.
 Wir haben uns beim Entwurf entschieden, jede Kommunikation nur zwischen Client (Android-App) und Server (REST Webserver) laufen zu lassen. Das heißt, dass alle Anfragen an Firebase erst über den REST Webserver laufen und dann anschließend an Firebase weitergeleitet werden.
-Grund für diese Entscheidung, war die, dass wir unsere App nur direkt mit unserem Server kommunizieren lassen wollen. Damit wollen wir uns auf der Seite der App so unabhängig von anderen dienst machen wie möglich.
+Grund für diese Entscheidung war, dass wir unsere App nur direkt mit unserem Server kommunizieren lassen wollen. Damit wollen wir uns auf der Seite der App so unabhängig von anderen Diensten wie möglich machen.
 
 \subsection{Passwort zurücksetzen}
 Wie vorher erwähnt sollen Passwörter von Nutzer zurückgesetzt werden können. Beim Rücksetzen soll der Nutzer eine Mail mit einem Link zum zurücksetzen seines Passworts erhalten.
 Das alles wird von Firebase-Authentifizierung bereits bereitgestellt. SpiceSquad bedient sich also für dieses Funktion bei Firebase-Authentifizierung.
+
+\subsection{Login}
+Bei einem Login wird auf ein bereits vorhandenes Profil zugegriffen. Der Nutzer übergibt seine Emailadresse und sein Passwort, welche anschließend vom Firebase-Server bestätigt bzw abgelehnt werden. Bei erfolgreicher Anmeldung liefert der Firebase-Server ein Refresh Token sowie ein Login Token, welche zur weiteren Authentifizierung des Nutzers benötigt werden
+
+\subsection{Id Token}
+Ein Id Token ist eine Stunde gültig, neue Id Tokens können vom Firebase-Server angefordert werden. Ein Id Token wird benötigt, um eine aktive Nutzersession zu validieren.
+
+\subsection{Refresh Token}
+Im Gegensatz zum kurzlebigen Id Token bleibt das Refresh Token gültig, bis der Nutzer gelöscht bzw das Token manuell invalidiert wird (in unserer App nicht relevant). Es kann verwendet werden, um vom Firebase-Server ein neues Id Token anzufordern. Das Refresh Token wird beim Login auf dem Gerät des Nutzers gespeichert und ermöglicht eine Authentifizierung ohne erneute Eingabe von Passwort und Email. 
+
 \newpage
 
 \section{Datenbank}
