@@ -1527,8 +1527,13 @@ In der Anfrage müssen der Name, die E-Mail-Adresse und das Passwort des Nutzers
 Im Erfolgsfall wird ein Statuscode 200 und der JWT des Nutzers zurückgegeben.
 
 \subsubsection*{POST /auth/login}
+    \paragraph{Request}
+        In der Anfrage müssen 
+    \paragraph{Response}
+
 \paragraph{Request}
 \paragraph{Response}
+
 \subsubsection*{POST /auth/resetPassword}
 
 \subsection{/recipe}
@@ -1705,6 +1710,28 @@ Die Tabelle "BannedUser" repräsentiert die Many-To-Many-Beziehung zwischen den 
 \newpage
 
 \section{Ablaufbeschreibung}
+    \subsection{Sequenzdiagrammen Rezeptholen}
+            Das Sequenzdiagrammen zeigt den Ablauf von Rezept holen zur Darstellung der Hauptansicht. Dabei besteht zwar eine Verbindung zum Server jedoch ist der Session Token abgelaufen und muss erneuert werden.\\
+            Die Klasse \texttt{MainScreen} der Hauptansicht startet den Vorgang mit dem Aufruf der Funktion \texttt{getAllRecipesForUser()}der Klasse \texttt{RecipeService}. Die Klasse \texttt{RecipeService} implementiert die abstrakte Methode \texttt{build()} der Klasse \texttt{AsyncNotifier}, welche einen Initialwert zurückgibt und den Aufruf \texttt{remoteRecipeReopsitory.fetchAllGroupsForUser()} tätigt, weil eine Verbindung zum Server besteht und nicht auf \texttt{RemoteRecipeRepository} zurückgegriffen werden muss. Die Funktion \texttt{fetchAllGroupsForUser()} der Klasse \texttt{RemoteRecipeRepository} gibt bei der asynchronen Funktionen ein \texttt{Future-}Objekt zurück, welches aufgelöst wird, wenn die Rezepte erfolgreich vom Server abgefragt wurden. Weil der User Token abgelaufen ist gibt der Funktionsaufruf \texttt{verifyToken(JWT)} bei \texttt{Firebase} den Fehlercode auth\slash id-token-expired zurück. Das \texttt{UserRepository} erneuert den Token und der Prozess kann normal weiterlaufen. Der \texttt{RecipeRouter} ruft mit die asynchrone Funktion \texttt{recipesGetAllForUser(req, res)} und erhält dafür ein \texttt{Promise}, welches aufgelöst wird, wenn die Rezepte erfolgreich vom Server abgefragt wurden. Die \texttt{Database} gibt die \texttt{List<Recipe>} zurück und die wird bis zur Klasse \texttt{MainScreen} weitergeleitet. In dem Sequenzdiagrammen wird \texttt{List<Recipe>} durch \texttt{List (Recipe)} ersetzt.
+        
+        \begin{figure}[htp]
+            \centering
+            \includegraphics[width = \linewidth]{images/processDescription/SequenzdiagrammRecipeFetching.pdf}
+            \caption{Sequenzdiagrammen Rezeptholen}
+        \end{figure}
+
+    \newpage
+    
+    \subsection{Sequenzdiagrammen User bannen}
+        Das Sequenzdiagrammen zeigt den Ablauf von User bannen. Es wird von einem idealen Ablauf ausgegangen. Der Nutzer hat bereits bestätigt, dass der Nutzer wirklich gebannt werden soll.\\
+        Die Klasse \texttt{GroupDetailScreen} ruft die Funktion \texttt{banUser(UserId,GroupId)} der Klasse \texttt{GroupService} auf. Die Parameter sind die ID des Nutzer und die ID der Gruppe. Es wird ein \texttt{Future}-Objekt zurückgegeben, welches aufgelöst wird, wenn der Nutzer erfolgreich aus der Gruppe gebannt wurde. Die Klasse \texttt{AdminRepository} gibt bei dem Funktionsaufruf von \texttt{banUser(UserId, GroupId)} auch ein \texttt{Future}-Objekt zurück, welches aufgelöst wird, wenn der Nutzer erfolgreich aus der Gruppe gebannt wurde. Die Klasse \texttt{CheckAuthorization} ruft neben der Funktion \texttt{verifyToken(JWT)} von \texttt{Firebase} auch noch die Funktion \texttt{adminStatusChecker(req, res, next())} auf, um nicht nur zu überprüfen ob der User Token aktuell ist, sondern auch ob der User die Admin Rechte besitzt.
+        \begin{figure}[htp]
+            \centering
+            \includegraphics[width = \linewidth]{images/processDescription/SequenzdiagrammBanUser.pdf}
+            \caption{Sequenzdiagrammen User bannen}
+        \end{figure}
+
+    \newpage 
 
 \newpage
 \section{Klassenindex}
