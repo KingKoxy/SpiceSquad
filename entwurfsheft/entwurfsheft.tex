@@ -1371,7 +1371,6 @@ Ein Controller ist ein Objekt, das Handler-Funktionen für verschiedene Routen b
 Diese Handler-Funktionen werden als Callback-Funktionen für die entsprechenden Routen registriert und nehmen die Anfrage (\texttt{req}) und die Antwort (\texttt{res}) als Parameter entgegen.
 
 
-
 \begin{figure}[htp]
     \centering
     \includegraphics[width = 1\textwidth]{images/webserver/controller.pdf}
@@ -1381,21 +1380,41 @@ Diese Handler-Funktionen werden als Callback-Funktionen für die entsprechenden 
 
 \subsubsection{\texttt{AbstractController}}\label{sec:AbstractController}
 Der \texttt{AbstractController} beschreibt eine abstrakte Darstellung eines Controllers. Alle Controller erben von dieser Klasse.
+\subsection*{Attribute}
+\paragraph{\texttt{database: Database}}
+Attribut, das eine Instanz der Klasse \texttt{Database} repräsentiert. Diese Klasse wird benötigt, um auf die Datenbank zugreifen zu können.
+\paragraph{\texttt{pool: pg.Pool}}
+Attribut, dass eine Poolverbindung zur Datenbank repräsentiert. Diese Klasse wird benötigt, um auf die Datenbank zugreifen zu können.
+\subsection*{Methode}
+\paragraph{\texttt{AbstractController(): void}}
+Die Methode ist der Konstruktor der Klasse \texttt{AbstractController}.
 
 \subsubsection{\texttt{AuthentificationController}}\label{sec:AuthentificationController}
 Der \texttt{AuthentificationController} ist verantwortlich für alle Anfragen, die mit der Nutzerverwaltung in Firebase direkt etwas zu zun haben. Das heißt konkret das Registrieren, Einloggen und Zurücksetzen des Passwort des Nutzers.
 \subsubsection*{Methoden}
+\paragraph{\texttt{AuthentificationController(): void}}
+Die Methode ist der Konstruktor der Klasse \texttt{AuthentificationController}.
 \paragraph{\texttt{public userRegister(req: express.Request, res: express.Response): void}}
-
 Diese Methode sorgt dafür, dass der Nutzer sich registrieren kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Benutzername, Passwort und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob die Registrierung erfolgreich war oder Fehler aufgetreten sind.
 \paragraph{\texttt{public userLogin(req: express.Request, res: express.Response): void}}
 Diese Methode sorgt dafür, dass der Nutzer sich einloggen kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Benutzername, Passwort und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob das Einloggen erfolgreich war oder Fehler aufgetreten sind. 
 \paragraph{\texttt{userResetPassword(req: express.Request, res: express.Response): void}}
 Diese Methode sorgt dafür, dass der Nutzer sein Passwort zurücksetzen lassen kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Benutzername übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob die Anfrage zum Zurücksetzen des Passworts erfolgreich war oder Fehler aufgetreten sind. 
+\paragraph{\texttt{userGetByToken(req: express.Request, res: express.Response): void}}
+Diese Methode sorgt dafür, dass der Nutzer anhand seines Tokens abgerufen werden kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Token übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Abrufen des Nutzers erfolgreich war oder Fehler aufgetreten sind.
+\paragraph{\texttt{userRefreshToken(req: express.Request, res: express.Response): void}}
+Diese Methode sorgt dafür, dass der Nutzer sein \texttt{idToken} aktualisieren kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request. Es wird hierfür das \texttt{refreshToken}. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Aktualisieren des Tokens erfolgreich war oder Fehler aufgetreten sind.
 
 \subsubsection{\texttt{RecipeController}}\label{sec:RecipeController}
 Der \texttt{RecipeController} ist verantwortlich für alle Anfragen, die mit den Rezepten zu tun haben.
+\subsubsection*{Attribute}
+\paragraph{\texttt{report: reportMailBuilder}}
+Attribut, das eine Instanz der Klasse \texttt{reportMailBuilder} repräsentiert. Diese Klasse wird benötigt, um die E-Mail für den Report zu erstellen.
+\paragraph{\texttt{mailSender: mailSender}}
+Attribut, das eine Instanz der Klasse \texttt{mailSender} repräsentiert. Diese Klasse wird benötigt, um die E-Mail für den Report zu versenden.
 \subsubsection*{Methoden}
+\paragraph{\texttt{RecipeController(): void}}
+Die Methode ist der Konstruktor der Klasse \texttt{RecipeController}.
 \paragraph{\texttt{recipePost(req: express.Request, res: express.Response): Promise<void>}}
 Mit der Methode \texttt{recipePost} kann ein neues Rezept erstellt werden und in der Datenbank gespeichert werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Rezeptname, Rezeptbeschreibung, Zutaten, Zubereitung und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob das Erstellen des Rezepts erfolgreich war oder Fehler aufgetreten sind.
 Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
@@ -1405,29 +1424,21 @@ Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron 
 \paragraph{\texttt{recipePatch(req: express.Request, res: express.Response): Promise<void>}}
 Diese Methode sorgt dafür, dass ein Rezept bearbeitet werden kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Rezeptname, Rezeptbeschreibung, Zutaten, Zubereitung und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob das Bearbeiten des Rezepts erfolgreich war oder Fehler aufgetreten sind.
 Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
-\paragraph{\texttt{recipeGetById(req: express.Request, res: express.Response): Promise<void>}}
-Durch die Methode \texttt{recipeGetById} kann ein Rezept anhand seiner Id abgerufen werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Rezeptname, Rezeptbeschreibung, Zutaten, Zubereitung und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob das Abrufen des Rezepts erfolgreich war oder Fehler aufgetreten sind.
-Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
 \paragraph{\texttt{recipesGetAllForUser(req: express.Request, res: express.Response): Promise<void>}}
 Mit der Methode \texttt{recipesGetAllForUser} können alle Rezepte eines Nutzers abgerufen werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Rezeptname, Rezeptbeschreibung, Zutaten, Zubereitung und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob das Abrufen der Rezepte erfolgreich war oder Fehler aufgetreten sind.
 Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
 \paragraph{\texttt{recipeSetFavorite(req: express.Request, res: express.Response): Promise<void>}}
 Durch die Methode \texttt{recipeSetFavorite} kann ein Rezept als Favorit markiert werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Rezept Id und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob das Markieren des Rezepts als Favorit erfolgreich war oder Fehler aufgetreten sind.
 Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
-\paragraph{\texttt{recipeGetOwn(req: express.Request, res: express.Response): Promise<void>}}
-Mit der Methode \texttt{recipeGetOwn} können alle Rezepte eines Nutzers abgerufen werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Rezeptname, Rezeptbeschreibung, Zutaten, Zubereitung und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob das Abrufen der Rezepte erfolgreich war oder Fehler aufgetreten sind.
-Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
 \paragraph{\texttt{recipeReport(req: express.Request, res: express.Response): Promise<void>}}
 Mit der Methode \texttt{recipeReport} kann ein Rezept gemeldet werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Rezept Id und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Melden des Rezepts erfolgreich war oder Fehler aufgetreten sind.
 Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
-\paragraph{\texttt{recipeGetPDF(req: express.Request, res: express.Response): Promise<void>}}
-Mit der Methode \texttt{recipeGetPDF} kann ein Rezept als PDF abgerufen werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Rezept Id und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Abrufen des Rezepts als PDF erfolgreich war oder Fehler aufgetreten sind.
-Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
-
 
 \subsubsection{\texttt{GroupController}}\label{sec:GroupController}
 Der \texttt{GroupController} ist verantwortlich für alle Anfragen, die mit den Gruppen zu tun haben. Darunter fallen das Erstellen, Löschen, Bearbeiten, Beitreten und Verlassen von Gruppen.
 \subsubsection*{Methoden}
+\paragraph{\texttt{GroupController(): void}}
+Die Methode ist der Konstruktor der Klasse \texttt{GroupController}.
 \paragraph{\texttt{groupPost(req: express.Request, res: express.Response): void}}
 Mit der Methode \texttt{groupPost} kann eine neue Gruppe erstellt werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Gruppenname, Gruppenbeschreibung und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Erstellen der Gruppe erfolgreich war oder Fehler aufgetreten sind.
 Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
@@ -1450,8 +1461,10 @@ Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron 
 \subsubsection{\texttt{UserController}}\label{sec:UserController}
 Der \texttt{UserController} ist verantwortlich für alle Anfragen, die mit den Nutzern zu tun haben, wie das ändern der Nutzerdaten oder das Löschen des Nutzers.
 \subsubsection*{Methoden}
+\paragraph{\texttt{UserController(): void}}
+Die Methode ist der Konstruktor der Klasse \texttt{UserController}.
 \paragraph{\texttt{userDelete(req: express.Request, res: express.Response): void}}
-Mit der Methode \texttt{userDelete} kann ein Nutzer gelöscht werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Nutzername und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Löschen des Nutzers erfolgreich war oder Fehler aufgetreten sind.
+Mit der Methode \texttt{us-erDelete} kann ein Nutzer gelöscht werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Nutzername und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Löschen des Nutzers erfolgreich war oder Fehler aufgetreten sind.
 Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
 \paragraph{\texttt{userPatch(req: express.Request, res: express.Response): void}}
 Diese Methode sorgt dafür, dass ein Nutzer bearbeitet werden kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Nutzername und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Bearbeiten des Nutzers erfolgreich war oder Fehler aufgetreten sind.
@@ -1460,6 +1473,8 @@ Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron 
 \subsubsection{\texttt{IngredientController}}\label{sec:IngredientController}
 Der \texttt{IngredientController} ist verantwortlich für alle Anfragen, die mit den Zutaten zu tun haben, wie das Abrufen von Zutaten.
 \subsubsection*{Methoden}
+\paragraph{\texttt{IngredientController(): void}}
+Die Methode ist der Konstruktor der Klasse \texttt{IngredientController}.
 \paragraph{\texttt{ingredientGetAll(req: express.Request, res: express.Response): void}}
 Mit der Methode \texttt{ingredientGetAll} können alle Zutaten abgerufen werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Zutaten Id und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Abrufen der Zutaten erfolgreich war oder Fehler aufgetreten sind. Bei erfolgreichem Abrufen werden alle Zutaten mit der Response zurückgegeben.
 Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
@@ -1467,6 +1482,8 @@ Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron 
 \subsubsection{\texttt{AdminUserController}}\label{sec:AdminUserController}
 Der \texttt{AdminUserController} ist verantwortlich für alle Anfragen, die mit der Adminrolle zu tun haben, wie das Hinzufügen und Löschen von Admins sowie dem Kicken und Bannen von Nutzern.
 \subsubsection*{Methoden}
+\paragraph{\texttt{AdminUserController(): void}}
+Die Methode ist der Konstruktor der Klasse \texttt{AdminUserController}.
 \paragraph{\texttt{makeAdmin(req: express.Request, res: express.Response): void}}
 Mit der Methode \texttt{makeAdmin} kann ein Nutzer zum Admin gemacht werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Nutzer Id und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Hinzufügen des Admins erfolgreich war oder Fehler aufgetreten sind.
 \paragraph{\texttt{removeAdminStatus(req: express.Request, res: express.Response): void}}
@@ -1497,6 +1514,8 @@ Die Klasse \texttt{MailSender} ist für das Versenden der E-Mails zuständig.
 \paragraph{\texttt{transporter: nodemailer.Transporter}}
 Attribut, das einen Transporter für das Versenden der E-Mails repräsentiert. Das zugehörige Objekt soll beim Konstruktoraufruf erzeugt werden.
 \subsubsection*{Methoden}
+\paragraph{\texttt{MailSender(): void}}
+Die Methode ist der Konstruktor der Klasse \texttt{MailSender}.
 \paragraph{\texttt{sendEmail(mailOptions: nodemailer.SendMailOptions): Promise<nodemailer.SendMessageInfo>}}
 Mit dieser Methode wird eine E-Mail versendet. Der \texttt{mailOptions}-Parameter enthält Informationen über die E-Mail, die versendet werden soll. Der Rückgabewert ist vom Typ \texttt{Promise<nodemailer.SendMessageInfo>}, da die Funktion asynchron ausgeführt wird.
 
@@ -1513,8 +1532,8 @@ Attribut, das den Betreff der E-Mail repräsentiert.
 Attribut, das den HTML-Inhalt der E-Mail repräsentiert.
 
 \subsubsection*{Methoden}
-\paragraph{\texttt{getMail(): nodemailer.SendMailOptions}}\label{sec:getMail}
-Mit dieser Methode wird ein Objekt vom Typ \texttt{nodemailer.SendMailOptions} zurückgegeben, das die E-Mail repräsentiert.
+\paragraph{\texttt{AbstractMailBuilder(): void}}
+Die Methode ist der Konstruktor der Klasse \texttt{AbstractMailBuilder}.
 
 \subsubsection{\texttt{ReportMailBuilder}}\label{sec:ReportMailBuilder}
 Die Klasse \texttt{ReportMailBuilder} ist für das Erstellen von E-Mails zuständig, die versendet werden, wenn ein Rezept gemeldet wird.
@@ -1523,10 +1542,11 @@ Die Klasse \texttt{ReportMailBuilder} ist für das Erstellen von E-Mails zustän
 Attribut, das den Pfad zur HTML-Datei repräsentiert, die als Inhalt der E-Mail verwendet werden soll.
 \paragraph{\texttt{htmlText: string}}
 Attribut, das den Inhalt der HTML-Datei repräsentiert.
-
 \subsubsection*{Methoden}
-\paragraph{\texttt{<<create>> constructor(reciever: string, adminUsername: string, recipeTitle: string, reportedUsername: string): void}}
-Mit diesem Konstruktor wird ein Objekt vom Typ \texttt{ReportMailBuilder} erzeugt. Der \texttt{receiver}-Parameter enthält die E-Mail-Adresse des Empfängers. Der \texttt{adminUsername}-Parameter enthält den Benutzernamen des Admins, dem das Rezept gemeldet wird. Der \texttt{recipeTitle}-Parameter enthält den Titel des Rezepts, das gemeldet wurde. Der \texttt{reportedUsername}-Parameter enthält den Benutzernamen des Nutzers, der das Rezept erstellt hat.
+\paragraph{\texttt{ReportMailBuilder(): void}}
+Die Methode ist der Konstruktor der Klasse \texttt{ReportMailBuilder}.
+\paragraph{\texttt{buildMail(reciever: string, adminUsername: string, recipeTitle: string, reportedUsername: string, groupName: string): void}}
+Mit dieser Methode wird die E-Mail erstellt. Der \texttt{receiver}-Parameter enthält die E-Mail-Adresse des Empfängers. Der \texttt{adminUsername}-Parameter enthält den Benutzernamen des Admins, dem das Rezept gemeldet wird. Der \texttt{recipeTitle}-Parameter enthält den Titel des Rezepts, das gemeldet wurde. Der \texttt{reportedUsername}-Parameter enthält den Benutzernamen des Nutzers, der das Rezept erstellt hat. Der \texttt{groupName}-Parameter enthält den Namen der Gruppe, in der das Rezept erstellt wurde.
 
 \section{HTTP-Anfragen und API-Endpunkte} \label{sec:HTTP-Anfragen und API-Endpunkte}
 Wie schon im Einführungstext zum Abschnitt Webserver erwähnt, werden alle Anfragen an den Webserver über HTTP gestellt.
