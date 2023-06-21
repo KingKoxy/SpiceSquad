@@ -951,7 +951,7 @@ Die Anzahl der Portionen, die der Nutzer kochen möchte. Er kann sie über ein T
 \newpage
 
 \subsection{\texttt{recipe\_creation\_screen}}
-Das Package \texttt{mainrecipe\_creation\_screen} enthält alle Klassen für die Rezept-Erstellungs-Ansicht. Der anzuzeigende Screen ist in der Klasse \hyperref[sec:recipeCreationScreen]{\texttt{RecipeCreationScreen}} implementiert
+Das Package \texttt{mainrecipe\_creation\_screen} enthält alle Klassen für die Rezept-Erstellungs-Ansicht. Der anzuzeigende Screen ist in der Klasse \hyperref[sec:recipeCreationScreen]{\texttt{RecipeCreationScreen}} implementiert.
 \begin{figure}
     [htp]
     \centering
@@ -962,7 +962,21 @@ Das Package \texttt{mainrecipe\_creation\_screen} enthält alle Klassen für die
 \newpage
 \subsubsection{RecipeCreationScreen}
 \label{sec:recipeCreationScreen}
-Die Klasse bildet die Rezept-Erstellungsansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen Zustand verwaltet. Dies übernehmen die einzelnen Teilwidgets. Es werden verschiedene Widgets angezeigt, die es ermöglichen Rezeptdaten einzugeben oder abzuändern.
+Die Klasse bildet die Rezept-Erstellungs-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen Zustand verwaltet. Dies übernehmen die einzelnen Teilwidgets. Es werden verschiedene Widgets angezeigt, die es ermöglichen Rezeptdaten einzugeben oder abzuändern.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=80mm]{images/presentationLayer/uiElements/recipeCreationScreen.jpg}
+        \caption{\protect\raggedright Abbildung des Recipe\-Creation\-Screens}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/recipeCreationScreen.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Recipe\-Creation\-Screens}
+    \end{minipage}
+\end{figure}
 \subsubsection*{Attribute}
 \paragraph{\texttt{recipe: Recipe}}
 Soll ein Rezept verändert werden, so wird das Ursprungsrezept über den \Gls{BuildContext} übergeben und in diesem Parameter gespeichert. Andernfalls bleibt der Wert null.
@@ -1079,8 +1093,94 @@ Callback-Methode, die ausgeführt wird, wenn sich der Zustand ändert und den ne
 Konstruktor, der das Icon, den Namen, den Zustand und die Callback-Methode übergeben bekommt und setzt.
 \newpage
 
-\subsection{\texttt{ingredient\_picker\_screen}}
-
+\subsection{\texttt{ingredient\_creation\_screen}}
+Das Package \texttt{ingredient\_creation\_screen} enthält alle Klassen für die Zutaten-Erstellungs-Ansicht. Der anzuzeigende Screen ist in der Klasse \hyperref[sec:ingredientCreationScreen]{\texttt{IngredientCreationScreen}} implementiert.
+\begin{figure}
+    [htp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/ingredientCreationScreenWhole.pdf}
+    \caption{\protect\raggedright Klassendiagramm des ingredient\_creation\_screen-Packages}
+\end{figure}
+\newpage
+\subsubsection{\texttt{IngredientCreationScreen}}
+\label{sec:ingredientCreationScreen}
+Die Klasse bildet die Zutaten-Erstellungs-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie selbst keinen Zustand verwaltet. Dies übernehmen die einzelnen Teilwidgets. Es werden verschiedene Widgets angezeigt, die es ermöglichen Zutatendaten einzugeben und Vorschläge für Namen anzuzeigen.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=8cm]{images/presentationLayer/uiElements/ingredientCreationScreen.jpg}
+        \caption{\protect\raggedright Abbildung des Ingredient\-Creation\-Screens}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/ingredientCreationScreen.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Ingredient\-Creation\-Screens}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{nameController: TextEditingController}}
+Der Controller für den Namen der Zutat.
+\paragraph{\texttt{iconName: String}}
+Der Name des Icons, das ausgewählt ist.
+\paragraph{\texttt{amountController: TextEditingController}}
+Der Controller für die Menge der Zutat.
+\paragraph{\texttt{unitController: TextEditingController}}
+Der Controller für die Einheit der Zutat.
+\subsubsection*{Methoden}
+\paragraph{\texttt{createIngredient(): void}}
+Validiert die Felder und leitet dann zur vorherigen Ansicht zurück, wobei die eingegebenen Daten als \texttt{Ingredient} über den \Gls{BuildContext} übergeben werden.
+\newpage
+\subsubsection{\texttt{IconPickerWidget}}
+Die Klasse repräsentiert ein Widget, das ein Icon auswählen kann. Es ist ein \texttt{StatefulWidget}, da es den Zustand \texttt{iconName} verwaltet. Drückt der Nutzer auf das Widget öffnet sich ein \Gls{Dialog} mit einer Liste von Icons, aus der der Nutzer eines auswählen kann. 
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=1cm]{images/presentationLayer/uiElements/iconPickerWidget.png}
+        \caption{\protect\raggedright Abbildung des Icon\-Picker\-Widgets}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/iconPickerWidget.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Icon\-Picker\-Widgets}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{iconName: String}}
+Der Name des Icons, das ausgewählt ist.
+\paragraph{\texttt{onChange(String iconName): void}}
+Callback-Methode die ausgeführt wird, wenn sich das Icon ändert und den neuen Namen als Parameter übergeben bekommt.
+\subsubsection*{Methoden}
+\paragraph{\texttt{IconPickerWidget(String iconName, void onChange(String iconName)): IconPickerWidget}}
+Konstruktor, der den Namen des Icons und die Callback-Methode übergeben bekommt und setzt.
+\newpage
+\subsubsection{\texttt{IngredientNameInput}}
+Die Klasse repräsentiert ein Widget, in das ein Name für eine Zutat eingegeben werden kann. Es ist ein \texttt{StatefulWidget}, da es den Zustand \texttt{name} verwaltet. Es werden live Vorschläge angezeigt.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=4cm]{images/presentationLayer/uiElements/ingredientNameInput.png}
+        \caption{\protect\raggedright Abbildung des Ingredient\-Name\-Inputs}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/ingredientNameInput.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Ingredient\-Name\-Inputs}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{name: String}}
+Der Name der Zutat.
+\paragraph{\texttt{controller: TextEditingController}}
+Der Controller für den Namen der Zutat.
+\subsubsection*{Methoden}
+\paragraph{\texttt{IngredientNameInput(String name, TextEditingController controller): IngredientNameInput}}
+Konstruktor, der den Namen der Zutat und den Controller übergeben bekommt und setzt.
 \newpage
 \section{REST-Webserver}
 Um seinen Account zu verwalten, Rezepte aufzurufen oder mit Gruppe interagieren zu können benötigt man die Verbindung zum Server.
