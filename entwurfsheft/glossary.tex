@@ -63,3 +63,8 @@
     name=JWT,
     description={JSON Web Token. Ein Token, das aus drei Teilen besteht: Header, Payload und Signature. Es wird verwendet, um den Benutzer zu authentifizieren. Der Header enthält Informationen über den verwendeten Algorithmus. Der Payload enthält Informationen über den Benutzer. Die Signatur wird verwendet, um die Echtheit des Tokens zu überprüfen}
 }
+
+\newglossaryentry{idToken}{
+    name=idToken,
+    description={Ein JWT, das vom Identity Provider ausgestellt wird. Es enthält Informationen über den Benutzer. Der idToken ist für maximal eine Stunde gültig, danach muss ein neuer angefordert werden}
+}
