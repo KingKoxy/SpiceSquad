@@ -1309,6 +1309,92 @@ Das Package \texttt{group\_detail\_screen} enthält alle Klassen für die Gruppe
     \caption{\protect\raggedright Klassendiagramm des group\_detail\_screen-Packages}
 \end{figure}
 \newpage
+\subsubsection{GroupDetailScreen}
+\label{sec:groupDetailScreen}
+Die Klasse bildet die Gruppen-Detail-Ansicht ab. Sie ist ein \texttt{StatefulWidget}, da sie den Zustand \texttt{group} verwaltet.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=8cm]{images/presentationLayer/uiElements/groupDetailScreen.jpg}
+        \caption{\protect\raggedright Abbildung der Gruppen-Detail-Ansicht}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/groupDetailScreen.pdf}
+        \caption{\protect\raggedright Klassendiagramm des GroupDetailScreens}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{group: Group}}
+Die Gruppe, deren Details angezeigt werden sollen. Wird bei der Initialisierung aus dem \Gls{BuildContext} gelesen.
+\subsubsection*{Methoden}
+\paragraph{\texttt{deleteGroup(): void}}
+Leitet eine Anfrage über einen Provider an den zugehörigen Service weiter, um die Gruppe aufzulösen.
+\paragraph{\texttt{renameGroup(String newName): void}}
+Leitet eine Anfrage über einen Provider an den zugehörigen Service weiter, um die Gruppe umzubenennen.
+\paragraph{\texttt{leaveGroup(): void}}
+Leitet eine Anfrage über einen Provider an den zugehörigen Service weiter, um die Gruppe zu verlassen.
+\paragraph{\texttt{shareGroupCode(): void}}
+Kopiert das Gruppenkürzel in die Zwichenablage zum Teilen.
+\newpage
+\subsubsection{\texttt{MemberList}}
+Die Klasse stellt ein Widget bereit, das die eine Liste der Gruppenmitglieder zeigt.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=5cm]{images/presentationLayer/uiElements/memberList.png}
+        \caption{\protect\raggedright Abbildung der MemberList}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/memberList.pdf}
+        \caption{\protect\raggedright Klassendiagramm des MemberList}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{members: List<GroupMember>}}
+Die Mitglieder der Gruppe.
+\subsubsection*{Methoden}
+\paragraph{\texttt{MemberList(List<GroupMember> members): MemberList}}
+Konstruktor, der die Miglieder der Gruppe entgegen nimmt und setzt.
+\paragraph{\texttt{makeAdmin(String userId): void}}
+Leitet eine Anfrage zum Ernennen zum Administrator über einen Provider an den zugehörigen Service weiter.
+\paragraph{\texttt{removeAdminStatus(String userId): void}}
+Leitet eine Anfrage zum Entfernen des Administratorstatus über einen Provider an den zugehörigen Service weiter.
+\paragraph{\texttt{kickUser(String userId): void}}
+Leitet eine Anfrage zum Kicken eines Nutzers über einen Provider an den zugehörigen Service weiter.
+\paragraph{\texttt{banUser(String userId): void}}
+Leitet eine Anfrage zum Bannen eines Nutzers über einen Provider an den zugehörigen Service weiter.
+\newpage
+\subsubsection{\texttt{GroupRecipeList}}
+Die Klasse stellt ein Widget bereit, das die eine Liste der Rezepte in einer Gruppe zeigt.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=5cm]{images/presentationLayer/uiElements/groupRecipeList.png}
+        \caption{\protect\raggedright Abbildung der GroupRecipeList}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/groupRecipeList.pdf}
+        \caption{\protect\raggedright Klassendiagramm des GroupRecipeList}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{recipes: List<GroupRecipe>}}
+Die Rezepte der Gruppe.
+\subsubsection*{Methoden}
+\paragraph{\texttt{GroupRecipeList(List<GroupRecipe> recipes): MemberList}}
+Konstruktor, der die Rezepte der Gruppe entgegen nimmt und setzt.
+\paragraph{\texttt{toggleCensoring(String recipeId): void}}
+Leitet eine Anfrage zum Aktivieren/Deaktivieren der Zensur eines Rezepts über einen Provider an den zugehörigen Service weiter.
+\newpage
 \subsection{\texttt{QRCodeScreen}}
 \label{sec:qrCodeScreen}
 Die Klasse bildet die QR-Code-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie selbst keinen Zustand verwaltet. Sie zeigt einen QR-Code an, der den Nutzer zu einer Gruppe hinzufügt, wenn er gescannt wird.
