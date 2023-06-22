@@ -547,6 +547,18 @@ Der \texttt{FavouriteButton} ist ein Button, der ein Herz-Symbol enthält. Er wi
 \paragraph*{Konstruktor}
 Der Konstruktor nimmt eine Funktion \texttt{onPressed} entgegen, die ausgeführt wird, wenn der Button gedrückt wird. Zudem kann ein Boolean \texttt{value} übergeben werden, der bestimmt, ob der Button gefüllt oder leer ist.
 
+\subsubsection{\texttt{EyeButton}}
+\label{sec:eyeButton}
+Der \texttt{EyeButton} ist ein Button, der ein Augen-Symbol enthält. Er wird verwendet, um ein Element aus- oder einzublenden. Er erbt von der Flutter-Klasse \texttt{IconButton} und das Auge ist je nach übergebenem Wert offen oder geschlossen.
+\begin{figure}[htp]
+    \centering
+    \includegraphics[height = .5cm]{images/presentationLayer/uiElements/eyeButton.png}
+    \caption{Darstellung des EyeButtons im offenen Zustand}
+\end{figure}
+\paragraph*{Konstruktor}
+Der Konstruktor nimmt eine Funktion \texttt{onPressed} entgegen, die ausgeführt wird, wenn der Button gedrückt wird. Zudem kann ein Boolean \texttt{open} übergeben werden, der bestimmt, ob der Button offen oder geschlossen ist.
+
+
 \subsubsection{\texttt{BackButton}}
 \label{sec:backButton}
 Der \texttt{BackButton} ist ein Button, der ein Pfeil-Symbol enthält. Er wird verwendet, um zur vorherigen Ansicht zurückzukehren. Er erbt von der Flutter-Klasse \texttt{IconButton}.
