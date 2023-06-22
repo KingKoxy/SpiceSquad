@@ -23,6 +23,7 @@ In weiteren Kapiteln wird der REST-Webservice und die Datenbankstruktur beschrie
 \subsection{Semantik der UML-Diagramme}
 Im Folgenden wird eine abgewandelte Version der Standard-UML-Klassendiagramme verwendet. Alle Attribute, einschließlich solcher, die auf andere Klassen verweisen, werden direkt in der Klasse angegeben. Assoziationspfeile stehen lediglich für die "depends on"-Beziehung, was bedeutet, dass eine Klasse eine andere Klasse benötigt oder importieren muss. Die genaue Art der Beziehung zwischen den Klassen wird im begleitenden Text erklärt. Konstruktoren werden in der Form \texttt{Klasse(Parameter parameter): Klasse} angegeben. Im UML-Diagramm können auch Klassen aus der Dart-Sprache, dem Flutter-Framework, aus TypeScript sowie Generics als Typ verwendet werden. Die Notation \texttt{attribut: Klasse?} bedeutet, dass das Attribut einen Null-Typ haben darf. Falls dies nicht explizit angegeben ist, ist dies nicht der Fall.
 
+Wir behalten uns vor weiter private Attribute und Methoden hinzuzufügen, die nicht im Diagramm aufgeführt sind, um die Implementierung zu erleichtern.
 \section{Struktur}
 Im Abschnitt Struktur wird auf die Architektur der Applikation eingegangen.
 
@@ -192,9 +193,9 @@ Dies ist eine Factory-Methode zum Erstellen eines \texttt{Ingredient}-Objekts au
 \subsection{\texttt{Difficulty}}\label{sec:difficulty}
 Der Enum \texttt{Difficulty} repräsentiert die \Gls{schwierigkeit} eines Rezepts. Er kann folgende Werte annehmen:
 \begin{itemize}
-    \item \texttt{EASY}
-    \item \texttt{MEDIUM}
-    \item \texttt{HARD}
+    \item \texttt{easy}
+    \item \texttt{medium}
+    \item \texttt{hard}
 \end{itemize}
 \newpage
 
@@ -206,7 +207,7 @@ Alle Attribute sind privat und können nur über einen Getter gelesen werden.
 Die eindeutige ID der Gruppe. Diese wird vom Server vergeben und ist somit nicht vom Nutzer selbst zu setzen.
 \paragraph{\texttt{name: String}}
 Der Name der Gruppe.
-\paragraph{\texttt{joiningLink: String}}
+\paragraph{\texttt{groupCode: String}}
 Das Gruppenkürzel der Gruppe. Es wird verwendet, um einer Gruppe beizutreten.
 \paragraph{\texttt{members: List<GroupMember>}}
 Die Liste der Mitglieder der Gruppe. Die Liste ist nicht leer, da eine Gruppe mindestens einen Nutzer enthalten muss.
@@ -218,7 +219,7 @@ Die Liste der Rezepte, die von Mitgliedern der Gruppe erstellt wurden.
 Gibt die ID der Gruppe zurück.
 \paragraph{\texttt{getName(): String}}
 Gibt den Namen der Gruppe zurück.
-\paragraph{\texttt{getJoiningLink(): String}}
+\paragraph{\texttt{getGroupCode(): String}}
 Gibt das Gruppenkürzel der Gruppe zurück.
 \paragraph{\texttt{getMembers(): List<GroupMember>}}
 Gibt die Liste der Mitglieder der Gruppe zurück.
@@ -299,7 +300,7 @@ Das \texttt{GroupRepository} stellt die Schnittstelle zwischen der Geschäftslog
 Konstruktor. Initialisiert das Attribut \texttt{userRepository} mit dem übergebenen \texttt{UserRepository}-Objekt.
 \paragraph{\texttt{fetchAllGroupsForUser(): Future<List<Group>>}}
 Fragt alle Gruppen des aktuellen Nutzers beim Server ab und gibt diese als Liste zurück. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn die Abfrage erfolgreich war. Wenn die Abfrage fehlschlägt, wird eine Exception geworfen.
-\paragraph{\texttt{joinGroup(String joiningLink): Future<void>}}
+\paragraph{\texttt{joinGroup(String groupCode): Future<void>}}
 Es wird eine Anfrage an den Server zum Beitritt des aktuellen Nutzers zu einer Gruppe mit dem übergebenen Beitrittslink gestellt. Nimmt als Parameter den Beitrittslink der Gruppe entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn der Nutzer erfolgreich der Gruppe beigetreten ist. Wenn der Nutzer der Gruppe nicht beitreten kann, wird eine Exception geworfen.
 \paragraph{\texttt{deleteGroup(String groupId): Future<void>}}
 Es wird eine Anfrage an den Server zum Löschen einer Gruppe mit der übergebenen Gruppen-ID gestellt. Nimmt als Parameter die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn die Gruppe erfolgreich gelöscht wurde. Wenn die Gruppe nicht gelöscht werden kann, wird eine Exception geworfen.
@@ -439,7 +440,7 @@ Das \texttt{AdminRepository}, das zum Zugriff auf die Administratoraktionen verw
 Konstruktor. Initialisiert das \texttt{GroupRepository}, das zum Zugriff auf die Gruppen verwendet wird, und das \texttt{AdminRe\-pository}, das zum Zugriff auf die Administratoraktionen dient. Nimmt als Parameter die beiden Repositorys entgegen.
 \paragraph{\texttt{build(): FutureOr<List<Group>>}}
 Implementiert die abstrakte Methode \texttt{build()} der Klasse \texttt{AsyncNotifier}. Gibt den Initialwert des Zustands zurück. In diesem Fall ist der Initialwert \texttt{groupRepository.fetchAllGroupsForUser()}.
-\paragraph{\texttt{joinGroup(String joiningLink): Future<void>}}
+\paragraph{\texttt{joinGroup(String groupCode): Future<void>}}
 Leitet die Anfrage zum Beitreten einer Gruppe an das zuständige Repository weiter. Fragt im Anschluss erneut die Gruppen des Nutzers ab und aktualisiert den \texttt{state}. Nimmt als Parameter das Gruppenkürzel der Gruppe entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn der Nutzer erfolgreich der Gruppe beigetreten ist. Wenn der Nutzer nicht der Gruppe beitreten kann, wird eine Exception geworfen.
 \paragraph{\texttt{createGroup(String groupName): Future<void>}}
 Leitet die Anfrage zum Erstellen einer Gruppe an das zuständige Repository weiter. Fragt im Anschluss erneut die Gruppen des Nutzers ab und aktualisiert den \texttt{state}. Nimmt als Parameter den Namen der Gruppe entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn die Gruppe erfolgreich erstellt wurde. Wenn die Gruppe nicht erstellt werden kann, wird eine Exception geworfen.
@@ -495,620 +496,947 @@ Der \texttt{PdfExporter} dient dazu, ein Template und Methoden zur Verfügung zu
 \paragraph{\texttt{PdfExporter.exportRecipe(Recipe recipe): Future<void>}}
 Erstellt eine PDF-Datei, die das Rezept enthält und exportiert dieses anschließend. Nimmt als Parameter das Rezept entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn die PDF-Datei erfolgreich erstellt und exportiert wurde. Wenn die PDF-Datei nicht erstellt und exportiert werden kann, wird eine Exception geworfen.
 \newpage
-
-
 \section{Presentation Layer}
-    \begin{figure}[htp]
+Der Presentation Layer in der Android-App-Entwicklung ist für die Darstellung der Benutzeroberfläche (UI) und die Kommunikation mit dem Benutzer verantwortlich. Er fungiert als Bindeglied zwischen dem Benutzer und den darunterliegenden Schichten wie der Datenquelle und der Geschäftslogik. Die Hauptaufgabe des Presentation Layers besteht darin, die Benutzerinteraktion zu ermöglichen, Benutzereingaben zu verarbeiten, Daten aus anderen Schichten abzurufen und anzuzeigen, und Feedback an den Benutzer zu liefern. Es umfasst die Aktivitäten, Zustände und Teilansichten, die zur Darstellung der UI verwendet werden. Der Zweck des Presentation Layers besteht darin, eine benutzerfreundliche und ansprechende Benutzeroberfläche bereitzustellen, die die Benutzererfahrung optimiert und eine effektive Kommunikation zwischen Benutzer und Anwendung ermöglicht. Durch eine klare Trennung des Presentation Layers von anderen Schichten kann die Wartbarkeit, Testbarkeit und Wiederverwendbarkeit der App verbessert werden.
+
+In den folgenden Klassendiagrammen wurden zur Übersichtlichkeit Assoziationen zum Domain Layer weggelassen. Sie werden jedoch als Attribut aufgeführt und im zugehörigen Text beschrieben. Zudem wurden drei Schlüsselwörter benutzt, die nun erläutert werden sollen.
+
+\paragraph{<<StatelessWidget>>}
+Impliziert, das die Klasse mit diesem Schlüsselwort von der Flutterklasse \texttt{StatelessWidget} erbt. Dieses besitzt verschiedene Methoden, die die Darstellung des Widgets ermöglichen. Die wichtigste Methode ist \texttt{build}, die das Widget zurückgibt, welches dargestellt werden soll.
+\paragraph{<<StatefulWidget>>}
+Impliziert, das die Klasse mit diesem Schlüsselwort von der Flutterklasse \texttt{StatefulWidget} erbt. Diese Klasse besitzt zusätzlich eine \texttt{State}-Klasse, die die Zustände des Widgets verwaltet. Die Klasse \texttt{State} besitzt die Methode \texttt{build}, die das Widget zurückgibt, welches dargestellt werden soll. Da die vielen State-Klassen, das Klassendiagramm stark unübersichtlich machen würden, jedoch einfach zu implementieren und zu verstehen sind, wurden diese weggelassen.
+\paragraph{<<FlutterWidget>>} Klassen mit diesem Schlüsselwort stammen aus dem Flutter-Framework. Sie werden nur verwendet, um Vererbungen zu verdeutlichen und daher wurden Attribute weggelassen. Bei Bedarf können sie in der Flutter-Dokumentation nachgeschlagen werden.
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width = \textwidth]{images/presentationLayer/classDiagrams/presentationLayer.pdf}
+    \caption{Klassendiagramm des Presentation Layer}
+    \label{fig:presentation-layer}
+\end{figure}
+\newpage
+
+\subsection{Allgemeine Widgets}
+Eigene Widgets, die in mehreren Klassen verwendet werden, werden in einem eigenen Package \texttt{ui\_elements} gespeichert. Diese sollen nun beschrieben werden.
+\begin{figure}[htp]
+    \centering
+    \includegraphics[height = .5\textheight]{images/presentationLayer/classDiagrams/uiElementsWhole.pdf}
+    \caption{Klassendiagramm des ui\_elements-Packages}
+    \label{fig:ui-elements}
+\end{figure}
+
+\subsubsection{\texttt{AddButton}}
+\label{sec:addButton}
+Der \texttt{AddButton} ist ein Button, der ein Plus-Symbol enthält. Er wird verwendet, um ein neues Element hinzuzufügen. Er erbt von der Flutter-Klasse \texttt{IconButton}.
+\begin{figure}[htp]
+    \centering
+    \includegraphics[height = .5cm]{images/presentationLayer/uiElements/addButton.png}
+    \caption{Darstellung des AddButtons}
+\end{figure}
+\paragraph*{Konstruktor}
+Der Konstruktor nimmt eine Funktion \texttt{onPressed} entgegen, die ausgeführt wird, wenn der Button gedrückt wird.
+
+\subsubsection{\texttt{RemoveButton}}
+\label{sec:removeButton}
+Der \texttt{RemoveButton} ist ein Button, der ein Kreuz-Symbol enthält. Er wird verwendet, um ein Element zu entfernen. Er erbt von der Flutter-Klasse \texttt{IconButton}.
+\begin{figure}[htp]
+    \centering
+    \includegraphics[height = .5cm]{images/presentationLayer/uiElements/removeButton.png}
+    \caption{Darstellung des RemoveButtons}
+\end{figure}
+\paragraph*{Konstruktor}
+Der Konstruktor nimmt eine Funktion \texttt{onPressed} entgegen, die ausgeführt wird, wenn der Button gedrückt wird.
+
+\subsubsection{\texttt{FavouriteButton}}
+\label{sec:favouriteButton}
+Der \texttt{FavouriteButton} ist ein Button, der ein Herz-Symbol enthält. Er wird verwendet, um ein Element zu den Favoriten hinzuzufügen. Er erbt von der Flutter-Klasse \texttt{IconButton} und ist je nach übergebenem Wert ausgefüllt oder leer.
+\begin{figure}[htp]
+    \centering
+    \includegraphics[height = .5cm]{images/presentationLayer/uiElements/favouriteButton.png}
+    \caption{Darstellung des FavouriteButtons im gefüllten Zustand}
+\end{figure}
+\paragraph*{Konstruktor}
+Der Konstruktor nimmt eine Funktion \texttt{onPressed} entgegen, die ausgeführt wird, wenn der Button gedrückt wird. Zudem kann ein Boolean \texttt{value} übergeben werden, der bestimmt, ob der Button gefüllt oder leer ist.
+
+\subsubsection{\texttt{EyeButton}}
+\label{sec:eyeButton}
+Der \texttt{EyeButton} ist ein Button, der ein Augen-Symbol enthält. Er wird verwendet, um ein Element aus- oder einzublenden. Er erbt von der Flutter-Klasse \texttt{IconButton} und das Auge ist je nach übergebenem Wert offen oder geschlossen.
+\begin{figure}[htp]
+    \centering
+    \includegraphics[height = .5cm]{images/presentationLayer/uiElements/eyeButton.png}
+    \caption{Darstellung des EyeButtons im offenen Zustand}
+\end{figure}
+\paragraph*{Konstruktor}
+Der Konstruktor nimmt eine Funktion \texttt{onPressed} entgegen, die ausgeführt wird, wenn der Button gedrückt wird. Zudem kann ein Boolean \texttt{open} übergeben werden, der bestimmt, ob der Button offen oder geschlossen ist.
+\newpage
+
+\subsubsection{\texttt{BackButton}}
+\label{sec:backButton}
+Der \texttt{BackButton} ist ein Button, der ein Pfeil-Symbol enthält. Er wird verwendet, um zur vorherigen Ansicht zurückzukehren. Er erbt von der Flutter-Klasse \texttt{IconButton}.
+\begin{figure}[htp]
+    \centering
+    \includegraphics[height = 1cm]{images/presentationLayer/uiElements/backButton.png}
+    \caption{Darstellung des BackButtons}
+\end{figure}
+\paragraph*{Konstruktor}
+Der Konstruktor nimmt eine Funktion \texttt{onPressed} entgegen, die ausgeführt wird, wenn der Button gedrückt wird.
+
+\subsubsection{\texttt{TagItem}}
+\label{sec:tagItem}
+Das \texttt{TagItem} ist ein Widget, das ein Symbol und Text enthält. Er wird verwendet, um z.B. Label eines Rezepts zu repräsentieren. Es handelt sich um ein \texttt{StatelessWidget}, da es keinen eigenen Zustand besitzt.
+\begin{figure}[htp]
+    \centering
+    \includegraphics[height = .7cm]{images/presentationLayer/uiElements/tagItem.png}
+    \caption{Darstellung eines TagItems}
+\end{figure}
+\paragraph*{Konstruktor}
+Der Konstruktor nimmt einen String \texttt{text} entgegen, der den Text des Widgets bestimmt. Zudem muss ein IconData \texttt{icon} übergeben werden, der das Symbol des Widgets bestimmt.
+
+\subsubsection{\texttt{PortionAmountField}}
+\label{sec:portionAmountField}
+Das \texttt{PortionAmountField} ist ein Textfeld, das verwendet wird, um die Anzahl der Portionen anzugeben. Es handelt sich um ein \texttt{StatelessWidget}, da es keinen eigenen Zustand besitzt.
+\begin{figure}[htp]
+    \centering
+    \includegraphics[height = 1cm]{images/presentationLayer/uiElements/portionAmountField.png}
+    \caption{Darstellung eines PortionAmountFields}
+\end{figure}
+\paragraph*{Konstruktor}
+Der Konstruktor nimmt eine Funktion \texttt{onChange} entgegen, die ausgeführt wird, wenn sich der Text im Textfeld ändert. Zudem muss ein Integer \texttt{portionAmount} übergeben werden, der den initialen Wert des Textfelds bestimmt.
+
+\subsubsection{\texttt{NavBar}}
+\label{sec:navBar}
+Die \texttt{NavBar} ist eine Navigationsleiste, die am unteren Rand der App angezeigt wird. Sie erbt von der Flutter-Klasse \texttt{BottomNavigationBar}. Es kann zur Rezept-Erstellungs-Ansicht, zur Hauptansicht und zur Einstellungsansicht navigiert werden.
+\begin{figure}[htp]
+    \centering
+    \includegraphics[height = 1.5cm]{images/presentationLayer/uiElements/navBar.png}
+    \caption{Darstellung der NavBar}
+\end{figure}
+\newpage
+
+\subsection{\texttt{LoginScreen}}
+\label{sec:loginScreen}
+Die Klasse bildet die Loginansicht ab. Die Klasse \texttt{LoginScreen} ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
         \centering
-        \includegraphics[width = \textwidth]{images/Presentation-layer/PresentationLayer.pdf}
-        \caption{Klassendiagramm des Presentation Layer}
-        \label{fig:presentation-layer}
-    \end{figure}
+        \includegraphics[height=80mm]{images/presentationLayer/uiElements/loginScreen.jpg}
+        \caption{Loginansicht}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/loginScreen.pdf}
+        \caption{Klassendiagramm des Login\-Screens}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{emailController: TextEditingController}}
+Der Controller, der die Eingabe der E-Mail-Ad\-resse des Nutzers verwaltet. Über ihn kann der Wert des Eingabefelds abgerufen werden oder eine Fehlermeldung angezeigt werden.
+\paragraph{\texttt{passwordController: TextEditingController}}
+Der Controller, der die Eingabe des Passworts des Nutzers verwaltet. Über ihn kann der Wert des Eingabefelds abgerufen werden oder eine Fehlermeldung angezeigt werden.
+\subsubsection*{Methoden}
+\paragraph{\texttt{login(): void}}
+Leitet eine Loginanfrage über einen Provider an den zuständigen Service weiter. Im Anschluss werden, jenachdem ob die Anfrage erfolgreich war oder nicht, Fehlermeldungen an den entsprechenden Eingabefeldern angezeigt, oder der Nutzer zur Hauptansicht (\ref{sec:mainScreen}) weitergeleitet.
 
 \newpage
-
-\subsection{Häufig verwendete Klassen}
-    Hier sind alle Klassen aufgeführt die von mehreren Klassen verwendet werden.
-
-    \subsubsection{InformationElement} \label{sec:InformationElement}
-        Stellt ein Informations Element da. Erbt von der Klasse \texttt{StatelessWidget}. Die Klasse \ref{sec:InformationCategories} wird verwendet.
-        \subsubsection*{Attribute}
-            \paragraph*{\texttt{information: InformationKategories}} Gibt an welche Information in dem Widget dargestellt werden.
-            \paragraph*{\texttt{text: string}} Der Text der in dem Element angezeigt werden kann.
-
-        \subsubsection*{Methoden}
-            \paragraph*{\texttt{InformationElement(information: InformationKategories - notNull, text: string)}} Der Konstruktor für ein Information Widget. Eine Information Kategorie muss angegeben werden.
-
-    
-    \subsubsection{InformationCategories} \label{sec:InformationCategories}
-        Ein Enum der alle Information Kategorien beinhält.
-        \subsubsection*{Content}
-            \paragraph*{\texttt{duration}} Das Element gibt die Zubereitungsdauer an.
-            \paragraph*{\texttt{difficultyEasy}} Das Element gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} einfach an.
-            \paragraph*{\texttt{difficultyMedium}} Das Element gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} mittel an.
-            \paragraph*{\texttt{difficultyHard}} Das Element gibt den \glslink{schwierigkeit}{Schwierigkeitsgrad} schwer an.
-            \paragraph*{\texttt{labelVegetarian}} Das Element gibt das \gls{label} vegetarisch an.
-            \paragraph*{\texttt{labelVegan}} Das Element gibt das \gls{label} vegan an.
-            \paragraph*{\texttt{labelGlutenFree}} Das Element gibt das \gls{label} glutenfrei an.
-            \paragraph*{\texttt{labelHalal}} Das Element gibt das \gls{label} halal an.
-            \paragraph*{\texttt{labelKosher}} Das Element gibt das \gls{label} koscher an.
-
-    \subsubsection{AppBar} \label{sec:AppBar}
-        Die Klasse stellt die App Bar da. Erbt von der Klasse \texttt{StatelessWidget}. Bietet dem User die Möglichkeit zwischen den Sichten schnell hin und her zu wechseln.
-        \subsubsection*{Attribute}
-            \paragraph*{\texttt{mainView: Boolean}} Der Boolean gibt an ob das AppBar Widget in Hauptansicht verwendet wird.
-            \paragraph*{\texttt{recipeCreationView: Boolean}} Der Boolean gibt an ob das AppBar Widget in Rezept-Erstellungs-Ansicht verwendet wird.
-            \paragraph*{\texttt{settingsView: Boolean}} Der Boolean gibt an ob das AppBar Widget in Einstellungsansicht verwendet wird.
-            
-        \subsubsection*{Methoden}
-            \paragraph*{\texttt{AppBar(mainView: Boolean - notNull, recipeCreationView: Boolean - notNull, settingsView: Boolean - notNull)}} Der Konstruktor für den \texttt{AppBar}. Alle Parameter müssen angegeben werden. 
-            \paragraph*{\texttt{mainView()}} Die Hauptansicht wird aufgerufen.
-            \paragraph*{\texttt{recipeCreationView()}} Die Rezept-Erstellungs-Ansicht wird aufgerufen.
-            \paragraph*{\texttt{settingsView()}} Die Einstellungsansicht wird aufgerufen.
-
-    \subsubsection{ReturnButton} \label{sec:ReturnButton}
-        Die Klasse stellt den Zurück-Button da. Erbt von der Klasse \texttt{StatelessWidget}.
-        \subsubsection*{Methoden}
-            \paragraph*{\texttt{prevoiusView()}} Die vorherige Ansicht wird aufgerufen. Es werden keine Daten gespeichert die in der Ansicht angegeben worden sind.
-    
-    \subsubsection{RecipeListElement} \label{sec:RecipeListElement}
-        Die Klasse stellt eine Rezept Element in einer List da. Erbt von der Klasse \texttt{StatelessWidget}.
-        \subsubsection*{Attribut}
-            \paragraph*{\texttt{recipe: Recipe}} Das darzustellende Rezept.
-            \paragraph*{\texttt{private: Boolean}} Ein Boolean der angibt, ob die \Gls{sichtbarkeit} des Rezepts verändert werden darf oder nicht.
-            \paragraph*{\texttt{settingsView: Boolean}} Ein Boolean der angibt, ob das Widget in der Einstellungsansicht verwendet wird.
-
-        \subsubsection*{Methoden}
-            \paragraph*{\texttt{RecipeListElement(recipe: Recipe - notNull, view: boolean - notNull, settingsView: boolean - notNull)}} Ein Konstruktor für ein  \texttt{RecipeListElement}. Alle Parameter müssen angegeben werden.
-            \paragraph*{\texttt{togglePrivate()}} Die \Gls{sichtbarkeit} des Rezepts für die Gruppe ausgeblendet werden soll, wenn settingsView false ist. Wenn settingsView auf true steht wird das Rezept für alle Gruppen ausgeblendet.
-            \paragraph*{\texttt{delete()}} Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion \texttt{deleteRecipe()} im \texttt{RecipeService} aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
-            \paragraph*{\texttt{export()}} Die Funktion exportRecipe() im RecipeService wird aufgerufen.
-
-    \subsubsection{ConfirmationElement} \label{sec:ConfirmationElement}
-        Die Klasse stellt ein Bestätigungs Element da. Es bietet zwei auswahlmöglichkeiten und gibt die Information an die aufrufende Funktion weiter. Erbt von der Klasse \texttt{StatelessWidget}.
-        \subsubsection*{Attribut}
-            \paragraph*{\texttt{text: string}} Der anzuzeigende Text des Elements
-
-        \subsubsection*{Methoden}
-            \paragraph*{\texttt{ConfirmationElement(text: string - notNull)}} Ein Konstruktor für ein \texttt{ConfirmationElement}. Der Parameter muss angegeben werden.
-            \paragraph*{\texttt{decline()}} Dem Erzeugter wird true zurückgegeben.
-            \paragraph*{\texttt{accept()}} Dem Erzeugter wird false zurückgegeben.
-
-\subsection{Registrierungsansicht}
-    Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Registrierungsansicht darzustellen.
-
-    \subsubsection{RegisterPage}
-        Stellt das Hauptelement der Ansicht da. Erbt von der Klasse \texttt{StatefullWidget}. Benutzt die Klasse \texttt{RegisterPageState}.
-        \subsubsection*{Methoden}
-            \paragraph*{\texttt{createState: State<RegisterPageState>}} Der Konstruktor für den \texttt{RegisterPageState}.
-    
-    \subsubsection{RegisterPageState}
-        Der Zustand von der \texttt{RegisterPage}. Erbt von der Klasse \texttt{State}.
-        \subsubsection*{Attribute}
-            \paragraph*{\texttt{usernameController: TextEdittingController}} Die eingegebene Zeichenkette für den Benutzernamen des neuen Users.
-            \paragraph*{\texttt{emailController: TextEdittingController}} Die eingegebene Zeichenkette für die E-Mail-Adresse des neuen Users.
-            \paragraph*{\texttt{passwordController: TextEdittingController}} Die eingegebene Zeichenkette für das Passwort des neuen Accounts für den neunen User.
-            \paragraph*{\texttt{repeatedPassword: TextEdittingController}} Die eingegebene Zeichenkette für das wiederholte Passwort des neuen Accounts.
-         
-        \subsubsection*{Methoden}
-            \paragraph*{\texttt{register(username: string, email: string, password: string, repeatedPassword: string)}} Überprüft ob das eingegeben Passwort mit dem wiederholten Passwort übereinstimmt und ruft dann die Funktion \texttt{register()} im \texttt{UserService} auf.
-            \paragraph*{\texttt{login()}} Die Loginansicht wird aufgerufen.
-
-    \begin{figure}[htp]
-        \begin{minipage}
-            [t]{0.49\textwidth}
-            \centering
-            \includegraphics[height=80mm]{images/Presentation-layer/RegisterView.jpg}
-            \caption{Registrierungsansicht}
-        \end{minipage}
-        \begin{minipage}
-            [t]{0.49\textwidth}
-            \centering
-            \includegraphics[width=0.95\textwidth]{images/Presentation-layer/RegisterViewClass.pdf}
-            \caption{Klassen für Registrierungsansicht}
-        \end{minipage}
-    \end{figure} 
-        
+\subsection{\texttt{RegisterScreen}}
+\label{sec:registrationScreen}
+Die Klasse bildet die Registrierungsansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=80mm]{images/presentationLayer/uiElements/registerScreen.jpg}
+        \caption{Registrierungsansicht}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/registerScreen.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Register\-Screens}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{userNameController: TextEditingController}}
+Der Controller, der die Eingabe des Benutzernamens des Nutzers verwaltet. Über ihn kann der Wert des Eingabefelds abgerufen werden oder eine Fehlermeldung angezeigt werden.
+\paragraph{\texttt{emailController: TextEditingController}}
+Der Controller, der die Eingabe der E-Mail-Ad\-resse des Nutzers verwaltet. Über ihn kann der Wert des Eingabefelds abgerufen werden oder eine Fehlermeldung angezeigt werden.
+\paragraph{\texttt{passwordController: TextEditingController}}
+Der Controller, der die Eingabe des Passworts des Nutzers verwaltet. Über ihn kann der Wert des Eingabefelds abgerufen werden oder eine Fehlermeldung angezeigt werden.
+\paragraph{\texttt{passwordRepeatController: TextEditingController}}
+Der Controller, der die Eingabe der Passwortwiederholung des Nutzers verwaltet. Über ihn kann der Wert des Eingabefelds abgerufen werden oder eine Fehlermeldung angezeigt werden.
+\subsubsection*{Methoden}
+\paragraph{\texttt{register(): void}}
+Leitet eine Registrierungsanfrage über einen Provider an den zuständigen Service weiter. Im Anschluss werden, jenachdem ob die Anfrage erfolgreich war oder nicht, Fehlermeldungen an den entsprechenden Eingabefeldern angezeigt, oder der Nutzer zur Gruppen-Beitritts-Ansicht (\ref{sec:groupJoiningScreen}) weitergeleitet.
 \newpage
 
-\subsection{Anmeldungsansicht}
-    Die Klassen beinhalten alle nötigen Funktionen und Attribute, um die Anmeldungsansicht darzustellen.
+\subsection{\texttt{PasswordResetScreen}}
+\label{sec:passwordResetScreen}
+Die Klasse bildet die Passwort-Zurücksetzen-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt. Sie verwendet die Klasse \hyperref[sec:backButton]{\texttt{BackButton}} aus dem \texttt{ui\_elements}-Package.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=80mm]{images/presentationLayer/uiElements/passwordResetScreen.jpg}
+        \caption{Passwort-Zurücksetzen-Ansicht}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/passwordResetScreen.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Password\-Reset\-Screens}
+    \end{minipage}
+\end{figure}
 
-    \subsubsection{LoginPage}
-        Stellt das Hauptelement der Ansicht da. Erbt von der Klasse \texttt{StatefullWidget}. Benutzt die Klasse \texttt{LoginPageState}.
-        \subsubsection*{Methode}
-            \paragraph*{\texttt{createState: State<LoginPageState>}} Der Konstruktor für den \texttt{LoginPageState}.
-    
-    \subsubsection{LoginPageState}
-        Der Zustand von der \texttt{LoginPage}. Erbt von der Klasse \texttt{State}.
-        \subsubsection*{Attribut}
-            \paragraph*{\texttt{emailController: TextEdittingController}} Die eingegebene Zeichenkette für die E-Mail-Adresse des Users.
-            \paragraph*{\texttt{passwortController: TextEdittingController}} Die eingegebene Zeichenkette für das Passwort des Users.
+\subsubsection*{Attribute}
+\paragraph{\texttt{emailController: TextEditingController}}
+Der Controller, der die Eingabe der E-Mail-Ad\-resse des Nutzers verwaltet. Über ihn kann der Wert des Eingabefelds abgerufen werden oder eine Fehlermeldung angezeigt werden.
 
-        \subsubsection*{Methoden}
-            \paragraph*{\texttt{login(email: string, password: string)}} Überprüft die Eingaben und ruft die Funktionen \texttt{createGroup()} im \texttt{UserService} auf.
-            \paragraph*{\texttt{resetPasswordView()}} Die Passwort-Zurücksetzen-Ansicht wird aufgerufen.
-            \paragraph*{\texttt{registerView()}} Die Registrierungsansicht wird aufgerufen.
-
-    \begin{figure}[htp]
-        \begin{minipage}
-            [t]{0.49\textwidth}
-            \centering
-            \includegraphics[height=80mm]{images/Presentation-layer/LoginView.jpg}
-            \caption{Anmeldungsansicht}
-        \end{minipage}
-        \begin{minipage}
-            [t]{0.49\textwidth}
-            \centering
-            \includegraphics[width=0.95\textwidth]{images/Presentation-layer/LoginViewClass.pdf}
-            \caption{Klassen für Anmeldungsansicht}
-        \end{minipage}
-    \end{figure} 
-        
-    \newpage
-
-\subsection{Passwort-Zurücksetzen-Ansicht}
-    Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Passwort-Zurücksetzen-Ansicht darzustellen.
-    
-    \subsubsection{ResetPasswordPage}
-        Stellt das Hauptelement der Ansicht da. Erbt von der Klasse \texttt{StatefullWidget}. Benutzt die Klasse \texttt{ResetPasswordPageState}. 
-        \subsubsection*{Methode}
-            \paragraph*{\texttt{createState: State<ResetPasswordPageState>}} Der Konstruktor für den \texttt{ResetPasswordPageState}.
-    
-    \subsubsection{ResetPasswordPageState}
-        Der Zustand von der \texttt{ResetPasswordPage}. Erbt von der Klasse \texttt{State}. Die Klasse \ref{sec:ReturnButton} wird verwendet.
-        \subsubsection*{Attribut}
-            \paragraph*{\texttt{emailController: TextEdittingController}} Die eingegebene Zeichenkette für die E-Mail-Adresse des Users.
-    
-        \subsubsection*{Methoden}
-            \paragraph*{\texttt{resetPassword(email: string)}} Überprüft ob die Korrektheit der E-Mail-Adresse und ruft die Funktionen \texttt{resetPassword()} im \texttt{UserRepository} auf.
-            \paragraph*{\texttt{LoginView()}} Die Loginansicht wird aufgerufen.
-    
-            \begin{figure}[htp]
-                \begin{minipage}
-                    [t]{0.49\textwidth}
-                    \centering
-                    \includegraphics[height=80mm]{images/Presentation-layer/PasswordResetView.jpg}
-                    \caption{Passwort-Zurücksetzen-Ansicht}
-                \end{minipage}
-                \begin{minipage}
-                    [t]{0.49\textwidth}
-                    \centering
-                    \includegraphics[width=0.95\textwidth]{images/Presentation-layer/PasswordResetViewClass.pdf}
-                    \caption{Klassen für Passwort-Zurücksetzen-Ansicht}
-                \end{minipage}
-            \end{figure} 
-        
-            \newpage
-
-\subsection{Gruppen-Beitritts-Ansicht}
-    Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Gruppen-Beitritts-Ansicht darzustellen.
-
-    \subsubsection{GroupJoiningPage}
-        Stellt das Hauptelement der Ansicht da. Erbt von der Klasse \texttt{StatefullWidget}. Benutzt die Klasse \texttt{GroupJoiningPageState}. 
-        \subsubsection*{Methode}
-            \paragraph*{\texttt{createState: State<GroupJoiningPageState>}} Der Konstruktor für den \texttt{GroupJoiningPageState}.
-    
-    \subsubsection{GroupJoiningPageState}
-        Der Zustand von der \texttt{GroupJoiningPage}. Erbt von der Klasse \texttt{State}.
-        \subsubsection*{Attribut}
-            \paragraph*{\texttt{groupeNameController: TextEdittingController}} Die eingegebene Zeichenkette für den Namen der beizutreten Gruppe.
-
-        \subsubsection*{Methoden}
-            \paragraph*{\texttt{joinGroup(groupId?: string)}} Überprüft den Gruppenname und ruft die Funktionen \texttt{joinGroupe()} im \texttt{GroupeService} auf. Der Parameter ist optional.
-            \paragraph*{\texttt{joinGroupQr()}} Das CameraElement wird aufgerufen.
-            \paragraph*{\texttt{createGroupeView()}} Die Gruppen-Beitritts-Ansicht wird aufgerufen.
-            \paragraph*{\texttt{mainView()}} Die Hauptansicht wird aufgerufen.
-    
-    \subsubsection*{CameraElement}
-        Die Klasse stellt das Element dar, welches aufgerufen wenn die Systemkameraverwendet wird um einen QR-Code zu scnannen. Dafür wird die Klasse \texttt{mobileScanner} aus dem Paket \texttt{mobile\_scanner} verwendet. Die Klasse erbt von der Klasse \texttt{StatelessWidget}.
-        \subsubsection*{Attribut}
-            \paragraph*{\texttt{barcodes: List<Barcode>}} Der gescannte QR-Code.
-
-        \subsubsection*{Methoden}
-            \paragraph*{\texttt{joinGroup()}} Die Daten aus dem QR-Code werden überprüft und die Funktion \texttt{joinGroup()} der Klasse \texttt{GroupJoiningPageState} wird aufgerufen.
-    
-    \begin{figure}[htp]
-        \begin{minipage}
-            [t]{0.49\textwidth}
-            \centering
-            \includegraphics[height=80mm]{images/Presentation-layer/GroupJoiningView.jpg}
-            \caption{Gruppen-Beitritts-Ansicht}
-        \end{minipage}
-        \begin{minipage}
-            [t]{0.49\textwidth}
-            \centering
-            \includegraphics[width=0.95\textwidth]{images/Presentation-layer/GroupJoiningViewClass.pdf}
-            \caption{Klassen für Gruppen-Beitritts-Ansicht}
-        \end{minipage}
-    \end{figure} 
-        
-    \newpage        
-
-\subsection{Gruppen-Erstellungs-Ansicht}
-Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Gruppen-Erstellungs-Ansicht darzustellen.
-
-    \subsubsection{GroupCreationPage}
-    Stellt das Hauptelement der Ansicht da. Erbt von der Klasse \texttt{StatefullWidget}. Benutzt die Klasse \texttt{GroupCreationPageState}. 
-        \subsubsection*{Methode}
-            \paragraph*{\texttt{createState: State<GroupCreationPageState>}} Der Konstruktor für den \texttt{GroupCreationPageState}.
-    
-    \subsubsection{GroupCreationPageState}
-    Der Zustand von der \texttt{GroupCreationPage}. Erbt von der Klasse \texttt{State}.
-        \subsubsection*{Attribut}
-            \paragraph*{\texttt{GroupNameController: TextEdittingController}} Die eingegebene Zeichenkette für den Namen der neuen Gruppe.
-
-        \subsubsection*{Methoden}
-            \paragraph*{\texttt{createGroupe(name: string)}} Überprüft den Gruppenname und ruft die Funktionen \texttt{createGroupe()} im \texttt{GroupeService} auf.
-            \paragraph*{\texttt{joinGroupeView()}} Die Gruppen-Beitritts-Ansicht wird aufgerufen.
-            \paragraph*{\texttt{mainView()}} Die Hauptansicht wird aufgerufen.
-
-    \begin{figure}[htp]
-        \begin{minipage}
-            [t]{0.49\textwidth}
-            \centering
-            \includegraphics[height=80mm]{images/Presentation-layer/GroupCreationView.jpg}
-            \caption{Gruppen-Erstellungs-Ansicht}
-        \end{minipage}
-        \begin{minipage}
-            [t]{0.49\textwidth}
-            \centering
-            \includegraphics[width=0.95\textwidth]{images/Presentation-layer/GroupCreationViewClass.pdf}
-            \caption{Klassen für Gruppen-Erstellungs-Ansicht}
-        \end{minipage}
-    \end{figure} 
-        
-    \newpage
-
-\subsection{Hauptansicht}
-    Die Klassen beinhalten alle nötigen Funktionen und Attribute, um die Hauptansicht darzustellen.
-
-    \subsubsection{MainViewPage}
-        Stellt das Hauptelement der Ansicht da. Erbt von der Klasse \texttt{StatefullWidget}. Benutzt die Klasse \texttt{MainViewPageState}. 
-        \subsubsection*{Methoden}
-            \paragraph*{\texttt{createState: State<MainViewPageState>}} Der Konstruktor für den MainViewPageState.
-
-    \subsubsection{MainViewPageState}
-        Der Zustand von der \texttt{MainViewPage}. Erbt von der Klasse \texttt{State}. Die Klassen \ref{sec:AppBar}, \ref{sec:InformationElement} und \ref{sec:AppBar} werden verwendet.
-        \subsubsection*{Methoden}
-            \paragraph*{\texttt{filtering(filter: FilteringMethods)}} Alle Rezepte werden dem Filterkriterium gefiltert.
-            \paragraph*{\texttt{sorting(sort: SortingMethods)}} Alle Rezepte werden nach dem Sortierkriterium sortiert.
-
-    \subsubsection{TopBar}
-        Die Klasse stellt die TopBar da. Erbt von der Klasse \texttt{StatefullWidget}.
-        \subsubsection*{Attribut}
-            \paragraph*{\texttt{keyword: TextEdittingController}} Durch den Nutzer eingegebene Zeichenkette für die Suche.
-
-        \subsubsection*{Methode}
-            \paragraph*{\texttt{search(keyword: string)}} Durchsucht alle Rezepte und gibt die aus, deren Rezepttitel zu dem Schlagwort passen.
-
-    \subsubsection{SortingMethods}
-        Ein Enum der alle Sortierung Methoden beinhält.
-        \subsubsection*{Content}
-            \paragraph*{\texttt{alphabetical}} Die Rezepte werden alphabetisch sortiert.
-            \paragraph*{\texttt{difficulty}} Die Rezepte werden nach dem \gls{schwierigkeit}{Schwierigkeitsgrad} sortiert.
-            \paragraph*{\texttt{date}} Die Rezepte werden nach dem Hinzufüge Datum sortiert.
-
-    \subsubsection{FilteringMehods}
-        Ein Enum der alle Filter Methoden beinhält.
-        \subsubsection*{Content}
-            \paragraph*{\texttt{favorites}} Die Rezepte werden nach Favoriten gefiltert.
-            \paragraph*{\texttt{difficultyEasy}} Die Rezepte werden nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} einfach gefiltert.
-            \paragraph*{\texttt{difficultyMedium}} Die Rezepte werden nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} mittel gefiltert.
-            \paragraph*{\texttt{difficultyHard}} Die Rezepte werden nach dem \glslink{schwierigkeit}{Schwierigkeitsgrad} schwer gefiltert.
-            \paragraph*{\texttt{labelVegetarian}} Die Rezepte werden nach dem \gls{label} vegetarisch gefiltert.
-            \paragraph*{\texttt{labelVegan}} Die Rezepte werden nach dem \gls{label} vegan gefiltert.
-            \paragraph*{\texttt{labelGlutenFree}} Die Rezepte werden nach dem \gls{label} glutenfrei gefiltert.
-            \paragraph*{\texttt{labelHalal}} Die Rezepte werden nach dem \gls{label} halal gefiltert.
-            \paragraph*{\texttt{labelKosher}} Die Rezepte werden nach dem \gls{label} koscher gefiltert.
-
-    \subsubsection*{RecipeElement}
-        Die Klasse stellt das Rezept Element in der Hauptansicht da. Erbt von der Klasse \texttt{StatelessWidget}. Verwendet die Klasse \ref{sec:InformationElement}.
-        \subsubsection*{Attribute}
-            \paragraph*{\texttt{recipe: Recipe}} Das darzustellende Rezept.
-
-        \subsubsection*{Methoden}
-            \paragraph*{\texttt{RecipeElement(recipe: Recipe - notNull)}} Der Konstruktor für ein RecipeListElement. Der Parameter Muss angegeben werden.
-            \paragraph*{\texttt{toggleFavorite()}} Ruft die Funktion toggleFavourite() im RecipeService auf.
-            \paragraph*{\texttt{recipeView()}} Die Rezeptansicht wird aufgerufen.
-
-    \begin{figure}[htp]
-        \begin{minipage}
-            [t]{0.49\textwidth}
-            \centering
-            \includegraphics[height=80mm]{images/Presentation-layer/MainView.jpg}
-            \caption{Hauptansicht}
-        \end{minipage}
-        \begin{minipage}
-            [t]{0.49\textwidth}
-            \centering
-            \includegraphics[width=0.95\textwidth]{images/Presentation-layer/MainViewClass.pdf}
-            \caption{Klassen für Hauptansicht}
-        \end{minipage}
-    \end{figure}
-
-\subsection{Rezeptansicht}
-    Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Hauptansicht darzustellen.
-
-    \subsubsection{RecipeViewPage}
-    Stellt das Hauptelement der Ansicht da. Erbt von der Klasse \texttt{StatefullWidget}. Benutzt die Klasse \texttt{RecipeViewPageState}.
-        \subsubsection*{Methode}
-            \paragraph*{\texttt{createState: State<RecipeViewPageState>}} Der Konstruktor für den \texttt{RecipeViewPageState}.
-        
-    \subsubsection{recipeViewPageState}
-    Der Zustand von der \texttt{RecipeViewPage}. Erbt von der Klasse \texttt{State}. Die Klassen \ref{sec:ReturnButton}, \ref{sec:InformationElement} und \ref{sec:AppBar} werden verwendet.
-        \subsubsection*{Attribut}
-            \paragraph*{\texttt{portions: TextEdittingController}} Die eingegebene Ganzzahl für die die Zutatenmengen berechnet werden.
-    
-        \subsubsection*{Methode}
-            \paragraph*{\texttt{changePortions(portions: int)}} Die neuen Mengenangaben für die Zutaten werden berechnet.
-            \paragraph*{\texttt{recipeCreationView()}} Die Rezept-Erstellungs-Ansicht wird aufgerufen.
-
-    \begin{figure}[htp]
-        \begin{minipage}
-            [t]{0.49\textwidth}
-            \centering
-            \includegraphics[height=80mm]{images/Presentation-layer/RecipeView.jpg}
-            \caption{Rezeptansicht}
-        \end{minipage}
-        \begin{minipage}
-            [t]{0.49\textwidth}
-            \centering
-            \includegraphics[width=0.95\textwidth]{images/Presentation-layer/RecipeViewClass.pdf}
-            \caption{Klassen für Rezeptansicht}
-        \end{minipage}
-    \end{figure} 
-
-    \newpage
-
-\subsection{Rezept-Erstellungs-Ansicht}
-    Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Rezept-Erstell-Ansicht darzustellen.
-
-    \subsubsection{RecipeCreationPage}
-        Stellt das Hauptelement der Ansicht da. Erbt von der Klasse \texttt{StatefullWidget}. Benutzt die Klasse \texttt{RecipeCreationPageState}.
-        \subsubsection*{Methode}
-            \paragraph*{\texttt{createState: State<RecipeCreationPageState>}} Der Konstruktor für den \texttt{RecipeCreationPageState}.
-
-    \subsubsection{RecipeCreationPageState}
-        Der Zustand von der \texttt{RecipeCreationPage}. Erbt von der Klasse \texttt{State}. Die Klassen \ref{sec:ReturnButton}, \ref{sec:InformationElement} und \ref{sec:AppBar} werden verwendet.
-        \subsubsection*{Attribute}
-            \paragraph*{\texttt{image: \glslink{blob}{blob}}} Das hochgeladenes Bild, welches den anderen Nutzern in der Rezeptansicht angezeigt werden soll.
-            \paragraph*{\texttt{title: TextEdittingController}} Die eingegebene Zeichenkette für den Titel des Rezepts. Die Zeichenkette kann maximal 64 Zeichen lang sein.
-            \paragraph*{\texttt{is\_Vegetarian: Boolean}} Der vom Nutzer angegebene Boolean, ob das \gls{label} Vegetarisch dem Leser angezeigt werden soll. Ist standartmäßig auf false.
-            \paragraph*{\texttt{is\_Vegan: Boolean}} Der vom Nutzer angegebene Boolean, ob das \gls{label} Vegan dem Leser angezeigt werden soll. Ist standartmäßig auf false.
-            \paragraph*{\texttt{is\_GlutenFree: Boolean}} Der vom Nutzer angegebene Boolean, ob das \gls{label} Glutenfrei dem Leser angezeigt werden soll. Ist standartmäßig auf false.
-            \paragraph*{\texttt{is\_Halal: Boolean}} Der vom Nutzer angegebene Boolean, ob das \gls{label} Halal dem Leser angezeigt werden soll. Ist standartmäßig auf false.
-            \paragraph*{\texttt{is\_Kosher: Boolean}} Der vom Nutzer angegebene Boolean, ob das \gls{label} Koscher dem Leser angezeigt werden soll. Ist standartmäßig auf false.
-            \paragraph*{\texttt{duration: TextEdittingController}} Die vom Nutzer eingegebene Ganzzahl, welche die Zubereitungszeit in Minuten angibt.
-            \paragraph*{\texttt{difficulty: Difficulty}} Die vom Nutzer ausgewählte \gls{schwierigkeit} des Rezepts. 
-            \paragraph*{\texttt{defaultPortionAmount: TextEdittingController}} Die vom Nutzer eingegebene Ganzzahl, welche die Anzahal standardmäßigen Portionen für das Rezept angibt.
-            \paragraph*{\texttt{ingredients: Ingredients[]}} Eine Liste an Ingerdients, welche in der AddIngredientPage erstellt wurde.
-            \paragraph*{\texttt{instructions: TextEdittingController (notNull)}} Die vom Nutzer angegeben Zeichenkette für die Beschreibung des Rezepts.
-
-        \subsubsection*{Methoden}
-            \paragraph*{\texttt{addIngredient()}} Die Page \texttt{AddIngredientPage} wird aufgerufen.
-            \paragraph*{\texttt{recipeSave()}} Die Methode ruft, abhängig davon ob das Rezept neu erstellt wird oder nur verändert wurde, entweder \texttt{recipeCreation()} oder \texttt{recipeChange()} auf.
-        
-    \subsubsection{Difficulty}
-            Ein Enum der alle \glslink{schwierigkeit}{Schwierigkeitsgrade} beinhält.
-            \subsubsection*{Content}
-                \paragraph*{\texttt{easy}} Der \glslink{schwierigkeit}{Schwierigkeitsgrad} einfach.
-                \paragraph*{\texttt{medium}} Der \glslink{schwierigkeit}{Schwierigkeitsgrad} mittel.
-                \paragraph*{\texttt{hard}} Der \glslink{schwierigkeit}{Schwierigkeitsgrad} schwer.
-
-    \subsubsection*{IngredientElement}
-            Die Klasse beschreibt eine Widget dass eine Zutat darstellt. Erbt von der Klasse \texttt{StatelessWidget}.
-            \subsubsection*{Attribut}
-                \paragraph*{\texttt{ingredient: Ingredient}} Die darzustellende Zutat.
-
-            \subsubsection*{Methoden}
-                \paragraph*{\texttt{delete()}} Das \texttt{IngredientElement} wird nicht mehr in der Rezept-Erstellungs-Ansicht angezeigt und ist die Zutat ist nicht mehr teil des Rezepts.
-
-        \begin{figure}[htp]
-                \begin{minipage}
-                    [t]{0.49\textwidth}
-                    \centering
-                    \includegraphics[height=80mm]{images/Presentation-layer/RecipeCreationView.jpg}
-                    \caption{Rezept-Erstellungs-Ansicht}
-                \end{minipage}
-                \begin{minipage}
-                    [t]{0.49\textwidth}
-                    \centering
-                    \includegraphics[width=0.95\textwidth]{images/Presentation-layer/RecipeCreationViewClass.pdf}
-                    \caption{Klassen für Rezept-Erstellungs-Ansicht}
-                \end{minipage}
-        \end{figure}
-
-    \newpage
-
-\subsection{Zutaten-Auswahl-Ansicht}
-        Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Zutaten-Auswahl-Ansicht darzustellen.
-    
-        \subsubsection{AddIngredientPage}
-            Stellt das Hauptelement der Ansicht da. Erbt von der Klasse \texttt{StatefullWidget}. Benutzt die Klasse \texttt{AddIngredientPageState}.
-            \subsubsection*{Methode}
-                \paragraph*{\texttt{createState: State<AddIngredientPageState>}} Der Konstruktor für den \texttt{AddIngredientPageState}.
-        
-        \subsubsection{AddIngredientPageState}
-            Der Zustand von der \texttt{AddIngredientPage}. Erbt von der Klasse \texttt{State}. Die Klassen \ref{sec:ReturnButton} und \texttt{Ingredient} werden verwendet.
-            \subsubsection*{Attribut}
-                \paragraph*{\texttt{ingredientController: TextEdittingController}} Die eingegebene Zeichenkette für den Namen der neunen Zutat.
-    
-            \subsubsection*{Methoden}
-                \paragraph*{\texttt{searchIngredient(input: string)}} Überprüft die Eingabe und ruft die Funktion \texttt{getAllIngredientNames()} im \texttt{IngredientService} auf.
-                \paragraph*{\texttt{addIngredient(ingredient: Ingredient)}} Erstellt aus den Eingaben ein Objekt der Klasse \texttt{Ingredient} und kehrt zurück zur Rezept-Erstellungs-Ansicht.
-
-        \subsubsection*{ChoseIconElement}
-            Die Klasse stellt das \texttt{ChoseIconElement} da und ermöglicht es den User ein Icon für die Zutat auszuwählen. Bei Berührung klappt sich eine Liste an \texttt{IconElements} aus.
-            \subsubsection*{Methode}
-                \paragraph*{\texttt{choseIcon(iconId: String)}} Speichert das ausgewählte Icon mit der Zutat ab.
-
-        \subsubsection*{\texttt{IconElement}}
-            Die Klasse stellt ein Icon für eine Zutat da.
-            \subsubsection*{Attribut}
-                \paragraph*{\texttt{iconId: String}} Die ID des Icons, welches dargestellt werden soll.
-
-        \begin{figure}[htp]
-            \begin{minipage}
-                [t]{0.49\textwidth}
-                \centering
-                \includegraphics[height=80mm]{images/Presentation-layer/IngredientPickerView.jpg}
-                \caption{Zutaten-Auswahl-Ansicht}
-            \end{minipage}
-            \begin{minipage}
-                [t]{0.49\textwidth}
-                \centering
-                \includegraphics[width=0.95\textwidth]{images/Presentation-layer/IngredientPickerViewClass.pdf}
-                \caption{Klassen für Zutaten-Auswahl-Ansicht}
-            \end{minipage}
-        \end{figure} 
-            
-        \newpage
-
-\subsection{Verwaltungsansicht}
-    Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Verwaltungsansicht darzustellen.
-
-    \subsubsection{SettingsPage}
-        Stellt das Hauptelement der Ansicht da. Erbt von der Klasse \texttt{StatefullWidget}. Benutzt die Klasse \texttt{SettingsPageState}.
-        \subsubsection*{Methode}
-            \paragraph*{\texttt{createState: State<SettingsPageState>}} Der Konstruktor für den \texttt{SettingsPageState}.
-    
-    \subsubsection{SettingsPageState}
-        Der Zustand von der \texttt{SettingsPage}. Erbt von der Klasse \texttt{State}. Die Klassen \ref{sec:RecipeListElement}, \ref{sec:ConfirmationElement}, \ref{sec:ReturnButton} und \ref{sec:AppBar}werden verwendet.
-        \subsubsection*{Attribut}
-            \paragraph*{\texttt{newUsernameController: TextEdittingController}} Die eingegebene Zeichenkette für den neuen Nutzernamen des Benutzers.
-
-        \subsubsection*{Methoden}
-            \paragraph*{\texttt{setProfileImage(image: Image)}} Überprüft das Hochgeladene Bild und ruft die Funktion setProfileImage() im UserService auf.
-            \paragraph*{\texttt{removeProfileImage()}} Ruft die Funktion removeProfileImage() im UserService auf.
-            \paragraph*{\texttt{setUserName(value: string)}} Überprüft die Eingabe und ruft die Funktion setUserName() im UserService auf.
-            \paragraph*{\texttt{joinGroup()}} Die Gruppen-Beitritts-Ansicht wird aufgerufen.
-            \paragraph*{\texttt{recipeCreationView()}} Die Rezept-Erstellungs-Ansicht wird aufgerufen.
-            \paragraph*{\texttt{deleteAccount()}} Das ConfirmationElement wird aufgerufen und bei positiver Rückmeldung wird die Funktion deleteAccount() im UserService wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts. 
-    
-    \subsubsection{LogoutButton}
-        Die Klasse stellt den LoggoutButton da. Erbt von der Klasse \texttt{StatelessWidget}.
-        \subsubsection*{Methode}
-            \paragraph*{\texttt{logout()}} Die Funktion \texttt{logout()} im \texttt{UserService} wird aufgerufen.
-            
-    \subsubsection*{GroupElement}
-        Die Klasse stellt ein Gruppen Element in der List an Gruppen da. Erbt von der Klasse \texttt{StatelessWidget}.
-        \subsubsection*{Attribut}
-            \paragraph*{\texttt{group: Group}} Die darzustellende Gruppe.
-
-        \subsubsection*{Methoden}
-            \paragraph*{\texttt{GroupElement(group: Group - notNull)}} Der Konstruktor für ein \texttt{GroupElement}. Der Parameter muss angegeben werden.
-            \paragraph*{\texttt{leaveGroup()}} Das \texttt{ConfirmationElement} wird aufgerufen und bei positiver Rückmeldung wird die Funktion \texttt{leaveGroup()} im \texttt{GroupService} wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
-            \paragraph*{\texttt{groupeDetailView()}} Die Gruppen-Detail-Ansicht wird aufgerufen.
-            
-    \begin{figure}[htp]
-        \begin{minipage}
-            [t]{0.49\textwidth}
-            \centering
-            \includegraphics[height=80mm]{images/Presentation-layer/SettingsView.jpg}
-            \caption{Verwaltungsansicht}
-        \end{minipage}
-        \begin{minipage}
-            [t]{0.49\textwidth}
-            \centering
-            \includegraphics[width=0.95\textwidth]{images/Presentation-layer/SettingsViewClass.pdf}
-            \caption{Klassen für Verwaltungsansicht}
-        \end{minipage}
-    \end{figure} 
-        
-    \newpage
-
-\subsection{Verwaltungsansicht}
-Die Klassen beinhalten alle nötigen Funktionen und Attribute um die Verwaltungsansicht darzustellen.
-
-    \subsubsection{GroupDetailPage}
-        Stellt das Hauptelement der Ansicht da. Erbt von der Klasse \texttt{StatefullWidget}. Benutzt die Klasse \texttt{GroupDetailPageState}.
-        \subsubsection*{Methode}
-            \paragraph*{\texttt{createState: State<GroupDetailPageState>}} Der Konstruktor für den \texttt{GroupDetailPageState}.
-
-    \subsubsection{GroupDetailPageState}
-        Der Zustand von der \texttt{SettingsPage}. Erbt von der Klasse \texttt{State}. Die Klassen \ref{sec:RecipeListElement}, \ref{sec:ConfirmationElement}, \ref{sec:ReturnButton} und \ref{sec:AppBar} werden verwendet.
-        \subsubsection*{Attribut}
-            \paragraph*{\texttt{group: Group}} Die darzustellenden Gruppendetails.
-            \paragraph*{\texttt{newTitle: TextEdittingController}} Die eingegebe Zeichenkette für den neuen Gruppennamen.
-
-        \subsubsection*{Methoden}
-            \paragraph*{\texttt{GroupDetailPage(group: Group - notNull)}} Ein Konstruktor für eine \texttt{GroupDetailPage}. Der Parameter muss angegeben werden. 
-            \paragraph*{\texttt{setGroupTitle(newTitle: string)}} Die Eingabe wird Überprüft und die Funktion \texttt{setGroupName()} im \texttt{GroupeService} wird aufgerufen.
-            \paragraph*{\texttt{deleteGroup()}} Das \texttt{ConfirmationElement} wird aufgerufen und bei positiver Rückmeldung wird die Funktion  \texttt{kickUser()} im  \texttt{GroupeService} wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
-            \paragraph*{\texttt{leaveGroup()}} Das \texttt{ConfirmationElement} wird aufgerufen und bei positiver Rückmeldung wird die Funktion  \texttt{leaveGroup()} im \texttt{GroupeService} wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
-
-            \paragraph*{\texttt{getQRCode()}} Die QR-Code-Ansicht wird aufgerufen.
-            \paragraph*{\texttt{getGroupTitel()}} Der Gruppentitel wird in der Zwischenablage gespeichert.
-
-    \subsubsection{OptionElement}
-        Die Klasse stellt das OptionenElement da. Es zeigt alle Optionen an die der User hat bei dem User. Erbt von der Klasse \texttt{StatelessWidget}.
-        \subsubsection*{Attribut}
-            \paragraph*{\texttt{user: User}} Der darzustellende User.
-
-        \subsubsection*{Methoden}
-            \paragraph*{\texttt{OptionElement(user: User - notNull)}} Ein Konstruktor für ein \texttt{OptionElement}. Der Parameter muss angegeben werden. 
-            \paragraph*{\texttt{kickUser()}} Das \texttt{ConfirmationElement} wird aufgerufen und bei positiver Rückmeldung wird die Funktion \texttt{kickUser()} im \texttt{UserSettingsService} wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
-            \paragraph*{\texttt{banUser()}} Das \texttt{ConfirmationElement} wird aufgerufen und bei positiver Rückmeldung wird die Funktion \texttt{banUser()} im \texttt{UserSettingsService} wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
-            \paragraph*{\texttt{makeAdmin()}} Das \texttt{ConfirmationElement} wird aufgerufen und bei positiver Rückmeldung wird die Funktion \texttt{makeAdmin()} im \texttt{UserSettingsService} wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
-            \paragraph*{\texttt{removeAdminStatus()}} Das \texttt{ConfirmationElement} wird aufgerufen und bei positiver Rückmeldung wird die Funktion \texttt{removeAdminStatus()} im \texttt{UserSettingsService} wird aufgerufen. Bei negativer Rückmeldung ändert sich nichts.
-
-    \subsubsection{UserElement} 
-        Die Klasse stellt das User Element da. Dabei zeigt es in der Liste an Nutzer einen Nutzer an mit allen Möglichkeiten. Die Klasse \texttt{OptionElement} wirdverwendet.
-        \subsubsection*{Attribut}
-            \paragraph*{\texttt{user: User}} Der darzustellende User.
-            \paragraph*{\texttt{isOwnAccount: Boolean}} Ein Boolean der Angibt ob es sich um den eigenen Account handelt.
-
-        \subsubsection*{Methoden}
-            \paragraph*{\texttt{UserElement(user: User - notNull, isOwnAccount: bool - notNull)}} Ein Konstruktor für ein \texttt{UserElement}. Alle Parameter müssen angegeben werden.
-            \paragraph*{\texttt{options()}} Das \texttt{OptionElement} wird aufgerufen.
-
-        \begin{figure}[htp]
-            \begin{minipage}
-                [t]{0.49\textwidth}
-                \centering
-                \includegraphics[height=80mm]{images/Presentation-layer/GroupDetailView.jpg}
-                \caption{Gruppen-Detail-Ansicht}
-            \end{minipage}
-            \begin{minipage}
-                [t]{0.49\textwidth}
-                \centering
-                \includegraphics[width=0.95\textwidth]{images/Presentation-layer/GroupDetailViewClass.pdf}
-                \caption{Klassen für Gruppen-Detail-Ansicht}
-            \end{minipage}
-        \end{figure} 
-
-        \newpage
-
-\subsection{QR-Code-Ansicht}
-    Die Klassen beinhalten alle nötigen Funktionen und Attribute um die QR-Code-Ansicht darzustellen.
-
-    \subsubsection{QrCodePage}
-    Stellt das Hauptelement der Ansicht da. Erbt von der Klasse \texttt{StatelessWidget}. Die Klassen \ref{sec:ReturnButton} und \ref{sec:AppBar} werden verwendet.
-        \subsubsection*{Attribut}
-            \paragraph*{\texttt{group: Group}}
-
-        \subsubsection*{Methode}
-            \paragraph*{\texttt{QrCodePage(group: Group - notNull)}} Der Konstruktor für eine \texttt{QrCodePage}. Der Parameter muss angegeben werden.
-
-    \begin{figure}[htp]
-        \begin{minipage}
-            [t]{0.49\textwidth}
-            \centering
-            \includegraphics[height=80mm]{images/Presentation-layer/QRCodeView.jpg}
-            \caption{QR-Code-Ansicht}
-        \end{minipage}
-        \begin{minipage}
-            [t]{0.49\textwidth}
-            \centering
-            \includegraphics[width=0.95\textwidth]{images/Presentation-layer/QRCodeViewClass.pdf}
-            \caption{Klassen für QR-Code-Ansicht}
-        \end{minipage}
-    \end{figure} 
-    \newpage
-
+\subsubsection*{Methoden}
+\paragraph{\texttt{resetPassword(): void}}
+Leitet eine Registrierungsanfrage über einen Provider an den zuständigen Service weiter. Zeigt bei Erfolg einen \Gls{Dialog} an, dass die Anfrage erfolgreich war. Im Anschluss wird der Nutzer zur Anmeldeansicht (\ref{sec:loginScreen}) weitergeleitet.
 \newpage
 
+\subsection{\texttt{GroupJoiningScreen}}
+\label{sec:groupJoiningScreen}
+Die Klasse bildet die Gruppen-Beitritts-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt.
+Befindet sich die Registrierungsansicht (\ref{sec:registrationScreen}) im Navigations-Stack, wird ein Überspringen-Knopf angezeigt, der zur Hauptansicht (\ref{sec:mainScreen}) führt.
+Drückt der Nutzer auf den Knopf "Mit QR-Code beitreten" wird er zur QR-Code-Scan-Ansicht (\ref{sec:qrScannerScreen}) weitergeleitet. Gibt die Ansicht einen String zurück, wird eine Gruppenbeitrittsanfrage über einen Provider an den zuständigen Service weitergeleitet. Im Anschluss wird der Nutzer, jenachdem ob der Nutzer von der Registrierungsansicht (\ref{sec:registrationScreen}) kommt oder nicht, zur Hauptansicht (\ref{sec:mainScreen}) oder zur vorherigen Ansicht weitergeleitet.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=80mm]{images/presentationLayer/uiElements/groupJoiningScreen.jpg}
+        \caption{Gruppen-Beitritts-Ansicht}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/groupJoiningScreen.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Group\-Joining\-Screens}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{groupCodeController: TextEditingController}}
+Der Controller, der die Eingabe des Gruppencodes des Nutzers verwaltet. Über ihn kann der Wert des Eingabefelds abgerufen werden oder eine Fehlermeldung angezeigt werden.
+\subsubsection*{Methoden}
+\paragraph{\texttt{joinGroupByCode(): void}}
+Leitet eine Gruppenbeitrittsanfrage über einen Provider an den zuständigen Service weiter, wobei das Gruppenkürzel übergegeben wird. Zeigt bei Erfolg einen \Gls{Dialog} an, dass die Anfrage erfolgreich war. Im Anschluss wird der Nutzer entweder zur Hauptansicht (\ref{sec:mainScreen}) oder zur vorherigen Ansicht weitergeleitet. Dies hängt davon ab, ob die Registrierungsansicht (\ref{sec:registrationScreen}) im Navigations-Stack ist.
+\newpage
+
+\subsection{\texttt{QRScannerScreen}}
+\label{sec:qrScannerScreen}
+Die Klasse bildet die QR-Scanner-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt. Sie verwendet die Klasse \hyperref[sec:backButton]{\texttt{BackButton}} aus dem \texttt{ui\_elements}-Package. Es handelt sich um eine Ansicht, die die Kameraansicht des Smartphones zeigt.
+\begin{figure}
+    [htp]
+    \centering
+    \includegraphics[width=.49\textwidth]{images/presentationLayer/classDiagrams/qrScannerScreen.pdf}
+    \caption{Klassendiagramm des QR\-Scanner\-Screens}
+\end{figure}
+\subsubsection*{Methoden}
+\paragraph{\texttt{onScanSuccessful(String scannedText): void}}
+Wird ein QR-Code erkannt, so wird diese Methode mit dem entschlüsselten Text aufgerufen. Sie validiert, ob es sich um ein Gruppenkürzel handelt und gibt es bei Erfolg an die vorherige Ansicht zurück. Die Erkennung des QR-Codes erfolgt über das Flutter-Package \texttt{mobile\_scanner}.
+
+\newpage
+\subsection{\texttt{GroupCreationScreen}}
+\label{sec:groupCreationScreen}
+Die Klasse bildet die Gruppen-Erstellungs-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt.
+Befindet sich die Registrierungsansicht (\ref{sec:registrationScreen}) im Navigations-Stack, wird ein Überspringen-Knopf angezeigt, der zur Hauptansicht (\ref{sec:mainScreen}) führt.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=80mm]{images/presentationLayer/uiElements/groupCreationScreen.jpg}
+        \caption{Gruppen-Erstellungs-Ansicht}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/groupCreationScreen.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Group\-Creation\-Screens}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{groupNameController: TextEditingController}}
+Der Controller, der die Eingabe des Gruppennamens durch den Nutzer verwaltet. Über ihn kann der Wert des Eingabefelds abgerufen werden oder eine Fehlermeldung angezeigt werden.
+\subsubsection*{Methoden}
+\paragraph{\texttt{createGroup(): void}}
+Leitet eine Gruppenerstellungsanfrage über einen Provider an den zuständigen Service weiter, wobei der Gruppenname übergeben wird. Zeigt bei Erfolg einen \Gls{Dialog} an, dass die Anfrage erfolgreich war. Im Anschluss wird der Nutzer entweder zur Hauptansicht (\ref{sec:mainScreen}) oder zur vorherigen Ansicht weitergeleitet. Dies hängt davon ab, ob die Registrierungsansicht (\ref{sec:registrationScreen}) im Navigations-Stack ist.
+\newpage
+
+\subsection{\texttt{main\_screen}}
+Das Package \texttt{main\_screen} enthält alle Klassen für die Hauptansicht der App. Der anzuzeigende Screen ist in der Klasse \hyperref[sec:mainScreen]{\texttt{MainScreen}} implementiert
+\begin{figure}
+    [htp]
+    \centering
+    \includegraphics[width=\textwidth]{images/presentationLayer/classDiagrams/mainScreenWhole.pdf}
+    \caption{Klassendiagramm des Pakets main\_screen}
+\end{figure}
+\newpage
+\subsubsection{MainScreen}
+\label{sec:mainScreen}
+Die Klasse bildet die Hauptansicht der App ab. Sie ist ein \texttt{StatefulWidget}, da sie den Zustand \texttt{filteredRecipes} verwaltet und anzeigt. Sie bildet für jedes Rezept eine \texttt{RecipeCard} ab. Zudem gibt es zwei Widgets zur Auswahl der Sortierung und Filterung der Rezepte und eines zum Suchen.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=80mm]{images/presentationLayer/uiElements/mainScreen.jpg}
+        \caption{Hauptansicht der App}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/mainScreen.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Main\-Screens}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{filteredRecipes: List<Recipe>}}
+Die Liste der Rezepte, die aktuell angezeigt werden. Sie wird durch die Auswahl der Sortierung und Filterung bestimmt.
+\paragraph{\texttt{filterCategories: List<FilterCategory}}
+Die Liste der Filterkategorien, die aktuell ausgewählt sind.
+\paragraph{\texttt{sortCategory: SortCategory}}
+Die aktuell ausgewählte Sortierung.
+\paragraph{\texttt{sortAscending: bool}}
+Gibt an, ob die Sortierung aufsteigend ist.
+\paragraph{\texttt{searchText: String}}
+Der aktuell eingegebene Suchtext.
+\subsubsection*{Methoden}
+\paragraph{\texttt{runFiltersAndSort(): void}}
+Wendet die aktuell ausgewählten Filter, die Suche und die Sortierung auf die Liste aller Rezepte an und speichert das Ergebnis in \texttt{filteredRecipes}. Wird immer aufgerufen, nachdem sich eine der Einstellungen geändert hat.
+\newpage
+\subsubsection{RecipeCard}
+\label{sec:recipeCard}
+Die Klasse bildet eine Rezeptkarte ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt. Sie verwendet die Klasse \hyperref[sec:favouriteButton]{\texttt{FavouriteButton}} aus dem Package \texttt{ui\_elements}.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=.8\textwidth]{images/presentationLayer/uiElements/recipeCard.png}
+        \caption{Abbildung einer Rezeptkarte}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/recipeCard.pdf}
+        \caption{\protect\raggedright Klassendiagramm der Recipe\-Card}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{recipe: Recipe}}
+Das Rezept, das angezeigt werden soll.
+\subsubsection*{Methoden}
+\paragraph{\texttt{RecipeItem(Recipe recipe): RecipeItem}}
+Konstruktor, der das anzuzeigende Rezept übergeben bekommt.
+\paragraph{\texttt{toggleFavourite(): void}}
+Leitet eine Anfrage über den zugehörigen Provider an den zuständigen Service weiter, um das Rezept als Favorit zu markieren oder die Markierung aufzuheben.
+\newpage
+\subsubsection{\texttt{FilterSelectionWidget}}
+Die Klasse stellt ein Widget bereit, mit dem der Nutzer die Filterkategorien auswählen kann. Sie ist ein \texttt{StatefulWidget}, da sie den Zustand \texttt{selectedCategories} verwaltet. Wird auf das Widget gedrückt, öffnet sich ein \Gls{Dialog}, in dem die Filterkategorien ausgewählt werden können.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1.5cm]{images/presentationLayer/uiElements/filterSelectionWidget.png}
+        \caption{\protect\raggedright Abbildung des Filter\-Selection\-Widgets}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/filterSelectionWidget.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Filter\-Selection\-Widgets}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{selectedFilters: List<FilterCategory>}}
+Die Liste der aktuell ausgewählten Filterkategorien.
+\paragraph{\texttt{onChange(List<FilterCategory> value): void}} Callback-Methode, die ausgeführt wird wenn sich die Auswahl der Filterkategorien ändert und die neue Auswahl als Parameter übergeben bekommt.
+\subsubsection*{Methoden}
+\paragraph{\texttt{FilterSelectionWidget(List<FilterCategory> selectedFilters, void onChange(List<FilterCategory> value)): FilterSelectionWidget}}
+Konstruktor, der die aktuell ausgewählten Filterkategorien und die Callback-Methode übergeben bekommt.
+\newpage
+
+\subsubsection{\texttt{FilterCategory}}
+\begin{figure}
+    [htp]
+    \centering
+    \includegraphics[width=0.3\textwidth]{images/presentationLayer/classDiagrams/filterCategory.pdf}
+    \caption{Klassendiagramm des Enums Filter\-Category}
+\end{figure}
+Der Enum \texttt{FilterCategory} bildet die Filterkategorien ab. Die Kategorien sind:
+\begin{itemize}
+    \item \texttt{favourite}
+    \item \texttt{difficultyEasy}
+    \item \texttt{difficultyMedium}
+    \item \texttt{difficultyHard}
+    \item \texttt{labelVegan}
+    \item \texttt{labelVegetarian}
+    \item \texttt{labelGlutenFree}
+    \item \texttt{labelKosher}
+    \item \texttt{labelHalal}
+\end{itemize}
+\subsubsection*{Methoden}
+\paragraph{\texttt{matches(Recipe recipe): bool}}
+Gibt an, ob das übergebene Rezept zu der Filterkategorie passt. Kann zum Filtern einer Rezeptliste benutzt werden.
+\newpage
+
+\subsubsection{\texttt{SortSelectionWidget}}
+Die Klasse stellt ein Widget bereit, mit dem der Nutzer die Sortierung auswählen kann. Sie ist ein \texttt{StatefulWidget}, da sie die Zustände \texttt{sortCategory} und \texttt{ascending} verwaltet. Wird auf das Widget gedrückt, öffnet sich ein \Gls{Dialog}, in dem die Sortierung ausgewählt werden kann.
+
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1.5cm]{images/presentationLayer/uiElements/sortSelectionWidget.png}
+        \caption{\protect\raggedright Abbildung des Sort\-Selection\-Widgets}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/sortSelectionWidget.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Sort\-Selection\-Widgets}
+    \end{minipage}
+\end{figure}
+
+\subsubsection*{Attribute}
+\paragraph{\texttt{sortCategory: SortCategory}}
+Die aktuell ausgewählte Sortierungskategorie.
+\paragraph{\texttt{ascending: bool}}
+Gibt an, ob die Sortierung aufsteigend sein soll.
+\paragraph{\texttt{onChange(SortCategory sortCategory, bool ascending): void}} Callback-Methode, die ausgeführt wird wenn sich die Auswahl der Sortierung ändert und die neue Auswahl als Parameter übergeben bekommt.
+\subsubsection*{Methoden}
+\paragraph{\texttt{SortSelectionWidget(SortCategory sortCategory, bool ascending, void onChange(SortCategory sortCategory, bool ascending)): SortSelectionWidget}}
+Konstruktor, der die aktuell ausgewählte Sortierungskategorie, die Sortierrichtung und die Callback-Methode übergeben bekommt.
+\newpage
+\subsubsection{\texttt{SortCategory}}
+\begin{figure}
+    [htp]
+    \centering
+    \includegraphics[width=0.3\textwidth]{images/presentationLayer/classDiagrams/sortCategory.pdf}
+    \caption{Klassendiagramm des Enums Sort\-Category}
+\end{figure}
+Der Enum \texttt{SortCategory} bildet die Sortierungskategorien ab. Die Kategorien sind:
+\begin{itemize}
+    \item \texttt{title}
+    \item \texttt{difficulty}
+    \item \texttt{creationDate}
+\end{itemize}
+\subsubsection*{Methoden}
+\paragraph{\texttt{compare(Recipe a, Recipe b): int}}
+Vergleicht zwei Rezepte anhand der Sortierungskategorie und gibt an, welches Rezept zuerst kommen soll. Kann zum Sortieren einer Rezeptliste mit Hilfe von \texttt{List.sort()} benutzt werden.
+\newpage
+
+\subsubsection{\texttt{SearchFieldWidget}}
+Die Klasse stellt ein Widget bereit, mit dem der Nutzer nach Rezepten suchen kann. Sie ist ein \texttt{StatelessWidget}, da sie selbst keinen Zustand verwaltet, der die UI aktualisieren muss. Das übernimmt das zugrundeliegende Textfeld.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=.95\textwidth]{images/presentationLayer/uiElements/searchFieldWidget.png}
+        \caption{\protect\raggedright Abbildung des Search\-Field\-Widgets}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/searchFieldWidget.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Search\-Field\-Widgets}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{onChange(String value): void}}
+Callback-Methode, die ausgeführt wird wenn sich der Inhalt des Textfelds ändert und den neuen Inhalt als Parameter übergeben bekommt.
+\subsubsection*{Methoden}
+\paragraph{\texttt{SearchFieldWidget(void onChange(String value)): SearchFieldWidget}}
+Konstruktor, der die Callback-Methode übergeben bekommt.
+\newpage
+\subsection{\texttt{RecipeDetailScreen}}
+Die Klasse stellt den Bildschirm dar, auf dem die Zubereitungsanweisungen eines Rezepts angezeigt werden. Sie ist ein \texttt{StatefulWidget}, da sie den Zustand \texttt{portionAmount} verwaltet. Die Klasse verwendet die Klassen \texttt{BackButton}, \texttt{FavouriteButton} und \texttt{PortionAmountField} aus dem Package \texttt{ui\_elements}. 
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=80mm]{images/presentationLayer/uiElements/recipeDetailScreen.jpg}
+        \caption{\protect\raggedright Abbildung des Recipe\-Detail\-Screens}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/recipeDetailScreen.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Recipe\-Detail\-Screens}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{recipe: Recipe}}
+Das Rezept, das angezeigt werden soll. Es wird bei der Initialisierung aus dem \Gls{BuildContext} gelesen, wo es vorher hineingeschrieben wurde.
+\paragraph{\texttt{portionAmount: int}}
+Die Anzahl der Portionen, die der Nutzer kochen möchte. Er kann sie über ein Textfeld setzen, woraufhin die Zutatenmengen angepasst werden.
+\newpage
+
+\subsection{\texttt{recipe\_creation\_screen}}
+Das Package \texttt{mainrecipe\_creation\_screen} enthält alle Klassen für die Rezept-Erstellungs-Ansicht. Der anzuzeigende Screen ist in der Klasse \hyperref[sec:recipeCreationScreen]{\texttt{RecipeCreationScreen}} implementiert.
+\begin{figure}
+    [htp]
+    \centering
+    \includegraphics[width=\textwidth]{images/presentationLayer/classDiagrams/recipeCreationScreenWhole.pdf}
+    \caption{Klassendiagramm des Pakets recipe\_creation\_screen}
+\end{figure}
+\newpage
+\subsubsection{\texttt{RecipeCreationScreen}}
+\label{sec:recipeCreationScreen}
+Die Klasse bildet die Rezept-Erstellungs-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen Zustand verwaltet. Dies übernehmen die einzelnen Teilwidgets. Es werden verschiedene Widgets angezeigt, die es ermöglichen Rezeptdaten einzugeben oder abzuändern. Die Klasse verwendet die Klassen \texttt{BackButton} und \texttt{PortionAmountField} aus dem Package \texttt{ui\_elements}.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=80mm]{images/presentationLayer/uiElements/recipeCreationScreen.jpg}
+        \caption{\protect\raggedright Abbildung des Recipe\-Creation\-Screens}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/recipeCreationScreen.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Recipe\-Creation\-Screens}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{recipe: Recipe}}
+Soll ein Rezept verändert werden, so wird das Ursprungsrezept über den \Gls{BuildContext} übergeben und in diesem Parameter gespeichert. Andernfalls bleibt der Wert null.
+\newpage
+\subsubsection{\texttt{ImagePickerWidget}}
+\label{sec:imagePickerWidget}
+Die Klasse stellt ein Widget bereit, mit dem der Nutzer ein Bild auswählen oder löschen kann. Sie ist ein \texttt{StatefulWidget}, da sie den Zustand \texttt{image} verwaltet.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=.8\textwidth]{images/presentationLayer/uiElements/imagePickerWidget.png}
+        \caption{\protect\raggedright Abbildung des Image\-Picker\-Widgets}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/imagePickerWidget.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Image\-Picker\-Widgets}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{image: UInt8List?}}
+Das ausgewählte Bild. Ist der Wert null, so wurde noch kein Bild ausgewählt.
+\paragraph{\texttt{onChange(UInt8List? value): void}}
+Callback-Methode, die ausgeführt wird, wenn sich das Bild ändert und das neue Bild als Parameter übergeben bekommt. Ist \texttt{value} null, so soll das Bild gelöscht werden.
+\subsubsection*{Methoden}
+\paragraph{\texttt{ImagePickerWidget(UInt8List? image, void onChange(UInt8List? value)): ImagePickerWidget}}
+Konstruktor, der das Bild und die Callback-Methode übergeben bekommt.
+\newpage
+
+\subsubsection{\texttt{DifficultyPickerWidget}}
+\label{sec:difficultyPickerWidget}
+Die Klasse stellt ein Widget bereit, mit dem der Nutzer die Schwierigkeit des Rezepts auswählen kann. Sie ist ein \texttt{StatefulWidget}, da sie den Zustand \texttt{difficulty} verwaltet. Drückt der Nutzer auf das Widget, öffnet sich ein Drop-Down-Menü, in dem er die Schwierigkeit auswählen kann. 
+
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=1cm]{images/presentationLayer/uiElements/difficultyPickerWidget.png}
+        \caption{\protect\raggedright Abbildung des Difficulty\-Picker\-Widgets}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/difficultyPickerWidget.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Difficulty\-Picker\-Widgets}
+    \end{minipage}
+\end{figure}
+
+\subsubsection*{Attribute}
+\paragraph{\texttt{difficulty: Difficulty}}
+Die ausgewählte Schwierigkeit.
+\paragraph{\texttt{onChange(Difficulty value): void}}
+Callback-Methode, die ausgeführt wird, wenn sich die Schwierigkeit ändert und die neue Schwierigkeit als Parameter übergeben bekommt.
+\subsubsection*{Methoden}
+\paragraph{\texttt{DifficultyPickerWidget(Difficulty difficulty, void onChange(Difficulty value)): DifficultyPickerWidget}}
+Konstruktor, der die Schwierigkeit und die Callback-Methode übergeben bekommt.
+\newpage
+\subsubsection{\texttt{IngredientList}}
+\label{sec:ingredientPickerWidget}
+Die Klasse stellt die Liste der Zutaten dar. Sie ist ein \texttt{StatefulWidgget}, da sie den Zustand \texttt{ingredients} verwaltet. Sie erzeugt eine Listenansicht, in der für jedes Rezept ein Item gezeigt wird. Zusätzlich verwendet sie die Klasse \hyperref[sec:addButton]{\texttt{AddButton}} und \texttt{RemoveButton} aus dem Package \texttt{ui\_elements}. Drückt man auf den Knopf, wird man zur Zutaten-Erstellungs-Ansicht (\ref{sec:ingredientCreationScreen}) weitergeleitet.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=.95\textwidth]{images/presentationLayer/uiElements/ingredientList.png}
+        \caption{\protect\raggedright Abbildung der Ingredient\-List}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/ingredientList.pdf}
+        \caption{\protect\raggedright Klassendiagramm der Ingredient\-List}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{ingredients: List<Ingredient>}}
+Die Liste der Zutaten.
+\paragraph{\texttt{onChange(List<Ingredient> ingredients): void}}
+Callback-Methode, die ausgeführt wird, wenn sich die Liste der Zutaten ändert und die neue Liste als Parameter übergeben bekommt.
+\subsubsection*{Methoden}
+\paragraph{\texttt{IngredientList(List<Ingredient> ingredients, void onChange(List<Ingredient> ingredients)): IngredientList}}
+Konstruktor, der die Liste der Zutaten und die Callback-Methode übergeben bekommt.
+\newpage
+\subsubsection{\texttt{ToggleableLabelWidget}}
+Die Klasse repräsentiert ein Label, das aktiviert oder deaktiviert werden kann, indem es gedrückt wird. Es ändert entsprechend seine Farbe. Sie ist ein \texttt{StatefulWidget}, da sie den Zustand \texttt{active} verwaltet. Sie erzeugt ein Text-Widget, das aktiviert oder deaktiviert werden kann, indem es gedrückt wird. Es ändert entsprechend seine Farbe. Es verwendet die Klasse \hyperref[sec:tagItem]{\texttt{TagItem}} aus dem Package \texttt{ui\_elements}.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=1cm]{images/presentationLayer/uiElements/toggleableLabelWidget.png}
+        \caption{\protect\raggedright Abbildung des Toggleable\-Label\-Widgets im aktiven Zustand}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/toggleableLabelWidget.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Toggleable\-Label\-Widgets}
+    \end{minipage}
+\end{figure}
+
+\subsubsection*{Attribute}
+\paragraph{\texttt{icon: IconData}}
+Das Icon, das angezeigt wird.
+\paragraph{\texttt{name: String}}
+Der Name, der angezeigt wird.
+\paragraph{\texttt{active: bool}}
+Der Zustand, ob das Label aktiviert ist oder nicht.
+\paragraph{\texttt{onChange(bool value): void}}
+Callback-Methode, die ausgeführt wird, wenn sich der Zustand ändert und den neuen Zustand als Parameter übergeben bekommt.
+\subsubsection*{Methoden}
+\paragraph{\texttt{ToggleableLabelWidget(IconData icon, String name, bool active, void onChange(bool value)): ToggleableLabelWidget}}
+Konstruktor, der das Icon, den Namen, den Zustand und die Callback-Methode übergeben bekommt und setzt.
+\newpage
+
+\subsection{\texttt{ingredient\_creation\_screen}}
+Das Package \texttt{ingredient\_creation\_screen} enthält alle Klassen für die Zutaten-Erstellungs-Ansicht. Der anzuzeigende Screen ist in der Klasse \hyperref[sec:ingredientCreationScreen]{\texttt{IngredientCreationScreen}} implementiert.
+\begin{figure}
+    [htp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/ingredientCreationScreenWhole.pdf}
+    \caption{\protect\raggedright Klassendiagramm des ingredient\_creation\_screen-Packages}
+\end{figure}
+\newpage
+\subsubsection{\texttt{IngredientCreationScreen}}
+\label{sec:ingredientCreationScreen}
+Die Klasse bildet die Zutaten-Erstellungs-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie selbst keinen Zustand verwaltet. Dies übernehmen die einzelnen Teilwidgets. Es werden verschiedene Widgets angezeigt, die es ermöglichen Zutatendaten einzugeben und Vorschläge für Namen anzuzeigen. Sie verwendet die Klassen \texttt{BackButton} aus dem Package \texttt{ui\_elements}.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=8cm]{images/presentationLayer/uiElements/ingredientCreationScreen.jpg}
+        \caption{\protect\raggedright Abbildung des Ingredient\-Creation\-Screens}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/ingredientCreationScreen.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Ingredient\-Creation\-Screens}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{nameController: TextEditingController}}
+Der Controller für den Namen der Zutat.
+\paragraph{\texttt{iconName: String}}
+Der Name des Icons, das ausgewählt ist.
+\paragraph{\texttt{amountController: TextEditingController}}
+Der Controller für die Menge der Zutat.
+\paragraph{\texttt{unitController: TextEditingController}}
+Der Controller für die Einheit der Zutat.
+\subsubsection*{Methoden}
+\paragraph{\texttt{createIngredient(): void}}
+Validiert die Felder und leitet dann zur vorherigen Ansicht zurück, wobei die eingegebenen Daten als \texttt{Ingredient} über den \Gls{BuildContext} übergeben werden.
+\newpage
+\subsubsection{\texttt{IconPickerWidget}}
+Die Klasse repräsentiert ein Widget, das ein Icon auswählen kann. Es ist ein \texttt{StatefulWidget}, da es den Zustand \texttt{iconName} verwaltet. Drückt der Nutzer auf das Widget öffnet sich ein \Gls{Dialog} mit einer Liste von Icons, aus der der Nutzer eines auswählen kann.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=1cm]{images/presentationLayer/uiElements/iconPickerWidget.png}
+        \caption{\protect\raggedright Abbildung des Icon\-Picker\-Widgets}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/iconPickerWidget.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Icon\-Picker\-Widgets}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{iconName: String}}
+Der Name des Icons, das ausgewählt ist.
+\paragraph{\texttt{onChange(String iconName): void}}
+Callback-Methode die ausgeführt wird, wenn sich das Icon ändert und den neuen Namen als Parameter übergeben bekommt.
+\subsubsection*{Methoden}
+\paragraph{\texttt{IconPickerWidget(String iconName, void onChange(String iconName)): IconPickerWidget}}
+Konstruktor, der den Namen des Icons und die Callback-Methode übergeben bekommt und setzt.
+\newpage
+\subsubsection{\texttt{IngredientNameInput}}
+Die Klasse repräsentiert ein Widget, in das ein Name für eine Zutat eingegeben werden kann. Es ist ein \texttt{StatefulWidget}, da es den Zustand \texttt{name} verwaltet. Es werden live Vorschläge angezeigt.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=4cm]{images/presentationLayer/uiElements/ingredientNameInput.png}
+        \caption{\protect\raggedright Abbildung des Ingredient\-Name\-Inputs}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/ingredientNameInput.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Ingredient\-Name\-Inputs}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{name: String}}
+Der Name der Zutat.
+\paragraph{\texttt{controller: TextEditingController}}
+Der Controller für den Namen der Zutat.
+\subsubsection*{Methoden}
+\paragraph{\texttt{IngredientNameInput(String name, TextEditingController controller): IngredientNameInput}}
+Konstruktor, der den Namen der Zutat und den Controller übergeben bekommt und setzt.
+\newpage
+\subsection{\texttt{settings\_screen}}
+Das Package \texttt{settings\_screen} enthält alle Klassen für die Einstellungsansicht. Der anzuzeigende Screen ist in der Klasse \hyperref[sec:settingsScreen]{\texttt{SettingsScreen}} implementiert.
+\begin{figure}
+    [htp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/settingsScreenWhole.pdf}
+    \caption{\protect\raggedright Klassendiagramm des settings\_screen-Packages}
+\end{figure}
+\newpage
+
+\subsubsection{\texttt{SettingsScreen}}
+\label{sec:settingsScreen}
+Die Klasse bildet die Einstellungsansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand verwaltet.
+
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=8cm]{images/presentationLayer/uiElements/settingsScreen.jpg}
+        \caption{\protect\raggedright Abbildung des Settings\-Screens}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/settingsScreen.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Settings\-Screens}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Methoden}
+\paragraph{\texttt{logout(): void}}
+Leitet eine Anfrage zum Abmelden des Nutzers über einen Provider an den zuständigen Service weiter. Leitet dann den Nutzer an die Anmeldeseite weiter.
+\paragraph{\texttt{deleteAccount(): void}}
+Leitet eine Anfrage zum Löschen des Nutzers über einen Provider an den zuständigen Service weiter. Leitet dann den Nutzer an die Anmeldeseite weiter.
+\paragraph{\texttt{renameUser(String newName): void}}
+Leitet eine Anfrage zum Umbenennen des Nutzers über einen Provider an den zuständigen Service weiter.
+\newpage
+\subsubsection{\texttt{ProfileImagePicker}}
+\label{sec:profileImagePicker}
+Die Klasse bildet die Profilbildauswahl ab. Sie ist ein \texttt{StatefulWidget}, da sie den Zustand \texttt{profileImage} verwaltet. Sie zeigt ein Bild an, das der Nutzer auswählen kann.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=3cm]{images/presentationLayer/uiElements/profileImagePicker.png}
+        \caption{\protect\raggedright Abbildung des Profile\-Image\-Pickers}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/profileImagePicker.pdf}
+        \caption{\protect\raggedright Klassendiagramm des Profile\-Image\-Pickers}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{profileImage: UInt8List?}}
+Das Profilbild des Nutzers. Oder \texttt{null}, wenn keines wurde.
+\paragraph{\texttt{onChange(UInt8List? profileImage): void}}
+Callback-Methode, die ausgeführt wird, wenn sich das Profilbild ändert und das neue Profilbild als Parameter übergeben bekommt.
+\subsubsection*{Methoden}
+\paragraph{\texttt{ProfileImagePicker(UInt8List? profileImage, void onChange(UInt8List? profileImage)): ProfileImagePicker}}
+Konstruktor, der das Profilbild und die Callback-Methode übergeben bekommt und setzt.
+\newpage
+\subsubsection{\texttt{GroupList}}
+\label{sec:groupList}
+Die Klasse bildet die Gruppenliste ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand verwaltet. Sie zeigt eine Liste von Gruppen an, bei denen der Nutzer Mitglied ist. Die Klasse verwendet die Klassen \texttt{AddButton} und \texttt{RemoveButton} aus dem Package \texttt{ui\_elements}.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=.95\textwidth]{images/presentationLayer/uiElements/groupList.png}
+        \caption{\protect\raggedright Abbildung der Group\-List}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/groupList.pdf}
+        \caption{\protect\raggedright Klassendiagramm der Group\-List}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{groups: List<Group>}}
+Die Liste der Gruppen, die angezeigt werden sollen.
+\subsubsection*{Methoden}
+\paragraph{\texttt{GroupList(List<Group> groups): GroupList}}
+Konstruktor, der die Liste der Gruppen übergeben bekommt und setzt.
+\paragraph{\texttt{leaveGroup(String id): void}}
+Leitet die Anfrage zum Verlassen der Gruppe über einen Provider an den zuständigen Service weiter.
+\newpage
+\subsubsection{\texttt{OwnRecipeList}}
+\label{sec:ownRecipeList}
+Die Klasse bildet die Rezeptliste des Nutzers ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand verwaltet. Sie zeigt eine Liste von Rezepten an, die der Nutzer erstellt hat. Sie verwendet die Klassen \texttt{AddButton}, \texttt{RemoveButton} und \texttt{EyeButton} aus dem Package \texttt{ui\_elements}.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=.95\textwidth]{images/presentationLayer/uiElements/ownRecipeList.png}
+        \caption{\protect\raggedright Abbildung der OwnRecipeList}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/ownRecipeList.pdf}
+        \caption{\protect\raggedright Klassendiagramm der OwnRecipe\-List}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{recipes: List<Recipe>}}
+Die Rezepte, die angezeigt werden sollen.
+\subsubsection*{Methoden}
+\paragraph{\texttt{OwnRecipeList(List<Recipe> recipes): OwnRecipeList}}
+Konstruktor, der die Rezepte übergeben bekommt und setzt.
+\paragraph{\texttt{hideRecipe(String id): void}}
+Leitet eine Anfrage zum Setzen des Rezepts auf privat über einen Provider an den zuständigen Service weiter.
+\paragraph{\texttt{exportRecipe(Recipe recipe): void}}
+Leitet eine Anfrage zum Exportieren des Rezepts über einen Provider an den zuständigen Service weiter.
+\paragraph{\texttt{deleteRecipe(String id): void}}
+Leitet eine Anfrage zum Löschen des Rezepts über einen Provider an den zuständigen Service weiter.
+\newpage
+\subsection{\texttt{group\_detail\_screen}}
+Das Package \texttt{group\_detail\_screen} enthält alle Klassen für die Gruppen-Detaill-Ansicht. Der anzuzeigende Screen ist in der Klasse \hyperref[sec:groupDetailScreen]{\texttt{GroupDetailScreen}} implementiert.
+\begin{figure}
+    [htp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/groupDetailScreenWhole.pdf}
+    \caption{\protect\raggedright Klassendiagramm des group\_detail\_screen-Packages}
+\end{figure}
+\newpage
+\subsubsection{GroupDetailScreen}
+\label{sec:groupDetailScreen}
+Die Klasse bildet die Gruppen-Detail-Ansicht ab. Sie ist ein \texttt{StatefulWidget}, da sie den Zustand \texttt{group} verwaltet. Sie verwendet die Klasse \texttt{BackButton} aus dem Package \texttt{ui\_elements}.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=8cm]{images/presentationLayer/uiElements/groupDetailScreen.jpg}
+        \caption{\protect\raggedright Abbildung der Gruppen-Detail-Ansicht}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/groupDetailScreen.pdf}
+        \caption{\protect\raggedright Klassendiagramm des GroupDetailScreens}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{group: Group}}
+Die Gruppe, deren Details angezeigt werden sollen. Wird bei der Initialisierung aus dem \Gls{BuildContext} gelesen.
+\subsubsection*{Methoden}
+\paragraph{\texttt{deleteGroup(): void}}
+Leitet eine Anfrage über einen Provider an den zugehörigen Service weiter, um die Gruppe aufzulösen.
+\paragraph{\texttt{renameGroup(String newName): void}}
+Leitet eine Anfrage über einen Provider an den zugehörigen Service weiter, um die Gruppe umzubenennen.
+\paragraph{\texttt{leaveGroup(): void}}
+Leitet eine Anfrage über einen Provider an den zugehörigen Service weiter, um die Gruppe zu verlassen.
+\paragraph{\texttt{shareGroupCode(): void}}
+Kopiert das Gruppenkürzel in die Zwichenablage zum Teilen.
+\newpage
+\subsubsection{\texttt{MemberList}}
+Die Klasse stellt ein Widget bereit, das die eine Liste der Gruppenmitglieder zeigt. Sie verwendet die Klasse \texttt{AddButton} aus dem Package \texttt{ui\_elements}.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=5cm]{images/presentationLayer/uiElements/memberList.png}
+        \caption{\protect\raggedright Abbildung der MemberList}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/memberList.pdf}
+        \caption{\protect\raggedright Klassendiagramm des MemberList}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{members: List<GroupMember>}}
+Die Mitglieder der Gruppe.
+\subsubsection*{Methoden}
+\paragraph{\texttt{MemberList(List<GroupMember> members): MemberList}}
+Konstruktor, der die Miglieder der Gruppe entgegen nimmt und setzt.
+\paragraph{\texttt{makeAdmin(String userId): void}}
+Leitet eine Anfrage zum Ernennen zum Administrator über einen Provider an den zugehörigen Service weiter.
+\paragraph{\texttt{removeAdminStatus(String userId): void}}
+Leitet eine Anfrage zum Entfernen des Administratorstatus über einen Provider an den zugehörigen Service weiter.
+\paragraph{\texttt{kickUser(String userId): void}}
+Leitet eine Anfrage zum Kicken eines Nutzers über einen Provider an den zugehörigen Service weiter.
+\paragraph{\texttt{banUser(String userId): void}}
+Leitet eine Anfrage zum Bannen eines Nutzers über einen Provider an den zugehörigen Service weiter.
+\newpage
+\subsubsection{\texttt{GroupRecipeList}}
+Die Klasse stellt ein Widget bereit, das die eine Liste der Rezepte in einer Gruppe zeigt. Sie verwendet die Klasse \texttt{EyeButton} aus dem Package \texttt{ui\_elements}.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=5cm]{images/presentationLayer/uiElements/groupRecipeList.png}
+        \caption{\protect\raggedright Abbildung der GroupRecipeList}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/groupRecipeList.pdf}
+        \caption{\protect\raggedright Klassendiagramm des GroupRecipeList}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{recipes: List<GroupRecipe>}}
+Die Rezepte der Gruppe.
+\subsubsection*{Methoden}
+\paragraph{\texttt{GroupRecipeList(List<GroupRecipe> recipes): MemberList}}
+Konstruktor, der die Rezepte der Gruppe entgegen nimmt und setzt.
+\paragraph{\texttt{toggleCensoring(String recipeId): void}}
+Leitet eine Anfrage zum Aktivieren/Deaktivieren der Zensur eines Rezepts über einen Provider an den zugehörigen Service weiter.
+\newpage
+\subsection{\texttt{QRCodeScreen}}
+\label{sec:qrCodeScreen}
+Die Klasse bildet die QR-Code-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie selbst keinen Zustand verwaltet. Sie zeigt einen QR-Code an, der den Nutzer zu einer Gruppe hinzufügt, wenn er gescannt wird.
+\begin{figure}[htp]
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=8cm]{images/presentationLayer/uiElements/qrCodeScreen.jpg}
+        \caption{\protect\raggedright Abbildung des QR\-Code\-Screens}
+    \end{minipage}
+    \begin{minipage}
+        [t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/presentationLayer/classDiagrams/qrCodeScreen.pdf}
+        \caption{\protect\raggedright Klassendiagramm des QR\-Code\-Screens}
+    \end{minipage}
+\end{figure}
+\subsubsection*{Attribute}
+\paragraph{\texttt{group: Group}}
+Die Gruppe, die der QR-Code repräsentiert. Sie wird bei der Initialisierung aus dem \Gls{BuildContext} gelesen.
+
+\newpage
 \section{REST-Webservice}
 Um seinen Account zu verwalten, Rezepte aufzurufen oder mit Gruppen interagieren zu können, benötigt man die Verbindung zum Server.
 Um die Anfragen performant und flexibel zu gestalten, verwendet das Projekt Node.js in Verbindung mit dem Express.js Framework.
@@ -1273,7 +1601,7 @@ Dies erleichtert die Wartung, Skalierbarkeit und Lesbarkeit des Codes.
 Der \texttt{AbstractRouter} ist eine abstrakte Repräsentation eines Routers. So kann ein grundlegender Aufbau für alle Router garantiert werden. Alle Router erben von dieser Klasse \texttt{AbstractRouter}.
 \subsubsection*{Attribute}
 \paragraph{\texttt{router: express.Router}}
-Attribut, dass einen Router in Express repräsentiert. Das zugehörige Objekt soll beim Konstruktoraufruf erzeugt werden. 
+Attribut, dass einen Router in Express repräsentiert. Das zugehörige Objekt soll beim Konstruktoraufruf erzeugt werden.
 \paragraph{\texttt{controller: AbstractController}}
 Attribut, das einen abstrakten Controller repräsentiert. Mit diesem Attribut wird in den jeweiligen Routern der dazu passende Controller gespeichert.
 \paragraph{\texttt{checkAuthorization: CheckAuthorization}}
@@ -1404,7 +1732,7 @@ Die Methode ist der Konstruktor der Klasse \texttt{AuthentificationController}.
 \paragraph{\texttt{public userRegister(req: express.Request, res: express.Response): void}}
 Diese Methode sorgt dafür, dass der Nutzer sich registrieren kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Benutzername, Passwort und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob die Registrierung erfolgreich war oder Fehler aufgetreten sind.
 \paragraph{\texttt{public userLogin(req: express.Request, res: express.Response): void}}
-Diese Methode sorgt dafür, dass der Nutzer sich einloggen kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Benutzername, Passwort und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob das Einloggen erfolgreich war oder Fehler aufgetreten sind. 
+Diese Methode sorgt dafür, dass der Nutzer sich einloggen kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Benutzername, Passwort und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob das Einloggen erfolgreich war oder Fehler aufgetreten sind.
 \paragraph{\texttt{userResetPassword(req: express.Request, res: express.Response): void}}
 Diese Methode sorgt dafür, dass der Nutzer sein Passwort zurücksetzen lassen kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Benutzername übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob die Anfrage zum Zurücksetzen des Passworts erfolgreich war oder Fehler aufgetreten sind. 
 \paragraph{\texttt{userGetByToken(req: express.Request, res: express.Response): void}}
@@ -1945,7 +2273,7 @@ Die Tabelle "BannedUser" repräsentiert die Many-To-Many-Beziehung zwischen den 
         \item \nameref{sec:RecipeController}
         \item \nameref{sec:RecipeRouter}
         \item \nameref{sec:Server}
-        \item \nameref{sec:UserRouter} 
+        \item \nameref{sec:UserRouter}
         \item \nameref{sec:UserController}
     \end{itemize}
 \end{multicols}

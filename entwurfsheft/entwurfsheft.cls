@@ -87,3 +87,4 @@
         \end{center}
     \end{titlepage}
 }
+\counterwithin{figure}{section}
