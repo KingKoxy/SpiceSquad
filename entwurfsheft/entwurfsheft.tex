@@ -158,7 +158,8 @@ Gibt zurück, ob das Rezept vom Nutzer als Favorit markiert wurde.
 Gibt zurück, ob das Rezept privat ist.
 \paragraph{\texttt{factory Recipe.fromJson(Map<String, dynamic> json): Recipe}}
 Es handelt sich um eine Factory-Methode, die \texttt{Recipe}-Objekte aus \glslink{JSON}{JSON-Objekten} erstellen kann. Sie wird verwendet, um die Daten, die vom Server geschickt werden und in \Gls{JSON} vorliegen, in ein \texttt{Recipe}-Objekt umzuwandeln. Die Methode ist statisch, da sie kein \texttt{Recipe}-Objekt benötigt, um aufgerufen zu werden. Nimmt als Parameter das bereits in eine Map umgewandelte \glslink{JSON}{JSON-Objekt} entgegen und gibt ein \texttt{Recipe}-Objekt zurück.
-
+\paragraph{\texttt{factory Recipe.createEmpty(): Recipe}}
+Es handelt sich um eine Factory-Methode, die ein leeres \texttt{Recipe}-Objekt erstellt. Sie wird verwendet, um ein neues Rezept zu erstellen, das noch nicht auf dem Server existiert. Die Methode ist statisch, da sie kein \texttt{Recipe}-Objekt benötigt, um aufgerufen zu werden. Nimmt keine Parameter entgegen und gibt ein leeres \texttt{Recipe}-Objekt zurück.
 \newpage
 \subsection{\texttt{Ingredient}}\label{sec:ingredient}
 Die Klasse \texttt{Ingredient} repräsentiert eine Zutat, die einem Rezept zugeordnet ist.
@@ -261,6 +262,14 @@ Nun sollen die einzelnen Repository-Klassen vorgestellt werden. Die Klassen sind
     \label{fig:dataLayer}
 \end{figure}
 \newpage
+\subsection{\texttt{IngredientNamesRepository}}
+\label{sec:ingredientNamesRepository}
+Das Repository stellt die Schnittstelle zwischen der Geschäftslogik und der Datenquelle für Zutatennamen dar. Es bietet eine Methode zum Abfragen der Daten.
+\subsubsection*{Methoden}
+\paragraph{\texttt{fetchIngredientNames(): Future<List<String>>}}
+Stellt eine Anfrage zum Erhalt aller Zutatennamen an den Server. Gibt ein Future-Objekt zurück, das aufgelöst wird, sobald die Namen erhalten wurden.
+\newpage
+
 \subsection{\texttt{UserRepository}}\label{sec:UserRepository}
 Das \texttt{UserRepository} stellt die Schnittstelle zwischen der Geschäftslogik und der Datenquelle für Nutzer dar. Es bietet Methoden zur Abfrage, Aktualisierung und Speicherung von Nutzern und speichert das Token zur Authentifizierung des Nutzers bei dem Server.
 \subsubsection*{Attribute}
@@ -273,8 +282,8 @@ Der Refresh-Token zur Authentifizierung des Nutzers mit dem Server. Es handelt s
 \subsubsection*{Methoden}
 \paragraph{\texttt{getToken(): String}}
 Gibt das Token zur Authentifizierung des Nutzers bei dem Server zurück.
-\paragraph{\texttt{getCurrentUser(): User}}
-Gibt das \texttt{User}-Objekt, das den aktuell angemeldeten Nutzer repräsentiert, zurück.
+\paragraph{\texttt{fetchCurrentUser(): Future<User?>}}
+Es wird eine Anfrage zum Erhalten des angemeldeten Nutzers an den Server gestellt. Gibt ein Future-Objekt zurück, das aufgelöst wird, wenn der Nutzer erhalten wurde. Ist der Nutzer nicht angemeldet wird null zurückgegeben.
 \paragraph{\texttt{login(String email, String password): Future<void>}}
 Es wird eine Anfrage zum Nutzer Anmelden an den Server gestellt. Nimmt als Parameter die E-Mail-Adresse und das Passwort des Nutzers entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn die Anmeldung erfolgreich war. Wenn die Anmeldung fehlschlägt, wird eine Exception geworfen. Die Methode speichert das Token in dem privaten Attribut \texttt{token} und das \texttt{User}-Objekt, das den aktuell angemeldeten Nutzer repräsentiert, in dem privaten Attribut \texttt{currentUser}.
 \paragraph{\texttt{logout(): Future<void>}}
@@ -302,13 +311,14 @@ Konstruktor. Initialisiert das Attribut \texttt{userRepository} mit dem übergeb
 Fragt alle Gruppen des aktuellen Nutzers beim Server ab und gibt diese als Liste zurück. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn die Abfrage erfolgreich war. Wenn die Abfrage fehlschlägt, wird eine Exception geworfen.
 \paragraph{\texttt{joinGroup(String groupCode): Future<void>}}
 Es wird eine Anfrage an den Server zum Beitritt des aktuellen Nutzers zu einer Gruppe mit dem übergebenen Beitrittslink gestellt. Nimmt als Parameter den Beitrittslink der Gruppe entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn der Nutzer erfolgreich der Gruppe beigetreten ist. Wenn der Nutzer der Gruppe nicht beitreten kann, wird eine Exception geworfen.
-\paragraph{\texttt{deleteGroup(String groupId): Future<void>}}
-Es wird eine Anfrage an den Server zum Löschen einer Gruppe mit der übergebenen Gruppen-ID gestellt. Nimmt als Parameter die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn die Gruppe erfolgreich gelöscht wurde. Wenn die Gruppe nicht gelöscht werden kann, wird eine Exception geworfen.
 \paragraph{\texttt{leaveGroup(String groupId): Future<void>}}
 Es wird eine Anfrage an den Server zum Austritt des aktuellen Nutzers aus einer Gruppe mit der übergebenen Gruppen-ID gestellt. Nimmt als Parameter die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn der Nutzer erfolgreich die Gruppe verlassen hat. Wenn der Nutzer die Gruppe nicht verlassen kann, wird eine Exception geworfen.
 \paragraph{\texttt{createGroup(String name): Future<void>}}
 Es wird eine Anfrage an den Server zum Erstellen einer neuen Gruppe mit dem übergebenen Namen gestellt. Nimmt als Parameter den Namen der Gruppe entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn die Gruppe erfolgreich erstellt wurde. Wenn die Gruppe nicht erstellt werden kann, wird eine Exception geworfen.
-
+\paragraph{\texttt{updateGroup(String groupId, Group group): Future<void>}}
+Es wird eine Anfrage an den Server zum Aktualisieren einer Gruppe mit der übergebenen Gruppen-ID gestellt. Nimmt als Parameter die ID der Gruppe und das aktualisierte Gruppen-Objekt entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn die Gruppe erfolgreich aktualisiert wurde. Wenn die Gruppe nicht aktualisiert werden kann, wird eine Exception geworfen.
+\paragraph{\texttt{deleteGroup(String groupId): Future<void>}}
+Es wird eine Anfrage an den Server zum Löschen einer Gruppe mit der übergebenen Gruppen-ID gestellt. Nimmt als Parameter die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn die Gruppe erfolgreich gelöscht wurde. Wenn die Gruppe nicht gelöscht werden kann, wird eine Exception geworfen.
 \newpage
 \subsection{\texttt{AdminRepository}}\label{sec:AdminRepository}
 Das \texttt{AdminRepository} stellt die Schnittstelle zwischen der Geschäftslogik und den Server-Schnittstellen für verschiedene Administratoraktionen dar.
@@ -320,7 +330,6 @@ Das \texttt{AdminRepository} stellt die Schnittstelle zwischen der Geschäftslog
 Konstruktor. Initialisiert das Attribut \texttt{userRepository} mit dem übergebenen \texttt{UserRepository}-Objekt.
 \paragraph{\texttt{makeAdmin(String userId, String groupId): Future<void>}}
 Es wird eine Anfrage an den Server gestellt, um den Nutzer mit der übergebenen ID zum Administrator der Gruppe mit der übergebenen ID zu machen. Nimmt als Parameter die ID des Nutzers und die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn der Nutzer erfolgreich zum Administrator der Gruppe gemacht wurde. Wenn der Nutzer nicht zum Administrator der Gruppe gemacht werden kann, wird eine Exception geworfen.
-
 \paragraph{\texttt{removeAdminStatus(String userId, String groupId): Future<void>}}
 Es wird eine Anfrage an den Server gestellt, um den Nutzer mit der übergebenen ID den Administratorstatus der Gruppe mit der übergebenen ID zu entziehen. Nimmt als Parameter die ID des Nutzers und die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn der Nutzer erfolgreich den Administratorstatus der Gruppe entzogen bekommen hat. Wenn der Nutzer nicht den Administratorstatus der Gruppe entzogen bekommen kann, wird eine Exception geworfen.
 \paragraph{\texttt{kickUser(String userId, String groupId): Future<void>}}
@@ -348,6 +357,8 @@ Löscht das Rezept mit der übergebenen ID vom Server. Nimmt als Parameter die I
 Ändert das Rezept mit der übergebenen ID auf dem Server. Nimmt als Parameter die ID des Rezepts und das aktualisierte Rezept entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn das Rezept erfolgreich aktualisiert wurde. Wenn das Rezept nicht aktualisiert werden kann, wird eine Exception geworfen.
 \paragraph{\texttt{setFavourite(String recipeId, bool value): Future<void>}}
 Setzt das Rezept mit der übergebenen ID als Favorit des aktuellen Nutzers. Nimmt als Parameter die ID des Rezepts und einen boolschen Wert, der angibt, ob das Rezept als Favorit gesetzt oder entfernt werden soll, entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn das Rezept erfolgreich als Favorit gesetzt oder entfernt wurde. Wenn das Rezept nicht als Favorit gesetzt oder entfernt werden kann, wird eine Exception geworfen.
+\paragraph{\texttt{reportRecipe(String recipeId): Future<void>}}
+Leitet die Anfrage zum Melden eines Rezepts an den Server. Nimmt als Parameter die ID des Rezepts entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn das Rezept erfolgreich gemeldet wurde. Wenn das Rezept nicht gemeldet werden kann, wird eine Exception geworfen.
 \newpage
 \subsection{\texttt{LocalRecipeRepository}}\label{sec:LocalRecipeRepository}
 Das \texttt{LocalRecipeRepository} stellt die Schnittstelle zwischen der Geschäftslogik und dem lokalen Speicher für Rezepte dar.
