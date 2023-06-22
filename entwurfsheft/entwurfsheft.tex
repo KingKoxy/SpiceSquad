@@ -1800,10 +1800,10 @@ Die Methode ist asynchron und gibt ein \texttt{Promise}-Objekt zurück. Das \tex
 Mit der Methode \texttt{recipesGetAllForUser} können alle Rezepte eines Nutzers abgerufen werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Rezeptname, Rezeptbeschreibung, Zutaten, Zubereitung und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob das Abrufen der Rezepte erfolgreich war oder Fehler aufgetreten sind.
 Die Methode ist asynchron und gibt ein \texttt{Promise}-Objekt zurück. Das \texttt{Promise}-Objekt wird aufgelöst, wenn das Abrufen der Rezepte erfolgreich war. Wenn das Abrufen der Rezepte nicht erfolgreich war, wird eine Exception geworfen und das \texttt{Promise}-Objekt wird abgelehnt.
 \paragraph{\texttt{recipeSetFavorite(req: express.Request, res: express.Response): Promise<void>\\}}
-Durch die Methode \texttt{recipeSetFavorite\\} kann ein Rezept als Favorit markiert werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Rezept Id und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob das Markieren des Rezepts als Favorit erfolgreich war oder Fehler aufgetreten sind.
+Durch die Methode \texttt{recipeSetFavorite\\} kann ein Rezept als Favorit markiert werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Rezept ID und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Benutzer mitzuteilen, ob das Markieren des Rezepts als Favorit erfolgreich war oder Fehler aufgetreten sind.
 Die Methode ist asynchron und gibt ein \texttt{Promise}-Objekt zurück. Das \texttt{Promise}-Objekt wird aufgelöst, wenn das Markieren des Rezepts als Favorit erfolgreich war. Wenn das Markieren des Rezepts als Favorit nicht erfolgreich war, wird eine Exception geworfen und das \texttt{Promise}-Objekt wird abgelehnt.
 \paragraph{\texttt{recipeReport(req: express.Request, res: express.Response): Promise<void>\\}}
-Mit der Methode \texttt{recipeReport} kann ein Rezept gemeldet werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Rezept Id und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Melden des Rezepts erfolgreich war oder Fehler aufgetreten sind.
+Mit der Methode \texttt{recipeReport} kann ein Rezept gemeldet werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Rezept ID und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Melden des Rezepts erfolgreich war oder Fehler aufgetreten sind.
 Die Methode ist asynchron und gibt ein \texttt{Promise}-Objekt zurück. Das \texttt{Promise}-Objekt wird aufgelöst, wenn das Melden des Rezepts erfolgreich war. Wenn das Melden des Rezepts nicht erfolgreich war, wird eine Exception geworfen und das \texttt{Promise}-Objekt wird abgelehnt.
 
 \subsubsection{\texttt{GroupController}}\label{sec:GroupController}
@@ -1819,16 +1819,16 @@ Diese Methode sorgt dafür, dass eine Gruppe gelöscht werden kann. Der \texttt{
 Die Methode ist asynchron und gibt ein \texttt{Promise}-Objekt zurück. Das \texttt{Promise}-Objekt wird aufgelöst, wenn das Löschen der Gruppe erfolgreich war. Das \texttt{Promise}-Objekt wird abgelehnt, wenn das Löschen der Gruppe nicht erfolgreich war.
 
 \paragraph{\texttt{groupGetById(req: express.Request, res: express.Response): Promise<void>\\}}
-Durch diese Methode kann eine Gruppe anhand ihrer Id abgerufen werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Gruppenname, Gruppenbeschreibung und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Abrufen der Gruppe erfolgreich war oder Fehler aufgetreten sind.
+Durch diese Methode kann eine Gruppe anhand ihrer ID abgerufen werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Gruppenname, Gruppenbeschreibung und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Abrufen der Gruppe erfolgreich war oder Fehler aufgetreten sind.
 Die Methode ist asynchrone und gibt ein \texttt{Promise}-Objekt zurück. Das \texttt{Promise}-Objekt wird aufgelöst, wenn das Abrufen der Gruppe erfolgreich war. Das \texttt{Promise}-Objekt wird abgelehnt und es wird Exception geworfen, wenn das Abrufen der Gruppe nicht erfolgreich war.
 \paragraph{\texttt{groupPatch(req: express.Request, res: express.Response): Promise<void>\\}}
 Diese Methode sorgt dafür, dass eine Gruppe bearbeitet werden kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Gruppenname, Gruppenbeschreibung und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Bearbeiten der Gruppe erfolgreich war oder Fehler aufgetreten sind.
 Die Methode ist asynchron und gibt ein \texttt{Promise}-Objekt zurück. Das \texttt{Promise}-Objekt wird aufgelöst, wenn das Bearbeiten der Gruppe erfolgreich war. Das \texttt{Promise}-Objekt wird abgelehnt und es wird Exception geworfen, wenn das Bearbeiten der Gruppe nicht erfolgreich war.
 \paragraph{\texttt{groupJoin(req: express.Request, res: express.Response): Promise<void>\\}}
-Mit der Methode \texttt{groupJoin} kann ein Nutzer einer Gruppe beitreten. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Gruppen Id und andere Informationen übermittelt. Es wird überprüft ob die maximale Anzahl an Gruppen von 32 durch den Gruppenbeitritt überschritten worden ist. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Beitreten der Gruppe erfolgreich war oder Fehler aufgetreten sind.
+Mit der Methode \texttt{groupJoin} kann ein Nutzer einer Gruppe beitreten. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Gruppen ID und andere Informationen übermittelt. Es wird überprüft ob die maximale Anzahl an Gruppen von 32 durch den Gruppenbeitritt überschritten worden ist. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Beitreten der Gruppe erfolgreich war oder Fehler aufgetreten sind.
 Die Methode ist asynchron und gibt ein \texttt{Promise}-Objekt zurück. Das \texttt{Promise}-Objekt wird aufgelöst, wenn das Beitreten der Gruppe erfolgreich war. Das \texttt{Promise}-Objekt wird abgelehnt, wenn das Beitreten der Gruppe nicht erfolgreich war.
 \paragraph{\texttt{groupLeave(req: express.Request, res: express.Response): Promise<void>\\}}
-Mit der Methode \texttt{groupLeave} kann ein Nutzer einer Gruppe beitreten. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Gruppen Id und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Verlassen der Gruppe erfolgreich war oder Fehler aufgetreten sind.
+Mit der Methode \texttt{groupLeave} kann ein Nutzer einer Gruppe beitreten. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Gruppen ID und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Verlassen der Gruppe erfolgreich war oder Fehler aufgetreten sind.
 Die Methode ist asynchron und gibt ein \texttt{Promise}-Objekt zurück. Das \texttt{Promise}-Objekt wird aufgelöst, wenn das Verlassen der Gruppe erfolgreich war. Das \texttt{Promise}-Objekt wird abgelehnt und es wird Exception geworfen, wenn das Verlassen der Gruppe nicht erfolgreich war.
 
 \subsubsection{\texttt{UserController}}\label{sec:UserController}
@@ -1849,7 +1849,7 @@ Der \texttt{IngredientController} ist verantwortlich für alle Anfragen, die mit
 \paragraph{\texttt{IngredientController(): void\\}}
 Die Methode ist der Konstruktor der Klasse \texttt{IngredientController}.
 \paragraph{\texttt{ingredientGetAll(req: express.Request, res: express.Response): Promise<void>\\}}
-Mit der Methode \texttt{ingredientGetAll} können alle Zutaten abgerufen werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Zutaten Id und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Abrufen der Zutaten erfolgreich war oder Fehler aufgetreten sind. Bei erfolgreichem Abrufen werden alle Zutaten mit der Response zurückgegeben.
+Mit der Methode \texttt{ingredientGetAll} können alle Zutaten abgerufen werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Zutaten ID und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Abrufen der Zutaten erfolgreich war oder Fehler aufgetreten sind. Bei erfolgreichem Abrufen werden alle Zutaten mit der Response zurückgegeben.
 Der Rückgabewert ist vom Typ \texttt{Promise<void>}, da die Funktion asynchron ausgeführt wird.
 
 \subsubsection{\texttt{AdminUserController}}\label{sec:AdminUserController}
@@ -1858,13 +1858,13 @@ Der \texttt{AdminUserController} ist verantwortlich für alle Anfragen, die mit 
 \paragraph{\texttt{AdminUserController(): Promise<void>\\}}
 Die Methode ist der Konstruktor der Klasse \texttt{AdminUserController}.
 \paragraph{\texttt{makeAdmin(req: express.Request, res: express.Response): Promise<void>\\}}
-Mit der Methode \texttt{makeAdmin} kann ein Nutzer zum Admin gemacht werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Nutzer Id und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Hinzufügen des Admins erfolgreich war oder Fehler aufgetreten sind.
+Mit der Methode \texttt{makeAdmin} kann ein Nutzer zum Admin gemacht werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Nutzer-ID und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Hinzufügen des Admins erfolgreich war oder Fehler aufgetreten sind.
 \paragraph{\texttt{removeAdminStatus(req: express.Request, res: express.Response): Promise<void>\\}}
-Mit der Methode \texttt{removeAdminStatus} kann einem Admin der Adminstatus entzogen werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Nutzer-Id und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen ob das Entfernen des Adminstatus erfolgreich war oder Fehler aufgetreten sind.
+Mit der Methode \texttt{removeAdminStatus} kann einem Admin der Adminstatus entzogen werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Nutzer-ID und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen ob das Entfernen des Adminstatus erfolgreich war oder Fehler aufgetreten sind.
 \paragraph{\texttt{kickUser(req: express.Request, res: express.Response): Promise<void>}}
-Mit der Methode \texttt{kickUser} kann ein Nutzer aus einer Gruppe gekickt werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Nutzer Id und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Kicken des Nutzers erfolgreich war oder Fehler aufgetreten sind.
+Mit der Methode \texttt{kickUser} kann ein Nutzer aus einer Gruppe gekickt werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Nutzer-ID und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Kicken des Nutzers erfolgreich war oder Fehler aufgetreten sind.
 \paragraph{\texttt{banUser(req: express.Request, res: express.Response): Promise<void>\\}}
-Mit der Methode \texttt{banUser} kann ein Nutzer aus einer Gruppe gebannt werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Nutzer Id und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Bannen des Nutzers erfolgreich war oder Fehler aufgetreten sind.
+Mit der Methode \texttt{banUser} kann ein Nutzer aus einer Gruppe gebannt werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Nutzer-ID und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Bannen des Nutzers erfolgreich war oder Fehler aufgetreten sind.
 \paragraph{\texttt{setCensored(req: express.Request, res: express.Response): Promise<void>\\}}
 Mit der Methode \texttt{setCensored} kann ein Rezept ausgeblendet werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Rezept ID und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Ausblenden des Rezepts erfolgreich war oder Fehler aufgetreten sind.
 
@@ -1979,31 +1979,31 @@ Der \glslink{idToken}{idToken} wird dabei im Header der Anfrage mitgeschickt.
 
 \subsubsection*{GET /recipe/id} userid
     \paragraph{Request}
-        In der Anfrage muss das RezeptID angegeben werden.
+        In der Anfrage muss die ID des auszugebenen Rezepts angegeben werden.
     \paragraph{Response}
-        Im Erfolgsfalls wird der Statuscode 200 und die UserId des Autors zurückgegeben.
+        Im Erfolgsfalls wird der Statuscode 200 und die ID des Nutzer der das Rezept erstellt hat zurückgegeben.
 
 \subsubsection*{Delete /recipe/id}
     \paragraph{Request}
-        In der Anfrage muss das RezeptID angegeben werden.
+        In der Anfrage muss die ID des zu löschenden Rezepts angegeben werden.
     \paragraph{Response}
         Im Erfolgsfalls wird der Statuscode 200 zurückgegeben.
 
 \subsubsection*{PATCH /recipe/id}
     \paragraph{Request}
-        In der Anfrage muss das RezeptID und das Rezept angegeben werden.
+        In der Anfrage muss die ID des geänderten Rezepts und das veränderte Rezept angegeben werden.
     \paragraph{Response}
         Im Erfolgsfalls wird der Statuscode 200 zurückgegeben.
 
 \subsubsection*{PATCH /recipe/favorite/id}
     \paragraph{Request}
-        In der Anfrage muss das RezeptID und ein \gls{bool}, ob das Rezept favorisiert ist, angegeben werden.
+        In der Anfrage muss die ID des Rezept, dessen Favoriten Status geändert werden soll, und ein \gls{bool}, ob das Rezept favorisiert ist, angegeben werden.
     \paragraph{Response}
         Im Erfolgsfalls wird der Statuscode 200 zurückgegeben.
         
 \subsubsection*{POST /recipe/report}
     \paragraph{Request}
-        In der Anfrage muss die RezeptId und die GruppenId angegeben werden.
+        In der Anfrage muss die ID des zu meldenden Rezepts und die ID der Gruppe, in der das Rezept gemeldet wurde, angegeben werden.
     \paragraph{Response}
         Im Erfolgsfalls wird der Statuscode 200 zurückgegeben.
 
@@ -2022,13 +2022,13 @@ Der \glslink{idToken}{idToken} wird dabei im Header der Anfrage mitgeschickt.
     
 \subsubsection*{DELETE /group/:groupId/:userId}
     \paragraph{Request}
-        In der Anfrage muss die GruppenId und die UserId angegeben werden.
+        In der Anfrage muss die ID der zu löschenden Gruppe und die ID des Nutzers, der die Gruppe löschen will, angegeben werden.
     \paragraph{Response}
         Im Erfolgsfall wird der Statuscode 200 zurückgegeben.
         
 \subsubsection*{PATCH /group/:groupeId/:userId}
     \paragraph{Request}
-        In der Anfrage muss die GruppenId, die UserId und der neue Gruppen Name angegeben werden.
+        In der Anfrage muss die ID der Gruppe, dessen Gruppennamen geändert werden soll, die ID des Nutzer, der den Gruppennamen bearbeiten möchte, und der neue Gruppenname angegeben werden.
     \paragraph{Response}
         Im Erfolgsfall wird der Statuscode 200 zurückgegeben.
         
@@ -2040,15 +2040,15 @@ Der \glslink{idToken}{idToken} wird dabei im Header der Anfrage mitgeschickt.
         
 \subsubsection*{PATCH /group/:groupId/:userId/leave}
     \paragraph{Request}
-        In der Anfrage muss die GruppenId und die UserId angegeben werden.
+        In der Anfrage muss die ID der Gruppe, die der Nutzer verlassen will, und die ID des verlassenden Nutzers angegeben werden..
     \paragraph{Response}
         Im Erfolgsfall wird der Statuscode 200 zurückgegeben.
     
 \subsubsection*{GET /group/:userId}
     \paragraph{Request}
-        In der Anfrage muss die UserId angegeben werden.
+        In der Anfrage muss die ID des Nutzers angegeben werden, dessen Gruppen ausgegeben werden sollen.
     \paragraph{Response}
-        Im Erfolgsfall wird der Statuscode 200 und eine Liste alle Gruppen des Users zurückgegeben.
+        Im Erfolgsfall wird der Statuscode 200 und eine Liste aller Gruppen des Nutzers zurückgegeben.
 
 \subsection{/user}
 Die Route \texttt{/user} ist die Route, die für alle Anfragen zuständig ist, die mit Nutzern zu tun haben.
@@ -2059,13 +2059,13 @@ Der \glslink{idToken}{idToken} wird dabei im Header der Anfrage mitgeschickt.
 
 \subsubsection*{DELETE /user/:id}
 \paragraph{Request}
-In der Anfrage muss die Id des Nutzers angegeben werden, der gelöscht werden soll.
+In der Anfrage muss die ID des Nutzers angegeben werden, der gelöscht werden soll.
 \paragraph{Response}
 Beim erfolgreichen Löschen des Nutzers wird ein Statuscode 200 zurückgegeben.
 
 \subsubsection*{PATCH /user/:id}
 \paragraph{Request}
-In der Anfrage muss die Id des Nutzers angegeben werden, der bearbeitet werden soll, sowie die neuen Nutzerdaten.
+In der Anfrage muss die ID des Nutzers angegeben werden, der bearbeitet werden soll, sowie die neuen Nutzerdaten.
 \paragraph{Response}
 Beim erfolgreichen Bearbeiten des Nutzers wird ein Statuscode 200 zurückgegeben.
 
@@ -2093,30 +2093,32 @@ Die Gültigkeit der Adminrolle wird vor Anfrage an die entsprechenden Endpunkte 
 
 \subsubsection*{PATCH /admin/:groupId/makeAdmin/:userId}
 \paragraph{Request}
-In der Anfrage müssen die Id der Gruppe und die Id des Nutzers angegeben werden, dem der Adminstatus verliehen werden soll.
+In der Anfrage müssen die ID der Gruppe und die ID des Nutzers angegeben werden, dem der Adminstatus verliehen werden soll.
 \paragraph{Response}
 Im Erfolgsfall wird ein Statuscode 200 zurückgegeben.
 
 \subsubsection*{PATCH /admin/:groupId/removeAdminStatus/:userId}
 \paragraph{Request}
-In der Anfrage müssen die Id der Gruppe und die Id des Nutzers angegeben werden, dem der Adminstatus entzogen werden soll.
+In der Anfrage müssen die ID der Gruppe und die ID des Nutzers angegeben werden, dem der Adminstatus entzogen werden soll.
 \paragraph{Response}
 Im Erfolgsfall wird ein Statuscode 200 zurückgegeben.
 
 \subsubsection*{PATCH /admin/:groupId/kickUser/:userId}
 \paragraph{Request}
-In der Anfrage müssen die Id der Gruppe und die Id des Nutzers angegeben werden, der gekickt werden soll.
+In der Anfrage müssen die ID der Gruppe und die ID des Nutzers angegeben werden, der gekickt werden soll.
 \paragraph{Response}
 Im Erfolgsfall wird ein Statuscode 200 zurückgegeben.
 
 \subsubsection*{PATCH /admin/:groupId/banUser/:userId}
 \paragraph{Request}
-In der Anfrage müssen die Id der Gruppe und die Id des Nutzers angegeben werden, der gebannt werden soll.
+In der Anfrage müssen die ID der Gruppe und die ID des Nutzers angegeben werden, der gebannt werden soll.
 \paragraph{Response}
 Im Erfolgsfall wird ein Statuscode 200 zurückgegeben.
 \subsubsection*{PATCH /admin/:groupId/setCensored/:userId}
     \paragraph{Request}
+        In der Anfrage müssen die ID der Gruppe, aus der Rezept ausgeblendet werden soll, die ID des Nutzers, für den es ausgeblendet werden soll, und die ID des Rezepts, welchen ausgeblendet werden soll, angegeben werden.
     \paragraph{Response}
+        Im Erfolgsfall wird ein Statuscode 200 zurückgegeben.
 
 \newpage
 
@@ -2174,9 +2176,9 @@ Im Datenbankschema werden die einzelnen Entitäten der App abgebildet. Die einze
 \newpage
 \subsubsection{Recipe}
 Die Tabelle "Recipe" enthält die Rezepte und besitzt die folgenden Attribute:
-\paragraph{\texttt{id (uuid - primary key):}} Die Id stellt den Primärschlüssel des Rezepts dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
+\paragraph{\texttt{id (uuid - primary key):}} Die ID stellt den Primärschlüssel des Rezepts dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
 \paragraph{\texttt{title (varchar(64) - not null):}} Der Titel des Rezepts. Der Datentyp ist \Gls{varchar}. Er darf nicht leer und maximal 64 Zeichen lang sein.
-\paragraph{\texttt{author\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die Id des Autors des Rezepts als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
+\paragraph{\texttt{author\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die ID des Autors des Rezepts als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine ID handelt.
 \paragraph{\texttt{image (blob):}} Das Bild des Rezepts in binär Code. Der Datentyp ist \Gls{blob}.
 \paragraph{\texttt{duration (int - not null):}} Die Zubereitungszeit des Rezepts in Minuten. Der Datentyp ist Integer. Sie darf nicht leer sein.
 \paragraph{\texttt{difficulty (Difficulty - not null):}} Die Schwierigkeit des Rezepts, die nicht leer sein darf. Der Datentyp "Difficulty" ist ein Enum, mit den Werten "easy", "medium" und "hard".
@@ -2190,12 +2192,12 @@ Die Tabelle "Recipe" enthält die Rezepte und besitzt die folgenden Attribute:
 \newpage
 \subsubsection{Ingredient}
 Die Tabelle "Ingredient" enthält die Zutaten, die den eizelnen Rezepten zugeordnet sind und besitzt die folgenden Attribute:
-\paragraph{\texttt{id (uuid - primary key):}} Die Id stellt den Primärschlüssel der Zutat dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
+\paragraph{\texttt{id (uuid - primary key):}} Die ID stellt den Primärschlüssel der Zutat dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
 \paragraph{\texttt{name (varchar(32) - not null):}} Der Name der Zutat. Der Datentyp ist \Gls{varchar}. Er darf nicht leer und maximal 32 Zeichen lang sein.
 \paragraph{\texttt{icon\_name (varchar(32))}} Der Name des Icons, das die Zutat repräsentiert. Der Datentyp ist \Gls{varchar}. Er ist maximal 32 Zeichen lang.
 \paragraph{\texttt{amount (int - not null):}} Die Menge der Zutat in der jeweiligen Einheit. Sie darf nicht leer sein und der Datentyp ist Integer.
 \paragraph{\texttt{unit (varchar(16)):}} Die Einheit der Zutat. Der Datentyp ist \Gls{varchar}. Sie ist maximal 16 Zeichen lang und optional.
-\paragraph{\texttt{recipe\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die Id des Rezepts, zu dem die Zutat gehört, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
+\paragraph{\texttt{recipe\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die ID des Rezepts, zu dem die Zutat gehört, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine ID handelt.
 \newpage
 \subsubsection{IngredientNames}
 Die Tabelle "IngredientNames" enthält lediglich die Namen der Zutaten, die in der Vorschlagsliste beim Zutaten erstellen angezeigt werden. Sie besitzt die folgenden Attribute:
@@ -2203,7 +2205,7 @@ Die Tabelle "IngredientNames" enthält lediglich die Namen der Zutaten, die in d
 \newpage
 \subsubsection{User}
 Die Tabelle "User" enthält die Benutzer der App und besitzt die folgenden Attribute:
-\paragraph{\texttt{id (uuid - primary key):}} Die Id stellt den Primärschlüssel des Benutzers dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
+\paragraph{\texttt{id (uuid - primary key):}} Die ID stellt den Primärschlüssel des Benutzers dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
 \paragraph{\texttt{user\_name (varchar(32) - not null):}} Der Benutzername des Benutzers. Der Datentyp ist \Gls{varchar}. Er darf nicht leer und maximal 32 Zeichen lang sein.
 \paragraph{\texttt{email (varchar(64) - not null):}} Die E-Mail-Adresse des Benutzers. Der Datentyp ist \Gls{varchar}. Sie darf nicht leer und maximal 64 Zeichen lang sein.
 \paragraph{\texttt{profile\_image (blob):}} Das Profilbild des Benutzers in binär Code. Der Datentyp ist \Gls{blob}.
@@ -2213,39 +2215,39 @@ Die Anzahl der erstellten Gruppen des Nutzers. Sie wird verwendet, um zu überpr
 \newpage
 \subsubsection{Favourite}
 Die Tabelle "Favourite" repräsentiert die Many-To-Many-Beziehung zwischen den Benutzern und den Rezepten, die sie favorisiert haben. Sie besitzt die folgenden Attribute:
-\paragraph{\texttt{id (uuid - primary key):}} Die Id stellt den Primärschlüssel der Beziehung dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
-\paragraph{\texttt{user\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die Id des Benutzers, der das Rezept favorisiert hat, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
-\paragraph{\texttt{recipe\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die Id des Rezepts, das favorisiert wurde, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
+\paragraph{\texttt{id (uuid - primary key):}} Die ID stellt den Primärschlüssel der Beziehung dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
+\paragraph{\texttt{user\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die ID des Benutzers, der das Rezept favorisiert hat, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine ID handelt.
+\paragraph{\texttt{recipe\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die ID des Rezepts, das favorisiert wurde, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine ID handelt.
 \newpage
 \subsubsection{Group}
 Die Tabelle "Group" enthält die Gruppen bzw. Squads und besitzt die folgenden Attribute:
-\paragraph{\texttt{id (uuid - primary key):}} Die Id stellt den Primärschlüssel der Gruppe dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
+\paragraph{\texttt{id (uuid - primary key):}} Die ID stellt den Primärschlüssel der Gruppe dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
 \paragraph{\texttt{name (varchar(32) - not null):}} Der Name der Gruppe. Der Datentyp ist \Gls{varchar}. Er darf nicht leer und maximal 32 Zeichen lang sein.
 \newpage
 \subsubsection{GroupMember}
 Die Tabelle "GroupMember" repräsentiert die Many-To-Many-Beziehung zwischen den Gruppen und den Benutzern, die Mitglied der Gruppe sind. Sie besitzt die folgenden Attribute:
-\paragraph{\texttt{id (uuid - primary key):}} Die Id stellt den Primärschlüssel der Beziehung dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
-\paragraph{\texttt{user\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die Id des Benutzers, der Mitglied der Gruppe ist, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
-\paragraph{\texttt{group\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die Id der Gruppe, zu der der Benutzer gehört, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
+\paragraph{\texttt{id (uuid - primary key):}} Die ID stellt den Primärschlüssel der Beziehung dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
+\paragraph{\texttt{user\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die ID des Benutzers, der Mitglied der Gruppe ist, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine ID handelt.
+\paragraph{\texttt{group\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die ID der Gruppe, zu der der Benutzer gehört, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine ID handelt.
 \newpage
 \subsubsection{Admin}
 Die Tabelle "Admin" repräsentiert die Many-To-Many-Beziehung zwischen den Gruppen und den Benutzern, die Administratoren der Gruppe sind. Sie besitzt die folgenden Attribute:
-\paragraph{\texttt{id (uuid - primary key):}} Die Id stellt den Primärschlüssel der Beziehung dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
-\paragraph{\texttt{user\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die Id des Benutzers, der Administrator der Gruppe ist, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
-\paragraph{\texttt{group\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die Id der Gruppe, zu der der Benutzer gehört, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
+\paragraph{\texttt{id (uuid - primary key):}} Die ID stellt den Primärschlüssel der Beziehung dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
+\paragraph{\texttt{user\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die ID des Benutzers, der Administrator der Gruppe ist, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine ID handelt.
+\paragraph{\texttt{group\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die ID der Gruppe, zu der der Benutzer gehört, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine ID handelt.
 \newpage
 \subsubsection{CensoredRecipe}
 Die Tabelle "CensoredRecipe" repräsentiert die Many-To-Many-Beziehung zwischen den Gruppen und den Rezepten, die die jeweiligen Administratoren ausgeblendet haben. Sie besitzt die folgenden Attribute:
-\paragraph{\texttt{id (uuid - primary key):}} Die Id stellt den Primärschlüssel der Beziehung dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
-\paragraph{\texttt{recipe\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die Id des Rezepts, das ausgeblendet wurde, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
-\paragraph{\texttt{group\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die Id der Gruppe, zu der der Administrator gehört, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
+\paragraph{\texttt{id (uuid - primary key):}} Die ID stellt den Primärschlüssel der Beziehung dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
+\paragraph{\texttt{recipe\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die ID des Rezepts, das ausgeblendet wurde, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine ID handelt.
+\paragraph{\texttt{group\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die ID der Gruppe, zu der der Administrator gehört, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine ID handelt.
 \newpage
 
 \subsubsection{BannedUser}
 Die Tabelle "BannedUser" repräsentiert die Many-To-Many-Beziehung zwischen den Gruppen und den Benutzern, die von den jeweiligen Administratoren aus der Gruppe verbannt wurden. Sie besitzt die folgenden Attribute:
-\paragraph{\texttt{id (uuid - primary key):}} Die Id stellt den Primärschlüssel der Beziehung dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
-\paragraph{\texttt{user\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die Id des Benutzers, der verbannt wurde, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
-\paragraph{\texttt{group\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die Id der Gruppe, zu der der Administrator gehört, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
+\paragraph{\texttt{id (uuid - primary key):}} Die ID stellt den Primärschlüssel der Beziehung dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
+\paragraph{\texttt{user\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die ID des Benutzers, der verbannt wurde, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine ID handelt.
+\paragraph{\texttt{group\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die ID der Gruppe, zu der der Administrator gehört, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine ID handelt.
 \newpage
 
 \section{Ablaufbeschreibung}
