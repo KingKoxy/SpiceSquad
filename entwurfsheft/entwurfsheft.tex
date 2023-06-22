@@ -1449,7 +1449,7 @@ Die Rezepte der Gruppe.
 \paragraph{\texttt{GroupRecipeList(List<GroupRecipe> recipes): MemberList}}
 Konstruktor, der die Rezepte der Gruppe entgegen nimmt und setzt.
 \paragraph{\texttt{toggleCensoring(String recipeId): void}}
-Leitet eine Anfrage zum Aktivieren/Deaktivieren des \glslink{aublenden}{Ausblenden} eines Rezepts über einen Provider an den zugehörigen Service weiter.
+Leitet eine Anfrage zum Aktivieren/Deaktivieren des \glslink{ausblenden}{Ausblenden} eines Rezepts über einen Provider an den zugehörigen Service weiter.
 \newpage
 \subsection{\texttt{QRCodeScreen}}
 \label{sec:qrCodeScreen}
@@ -2218,6 +2218,8 @@ Die Tabelle "User" enthält die Benutzer der App und besitzt die folgenden Attri
 \paragraph{\texttt{email (varchar(64) - not null):}} Die E-Mail-Adresse des Benutzers. Der Datentyp ist \Gls{varchar}. Sie darf nicht leer und maximal 64 Zeichen lang sein.
 \paragraph{\texttt{profile\_image (blob):}} Das Profilbild des Benutzers in binär Code. Der Datentyp ist \Gls{blob}.
 \paragraph{\texttt{firebase\_user\_id (varchar - not null, unique)}} Die ID des Benutzers, die in der Firebase Datenbank hinterlegt ist. Der Datentyp ist \Gls{varchar}. Sie muss eindeutig und nicht leer sein. Sie dient als Fremdschlüssel über die Datenbank hinweg zu Firebase.
+\paragraph{\texttt{created\_groups (int - not null)}}
+Die Anzahl der erstellten Gruppen des Nutzers. Sie wird verwendet, um zu überprüfen, ob der Nutzer noch Gruppen erstellen darf.
 \newpage
 \subsubsection{Favourite}
 Die Tabelle "Favourite" repräsentiert die Many-To-Many-Beziehung zwischen den Benutzern und den Rezepten, die sie favorisiert haben. Sie besitzt die folgenden Attribute:
