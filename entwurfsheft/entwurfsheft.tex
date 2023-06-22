@@ -981,7 +981,7 @@ Das Package \texttt{mainrecipe\_creation\_screen} enthält alle Klassen für die
 \end{figure}
 %TODO: continue here
 \newpage
-\subsubsection{RecipeCreationScreen}
+\subsubsection{\texttt{RecipeCreationScreen}}
 \label{sec:recipeCreationScreen}
 Die Klasse bildet die Rezept-Erstellungs-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen Zustand verwaltet. Dies übernehmen die einzelnen Teilwidgets. Es werden verschiedene Widgets angezeigt, die es ermöglichen Rezeptdaten einzugeben oder abzuändern. Die Klasse verwendet die Klassen \texttt{BackButton} und \texttt{PortionAmountField} aus dem Package \texttt{ui\_elements}.
 \begin{figure}[htp]
@@ -1213,7 +1213,7 @@ Das Package \texttt{settings\_screen} enthält alle Klassen für die Einstellung
 \end{figure}
 \newpage
 
-\subsubsection{SettingsScreen}
+\subsubsection{\texttt{SettingsScreen}}
 \label{sec:settingsScreen}
 Die Klasse bildet die Einstellungsansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand verwaltet.
 
@@ -1239,7 +1239,7 @@ Leitet eine Anfrage zum Löschen des Nutzers über einen Provider an den zustän
 \paragraph{\texttt{renameUser(String newName): void}}
 Leitet eine Anfrage zum Umbenennen des Nutzers über einen Provider an den zuständigen Service weiter.
 \newpage
-\subsubsection{ProfileImagePicker}
+\subsubsection{\texttt{ProfileImagePicker}}
 \label{sec:profileImagePicker}
 Die Klasse bildet die Profilbildauswahl ab. Sie ist ein \texttt{StatefulWidget}, da sie den Zustand \texttt{profileImage} verwaltet. Sie zeigt ein Bild an, das der Nutzer auswählen kann.
 \begin{figure}[htp]
@@ -1265,7 +1265,7 @@ Callback-Methode, die ausgeführt wird, wenn sich das Profilbild ändert und das
 \paragraph{\texttt{ProfileImagePicker(UInt8List? profileImage, void onChange(UInt8List? profileImage)): ProfileImagePicker}}
 Konstruktor, der das Profilbild und die Callback-Methode übergeben bekommt und setzt.
 \newpage
-\subsubsection{GroupList}
+\subsubsection{\texttt{GroupList}}
 \label{sec:groupList}
 Die Klasse bildet die Gruppenliste ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand verwaltet. Sie zeigt eine Liste von Gruppen an, bei denen der Nutzer Mitglied ist. Die Klasse verwendet die Klassen \texttt{AddButton} und \texttt{RemoveButton} aus dem Package \texttt{ui\_elements}.
 \begin{figure}[htp]
