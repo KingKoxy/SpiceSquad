@@ -482,7 +482,7 @@ Leitet die Anfrage zum Entfernen eines Nutzers aus einer Gruppe an das zuständi
 \paragraph{\texttt{banUser(String userId, String groupId): Future<void>}}
 Leitet die Anfrage zum Bannen eines Nutzers aus einer Gruppe an das zuständige Repository weiter. Fragt im Anschluss erneut die Gruppen des Nutzers ab und aktualisiert den \texttt{state}. Nimmt als Parameter die ID des Nutzers und die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn der Nutzer erfolgreich aus der Gruppe gebannt wurde. Wenn der Nutzer nicht aus der Gruppe gebannt werden kann, wird eine Exception geworfen.
 \paragraph{\texttt{toggleCensoring(Recipe recipe, String groupId): Future<void>}}
-Stellt eine Anfrage, um die Zensur eines Rezeptes in einer Gruppe zu aktivieren/deaktivieren, an das zuständige Repository. Fragt im Anschluss erneut die Gruppen des Nutzers ab und aktualisiert den \texttt{state}. Nimmt als Parameter das Rezept und die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn die Zensur des Rezepts erfolgreich geändert wurde. Wenn die Zensur des Rezepts nicht geändert werden kann, wird eine Exception geworfen.
+Stellt eine Anfrage, um das \glslink{ausblenden}{Ausblenden} eines Rezeptes in einer Gruppe zu aktivieren/deaktivieren, an das zuständige Repository. Fragt im Anschluss erneut die Gruppen des Nutzers ab und aktualisiert den \texttt{state}. Nimmt als Parameter das Rezept und die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn das Aublenden des Rezepts erfolgreich de-/aktiviert wurde. Wenn das Ausblenden des Rezepts nicht geändert werden kann, wird eine Exception geworfen.
 
 \newpage
 \subsection{\texttt{RecipeService}}
@@ -1449,7 +1449,7 @@ Die Rezepte der Gruppe.
 \paragraph{\texttt{GroupRecipeList(List<GroupRecipe> recipes): MemberList}}
 Konstruktor, der die Rezepte der Gruppe entgegen nimmt und setzt.
 \paragraph{\texttt{toggleCensoring(String recipeId): void}}
-Leitet eine Anfrage zum Aktivieren/Deaktivieren der Zensur eines Rezepts über einen Provider an den zugehörigen Service weiter.
+Leitet eine Anfrage zum Aktivieren/Deaktivieren des \glslink{aublenden}{Ausblenden} eines Rezepts über einen Provider an den zugehörigen Service weiter.
 \newpage
 \subsection{\texttt{QRCodeScreen}}
 \label{sec:qrCodeScreen}
@@ -1865,7 +1865,7 @@ Mit der Methode \texttt{kickUser} kann ein Nutzer aus einer Gruppe gekickt werde
 \paragraph{\texttt{banUser(req: express.Request, res: express.Response): void}}
 Mit der Methode \texttt{banUser} kann ein Nutzer aus einer Gruppe gebannt werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Nutzer ID und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Bannen des Nutzers erfolgreich war oder Fehler aufgetreten sind.
 \paragraph{\texttt{setCensored(req: express.Request, res: express.Response): void}}
-Mit der Methode \texttt{setCensored} kann ein Rezept ausgeblendet werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Rezept ID und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Zensieren des Nutzers erfolgreich war oder Fehler aufgetreten sind.
+Mit der Methode \texttt{setCensored} kann ein Rezept ausgeblendet werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Rezept ID und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Ausblenden des Rezepts erfolgreich war oder Fehler aufgetreten sind.
 
 \subsection{Mailer}
 Mithilfe des Mailers können E-Mails an Nutzer versendet werden. Dies wird dann benötigt, wenn man ein Rezept melden möchte.
