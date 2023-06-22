@@ -284,7 +284,7 @@ Das \texttt{UserRepository} stellt die Schnittstelle zwischen der Geschäftslogi
 Das \glslink{id-token}{ID-Token} zur Authentifizierung des Nutzers mit dem Server. Es handelt sich um ein privates Attribut, das nur über einen Getter gelesen werden kann. Das Token entspricht dem \glslink{JWT}{JWT-Token}, das der Server nach der Authentifizierung des Nutzers zurückgibt. Darin sind unteranderem die Nutzer-ID und die Gültigkeitsdauer des Tokens kodiert enthalten. Das Token wird bei jeder Anfrage an den Server mitgeschickt, um den Nutzer zu authentifizieren.
 
 \paragraph{\texttt{refreshToken: String?}}
-Der \glslink{refresh-token}{Refresh-Token}{Refresh-Token} zur Authentifizierung des Nutzers mit dem Server. Es handelt sich um ein privates Attribut, das nur über einen Getter gelesen werden kann. Das Token wird verwendet, um ein neues \glslink{id-token}{ID-Token} zu erhalten, wenn das alte abgelaufen ist. Das Token entspricht dem \glslink{JWT}{JWT-Token}, das der Server nach der Authentifizierung des Nutzers zurückgibt. Darin sind unteranderem die Nutzer-ID und die Gültigkeitsdauer des Tokens kodiert enthalten. Das Token wird bei jeder Anfrage an den Server mitgeschickt, um den Nutzer zu authentifizieren.
+Der \glslink{refresh-token}{Refresh-Token} zur Authentifizierung des Nutzers mit dem Server. Es handelt sich um ein privates Attribut, das nur über einen Getter gelesen werden kann. Das Token wird verwendet, um ein neues \glslink{id-token}{ID-Token} zu erhalten, wenn das alte abgelaufen ist. Das Token entspricht dem \glslink{JWT}{JWT-Token}, das der Server nach der Authentifizierung des Nutzers zurückgibt. Darin sind unteranderem die Nutzer-ID und die Gültigkeitsdauer des Tokens kodiert enthalten. Das Token wird bei jeder Anfrage an den Server mitgeschickt, um den Nutzer zu authentifizieren.
 
 \subsubsection*{Methoden}
 \paragraph{\texttt{getToken(): String}}
@@ -1774,7 +1774,7 @@ Diese Methode sorgt dafür, dass der Nutzer sein Passwort zurücksetzen lassen k
 \\}}
 Diese Methode sorgt dafür, dass der Nutzer anhand seines Tokens abgerufen werden kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Token übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Abrufen des Nutzers erfolgreich war oder Fehler aufgetreten sind. Die Methode ist asynchron und gibt ein \texttt{Promise}-Objekt zurück. Das \texttt{Promise}-Objekt wird aufgelöst, wenn das Abrufen des Nutzers erfolgreich war. Wenn das Abrufen des Nutzers nicht erfolgreich war, wird eine Exception geworfen und das \texttt{Promise}-Objekt wird abgelehnt.
 \paragraph{\texttt{userRefreshToken(req: express.Request, res: express.Response): Promise<void>\\}}
-Diese Methode sorgt dafür, dass der Nutzer sein \texttt{\glslink{id-token}{ID-Token}} aktualisieren kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request. Es wird hierfür das \texttt{\glslink{refresh-token}{Refresh-Token}{Refresh-Token}}. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Aktualisieren des Tokens erfolgreich war oder Fehler aufgetreten sind. Die Methode ist asynchron und gibt ein \texttt{Promise}-Objekt zurück. Das \texttt{Promise}-Objekt wird aufgelöst, wenn das Aktualisieren des Tokens erfolgreich war. Wenn das Aktualisieren des Tokens nicht erfolgreich war, wird eine Exception geworfen und das \texttt{Promise}-Objekt wird abgelehnt.
+Diese Methode sorgt dafür, dass der Nutzer sein \texttt{\glslink{id-token}{ID-Token}} aktualisieren kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request. Es wird hierfür das \texttt{\glslink{refresh-token}{Refresh-Token}}. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Aktualisieren des Tokens erfolgreich war oder Fehler aufgetreten sind. Die Methode ist asynchron und gibt ein \texttt{Promise}-Objekt zurück. Das \texttt{Promise}-Objekt wird aufgelöst, wenn das Aktualisieren des Tokens erfolgreich war. Wenn das Aktualisieren des Tokens nicht erfolgreich war, wird eine Exception geworfen und das \texttt{Promise}-Objekt wird abgelehnt.
 
 \subsubsection{\texttt{RecipeController}}\label{sec:RecipeController}
 Der \texttt{RecipeController} ist verantwortlich für alle Anfragen, die mit den Rezepten zu tun haben.
@@ -2136,10 +2136,10 @@ Wir haben uns beim Entwurf entschieden, jede Kommunikation nur zwischen Client (
 Grund für diese Entscheidung war, dass wir unsere Android-Applikation nur direkt mit unserem Server kommunizieren lassen wollen. Damit wollen wir uns auf der Seite der App so unabhängig von anderen Diensten wie möglich machen.
 
 \subsection{Registrierung}
-Bei einer Registrierung wird ein neuer Nutzer angelegt. Dazu muss der Nutzer seine Email-Adresse, ein Passwort und einen Nutzernamen angeben. Email und Passwort werden für eine Registrierung beim Firebase-Server verwendet, welcher eine eindeutige Nutzer-ID zurückgibt. Unter dieser Nutzer-ID werden die Daten des Nutzers in der Datenbank gespeichert. Bei erfolgreicher Anmeldung liefert der Firebase-Server ein \glslink{refresh-token}{Refresh-Token}{Refresh-Token} sowie ein \glslink{id-token}{ID-Token}, welche zur weiteren Authentifizierung des Nutzers benötigt werden.
+Bei einer Registrierung wird ein neuer Nutzer angelegt. Dazu muss der Nutzer seine Email-Adresse, ein Passwort und einen Nutzernamen angeben. Email und Passwort werden für eine Registrierung beim Firebase-Server verwendet, welcher eine eindeutige Nutzer-ID zurückgibt. Unter dieser Nutzer-ID werden die Daten des Nutzers in der Datenbank gespeichert. Bei erfolgreicher Anmeldung liefert der Firebase-Server ein \glslink{refresh-token}{Refresh-Token} sowie ein \glslink{id-token}{ID-Token}, welche zur weiteren Authentifizierung des Nutzers benötigt werden.
 
 \subsection{Anmeldung}
-Bei einem Login wird auf ein bereits vorhandenes Profil zugegriffen. Der Nutzer übergibt seine Emailadresse und sein Passwort, welche anschließend vom Firebase-Server bestätigt bzw abgelehnt werden. Bei erfolgreicher Anmeldung liefert der Firebase-Server ein \glslink{refresh-token}{Refresh-Token}{Refresh-Token} sowie ein \glslink{id-token}{ID-Token}, welche zur weiteren Authentifizierung des Nutzers benötigt werden.
+Bei einem Login wird auf ein bereits vorhandenes Profil zugegriffen. Der Nutzer übergibt seine Emailadresse und sein Passwort, welche anschließend vom Firebase-Server bestätigt bzw abgelehnt werden. Bei erfolgreicher Anmeldung liefert der Firebase-Server ein \glslink{refresh-token}{Refresh-Token} sowie ein \glslink{id-token}{ID-Token}, welche zur weiteren Authentifizierung des Nutzers benötigt werden.
 
 \subsection{Abmeldung}
 Der Nutzer kann sich aus der Android-Applikation abmelden. Dabei werden alle gecacheten Daten inklusive des \glslink{refresh-token}{Refresh-Tokens} gelöscht.
@@ -2152,7 +2152,7 @@ Das alles wird von Firebase-Authentifizierung bereits bereitgestellt. SpiceSquad
 Ein \glslink{id-token}{ID-Token} ist eine Stunde gültig, neue \glslink{id-token}{ID-Tokens} können mithilfe eines \glslink{refresh-token}{Refresh-Tokens} vom Firebase-Server angefordert werden. Ein \glslink{id-token}{ID-Token} wird benötigt, um eine aktive Nutzersession zu validieren.
 
 \subsection{Refresh-Token}
-Im Gegensatz zum kurzlebigen \glslink{id-token}{ID-Token} bleibt das Refresh Token gültig, bis der Nutzer gelöscht bzw der Nutzer sich auf einem Gerät ausloggt. Es kann verwendet werden, um vom Firebase-Server ein neues \glslink{id-token}{ID-Token} anzufordern. Das \glslink{refresh-token}{Refresh-Token}{Refresh-Token} wird beim Login auf dem Gerät des Nutzers gespeichert und ermöglicht eine Authentifizierung ohne erneute Eingabe von Passwort und Email. 
+Im Gegensatz zum kurzlebigen \glslink{id-token}{ID-Token} bleibt das Refresh Token gültig, bis der Nutzer gelöscht bzw der Nutzer sich auf einem Gerät ausloggt. Es kann verwendet werden, um vom Firebase-Server ein neues \glslink{id-token}{ID-Token} anzufordern. Das \glslink{refresh-token}{Refresh-Token} wird beim Login auf dem Gerät des Nutzers gespeichert und ermöglicht eine Authentifizierung ohne erneute Eingabe von Passwort und Email. 
 
 \subsection{Anmeldungsbeispiel}
 \begin{figure}[htp]
@@ -2160,7 +2160,7 @@ Im Gegensatz zum kurzlebigen \glslink{id-token}{ID-Token} bleibt das Refresh Tok
     \includegraphics[width = \linewidth]{images/firebase/sqd_login.pdf}
     \caption{Anmeldungsbeispiel}
 \end{figure}
-Der Nutzer übergibt Emailadresse und Passwort, diese werden zum Firebase-Server weitergeleitet. Der Firebase-Server gibt Nutzer-ID, \glslink{id-token}{ID-Token} und \glslink{refresh-token}{Refresh-Token}{Refresh-Token} zurück. Die Daten des Nutzers werden mithilfe der Nutzer-ID aus der Datenbank geholt. Anschließend werden Nutzerdaten und Tokens an den Client übergeben, welcher daraufhin in die Hauptansicht wechselt.
+Der Nutzer übergibt Emailadresse und Passwort, diese werden zum Firebase-Server weitergeleitet. Der Firebase-Server gibt Nutzer-ID, \glslink{id-token}{ID-Token} und \glslink{refresh-token}{Refresh-Token} zurück. Die Daten des Nutzers werden mithilfe der Nutzer-ID aus der Datenbank geholt. Anschließend werden Nutzerdaten und Tokens an den Client übergeben, welcher daraufhin in die Hauptansicht wechselt.
 
 \newpage
 
