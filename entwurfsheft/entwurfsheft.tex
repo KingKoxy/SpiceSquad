@@ -6,6 +6,7 @@
 \begin{document}
 \include{glossary.tex}
 \maketitle
+\begin{sloppypar}
 \tableofcontents
 \newpage
 
@@ -1812,7 +1813,7 @@ Der \texttt{GroupController} ist verantwortlich für alle Anfragen, die mit den 
 \paragraph{\texttt{GroupController(): void}}
 Die Methode ist der Konstruktor der Klasse \texttt{GroupController}.
 \paragraph{\texttt{groupPost(req: express.Request, res: express.Response): Promise<void>\\}}
-Mit der Methode \texttt{groupPost} kann eine neue Gruppe erstellt werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Gruppenname, Gruppenbeschreibung und andere Informationen übermittelt. Es wird überprüft ob die maximale Anzahl an Gruppen von 32 durch den Gruppenbeitritt überschritten worden ist. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Erstellen der Gruppe erfolgreich war oder Fehler aufgetreten sind.
+Mit der Methode \texttt{groupPost} kann eine neue Gruppe erstellt werden. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Gruppenname, Gruppenbeschreibung und andere Informationen übermittelt. Es wird überprüft ob die maximale Anzahl an Gruppen von 32 durch den Gruppenbeitritt überschritten worden ist und es wird auch überprüft ob der eingegebene Gruppename die maximale Länge von 32 Zeichen überschreitet. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Erstellen der Gruppe erfolgreich war oder Fehler aufgetreten sind.
 Die Methode ist asynchron und gibt ein \texttt{Promise}-Objekt zurück. Das \texttt{Promise}-Objekt wird aufgelöst, wenn das Erstellen der Gruppe erfolgreich war. Das \texttt{Promise}-Objekt wird abgelehnt, wenn das Erstellen der Gruppe nicht erfolgreich war.
 \paragraph{\texttt{groupDelete(req: express.Request, res: express.Response): Promise<void>\\}}
 Diese Methode sorgt dafür, dass eine Gruppe gelöscht werden kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Gruppenname, Gruppenbeschreibung und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Löschen der Gruppe erfolgreich war oder Fehler aufgetreten sind.
@@ -1841,7 +1842,7 @@ Mit der Methode \texttt{us-erDelete} kann ein Nutzer gelöscht werden. Der \text
 Die Methode ist asynchron und gibt ein \texttt{Promise}-Objekt zurück.
 
 \paragraph{\texttt{userPatch(req: express.Request, res: express.Response): Promise<void>\\}}
-Diese Methode sorgt dafür, dass ein Nutzer bearbeitet werden kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Nutzername und andere Informationen übermittelt. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Bearbeiten des Nutzers erfolgreich war oder Fehler aufgetreten sind.
+Diese Methode sorgt dafür, dass ein Nutzer bearbeitet werden kann. Der \texttt{req}-Parameter enthält Informationen über den eingehenden HTTP-Request, der Daten wie Nutzername und andere Informationen übermittelt. Es wird überprüft ob der neue Nutzername die maximale Länge von 32 Zeichen überschreitet. Der \texttt{res}-Parameter wird verwendet, um eine Antwort auf den Request zu senden, beispielsweise um dem Nutzer mitzuteilen, ob das Bearbeiten des Nutzers erfolgreich war oder Fehler aufgetreten sind.
 Die Methode ist asynchron und gibt ein \texttt{Promise}-Objekt zurück.
 
 \subsubsection{\texttt{IngredientController}}\label{sec:IngredientController}
@@ -2294,7 +2295,8 @@ Die Tabelle "BannedUser" repräsentiert die Many-To-Many-Beziehung zwischen den 
     \newpage
     
     \subsection{Sequenzdiagrammen User bannen}
-        Das Sequenzdiagrammen zeigt den Ablauf von User bannen. Es wird von einem idealen Ablauf ausgegangen. Der Nutzer hat bereits bestätigt, dass der Nutzer wirklich gebannt werden soll.\\
+        Das Sequenzdiagrammen zeigt den Ablauf von User bannen. Es wird von einem idealen Ablauf ausgegangen. Der Nutzer hat bereits bestätigt, dass der Nutzer wirklich gebannt werden soll.
+
         Die Klasse \texttt{GroupDetailScreen} ruft die Funktion \texttt{banUser(UserId,GroupId)} der Klasse \texttt{Group\-Service} auf. Die Parameter sind die ID des Nutzer und die ID der Gruppe. Es wird ein \texttt{Future}-Objekt zurückgegeben, welches aufgelöst wird, wenn der Nutzer erfolgreich aus der Gruppe gebannt wurde. Die Klasse \texttt{AdminRepository} gibt bei dem Funktionsaufruf von \texttt{banUser(UserId, GroupId)} auch ein \texttt{Future}-Objekt zurück. Die Klasse \texttt{CheckAuthorization} ruft neben der Funktion \texttt{verifyToken(JWT)} von \texttt{Firebase} auch noch die Funktion \texttt{adminStatusChecker(req, res, next)} auf, um nicht nur zu überprüfen ob der User Token aktuell ist, sondern auch ob der User die Admin Rechte besitzt. Der \texttt{AdminUserController} gibt das Ergebnis zurück an den \texttt{GroupDetailScreen}, wobei alle \texttt{Promise}-Objekte und \texttt{Future}-Objekte aufgelöst werden.
 
         \begin{figure}[htp]
@@ -2395,6 +2397,7 @@ Die Tabelle "BannedUser" repräsentiert die Many-To-Many-Beziehung zwischen den 
         \item \nameref{sec:UserController}
     \end{itemize}
 \end{multicols}
+\end{sloppypar}
 \newpage
 \section{Glossar}
 \printglossary[style=altlist]

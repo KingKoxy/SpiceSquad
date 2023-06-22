@@ -16,6 +16,7 @@
 \RequirePackage{adjustbox}      % add adjustmentbox
 \RequirePackage{csquotes}
 \RequirePackage{multicol}
+\RequirePackage{microtype}
  
 % Set footer and header bar
 \RequirePackage[headsepline, footsepline]{scrlayer-scrpage}
