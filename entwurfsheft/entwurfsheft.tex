@@ -506,12 +506,12 @@ Impliziert, das die Klasse mit diesem Schlüsselwort von der Flutterklasse \text
 \newpage
 
 \subsection{Allgemeine Widgets}
-Eigene Widgets, die in mehreren Klassen verwendet werden, werden in einem eigenen Ordner gespeichert. Diese sollen nun beschrieben werden.
+Eigene Widgets, die in mehreren Klassen verwendet werden, werden in einem eigenen Package \texttt{ui\_elements} gespeichert. Diese sollen nun beschrieben werden.
 \begin{figure}[htp]
     \centering
-    \includegraphics[height = .5\textheight]{images/presentationLayer/classDiagrams/commonWidgets.pdf}
-    \caption{Klassendiagramm der allgemeinen Widgets}
-    \label{fig:common-widgets}
+    \includegraphics[height = .5\textheight]{images/presentationLayer/classDiagrams/uiElements.pdf}
+    \caption{Klassendiagramm des ui_elements-Packages}
+    \label{fig:ui-elements}
 \end{figure}
 
 \subsubsection{\texttt{AddButton}}
@@ -557,7 +557,7 @@ Der \texttt{EyeButton} ist ein Button, der ein Augen-Symbol enthält. Er wird ve
 \end{figure}
 \paragraph*{Konstruktor}
 Der Konstruktor nimmt eine Funktion \texttt{onPressed} entgegen, die ausgeführt wird, wenn der Button gedrückt wird. Zudem kann ein Boolean \texttt{open} übergeben werden, der bestimmt, ob der Button offen oder geschlossen ist.
-
+\newpage
 
 \subsubsection{\texttt{BackButton}}
 \label{sec:backButton}
@@ -662,7 +662,7 @@ Leitet eine Registrierungsanfrage über einen Provider an den zuständigen Servi
 
 \subsection{\texttt{PasswordResetScreen}}
 \label{sec:passwordResetScreen}
-Die Klasse bildet die Passwort-Zurücksetzen-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt. Sie verwendet die Klasse \hyperref[sec:backButton]{\texttt{BackButton}} aus dem \texttt{common\_widgets}-Package.
+Die Klasse bildet die Passwort-Zurücksetzen-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt. Sie verwendet die Klasse \hyperref[sec:backButton]{\texttt{BackButton}} aus dem \texttt{ui\_elements}-Package.
 \begin{figure}[htp]
     \begin{minipage}
         [t]{0.49\textwidth}
@@ -716,7 +716,7 @@ Leitet eine Gruppenbeitrittsanfrage über einen Provider an den zuständigen Ser
 
 \subsection{\texttt{QRScannerScreen}}
 \label{sec:qrScannerScreen}
-Die Klasse bildet die QR-Scanner-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt. Sie verwendet die Klasse \hyperref[sec:backButton]{\texttt{BackButton}} aus dem \texttt{common\_widgets}-Package. Es handelt sich um eine Ansicht, die die Kameraansicht des Smartphones zeigt.
+Die Klasse bildet die QR-Scanner-Ansicht ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt. Sie verwendet die Klasse \hyperref[sec:backButton]{\texttt{BackButton}} aus dem \texttt{ui\_elements}-Package. Es handelt sich um eine Ansicht, die die Kameraansicht des Smartphones zeigt.
 \begin{figure}
     [htp]
     \centering
@@ -797,7 +797,7 @@ Wendet die aktuell ausgewählten Filter, die Suche und die Sortierung auf die Li
 \newpage
 \subsubsection{RecipeCard}
 \label{sec:recipeCard}
-Die Klasse bildet eine Rezeptkarte ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt. Sie verwendet die Klasse \hyperref[sec:favouriteButton]{\texttt{FavouriteButton}} aus dem Package \texttt{common\_widgets}.
+Die Klasse bildet eine Rezeptkarte ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt. Sie verwendet die Klasse \hyperref[sec:favouriteButton]{\texttt{FavouriteButton}} aus dem Package \texttt{ui\_elements}.
 \begin{figure}[htp]
     \begin{minipage}
         [t]{0.49\textwidth}
@@ -1050,7 +1050,7 @@ Konstruktor, der die Schwierigkeit und die Callback-Methode übergeben bekommt.
 \newpage
 \subsubsection{\texttt{IngredientList}}
 \label{sec:ingredientPickerWidget}
-Die Klasse stellt die Liste der Zutaten dar. Sie ist ein \texttt{StatefulWidgget}, da sie den Zustand \texttt{ingredients} verwaltet. Sie erzeugt eine Listenansicht, in der für jedes Rezept ein Item gezeigt wird. Zusätzlich verwendet sie die Klasse \hyperref[sec:addButton]{\texttt{AddButton}} aus dem Package \texttt{common\_widgets}. Drückt man auf den Knopf, wird man zur Zutaten-Erstellungs-Ansicht (\ref{sec:ingredientCreationScreen}) weitergeleitet.
+Die Klasse stellt die Liste der Zutaten dar. Sie ist ein \texttt{StatefulWidgget}, da sie den Zustand \texttt{ingredients} verwaltet. Sie erzeugt eine Listenansicht, in der für jedes Rezept ein Item gezeigt wird. Zusätzlich verwendet sie die Klasse \hyperref[sec:addButton]{\texttt{AddButton}} aus dem Package \texttt{ui\_elements}. Drückt man auf den Knopf, wird man zur Zutaten-Erstellungs-Ansicht (\ref{sec:ingredientCreationScreen}) weitergeleitet.
 \begin{figure}[htp]
     \begin{minipage}
         [t]{0.49\textwidth}
@@ -1075,7 +1075,7 @@ Callback-Methode, die ausgeführt wird, wenn sich die Liste der Zutaten ändert 
 Konstruktor, der die Liste der Zutaten und die Callback-Methode übergeben bekommt.
 \newpage
 \subsubsection{\texttt{ToggleableLabelWidget}}
-Die Klasse repräsentiert ein Label, das aktiviert oder deaktiviert werden kann, indem es gedrückt wird. Es ändert entsprechend seine Farbe. Sie ist ein \texttt{StatefulWidget}, da sie den Zustand \texttt{active} verwaltet. Sie erzeugt ein Text-Widget, das aktiviert oder deaktiviert werden kann, indem es gedrückt wird. Es ändert entsprechend seine Farbe. Es verwendet die Klasse \hyperref[sec:tagItem]{\texttt{TagItem}} aus dem Package \texttt{common\_widgets}.
+Die Klasse repräsentiert ein Label, das aktiviert oder deaktiviert werden kann, indem es gedrückt wird. Es ändert entsprechend seine Farbe. Sie ist ein \texttt{StatefulWidget}, da sie den Zustand \texttt{active} verwaltet. Sie erzeugt ein Text-Widget, das aktiviert oder deaktiviert werden kann, indem es gedrückt wird. Es ändert entsprechend seine Farbe. Es verwendet die Klasse \hyperref[sec:tagItem]{\texttt{TagItem}} aus dem Package \texttt{ui\_elements}.
 \begin{figure}[htp]
     \begin{minipage}
         [t]{0.49\textwidth}
