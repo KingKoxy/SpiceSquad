@@ -73,11 +73,6 @@
     description={JSON Web Token. Ein Token, das aus drei Teilen besteht: Header, Payload und Signature. Es wird verwendet, um den Benutzer zu authentifizieren. Der Header enthält Informationen über den verwendeten Algorithmus. Der Payload enthält Informationen über den Benutzer. Die Signatur wird verwendet, um die Echtheit des Tokens zu überprüfen}
 }
 
-\newglossaryentry{idToken}{
-    name=idToken,
-    description={Ein JWT, das vom Identity Provider ausgestellt wird. Es enthält Informationen über den Benutzer. Der idToken ist für maximal eine Stunde gültig, danach muss ein neuer angefordert werden}
-}
-
 \newglossaryentry{ausblenden}{
     name=ausblenden,
     description={Ein ausgeblendetes Rezept kann innerhalb des Squads, in dem es ausgeblendet ist, nicht betrachtet werden. Die Sichtbarkeit des Rezepts in anderen Gruppen wird nicht beeinflusst}
@@ -126,4 +121,9 @@
 \newglossaryentry{id-token}{
     name=ID-Token,
     description={Ein JWT, das von Firebase ausgestellt wird. Es enthält Informationen über den Benutzer. Der ID-Token ist für maximal eine Stunde gültig, danach muss ein neuer angefordert werden}
+}
+
+\newglossaryentry{refresh-token}{
+    name=Refresh-Token,
+    description={Ein JWT, das von Firebase ausgestellt wird. Der Refresh-Token ist ein spezieller Token-Typ, der dazu dient, ID-Token zu erneuern, nachdem sie abgelaufen sind}
 }
