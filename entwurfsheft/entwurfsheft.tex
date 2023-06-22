@@ -16,7 +16,7 @@ Die in diesem Heft verwendeten Personenbezeichnungen beziehen sich - sofern nich
 
 \section{Allgemeines}
 \subsection{Zweck}
-Das Entfurfsheft des Projekts: "Write your own Android App: SpiceSquad" baut auf dem zuvor verfassten Pflichtenheft auf.
+Das Entwurfsheft des Projekts: "Write your own Android App: SpiceSquad" baut auf dem zuvor verfassten Pflichtenheft auf.
 Hierzu wurde zunächst ein umfassendes Klassendiagramm erstellt. Auf diesem basierend werden alle Klassen, Methoden und Attribute ausführlich erklärt.
 In weiteren Kapiteln wird der \glslink{rest}{REST}-Webservice und die Datenbankstruktur beschrieben. Zum besseren Verständnis sind Ablaufbeschreibungen in Form von Sequenzdiagrammen angefügt.
 
@@ -354,7 +354,7 @@ Das \texttt{RemoteRecipeRepository} stellt die Schnittstelle zwischen der Gesch�
 \paragraph{\texttt{userRepository: UserRepository}}
 Das \texttt{UserRepository}-Objekt, welches von dem \texttt{Remote\-Recipe\-Repository}-Objekt verwendet wird. Es handelt sich um ein privates Attribut. Es wird später verwendet, um das Token zur Authentifizierung des Nutzers bei dem Server für Anfragen zu erhalten.
 \subsubsection*{Methoden}
-\paragraph{\texttt{RemoteRecipeRepository(UserRepository userRepository):RemoteRecipeRepository\\}} % TODO Fix maybe?
+\paragraph{\texttt{RemoteRecipeRepository(UserRepository userRepository):RemoteRecipeRepository\\}}
 Der Konstruktor der Klasse. Initialisiert das Attribut \texttt{userRepository} mit dem übergebenen \texttt{UserRepository}-Objekt.
 \paragraph{\texttt{fetchAllRecipesForUser(): Future<List<Recipe>>}}
 Fragt alle Rezepte aus Gruppen des aktuellen Nutzers vom Server ab. Nimmt keine Parameter entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn die Rezepte erfolgreich vom Server abgefragt wurden. Wenn die Rezepte nicht vom Server abgefragt werden können, wird eine Exception geworfen. Speichert zudem alle Rezepte als JSON-Objekt via \Gls{SharedPreferences} in den lokalen Speicher.
@@ -2000,28 +2000,28 @@ Der \glslink{id-token}{ID-Token} wird dabei im Header der Anfrage mitgeschickt.
 
 \subsubsection*{Delete /recipe/id}
     \paragraph{Request}
-        In der Anfrage muss die ID des zu löschenden Rezepts angegeben werden.
+        In der Anfrage muss das Rezept-ID angegeben werden.
     \paragraph{Response}
         Im Erfolgsfalls wird der Statuscode 200 zurückgegeben.
         Im Fehlerfall wird der Statuscode 406 zurückgegeben. Das kann passieren, wenn kein Rezept mit der angegebenen ID gefunden wurde.
 
 \subsubsection*{PATCH /recipe/id}
     \paragraph{Request}
-        In der Anfrage muss die ID des geänderten Rezepts und das veränderte Rezept angegeben werden.
+        In der Anfrage muss das Rezept-ID und das Rezept angegeben werden.
     \paragraph{Response}
         Im Erfolgsfalls wird der Statuscode 200 zurückgegeben.
         Im Fehlerfall wird der Statuscode 406 zurückgegeben. Das kann passieren, wenn kein Rezept mit der angegebenen ID gefunden wurde.
 
 \subsubsection*{PATCH /recipe/favorite/id}
     \paragraph{Request}
-        In der Anfrage muss die ID des Rezept, dessen Favoriten Status geändert werden soll, und ein \gls{bool}, ob das Rezept favorisiert ist, angegeben werden.
+        In der Anfrage muss das RezeptID und ein \gls{bool}, ob das Rezept favorisiert ist, angegeben werden.
     \paragraph{Response}
         Im Erfolgsfalls wird der Statuscode 200 zurückgegeben.
         Im Fehlerfall wird der Statuscode 406 zurückgegeben. Das kann passieren, wenn kein Rezept mit der angegebenen ID gefunden wurde.
         
 \subsubsection*{POST /recipe/report}
     \paragraph{Request}
-        In der Anfrage muss die ID des zu meldenden Rezepts und die ID der Gruppe, in der das Rezept gemeldet wurde, angegeben werden.
+        In der Anfrage muss die RezeptId und die GruppenId angegeben werden.
     \paragraph{Response}
         Im Erfolgsfalls wird der Statuscode 200 zurückgegeben.
         Im Fehlerfall wird der Statuscode 406 zurückgegeben. Das kann passieren, wenn kein Rezept mit der angegebenen ID gefunden wurde.
@@ -2032,7 +2032,6 @@ Der zugehörige Router ist der \texttt{GroupRouter} (siehe \nameref{sec:GroupRou
 
 Die Anfragen an diese Route müssen mit einem gültigen \glslink{id-token}{ID-Token} versehen sein, da nur angemeldete Nutzer Gruppen erstellen können.
 Der \glslink{id-token}{ID-Token} wird dabei im Header der Anfrage mitgeschickt.
-Fall eine unauthentifizierte Anfrage an einen Endpunkt dieser Route gestellt wird, wird der Fehlercode 401 zurückgegeben.
 
 \subsubsection*{POST /group}
     \paragraph{Request}
@@ -2042,13 +2041,13 @@ Fall eine unauthentifizierte Anfrage an einen Endpunkt dieser Route gestellt wir
     
 \subsubsection*{DELETE /group/:groupId/:userId}
     \paragraph{Request}
-        In der Anfrage muss die ID der zu löschenden Gruppe und die ID des Nutzers, der die Gruppe löschen will, angegeben werden.
+        In der Anfrage muss die Gruppen-ID und die UserId angegeben werden.
     \paragraph{Response}
         Im Erfolgsfall wird der Statuscode 200 zurückgegeben. Im Fehlerfall wird der Statuscode 406 zurückgegeben. Das kann passieren, wenn kein Rezept mit der angegebenen ID gefunden wurde.
         
 \subsubsection*{PATCH /group/:groupeId/:userId}
     \paragraph{Request}
-        In der Anfrage muss die ID der Gruppe, dessen Gruppennamen geändert werden soll, die ID des Nutzer, der den Gruppennamen bearbeiten möchte, und der neue Gruppenname angegeben werden.
+        In der Anfrage muss die Gruppen-ID, die UserId und der neue Gruppen Name angegeben werden.
     \paragraph{Response}
         Im Erfolgsfall wird der Statuscode 200 zurückgegeben.
         Im Fehlerfall wird der Statuscode 406 zurückgegeben. Das kann passieren, wenn kein Rezept mit der angegebenen ID gefunden wurde.
@@ -2062,14 +2061,14 @@ Fall eine unauthentifizierte Anfrage an einen Endpunkt dieser Route gestellt wir
         
 \subsubsection*{PATCH /group/leave/:groupId/:userId}
     \paragraph{Request}
-        In der Anfrage muss die ID der Gruppe, die der Nutzer verlassen will, und die ID des verlassenden Nutzers angegeben werden..
+        In der Anfrage muss die ID der Gruppe, die der Nutzer verlassen will, und die ID des verlassenden Nutzers angegeben werden.
     \paragraph{Response}
         Im Erfolgsfall wird der Statuscode 200 zurückgegeben.
         Im Fehlerfall wird der Statuscode 406 zurückgegeben. Das kann passieren, wenn kein Rezept mit der angegebenen ID gefunden wurde.
     
 \subsubsection*{GET /group/:userId}
     \paragraph{Request}
-        In der Anfrage muss die ID des Nutzers angegeben werden, dessen Gruppen ausgegeben werden sollen.
+        In der Anfrage muss die User-ID angegeben werden.
     \paragraph{Response}
         Im Erfolgsfall wird der Statuscode 200 und eine Liste aller Gruppen des Nutzers zurückgegeben. Im Fehlerfall wird der Statuscode 406 zurückgegeben. Das kann passieren, wenn kein User mit der angegebenen ID gefunden wurde.
 
@@ -2090,7 +2089,7 @@ Im Fehlerfall wird ein Statuscode 406 zurückgegeben. Das kann passieren, wenn k
 
 \subsubsection*{PATCH /user/:id}
 \paragraph{Request}
-In der Anfrage muss die ID des Nutzers angegeben werden, der bearbeitet werden soll, sowie die neuen Nutzerdaten.
+In der Anfrage muss die Id des Nutzers angegeben werden, der bearbeitet werden soll, sowie die neuen Nutzerdaten.
 \paragraph{Response}
 Beim erfolgreichen Bearbeiten des Nutzers wird ein Statuscode 200 zurückgegeben.
 Im Fehlerfall wird ein Statuscode 406 zurückgegeben. Das kann passieren, wenn kein Nutzer mit der angegebenen ID gefunden wurde.
@@ -2147,7 +2146,7 @@ Im Erfolgsfall wird ein Statuscode 200 zurückgegeben.
 Im Fehlerfall wird ein Statuscode 406 oder 403 zurückgegeben. Der Statuscode 403 wird zurückgegeben, wenn der Nutzer, der gekickt werden soll, Admin ist.
 \subsubsection*{PATCH /admin/:groupId/setCensored/:recipeId}
     \paragraph{Request}
-        In der Anfrage müssen die ID der Gruppe, aus der Rezept ausgeblendet werden soll, die ID des Nutzers, für den es ausgeblendet werden soll, und die ID des Rezepts, welchen ausgeblendet werden soll, angegeben werden.
+        In der Anfrage muss die Gruppen-ID angegeben werden und die Rezept-ID.
     \paragraph{Response}
         Im Erfolgsfalls wird der Statuscode 200 zurückgegeben.
         Im Fehlerfall wird ein Statuscode 406 oder 403 zurückgegeben. Der Statuscode 403 wird zurückgegeben, wenn der Nutzer, der gekickt werden soll, Admin ist.
@@ -2246,8 +2245,8 @@ Die Anzahl der erstellten Gruppen des Nutzers. Sie wird verwendet, um zu überpr
 \newpage
 \subsubsection{Favourite}
 Die Tabelle "Favourite" repräsentiert die Many-To-Many-Beziehung zwischen den Benutzern und den Rezepten, die sie favorisiert haben. Sie besitzt die folgenden Attribute:
-\paragraph{\texttt{id (uuid - primary key):}} Die ID stellt den Primärschlüssel der Beziehung dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
-\paragraph{\texttt{user\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die ID des Benutzers, der das Rezept favorisiert hat, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine ID handelt.
+\paragraph{\texttt{id (uuid - primary key):}} Die Id stellt den Primärschlüssel der Beziehung dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
+\paragraph{\texttt{user\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die ID des Benutzers, der das Rezept favorisiert hat, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine Id handelt.
 \paragraph{\texttt{recipe\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die ID des Rezepts, das favorisiert wurde, als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine ID handelt.
 \newpage
 \subsubsection{Group}
