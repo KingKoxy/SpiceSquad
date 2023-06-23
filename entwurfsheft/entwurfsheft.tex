@@ -346,8 +346,8 @@ Es wird eine Anfrage an den Server gestellt, um den Nutzer mit der übergebenen 
 Es wird eine Anfrage an den Server gestellt, um den Nutzer mit der übergebenen ID aus der Gruppe mit der übergebenen ID zu entfernen. Nimmt als Parameter die ID des Nutzers und die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn der Nutzer erfolgreich aus der Gruppe entfernt wurde. Wenn der Nutzer nicht aus der Gruppe entfernt werden kann, wird eine Exception geworfen.
 \paragraph{\texttt{banUser(String userId, String groupId): Future<void>}}
 Es wird eine Anfrage an den Server gestellt, um den Nutzer mit der übergebenen ID aus der Gruppe mit der übergebenen ID zu bannen. Nimmt als Parameter die ID des Nutzers und die ID der Gruppe entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn der Nutzer erfolgreich aus der Gruppe gebannt wurde. Wenn der Nutzer nicht aus der Gruppe gebannt werden kann, wird eine Exception geworfen.
-\paragraph{\texttt{setCensored(String recipeId, bool value): Future<void>}}
-Blendet das Rezept, das die gegebene ID besitzt, aus. Nimmt als Parameter die ID des Rezepts und einen boolschen Wert, der angibt, ob das Rezept ausgeblendet oder entfernt werden soll, entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn das Rezept erfolgreich ausgeblendet oder entfernt wurde. Wenn das Rezept nicht ausgeblendet oder entfernt werden kann, wird eine Exception geworfen.
+\paragraph{\texttt{setCensored(String recipeId, String groupId, bool value): Future<void>}}
+Blendet das Rezept, das die gegebene ID besitzt, für die gegebene Gruppe aus. Nimmt als Parameter die ID des Rezepts und einen boolschen Wert, der angibt, ob das Rezept ausgeblendet oder entfernt werden soll, entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn das Rezept erfolgreich ausgeblendet oder entfernt wurde. Wenn das Rezept nicht ausgeblendet oder entfernt werden kann, wird eine Exception geworfen.
 \newpage
 \subsection{\texttt{RemoteRecipeRepository}}\label{sec:remoteRecipeRepository}
 Das \texttt{RemoteRecipeRepository} stellt die Schnittstelle zwischen der Geschäftslogik und den Server-Schnittstellen für Rezepte dar.
@@ -799,7 +799,7 @@ Das Package \texttt{main\_screen} enthält alle Klassen für die Hauptansicht de
     \caption{Klassendiagramm des Pakets main\_screen}
 \end{figure}
 \newpage
-\subsubsection{MainScreen}
+\subsubsection{\texttt{MainScreen}}
 \label{sec:mainScreen}
 Die Klasse bildet die Hauptansicht der App ab. Sie ist ein \texttt{StatefulWidget}, da sie den Zustand \texttt{filteredRecipes} verwaltet und anzeigt. Sie bildet für jedes Rezept eine \texttt{RecipeCard} ab. Zudem gibt es zwei Widgets zur Auswahl der Sortierung und Filterung der Rezepte und eines zum Suchen.
 \begin{figure}[htp]
@@ -831,7 +831,7 @@ Der aktuell eingegebene Suchtext.
 \paragraph{\texttt{runFiltersAndSort(): void}}
 Wendet die aktuell ausgewählten Filter, die Suche und die Sortierung auf die Liste aller Rezepte an und speichert das Ergebnis in \texttt{filteredRecipes}. Wird immer aufgerufen, nachdem sich eine der Einstellungen geändert hat.
 \newpage
-\subsubsection{RecipeCard}
+\subsubsection{\texttt{RecipeCard}}
 \label{sec:recipeCard}
 Die Klasse bildet eine Rezeptkarte ab. Sie ist ein \texttt{StatelessWidget}, da sie keinen eigenen Zustand besitzt. Sie verwendet die Klasse \hyperref[sec:favouriteButton]{\texttt{FavouriteButton}} aus dem Package \texttt{ui\_elements}.
 \begin{figure}[htp]
@@ -1365,7 +1365,7 @@ Das Package \texttt{group\_detail\_screen} enthält alle Klassen für die Gruppe
     \caption{\protect\raggedright Klassendiagramm des group\_detail\_screen-Packages}
 \end{figure}
 \newpage
-\subsubsection{GroupDetailScreen}
+\subsubsection{\texttt{GroupDetailScreen}}
 \label{sec:groupDetailScreen}
 Die Klasse bildet die Gruppen-Detail-Ansicht ab. Sie ist ein \texttt{StatefulWidget}, da sie den Zustand \texttt{group} verwaltet. Sie verwendet die Klasse \texttt{BackButton} aus dem Package \texttt{ui\_elements}.
 \begin{figure}[htp]
