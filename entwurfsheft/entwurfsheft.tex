@@ -2210,7 +2210,7 @@ Die Tabelle "Recipe" enthält die Rezepte und besitzt die folgenden Attribute:
 \paragraph{\texttt{id (uuid - primary key):}} Die ID stellt den Primärschlüssel des Rezepts dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
 \paragraph{\texttt{title (varchar(64) - not null):}} Der Titel des Rezepts. Der Datentyp ist \Gls{varchar}. Er darf nicht leer und maximal 64 Zeichen lang sein.
 \paragraph{\texttt{author\_id (uuid - not null, foreign key):}} Hierbei handelt es sich um die ID des Autors des Rezepts als Fremdschlüssel. Sie darf nicht leer sein und der Datentyp ist \Gls{uuid}, da es sich um eine ID handelt.
-\paragraph{\texttt{image (blob):}} Das Bild des Rezepts in binär Code. Der Datentyp ist \Gls{blob}.
+\paragraph{\texttt{image (bytea):}} Das Bild des Rezepts in binär Code. Der Datentyp ist \Gls{bytea}.
 \paragraph{\texttt{duration (int - not null):}} Die Zubereitungszeit des Rezepts in Minuten. Der Datentyp ist Integer. Sie darf nicht leer sein.
 \paragraph{\texttt{difficulty (Difficulty - not null):}} Die Schwierigkeit des Rezepts, die nicht leer sein darf. Der Datentyp "Difficulty" ist ein Enum, mit den Werten "easy", "medium" und "hard".
 \paragraph{\texttt{instructions (text - not null):}} Die Zubereitungsanleitung des Rezepts, die nicht leer sein darf. Der Datentyp ist Text, was einer unbegrenzten Zeichenkette entspricht.
@@ -2240,7 +2240,7 @@ Die Tabelle "User" enthält die Benutzer der App und besitzt die folgenden Attri
 \paragraph{\texttt{id (uuid - primary key):}} Die ID stellt den Primärschlüssel des Benutzers dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
 \paragraph{\texttt{user\_name (varchar(32) - not null):}} Der Benutzername des Benutzers. Der Datentyp ist \Gls{varchar}. Er darf nicht leer und maximal 32 Zeichen lang sein.
 \paragraph{\texttt{email (varchar(64) - not null):}} Die E-Mail-Adresse des Benutzers. Der Datentyp ist \Gls{varchar}. Sie darf nicht leer und maximal 64 Zeichen lang sein.
-\paragraph{\texttt{profile\_image (blob):}} Das Profilbild des Benutzers in binär Code. Der Datentyp ist \Gls{blob}.
+\paragraph{\texttt{profile\_image (bytea):}} Das Profilbild des Benutzers in binär Code. Der Datentyp ist \Gls{bytea}.
 \paragraph{\texttt{firebase\_user\_id (varchar - not null, unique)}} Die ID des Benutzers, die in der Firebase Datenbank hinterlegt ist. Der Datentyp ist \Gls{varchar}. Sie muss eindeutig und nicht leer sein. Sie dient als Fremdschlüssel über die Datenbank hinweg zu Firebase.
 \paragraph{\texttt{created\_groups (int - not null)}}
 Die Anzahl der erstellten Gruppen des Nutzers. Sie wird verwendet, um zu überprüfen, ob der Nutzer noch Gruppen erstellen darf.
