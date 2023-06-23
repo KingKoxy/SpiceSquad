@@ -134,7 +134,7 @@ Gibt den Autor des Rezepts zurück.
 \paragraph{\texttt{getUploadDate(): Date}}
 Gibt das Datum, an dem das Rezept hochgeladen wurde, zurück.
 \paragraph{\texttt{getDuration(): int}}
-Gibt die Dauer zum Nachkochen des Rezepts in Minuten zurück.
+Gibt die Zubereitungsdauer des Rezepts in Minuten zurück.
 \paragraph{\texttt{getDifficulty(): Difficulty}}
 Gibt die \Gls{schwierigkeit} des Rezepts zurück.
 \paragraph{\texttt{getImage(): Uint8List?}}
@@ -160,9 +160,9 @@ Gibt zurück, ob das Rezept vom Nutzer als Favorit markiert wurde.
 \paragraph{\texttt{getIsPrivate(): bool}}
 Gibt zurück, ob das Rezept privat ist.
 \paragraph{\texttt{factory Recipe.fromJson(Map<String, dynamic> json): Recipe}}
-Es handelt sich um eine Factory-Methode, die \texttt{Recipe}-Objekte aus \glslink{JSON}{JSON-Objekten} erstellen kann. Sie wird verwendet, um die Daten, die vom Server geschickt werden und in \Gls{JSON} vorliegen, in ein \texttt{Recipe}-Objekt umzuwandeln. Die Methode ist statisch, da sie kein \texttt{Recipe}-Objekt benötigt, um aufgerufen zu werden. Nimmt als Parameter das bereits in eine Map umgewandelte \glslink{JSON}{JSON-Objekt} entgegen und gibt ein \texttt{Recipe}-Objekt zurück.
+Eine Factory-Methode, die \texttt{Recipe}-Objekte aus \glslink{JSON}{JSON-Objekten} erstellen kann. Sie wird verwendet, um die Daten, die vom Server geschickt werden und in \Gls{JSON} vorliegen, in ein \texttt{Recipe}-Objekt umzuwandeln. Die Methode ist statisch, da sie kein \texttt{Recipe}-Objekt benötigt, um aufgerufen zu werden. Nimmt als Parameter das bereits in eine Map umgewandelte \glslink{JSON}{JSON-Objekt} entgegen und gibt ein \texttt{Recipe}-Objekt zurück.
 \paragraph{\texttt{factory Recipe.createEmpty(): Recipe}}
-Es handelt sich um eine Factory-Methode, die ein leeres \texttt{Recipe}-Objekt erstellt. Sie wird verwendet, um ein neues Rezept zu erstellen, das noch nicht auf dem Server existiert. Die Methode ist statisch, da sie kein \texttt{Recipe}-Objekt benötigt, um aufgerufen zu werden. Nimmt keine Parameter entgegen und gibt ein leeres \texttt{Recipe}-Objekt zurück.
+Eine Factory-Methode, die ein leeres \texttt{Recipe}-Objekt erstellt. Sie wird verwendet, um ein neues Rezept zu erstellen, das noch nicht auf dem Server existiert. Die Methode ist statisch, da sie kein \texttt{Recipe}-Objekt benötigt, um aufgerufen zu werden. Nimmt keine Parameter entgegen und gibt ein leeres \texttt{Recipe}-Objekt zurück.
 \newpage
 \subsection{\texttt{Ingredient}}
 \label{sec:ingredient}
@@ -192,7 +192,7 @@ Gibt die Menge der Zutat, die für das Rezept benötigt wird, zurück.
 \paragraph{\texttt{getUnit(): String}}
 Gibt die Einheit der Zutatenmenge zurück.
 \paragraph{\texttt{factory Ingredient.fromJson(Map<String, dynamic> json): Ingredient}}
-Dies ist eine Factory-Methode zum Erstellen eines \texttt{Ingredient}-Objekts aus einem \glslink{JSON}{JSON-Objekt}. Sie wird verwendet, um die Daten, die vom Server geschickt werden und in \Gls{JSON} vorliegen, in ein \texttt{Ingredient}-Objekt umzuwandeln. Die Methode ist statisch, da sie kein \texttt{Ingredient}-Objekt benötigt, um aufgerufen zu werden. Nimmt als Parameter das bereits in eine Map umgewandelte \glslink{JSON}{JSON-Objekt} entgegen und gibt ein \texttt{Ingredient}-Objekt zurück.
+Eine Factory-Methode zum Erstellen eines \texttt{Ingredient}-Objekts aus einem \glslink{JSON}{JSON-Objekt}. Sie wird verwendet, um die Daten, die vom Server geschickt werden und in \Gls{JSON} vorliegen, in ein \texttt{Ingredient}-Objekt umzuwandeln. Die Methode ist statisch, da sie kein \texttt{Ingredient}-Objekt benötigt, um aufgerufen zu werden. Nimmt als Parameter das bereits in eine Map umgewandelte \glslink{JSON}{JSON-Objekt} entgegen und gibt ein \texttt{Ingredient}-Objekt zurück.
 
 \newpage
 \subsection{\texttt{Difficulty}}
@@ -244,11 +244,11 @@ Gibt an, ob das Mitglied Administrator der Gruppe, der es zugeordnet ist, ist.
 \subsubsection*{Methoden}
 \paragraph{\texttt{getIsAdmin(): bool}}
 Gibt zurück, ob das Mitglied Administrator der Gruppe, der es zugeordnet ist, ist.
-\paragraph{\texttt{factory GroupMember.fromJson(Map<String, dynamic> json): GroupMember}} Es handelt sich um eine Factory-Methode zum Erstellen eines \texttt{GroupMember}-Objekts aus einem \glslink{JSON}{JSON-Objekt}. Sie wird verwendet, um die Daten, die vom Server geschickt werden und in \Gls{JSON} vorliegen, in ein \texttt{GroupMember}-Objekt umzuwandeln. Die Methode ist statisch, da sie kein \texttt{GroupMember}-Objekt benötigt, um aufgerufen zu werden. Nimmt als Parameter das bereits in eine \Gls{map} umgewandelte \glslink{JSON}{JSON-Objekt} entgegen und gibt ein \texttt{GroupMember}-Objekt zurück.
+\paragraph{\texttt{factory GroupMember.fromJson(Map<String, dynamic> json): GroupMember}} Eine Factory-Methode zum Erstellen eines \texttt{GroupMember}-Objekts aus einem \glslink{JSON}{JSON-Objekt}. Sie wird verwendet, um die Daten, die vom Server geschickt werden und in \Gls{JSON} vorliegen, in ein \texttt{GroupMember}-Objekt umzuwandeln. Die Methode ist statisch, da sie kein \texttt{GroupMember}-Objekt benötigt, um aufgerufen zu werden. Nimmt als Parameter das bereits in eine \Gls{map} umgewandelte \glslink{JSON}{JSON-Objekt} entgegen und gibt ein \texttt{GroupMember}-Objekt zurück.
 \newpage
 \subsection{\texttt{GroupRecipe}}
 \label{sec:groupRecipe}
-Die Klasse \texttt{GroupRecipe} repräsentiert ein Rezept, das einer konkreten Gruppe zugeordnet wurde. Sie erbt von der Klasse \texttt{Recipe}.
+Die Klasse \texttt{GroupRecipe} repräsentiert ein Rezept im Kontext einer bestimmten Gruppe, in der es zugänglich ist. Sie erbt von der Klasse \texttt{Recipe}.
 \subsubsection*{Attribute}
 Alle Attribute sind privat und können nur über einen Getter gelesen werden.
 \paragraph{\texttt{isCensored: bool}}
@@ -256,7 +256,7 @@ Gibt an, ob das Rezept von einem Administrator der Gruppe ausgeblendet wurde.
 \subsubsection*{Methoden}
 \paragraph{\texttt{getIsCensored(): bool}}
 Gibt zurück, ob das Rezept von einem Administrator der Gruppe ausgeblendet wurde.
-\paragraph{\texttt{factory GroupRecipe.fromJson(Map<String, dynamic> json): GroupRecipe}} Es handelt sich um eine Factory-Methode zum Erstellen eines \texttt{GroupRecipe}-Objekts aus einem \glslink{JSON}{JSON-Objekt}. Sie wird verwendet, um die Daten, die vom Server geschickt werden und in \Gls{JSON} vorliegen, in ein \texttt{GroupRecipe}-Objekt umzuwandeln. Die Methode ist statisch, da sie kein \texttt{GroupRecipe}-Objekt benötigt, um aufgerufen zu werden. Nimmt als Parameter das bereits in eine \Gls{map} umgewandelte \glslink{JSON}{JSON-Objekt} entgegen und gibt ein \texttt{GroupRecipe}-Objekt zurück.
+\paragraph{\texttt{factory GroupRecipe.fromJson(Map<String, dynamic> json): GroupRecipe}} Eine Factory-Methode zum Erstellen eines \texttt{GroupRecipe}-Objekts aus einem \glslink{JSON}{JSON-Objekt}. Sie wird verwendet, um die Daten, die vom Server geschickt werden und in \Gls{JSON} vorliegen, in ein \texttt{GroupRecipe}-Objekt umzuwandeln. Die Methode ist statisch, da sie kein \texttt{GroupRecipe}-Objekt benötigt, um aufgerufen zu werden. Nimmt als Parameter das bereits in eine \Gls{map} umgewandelte \glslink{JSON}{JSON-Objekt} entgegen und gibt ein \texttt{GroupRecipe}-Objekt zurück.
 
 \newpage
 \section{Data Layer}\label{sec:dataLayer}
@@ -291,13 +291,13 @@ Der \glslink{refresh-token}{Refresh-Token} zur Authentifizierung des Nutzers mit
 \paragraph{\texttt{getToken(): String}}
 Gibt das Token zur Authentifizierung des Nutzers bei dem Server zurück.
 \paragraph{\texttt{fetchCurrentUser(): Future<User?>}}
-Es wird eine Anfrage zum Erhalten des angemeldeten Nutzers an den Server gestellt. Gibt ein Future-Objekt zurück, das aufgelöst wird, wenn der Nutzer erhalten wurde. Ist der Nutzer nicht angemeldet wird null zurückgegeben.
+Fragt das User-Objekt eines Nutzers vom Server an. Gibt ein Future-Objekt zurück, das aufgelöst wird, wenn der Nutzer erhalten wurde. Ist der Nutzer nicht angemeldet, wird null zurückgegeben.
 \paragraph{\texttt{login(String email, String password): Future<void>}}
 Es wird eine Anfrage zum Nutzer Anmelden an den Server gestellt. Nimmt als Parameter die E-Mail-Adresse und das Passwort des Nutzers entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn die Anmeldung erfolgreich war. Wenn die Anmeldung fehlschlägt, wird eine Exception geworfen. Die Methode speichert das Token in dem privaten Attribut \texttt{token} und das \texttt{User}-Objekt, das den aktuell angemeldeten Nutzer repräsentiert, in dem privaten Attribut \texttt{currentUser}.
 \paragraph{\texttt{logout(): Future<void>}}
 Es wird eine Anfrage an den Server zum Abmelden des Nutzers gestellt. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn die Abmeldung erfolgreich war. Wenn die Abmeldung fehlschlägt, wird eine Exception geworfen. Die Methode löscht das Token aus dem privaten Attribut \texttt{token} und das \texttt{User}-Objekt aus dem privaten Attribut \texttt{currentUser}.
 \paragraph{\texttt{register(String email, String password, String username): Future<void>}}
-Stellt eine Anfrage an den Server, einen neuen Nutzer zu registrieren. Nimmt als Parameter die E-Mail-Adresse, das Passwort und den Nutzernamen des Nutzers entgegen. Die Methode ist asynchron und gibt ein \texttt{Futur}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn die Registrierung erfolgreich war. Wenn die Registrierung fehlschlägt, wird eine Exception geworfen. Die Methode speichert das Token in dem privaten Attribut \texttt{token} und das \texttt{User}-Objekt, das den aktuell angemeldeten Nutzer repräsentiert, in dem privaten Attribut \texttt{currentUser}.
+Stellt eine Anfrage an den Server, einen neuen Nutzer zu registrieren. Nimmt als Parameter die E-Mail-Adresse, das Passwort und den Nutzernamen des Nutzers entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn die Registrierung erfolgreich war. Wenn die Registrierung fehlschlägt, wird eine Exception geworfen. Die Methode speichert das Token in dem privaten Attribut \texttt{token} und das \texttt{User}-Objekt, das den aktuell angemeldeten Nutzer repräsentiert, in dem privaten Attribut \texttt{currentUser}.
 \paragraph{\texttt{updateUser(User user): Future<void>}}
 Es wird eine Anfrage an den Server gesendet, den angemeldeten Nutzer zu aktualisieren. Die Methode aktualisiert das \texttt{User}-Objekt, das den aktuell angemeldeten Nutzer repräsentiert, in dem privaten Attribut \texttt{currentUser}.
 Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn die Anfrage erfolgreich war. Wenn die Anfrage fehlschlägt, wird eine Exception geworfen.
@@ -317,7 +317,7 @@ Das \texttt{GroupRepository} stellt die Schnittstelle zwischen der Geschäftslog
 \paragraph{\texttt{GroupRepository(UserRepository userRepository): GroupRepository}}
 Konstruktor. Initialisiert das Attribut \texttt{userRepository} mit dem übergebenen \texttt{UserRepository}-Objekt.
 \paragraph{\texttt{fetchAllGroupsForUser(): Future<List<Group>>}}
-Fragt alle Gruppen des aktuellen Nutzers beim Server ab und gibt diese als Liste zurück. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn die Abfrage erfolgreich war. Wenn die Abfrage fehlschlägt, wird eine Exception geworfen.
+Fragt alle Gruppen des aktuellen Nutzers beim Server an und gibt diese als Liste zurück. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn die Abfrage erfolgreich war. Wenn die Abfrage fehlschlägt, wird eine Exception geworfen.
 \paragraph{\texttt{joinGroup(String groupCode): Future<void>}}
 Es wird eine Anfrage an den Server zum Beitritt des aktuellen Nutzers zu einer Gruppe mit dem übergebenen Beitrittslink gestellt. Nimmt als Parameter den Beitrittslink der Gruppe entgegen. Die Methode ist asynchron und gibt ein \texttt{Future}-Objekt zurück. Das \texttt{Future}-Objekt wird aufgelöst, wenn der Nutzer erfolgreich der Gruppe beigetreten ist. Wenn der Nutzer der Gruppe nicht beitreten kann, wird eine Exception geworfen.
 \paragraph{\texttt{leaveGroup(String groupId): Future<void>}}
