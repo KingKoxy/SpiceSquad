@@ -2225,6 +2225,7 @@ Die Tabelle "Recipe" enthält die Rezepte und besitzt die folgenden Attribute:
 \paragraph{\texttt{is\_gluten\_free (bool - not null):}} Gibt an, ob das \Gls{label} "Glutenfrei" aktiviert ist. Der Datentyp ist Boolean und darf nicht leer sein.
 \paragraph{\texttt{is\_halal (bool - not null):}} Gibt an, ob das \Gls{label} "Halal" aktiviert ist. Der Datentyp ist Boolean und darf nicht leer sein.
 \paragraph{\texttt{is\_kosher (bool - not null):}} Gibt an, ob das \Gls{label} "Koscher" aktiviert ist. Der Datentyp ist Boolean und darf nicht leer sein.
+\paragraph{\texttt{is\_private (bool - not null):}} Gibt an, ob das Rezept privat ist. Der Datentyp ist Boolean und darf nicht leer sein.
 \paragraph{\texttt{default\_portions (int - not null):}} Die Anzahl der Portionen, für die das Rezept ausgelegt ist. Der Datentyp ist Integer und darf nicht leer sein. Er wird in der App zur Berechnung der Mengen der Zutaten verwendet.
 \newpage
 \subsubsection{Ingredient}
@@ -2259,7 +2260,7 @@ Die Tabelle "Favourite" repräsentiert die Many-To-Many-Beziehung zwischen den B
 \subsubsection{Group}
 Die Tabelle "Group" enthält die Gruppen bzw. Squads und besitzt die folgenden Attribute:
 \paragraph{\texttt{id (uuid - primary key):}} Die ID stellt den Primärschlüssel der Gruppe dar und muss daher eindeutig und nicht leer sein. Der Datentyp ist \Gls{uuid}. Sie wird automatisch generiert.
-\paragraph{\texttt{name (varchar(32) - not null):}} Der Name der Gruppe. Der Datentyp ist \Gls{varchar}. Er darf nicht leer und maximal 32 Zeichen lang sein.
+\paragraph{\texttt{name (varchar(32) - not null):}} Der Name der Gruppe. Der Datentyp ist \Gls{varchar}. Er darf nicht leer und maximal 32 Zeichen lang sein.\paragraph{\texttt{group\_code (varchar(12) - unique not null):}} Das Gruppenkürzel der Gruppe. Der Datentyp ist \Gls{varchar}. Er muss eindeutig, nicht leer und maximal 12 Zeichen lang sein.
 \newpage
 \subsubsection{GroupMember}
 Die Tabelle "GroupMember" repräsentiert die Many-To-Many-Beziehung zwischen den Gruppen und den Benutzern, die Mitglied der Gruppe sind. Sie besitzt die folgenden Attribute:
