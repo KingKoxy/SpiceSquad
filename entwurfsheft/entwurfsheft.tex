@@ -33,7 +33,7 @@ Hierbei wird zunächst die Client-Server-Architektur beschrieben.
 Anschließend wird die Architektur der Android-Applikation erläutert.
 Im Anhang befindet sich ein Klassendiagramm, welches die Struktur der Applikation darstellt. 
 
-Ein vollständiges Klassendiagramm befindet sich im Anhang (\autoref{fig:classDiagramFrontend}).
+Ein vollständiges Klassendiagramm des Frontends befindet sich im Anhang (\autoref{fig:classDiagramFrontend}).
 
 \subsection{Client-Server-Architektur}
 Wie bereits im Pflichtenheft angeführt, haben wir uns für eine Trennung von Client und Server entschieden, um somit eine höchstmögliche Modularität zu gewährleisten und
@@ -41,9 +41,8 @@ Funktionen wie Squads zu ermöglichen. Die Kommunikation erfolgt über REST-Schn
 Im weiteren Verlauf des Entwurfshefts werden die Architekturen von Client und Server näher beschrieben.
 
 Für die Entwicklung der Android-Applikation soll Flutter benutzt werden. Dies bietet einige Vorteile. Flutter ist ein plattformübergreifendes Framework, das es Entwicklern ermöglicht, eine einzige Codebasis zu verwenden, um Apps sowohl für Android als auch für iOS zu erstellen. Dies reduziert den Entwicklungsaufwand erheblich, da Entwickler nicht separate Codes für jede Plattform schreiben müssen. Flutter verwendet die Dart-Programmiersprache, die eine einfache Syntax und eine umfangreiche Bibliothek bietet, um leistungsstarke und ansprechende Benutzeroberflächen zu erstellen. Darüber hinaus verfügt Flutter über eine Hot-Reload-Funktion, die es Entwicklern ermöglicht, Änderungen in Echtzeit zu sehen, was den Entwicklungsprozess beschleunigt. Flutter-Apps sind schnell, reaktionsfähig und bieten eine extrem gute Leistung, da sie direkt auf die nativen Funktionen des Betriebssystems zugreifen. Diese Kombination aus plattformübergreifender Entwicklung, einfacher Sprache, schnellem Entwicklungsprozess und guter Leistung macht Flutter zu einer guten Wahl für die Entwicklung von SpiceSquad.
+\newpage
 \subsection{Architektur der Android-Applikation}
-
-
 Die Applikation wird in vier große Schichten gegliedert. Dies dient dazu, die Bestandteile der App nach ihrer Funktion zu gruppieren und die Abhängigkeiten zwischen den einzelnen Komponenten zu minimieren. Dadurch wird die Wartbarkeit massiv verbessert und auch die Erweiterbarkeit der Applikation wird durch diese Strukturierung erleichtert. Die Schichten orientieren sich stark an den Empfehlungen von Google für die Architektur von Android Applikationen. Die vier Schichten sind der \textbf{Presentation Layer}, der \textbf{Application Layer}, der \textbf{Domain Layer} und der \textbf{Data Layer}.
 \begin{figure}[htp]
     \centering
