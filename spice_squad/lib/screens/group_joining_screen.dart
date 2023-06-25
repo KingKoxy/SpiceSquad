@@ -21,12 +21,15 @@ class GroupJoiningScreen extends StatelessWidget {
           Positioned(
             top: 32,
             right: 32,
-            child: TextButton(
-              onPressed: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    MainScreen.routeName, (route) => false);
-              },
-              child: const Text('Überspringen'),
+            child: Hero(
+              tag: 'skip-button',
+              child: TextButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                      MainScreen.routeName, (route) => false);
+                },
+                child: const Text('Überspringen'),
+              ),
             ),
           ),
         Center(
@@ -54,7 +57,7 @@ class GroupJoiningScreen extends StatelessWidget {
                           keyboardType: TextInputType.text,
                           controller: _groupCodeController,
                           decoration: const InputDecoration(
-                            hintText: 'Gruppenkürzel',
+                            hintText: 'Squadkürzel',
                           ),
                         ),
                       ),
@@ -91,10 +94,10 @@ class GroupJoiningScreen extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          GroupCreationScreen.routeName, (route) => false);
+                      Navigator.of(context)
+                          .pushReplacementNamed(GroupCreationScreen.routeName);
                     },
-                    child: const Text('Neue Gruppe erstellen'),
+                    child: const Text('Squad erstellen'),
                   ),
                 ),
               ],
