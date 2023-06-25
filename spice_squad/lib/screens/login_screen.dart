@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:spice_squad/screens/main_screen/main_screen.dart';
 import 'package:spice_squad/screens/password_reset_screen.dart';
 import 'package:spice_squad/screens/register_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   static const routeName = '/login';
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -23,9 +25,12 @@ class LoginScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    'assets/images/logo.png',
-                    width: 240,
+                  Hero(
+                    tag: 'logo',
+                    child: Image.asset(
+                      'assets/images/logo.png',
+                      width: 240,
+                    ),
                   ),
                 ],
               ),
@@ -46,16 +51,7 @@ class LoginScreen extends StatelessWidget {
                     SizedBox(
                       width: double.infinity,
                       child: TextFormField(
-                        validator: (value){
-                          const emailRegex = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
-                          if(value == null || value.isEmpty){
-                            return 'Bitte gib eine E-Mail-Adresse ein';
-                          }
-                          if(!RegExp(emailRegex).hasMatch(value)){
-                            return 'Bitte gib eine gültige E-Mail-Adresse ein';
-                          }
-                          return null;
-                        },
+                        validator: _validateEmail,
                         keyboardType: TextInputType.emailAddress,
                         controller: _emailController,
                         decoration: const InputDecoration(
@@ -105,7 +101,7 @@ class LoginScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    _login(context);
+                    if (_formKey.currentState!.validate()) _login(context);
                   },
                   child: const Text('Weiter'),
                 ),
@@ -128,8 +124,17 @@ class LoginScreen extends StatelessWidget {
   }
 
   _login(BuildContext context) {
-    if (_formKey.currentState!.validate()) {
-      Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
+    Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
+  }
+
+  String? _validateEmail(String? email) {
+    const emailRegex = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
+    if (email == null || email.isEmpty) {
+      return 'Bitte gib eine E-Mail-Adresse ein';
     }
+    if (!RegExp(emailRegex).hasMatch(email)) {
+      return 'Bitte gib eine gültige E-Mail-Adresse ein';
+    }
+    return null;
   }
 }
