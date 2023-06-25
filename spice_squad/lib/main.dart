@@ -31,7 +31,7 @@ class SpiceSquad extends StatelessWidget {
         MainScreen.routeName: (context) => const MainScreen(),
         LoginScreen.routeName: (context) => LoginScreen(),
         RegisterScreen.routeName: (context) => RegisterScreen(),
-        PasswordResetScreen.routeName: (context) => const PasswordResetScreen(),
+        PasswordResetScreen.routeName: (context) => PasswordResetScreen(),
         GroupJoiningScreen.routeName: (context) => const GroupJoiningScreen(),
         GroupCreationScreen.routeName: (context) => const GroupCreationScreen(),
         QRScannerScreen.routeName: (context) => const QRScannerScreen(),
