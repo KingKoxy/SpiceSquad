@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 abstract class SpiceSquadTheme {
   static final MaterialColor _red = createMaterialColor(0xFFFF4170);
@@ -9,6 +10,7 @@ abstract class SpiceSquadTheme {
     scaffoldBackgroundColor: _background,
     fontFamily: 'Poppins',
     primarySwatch: _red,
+    dialogBackgroundColor: _background.shade400,
     textTheme: const TextTheme(
       headline4: TextStyle(
         fontSize: 32,

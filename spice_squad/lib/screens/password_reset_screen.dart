@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:spice_squad/screens/login_screen.dart';
+
+import 'package:spice_squad/widgets/back_button.dart';
 
 class PasswordResetScreen extends StatelessWidget {
   static const routeName = '/password-reset';
@@ -15,7 +18,7 @@ class PasswordResetScreen extends StatelessWidget {
         const Positioned(
           top: 32,
           left: 32,
-          child: BackButton(),
+          child: CustomBackButton(),
         ),
         Center(
           child: Padding(
@@ -106,6 +109,31 @@ class PasswordResetScreen extends StatelessWidget {
   }
 
   _sendLink(BuildContext context) {
-    //Show popup with success message an goto login when ok is pressed
+    //Wenn anfrage ok ist dann:
+    showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('E-Mail versendet'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const [
+                Text('Wir haben dir eine E-Mail mit einem Link zum Zurücksetzen deines Passworts geschickt.'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Bestätigen'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
