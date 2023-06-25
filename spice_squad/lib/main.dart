@@ -26,15 +26,26 @@ class SpiceSquad extends StatelessWidget {
       title: 'SpiceSquad',
       theme: ThemeData(
         brightness: Brightness.dark,
-        backgroundColor: createMaterialColor(0xFF00010F),
+        scaffoldBackgroundColor: createMaterialColor(0xFF00010F),
+        fontFamily: 'Poppins',
         primarySwatch: createMaterialColor(0xFFFF4170),
+        textTheme: const TextTheme(
+          headline4: TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+          ),
+          subtitle1: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
               alignment: Alignment.center,
               padding: const MaterialStatePropertyAll(EdgeInsets.all(20)),
               textStyle: const MaterialStatePropertyAll(
                 TextStyle(
-                  fontFamily: 'Poppins',
                   fontSize: 24,
                   fontWeight: FontWeight.w600,
                 ),
@@ -43,11 +54,34 @@ class SpiceSquad extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0),
               ))),
         ),
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: createMaterialColor(0xFF1A1A27),
+          contentPadding: const EdgeInsets.all(12),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: BorderSide.none,
+          ),
+          hintStyle: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+        textButtonTheme: const TextButtonThemeData(
+          style: ButtonStyle(
+            textStyle: MaterialStatePropertyAll(
+              TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ),
+        ),
       ),
       initialRoute: LoginScreen.routeName,
       routes: {
         MainScreen.routeName: (context) => const MainScreen(),
-        LoginScreen.routeName: (context) => const LoginScreen(),
+        LoginScreen.routeName: (context) => LoginScreen(),
         RegisterScreen.routeName: (context) => const RegisterScreen(),
         PasswordResetScreen.routeName: (context) => const PasswordResetScreen(),
         GroupJoiningScreen.routeName: (context) => const GroupJoiningScreen(),
