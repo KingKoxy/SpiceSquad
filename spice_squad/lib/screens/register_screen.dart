@@ -145,10 +145,9 @@ class RegisterScreen extends StatelessWidget {
   }
 
   _register(BuildContext context) {
-    if (_formKey.currentState!.validate()) {
-      Navigator.of(context).pushNamedAndRemoveUntil(
-          GroupJoiningScreen.routeName, (route) => false);
-    }
+    //TODO: Implement group registering
+    Navigator.of(context).pushNamedAndRemoveUntil(
+        GroupJoiningScreen.routeName, (route) => false);
   }
 
   String? _validateEmail(String? email) {

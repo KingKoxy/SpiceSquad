@@ -124,6 +124,8 @@ class LoginScreen extends StatelessWidget {
   }
 
   _login(BuildContext context) {
+    //TODO: Implement login
+
     Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
   }
 

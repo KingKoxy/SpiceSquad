@@ -84,7 +84,7 @@ class PasswordResetScreen extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) _sendLink(context);
+                      if (_formKey.currentState!.validate()) _resetPassword(context);
                     },
                     child: const Text('Weiter'),
                   ),
@@ -108,7 +108,9 @@ class PasswordResetScreen extends StatelessWidget {
     return null;
   }
 
-  _sendLink(BuildContext context) {
+  _resetPassword(BuildContext context) {
+    //TODO: Implement password resetting
+
     //Wenn anfrage ok ist dann:
     showDialog<void>(
       context: context,
