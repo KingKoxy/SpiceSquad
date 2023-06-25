@@ -6,6 +6,7 @@ class LoginScreen extends StatelessWidget {
   static const routeName = '/login';
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   LoginScreen({super.key});
 
@@ -38,28 +39,45 @@ class LoginScreen extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              SizedBox(
-                width: double.infinity,
-                child: TextField(
-                  keyboardType: TextInputType.emailAddress,
-                  controller: _emailController,
-                  decoration: const InputDecoration(
-                    hintText: 'E-Mail',
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                width: double.infinity,
-                child: TextField(
-                  keyboardType: TextInputType.visiblePassword,
-                  obscureText: true,
-                  controller: _passwordController,
-                  decoration: const InputDecoration(
-                    hintText: 'Passwort',
-                  ),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      child: TextFormField(
+                        validator: (value){
+                          const emailRegex = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
+                          if(value == null || value.isEmpty){
+                            return 'Bitte gib eine E-Mail-Adresse ein';
+                          }
+                          if(!RegExp(emailRegex).hasMatch(value)){
+                            return 'Bitte gib eine gültige E-Mail-Adresse ein';
+                          }
+                          return null;
+                        },
+                        keyboardType: TextInputType.emailAddress,
+                        controller: _emailController,
+                        decoration: const InputDecoration(
+                          hintText: 'E-Mail',
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: TextFormField(
+                        keyboardType: TextInputType.visiblePassword,
+                        obscureText: true,
+                        controller: _passwordController,
+                        decoration: const InputDecoration(
+                          hintText: 'Passwort',
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(
@@ -87,7 +105,7 @@ class LoginScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    _login();
+                    _login(context);
                   },
                   child: const Text('Weiter'),
                 ),
@@ -109,5 +127,9 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  _login() {}
+  _login(BuildContext context) {
+    if (_formKey.currentState!.validate()) {
+      Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
+    }
+  }
 }

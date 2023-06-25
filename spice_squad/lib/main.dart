@@ -66,6 +66,9 @@ class SpiceSquad extends StatelessWidget {
             fontSize: 20,
             fontWeight: FontWeight.w400,
           ),
+          errorStyle: TextStyle(
+            color: createMaterialColor(0xFFFF4170),
+          )
         ),
         textButtonTheme: const TextButtonThemeData(
           style: ButtonStyle(
