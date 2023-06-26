@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:spice_squad/models/recipe.dart';
 
@@ -15,11 +16,16 @@ class RemoteRecipeRepository {
             40,
             (index) => Recipe(
                   id: "recipeId",
-                  title: "Lasagne",
-                  author: User(id: "userId", userName: "Konrad"),
+                  title: {"Lasagne", "Pizza", "Spagghetti"}
+                      .elementAt(random.nextInt(3)),
+                  image: random.nextBool() ? Uint8List(1) : null,
+                  author: User(
+                      id: "userId",
+                      userName: {"Konrad", "Lukas", "Henri", "Raphael"}
+                          .elementAt(random.nextInt(4))),
                   uploadDate: DateTime.now(),
                   duration: random.nextInt(120),
-                  difficulty: Difficulty.medium,
+                  difficulty: Difficulty.values[random.nextInt(3)],
                   isVegetarian: random.nextBool(),
                   isVegan: random.nextBool(),
                   isGlutenFree: random.nextBool(),

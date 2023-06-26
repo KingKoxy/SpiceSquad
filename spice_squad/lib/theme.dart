@@ -2,18 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 abstract class SpiceSquadTheme {
-  static final MaterialColor _red = createMaterialColor(0xFFFF4170);
+  static final MaterialColor _primary = createMaterialColor(0xFFFF4170);
   static final MaterialColor _background = createMaterialColor(0xFF00010F);
+  static final MaterialColor _secondary = createMaterialColor(0xFF1A1A27);
+  static final MaterialColor _secondaryVariant = createMaterialColor(0xFF25253D);
 
   static ThemeData get themeData => ThemeData(
     brightness: Brightness.dark,
     scaffoldBackgroundColor: _background,
     fontFamily: 'Poppins',
-    primarySwatch: _red,
-    cardColor: _background.shade400,
-    dialogBackgroundColor: _background.shade400,
+    colorScheme: ColorScheme.fromSwatch(primarySwatch: _primary).copyWith(
+      brightness: Brightness.dark,
+      onSurfaceVariant: _secondaryVariant,
+      onSurface: _secondary
+    ),
+    cardColor: _secondary,
+    dialogBackgroundColor: _secondary,
     appBarTheme: AppBarTheme(
-      backgroundColor: _background.shade400
+      backgroundColor: _secondary
     ),
     textTheme: const TextTheme(
       headline4: TextStyle(
@@ -42,7 +48,7 @@ abstract class SpiceSquadTheme {
     ),
     inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: _background.shade400,
+        fillColor: _secondary,
         contentPadding: const EdgeInsets.all(12),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
@@ -53,7 +59,7 @@ abstract class SpiceSquadTheme {
           fontWeight: FontWeight.w400,
         ),
         errorStyle: TextStyle(
-          color: _red,
+          color: _primary,
         )
     ),
     textButtonTheme: const TextButtonThemeData(

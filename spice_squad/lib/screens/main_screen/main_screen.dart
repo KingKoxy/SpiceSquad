@@ -81,14 +81,10 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                         )
                       ],
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
                     ref.watch(recipeServiceProvider).when(
                         data: (recipes) => Expanded(
-                            child: RecipeList(
-                                reverse: !_selectedSort.ascending,
-                                recipes: _filterRecipes(recipes))),
+                            child:
+                                RecipeList(recipes: _filterRecipes(recipes))),
                         error: (error, stackTrace) => Text(error.toString()),
                         loading: () => const SizedBox(
                             height: 32,
@@ -116,7 +112,9 @@ class _MainScreenState extends ConsumerState<MainScreen> {
           .toList(growable: false);
     }
 
-    recipes.sort(_selectedSort.category.compare);
+    recipes.sort((a, b) =>
+        (_selectedSort.ascending ? 1 : -1) *
+        _selectedSort.category.compare(a, b));
     return recipes;
   }
 }
