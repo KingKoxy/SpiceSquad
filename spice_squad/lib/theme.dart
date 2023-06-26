@@ -10,7 +10,11 @@ abstract class SpiceSquadTheme {
     scaffoldBackgroundColor: _background,
     fontFamily: 'Poppins',
     primarySwatch: _red,
+    cardColor: _background.shade400,
     dialogBackgroundColor: _background.shade400,
+    appBarTheme: AppBarTheme(
+      backgroundColor: _background.shade400
+    ),
     textTheme: const TextTheme(
       headline4: TextStyle(
         fontSize: 32,

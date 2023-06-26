@@ -26,7 +26,7 @@ class SpiceSquad extends StatelessWidget {
     return MaterialApp(
       title: 'SpiceSquad',
       theme: SpiceSquadTheme.themeData,
-      initialRoute: LoginScreen.routeName,
+      initialRoute: MainScreen.routeName,
       routes: {
         MainScreen.routeName: (context) => const MainScreen(),
         LoginScreen.routeName: (context) => LoginScreen(),
