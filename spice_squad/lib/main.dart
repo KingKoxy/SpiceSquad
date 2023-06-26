@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spice_squad/screens/group_creation_screen.dart';
 import 'package:spice_squad/screens/group_detail_screen/group_detail_screen.dart';
 import 'package:spice_squad/screens/group_joining_screen.dart';
@@ -23,27 +24,29 @@ class SpiceSquad extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'SpiceSquad',
-      theme: SpiceSquadTheme.themeData,
-      initialRoute: MainScreen.routeName,
-      routes: {
-        MainScreen.routeName: (context) => const MainScreen(),
-        LoginScreen.routeName: (context) => LoginScreen(),
-        RegisterScreen.routeName: (context) => RegisterScreen(),
-        PasswordResetScreen.routeName: (context) => PasswordResetScreen(),
-        GroupJoiningScreen.routeName: (context) => GroupJoiningScreen(),
-        GroupCreationScreen.routeName: (context) => GroupCreationScreen(),
-        QRScannerScreen.routeName: (context) => const QRScannerScreen(),
-        GroupDetailScreen.routeName: (context) => const GroupDetailScreen(),
-        IngredientCreationScreen.routeName: (context) =>
-            const IngredientCreationScreen(),
-        RecipeCreationScreen.routeName: (context) =>
-            const RecipeCreationScreen(),
-        SettingsScreen.routeName: (context) => const SettingsScreen(),
-        QRCodeScreen.routeName: (context) => const QRCodeScreen(),
-        RecipeDetailScreen.routeName: (context) => const RecipeDetailScreen(),
-      },
+    return ProviderScope(
+      child: MaterialApp(
+        title: 'SpiceSquad',
+        theme: SpiceSquadTheme.themeData,
+        initialRoute: MainScreen.routeName,
+        routes: {
+          MainScreen.routeName: (context) => const MainScreen(),
+          LoginScreen.routeName: (context) => LoginScreen(),
+          RegisterScreen.routeName: (context) => RegisterScreen(),
+          PasswordResetScreen.routeName: (context) => PasswordResetScreen(),
+          GroupJoiningScreen.routeName: (context) => GroupJoiningScreen(),
+          GroupCreationScreen.routeName: (context) => GroupCreationScreen(),
+          QRScannerScreen.routeName: (context) => const QRScannerScreen(),
+          GroupDetailScreen.routeName: (context) => const GroupDetailScreen(),
+          IngredientCreationScreen.routeName: (context) =>
+              const IngredientCreationScreen(),
+          RecipeCreationScreen.routeName: (context) =>
+              const RecipeCreationScreen(),
+          SettingsScreen.routeName: (context) => const SettingsScreen(),
+          QRCodeScreen.routeName: (context) => const QRCodeScreen(),
+          RecipeDetailScreen.routeName: (context) => const RecipeDetailScreen(),
+        },
+      ),
     );
   }
 }
