@@ -15,35 +15,38 @@ class NavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.5),
-            blurRadius: 10,
-            spreadRadius: 5,
-            offset: const Offset(0, 5),
-          ),
-        ],
+    return Hero(
+      tag: "navBar",
+      child: Container(
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.5),
+              blurRadius: 10,
+              spreadRadius: 5,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: BottomNavigationBar(
+            currentIndex: currentIndex,
+            onTap: (index) =>
+                {Navigator.of(context).pushReplacementNamed(routes[index])},
+            items: const [
+              BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage("assets/icons/writing.png")),
+                label: "Rezept erstellen",
+              ),
+              BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage("assets/icons/home.png")),
+                label: "Home",
+              ),
+              BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage("assets/icons/user.png")),
+                label: "Settings",
+              ),
+            ]),
       ),
-      child: BottomNavigationBar(
-          currentIndex: currentIndex,
-          onTap: (index) =>
-              {Navigator.of(context).pushReplacementNamed(routes[index])},
-          items: const [
-            BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage("assets/icons/writing.png")),
-              label: "Rezept erstellen",
-            ),
-            BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage("assets/icons/home.png")),
-              label: "Home",
-            ),
-            BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage("assets/icons/user.png")),
-              label: "Settings",
-            ),
-          ]),
     );
   }
 }
