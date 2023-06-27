@@ -8,6 +8,6 @@ import '../models/recipe.dart';
 class RecipeService extends AsyncNotifier<List<Recipe>>{
   @override
   FutureOr<List<Recipe>> build() {
-    return ref.watch(remoteRecipeProvider).fetchAllRecipesForUser();
+    return ref.watch(remoteRecipeRepositoryProvider).fetchAllRecipesForUser();
   }
 }

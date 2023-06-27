@@ -13,7 +13,7 @@ class RemoteRecipeRepository {
     return Future.delayed(
         const Duration(milliseconds: 2000),
         () => List.generate(
-            40,
+            10 + random.nextInt(20),
             (index) => Recipe(
                   id: "recipeId",
                   title: {"Lasagne", "Pizza", "Spagghetti"}
