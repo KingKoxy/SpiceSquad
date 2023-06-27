@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class FavouriteButton extends StatefulWidget {
+class FavouriteButton extends StatelessWidget {
   final bool value;
   final VoidCallback onToggle;
 
@@ -8,28 +8,12 @@ class FavouriteButton extends StatefulWidget {
       {super.key, required this.value, required this.onToggle});
 
   @override
-  State<FavouriteButton> createState() => _FavouriteButtonState();
-}
-
-class _FavouriteButtonState extends State<FavouriteButton> {
-  late bool value;
-
-  @override
-  void initState() {
-    value = widget.value;
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return IconButton(
         iconSize: 64,
         splashRadius: 32,
         onPressed: () {
-          setState(() {
-            value = !value;
-          });
-          widget.onToggle();
+          onToggle();
         },
         icon: ImageIcon(
           AssetImage(value
