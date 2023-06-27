@@ -20,7 +20,8 @@ abstract class SpiceSquadTheme {
     cardColor: _secondary,
     dialogBackgroundColor: _secondary,
     appBarTheme: AppBarTheme(
-      backgroundColor: _secondary
+      backgroundColor: _secondary,
+      foregroundColor: Colors.white
     ),
     textTheme: const TextTheme(
       headlineMedium: TextStyle(
