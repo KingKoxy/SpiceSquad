@@ -5,6 +5,7 @@ abstract class SpiceSquadTheme {
   static final MaterialColor _background = createMaterialColor(0xFF00010F);
   static final MaterialColor _secondary = createMaterialColor(0xFF1A1A27);
   static final MaterialColor _secondaryVariant = createMaterialColor(0xFF25253D);
+  static final MaterialColor _tertiary = createMaterialColor(0xFF00F5AD);
 
   static ThemeData get themeData => ThemeData(
     brightness: Brightness.dark,
@@ -13,7 +14,8 @@ abstract class SpiceSquadTheme {
     colorScheme: ColorScheme.fromSwatch(primarySwatch: _primary).copyWith(
       brightness: Brightness.dark,
       onSurfaceVariant: _secondaryVariant,
-      onSurface: _secondary
+      onSurface: _secondary,
+        tertiary: _tertiary,
     ),
     cardColor: _secondary,
     dialogBackgroundColor: _secondary,
@@ -29,6 +31,20 @@ abstract class SpiceSquadTheme {
       titleMedium: TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.w400,
+      ),
+    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      elevation: 20,
+      backgroundColor: _secondary,
+      selectedItemColor: _primary,
+      unselectedItemColor: Colors.white,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+      selectedIconTheme: const IconThemeData(
+        size: 48,
+      ),
+      unselectedIconTheme: const IconThemeData(
+        size: 32,
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(

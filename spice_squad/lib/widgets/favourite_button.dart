@@ -12,7 +12,9 @@ class FavouriteButton extends StatelessWidget {
     return IconButton(
         iconSize: 64,
         splashRadius: 32,
-        onPressed: () => onToggle(),
+        onPressed: () {
+          onToggle();
+        },
         icon: ImageIcon(
           AssetImage(value
               ? "assets/icons/heart_filled.png"
