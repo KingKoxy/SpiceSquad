@@ -6,8 +6,10 @@ import 'package:spice_squad/screens/main_screen/filter_selection_widget.dart';
 import 'package:spice_squad/screens/main_screen/recipe_list.dart';
 import 'package:spice_squad/screens/main_screen/sort.dart';
 import 'package:spice_squad/screens/main_screen/sort_selection_widget.dart';
+import 'package:spice_squad/widgets/add_button.dart';
 import 'package:spice_squad/widgets/nav_bar.dart';
 
+import '../../widgets/remove_button.dart';
 import 'filter_category.dart';
 
 class MainScreen extends ConsumerStatefulWidget {
