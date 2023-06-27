@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 abstract class SpiceSquadTheme {
   static final MaterialColor _primary = createMaterialColor(0xFFFF4170);
@@ -22,12 +21,12 @@ abstract class SpiceSquadTheme {
       backgroundColor: _secondary
     ),
     textTheme: const TextTheme(
-      headline4: TextStyle(
+      headlineMedium: TextStyle(
         fontSize: 32,
         fontWeight: FontWeight.w600,
         color: Colors.white,
       ),
-      subtitle1: TextStyle(
+      titleMedium: TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.w400,
       ),

@@ -44,7 +44,7 @@ class PasswordResetScreen extends StatelessWidget {
                 ),
                 Text(
                   'Passwort vergessen?',
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 const SizedBox(
                   height: 20,

@@ -28,7 +28,7 @@ class _FilterSelectionWidgetState extends State<FilterSelectionWidget> {
           const SizedBox(width: 5),
           Text(
             "Filter",
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.titleMedium,
           )
         ],
       ),

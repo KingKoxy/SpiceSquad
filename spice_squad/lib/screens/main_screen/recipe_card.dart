@@ -49,6 +49,8 @@ class RecipeCard extends StatelessWidget {
                   child: SizedBox(
                     height: 130,
                     child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8)),
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8),
@@ -69,7 +71,7 @@ class RecipeCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(width: 10,),
+                const SizedBox(width: 10,),
                 Expanded(
                   flex: 1,
                   child: Column(
@@ -84,7 +86,7 @@ class RecipeCard extends StatelessWidget {
                             children: [
                               Image.asset("assets/icons/clock.png",),
                               const SizedBox(width: 8),
-                              Text("${recipe.duration} min", style: Theme.of(context).textTheme.subtitle1,)
+                              Text("${recipe.duration} min", style: Theme.of(context).textTheme.titleMedium,)
                             ],
                           ),
                         ),
@@ -92,13 +94,13 @@ class RecipeCard extends StatelessWidget {
                       Card(
                         color: Theme.of(context).colorScheme.onSurfaceVariant,
                         child: Padding(
-                          padding: EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(8),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image.asset("assets/icons/flame.png"),
                               const SizedBox(width: 8),
-                              Text(recipe.difficulty.toString(), style: Theme.of(context).textTheme.subtitle1,)
+                              Text(recipe.difficulty.toString(), style: Theme.of(context).textTheme.titleMedium,)
                             ],
                           ),
                         ),

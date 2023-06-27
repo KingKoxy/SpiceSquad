@@ -29,7 +29,7 @@ class _SortSelectionWidgetState extends State<SortSelectionWidget> {
           const SizedBox(width: 5),
           Text(
             widget.selectedSort.category.toString(),
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.titleMedium,
           )
         ],
       ),

@@ -40,7 +40,7 @@ class GroupCreationScreen extends StatelessWidget {
               children: [
                 Text(
                   'Squad erstellen',
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 const SizedBox(
                   height: 20,

@@ -50,7 +50,7 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
                     ),
                     title: Text(
                       selectedSort.ascending ? "Aufsteigend" : "Absteigend",
-                      style: Theme.of(context).textTheme.subtitle1,
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ),
                 );
