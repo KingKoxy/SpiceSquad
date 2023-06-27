@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../widgets/nav_bar.dart';
+
 class RecipeCreationScreen extends StatelessWidget {
   static const routeName = '/recipe-creation';
 
@@ -7,6 +9,8 @@ class RecipeCreationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      bottomNavigationBar: const NavBar(currentIndex: 0),
+    );
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../widgets/nav_bar.dart';
+
 class SettingsScreen extends StatelessWidget {
   static const routeName = '/settings';
 
@@ -7,6 +9,8 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return const Scaffold(
+      bottomNavigationBar: const NavBar(currentIndex: 2),
+    );
   }
 }

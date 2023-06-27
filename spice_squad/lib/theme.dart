@@ -31,6 +31,20 @@ abstract class SpiceSquadTheme {
         fontWeight: FontWeight.w400,
       ),
     ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      elevation: 20,
+      backgroundColor: _secondary,
+      selectedItemColor: _primary,
+      unselectedItemColor: Colors.white,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+      selectedIconTheme: const IconThemeData(
+        size: 48,
+      ),
+      unselectedIconTheme: const IconThemeData(
+        size: 32,
+      ),
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
           alignment: Alignment.center,

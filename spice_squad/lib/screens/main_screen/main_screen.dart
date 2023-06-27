@@ -6,6 +6,7 @@ import 'package:spice_squad/screens/main_screen/filter_selection_widget.dart';
 import 'package:spice_squad/screens/main_screen/recipe_list.dart';
 import 'package:spice_squad/screens/main_screen/sort.dart';
 import 'package:spice_squad/screens/main_screen/sort_selection_widget.dart';
+import 'package:spice_squad/widgets/nav_bar.dart';
 
 import 'filter_category.dart';
 
@@ -26,6 +27,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: const NavBar(currentIndex: 1),
       appBar: AppBar(
         // leading: const Padding(
         //   padding: EdgeInsets.all(12.0),
@@ -53,7 +55,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.only(top: 16.0, left: 16, right: 16),
           child: LayoutBuilder(
             builder: (context, constraints) {
               return SizedBox(
