@@ -29,3 +29,9 @@ entwurfsheft.synctex(busy)
 entwurfsheft/entwurfsheft.tex
 *.code-workspace
 /.idea/
+node_modules
+firebase_credentials.json
+*.env
+*.code-workspace
+package-lock.json
+```
