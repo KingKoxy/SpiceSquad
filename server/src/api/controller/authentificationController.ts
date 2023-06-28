@@ -104,7 +104,7 @@ class AuthentificationController extends AbstractController {
             });
     }
 
-    public userResetPassword(req: express.Request, res: express.Response) {
+    public async userResetPassword(req: express.Request, res: express.Response): Promise<void> {
         firebaseAuth.sendPasswordResetEmail(this.auth, req.body.email)
         .then(() => {
             res.status(200).json({
@@ -140,14 +140,13 @@ class AuthentificationController extends AbstractController {
         }
 
         public async userRefreshToken(req: express.Request, res: express.Response): Promise<void> {
-            firebaseAdmin.auth().verifyIdToken(req.body.refreshToken)
-            .then(async (sessionCookie) => {
-                console.log('Successfully logged in:', sessionCookie);
-                res.status(200).json({
-                    idToken: sessionCookie
-                });
-            })
+            // TODO: Check if token is valid
+        }
 
+        public async userLogout(req: express.Request, res: express.Response): Promise<void> {
+            res.status(200).json({
+                message: "Successfully logged out",
+            });
         }
 
 }

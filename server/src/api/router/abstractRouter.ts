@@ -1,11 +1,17 @@
 import express = require('express');
+import CheckAuthorization from '../middleware/checkAuthorization';
+import AbstractController from '../controller/abstractController'
 
 abstract class abstractRouter {
     protected router: express.Router;
     protected checkAuth: any;
+    protected Controller: AbstractController;
+    protected checkAuthorization: CheckAuthorization;
 
     constructor() {
         this.router = express.Router();
+        this.checkAuthorization = new CheckAuthorization();
+        this.checkAuth = this.checkAuthorization.checkAuthorization.bind(this.Controller);
     }
 
     protected abstract setupRoutes(): void;

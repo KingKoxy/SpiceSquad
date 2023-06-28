@@ -1,0 +1,1 @@
+{"version":3,"file":"checkAdminStatus.js","sourceRoot":"","sources":["../../../src/api/middleware/checkAdminStatus.ts"],"names":[],"mappings":";;;;;;;;;;;AAIA,MAAM,gBAAgB;IAGlB;IAEA,CAAC;IAEY,gBAAgB,CAAC,GAAoB,EAAE,GAAqB,EAAE,IAA0B;;YACjG,IAAI,EAAE,CAAC;QACX,CAAC;KAAA;IAAA,CAAC;CACL;AAED,kBAAe,gBAAgB,CAAA"}

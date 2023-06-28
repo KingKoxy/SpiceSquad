@@ -1,0 +1,1 @@
+{"version":3,"file":"abstractRouter.js","sourceRoot":"","sources":["../../../src/api/router/abstractRouter.ts"],"names":[],"mappings":";;AAAA,mCAAoC;AAEpC,MAAe,cAAc;IAIzB;QACI,IAAI,CAAC,MAAM,GAAG,OAAO,CAAC,MAAM,EAAE,CAAC;IACnC,CAAC;IAIM,SAAS;QACZ,OAAO,IAAI,CAAC,MAAM,CAAC;IACvB,CAAC;IAAA,CAAC;CACL;AAED,kBAAe,cAAc,CAAA"}

@@ -34,4 +34,6 @@ firebase_credentials.json
 *.env
 *.code-workspace
 package-lock.json
+*.sql
+*.http
 ```
