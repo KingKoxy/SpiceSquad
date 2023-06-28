@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:spice_squad/providers/service_providers.dart';
 import 'package:spice_squad/screens/group_joining_screen.dart';
 import 'package:spice_squad/screens/login_screen.dart';
+import 'package:spice_squad/services/user_service.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends ConsumerWidget {
   static const routeName = '/register';
 
   final TextEditingController _emailController = TextEditingController();
@@ -15,7 +18,7 @@ class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: Center(
         child: Padding(
@@ -132,7 +135,10 @@ class RegisterScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) _register(context);
+                    if (_formKey.currentState!.validate()) {
+                      _register(
+                          context, ref.read(userServiceProvider.notifier));
+                    }
                   },
                   child: const Text('Weiter'),
                 ),
@@ -144,10 +150,14 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  _register(BuildContext context) {
-    //TODO: Implement group registering
-    Navigator.of(context).pushNamedAndRemoveUntil(
-        GroupJoiningScreen.routeName, (route) => false);
+  _register(BuildContext context, UserService userService) {
+    userService
+        .register(_emailController.text, _passwordController.text,
+            _userNameController.text)
+        .then((value) {
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          GroupJoiningScreen.routeName, (route) => false);
+    });
   }
 
   String? _validateEmail(String? email) {

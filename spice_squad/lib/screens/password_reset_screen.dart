@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:spice_squad/providers/service_providers.dart';
 import 'package:spice_squad/screens/login_screen.dart';
+import 'package:spice_squad/services/user_service.dart';
 
 import 'package:spice_squad/widgets/back_button.dart';
 
-class PasswordResetScreen extends StatelessWidget {
+class PasswordResetScreen extends ConsumerWidget {
   static const routeName = '/password-reset';
 
   final TextEditingController _emailController = TextEditingController();
@@ -12,7 +15,7 @@ class PasswordResetScreen extends StatelessWidget {
   PasswordResetScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: Stack(children: [
         const Positioned(
@@ -84,7 +87,10 @@ class PasswordResetScreen extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) _resetPassword(context);
+                      if (_formKey.currentState!.validate()) {
+                        _resetPassword(
+                            context, ref.read(userServiceProvider.notifier));
+                      }
                     },
                     child: const Text('Weiter'),
                   ),
@@ -108,34 +114,35 @@ class PasswordResetScreen extends StatelessWidget {
     return null;
   }
 
-  _resetPassword(BuildContext context) {
-    //TODO: Implement password resetting
-
-    //Wenn anfrage ok ist dann:
-    showDialog<void>(
-      context: context,
-      barrierDismissible: true,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('E-Mail versendet'),
-          content: const SingleChildScrollView(
-            child: ListBody(
-              children: [
-                Text('Wir haben dir eine E-Mail mit einem Link zum Zurücksetzen deines Passworts geschickt.'),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Bestätigen'),
-              onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
+  _resetPassword(BuildContext context, UserService userService) {
+    userService
+        .resetPassword(_emailController.text)
+        .then((value) => showDialog<void>(
+              context: context,
+              barrierDismissible: true,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text('E-Mail versendet'),
+                  content: const SingleChildScrollView(
+                    child: ListBody(
+                      children: [
+                        Text(
+                            'Wir haben dir eine E-Mail mit einem Link zum Zurücksetzen deines Passworts geschickt.'),
+                      ],
+                    ),
+                  ),
+                  actions: <Widget>[
+                    TextButton(
+                      child: const Text('Bestätigen'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        Navigator.of(context)
+                            .pushReplacementNamed(LoginScreen.routeName);
+                      },
+                    ),
+                  ],
+                );
               },
-            ),
-          ],
-        );
-      },
-    );
+            ));
   }
 }
