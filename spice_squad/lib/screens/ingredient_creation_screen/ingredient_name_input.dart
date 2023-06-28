@@ -5,9 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spice_squad/providers/repository_providers.dart';
 
 class IngredientNameInput extends ConsumerStatefulWidget {
-  final TextEditingController nameController = TextEditingController();
+  final TextEditingController controller;
 
-  IngredientNameInput({super.key});
+  const IngredientNameInput({required this.controller, super.key});
 
   @override
   ConsumerState<IngredientNameInput> createState() =>
@@ -20,8 +20,12 @@ class _IngredientNameInputState extends ConsumerState<IngredientNameInput> {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      TextField(
-        controller: widget.nameController,
+      TextFormField(
+        validator: (value) {
+          if (value == null || value.isEmpty) return "Gib bitte einen Namen ein";
+          return null;
+        },
+        controller: widget.controller,
         decoration: const InputDecoration(hintText: "Zutat"),
         onChanged: (value) {
           setState(() {
@@ -43,8 +47,8 @@ class _IngredientNameInputState extends ConsumerState<IngredientNameInput> {
                       element.toLowerCase().contains(_searchText.toLowerCase()))
                   .toList();
               return GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.zero,
+                  physics: const NeverScrollableScrollPhysics(),
+                  padding: EdgeInsets.zero,
                   shrinkWrap: true,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       mainAxisSpacing: 10,
@@ -56,7 +60,7 @@ class _IngredientNameInputState extends ConsumerState<IngredientNameInput> {
                     return GridTile(
                       child: InkWell(
                         onTap: () {
-                          widget.nameController.text = filteredNames[index];
+                          widget.controller.text = filteredNames[index];
                           setState(() {
                             _searchText = filteredNames[index];
                           });
