@@ -30,7 +30,7 @@ class SpiceSquad extends StatelessWidget {
         theme: SpiceSquadTheme.themeData,
         initialRoute: MainScreen.routeName,
         routes: {
-          MainScreen.routeName: (context) => const MainScreen(),
+          MainScreen.routeName: (context) => MainScreen(),
           LoginScreen.routeName: (context) => LoginScreen(),
           RegisterScreen.routeName: (context) => RegisterScreen(),
           PasswordResetScreen.routeName: (context) => PasswordResetScreen(),

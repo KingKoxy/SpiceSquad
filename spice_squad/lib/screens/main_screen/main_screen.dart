@@ -12,8 +12,9 @@ import 'filter_category.dart';
 
 class MainScreen extends ConsumerStatefulWidget {
   static const routeName = '/';
+  final _searchController = TextEditingController();
 
-  const MainScreen({super.key});
+  MainScreen({super.key});
 
   @override
   ConsumerState<MainScreen> createState() => _MainScreenState();
@@ -28,15 +29,23 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: const NavBar(currentIndex: 1),
-      appBar: AppBar(
-        // leading: const Padding(
-        //   padding: EdgeInsets.all(12.0),
-        //   child: ImageIcon(AssetImage("assets/icons/search.png")),
-        // ),
-        title: Column(
-          children: [
-            TextField(
-              decoration: const InputDecoration(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight + 16),
+        child: AppBar(
+          title: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: TextField(
+              controller: widget._searchController,
+              decoration: InputDecoration(
+                iconColor: Colors.white,
+                icon: const ImageIcon(AssetImage("assets/icons/search.png")),
+                suffixIconColor: Colors.white,
+                suffixIcon: IconButton(onPressed: () {
+                  setState(() {
+                    _searchText = "";
+                    widget._searchController.text = "";
+                  });
+                }, icon: const Icon(Icons.highlight_remove_rounded)),
                 filled: false,
                 border: UnderlineInputBorder(),
                 hintText: 'Suchen...',
@@ -47,10 +56,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                 });
               },
             ),
-            const SizedBox(
-              height: 16,
-            )
-          ],
+          ),
         ),
       ),
       body: Center(
@@ -84,11 +90,13 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                       ],
                     ),
                     ref.watch(recipeServiceProvider).when(
-                        data: (recipes) => Expanded(
-                            child:
+                        data: (recipes) =>
+                            Expanded(
+                                child:
                                 RecipeList(recipes: _filterRecipes(recipes))),
                         error: (error, stackTrace) => Text(error.toString()),
-                        loading: () => const SizedBox(
+                        loading: () =>
+                        const SizedBox(
                             height: 32,
                             width: 32,
                             child: CircularProgressIndicator())),
@@ -105,7 +113,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   List<Recipe> _filterRecipes(List<Recipe> recipes) {
     recipes = recipes
         .where((element) =>
-            element.title.toLowerCase().contains(_searchText.toLowerCase()))
+        element.title.toLowerCase().contains(_searchText.toLowerCase()))
         .toList(growable: false);
 
     for (var filter in _filterCategories) {
@@ -115,7 +123,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
     }
 
     recipes.sort((a, b) =>
-        (_selectedSort.ascending ? 1 : -1) *
+    (_selectedSort.ascending ? 1 : -1) *
         _selectedSort.category.compare(a, b));
     return recipes;
   }
