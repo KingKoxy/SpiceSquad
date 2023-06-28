@@ -113,7 +113,7 @@ class RegisterScreen extends StatelessWidget {
               Row(children: [
                 Text(
                   'Du hast bereits ein Konto?',
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 const SizedBox(
                   width: 4,

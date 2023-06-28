@@ -45,8 +45,9 @@ class IngredientCreationScreen extends StatelessWidget {
                   Expanded(
                     child: TextFormField(
                       validator: (value) {
-                        if (value == null || value.isEmpty)
+                        if (value == null || value.isEmpty) {
                           return "Gib bitte einen Wert ein";
+                        }
 
                         if (double.tryParse(value) == null) {
                           return "Gib bitte eine Zahl ein";

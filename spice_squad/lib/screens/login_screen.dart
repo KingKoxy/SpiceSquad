@@ -82,7 +82,7 @@ class LoginScreen extends StatelessWidget {
               Row(children: [
                 Text(
                   'Du hast noch kein Konto?',
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 const SizedBox(
                   width: 4,

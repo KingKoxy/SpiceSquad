@@ -23,13 +23,13 @@ class RecipeCard extends StatelessWidget {
                   children: [
                     Text(
                       recipe.title,
-                      style: Theme.of(context).textTheme.headline5,
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                     Text(
                       recipe.author.userName,
                       style: Theme.of(context)
                           .textTheme
-                          .headline6
+                          .titleMedium
                           ?.copyWith(color: Colors.grey),
                     ),
                   ],

@@ -47,7 +47,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                   });
                 }, icon: const Icon(Icons.highlight_remove_rounded)),
                 filled: false,
-                border: UnderlineInputBorder(),
+                border: const UnderlineInputBorder(),
                 hintText: 'Suchen...',
               ),
               onChanged: (value) {

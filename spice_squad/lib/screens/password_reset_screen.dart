@@ -53,7 +53,7 @@ class PasswordResetScreen extends StatelessWidget {
                   "Kein Problem! Gib einfach deine E-Mail-Adresse ein und wir schicken dir einen Link, mit dem du dein Passwort zurücksetzen kannst.",
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1
+                      .bodyMedium
                       ?.copyWith(color: Colors.grey[600]),
                 ),
                 const SizedBox(
@@ -118,9 +118,9 @@ class PasswordResetScreen extends StatelessWidget {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('E-Mail versendet'),
-          content: SingleChildScrollView(
+          content: const SingleChildScrollView(
             child: ListBody(
-              children: const [
+              children: [
                 Text('Wir haben dir eine E-Mail mit einem Link zum Zurücksetzen deines Passworts geschickt.'),
               ],
             ),

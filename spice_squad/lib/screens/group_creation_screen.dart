@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spice_squad/screens/group_joining_screen.dart';
 import 'package:spice_squad/screens/main_screen/main_screen.dart';
-import 'package:spice_squad/screens/qr_scanner_screen.dart';
 import 'package:spice_squad/widgets/or_widget.dart';
 
 class GroupCreationScreen extends StatelessWidget {

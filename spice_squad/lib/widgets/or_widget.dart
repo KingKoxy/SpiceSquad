@@ -5,9 +5,9 @@ class OrWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: const EdgeInsets.symmetric(vertical: 10),
+    return const Padding(padding: EdgeInsets.symmetric(vertical: 10),
     child: Row(
-      children: const [
+      children: [
         Expanded(
           child: Divider(
             color: Colors.grey,

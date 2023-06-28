@@ -9,8 +9,8 @@ class RecipeCreationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: const NavBar(currentIndex: 0),
+    return const Scaffold(
+      bottomNavigationBar: NavBar(currentIndex: 0),
     );
   }
 }

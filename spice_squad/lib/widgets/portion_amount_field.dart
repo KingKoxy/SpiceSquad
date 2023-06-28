@@ -5,7 +5,7 @@ class PortionAmountField extends StatelessWidget {
   final ValueChanged<int> onChanged;
   final int portionAmount;
 
-  PortionAmountField(
+  const PortionAmountField(
       {super.key, required this.onChanged, required this.portionAmount});
 
   @override

@@ -10,7 +10,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      bottomNavigationBar: const NavBar(currentIndex: 2),
+      bottomNavigationBar: NavBar(currentIndex: 2),
     );
   }
 }
