@@ -12,6 +12,10 @@ class GroupService extends AsyncNotifier<List<Group>> {
     return ref.watch(groupRepositoryProvider).fetchAllGroupsForUser();
   }
 
+  Future<Group> getGroupById(String groupId) {
+    return ref.watch(groupRepositoryProvider).fetchGroupById(groupId);
+  }
+
   Future<void> joinGroup(String groupCode) {
     //TODO: implement group joining
     throw UnimplementedError();

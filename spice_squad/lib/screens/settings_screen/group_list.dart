@@ -40,7 +40,7 @@ class GroupList extends ConsumerWidget {
                   return InkWell(
                     borderRadius: BorderRadius.circular(16),
                     onTap: () {
-                      Navigator.of(context).pushNamed(GroupDetailScreen.routeName, arguments: groups[index]);
+                      Navigator.of(context).pushNamed(GroupDetailScreen.routeName, arguments: groups[index].id);
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),

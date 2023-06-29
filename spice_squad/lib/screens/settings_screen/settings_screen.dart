@@ -46,7 +46,7 @@ class SettingsScreen extends ConsumerWidget {
                       ),
                       TextButton(
                         onPressed: () {
-                          _showRenameDialog(context, ref.read(userServiceProvider.notifier), user.userName);
+                          _renameUser(context, ref.read(userServiceProvider.notifier), user.userName);
                         },
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
@@ -67,7 +67,7 @@ class SettingsScreen extends ConsumerWidget {
                       ),
                       TextButton(
                           onPressed: () {
-                            _showDeletionDialog(context, ref.read(userServiceProvider.notifier));
+                            _deleteAccount(context, ref.read(userServiceProvider.notifier));
                           },
                           child: const Text("Konto löschen"))
                     ],
@@ -96,15 +96,7 @@ void _logout(UserService userService) {
   userService.logout();
 }
 
-void _deleteAccount(UserService userService) {
-  userService.deleteAccount();
-}
-
-void _renameUser(UserService userService, String newName) {
-  userService.setUserName(newName);
-}
-
-void _showRenameDialog(BuildContext context, UserService userService, String oldName) {
+void _renameUser(BuildContext context, UserService userService, String oldName) {
   final formKey = GlobalKey<FormState>();
   final TextEditingController controller = TextEditingController();
   controller.text = oldName;
@@ -138,7 +130,7 @@ void _showRenameDialog(BuildContext context, UserService userService, String old
               onPressed: () {
                 if (formKey.currentState!.validate()) {
                   Navigator.of(context).pop();
-                  _renameUser(userService, controller.text);
+                  userService.setUserName(controller.text);
                 }
               },
             ),
@@ -147,7 +139,7 @@ void _showRenameDialog(BuildContext context, UserService userService, String old
       });
 }
 
-void _showDeletionDialog(BuildContext context, UserService userService) {
+void _deleteAccount(BuildContext context, UserService userService) {
   showDialog(
       context: context,
       builder: (context) {
@@ -164,7 +156,7 @@ void _showDeletionDialog(BuildContext context, UserService userService) {
             TextButton(
               child: const Text("Ich bin mir sicher"),
               onPressed: () {
-                _deleteAccount(userService);
+                userService.deleteAccount();
                 Navigator.of(context).pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
               },
             ),
