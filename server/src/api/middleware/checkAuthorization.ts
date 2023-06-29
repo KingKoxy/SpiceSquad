@@ -1,29 +1,32 @@
 import firebase = require('firebase-admin');
-import morgan = require('morgan');
 import express = require('express');
+import pg = require('pg');
+import Database from '../../database';
 
 class CheckAuthorization {
 
+    protected database: Database;
+    protected pool: pg.Pool;
 
-    constructor(){}
+    constructor(){
+        this.database = new Database();
+        this.pool = this.database.getPool();
+    }
 
     public async checkAuthorization(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
-        
         const token = req.get('Authorization');
-        next();
-        /** Auskommentiert zum Testen der Controller
+        let uid: string;
         try {
-            morgan('dev');
-            firebase.auth().verifyIdToken(token).then((decodedToken) => {
-                const uid = decodedToken.uid;
+            firebase.auth().verifyIdToken(token).then(async (decodedToken) => {
+                uid = decodedToken.uid;
+                req.body.user_id = (await this.pool.query('SELECT id FROM "user" WHERE firebase_user_id = $1', [uid])).rows[0].id;
                 next();
             }).catch((error) => {
-                res.status(401).json({message: 'Handle error; checkAuthorization'});
+                res.status(401).json({message: 'No valid user'});
             });
         } catch(error) {
-            res.status(401).json({message: 'No valid user'});
+            res.status(401).json({message: 'Some error occured'});
         };
-         */
     };
 }
 

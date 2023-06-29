@@ -11,7 +11,7 @@ abstract class abstractRouter {
     constructor() {
         this.router = express.Router();
         this.checkAuthorization = new CheckAuthorization();
-        this.checkAuth = this.checkAuthorization.checkAuthorization.bind(this.Controller);
+        this.checkAuth = this.checkAuthorization.checkAuthorization.bind(this.checkAuthorization);
     }
 
     protected abstract setupRoutes(): void;

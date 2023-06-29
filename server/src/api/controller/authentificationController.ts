@@ -68,6 +68,7 @@ class AuthentificationController extends AbstractController {
         firebaseAuth.createUserWithEmailAndPassword(this.auth, req.body.email, req.body.password)
         .then(async (userCredentials) => {
             console.log('Successfully created new user:', userCredentials.user);
+            this.pool.query('INSERT INTO "user" (user_name, email, firebase_user_id, created_groups) VALUES ($1, $2, $3, $4)', [req.body.user_name, req.body.email, userCredentials.user.uid, 0])
             res.status(200).json({
                 refreshToken: userCredentials.user.refreshToken,
                 idToken: await firebaseAuth.getIdToken(userCredentials.user)
@@ -104,7 +105,7 @@ class AuthentificationController extends AbstractController {
             });
     }
 
-    public async userResetPassword(req: express.Request, res: express.Response): Promise<void> {
+    public userResetPassword(req: express.Request, res: express.Response) {
         firebaseAuth.sendPasswordResetEmail(this.auth, req.body.email)
         .then(() => {
             res.status(200).json({
@@ -140,13 +141,23 @@ class AuthentificationController extends AbstractController {
         }
 
         public async userRefreshToken(req: express.Request, res: express.Response): Promise<void> {
-            // TODO: Check if token is valid
+            firebaseAdmin.auth().verifyIdToken(req.body.refreshToken)
+            .then(async (sessionCookie) => {
+                console.log('Successfully logged in:', sessionCookie);
+                res.status(200).json({
+                    idToken: sessionCookie
+                });
+            })
+
         }
 
         public async userLogout(req: express.Request, res: express.Response): Promise<void> {
-            res.status(200).json({
-                message: "Successfully logged out",
-            });
+            firebaseAuth.signOut(this.auth)
+            .then(() => {
+                res.status(200).json({
+                    message: "Successfully logged out",
+                });
+            })
         }
 
 }
