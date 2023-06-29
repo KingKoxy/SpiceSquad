@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:spice_squad/providers/service_providers.dart';
 import 'package:spice_squad/screens/main_screen/main_screen.dart';
 import 'package:spice_squad/screens/password_reset_screen.dart';
 import 'package:spice_squad/screens/register_screen.dart';
+import 'package:spice_squad/services/user_service.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends ConsumerWidget {
   static const routeName = '/login';
 
   final TextEditingController _emailController = TextEditingController();
@@ -13,7 +16,7 @@ class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: Center(
         child: Padding(
@@ -101,7 +104,9 @@ class LoginScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) _login(context);
+                    if (_formKey.currentState!.validate()) {
+                      _login(context, ref.read(userServiceProvider.notifier));
+                    }
                   },
                   child: const Text('Weiter'),
                 ),
@@ -123,10 +128,13 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  _login(BuildContext context) {
-    //TODO: Implement login
-
-    Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
+  _login(BuildContext context, UserService userService) {
+    userService
+        .login(_emailController.text, _passwordController.text)
+        .then((value) {
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
+    });
   }
 
   String? _validateEmail(String? email) {
