@@ -123,7 +123,7 @@ class RegisterScreen extends ConsumerWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed(LoginScreen.routeName);
+                    Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
                   },
                   child: const Text('Anmelden'),
                 ),

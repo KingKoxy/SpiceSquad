@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spice_squad/screens/ingredient_creation_screen/icon_picker_widget.dart';
 import 'package:spice_squad/screens/ingredient_creation_screen/ingredient_name_input.dart';
-import 'package:spice_squad/widgets/back_button.dart';
 
 import '../../models/ingredient.dart';
 
@@ -20,7 +19,6 @@ class IngredientCreationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const CustomBackButton(),
         title: const Text("Zutat erstellen"),
       ),
       body: Center(

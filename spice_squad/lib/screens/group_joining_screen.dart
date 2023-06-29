@@ -84,9 +84,12 @@ class GroupJoiningScreen extends ConsumerWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () async {
-                      _joinGroupByCode(context, ref.read(groupServiceProvider.notifier),
-                          (await Navigator.of(context).pushNamed(QRScannerScreen.routeName)) as String);
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(QRScannerScreen.routeName).then((value) {
+                        if (value != null) {
+                          _joinGroupByCode(context, ref.read(groupServiceProvider.notifier), value as String);
+                        }
+                      });
                     },
                     child: const Text('Mit QR-Code beitreten'),
                   ),
@@ -117,6 +120,7 @@ class GroupJoiningScreen extends ConsumerWidget {
   }
 
   void _joinGroupByCode(BuildContext context, GroupService groupService, String groupCode) {
+    //TODO: show success popup?
     groupService
         .joinGroup(groupCode)
         .then((value) => Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false));

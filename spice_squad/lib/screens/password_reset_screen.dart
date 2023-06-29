@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spice_squad/providers/service_providers.dart';
-import 'package:spice_squad/screens/login_screen.dart';
 import 'package:spice_squad/services/user_service.dart';
-
-import 'package:spice_squad/widgets/back_button.dart';
 
 class PasswordResetScreen extends ConsumerWidget {
   static const routeName = '/password-reset';
@@ -21,7 +18,7 @@ class PasswordResetScreen extends ConsumerWidget {
         const Positioned(
           top: 32,
           left: 32,
-          child: CustomBackButton(),
+          child: BackButton(),
         ),
         Center(
           child: Padding(
@@ -54,10 +51,7 @@ class PasswordResetScreen extends ConsumerWidget {
                 ),
                 Text(
                   "Kein Problem! Gib einfach deine E-Mail-Adresse ein und wir schicken dir einen Link, mit dem du dein Passwort zurücksetzen kannst.",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(color: Colors.grey[600]),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
                 ),
                 const SizedBox(
                   height: 20,
@@ -88,8 +82,7 @@ class PasswordResetScreen extends ConsumerWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        _resetPassword(
-                            context, ref.read(userServiceProvider.notifier));
+                        _resetPassword(context, ref.read(userServiceProvider.notifier));
                       }
                     },
                     child: const Text('Weiter'),
@@ -115,34 +108,30 @@ class PasswordResetScreen extends ConsumerWidget {
   }
 
   _resetPassword(BuildContext context, UserService userService) {
-    userService
-        .resetPassword(_emailController.text)
-        .then((value) => showDialog<void>(
-              context: context,
-              barrierDismissible: true,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: const Text('E-Mail versendet'),
-                  content: const SingleChildScrollView(
-                    child: ListBody(
-                      children: [
-                        Text(
-                            'Wir haben dir eine E-Mail mit einem Link zum Zurücksetzen deines Passworts geschickt.'),
-                      ],
-                    ),
-                  ),
-                  actions: <Widget>[
-                    TextButton(
-                      child: const Text('Bestätigen'),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context)
-                            .pushReplacementNamed(LoginScreen.routeName);
-                      },
-                    ),
+    userService.resetPassword(_emailController.text).then((value) => showDialog<void>(
+          context: context,
+          barrierDismissible: true,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('E-Mail versendet'),
+              content: const SingleChildScrollView(
+                child: ListBody(
+                  children: [
+                    Text('Wir haben dir eine E-Mail mit einem Link zum Zurücksetzen deines Passworts geschickt.'),
                   ],
-                );
-              },
-            ));
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text('Bestätigen'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        ));
   }
 }

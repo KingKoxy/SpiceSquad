@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:spice_squad/models/group.dart';
 
-import '../widgets/back_button.dart';
-
 class QRCodeScreen extends StatelessWidget {
   static const routeName = '/qr-code';
 
@@ -15,7 +13,6 @@ class QRCodeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        leading: const CustomBackButton(),
         title: const Text("QR-Code"),
       ),
       body: Center(

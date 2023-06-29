@@ -70,7 +70,7 @@ class GroupCreationScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        _joinGroupByCode(context);
+                        _createGroup(context);
                       }
                     },
                     child: const Text('Weiter'),
@@ -102,7 +102,7 @@ class GroupCreationScreen extends StatelessWidget {
     return null;
   }
 
-  void _joinGroupByCode(BuildContext context) {
+  void _createGroup(BuildContext context) {
     //TODO: Implement group creation
     Navigator.of(context)
         .pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);

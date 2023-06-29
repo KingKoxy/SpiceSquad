@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../models/recipe.dart';
 import '../../widgets/nav_bar.dart';
 
 class RecipeCreationScreen extends StatelessWidget {
@@ -9,8 +10,12 @@ class RecipeCreationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      bottomNavigationBar: NavBar(currentIndex: 0),
+    final Recipe? recipe = ModalRoute.of(context)?.settings.arguments as Recipe?;
+    //If recipe!=null fill with recipe data and overwrite on save
+
+    return Scaffold(
+      appBar: AppBar(title: const Text("Rezept erstellen")),
+      bottomNavigationBar: const NavBar(currentIndex: 0),
     );
   }
 }

@@ -106,8 +106,8 @@ class OwnRecipeList extends ConsumerWidget {
                   child: const Text('Abbrechen')),
               TextButton(
                   onPressed: () {
-                    recipeService.deleteRecipe(recipeId);
                     Navigator.of(context).pop();
+                    recipeService.deleteRecipe(recipeId);
                   },
                   child: const Text('Ich bin mir sicher'))
             ],

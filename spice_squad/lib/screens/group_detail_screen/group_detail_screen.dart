@@ -147,8 +147,8 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
                 child: const Text("Speichern"),
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
-                    Navigator.of(context).pop();
                     groupService.setGroupName(groupId, controller.text);
+                    Navigator.of(context).pop();
                   }
                 },
               ),
