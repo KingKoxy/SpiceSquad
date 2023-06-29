@@ -83,8 +83,8 @@ class GroupJoiningScreen extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          QRScannerScreen.routeName, (route) => false);
+                      Navigator.of(context).pushNamed(
+                          QRScannerScreen.routeName);
                     },
                     child: const Text('Mit QR-Code beitreten'),
                   ),
