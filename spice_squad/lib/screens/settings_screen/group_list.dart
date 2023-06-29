@@ -84,8 +84,8 @@ class GroupList extends ConsumerWidget {
                   child: const Text('Abbrechen')),
               TextButton(
                   onPressed: () {
-                    groupService.leaveGroup(groupId);
                     Navigator.of(context).pop();
+                    groupService.leaveGroup(groupId);
                   },
                   child: const Text('Ich bin mir sicher'))
             ],

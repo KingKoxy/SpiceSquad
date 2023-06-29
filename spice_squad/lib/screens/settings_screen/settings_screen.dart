@@ -7,6 +7,8 @@ import 'package:spice_squad/screens/settings_screen/profile_image_picker.dart';
 import 'package:spice_squad/services/user_service.dart';
 import 'package:spice_squad/widgets/nav_bar.dart';
 
+import 'own_recipe_list.dart';
+
 class SettingsScreen extends ConsumerWidget {
   static const routeName = '/settings';
 
@@ -43,20 +45,14 @@ class SettingsScreen extends ConsumerWidget {
                       ),
                       TextButton(
                         onPressed: () {
-                          _showRenameDialog(
-                              context,
-                              ref.read(userServiceProvider.notifier),
-                              user.userName);
+                          _showRenameDialog(context, ref.read(userServiceProvider.notifier), user.userName);
                         },
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
                               user.userName,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium!
-                                  .copyWith(color: Colors.white),
+                              style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.white),
                             ),
                             const SizedBox(
                               width: 8,
@@ -70,8 +66,7 @@ class SettingsScreen extends ConsumerWidget {
                       ),
                       TextButton(
                           onPressed: () {
-                            _showDeletionDialog(context,
-                                ref.read(userServiceProvider.notifier));
+                            _showDeletionDialog(context, ref.read(userServiceProvider.notifier));
                           },
                           child: const Text("Konto löschen"))
                     ],
@@ -79,9 +74,16 @@ class SettingsScreen extends ConsumerWidget {
                 },
                 error: (error, stackTrace) => Text(error.toString()),
                 loading: () => const Column(
-                      children: [ CircularProgressIndicator()],
+                      children: [CircularProgressIndicator()],
                     )),
-            const GroupList()
+            const SizedBox(
+              height: 20,
+            ),
+            const GroupList(),
+            const SizedBox(
+              height: 20,
+            ),
+            const OwnRecipeList(),
           ],
         ),
       ),
@@ -101,8 +103,7 @@ void _renameUser(UserService userService, String newName) {
   userService.setUserName(newName);
 }
 
-void _showRenameDialog(
-    BuildContext context, UserService userService, String oldName) {
+void _showRenameDialog(BuildContext context, UserService userService, String oldName) {
   final formKey = GlobalKey<FormState>();
   final TextEditingController controller = TextEditingController();
   controller.text = oldName;
@@ -114,8 +115,7 @@ void _showRenameDialog(
           content: Form(
             key: formKey,
             child: TextFormField(
-              decoration: InputDecoration(
-                  fillColor: Theme.of(context).colorScheme.onSurfaceVariant),
+              decoration: InputDecoration(fillColor: Theme.of(context).colorScheme.onSurfaceVariant),
               controller: controller,
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -136,8 +136,8 @@ void _showRenameDialog(
               child: const Text("Speichern"),
               onPressed: () {
                 if (formKey.currentState!.validate()) {
-                  _renameUser(userService, controller.text);
                   Navigator.of(context).pop();
+                  _renameUser(userService, controller.text);
                 }
               },
             ),
@@ -152,8 +152,7 @@ void _showDeletionDialog(BuildContext context, UserService userService) {
       builder: (context) {
         return AlertDialog(
           title: const Text("Konto löschen"),
-          content: const Text(
-              "Bist du dir wirklich sicher? Es gibt danach keinen Weg zurück"),
+          content: const Text("Bist du dir wirklich sicher? Es gibt danach keinen Weg zurück"),
           actions: <Widget>[
             TextButton(
               child: const Text("Abbrechen"),
@@ -165,8 +164,7 @@ void _showDeletionDialog(BuildContext context, UserService userService) {
               child: const Text("Ich bin mir sicher"),
               onPressed: () {
                 _deleteAccount(userService);
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    LoginScreen.routeName, (route) => false);
+                Navigator.of(context).pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
               },
             ),
           ],
