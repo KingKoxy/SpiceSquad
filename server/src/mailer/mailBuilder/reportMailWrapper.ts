@@ -3,26 +3,16 @@ import abstractMailWrapper from './abstractMailOptionWrapper';
 import nodemailer = require('nodemailer');
 
 
-class reportMailWrapper extends abstractMailWrapper {
+class ReportMailWrapper extends abstractMailWrapper {
     
 
-    private htmlPath: string = './src/mail/templates/reportMail.html';
+    private htmlPath: string = './src/mailer/templates/reportMail.html';
     private htmlText: string = fs.readFileSync(this.htmlPath, 'utf8');
 
     constructor() {
         super();
         this.sender = process.env.EMAIL_USER;
         this.subject = 'Report';
-        /*
-        if (!fs.existsSync(this.htmlPath)) {
-            // Create a new file with the specified content
-            fs.mkdirSync(path.dirname(this.htmlPath), { recursive: true });
-            fs.writeFileSync(this.htmlPath, '');
-            console.log('New file created.');
-        } else {
-            console.log('File already exists.');
-        }
-        */
     }
 
 
@@ -42,4 +32,4 @@ class reportMailWrapper extends abstractMailWrapper {
     }
 }
 
-export default reportMailWrapper;
+export default ReportMailWrapper;

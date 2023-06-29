@@ -1,11 +1,17 @@
 import express = require('express');
 import AbstractController from './abstractController';
-
+import mailSender from '../../mailer/mailSender';
+import reportMailBuilder from '../../mailer/mailBuilder/reportMailWrapper';
 
 class RecipeController extends AbstractController{
 
+    private mailSender: mailSender;
+    private reportMailBuilder: reportMailBuilder;
+
     constructor() {
         super();
+        this.mailSender = new mailSender();
+        this.reportMailBuilder = new reportMailBuilder();
     }
     
     public async recipePost(req: express.Request, res: express.Response): Promise<void> {
@@ -110,8 +116,6 @@ class RecipeController extends AbstractController{
         res.status(200).json({
             message: "Recipe reported successfully!",
         });
-        // TODO: Add report recipe functionality
-
     }
 
     public async recipeSetFavorite(req: express.Request, res: express.Response): Promise<void> {

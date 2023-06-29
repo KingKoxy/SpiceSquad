@@ -25,7 +25,7 @@ class CheckAuthorization {
                 res.status(401).json({message: 'No valid user'});
             });
         } catch(error) {
-            res.status(401).json({message: 'Some error occured'});
+            res.status(401).json({message: 'Some error occurred'});
         };
     };
 }

@@ -1,0 +1,149 @@
+@host = http://localhost:3000
+
+@idToken = eyJhbGciOiJSUzI1NiIsImtpZCI6ImY5N2U3ZWVlY2YwMWM4MDhiZjRhYjkzOTczNDBiZmIyOTgyZTg0NzUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vc3BpY2VzcXVhZC1mZDMyYSIsImF1ZCI6InNwaWNlc3F1YWQtZmQzMmEiLCJhdXRoX3RpbWUiOjE2ODgwNDMxMTIsInVzZXJfaWQiOiJFaXlnUlFGT0w0VEc4RjA0Y3NtWDBNMmNrdjkzIiwic3ViIjoiRWl5Z1JRRk9MNFRHOEYwNGNzbVgwTTJja3Y5MyIsImlhdCI6MTY4ODA0MzExMiwiZXhwIjoxNjg4MDQ2NzEyLCJlbWFpbCI6Imx1a2Fzc2Nod2FyekBtYWlsYm94Lm9yZyIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJsdWthc3NjaHdhcnpAbWFpbGJveC5vcmciXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.swEU9kwmHZ4s13ZxZ3Cu2VmGpZxK3zB-3uqNMZGUFpu5VpFtp09VRMLLOTDORrhq2gCaTllsObpvFgfFNGNKfOjFkUphbAkQiEUxDiXolG7GzDF24kIijiDgZsY8MaYG5aDzWrHb8NU2Cr1hKuvz4JIgp6_avOwoo88ENhlXIt3PRNA35Yhb8mCBQ813amLZZRJrC-u71M-FIlF2WrlMQgl8Prlc8NV9nd5yLi5DJsPyA2qKBuAi-7Rkn736bxtrvpRLH-gdCdAIFQF3F8MYPTLbOsR9PMhhwrj71kZdEm93XP7caOZUOX0WSsHYS_SF4I1JWdvrb3IgH2IPZeu8pA
+
+@refreshToken = APZUo0SDbxrtKbrOhZF_3KKlBy2kwnE9-kHgTNDNstaXpJP91UDiEOKji84uNtuuYouY4l1E5Yb4Dzgr5Hs88G-QluXFMOvO0wjHzYJY0WSDu_e7LgyF3hT8NOIi2gv9ME5XJXxKqPdr2ZvQFsscQjn0KL2FVx8HodqB574CpDw0suisbj_ZGxoHvVMj5ToDBkLThKzqNROfD-y9ct9K4rIhva_TMcbHQg
+
+@googleapis = {{$processEnv %GOOGLE_APIS}}
+
+### Get user via API
+POST {{googleapis}}
+Content-Type: application/json--data-binary
+
+{
+	"email": "lukasschwarz@mailbox.org",
+	"password":"12345678",
+	"returnSecureToken":true
+}
+
+
+### Register new user
+POST {{host}}/auth/register
+Content-Type: application/json
+
+{
+    "user_name": "Lukas",
+    "email": "lukasschwarz@mailbox.org",
+    "password": "12345678"
+}
+
+### Login user
+POST {{host}}/auth/login
+Content-Type: application/json
+
+{
+    "email": "lukasschwarz@mailbox.org",
+    "password": "12345678"
+}
+
+### Reset password
+POST {{host}}/auth/resetPassword
+Content-Type: application/json
+
+{
+    "email": "lukasschwarz@mailbox.org"
+}
+
+### Refresh token
+GET {{host}}/auth/refreshToken
+Content-Type: application/json
+
+{
+    "refreshToken": "APZUo0SDbxrtKbrOhZF_3KKlBy2kwnE9-kHgTNDNstaXpJP91UDiEOKji84uNtuuYouY4l1E5Yb4Dzgr5Hs88G-QluXFMOvO0wjHzYJY0WSDu_e7LgyF3hT8NOIi2gv9ME5XJXxKqPdr2ZvQFsscQjn0KL2FVx8HodqB574CpDw0suisbj_ZGxoHvVMj5ToDBkLThKzqNROfD-y9ct9K4rIhva_TMcbHQg"
+}
+
+### Create recipe
+POST {{host}}/recipe
+Content-Type: application/json
+Authorization: {{idToken}}
+
+{
+    "title": "Test recipe",
+    "author_id": "29026783-e796-49b8-98b6-d6f198b453f0",
+    "image": "22",
+    "duration": "30",
+    "difficulty": "easy",
+    "ingredients": [
+        {
+            "name": "Tomato",
+            "icon_name": "ds",
+            "amount": "2",
+            "unit": "pieces"
+        },
+        {
+            "name": "Salt",
+            "icon_name": "fe",
+            "amount": "1",
+            "unit": "teaspoon"
+        }
+    ],
+    "instructions": "Lorem impsum dolor sit amet",
+    "is_vegetarian": true,
+    "is_vegan": false,
+    "is_gluten_free": false,
+    "is_kosher": false,
+    "is_halal": false,
+    "is_private": false,
+    "default_portions": "2"
+
+}
+
+### Delete recipe
+DELETE {{host}}/recipe/5ad5693e-430b-463a-976d-c3cde4c865ee
+Content-Type: application/json
+
+{
+    "recipe_id": "7256d142-e775-4297-bcaa-981ba1a0ff47"
+}
+
+### Get recipe
+GET {{host}}/recipe/29026783-e796-49b8-98b6-d6f198b453f0
+Content-Type: application/json
+Authorization: {{idToken}}
+
+
+### Update recipe
+Patch {{host}}/recipe/5ad5693e-430b-463a-976d-c3cde4c865ee
+Content-Type: application/json
+Authorization: {{idToken}}
+
+{
+    "recipe_id": "51f5ce1c-a224-48ba-b643-bd72d965aac9",
+    "title": "A updated recipe",
+    "image": "21",
+    "duration": "40",
+    "difficulty": "medium",
+    "ingredients": [
+        {
+            "name": "Tomato",
+            "icon_name": "ds",
+            "amount": "2",
+            "unit": "pieces"
+        },
+        {
+            "name": "Salt",
+            "icon_name": "fe",
+            "amount": "1",
+            "unit": "teaspoon"
+        }
+    ],
+    "instructions": "Lorem impsum dolor sit amet",
+    "is_vegetarian": true,
+    "is_vegan": false,
+    "is_gluten_free": false,
+    "is_kosher": false,
+    "is_halal": false,
+    "is_private": false,
+    "default_portions": "2"
+
+}
+
+### Set recipe as favorite
+PATCH {{host}}/recipe/setFavorite/51f5ce1c-a224-48ba-b643-bd72d965aac9
+Content-Type: application/json
+Authorization: {{idToken}}
+
+{
+    "is_favorite": false
+}
+
