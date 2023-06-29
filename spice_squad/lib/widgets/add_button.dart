@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
 
-class AddButton extends IconButton {
-  const AddButton({super.key, required super.onPressed})
-      : super(
-    icon: const ImageIcon(AssetImage("assets/icons/add.png"), color: Color(0xFF00F5AD),),
-  );
+class AddButton extends StatelessWidget {
+  final VoidCallback onPressed;
+
+  const AddButton({super.key, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: onPressed,
+      icon: const ImageIcon(
+        AssetImage("assets/icons/add.png"),
+        color: Color(0xFF00F5AD),
+      ),
+      splashRadius: 24,
+    );
+  }
 }

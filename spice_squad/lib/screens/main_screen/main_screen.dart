@@ -40,12 +40,16 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                 iconColor: Colors.white,
                 icon: const ImageIcon(AssetImage("assets/icons/search.png")),
                 suffixIconColor: Colors.white,
-                suffixIcon: IconButton(onPressed: () {
-                  setState(() {
-                    _searchText = "";
-                    widget._searchController.text = "";
-                  });
-                }, icon: const Icon(Icons.highlight_remove_rounded)),
+                suffixIcon: widget._searchController.text != ""
+                    ? IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _searchText = "";
+                            widget._searchController.text = "";
+                          });
+                        },
+                        icon: const Icon(Icons.highlight_remove_rounded))
+                    : null,
                 filled: false,
                 border: const UnderlineInputBorder(),
                 hintText: 'Suchen...',
@@ -90,16 +94,9 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                       ],
                     ),
                     ref.watch(recipeServiceProvider).when(
-                        data: (recipes) =>
-                            Expanded(
-                                child:
-                                RecipeList(recipes: _filterRecipes(recipes))),
+                        data: (recipes) => Expanded(child: RecipeList(recipes: _filterRecipes(recipes))),
                         error: (error, stackTrace) => Text(error.toString()),
-                        loading: () =>
-                        const SizedBox(
-                            height: 32,
-                            width: 32,
-                            child: CircularProgressIndicator())),
+                        loading: () => const SizedBox(height: 32, width: 32, child: CircularProgressIndicator())),
                   ],
                 ),
               );
@@ -112,19 +109,14 @@ class _MainScreenState extends ConsumerState<MainScreen> {
 
   List<Recipe> _filterRecipes(List<Recipe> recipes) {
     recipes = recipes
-        .where((element) =>
-        element.title.toLowerCase().contains(_searchText.toLowerCase()))
+        .where((element) => element.title.toLowerCase().contains(_searchText.toLowerCase()))
         .toList(growable: false);
 
     for (var filter in _filterCategories) {
-      recipes = recipes
-          .where((element) => filter.matches(element))
-          .toList(growable: false);
+      recipes = recipes.where((element) => filter.matches(element)).toList(growable: false);
     }
 
-    recipes.sort((a, b) =>
-    (_selectedSort.ascending ? 1 : -1) *
-        _selectedSort.category.compare(a, b));
+    recipes.sort((a, b) => (_selectedSort.ascending ? 1 : -1) * _selectedSort.category.compare(a, b));
     return recipes;
   }
 }
