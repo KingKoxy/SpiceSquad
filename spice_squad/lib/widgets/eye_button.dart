@@ -15,7 +15,7 @@ class EyeButton extends StatelessWidget {
           onToggle();
         },
         icon: ImageIcon(
-          size: 32,
+          size: 24,
           AssetImage(open
               ? "assets/icons/eye_open.png"
               : "assets/icons/eye_closed.png"),
