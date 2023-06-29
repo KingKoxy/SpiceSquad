@@ -5,6 +5,7 @@ import 'package:spice_squad/providers/repository_providers.dart';
 import 'package:spice_squad/providers/service_providers.dart';
 import 'package:spice_squad/screens/qr_code_screen.dart';
 import 'package:spice_squad/services/group_service.dart';
+import 'group_recipe_list.dart';
 import 'member_list.dart';
 
 class GroupDetailScreen extends ConsumerStatefulWidget {
@@ -99,7 +100,11 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                //GroupRecipeList(recipes: group.recipes, isAdmin: isAdmin)
+                GroupRecipeList(
+                  recipes: group.recipes,
+                  isAdmin: isAdmin,
+                  groupId: groupId,
+                )
               ],
             );
           }
