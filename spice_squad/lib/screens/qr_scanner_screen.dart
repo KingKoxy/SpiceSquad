@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -11,7 +9,7 @@ class QRScannerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final groupCodeRegex = RegExp(r"^\d{4}-\d{4}\$");
+    final groupCodeRegex = RegExp(r"\d{4}-\d{4}");
     return Scaffold(
       appBar: AppBar(title: const Text('QR-Code scannen')),
       body: MobileScanner(
@@ -21,7 +19,7 @@ class QRScannerScreen extends StatelessWidget {
           for (final barcode in barcodes) {
             String? code = barcode.rawValue;
             if (code != null && code.isNotEmpty) {
-              if (groupCodeRegex.firstMatch(code) != null) {
+              if (groupCodeRegex.hasMatch(code)) {
                 Navigator.of(context).pop(code);
               }
             }

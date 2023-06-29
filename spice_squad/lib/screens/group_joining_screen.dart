@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:spice_squad/providers/service_providers.dart';
 import 'package:spice_squad/screens/main_screen/main_screen.dart';
 import 'package:spice_squad/screens/qr_scanner_screen.dart';
+import 'package:spice_squad/services/group_service.dart';
 import 'package:spice_squad/widgets/or_widget.dart';
 
 import 'group_creation_screen.dart';
 
-class GroupJoiningScreen extends StatelessWidget {
+class GroupJoiningScreen extends ConsumerWidget {
   static const routeName = '/group-joining';
 
   final TextEditingController _groupCodeController = TextEditingController();
@@ -14,7 +17,7 @@ class GroupJoiningScreen extends StatelessWidget {
   GroupJoiningScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: Stack(children: [
         if (true)
@@ -25,8 +28,7 @@ class GroupJoiningScreen extends StatelessWidget {
               tag: 'skip-button',
               child: TextButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                      MainScreen.routeName, (route) => false);
+                  Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
                 },
                 child: const Text('Überspringen'),
               ),
@@ -72,7 +74,7 @@ class GroupJoiningScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        _joinGroupByCode(context);
+                        _joinGroupByCode(context, ref.read(groupServiceProvider.notifier), _groupCodeController.text);
                       }
                     },
                     child: const Text('Weiter'),
@@ -82,9 +84,9 @@ class GroupJoiningScreen extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(
-                          QRScannerScreen.routeName);
+                    onPressed: () async {
+                      _joinGroupByCode(context, ref.read(groupServiceProvider.notifier),
+                          (await Navigator.of(context).pushNamed(QRScannerScreen.routeName)) as String);
                     },
                     child: const Text('Mit QR-Code beitreten'),
                   ),
@@ -94,8 +96,7 @@ class GroupJoiningScreen extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context)
-                          .pushReplacementNamed(GroupCreationScreen.routeName);
+                      Navigator.of(context).pushReplacementNamed(GroupCreationScreen.routeName);
                     },
                     child: const Text('Squad erstellen'),
                   ),
@@ -115,9 +116,9 @@ class GroupJoiningScreen extends StatelessWidget {
     return null;
   }
 
-  void _joinGroupByCode(BuildContext context) {
-    //TODO: Implement group joining
-    Navigator.of(context)
-        .pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
+  void _joinGroupByCode(BuildContext context, GroupService groupService, String groupCode) {
+    groupService
+        .joinGroup(groupCode)
+        .then((value) => Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false));
   }
 }
