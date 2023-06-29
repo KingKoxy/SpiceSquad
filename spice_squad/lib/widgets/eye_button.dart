@@ -9,7 +9,7 @@ class EyeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-        iconSize: 32,
+        iconSize: 24,
         splashRadius: 24,
         onPressed: () {
           onToggle();
