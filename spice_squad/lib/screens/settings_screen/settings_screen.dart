@@ -39,7 +39,8 @@ class SettingsScreen extends ConsumerWidget {
                   return Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      ProfileImagePicker(profileImage: user!.profileImage),
+                      ProfileImagePicker(
+                          profileImage: user!.profileImage, userService: ref.read(userServiceProvider.notifier)),
                       const SizedBox(
                         height: 8,
                       ),
