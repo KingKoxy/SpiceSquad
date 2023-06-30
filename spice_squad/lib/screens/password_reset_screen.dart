@@ -64,6 +64,7 @@ class PasswordResetScreen extends ConsumerWidget {
                         SizedBox(
                           width: double.infinity,
                           child: TextFormField(
+                            autofillHints: const [AutofillHints.email],
                             validator: _validateEmail,
                             keyboardType: TextInputType.emailAddress,
                             controller: _emailController,

@@ -54,6 +54,7 @@ class LoginScreen extends ConsumerWidget {
                     SizedBox(
                       width: double.infinity,
                       child: TextFormField(
+                        autofillHints: const [AutofillHints.email],
                         validator: _validateEmail,
                         keyboardType: TextInputType.emailAddress,
                         controller: _emailController,
@@ -68,6 +69,7 @@ class LoginScreen extends ConsumerWidget {
                     SizedBox(
                       width: double.infinity,
                       child: TextFormField(
+                        autofillHints: const [AutofillHints.password],
                         keyboardType: TextInputType.visiblePassword,
                         obscureText: true,
                         controller: _passwordController,
