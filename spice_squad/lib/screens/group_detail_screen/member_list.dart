@@ -26,7 +26,7 @@ class MemberList extends ConsumerWidget {
         Row(
           children: [
             Text(
-              "Squads",
+              "Mitglieder",
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             AddButton(onPressed: () {

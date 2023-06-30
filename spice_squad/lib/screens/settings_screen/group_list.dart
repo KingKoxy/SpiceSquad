@@ -32,33 +32,41 @@ class GroupList extends ConsumerWidget {
         ref.watch(groupServiceProvider).when(data: (groups) {
           return Card(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            child: ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: groups.length,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    borderRadius: BorderRadius.circular(16),
-                    onTap: () {
-                      Navigator.of(context).pushNamed(GroupDetailScreen.routeName, arguments: groups[index].id);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            groups[index].name,
-                            style: Theme.of(context).textTheme.titleLarge,
+            child: groups.isNotEmpty
+                ? ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: groups.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        borderRadius: BorderRadius.circular(16),
+                        onTap: () {
+                          Navigator.of(context).pushNamed(GroupDetailScreen.routeName, arguments: groups[index].id);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                groups[index].name,
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                              RemoveButton(onPressed: () {
+                                _leaveGroup(context, ref.read(groupServiceProvider.notifier), groups[index].id);
+                              })
+                            ],
                           ),
-                          RemoveButton(onPressed: () {
-                            _leaveGroup(context, ref.read(groupServiceProvider.notifier), groups[index].id);
-                          })
-                        ],
-                      ),
+                        ),
+                      );
+                    })
+                : Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      "Bisher bist du kein Mitglied einer Squad",
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.grey),
                     ),
-                  );
-                }),
+                  ),
           );
         }, error: (error, stackTrace) {
           return Text(error.toString());

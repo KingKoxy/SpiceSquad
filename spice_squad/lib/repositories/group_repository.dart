@@ -20,7 +20,7 @@ class GroupRepository {
     return Future.delayed(
         const Duration(milliseconds: 2000),
         () => List.generate(
-            5 + random.nextInt(5),
+            random.nextInt(8),
             (_) => Group(
                   id: "groupId",
                   name: {"Backen", "WG", "Karlsruher Intellektuelle", "BDSM Club"}.elementAt(random.nextInt(4)),
@@ -78,7 +78,7 @@ class GroupRepository {
         name: {"Backen", "WG", "Karlsruher Intellektuelle", "BDSM Club"}.elementAt(random.nextInt(4)),
         groupCode: "1234-5678",
         members: List.generate(
-            3 + random.nextInt(12),
+            1 + random.nextInt(12),
             (_) => GroupMember(
                 isAdmin: random.nextBool(),
                 user: User(
@@ -86,7 +86,8 @@ class GroupRepository {
                     profileImage: random.nextBool() ? null : Uint8List(1),
                     userName: {"Konrad", "Lukas", "Henri", "Raphael"}.elementAt(random.nextInt(4))))),
         recipes: List.generate(
-            random.nextInt(20),
+            //random.nextInt(10)
+            random.nextInt(1),
             (_) => GroupRecipe(
                 recipe: Recipe(
                   id: "recipeId",

@@ -33,46 +33,54 @@ class OwnRecipeList extends ConsumerWidget {
               recipes.where((recipe) => recipe.author.id == ref.watch(userRepositoryProvider).getUserId()).toList();
           return Card(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            child: ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: ownRecipes.length,
-                itemBuilder: (context, index) {
-                  final recipe = ownRecipes[index];
-                  return InkWell(
-                    borderRadius: BorderRadius.circular(16),
-                    onTap: () {
-                      Navigator.of(context).pushNamed(RecipeCreationScreen.routeName, arguments: recipe);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            recipe.title,
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
+            child: ownRecipes.isNotEmpty
+                ? ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: ownRecipes.length,
+                    itemBuilder: (context, index) {
+                      final recipe = ownRecipes[index];
+                      return InkWell(
+                        borderRadius: BorderRadius.circular(16),
+                        onTap: () {
+                          Navigator.of(context).pushNamed(RecipeCreationScreen.routeName, arguments: recipe);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              IconButton(
-                                  splashRadius: 24,
-                                  onPressed: () => _exportRecipe(ref.read(recipeServiceProvider.notifier), recipe),
-                                  icon: const ImageIcon(AssetImage("assets/icons/share.png"))),
-                              EyeButton(
-                                  open: recipe.isPrivate,
-                                  onToggle: () => _hideRecipe(ref.read(recipeServiceProvider.notifier), recipe)),
-                              RemoveButton(
-                                  onPressed: () =>
-                                      _deleteRecipe(context, ref.read(recipeServiceProvider.notifier), recipe.id)),
+                              Text(
+                                recipe.title,
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  IconButton(
+                                      splashRadius: 24,
+                                      onPressed: () => _exportRecipe(ref.read(recipeServiceProvider.notifier), recipe),
+                                      icon: const ImageIcon(AssetImage("assets/icons/share.png"))),
+                                  EyeButton(
+                                      open: recipe.isPrivate,
+                                      onToggle: () => _hideRecipe(ref.read(recipeServiceProvider.notifier), recipe)),
+                                  RemoveButton(
+                                      onPressed: () =>
+                                          _deleteRecipe(context, ref.read(recipeServiceProvider.notifier), recipe.id)),
+                                ],
+                              )
                             ],
-                          )
-                        ],
-                      ),
+                          ),
+                        ),
+                      );
+                    })
+                : Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      "Bisher hast du keine Rezepte erstellt",
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.grey),
                     ),
-                  );
-                }),
+                  ),
           );
         }, error: (error, stackTrace) {
           return Text(error.toString());

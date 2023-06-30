@@ -93,7 +93,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                       ],
                     ),
                     ref.watch(recipeServiceProvider).when(
-                        data: (recipes) => Expanded(child: RecipeList(recipes: _filterRecipes(recipes))),
+                        data: (recipes) => RecipeList(recipes: _filterRecipes(recipes)),
                         error: (error, stackTrace) => Text(error.toString()),
                         loading: () => const SizedBox(height: 32, width: 32, child: CircularProgressIndicator())),
                   ],

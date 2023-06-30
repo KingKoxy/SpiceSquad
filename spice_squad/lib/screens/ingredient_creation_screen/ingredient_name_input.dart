@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spice_squad/providers/repository_providers.dart';
@@ -58,10 +59,15 @@ class _IngredientNameInputState extends ConsumerState<IngredientNameInput> {
                         },
                         child: Container(
                           alignment: Alignment.center,
+                          padding: const EdgeInsets.all(5),
                           decoration:
                               BoxDecoration(color: Theme.of(context).cardColor, borderRadius: BorderRadius.circular(5)),
-                          //TODO: Make text match size of gridtile
-                          child: Text(filteredNames[index], style: Theme.of(context).textTheme.titleSmall,),
+                          child: AutoSizeText(
+                            filteredNames[index],
+                            minFontSize: 8,
+                            maxLines: 1,
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
                         ),
                       ),
                     );

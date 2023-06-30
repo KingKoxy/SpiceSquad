@@ -35,42 +35,50 @@ class GroupRecipeList extends ConsumerWidget {
         ),
         Card(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          child: ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              itemCount: recipes.length,
-              itemBuilder: (context, index) {
-                final recipe = recipes[index];
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
+          child: recipes.isNotEmpty
+              ? ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  itemCount: recipes.length,
+                  itemBuilder: (context, index) {
+                    final recipe = recipes[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            recipe.title,
-                            style: Theme.of(context).textTheme.titleLarge,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                recipe.title,
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                              Text(
+                                recipe.author.userName,
+                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey),
+                              ),
+                            ],
                           ),
-                          Text(
-                            recipe.author.userName,
-                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey),
-                          ),
+                          EyeButton(
+                              open: recipe.isCensored,
+                              onToggle: () {
+                                _toggleCensored(ref.read(groupServiceProvider.notifier), recipe);
+                              })
                         ],
                       ),
-                      EyeButton(
-                          open: recipe.isCensored,
-                          onToggle: () {
-                            _toggleCensored(ref.read(groupServiceProvider.notifier), recipe);
-                          })
-                    ],
+                    );
+                  })
+              : Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                    "Bisher gibt es keine Rezepte für diese Gruppe",
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.grey),
                   ),
-                );
-              }),
-        )
+              ),
+        ),
       ],
     );
   }
