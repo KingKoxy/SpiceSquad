@@ -26,11 +26,11 @@ class RecipeCard extends StatelessWidget {
                     children: [
                       Text(
                         recipe.title,
-                        style: Theme.of(context).textTheme.titleLarge,
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       Text(
                         recipe.author.userName,
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.grey),
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.grey),
                       ),
                     ],
                   ),
@@ -84,10 +84,10 @@ class RecipeCard extends StatelessWidget {
                                 Image.asset(
                                   "assets/icons/clock.png",
                                 ),
-                                const SizedBox(width: 8),
+                                const SizedBox(width: 10),
                                 Text(
                                   "${recipe.duration} min",
-                                  style: Theme.of(context).textTheme.titleMedium,
+                                  style: Theme.of(context).textTheme.titleSmall,
                                 )
                               ],
                             ),
@@ -96,7 +96,7 @@ class RecipeCard extends StatelessWidget {
                         Card(
                           color: Theme.of(context).colorScheme.onSurfaceVariant,
                           child: Padding(
-                            padding: const EdgeInsets.all(8),
+                            padding: const EdgeInsets.all(10),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -104,7 +104,7 @@ class RecipeCard extends StatelessWidget {
                                 const SizedBox(width: 8),
                                 Text(
                                   recipe.difficulty.toString(),
-                                  style: Theme.of(context).textTheme.titleMedium,
+                                  style: Theme.of(context).textTheme.titleSmall,
                                 )
                               ],
                             ),
@@ -114,7 +114,7 @@ class RecipeCard extends StatelessWidget {
                     ),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),

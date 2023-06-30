@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:spice_squad/providers/service_providers.dart';
 import 'package:spice_squad/widgets/eye_button.dart';
-
-import '../../models/group_recipe.dart';
-import '../../models/recipe.dart';
-import '../../services/group_service.dart';
+import 'package:spice_squad/models/group_recipe.dart';
+import 'package:spice_squad/models/recipe.dart';
+import 'package:spice_squad/services/group_service.dart';
 
 class GroupRecipeList extends ConsumerWidget {
   final List<GroupRecipe> recipes;
@@ -56,11 +54,11 @@ class GroupRecipeList extends ConsumerWidget {
                         children: [
                           Text(
                             recipe.title,
-                            style: Theme.of(context).textTheme.titleMedium,
+                            style: Theme.of(context).textTheme.titleLarge,
                           ),
                           Text(
                             recipe.author.userName,
-                            style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Colors.grey),
+                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey),
                           ),
                         ],
                       ),

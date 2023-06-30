@@ -53,7 +53,7 @@ class SettingsScreen extends ConsumerWidget {
                           children: [
                             Text(
                               user.userName,
-                              style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.white),
+                              style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),
                             ),
                             const SizedBox(
                               width: 8,

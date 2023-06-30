@@ -14,85 +14,87 @@ class PasswordResetScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      body: Stack(children: [
-        const Positioned(
-          top: 32,
-          left: 32,
-          child: BackButton(),
-        ),
-        Center(
-          child: Padding(
-            padding: const EdgeInsets.all(32),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Hero(
-                      tag: 'logo',
-                      child: Image.asset(
-                        'assets/images/logo.png',
-                        width: 240,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                Text(
-                  'Passwort vergessen?',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  "Kein Problem! Gib einfach deine E-Mail-Adresse ein und wir schicken dir einen Link, mit dem du dein Passwort zurücksetzen kannst.",
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Form(
-                  key: _formKey,
-                  child: Column(
+      body: SafeArea(
+        child: Stack(children: [
+          const Positioned(
+            top: 16,
+            left: 32,
+            child: BackButton(),
+          ),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(32),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(
-                        width: double.infinity,
-                        child: TextFormField(
-                          validator: _validateEmail,
-                          keyboardType: TextInputType.emailAddress,
-                          controller: _emailController,
-                          decoration: const InputDecoration(
-                            hintText: 'E-Mail',
-                          ),
+                      Hero(
+                        tag: 'logo',
+                        child: Image.asset(
+                          'assets/images/logo.png',
+                          width: 240,
                         ),
                       ),
                     ],
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        _resetPassword(context, ref.read(userServiceProvider.notifier));
-                      }
-                    },
-                    child: const Text('Weiter'),
+                  const SizedBox(
+                    height: 50,
                   ),
-                ),
-              ],
+                  Text(
+                    'Passwort vergessen?',
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "Kein Problem! Gib einfach deine E-Mail-Adresse ein und wir schicken dir einen Link, mit dem du dein Passwort zurücksetzen kannst.",
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          width: double.infinity,
+                          child: TextFormField(
+                            validator: _validateEmail,
+                            keyboardType: TextInputType.emailAddress,
+                            controller: _emailController,
+                            decoration: const InputDecoration(
+                              hintText: 'E-Mail',
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          _resetPassword(context, ref.read(userServiceProvider.notifier));
+                        }
+                      },
+                      child: const Text('Weiter'),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      ]),
+        ]),
+      ),
     );
   }
 

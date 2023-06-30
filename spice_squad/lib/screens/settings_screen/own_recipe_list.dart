@@ -51,13 +51,13 @@ class OwnRecipeList extends ConsumerWidget {
                         children: [
                           Text(
                             recipe.title,
-                            style: Theme.of(context).textTheme.titleMedium,
+                            style: Theme.of(context).textTheme.titleLarge,
                           ),
                           Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               IconButton(
-                                splashRadius: 24,
+                                  splashRadius: 24,
                                   onPressed: () => _exportRecipe(ref.read(recipeServiceProvider.notifier), recipe),
                                   icon: const ImageIcon(AssetImage("assets/icons/share.png"))),
                               EyeButton(

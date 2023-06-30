@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'icon_picker_dialog.dart';
 
 class IconPickerWidget extends StatefulWidget {
@@ -19,9 +18,7 @@ class _IconPickerWidgetState extends State<IconPickerWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(color: Theme.of(context).cardColor, borderRadius: BorderRadius.circular(10)),
       child: InkWell(
         borderRadius: BorderRadius.circular(10),
         onTap: () => _showDialog(context),

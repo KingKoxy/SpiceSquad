@@ -6,8 +6,7 @@ class SortSelectionDialog extends StatefulWidget {
   final ValueChanged<Sort> onChanged;
   final Sort selectedSort;
 
-  const SortSelectionDialog(
-      {super.key, required this.onChanged, required this.selectedSort});
+  const SortSelectionDialog({super.key, required this.onChanged, required this.selectedSort});
 
   @override
   State<SortSelectionDialog> createState() => _SortSelectionDialogState();
@@ -36,21 +35,25 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
                 return TextButton(
                   onPressed: () {
                     setState(() {
-                      selectedSort = Sort(
-                          category: selectedSort.category,
-                          ascending: !selectedSort.ascending);
+                      selectedSort = Sort(category: selectedSort.category, ascending: !selectedSort.ascending);
                     });
                   },
                   child: ListTile(
-                    leading: ImageIcon(
-                      selectedSort.ascending
-                          ? const AssetImage("assets/icons/sortAscending.png")
-                          : const AssetImage("assets/icons/sortDescending.png"),
-                      color: Colors.white,
-                    ),
-                    title: Text(
-                      selectedSort.ascending ? "Aufsteigend" : "Absteigend",
-                      style: Theme.of(context).textTheme.titleMedium,
+                    title: Row(
+                      children: [
+                        ImageIcon(
+                          selectedSort.ascending
+                              ? const AssetImage("assets/icons/sortAscending.png")
+                              : const AssetImage("assets/icons/sortDescending.png"),
+                          color: Colors.white,
+                        ),
+                        const SizedBox(
+                          width: 24,
+                        ),
+                        Text(
+                          selectedSort.ascending ? "Aufsteigend" : "Absteigend",
+                        ),
+                      ],
                     ),
                   ),
                 );
@@ -61,8 +64,7 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
                 value: key,
                 onChanged: (value) {
                   setState(() {
-                    selectedSort = Sort(
-                        category: value!, ascending: selectedSort.ascending);
+                    selectedSort = Sort(category: value!, ascending: selectedSort.ascending);
                   });
                 },
                 groupValue: selectedSort.category,

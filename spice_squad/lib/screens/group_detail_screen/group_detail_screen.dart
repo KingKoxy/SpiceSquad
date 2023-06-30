@@ -90,7 +90,7 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
                     ),
                     TextButton(
                         onPressed: () => _deleteGroup(context, ref.read(groupServiceProvider.notifier), group.id),
-                        child: Text("Gruppe auflösen")),
+                        child: const Text("Gruppe auflösen")),
                   ],
                 ),
                 const SizedBox(

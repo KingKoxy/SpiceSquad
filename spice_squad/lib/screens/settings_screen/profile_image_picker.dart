@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:spice_squad/services/user_service.dart';
 
@@ -77,7 +76,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 16,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -146,7 +145,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
     //widget.userService.setProfileImage(image);
   }
 
-  void _setProfileImageFromCamera(){
+  void _setProfileImageFromCamera() {
     //TODO: implement setting profile image from camera
     //widget.userService.setProfileImage(image);
   }

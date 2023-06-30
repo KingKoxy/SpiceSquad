@@ -28,13 +28,9 @@ class QRCodeScreen extends StatelessWidget {
                   children: [
                     Text(
                       group.name,
-                      style: Theme.of(context).textTheme.titleMedium,
+                      style: Theme.of(context).textTheme.headlineSmall,
                     ),
-                    Text("Squad",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(color: Colors.grey)),
+                    Text("Squad", style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Colors.grey)),
                     const SizedBox(
                       height: 16,
                     ),
@@ -44,18 +40,18 @@ class QRCodeScreen extends StatelessWidget {
                       child: QrImageView(
                         data: group.groupCode,
                         backgroundColor: Colors.white,
-                        eyeStyle: const QrEyeStyle(
-                            eyeShape: QrEyeShape.square, color: Colors.black),
-                        dataModuleStyle: const QrDataModuleStyle(
-                            dataModuleShape: QrDataModuleShape.circle,
-                            color: Colors.black),
+                        eyeStyle: const QrEyeStyle(eyeShape: QrEyeShape.square, color: Colors.black),
+                        dataModuleStyle:
+                            const QrDataModuleStyle(dataModuleShape: QrDataModuleShape.circle, color: Colors.black),
                       ),
                     ),
                   ],
                 ),
               ),
             ),
-            const SizedBox(height: 16,),
+            const SizedBox(
+              height: 16,
+            ),
             SizedBox(
               width: 300,
               child: Text(

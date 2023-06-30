@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:spice_squad/models/group_member.dart';
 import 'package:spice_squad/providers/repository_providers.dart';
-
-import '../../widgets/add_button.dart';
+import 'package:spice_squad/widgets/add_button.dart';
 
 class MemberList extends ConsumerWidget {
   final List<GroupMember> members;
@@ -44,7 +42,7 @@ class MemberList extends ConsumerWidget {
           child: ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              padding: EdgeInsets.symmetric(vertical: 8),
+              padding: const EdgeInsets.symmetric(vertical: 8),
               itemCount: members.length,
               itemBuilder: (context, index) {
                 final member = members[index];
@@ -65,33 +63,42 @@ class MemberList extends ConsumerWidget {
                                     foregroundImage: AssetImage("assets/icons/exampleRecipeImage.jpeg"),
                                   )
                                 : CircleAvatar(
-                              backgroundColor: Theme.of(context).colorScheme.onSurfaceVariant,
-                              child: Text(member.userName.substring(0,1), style: Theme.of(context).textTheme.headlineSmall,),
-                            ),
+                                    backgroundColor: Theme.of(context).colorScheme.onSurfaceVariant,
+                                    child: Text(
+                                      member.userName.substring(0, 1),
+                                      style: Theme.of(context).textTheme.headlineSmall,
+                                    ),
+                                  ),
                           ),
-                          const SizedBox(width: 10,),
+                          const SizedBox(
+                            width: 10,
+                          ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
                                 member.userName,
-                                style: Theme.of(context).textTheme.titleMedium,
+                                style: Theme.of(context).textTheme.titleLarge,
                               ),
                               if (member.isAdmin)
                                 Text(
                                   "Administrator",
-                                  style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Colors.grey),
+                                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey),
                                 ),
                             ],
                           ),
                         ],
                       ),
                       IconButton(
-                          onPressed: () {
-                            //TODO: implement popup for admin actions
-                          },
-                          icon: const ImageIcon(AssetImage("assets/icons/dots.png"),), splashRadius: 24,)
+                        onPressed: () {
+                          //TODO: implement popup for admin actions
+                        },
+                        icon: const ImageIcon(
+                          AssetImage("assets/icons/dots.png"),
+                        ),
+                        splashRadius: 24,
+                      )
                     ],
                   ),
                 );
