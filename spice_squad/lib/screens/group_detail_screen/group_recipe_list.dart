@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spice_squad/providers/service_providers.dart';
 import 'package:spice_squad/widgets/eye_button.dart';
 import 'package:spice_squad/models/group_recipe.dart';
-import 'package:spice_squad/models/recipe.dart';
 import 'package:spice_squad/services/group_service.dart';
 
 class GroupRecipeList extends ConsumerWidget {
@@ -76,7 +75,7 @@ class GroupRecipeList extends ConsumerWidget {
     );
   }
 
-  void _toggleCensored(GroupService groupService, Recipe recipe) {
+  void _toggleCensored(GroupService groupService, GroupRecipe recipe) {
     groupService.toggleCensoring(recipe, groupId);
   }
 }
