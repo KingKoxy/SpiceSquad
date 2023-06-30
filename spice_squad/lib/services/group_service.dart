@@ -1,10 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spice_squad/providers/repository_providers.dart';
-
-import '../models/group.dart';
-import '../models/recipe.dart';
+import 'package:spice_squad/models/group.dart';
+import 'package:spice_squad/models/recipe.dart';
 
 class GroupService extends AsyncNotifier<List<Group>> {
   @override
@@ -17,28 +15,40 @@ class GroupService extends AsyncNotifier<List<Group>> {
   }
 
   Future<void> joinGroup(String groupCode) {
-    //TODO: implement group joining
-    throw UnimplementedError();
+    state = const AsyncLoading();
+    return ref.read(groupRepositoryProvider).joinGroup(groupCode).then((value) => _refetch());
   }
 
-  Future<void> createGroup(String title) {
-    //TODO: implement group creation
-    throw UnimplementedError();
+  Future<void> createGroup(String name) {
+    state = const AsyncLoading();
+    return ref.read(groupRepositoryProvider).createGroup(name).then((value) => _refetch());
   }
 
   Future<void> deleteGroup(String groupId) {
-    //TODO: implement group deletion
-    throw UnimplementedError();
+    state = const AsyncLoading();
+    return ref.read(groupRepositoryProvider).deleteGroup(groupId).then((value) => _refetch());
   }
 
   Future<void> leaveGroup(String groupId) {
-    //TODO: implement group leaving
-    throw UnimplementedError();
+    state = const AsyncLoading();
+    return ref.read(groupRepositoryProvider).leaveGroup(groupId).then((value) => _refetch());
   }
 
   Future<void> setGroupName(String groupId, String value) {
-    //TODO: implement group renaming
-    throw UnimplementedError();
+    if (state.valueOrNull == null) throw Exception();
+
+    final List<Group> listCopy = state.value!;
+    final int oldGroupIndex = listCopy.indexWhere((group) => group.id == groupId);
+    final Group oldGroup = listCopy.removeAt(oldGroupIndex);
+    final Group newGroup = Group(
+        id: oldGroup.id,
+        name: value,
+        groupCode: oldGroup.groupCode,
+        members: oldGroup.members,
+        recipes: oldGroup.recipes);
+    listCopy.insert(oldGroupIndex, newGroup);
+    state = AsyncData(listCopy);
+    return ref.read(groupRepositoryProvider).updateGroup(newGroup).then((value) => _refetch());
   }
 
   Future<void> makeAdmin(String userId, String groupId) {
@@ -64,5 +74,9 @@ class GroupService extends AsyncNotifier<List<Group>> {
   Future<void> toggleCensoring(Recipe recipe, String groupId) {
     //TODO: implement recipe censoring
     throw UnimplementedError();
+  }
+
+  Future<void> _refetch() {
+    return ref.read(groupRepositoryProvider).fetchAllGroupsForUser().then((value) => state = AsyncData(value));
   }
 }

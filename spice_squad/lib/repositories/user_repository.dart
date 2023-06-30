@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:spice_squad/models/user.dart';
 
@@ -18,12 +19,12 @@ class UserRepository {
     return _userId;
   }
 
-  Future<String?> getToken() {
+  FutureOr<String?> getToken() {
     throw UnimplementedError();
     if (_idToken != null || _isExpired(_idToken!)) {
       //Try fetching id token with refreshtoken or return null
     }
-    return Future(() => _idToken);
+    return _idToken;
   }
 
   String? _getRefreshToken() {
