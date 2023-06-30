@@ -49,7 +49,7 @@ class GroupList extends ConsumerWidget {
                         children: [
                           Text(
                             groups[index].name,
-                            style: Theme.of(context).textTheme.titleMedium,
+                            style: Theme.of(context).textTheme.titleLarge,
                           ),
                           RemoveButton(onPressed: () {
                             _leaveGroup(context, ref.read(groupServiceProvider.notifier), groups[index].id);

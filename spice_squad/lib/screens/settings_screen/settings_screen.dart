@@ -24,7 +24,7 @@ class SettingsScreen extends ConsumerWidget {
             const Expanded(child: Center(child: Text("Einstellungen"))),
             IconButton(
                 onPressed: () {
-                  _logout(ref.read(userServiceProvider.notifier));
+                  _logout(context, ref.read(userServiceProvider.notifier));
                 },
                 icon: const ImageIcon(AssetImage("assets/icons/logout.png")))
           ],
@@ -53,7 +53,7 @@ class SettingsScreen extends ConsumerWidget {
                           children: [
                             Text(
                               user.userName,
-                              style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.white),
+                              style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),
                             ),
                             const SizedBox(
                               width: 8,
@@ -92,8 +92,9 @@ class SettingsScreen extends ConsumerWidget {
   }
 }
 
-void _logout(UserService userService) {
+void _logout(BuildContext context, UserService userService) {
   userService.logout();
+  Navigator.of(context).pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
 }
 
 void _renameUser(BuildContext context, UserService userService, String oldName) {

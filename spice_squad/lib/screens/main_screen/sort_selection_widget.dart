@@ -6,8 +6,7 @@ class SortSelectionWidget extends StatefulWidget {
   final ValueChanged<Sort> onChanged;
   final Sort selectedSort;
 
-  const SortSelectionWidget(
-      {super.key, required this.onChanged, required this.selectedSort});
+  const SortSelectionWidget({super.key, required this.onChanged, required this.selectedSort});
 
   @override
   State<SortSelectionWidget> createState() => _SortSelectionWidgetState();
@@ -29,7 +28,7 @@ class _SortSelectionWidgetState extends State<SortSelectionWidget> {
           const SizedBox(width: 5),
           Text(
             widget.selectedSort.category.toString(),
-            style: Theme.of(context).textTheme.titleMedium,
+            style: Theme.of(context).textTheme.titleLarge,
           )
         ],
       ),

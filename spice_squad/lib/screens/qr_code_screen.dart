@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:spice_squad/models/group.dart';
 
-import '../widgets/back_button.dart';
-
 class QRCodeScreen extends StatelessWidget {
   static const routeName = '/qr-code';
 
@@ -15,7 +13,6 @@ class QRCodeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        leading: const CustomBackButton(),
         title: const Text("QR-Code"),
       ),
       body: Center(
@@ -31,13 +28,9 @@ class QRCodeScreen extends StatelessWidget {
                   children: [
                     Text(
                       group.name,
-                      style: Theme.of(context).textTheme.titleMedium,
+                      style: Theme.of(context).textTheme.headlineSmall,
                     ),
-                    Text("Squad",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(color: Colors.grey)),
+                    Text("Squad", style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Colors.grey)),
                     const SizedBox(
                       height: 16,
                     ),
@@ -47,18 +40,18 @@ class QRCodeScreen extends StatelessWidget {
                       child: QrImageView(
                         data: group.groupCode,
                         backgroundColor: Colors.white,
-                        eyeStyle: const QrEyeStyle(
-                            eyeShape: QrEyeShape.square, color: Colors.black),
-                        dataModuleStyle: const QrDataModuleStyle(
-                            dataModuleShape: QrDataModuleShape.circle,
-                            color: Colors.black),
+                        eyeStyle: const QrEyeStyle(eyeShape: QrEyeShape.square, color: Colors.black),
+                        dataModuleStyle:
+                            const QrDataModuleStyle(dataModuleShape: QrDataModuleShape.circle, color: Colors.black),
                       ),
                     ),
                   ],
                 ),
               ),
             ),
-            const SizedBox(height: 16,),
+            const SizedBox(
+              height: 16,
+            ),
             SizedBox(
               width: 300,
               child: Text(

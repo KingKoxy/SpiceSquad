@@ -18,7 +18,7 @@ class GroupRepository {
             (_) => Group(
                   id: "groupId",
                   name: {"Backen", "WG", "Karlsruher Intellektuelle", "BDSM Club"}.elementAt(random.nextInt(4)),
-                  groupCode: "groupCode",
+                  groupCode: "1234-5678",
                   members: List.generate(
                       random.nextInt(20),
                       (_) => GroupMember(
@@ -70,7 +70,7 @@ class GroupRepository {
       () => Group(
         id: id,
         name: {"Backen", "WG", "Karlsruher Intellektuelle", "BDSM Club"}.elementAt(random.nextInt(4)),
-        groupCode: "groupCode",
+        groupCode: "1234-5678",
         members: List.generate(
             3+random.nextInt(12),
             (_) => GroupMember(

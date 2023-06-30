@@ -1,12 +1,12 @@
 import 'package:spice_squad/models/recipe.dart';
 
-enum SortCategory{
+enum SortCategory {
   title,
   difficulty,
   creationDate;
 
-  int compare(Recipe a, Recipe b){
-    switch(this){
+  int compare(Recipe a, Recipe b) {
+    switch (this) {
       case SortCategory.title:
         return a.title.toLowerCase().compareTo(b.title.toLowerCase());
       case SortCategory.difficulty:

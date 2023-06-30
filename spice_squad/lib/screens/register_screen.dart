@@ -11,8 +11,7 @@ class RegisterScreen extends ConsumerWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _passwordRepeatController =
-      TextEditingController();
+  final TextEditingController _passwordRepeatController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   RegisterScreen({super.key});
@@ -123,7 +122,7 @@ class RegisterScreen extends ConsumerWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed(LoginScreen.routeName);
+                    Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
                   },
                   child: const Text('Anmelden'),
                 ),
@@ -136,8 +135,7 @@ class RegisterScreen extends ConsumerWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      _register(
-                          context, ref.read(userServiceProvider.notifier));
+                      _register(context, ref.read(userServiceProvider.notifier));
                     }
                   },
                   child: const Text('Weiter'),
@@ -151,12 +149,8 @@ class RegisterScreen extends ConsumerWidget {
   }
 
   _register(BuildContext context, UserService userService) {
-    userService
-        .register(_emailController.text, _passwordController.text,
-            _userNameController.text)
-        .then((value) {
-      Navigator.of(context).pushNamedAndRemoveUntil(
-          GroupJoiningScreen.routeName, (route) => false);
+    userService.register(_emailController.text, _passwordController.text, _userNameController.text).then((value) {
+      Navigator.of(context).pushNamedAndRemoveUntil(GroupJoiningScreen.routeName, (route) => false);
     });
   }
 

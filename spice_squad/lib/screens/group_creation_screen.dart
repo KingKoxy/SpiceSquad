@@ -14,84 +14,85 @@ class GroupCreationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(children: [
-        if (true)
-          Positioned(
-            top: 32,
-            right: 32,
-            child: Hero(
-              tag: 'skip-button',
-              child: TextButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                      MainScreen.routeName, (route) => false);
-                },
-                child: const Text('Überspringen'),
+      body: SafeArea(
+        child: Stack(children: [
+          //TODO: conditionally show skip or not
+          if (true)
+            Positioned(
+              top: 16,
+              right: 32,
+              child: Hero(
+                tag: 'skip-button',
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
+                  },
+                  child: const Text('Überspringen'),
+                ),
+              ),
+            ),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(32),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Squad erstellen',
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          width: double.infinity,
+                          child: TextFormField(
+                            validator: _validateGroupName,
+                            keyboardType: TextInputType.text,
+                            controller: _groupNameController,
+                            decoration: const InputDecoration(
+                              hintText: 'Squadname',
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          _createGroup(context);
+                        }
+                      },
+                      child: const Text('Weiter'),
+                    ),
+                  ),
+                  const OrWidget(),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pushReplacementNamed(GroupJoiningScreen.routeName);
+                      },
+                      child: const Text('Squad beitreten'),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-        Center(
-          child: Padding(
-            padding: const EdgeInsets.all(32),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Squad erstellen',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        width: double.infinity,
-                        child: TextFormField(
-                          validator: _validateGroupName,
-                          keyboardType: TextInputType.text,
-                          controller: _groupNameController,
-                          decoration: const InputDecoration(
-                            hintText: 'Squadname',
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        _joinGroupByCode(context);
-                      }
-                    },
-                    child: const Text('Weiter'),
-                  ),
-                ),
-                const OrWidget(),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context)
-                          .pushReplacementNamed(GroupJoiningScreen.routeName);
-                    },
-                    child: const Text('Squad beitreten'),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ]),
+        ]),
+      ),
     );
   }
 
@@ -102,9 +103,8 @@ class GroupCreationScreen extends StatelessWidget {
     return null;
   }
 
-  void _joinGroupByCode(BuildContext context) {
+  void _createGroup(BuildContext context) {
     //TODO: Implement group creation
-    Navigator.of(context)
-        .pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
+    Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
   }
 }

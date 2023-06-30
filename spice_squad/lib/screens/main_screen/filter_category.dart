@@ -36,8 +36,8 @@ enum FilterCategory {
   }
 
   @override
-  String toString(){
-    switch (this){
+  String toString() {
+    switch (this) {
       case FilterCategory.favourite:
         return "Favorit";
       case FilterCategory.difficultyEasy:

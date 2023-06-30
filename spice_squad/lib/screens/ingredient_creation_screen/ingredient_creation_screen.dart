@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spice_squad/screens/ingredient_creation_screen/icon_picker_widget.dart';
 import 'package:spice_squad/screens/ingredient_creation_screen/ingredient_name_input.dart';
-import 'package:spice_squad/widgets/back_button.dart';
-
-import '../../models/ingredient.dart';
+import 'package:spice_squad/models/ingredient.dart';
 
 class IngredientCreationScreen extends StatelessWidget {
   static const routeName = '/ingredient-creation';
@@ -20,7 +18,6 @@ class IngredientCreationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const CustomBackButton(),
         title: const Text("Zutat erstellen"),
       ),
       body: Center(
@@ -35,11 +32,10 @@ class IngredientCreationScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                    child: SizedBox(
-                        height: 52,
-                        child: IconPickerWidget(controller: _iconIdController)),
+                    child: SizedBox(height: 52, child: IconPickerWidget(controller: _iconIdController)),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
@@ -61,8 +57,7 @@ class IngredientCreationScreen extends StatelessWidget {
                           _amountController.text = "";
                         }
                       },
-                      keyboardType:
-                          const TextInputType.numberWithOptions(decimal: true),
+                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
                       decoration: const InputDecoration(hintText: "Menge"),
                     ),
                   ),
