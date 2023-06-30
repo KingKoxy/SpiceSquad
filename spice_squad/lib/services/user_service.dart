@@ -1,54 +1,68 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spice_squad/providers/repository_providers.dart';
-
-import '../models/user.dart';
+import 'package:spice_squad/models/user.dart';
 
 class UserService extends AsyncNotifier<User?> {
   @override
-  FutureOr<User> build() {
+  FutureOr<User?> build() {
     return ref.watch(userRepositoryProvider).fetchCurrentUser();
   }
 
   Future<void> login(String email, String password) {
-    //TODO: implement login
-    throw UnimplementedError();
+    return ref.read(userRepositoryProvider).login(email, password);
   }
 
   Future<void> logout() {
-    //TODO: implement logout
-    throw UnimplementedError();
+    return ref.read(userRepositoryProvider).logout();
   }
 
   Future<void> register(String email, String password, String userName) {
-    //TODO: implement register
-    throw UnimplementedError();
+    return ref.read(userRepositoryProvider).register(email, password, userName);
   }
 
   Future<void> deleteAccount() {
-    //TODO: implement account deletion
-    throw UnimplementedError();
+    return ref.read(userRepositoryProvider).deleteAccount();
   }
 
   Future<void> resetPassword(String email) {
-    //TODO: implement password resetting
-    throw UnimplementedError();
+    return ref.read(userRepositoryProvider).resetPassword(email);
   }
 
   Future<void> setProfileImage(File image) {
-    //TODO: implement account deletion
-    throw UnimplementedError();
+    return ref.read(userRepositoryProvider).fetchCurrentUser().then((oldUser) {
+      if (oldUser == null) {
+        throw Exception("not logged in");
+      } else {
+        return ref
+            .read(userRepositoryProvider)
+            .updateUser(User(id: oldUser.id, userName: oldUser.userName, profileImage: image.readAsBytesSync()));
+      }
+    });
   }
 
   Future<void> removeProfileImage() {
-    //TODO: implement profile image removal
-    throw UnimplementedError();
+    return ref.read(userRepositoryProvider).fetchCurrentUser().then((oldUser) {
+      if (oldUser == null) {
+        throw Exception("not logged in");
+      } else {
+        return ref
+            .read(userRepositoryProvider)
+            .updateUser(User(id: oldUser.id, userName: oldUser.userName, profileImage: null));
+      }
+    });
   }
 
   Future<void> setUserName(String value) {
-    //TODO: implement username setting
-    throw UnimplementedError();
+    return ref.read(userRepositoryProvider).fetchCurrentUser().then((oldUser) {
+      if (oldUser == null) {
+        throw Exception("not logged in");
+      } else {
+        return ref
+            .read(userRepositoryProvider)
+            .updateUser(User(id: oldUser.id, userName: value, profileImage: oldUser.profileImage));
+      }
+    });
   }
 }
