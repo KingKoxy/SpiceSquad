@@ -1,8 +1,11 @@
 import "package:flutter/material.dart";
 
+/// A button that is used to indicate removing something.
 class RemoveButton extends StatelessWidget {
+  /// The callback that is called when the button is pressed.
   final VoidCallback onPressed;
 
+  /// Creates a new remove button.
   const RemoveButton({required this.onPressed, super.key});
 
   @override

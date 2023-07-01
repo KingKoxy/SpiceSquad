@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
 
+/// A widget that is used to indicate a divider between two other widgets that are in an "or" relationship.
 class OrWidget extends StatelessWidget {
+  /// Creates a new or widget.
   const OrWidget({super.key});
 
   @override
