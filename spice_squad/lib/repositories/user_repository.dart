@@ -29,8 +29,11 @@ class UserRepository {
 
   /// Fetches the id token of the current user or returns null if the user is not logged in or the token is expired
   FutureOr<String?> getToken() {
-    if (_idToken != null || _isExpired(_idToken!)) {
-      //Try fetching id token with refreshtoken or return null
+    if (_idToken == null || _isExpired(_idToken!)) {
+      final String? refreshToken = _getRefreshToken();
+      if (refreshToken != null && !_isExpired(refreshToken)) {
+        //Get new token
+      }
       throw UnimplementedError();
     }
     return _idToken;

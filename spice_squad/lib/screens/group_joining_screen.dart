@@ -21,6 +21,10 @@ class GroupJoiningScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Get if screen is shown after registering
+    final dynamic args = ModalRoute.of(context)!.settings.arguments;
+    final bool isAfterRegister = args != null && (args as bool);
+
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -83,6 +87,7 @@ class GroupJoiningScreen extends ConsumerWidget {
                               context,
                               ref.read(groupServiceProvider.notifier),
                               _groupCodeController.text,
+                              isAfterRegister,
                             );
                           }
                         },
@@ -96,7 +101,8 @@ class GroupJoiningScreen extends ConsumerWidget {
                         onPressed: () {
                           Navigator.of(context).pushNamed(QRScannerScreen.routeName).then((value) {
                             if (value != null) {
-                              _joinGroupByCode(context, ref.read(groupServiceProvider.notifier), value as String);
+                              _joinGroupByCode(
+                                  context, ref.read(groupServiceProvider.notifier), value as String, isAfterRegister);
                             }
                           });
                         },
@@ -108,7 +114,8 @@ class GroupJoiningScreen extends ConsumerWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context).pushReplacementNamed(GroupCreationScreen.routeName);
+                          Navigator.of(context)
+                              .pushReplacementNamed(GroupCreationScreen.routeName, arguments: isAfterRegister);
                         },
                         child: const Text("Squad erstellen"),
                       ),
@@ -130,7 +137,7 @@ class GroupJoiningScreen extends ConsumerWidget {
     return null;
   }
 
-  void _joinGroupByCode(BuildContext context, GroupService groupService, String groupCode) {
+  void _joinGroupByCode(BuildContext context, GroupService groupService, String groupCode, bool isAfterRegister) {
     groupService
         .joinGroup(groupCode)
         .then(
@@ -140,6 +147,10 @@ class GroupJoiningScreen extends ConsumerWidget {
                 const SuccessDialog(message: "Du bist einer Squad beigetreten", title: "Beitritt erfolgreich"),
           ),
         )
-        .then((value) => Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false));
+        .then(
+          (value) => isAfterRegister
+              ? Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false)
+              : Navigator.of(context).pop(),
+        );
   }
 }

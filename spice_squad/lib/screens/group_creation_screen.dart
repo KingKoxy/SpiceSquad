@@ -20,12 +20,15 @@ class GroupCreationScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Get if screen is shown after registering
+    final dynamic args = ModalRoute.of(context)!.settings.arguments;
+    final bool isAfterRegister = args != null && (args as bool);
+
     return Scaffold(
       body: SafeArea(
         child: Stack(
           children: [
-            //TODO: conditionally show skip or not
-            if (true)
+            if (isAfterRegister)
               Positioned(
                 top: 16,
                 right: 32,
@@ -79,7 +82,7 @@ class GroupCreationScreen extends ConsumerWidget {
                       child: ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            _createGroup(context, ref.read(groupServiceProvider.notifier));
+                            _createGroup(context, ref.read(groupServiceProvider.notifier), isAfterRegister);
                           }
                         },
                         child: const Text("Weiter"),
@@ -90,7 +93,8 @@ class GroupCreationScreen extends ConsumerWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context).pushReplacementNamed(GroupJoiningScreen.routeName);
+                          Navigator.of(context)
+                              .pushReplacementNamed(GroupJoiningScreen.routeName, arguments: isAfterRegister);
                         },
                         child: const Text("Squad beitreten"),
                       ),
@@ -112,7 +116,7 @@ class GroupCreationScreen extends ConsumerWidget {
     return null;
   }
 
-  void _createGroup(BuildContext context, GroupService groupService) {
+  void _createGroup(BuildContext context, GroupService groupService, bool isAfterRegister) {
     groupService
         .createGroup(_groupNameController.text)
         .then(
@@ -124,6 +128,10 @@ class GroupCreationScreen extends ConsumerWidget {
             ),
           ),
         )
-        .then((value) => Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false));
+        .then(
+          (value) => isAfterRegister
+              ? Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false)
+              : Navigator.of(context).pop(),
+        );
   }
 }

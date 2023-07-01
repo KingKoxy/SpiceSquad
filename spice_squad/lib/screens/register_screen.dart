@@ -118,21 +118,23 @@ class RegisterScreen extends ConsumerWidget {
               const SizedBox(
                 height: 10,
               ),
-              Row(children: [
-                Text(
-                  "Du hast bereits ein Konto?",
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                const SizedBox(
-                  width: 4,
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
-                  },
-                  child: const Text("Anmelden"),
-                ),
-              ],),
+              Row(
+                children: [
+                  Text(
+                    "Du hast bereits ein Konto?",
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  const SizedBox(
+                    width: 4,
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
+                    },
+                    child: const Text("Anmelden"),
+                  ),
+                ],
+              ),
               const SizedBox(
                 height: 10,
               ),
@@ -156,7 +158,7 @@ class RegisterScreen extends ConsumerWidget {
 
   _register(BuildContext context, UserService userService) {
     userService.register(_emailController.text, _passwordController.text, _userNameController.text).then((value) {
-      Navigator.of(context).pushNamedAndRemoveUntil(GroupJoiningScreen.routeName, (route) => false);
+      Navigator.of(context).pushNamedAndRemoveUntil(GroupJoiningScreen.routeName, (route) => false, arguments: true);
     });
   }
 
