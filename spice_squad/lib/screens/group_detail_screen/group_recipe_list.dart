@@ -5,11 +5,16 @@ import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/services/group_service.dart";
 import "package:spice_squad/widgets/eye_button.dart";
 
+/// Widget to display a list of [GroupRecipe]s
 class GroupRecipeList extends ConsumerWidget {
+  /// The list of [GroupRecipe]s to display
   final List<GroupRecipe> recipes;
+  /// Whether or not the user is admin and can censor recipes
   final bool isAdmin;
+  /// The id of the group the recipes belong to
   final String groupId;
 
+  /// Creates a [GroupRecipeList]
   const GroupRecipeList({required this.groupId, required this.recipes, required this.isAdmin, super.key});
 
   @override
