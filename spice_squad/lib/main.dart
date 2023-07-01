@@ -19,7 +19,9 @@ void main() {
   runApp(const SpiceSquad());
 }
 
+/// The main widget of the app.
 class SpiceSquad extends StatelessWidget {
+  /// Creates a new [SpiceSquad] instance.
   const SpiceSquad({super.key});
 
   @override
