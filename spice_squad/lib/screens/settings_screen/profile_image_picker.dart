@@ -2,11 +2,16 @@ import "dart:typed_data";
 import "package:flutter/material.dart";
 import "package:spice_squad/services/user_service.dart";
 
+/// Widget for selecting a profile image
 class ProfileImagePicker extends StatefulWidget {
-  final Uint8List? profileImage;
+  /// Initial Profile image to display
+  final Uint8List? initialValue;
+
+  /// User service for updating the profile image
   final UserService userService;
 
-  const ProfileImagePicker({required this.profileImage, required this.userService, super.key});
+  /// Creates a new profile image picker
+  const ProfileImagePicker({required this.initialValue, required this.userService, super.key});
 
   @override
   State<ProfileImagePicker> createState() => _ProfileImagePickerState();
@@ -17,7 +22,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
 
   @override
   void initState() {
-    _profileImage = widget.profileImage;
+    _profileImage = widget.initialValue;
     super.initState();
   }
 
@@ -51,6 +56,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
     );
   }
 
+  // Show dialog from bottom to remove or change profile image
   void _selectProfileImage(BuildContext context) {
     showGeneralDialog(
       barrierLabel: "showGeneralDialog",
