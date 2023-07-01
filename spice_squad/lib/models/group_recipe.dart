@@ -1,4 +1,4 @@
-import 'recipe.dart';
+import "package:spice_squad/models/recipe.dart";
 
 class GroupRecipe extends Recipe {
   final bool isCensored;
@@ -21,10 +21,10 @@ class GroupRecipe extends Recipe {
             instructions: recipe.instructions,
             defaultPortionAmount: recipe.defaultPortionAmount,
             isFavourite: recipe.isFavourite,
-            isPrivate: recipe.isPrivate);
+            isPrivate: recipe.isPrivate,);
 
   factory GroupRecipe.fromJson(Map<String, dynamic> json) {
     return GroupRecipe(
-        recipe: Recipe.fromJson(json), isCensored: json["isCensored"]);
+        recipe: Recipe.fromJson(json), isCensored: json["isCensored"],);
   }
 }

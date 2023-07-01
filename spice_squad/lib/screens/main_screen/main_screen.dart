@@ -1,16 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:spice_squad/models/recipe.dart';
-import 'package:spice_squad/providers/service_providers.dart';
-import 'package:spice_squad/screens/main_screen/filter_selection_widget.dart';
-import 'package:spice_squad/screens/main_screen/recipe_list.dart';
-import 'package:spice_squad/screens/main_screen/sort.dart';
-import 'package:spice_squad/screens/main_screen/sort_selection_widget.dart';
-import 'package:spice_squad/widgets/nav_bar.dart';
-import 'filter_category.dart';
+import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/models/recipe.dart";
+import "package:spice_squad/providers/service_providers.dart";
+import "package:spice_squad/screens/main_screen/filter_category.dart";
+import "package:spice_squad/screens/main_screen/filter_selection_widget.dart";
+import "package:spice_squad/screens/main_screen/recipe_list.dart";
+import "package:spice_squad/screens/main_screen/sort.dart";
+import "package:spice_squad/screens/main_screen/sort_selection_widget.dart";
+import "package:spice_squad/widgets/nav_bar.dart";
 
 class MainScreen extends ConsumerStatefulWidget {
-  static const routeName = '/';
+  static const routeName = "/";
   final _searchController = TextEditingController();
 
   MainScreen({super.key});
@@ -47,11 +47,11 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                             widget._searchController.text = "";
                           });
                         },
-                        icon: const Icon(Icons.highlight_remove_rounded))
+                        icon: const Icon(Icons.highlight_remove_rounded),)
                     : null,
                 filled: false,
                 border: const UnderlineInputBorder(),
-                hintText: 'Suchen...',
+                hintText: "Suchen...",
               ),
               onChanged: (value) {
                 setState(() {
@@ -95,7 +95,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                     ref.watch(recipeServiceProvider).when(
                         data: (recipes) => RecipeList(recipes: _filterRecipes(recipes)),
                         error: (error, stackTrace) => Text(error.toString()),
-                        loading: () => const SizedBox(height: 32, width: 32, child: CircularProgressIndicator())),
+                        loading: () => const SizedBox(height: 32, width: 32, child: CircularProgressIndicator()),),
                   ],
                 ),
               );
@@ -111,8 +111,8 @@ class _MainScreenState extends ConsumerState<MainScreen> {
         .where((element) => element.title.toLowerCase().contains(_searchText.toLowerCase()))
         .toList(growable: false);
 
-    for (var filter in _filterCategories) {
-      recipes = recipes.where((element) => filter.matches(element)).toList(growable: false);
+    for (final filter in _filterCategories) {
+      recipes = recipes.where(filter.matches).toList(growable: false);
     }
 
     recipes.sort((a, b) => (_selectedSort.ascending ? 1 : -1) * _selectedSort.category.compare(a, b));

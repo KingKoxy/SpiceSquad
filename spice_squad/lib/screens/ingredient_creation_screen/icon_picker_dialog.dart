@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class IconPickerDialog extends StatelessWidget {
   final List<String> iconIds;
   final ValueChanged<String> onChanged;
 
   const IconPickerDialog(
-      {super.key, required this.iconIds, required this.onChanged});
+      {required this.iconIds, required this.onChanged, super.key,});
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +24,12 @@ class IconPickerDialog extends StatelessWidget {
               },
               child: GridTile(
                 child: ImageIcon(AssetImage(
-                    "assets/icons/ingredientIcons/${iconIds[index]}.png")),
+                    "assets/icons/ingredientIcons/${iconIds[index]}.png",),),
               ),
             );
           },
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 6),
+              crossAxisCount: 6,),
         ),
       ),
       actions: <Widget>[

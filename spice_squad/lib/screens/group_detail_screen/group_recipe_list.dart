@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:spice_squad/providers/service_providers.dart';
-import 'package:spice_squad/widgets/eye_button.dart';
-import 'package:spice_squad/models/group_recipe.dart';
-import 'package:spice_squad/services/group_service.dart';
+import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/models/group_recipe.dart";
+import "package:spice_squad/providers/service_providers.dart";
+import "package:spice_squad/services/group_service.dart";
+import "package:spice_squad/widgets/eye_button.dart";
 
 class GroupRecipeList extends ConsumerWidget {
   final List<GroupRecipe> recipes;
@@ -66,11 +66,11 @@ class GroupRecipeList extends ConsumerWidget {
                               open: recipe.isCensored,
                               onToggle: () {
                                 _toggleCensored(ref.read(groupServiceProvider.notifier), recipe);
-                              })
+                              },)
                         ],
                       ),
                     );
-                  })
+                  },)
               : Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(

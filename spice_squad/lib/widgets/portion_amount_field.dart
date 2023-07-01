@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import "package:flutter/material.dart";
+import "package:flutter/services.dart";
 
 class PortionAmountField extends StatelessWidget {
   final ValueChanged<int> onChanged;
   final int portionAmount;
 
   const PortionAmountField(
-      {super.key, required this.onChanged, required this.portionAmount});
+      {required this.onChanged, required this.portionAmount, super.key,});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class PortionAmountField extends StatelessWidget {
               onChanged: (value) {
                 if (value.isNotEmpty) onChanged(int.parse(value));
               },
-            )),
+            ),),
             Expanded(
               child: Container(
                 padding: const EdgeInsets.all(12),

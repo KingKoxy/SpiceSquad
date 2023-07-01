@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:spice_squad/screens/main_screen/sort.dart';
-import 'package:spice_squad/screens/main_screen/sort_selection_dialog.dart';
+import "package:flutter/material.dart";
+import "package:spice_squad/screens/main_screen/sort.dart";
+import "package:spice_squad/screens/main_screen/sort_selection_dialog.dart";
 
 class SortSelectionWidget extends StatefulWidget {
   final ValueChanged<Sort> onChanged;
   final Sort selectedSort;
 
-  const SortSelectionWidget({super.key, required this.onChanged, required this.selectedSort});
+  const SortSelectionWidget({required this.onChanged, required this.selectedSort, super.key});
 
   @override
   State<SortSelectionWidget> createState() => _SortSelectionWidgetState();

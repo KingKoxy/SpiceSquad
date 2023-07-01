@@ -1,4 +1,4 @@
-import 'package:spice_squad/models/recipe.dart';
+import "package:spice_squad/models/recipe.dart";
 
 enum SortCategory {
   title,

@@ -1,9 +1,9 @@
-import 'dart:async';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:spice_squad/models/group_member.dart';
-import 'package:spice_squad/providers/repository_providers.dart';
-import 'package:spice_squad/models/group.dart';
-import 'package:spice_squad/models/group_recipe.dart';
+import "dart:async";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/models/group.dart";
+import "package:spice_squad/models/group_member.dart";
+import "package:spice_squad/models/group_recipe.dart";
+import "package:spice_squad/providers/repository_providers.dart";
 
 class GroupService extends AsyncNotifier<List<Group>> {
   @override
@@ -43,7 +43,7 @@ class GroupService extends AsyncNotifier<List<Group>> {
             name: value,
             groupCode: oldGroup.groupCode,
             members: oldGroup.members,
-            recipes: oldGroup.recipes));
+            recipes: oldGroup.recipes,),);
     return ref.read(groupRepositoryProvider).updateGroup(updatedGroup).then((value) => _refetch());
   }
 
@@ -59,7 +59,7 @@ class GroupService extends AsyncNotifier<List<Group>> {
           name: oldGroup.name,
           groupCode: oldGroup.groupCode,
           members: updatedMemberList,
-          recipes: oldGroup.recipes);
+          recipes: oldGroup.recipes,);
     });
     return ref.read(adminRepositoryProvider).makeAdmin(userId, groupId).then((value) => _refetch());
   }
@@ -76,7 +76,7 @@ class GroupService extends AsyncNotifier<List<Group>> {
           name: oldGroup.name,
           groupCode: oldGroup.groupCode,
           members: updatedMemberList,
-          recipes: oldGroup.recipes);
+          recipes: oldGroup.recipes,);
     });
     return ref.read(adminRepositoryProvider).removeAdminStatus(userId, groupId).then((value) => _refetch());
   }
@@ -90,7 +90,7 @@ class GroupService extends AsyncNotifier<List<Group>> {
           name: oldGroup.name,
           groupCode: oldGroup.groupCode,
           members: updatedMemberList,
-          recipes: oldGroup.recipes);
+          recipes: oldGroup.recipes,);
     });
     return ref.read(adminRepositoryProvider).kickUser(userId, groupId).then((value) => _refetch());
   }
@@ -104,7 +104,7 @@ class GroupService extends AsyncNotifier<List<Group>> {
           name: oldGroup.name,
           groupCode: oldGroup.groupCode,
           members: updatedMemberList,
-          recipes: oldGroup.recipes);
+          recipes: oldGroup.recipes,);
     });
     return ref.read(adminRepositoryProvider).banUser(userId, groupId).then((value) => _refetch());
   }
@@ -121,7 +121,7 @@ class GroupService extends AsyncNotifier<List<Group>> {
           name: oldGroup.name,
           groupCode: oldGroup.groupCode,
           members: oldGroup.members,
-          recipes: updatedRecipeList);
+          recipes: updatedRecipeList,);
     });
     return ref
         .read(adminRepositoryProvider)

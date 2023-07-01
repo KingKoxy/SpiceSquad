@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:spice_squad/providers/service_providers.dart';
-import 'package:spice_squad/services/user_service.dart';
+import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/providers/service_providers.dart";
+import "package:spice_squad/services/user_service.dart";
 
 class PasswordResetScreen extends ConsumerWidget {
-  static const routeName = '/password-reset';
+  static const routeName = "/password-reset";
 
   final TextEditingController _emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -32,9 +32,9 @@ class PasswordResetScreen extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Hero(
-                        tag: 'logo',
+                        tag: "logo",
                         child: Image.asset(
-                          'assets/images/logo.png',
+                          "assets/images/logo.png",
                           width: 240,
                         ),
                       ),
@@ -44,7 +44,7 @@ class PasswordResetScreen extends ConsumerWidget {
                     height: 50,
                   ),
                   Text(
-                    'Passwort vergessen?',
+                    "Passwort vergessen?",
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
                   const SizedBox(
@@ -69,7 +69,7 @@ class PasswordResetScreen extends ConsumerWidget {
                             keyboardType: TextInputType.emailAddress,
                             controller: _emailController,
                             decoration: const InputDecoration(
-                              hintText: 'E-Mail',
+                              hintText: "E-Mail",
                             ),
                           ),
                         ),
@@ -87,25 +87,25 @@ class PasswordResetScreen extends ConsumerWidget {
                           _resetPassword(context, ref.read(userServiceProvider.notifier));
                         }
                       },
-                      child: const Text('Weiter'),
+                      child: const Text("Weiter"),
                     ),
                   ),
                 ],
               ),
             ),
           ),
-        ]),
+        ],),
       ),
     );
   }
 
   String? _validateEmail(String? email) {
-    const emailRegex = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
+    const emailRegex = r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
     if (email == null || email.isEmpty) {
-      return 'Bitte gib eine E-Mail-Adresse ein';
+      return "Bitte gib eine E-Mail-Adresse ein";
     }
     if (!RegExp(emailRegex).hasMatch(email)) {
-      return 'Bitte gib eine gültige E-Mail-Adresse ein';
+      return "Bitte gib eine gültige E-Mail-Adresse ein";
     }
     return null;
   }
@@ -116,17 +116,17 @@ class PasswordResetScreen extends ConsumerWidget {
           barrierDismissible: true,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: const Text('E-Mail versendet'),
+              title: const Text("E-Mail versendet"),
               content: const SingleChildScrollView(
                 child: ListBody(
                   children: [
-                    Text('Wir haben dir eine E-Mail mit einem Link zum Zurücksetzen deines Passworts geschickt.'),
+                    Text("Wir haben dir eine E-Mail mit einem Link zum Zurücksetzen deines Passworts geschickt."),
                   ],
                 ),
               ),
               actions: <Widget>[
                 TextButton(
-                  child: const Text('Bestätigen'),
+                  child: const Text("Bestätigen"),
                   onPressed: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).pop();
@@ -135,6 +135,6 @@ class PasswordResetScreen extends ConsumerWidget {
               ],
             );
           },
-        ));
+        ),);
   }
 }

@@ -1,10 +1,8 @@
-import 'dart:async';
-
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:spice_squad/providers/repository_providers.dart';
-import 'package:spice_squad/services/pdf_exporter.dart';
-
-import 'package:spice_squad/models/recipe.dart';
+import "dart:async";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/models/recipe.dart";
+import "package:spice_squad/providers/repository_providers.dart";
+import "package:spice_squad/services/pdf_exporter.dart";
 
 class RecipeService extends AsyncNotifier<List<Recipe>> {
   @override
@@ -53,7 +51,7 @@ class RecipeService extends AsyncNotifier<List<Recipe>> {
             instructions: oldRecipe.instructions,
             isFavourite: !oldRecipe.isFavourite,
             image: oldRecipe.image,
-            isPrivate: oldRecipe.isPrivate));
+            isPrivate: oldRecipe.isPrivate,),);
     return ref
         .read(remoteRecipeRepositoryProvider)
         .setFavourite(recipe.id, !recipe.isFavourite)
@@ -80,7 +78,7 @@ class RecipeService extends AsyncNotifier<List<Recipe>> {
             instructions: oldRecipe.instructions,
             isFavourite: oldRecipe.isFavourite,
             image: oldRecipe.image,
-            isPrivate: !oldRecipe.isPrivate));
+            isPrivate: !oldRecipe.isPrivate,),);
     return ref.read(remoteRecipeRepositoryProvider).updateRecipe(updatedRecipe).then((value) => _refetch());
   }
 

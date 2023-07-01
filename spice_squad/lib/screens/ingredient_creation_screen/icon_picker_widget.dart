@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
-import 'icon_picker_dialog.dart';
+import "package:flutter/material.dart";
+import "package:spice_squad/screens/ingredient_creation_screen/icon_picker_dialog.dart";
 
 class IconPickerWidget extends StatefulWidget {
   static const List<String> iconIds = ["carrot", "milk", "bread"];
 
   final TextEditingController controller;
 
-  const IconPickerWidget({super.key, required this.controller});
+  const IconPickerWidget({required this.controller, super.key});
 
   @override
   State<IconPickerWidget> createState() => _IconPickerWidgetState();
@@ -51,6 +51,6 @@ class _IconPickerWidgetState extends State<IconPickerWidget> {
               widget.controller.text = value;
             },
           );
-        });
+        },);
   }
 }

@@ -1,6 +1,6 @@
-import 'dart:async';
-import 'dart:math';
-import 'package:spice_squad/models/user.dart';
+import "dart:async";
+import "dart:math";
+import "package:spice_squad/models/user.dart";
 
 class UserRepository {
   String? _userId = "userId";
@@ -9,8 +9,8 @@ class UserRepository {
 
   Future<User?> fetchCurrentUser() async {
     final Random random = Random();
-    var user = await Future.delayed(const Duration(milliseconds: 2000),
-        () => User(id: "userId", userName: {"Konrad", "Lukas", "Henri", "Raphael"}.elementAt(random.nextInt(4))));
+    final user = await Future.delayed(const Duration(milliseconds: 2000),
+        () => User(id: "userId", userName: {"Konrad", "Lukas", "Henri", "Raphael"}.elementAt(random.nextInt(4))),);
     _userId = user.id;
     return user;
   }
@@ -39,31 +39,31 @@ class UserRepository {
 
   Future<void> login(String email, String password) async {
     //TODO: implement login
-    throw new UnimplementedError();
+    throw UnimplementedError();
   }
 
   Future<void> logout() async {
     //TODO: implement logout
-    throw new UnimplementedError();
+    throw UnimplementedError();
   }
 
   Future<void> register(String email, String password, String userName) async {
     //TODO: implement register
-    throw new UnimplementedError();
+    throw UnimplementedError();
   }
 
   Future<void> updateUser(User user) async {
     //TODO: implement user updating
-    throw new UnimplementedError();
+    throw UnimplementedError();
   }
 
   Future<void> deleteAccount() async {
     //TODO: implement account deletion
-    throw new UnimplementedError();
+    throw UnimplementedError();
   }
 
   Future<void> resetPassword(String email) async {
     //TODO: implement password resetting
-    throw new UnimplementedError();
+    throw UnimplementedError();
   }
 }

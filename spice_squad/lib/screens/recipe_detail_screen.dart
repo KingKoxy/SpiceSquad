@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class RecipeDetailScreen extends StatefulWidget {
   static const routeName = "/recipe-detail";

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 abstract class SpiceSquadTheme {
   static final MaterialColor _primary = createMaterialColor(0xFFFF4170);
@@ -19,7 +19,7 @@ abstract class SpiceSquadTheme {
   static ThemeData get themeData => ThemeData(
         brightness: Brightness.dark,
         scaffoldBackgroundColor: _background,
-        fontFamily: 'Poppins',
+        fontFamily: "Poppins",
         colorScheme: ColorScheme.fromSwatch(primarySwatch: _primary).copyWith(
           brightness: Brightness.dark,
           onSurfaceVariant: _secondaryVariant,
@@ -59,7 +59,7 @@ abstract class SpiceSquadTheme {
               textStyle: const MaterialStatePropertyAll(_buttonText),
               shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
-              ))),
+              ),),),
         ),
         inputDecorationTheme: InputDecorationTheme(
             filled: true,
@@ -71,7 +71,7 @@ abstract class SpiceSquadTheme {
             ),
             errorStyle: TextStyle(
               color: _primary,
-            )),
+            ),),
         textButtonTheme: const TextButtonThemeData(
           style: ButtonStyle(
             textStyle: MaterialStatePropertyAll(
@@ -88,14 +88,14 @@ abstract class SpiceSquadTheme {
 //Returns a MaterialColor object based on the given color
 MaterialColor createMaterialColor(int colorHex) {
   final Color color = Color(colorHex);
-  List strengths = <double>[.05];
+  final List strengths = <double>[.05];
   final swatch = <int, Color>{};
   final int r = color.red, g = color.green, b = color.blue;
 
   for (int i = 1; i < 10; i++) {
     strengths.add(0.1 * i);
   }
-  for (var strength in strengths) {
+  for (final strength in strengths) {
     final double ds = 0.5 - strength;
     swatch[(strength * 1000).round()] = Color.fromRGBO(
       r + ((ds < 0 ? r : (255 - r)) * ds).round(),

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class OrWidget extends StatelessWidget {
   const OrWidget({super.key});
@@ -17,7 +17,7 @@ class OrWidget extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: Text(
-            'oder',
+            "oder",
             style: TextStyle(
               color: Colors.white,
               fontSize: 20,

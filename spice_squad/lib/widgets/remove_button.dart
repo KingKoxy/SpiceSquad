@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class RemoveButton extends StatelessWidget {
   final VoidCallback onPressed;
 
-  const RemoveButton({super.key, required this.onPressed});
+  const RemoveButton({required this.onPressed, super.key});
 
   @override
   Widget build(BuildContext context) {

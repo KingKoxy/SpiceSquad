@@ -1,10 +1,10 @@
-import 'dart:io';
-import 'dart:typed_data';
-import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:spice_squad/models/recipe.dart';
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
+import "dart:io";
+import "dart:typed_data";
+import "package:path_provider/path_provider.dart";
+import "package:pdf/pdf.dart";
+import "package:pdf/widgets.dart" as pw;
+import "package:share_plus/share_plus.dart";
+import "package:spice_squad/models/recipe.dart";
 
 class PDFExporter {
   static Future<void> exportRecipe(Recipe recipe) async {
@@ -25,18 +25,18 @@ class PDFExporter {
                     .map((ingredient) => pw.TableRow(children: [
                           pw.Padding(
                               padding: const pw.EdgeInsets.all(5),
-                              child: pw.Text("${ingredient.amount} ${ingredient.unit}")),
+                              child: pw.Text("${ingredient.amount} ${ingredient.unit}"),),
                           pw.Padding(padding: const pw.EdgeInsets.all(5), child: pw.Text(ingredient.name))
-                        ]))
+                        ],),)
                     .toList(),
               ),
               pw.Text(recipe.instructions)
-            ])
-          ]); // Center
-        }));
+            ],)
+          ],); // Center
+        },),);
 
     final Directory directory = await getTemporaryDirectory();
-    Uint8List bytes = await pdf.save();
+    final Uint8List bytes = await pdf.save();
     final file = File("${directory.path}/${recipe.title}.pdf");
     await file.writeAsBytes(bytes);
     Share.shareXFiles([XFile(file.path)]);

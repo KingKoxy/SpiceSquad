@@ -1,16 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:spice_squad/providers/service_providers.dart';
-import 'package:spice_squad/screens/login_screen.dart';
-import 'package:spice_squad/screens/settings_screen/group_list.dart';
-import 'package:spice_squad/screens/settings_screen/profile_image_picker.dart';
-import 'package:spice_squad/services/user_service.dart';
-import 'package:spice_squad/widgets/nav_bar.dart';
-
-import 'own_recipe_list.dart';
+import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/providers/service_providers.dart";
+import "package:spice_squad/screens/login_screen.dart";
+import "package:spice_squad/screens/settings_screen/group_list.dart";
+import "package:spice_squad/screens/settings_screen/own_recipe_list.dart";
+import "package:spice_squad/screens/settings_screen/profile_image_picker.dart";
+import "package:spice_squad/services/user_service.dart";
+import "package:spice_squad/widgets/nav_bar.dart";
 
 class SettingsScreen extends ConsumerWidget {
-  static const routeName = '/settings';
+  static const routeName = "/settings";
 
   const SettingsScreen({super.key});
 
@@ -26,7 +25,7 @@ class SettingsScreen extends ConsumerWidget {
                 onPressed: () {
                   _logout(context, ref.read(userServiceProvider.notifier));
                 },
-                icon: const ImageIcon(AssetImage("assets/icons/logout.png")))
+                icon: const ImageIcon(AssetImage("assets/icons/logout.png")),)
           ],
         ),
       ),
@@ -40,7 +39,7 @@ class SettingsScreen extends ConsumerWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       ProfileImagePicker(
-                          profileImage: user!.profileImage, userService: ref.read(userServiceProvider.notifier)),
+                          profileImage: user!.profileImage, userService: ref.read(userServiceProvider.notifier),),
                       const SizedBox(
                         height: 8,
                       ),
@@ -69,14 +68,14 @@ class SettingsScreen extends ConsumerWidget {
                           onPressed: () {
                             _deleteAccount(context, ref.read(userServiceProvider.notifier));
                           },
-                          child: const Text("Konto löschen"))
+                          child: const Text("Konto löschen"),)
                     ],
                   );
                 },
                 error: (error, stackTrace) => Text(error.toString()),
                 loading: () => const Column(
                       children: [CircularProgressIndicator()],
-                    )),
+                    ),),
             const SizedBox(
               height: 20,
             ),
@@ -137,7 +136,7 @@ void _renameUser(BuildContext context, UserService userService, String oldName) 
             ),
           ],
         );
-      });
+      },);
 }
 
 void _deleteAccount(BuildContext context, UserService userService) {
@@ -163,5 +162,5 @@ void _deleteAccount(BuildContext context, UserService userService) {
             ),
           ],
         );
-      });
+      },);
 }

@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart';
-import 'package:spice_squad/models/group.dart';
+import "package:flutter/material.dart";
+import "package:qr_flutter/qr_flutter.dart";
+import "package:spice_squad/models/group.dart";
 
 class QRCodeScreen extends StatelessWidget {
-  static const routeName = '/qr-code';
+  static const routeName = "/qr-code";
 
   const QRCodeScreen({super.key});
 

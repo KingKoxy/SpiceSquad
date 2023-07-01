@@ -1,14 +1,13 @@
-import 'dart:math';
-import 'dart:typed_data';
-import 'package:spice_squad/repositories/user_repository.dart';
-
-import 'package:spice_squad/models/difficulty.dart';
-import 'package:spice_squad/models/group.dart';
-import 'package:spice_squad/models/group_member.dart';
-import 'package:spice_squad/models/group_recipe.dart';
-import 'package:spice_squad/models/ingredient.dart';
-import 'package:spice_squad/models/recipe.dart';
-import 'package:spice_squad/models/user.dart';
+import "dart:math";
+import "dart:typed_data";
+import "package:spice_squad/models/difficulty.dart";
+import "package:spice_squad/models/group.dart";
+import "package:spice_squad/models/group_member.dart";
+import "package:spice_squad/models/group_recipe.dart";
+import "package:spice_squad/models/ingredient.dart";
+import "package:spice_squad/models/recipe.dart";
+import "package:spice_squad/models/user.dart";
+import "package:spice_squad/repositories/user_repository.dart";
 
 class GroupRepository {
   final UserRepository _userRepository;
@@ -32,7 +31,7 @@ class GroupRepository {
                           user: User(
                               id: "userId",
                               profileImage: random.nextBool() ? null : Uint8List(1),
-                              userName: {"Konrad", "Lukas", "Henri", "Raphael"}.elementAt(random.nextInt(4))))),
+                              userName: {"Konrad", "Lukas", "Henri", "Raphael"}.elementAt(random.nextInt(4)),),),),
                   recipes: List.generate(
                       random.nextInt(20),
                       (_) => GroupRecipe(
@@ -42,7 +41,7 @@ class GroupRepository {
                             image: random.nextBool() ? Uint8List(1) : null,
                             author: User(
                                 id: "userId",
-                                userName: {"Konrad", "Lukas", "Henri", "Raphael"}.elementAt(random.nextInt(4))),
+                                userName: {"Konrad", "Lukas", "Henri", "Raphael"}.elementAt(random.nextInt(4)),),
                             uploadDate: DateTime.now(),
                             duration: random.nextInt(120),
                             difficulty: Difficulty.values[random.nextInt(3)],
@@ -59,13 +58,13 @@ class GroupRepository {
                                   name: "Mehl",
                                   iconId: "iconId",
                                   amount: random.nextDouble() * 200,
-                                  unit: "g")
+                                  unit: "g",)
                             ],
-                            instructions: 'Instructions',
+                            instructions: "Instructions",
                             defaultPortionAmount: random.nextInt(8),
                           ),
-                          isCensored: random.nextBool())),
-                )));
+                          isCensored: random.nextBool(),),),
+                ),),);
   }
 
   Future<Group> fetchGroupById(String id) {
@@ -84,7 +83,7 @@ class GroupRepository {
                 user: User(
                     id: "userId",
                     profileImage: random.nextBool() ? null : Uint8List(1),
-                    userName: {"Konrad", "Lukas", "Henri", "Raphael"}.elementAt(random.nextInt(4))))),
+                    userName: {"Konrad", "Lukas", "Henri", "Raphael"}.elementAt(random.nextInt(4)),),),),
         recipes: List.generate(
             //random.nextInt(10)
             random.nextInt(1),
@@ -94,7 +93,7 @@ class GroupRepository {
                   title: {"Lasagne", "Pizza", "Spaghetti"}.elementAt(random.nextInt(3)),
                   image: random.nextBool() ? Uint8List(1) : null,
                   author: User(
-                      id: "userId", userName: {"Konrad", "Lukas", "Henri", "Raphael"}.elementAt(random.nextInt(4))),
+                      id: "userId", userName: {"Konrad", "Lukas", "Henri", "Raphael"}.elementAt(random.nextInt(4)),),
                   uploadDate: DateTime.now(),
                   duration: random.nextInt(120),
                   difficulty: Difficulty.values[random.nextInt(3)],
@@ -111,12 +110,12 @@ class GroupRepository {
                         name: "Mehl",
                         iconId: "iconId",
                         amount: random.nextDouble() * 200,
-                        unit: "g")
+                        unit: "g",)
                   ],
-                  instructions: 'Instructions',
+                  instructions: "Instructions",
                   defaultPortionAmount: random.nextInt(8),
                 ),
-                isCensored: random.nextBool())),
+                isCensored: random.nextBool(),),),
       ),
     );
   }

@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
-import 'filter_category.dart';
+import "package:flutter/material.dart";
+import "package:spice_squad/screens/main_screen/filter_category.dart";
 
 class FilterSelectionDialog extends StatefulWidget {
   final ValueChanged<List<FilterCategory>> onChanged;
   final List<FilterCategory> selectedFilters;
 
-  const FilterSelectionDialog({super.key, required this.onChanged, required this.selectedFilters});
+  const FilterSelectionDialog({required this.onChanged, required this.selectedFilters, super.key});
 
   @override
   State<FilterSelectionDialog> createState() => _FilterSelectionDialogState();
@@ -23,14 +23,14 @@ class _FilterSelectionDialogState extends State<FilterSelectionDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Filter auswählen'),
+      title: const Text("Filter auswählen"),
       content: SizedBox(
         width: double.maxFinite,
         child: ListView.builder(
             shrinkWrap: true,
             itemCount: filterMap.length,
             itemBuilder: (context, index) {
-              var key = filterMap.keys.elementAt(index);
+              final key = filterMap.keys.elementAt(index);
               return CheckboxListTile(
                 title: Text(key.toString()),
                 value: filterMap[key],
@@ -40,7 +40,7 @@ class _FilterSelectionDialogState extends State<FilterSelectionDialog> {
                   });
                 },
               );
-            }),
+            },),
       ),
       actions: <Widget>[
         TextButton(
@@ -50,7 +50,7 @@ class _FilterSelectionDialogState extends State<FilterSelectionDialog> {
           },
         ),
         TextButton(
-          child: const Text('Speichern'),
+          child: const Text("Speichern"),
           onPressed: () {
             Navigator.of(context).pop();
 

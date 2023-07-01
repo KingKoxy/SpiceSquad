@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:spice_squad/models/group_member.dart';
-import 'package:spice_squad/providers/repository_providers.dart';
-import 'package:spice_squad/widgets/add_button.dart';
+import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:share_plus/share_plus.dart";
+import "package:spice_squad/models/group_member.dart";
+import "package:spice_squad/providers/repository_providers.dart";
+import "package:spice_squad/widgets/add_button.dart";
 
 class MemberList extends ConsumerWidget {
   final List<GroupMember> members;
@@ -33,7 +33,7 @@ class MemberList extends ConsumerWidget {
             ),
             AddButton(onPressed: () {
               Share.share("Tritt jetzt meiner SpiceSquad bei. Gib dazu einfach diesen Code in der App ein: $groupCode", subject: "Tritt meiner SpiceSquad bei!");
-            })
+            },)
           ],
         ),
         const SizedBox(
@@ -104,7 +104,7 @@ class MemberList extends ConsumerWidget {
                     ],
                   ),
                 );
-              }),
+              },),
         )
       ],
     );

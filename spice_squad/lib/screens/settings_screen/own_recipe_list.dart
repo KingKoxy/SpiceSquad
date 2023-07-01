@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:spice_squad/providers/repository_providers.dart';
-import 'package:spice_squad/providers/service_providers.dart';
-import 'package:spice_squad/screens/recipe_creation_screen/recipe_creation_screen.dart';
-import 'package:spice_squad/services/recipe_service.dart';
-import 'package:spice_squad/models/recipe.dart';
-import 'package:spice_squad/widgets/eye_button.dart';
-import 'package:spice_squad/widgets/remove_button.dart';
+import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/models/recipe.dart";
+import "package:spice_squad/providers/repository_providers.dart";
+import "package:spice_squad/providers/service_providers.dart";
+import "package:spice_squad/screens/recipe_creation_screen/recipe_creation_screen.dart";
+import "package:spice_squad/services/recipe_service.dart";
+import "package:spice_squad/widgets/eye_button.dart";
+import "package:spice_squad/widgets/remove_button.dart";
 
 class OwnRecipeList extends ConsumerWidget {
   const OwnRecipeList({super.key});
@@ -60,20 +60,20 @@ class OwnRecipeList extends ConsumerWidget {
                                   IconButton(
                                       splashRadius: 24,
                                       onPressed: () => _exportRecipe(ref.read(recipeServiceProvider.notifier), recipe),
-                                      icon: const ImageIcon(AssetImage("assets/icons/share.png"))),
+                                      icon: const ImageIcon(AssetImage("assets/icons/share.png")),),
                                   EyeButton(
                                       open: recipe.isPrivate,
-                                      onToggle: () => _hideRecipe(ref.read(recipeServiceProvider.notifier), recipe)),
+                                      onToggle: () => _hideRecipe(ref.read(recipeServiceProvider.notifier), recipe),),
                                   RemoveButton(
                                       onPressed: () =>
-                                          _deleteRecipe(context, ref.read(recipeServiceProvider.notifier), recipe.id)),
+                                          _deleteRecipe(context, ref.read(recipeServiceProvider.notifier), recipe.id),),
                                 ],
                               )
                             ],
                           ),
                         ),
                       );
-                    })
+                    },)
                 : Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
@@ -86,7 +86,7 @@ class OwnRecipeList extends ConsumerWidget {
           return Text(error.toString());
         }, loading: () {
           return const CircularProgressIndicator();
-        })
+        },)
       ],
     );
   }
@@ -111,15 +111,15 @@ class OwnRecipeList extends ConsumerWidget {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: const Text('Abbrechen')),
+                  child: const Text("Abbrechen"),),
               TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                     recipeService.deleteRecipe(recipeId);
                   },
-                  child: const Text('Ich bin mir sicher'))
+                  child: const Text("Ich bin mir sicher"),)
             ],
           );
-        });
+        },);
   }
 }

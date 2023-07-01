@@ -1,13 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:spice_squad/providers/service_providers.dart';
-import 'package:spice_squad/screens/main_screen/main_screen.dart';
-import 'package:spice_squad/screens/password_reset_screen.dart';
-import 'package:spice_squad/screens/register_screen.dart';
-import 'package:spice_squad/services/user_service.dart';
+import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/providers/service_providers.dart";
+import "package:spice_squad/screens/main_screen/main_screen.dart";
+import "package:spice_squad/screens/password_reset_screen.dart";
+import "package:spice_squad/screens/register_screen.dart";
+import "package:spice_squad/services/user_service.dart";
 
 class LoginScreen extends ConsumerWidget {
-  static const routeName = '/login';
+  static const routeName = "/login";
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -29,9 +29,9 @@ class LoginScreen extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Hero(
-                    tag: 'logo',
+                    tag: "logo",
                     child: Image.asset(
-                      'assets/images/logo.png',
+                      "assets/images/logo.png",
                       width: 240,
                     ),
                   ),
@@ -41,7 +41,7 @@ class LoginScreen extends ConsumerWidget {
                 height: 50,
               ),
               Text(
-                'Login',
+                "Login",
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               const SizedBox(
@@ -59,7 +59,7 @@ class LoginScreen extends ConsumerWidget {
                         keyboardType: TextInputType.emailAddress,
                         controller: _emailController,
                         decoration: const InputDecoration(
-                          hintText: 'E-Mail',
+                          hintText: "E-Mail",
                         ),
                       ),
                     ),
@@ -74,7 +74,7 @@ class LoginScreen extends ConsumerWidget {
                         obscureText: true,
                         controller: _passwordController,
                         decoration: const InputDecoration(
-                          hintText: 'Passwort',
+                          hintText: "Passwort",
                         ),
                       ),
                     ),
@@ -86,7 +86,7 @@ class LoginScreen extends ConsumerWidget {
               ),
               Row(children: [
                 Text(
-                  'Du hast noch kein Konto?',
+                  "Du hast noch kein Konto?",
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 const SizedBox(
@@ -96,9 +96,9 @@ class LoginScreen extends ConsumerWidget {
                   onPressed: () {
                     Navigator.of(context).pushReplacementNamed(RegisterScreen.routeName);
                   },
-                  child: const Text('Registrieren'),
+                  child: const Text("Registrieren"),
                 ),
-              ]),
+              ],),
               const SizedBox(
                 height: 10,
               ),
@@ -110,7 +110,7 @@ class LoginScreen extends ConsumerWidget {
                       _login(context, ref.read(userServiceProvider.notifier));
                     }
                   },
-                  child: const Text('Weiter'),
+                  child: const Text("Weiter"),
                 ),
               ),
               const SizedBox(
@@ -120,7 +120,7 @@ class LoginScreen extends ConsumerWidget {
                 onPressed: () {
                   Navigator.of(context).pushNamed(PasswordResetScreen.routeName);
                 },
-                child: const Text('Passwort vergessen?'),
+                child: const Text("Passwort vergessen?"),
               ),
             ],
           ),
@@ -136,12 +136,12 @@ class LoginScreen extends ConsumerWidget {
   }
 
   String? _validateEmail(String? email) {
-    const emailRegex = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
+    const emailRegex = r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
     if (email == null || email.isEmpty) {
-      return 'Bitte gib eine E-Mail-Adresse ein';
+      return "Bitte gib eine E-Mail-Adresse ein";
     }
     if (!RegExp(emailRegex).hasMatch(email)) {
-      return 'Bitte gib eine gültige E-Mail-Adresse ein';
+      return "Bitte gib eine gültige E-Mail-Adresse ein";
     }
     return null;
   }

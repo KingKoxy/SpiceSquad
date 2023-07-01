@@ -1,15 +1,15 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:spice_squad/providers/repository_providers.dart';
-import 'package:spice_squad/providers/service_providers.dart';
-import 'package:spice_squad/screens/qr_code_screen.dart';
-import 'package:spice_squad/services/group_service.dart';
-import 'group_recipe_list.dart';
-import 'member_list.dart';
+import "package:auto_size_text/auto_size_text.dart";
+import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/providers/repository_providers.dart";
+import "package:spice_squad/providers/service_providers.dart";
+import "package:spice_squad/screens/group_detail_screen/group_recipe_list.dart";
+import "package:spice_squad/screens/group_detail_screen/member_list.dart";
+import "package:spice_squad/screens/qr_code_screen.dart";
+import "package:spice_squad/services/group_service.dart";
 
 class GroupDetailScreen extends ConsumerStatefulWidget {
-  static const routeName = '/group-detail';
+  static const routeName = "/group-detail";
 
   const GroupDetailScreen({super.key});
 
@@ -77,7 +77,7 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
                             icon: const ImageIcon(
                               AssetImage("assets/icons/qr_code.png"),
                               size: 48,
-                            )),
+                            ),),
                         IconButton(
                             onPressed: () {
                               _leaveGroup(ref.read(groupServiceProvider.notifier), group.id);
@@ -85,12 +85,12 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
                             icon: const ImageIcon(
                               AssetImage("assets/icons/logout.png"),
                               size: 48,
-                            )),
+                            ),),
                       ],
                     ),
                     TextButton(
                         onPressed: () => _deleteGroup(context, ref.read(groupServiceProvider.notifier), group.id),
-                        child: const Text("Gruppe auflösen")),
+                        child: const Text("Gruppe auflösen"),),
                   ],
                 ),
                 const SizedBox(
@@ -114,7 +114,7 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
           }
           return const CircularProgressIndicator();
         },
-      )),
+      ),),
     );
   }
 
@@ -158,7 +158,7 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
               ),
             ],
           );
-        });
+        },);
   }
 
   void _leaveGroup(GroupService groupService, String groupId) {
@@ -188,6 +188,6 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
               ),
             ],
           );
-        });
+        },);
   }
 }

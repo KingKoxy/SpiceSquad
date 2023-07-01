@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
-
-import '../../models/recipe.dart';
-import '../../widgets/nav_bar.dart';
+import "package:flutter/material.dart";
+import "package:spice_squad/models/recipe.dart";
+import "package:spice_squad/widgets/nav_bar.dart";
 
 class RecipeCreationScreen extends StatelessWidget {
-  static const routeName = '/recipe-creation';
+  static const routeName = "/recipe-creation";
 
   const RecipeCreationScreen({super.key});
 

@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:spice_squad/providers/service_providers.dart';
-import 'package:spice_squad/screens/group_detail_screen/group_detail_screen.dart';
-import 'package:spice_squad/screens/group_joining_screen.dart';
-import 'package:spice_squad/services/group_service.dart';
-import 'package:spice_squad/widgets/add_button.dart';
-import 'package:spice_squad/widgets/remove_button.dart';
+import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/providers/service_providers.dart";
+import "package:spice_squad/screens/group_detail_screen/group_detail_screen.dart";
+import "package:spice_squad/screens/group_joining_screen.dart";
+import "package:spice_squad/services/group_service.dart";
+import "package:spice_squad/widgets/add_button.dart";
+import "package:spice_squad/widgets/remove_button.dart";
 
 class GroupList extends ConsumerWidget {
   const GroupList({super.key});
@@ -23,7 +23,7 @@ class GroupList extends ConsumerWidget {
             ),
             AddButton(onPressed: () {
               Navigator.pushNamed(context, GroupJoiningScreen.routeName);
-            })
+            },)
           ],
         ),
         const SizedBox(
@@ -54,12 +54,12 @@ class GroupList extends ConsumerWidget {
                               ),
                               RemoveButton(onPressed: () {
                                 _leaveGroup(context, ref.read(groupServiceProvider.notifier), groups[index].id);
-                              })
+                              },)
                             ],
                           ),
                         ),
                       );
-                    })
+                    },)
                 : Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
@@ -72,7 +72,7 @@ class GroupList extends ConsumerWidget {
           return Text(error.toString());
         }, loading: () {
           return const CircularProgressIndicator();
-        })
+        },)
       ],
     );
   }
@@ -89,15 +89,15 @@ class GroupList extends ConsumerWidget {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: const Text('Abbrechen')),
+                  child: const Text("Abbrechen"),),
               TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                     groupService.leaveGroup(groupId);
                   },
-                  child: const Text('Ich bin mir sicher'))
+                  child: const Text("Ich bin mir sicher"),)
             ],
           );
-        });
+        },);
   }
 }

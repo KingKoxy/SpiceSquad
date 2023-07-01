@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:spice_squad/screens/ingredient_creation_screen/icon_picker_widget.dart';
-import 'package:spice_squad/screens/ingredient_creation_screen/ingredient_name_input.dart';
-import 'package:spice_squad/models/ingredient.dart';
+import "package:flutter/material.dart";
+import "package:spice_squad/models/ingredient.dart";
+import "package:spice_squad/screens/ingredient_creation_screen/icon_picker_widget.dart";
+import "package:spice_squad/screens/ingredient_creation_screen/ingredient_name_input.dart";
 
 class IngredientCreationScreen extends StatelessWidget {
-  static const routeName = '/ingredient-creation';
+  static const routeName = "/ingredient-creation";
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _nameController = TextEditingController();
@@ -84,8 +84,8 @@ class IngredientCreationScreen extends StatelessWidget {
                 child: ElevatedButton(
                     onPressed: () {
                       if (!_formKey.currentState!.validate()) return;
-                      var ingredient = Ingredient(
-                        id: '',
+                      final ingredient = Ingredient(
+                        id: "",
                         name: _nameController.text,
                         iconId: _iconIdController.text,
                         amount: double.parse(_amountController.text),
@@ -94,12 +94,12 @@ class IngredientCreationScreen extends StatelessWidget {
 
                       Navigator.of(context).pop(ingredient);
                     },
-                    child: const Text("Hinzufügen")),
+                    child: const Text("Hinzufügen"),),
               )
             ],
           ),
         ),
-      )),
+      ),),
     );
   }
 }

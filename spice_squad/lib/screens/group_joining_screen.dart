@@ -1,14 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:spice_squad/providers/service_providers.dart';
-import 'package:spice_squad/screens/main_screen/main_screen.dart';
-import 'package:spice_squad/screens/qr_scanner_screen.dart';
-import 'package:spice_squad/services/group_service.dart';
-import 'package:spice_squad/widgets/or_widget.dart';
-import 'group_creation_screen.dart';
+import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/providers/service_providers.dart";
+import "package:spice_squad/screens/group_creation_screen.dart";
+import "package:spice_squad/screens/main_screen/main_screen.dart";
+import "package:spice_squad/screens/qr_scanner_screen.dart";
+import "package:spice_squad/services/group_service.dart";
+import "package:spice_squad/widgets/or_widget.dart";
 
 class GroupJoiningScreen extends ConsumerWidget {
-  static const routeName = '/group-joining';
+  static const routeName = "/group-joining";
 
   final TextEditingController _groupCodeController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -25,12 +25,12 @@ class GroupJoiningScreen extends ConsumerWidget {
               top: 16,
               right: 32,
               child: Hero(
-                tag: 'skip-button',
+                tag: "skip-button",
                 child: TextButton(
                   onPressed: () {
                     Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
                   },
-                  child: const Text('Überspringen'),
+                  child: const Text("Überspringen"),
                 ),
               ),
             ),
@@ -42,7 +42,7 @@ class GroupJoiningScreen extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Squad beitreten',
+                    "Squad beitreten",
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
                   const SizedBox(
@@ -59,7 +59,7 @@ class GroupJoiningScreen extends ConsumerWidget {
                             keyboardType: TextInputType.text,
                             controller: _groupCodeController,
                             decoration: const InputDecoration(
-                              hintText: 'Squadkürzel',
+                              hintText: "Squadkürzel",
                             ),
                           ),
                         ),
@@ -77,7 +77,7 @@ class GroupJoiningScreen extends ConsumerWidget {
                           _joinGroupByCode(context, ref.read(groupServiceProvider.notifier), _groupCodeController.text);
                         }
                       },
-                      child: const Text('Weiter'),
+                      child: const Text("Weiter"),
                     ),
                   ),
                   const OrWidget(),
@@ -91,7 +91,7 @@ class GroupJoiningScreen extends ConsumerWidget {
                           }
                         });
                       },
-                      child: const Text('Mit QR-Code beitreten'),
+                      child: const Text("Mit QR-Code beitreten"),
                     ),
                   ),
                   const OrWidget(),
@@ -101,21 +101,21 @@ class GroupJoiningScreen extends ConsumerWidget {
                       onPressed: () {
                         Navigator.of(context).pushReplacementNamed(GroupCreationScreen.routeName);
                       },
-                      child: const Text('Squad erstellen'),
+                      child: const Text("Squad erstellen"),
                     ),
                   ),
                 ],
               ),
             ),
           ),
-        ]),
+        ],),
       ),
     );
   }
 
   String? _validateGroupCode(String? groupCode) {
     if (groupCode == null || groupCode.isEmpty) {
-      return 'Bitte gib ein Gruppenkürzel ein.';
+      return "Bitte gib ein Gruppenkürzel ein.";
     }
     return null;
   }

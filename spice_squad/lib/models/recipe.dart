@@ -1,7 +1,7 @@
-import 'dart:typed_data';
-import 'user.dart';
-import 'difficulty.dart';
-import 'ingredient.dart';
+import "dart:typed_data";
+import "package:spice_squad/models/difficulty.dart";
+import "package:spice_squad/models/ingredient.dart";
+import "package:spice_squad/models/user.dart";
 
 class Recipe {
   final String id;
@@ -29,17 +29,7 @@ class Recipe {
       required this.uploadDate,
       required this.duration,
       required this.difficulty,
-      this.image,
-      required this.isVegetarian,
-      required this.isVegan,
-      required this.isGlutenFree,
-      required this.isHalal,
-      required this.isKosher,
-      required this.ingredients,
-      required this.instructions,
-      required this.defaultPortionAmount,
-      required this.isFavourite,
-      required this.isPrivate});
+      required this.isVegetarian, required this.isVegan, required this.isGlutenFree, required this.isHalal, required this.isKosher, required this.ingredients, required this.instructions, required this.defaultPortionAmount, required this.isFavourite, required this.isPrivate, this.image,});
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
     return Recipe(
@@ -59,6 +49,6 @@ class Recipe {
         instructions: json["instructions"],
         defaultPortionAmount: json["defaultPortionAmount"],
         isFavourite: json["isFavourite"],
-        isPrivate: json["isPrivate"]);
+        isPrivate: json["isPrivate"],);
   }
 }

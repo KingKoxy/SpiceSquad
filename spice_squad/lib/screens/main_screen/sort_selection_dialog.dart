@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:spice_squad/screens/main_screen/sort.dart';
-import 'package:spice_squad/screens/main_screen/sort_category.dart';
+import "package:flutter/material.dart";
+import "package:spice_squad/screens/main_screen/sort.dart";
+import "package:spice_squad/screens/main_screen/sort_category.dart";
 
 class SortSelectionDialog extends StatefulWidget {
   final ValueChanged<Sort> onChanged;
   final Sort selectedSort;
 
-  const SortSelectionDialog({super.key, required this.onChanged, required this.selectedSort});
+  const SortSelectionDialog({required this.onChanged, required this.selectedSort, super.key});
 
   @override
   State<SortSelectionDialog> createState() => _SortSelectionDialogState();
@@ -24,7 +24,7 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Sortierung auswählen'),
+      title: const Text("Sortierung auswählen"),
       content: SizedBox(
         width: double.maxFinite,
         child: ListView.builder(
@@ -58,7 +58,7 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
                   ),
                 );
               }
-              var key = SortCategory.values.elementAt(index - 1);
+              final key = SortCategory.values.elementAt(index - 1);
               return RadioListTile(
                 title: Text(key.toString()),
                 value: key,
@@ -69,7 +69,7 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
                 },
                 groupValue: selectedSort.category,
               );
-            }),
+            },),
       ),
       actions: <Widget>[
         TextButton(
@@ -79,7 +79,7 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
           },
         ),
         TextButton(
-          child: const Text('Speichern'),
+          child: const Text("Speichern"),
           onPressed: () {
             Navigator.of(context).pop();
             widget.onChanged(selectedSort);

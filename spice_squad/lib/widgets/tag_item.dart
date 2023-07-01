@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class TagItem extends StatelessWidget {
   final ImageProvider image;
@@ -6,10 +6,7 @@ class TagItem extends StatelessWidget {
   final bool isActive;
 
   const TagItem(
-      {super.key,
-      required this.image,
-      required this.name,
-      required this.isActive});
+      {required this.image, required this.name, required this.isActive, super.key,});
 
   @override
   Widget build(BuildContext context) {

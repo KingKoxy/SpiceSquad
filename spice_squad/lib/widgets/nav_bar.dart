@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:spice_squad/screens/main_screen/main_screen.dart';
-import 'package:spice_squad/screens/recipe_creation_screen/recipe_creation_screen.dart';
-import 'package:spice_squad/screens/settings_screen/settings_screen.dart';
+import "package:flutter/material.dart";
+import "package:spice_squad/screens/main_screen/main_screen.dart";
+import "package:spice_squad/screens/recipe_creation_screen/recipe_creation_screen.dart";
+import "package:spice_squad/screens/settings_screen/settings_screen.dart";
 
 class NavBar extends StatelessWidget {
   final int currentIndex;
@@ -11,7 +11,7 @@ class NavBar extends StatelessWidget {
     SettingsScreen.routeName,
   ];
 
-  const NavBar({super.key, required this.currentIndex});
+  const NavBar({required this.currentIndex, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class NavBar extends StatelessWidget {
                 icon: ImageIcon(AssetImage("assets/icons/user.png")),
                 label: "Settings",
               ),
-            ]),
+            ],),
       ),
     );
   }

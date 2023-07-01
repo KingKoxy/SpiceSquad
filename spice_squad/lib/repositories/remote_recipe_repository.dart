@@ -1,12 +1,10 @@
-import 'dart:math';
-import 'dart:typed_data';
-
-import 'package:spice_squad/models/recipe.dart';
-import 'package:spice_squad/repositories/user_repository.dart';
-
-import '../models/difficulty.dart';
-import '../models/ingredient.dart';
-import '../models/user.dart';
+import "dart:math";
+import "dart:typed_data";
+import "package:spice_squad/models/difficulty.dart";
+import "package:spice_squad/models/ingredient.dart";
+import "package:spice_squad/models/recipe.dart";
+import "package:spice_squad/models/user.dart";
+import "package:spice_squad/repositories/user_repository.dart";
 
 class RemoteRecipeRepository {
   final UserRepository _userRepository;
@@ -24,7 +22,7 @@ class RemoteRecipeRepository {
                   title: {"Lasagne", "Pizza", "Spagghetti"}.elementAt(random.nextInt(3)),
                   image: random.nextBool() ? Uint8List(1) : null,
                   author: User(
-                      id: "userId", userName: {"Konrad", "Lukas", "Henri", "Raphael"}.elementAt(random.nextInt(4))),
+                      id: "userId", userName: {"Konrad", "Lukas", "Henri", "Raphael"}.elementAt(random.nextInt(4)),),
                   uploadDate: DateTime.now(),
                   duration: random.nextInt(120),
                   difficulty: Difficulty.values[random.nextInt(3)],
@@ -41,11 +39,11 @@ class RemoteRecipeRepository {
                         name: "Mehl",
                         iconId: "iconId",
                         amount: random.nextDouble() * 200,
-                        unit: "g")
+                        unit: "g",)
                   ],
-                  instructions: 'Instructions',
+                  instructions: "Instructions",
                   defaultPortionAmount: random.nextInt(8),
-                )));
+                ),),);
   }
 
   Future<void> createRecipe(Recipe recipe) {

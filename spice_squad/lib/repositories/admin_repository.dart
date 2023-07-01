@@ -1,4 +1,4 @@
-import 'package:spice_squad/repositories/user_repository.dart';
+import "package:spice_squad/repositories/user_repository.dart";
 
 class AdminRepository {
   final UserRepository _userRepository;

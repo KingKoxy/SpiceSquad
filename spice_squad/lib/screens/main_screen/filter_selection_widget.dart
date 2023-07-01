@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:spice_squad/screens/main_screen/filter_category.dart';
-import 'filter_selection_dialog.dart';
+import "package:flutter/material.dart";
+import "package:spice_squad/screens/main_screen/filter_category.dart";
+import "package:spice_squad/screens/main_screen/filter_selection_dialog.dart";
 
 class FilterSelectionWidget extends StatefulWidget {
   final ValueChanged<List<FilterCategory>> onChanged;
   final List<FilterCategory> selectedFilters;
 
-  const FilterSelectionWidget({super.key, required this.onChanged, required this.selectedFilters});
+  const FilterSelectionWidget({required this.onChanged, required this.selectedFilters, super.key});
 
   @override
   State<FilterSelectionWidget> createState() => _FilterSelectionWidgetState();

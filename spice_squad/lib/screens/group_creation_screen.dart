@@ -1,13 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:spice_squad/providers/service_providers.dart';
-import 'package:spice_squad/screens/group_joining_screen.dart';
-import 'package:spice_squad/screens/main_screen/main_screen.dart';
-import 'package:spice_squad/services/group_service.dart';
-import 'package:spice_squad/widgets/or_widget.dart';
+import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/providers/service_providers.dart";
+import "package:spice_squad/screens/group_joining_screen.dart";
+import "package:spice_squad/screens/main_screen/main_screen.dart";
+import "package:spice_squad/services/group_service.dart";
+import "package:spice_squad/widgets/or_widget.dart";
 
 class GroupCreationScreen extends ConsumerWidget {
-  static const routeName = '/group-creation';
+  static const routeName = "/group-creation";
 
   final TextEditingController _groupNameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -25,12 +25,12 @@ class GroupCreationScreen extends ConsumerWidget {
               top: 16,
               right: 32,
               child: Hero(
-                tag: 'skip-button',
+                tag: "skip-button",
                 child: TextButton(
                   onPressed: () {
                     Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
                   },
-                  child: const Text('Überspringen'),
+                  child: const Text("Überspringen"),
                 ),
               ),
             ),
@@ -42,7 +42,7 @@ class GroupCreationScreen extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Squad erstellen',
+                    "Squad erstellen",
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
                   const SizedBox(
@@ -59,7 +59,7 @@ class GroupCreationScreen extends ConsumerWidget {
                             keyboardType: TextInputType.text,
                             controller: _groupNameController,
                             decoration: const InputDecoration(
-                              hintText: 'Squadname',
+                              hintText: "Squadname",
                             ),
                           ),
                         ),
@@ -77,7 +77,7 @@ class GroupCreationScreen extends ConsumerWidget {
                           _createGroup(context, ref.read(groupServiceProvider.notifier));
                         }
                       },
-                      child: const Text('Weiter'),
+                      child: const Text("Weiter"),
                     ),
                   ),
                   const OrWidget(),
@@ -87,21 +87,21 @@ class GroupCreationScreen extends ConsumerWidget {
                       onPressed: () {
                         Navigator.of(context).pushReplacementNamed(GroupJoiningScreen.routeName);
                       },
-                      child: const Text('Squad beitreten'),
+                      child: const Text("Squad beitreten"),
                     ),
                   ),
                 ],
               ),
             ),
           ),
-        ]),
+        ],),
       ),
     );
   }
 
   String? _validateGroupName(String? groupCode) {
     if (groupCode == null || groupCode.isEmpty) {
-      return 'Bitte gib einen Gruppennamen ein.';
+      return "Bitte gib einen Gruppennamen ein.";
     }
     return null;
   }

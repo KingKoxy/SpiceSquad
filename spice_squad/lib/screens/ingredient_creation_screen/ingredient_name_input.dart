@@ -1,8 +1,8 @@
-import 'dart:math';
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:spice_squad/providers/repository_providers.dart';
+import "dart:math";
+import "package:auto_size_text/auto_size_text.dart";
+import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/providers/repository_providers.dart";
 
 class IngredientNameInput extends ConsumerStatefulWidget {
   final TextEditingController controller;
@@ -46,7 +46,7 @@ class _IngredientNameInputState extends ConsumerState<IngredientNameInput> {
                   padding: EdgeInsets.zero,
                   shrinkWrap: true,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      mainAxisSpacing: 10, crossAxisSpacing: 10, mainAxisExtent: 40, crossAxisCount: 3),
+                      mainAxisSpacing: 10, crossAxisSpacing: 10, mainAxisExtent: 40, crossAxisCount: 3,),
                   itemCount: min(filteredNames.length, 12),
                   itemBuilder: (context, index) {
                     return GridTile(
@@ -71,11 +71,11 @@ class _IngredientNameInputState extends ConsumerState<IngredientNameInput> {
                         ),
                       ),
                     );
-                  });
+                  },);
             } else {
               return const CircularProgressIndicator();
             }
-          }),
-    ]);
+          },),
+    ],);
   }
 }

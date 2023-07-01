@@ -10,7 +10,7 @@ class Ingredient {
       required this.name,
       required this.iconId,
       required this.amount,
-      required this.unit});
+      required this.unit,});
 
   factory Ingredient.fromJson(Map<String, dynamic> json) {
     return Ingredient(
@@ -18,6 +18,6 @@ class Ingredient {
         name: json["name"],
         iconId: json["iconId"],
         amount: json["amount"],
-        unit: json["unit"]);
+        unit: json["unit"],);
   }
 }
