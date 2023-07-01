@@ -10,7 +10,7 @@ import "package:spice_squad/services/group_service.dart";
 
 /// Screen to display the details of a group
 ///
-/// The group is identified by the [groupId] passed as an argument to the route.
+/// The group is identified by the id passed as an argument to the route.
 class GroupDetailScreen extends ConsumerStatefulWidget {
   /// The route name of this screen
   static const routeName = "/group-detail";
