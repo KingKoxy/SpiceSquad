@@ -14,8 +14,8 @@ class RemoveButton extends StatelessWidget {
       iconSize: 24,
       padding: EdgeInsets.zero,
       onPressed: onPressed,
-      icon: const ImageIcon(
-        AssetImage("assets/icons/remove.png"),
+      icon: const Icon(
+        Icons.remove_circle,
         color: Color(0xFFFF4170),
         size: 24,
       ),

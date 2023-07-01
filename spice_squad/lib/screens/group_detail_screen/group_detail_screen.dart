@@ -109,6 +109,7 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
                     members: group.members,
                     isAdmin: isAdmin,
                     groupCode: group.groupCode,
+                    groupId: group.id,
                   ),
                   const SizedBox(
                     height: 20,
@@ -175,8 +176,14 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
 
   /// Leaves the group with the given [groupId]
   void _leaveGroup(GroupService groupService, String groupId) {
-    //TODO: Show dialog to confirm leaving the group
-    groupService.leaveGroup(groupId);
+    showDialog(
+      context: context,
+      builder: (context) => ApprovalDialog(
+        title: "Squad verlassen",
+        message: "Willst du wirklich die Squad verlassen?",
+        onApproval: () => groupService.leaveGroup(groupId),
+      ),
+    );
   }
 
   /// Shows a dialog to confirm the deletion of a group
@@ -185,7 +192,7 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
       context: context,
       builder: (context) {
         return ApprovalDialog(
-          title: "Gruppe auflösen",
+          title: "Squad auflösen",
           message: "Bist du dir wirklich sicher? Es gibt danach keinen Weg zurück",
           onApproval: () {
             groupService.deleteGroup(groupId);

@@ -3,6 +3,8 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:share_plus/share_plus.dart";
 import "package:spice_squad/models/group_member.dart";
 import "package:spice_squad/providers/repository_providers.dart";
+import "package:spice_squad/providers/service_providers.dart";
+import "package:spice_squad/services/group_service.dart";
 import "package:spice_squad/widgets/add_button.dart";
 
 /// Widget to display a list of [GroupMember]s
@@ -16,8 +18,17 @@ class MemberList extends ConsumerWidget {
   /// The code of the group the members belong to
   final String groupCode;
 
+  /// The id of the group the members belong to
+  final String groupId;
+
   /// Creates a [MemberList]
-  const MemberList({required this.groupCode, required this.members, required this.isAdmin, super.key});
+  const MemberList({
+    required this.groupCode,
+    required this.members,
+    required this.isAdmin,
+    required this.groupId,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -106,15 +117,30 @@ class MemberList extends ConsumerWidget {
                         ),
                       ],
                     ),
-                    IconButton(
-                      onPressed: () {
-                        //TODO: implement popup for admin actions
+                    PopupMenuButton(
+                      icon: const Icon(Icons.more_vert),
+                      itemBuilder: (context) {
+                        return [
+                          member.isAdmin
+                              ? PopupMenuItem<VoidCallback>(
+                                  value: () => _removeAdminStatus(ref.read(groupServiceProvider.notifier), member),
+                                  child: const Text("Adminstatus entfernen"),
+                                )
+                              : PopupMenuItem<VoidCallback>(
+                                  value: () => _makeAdmin(ref.read(groupServiceProvider.notifier), member),
+                                  child: const Text("Zum Admin ernennen"),
+                                ),
+                          PopupMenuItem<VoidCallback>(
+                            value: () => _kickUser(ref.read(groupServiceProvider.notifier), member),
+                            child: const Text("Nutzer entfernen"),
+                          ),
+                          PopupMenuItem<VoidCallback>(
+                            value: () => _banUser(ref.read(groupServiceProvider.notifier), member),
+                            child: const Text("Nutzer bannen"),
+                          ),
+                        ];
                       },
-                      icon: const ImageIcon(
-                        AssetImage("assets/icons/dots.png"),
-                      ),
-                      splashRadius: 24,
-                    )
+                    ),
                   ],
                 ),
               );
@@ -123,5 +149,21 @@ class MemberList extends ConsumerWidget {
         )
       ],
     );
+  }
+
+  _removeAdminStatus(GroupService groupService, GroupMember member) {
+    groupService.removeAdminStatus(member.id, groupId);
+  }
+
+  _makeAdmin(GroupService groupService, GroupMember member) {
+    groupService.makeAdmin(member.id, groupId);
+  }
+
+  _kickUser(GroupService groupService, GroupMember member) {
+    groupService.kickUser(member.id, groupId);
+  }
+
+  _banUser(GroupService groupService, GroupMember member) {
+    groupService.banUser(member.id, groupId);
   }
 }

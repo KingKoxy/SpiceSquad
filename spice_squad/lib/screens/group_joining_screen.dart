@@ -80,7 +80,10 @@ class GroupJoiningScreen extends ConsumerWidget {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             _joinGroupByCode(
-                                context, ref.read(groupServiceProvider.notifier), _groupCodeController.text);
+                              context,
+                              ref.read(groupServiceProvider.notifier),
+                              _groupCodeController.text,
+                            );
                           }
                         },
                         child: const Text("Weiter"),

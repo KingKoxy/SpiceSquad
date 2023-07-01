@@ -13,9 +13,9 @@ class AddButton extends StatelessWidget {
     return IconButton(
       iconSize: 24,
       onPressed: onPressed,
-      icon: const ImageIcon(
+      icon: const Icon(
+        Icons.add_circle,
         size: 24,
-        AssetImage("assets/icons/add.png"),
         color: Color(0xFF00F5AD),
       ),
       splashRadius: 24,
