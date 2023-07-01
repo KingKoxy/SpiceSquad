@@ -34,7 +34,7 @@ class NavBar extends StatelessWidget {
         ),
         child: BottomNavigationBar(
           currentIndex: currentIndex,
-          onTap: (index) => {Navigator.of(context).pushReplacementNamed(_routes[index])},
+          onTap: (index) => {if (index != currentIndex) Navigator.of(context).pushReplacementNamed(_routes[index])},
           items: const [
             BottomNavigationBarItem(
               icon: ImageIcon(AssetImage("assets/icons/writing.png")),
