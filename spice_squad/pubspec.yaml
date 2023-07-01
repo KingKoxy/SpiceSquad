@@ -20,6 +20,7 @@ dependencies:
   share_plus: ^7.0.2
 
 dev_dependencies:
+  flutter_launcher_icons: "^0.13.1"
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
@@ -33,19 +34,13 @@ flutter:
   fonts:
     - family: Poppins
       fonts:
-        - asset: fonts/poppins/Poppins-ExtraBold.ttf
-          weight: 800
-        - asset: fonts/poppins/Poppins-Bold.ttf
-          weight: 700
         - asset: fonts/poppins/Poppins-SemiBold.ttf
           weight: 600
-        - asset: fonts/poppins/Poppins-Medium.ttf
-          weight: 500
         - asset: fonts/poppins/Poppins-Regular.ttf
           weight: 400
-        - asset: fonts/poppins/Poppins-Light.ttf
-          weight: 300
-        - asset: fonts/poppins/Poppins-ExtraLight.ttf
-          weight: 200
-        - asset: fonts/poppins/Poppins-Thin.ttf
-          weight: 100
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/appIcon.png"
+  image_path_ios: "assets/images/appIcon.jpg"
