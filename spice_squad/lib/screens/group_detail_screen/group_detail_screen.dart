@@ -96,7 +96,11 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                MemberList(members: group.members, isAdmin: isAdmin),
+                MemberList(
+                  members: group.members,
+                  isAdmin: isAdmin,
+                  groupCode: group.groupCode,
+                ),
                 const SizedBox(
                   height: 20,
                 ),

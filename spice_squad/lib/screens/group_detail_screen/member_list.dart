@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:spice_squad/models/group_member.dart';
 import 'package:spice_squad/providers/repository_providers.dart';
 import 'package:spice_squad/widgets/add_button.dart';
@@ -7,8 +8,9 @@ import 'package:spice_squad/widgets/add_button.dart';
 class MemberList extends ConsumerWidget {
   final List<GroupMember> members;
   final bool isAdmin;
+  final String groupCode;
 
-  const MemberList({required this.members, required this.isAdmin, super.key});
+  const MemberList({required this.groupCode, required this.members, required this.isAdmin, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,7 +32,7 @@ class MemberList extends ConsumerWidget {
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             AddButton(onPressed: () {
-              //TODO: copy group code and share
+              Share.share("Tritt jetzt meiner SpiceSquad bei. Gib dazu einfach diesen Code in der App ein: $groupCode", subject: "Tritt meiner SpiceSquad bei!");
             })
           ],
         ),
