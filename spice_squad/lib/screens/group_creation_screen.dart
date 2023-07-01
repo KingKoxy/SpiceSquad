@@ -107,7 +107,7 @@ class GroupCreationScreen extends ConsumerWidget {
 
   String? _validateGroupName(String? groupCode) {
     if (groupCode == null || groupCode.isEmpty) {
-      return "Bitte gib einen Gruppennamen ein.";
+      return "Bitte gib einen Squadnamen ein.";
     }
     return null;
   }
@@ -119,8 +119,8 @@ class GroupCreationScreen extends ConsumerWidget {
           (value) => showDialog(
             context: context,
             builder: (context) => const SuccessDialog(
-              message: "Die Gruppe wurde erfolgreich erstellt",
-              title: "Gruppe erstellt",
+              message: "Die Squad wurde erfolgreich erstellt",
+              title: "Squad erstellt",
             ),
           ),
         )

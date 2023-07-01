@@ -125,7 +125,7 @@ class GroupJoiningScreen extends ConsumerWidget {
 
   String? _validateGroupCode(String? groupCode) {
     if (groupCode == null || groupCode.isEmpty) {
-      return "Bitte gib ein Gruppenkürzel ein.";
+      return "Bitte gib ein Squadkürzel ein.";
     }
     return null;
   }

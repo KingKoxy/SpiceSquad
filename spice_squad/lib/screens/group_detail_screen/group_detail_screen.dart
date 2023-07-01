@@ -98,7 +98,7 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
                       ),
                       TextButton(
                         onPressed: () => _deleteGroup(context, ref.read(groupServiceProvider.notifier), group.id),
-                        child: const Text("Gruppe auflösen"),
+                        child: const Text("Squad auflösen"),
                       ),
                     ],
                   ),
@@ -146,7 +146,7 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
               controller: controller,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return "Bitte gib einen neuen Gruppennamen ein.";
+                  return "Bitte gib einen neuen Squadnamen ein.";
                 }
                 return null;
               },

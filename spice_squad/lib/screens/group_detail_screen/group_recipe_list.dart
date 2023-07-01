@@ -79,7 +79,7 @@ class GroupRecipeList extends ConsumerWidget {
               : Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
-                    "Bisher gibt es keine Rezepte für diese Gruppe",
+                    "Bisher gibt es keine Rezepte für diese Squad",
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.grey),
                   ),
               ),

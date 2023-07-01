@@ -95,8 +95,8 @@ class GroupList extends ConsumerWidget {
       context: context,
       builder: (context) {
         return ApprovalDialog(
-          title: "Gruppe verlassen",
-          message: "Bist du sicher, dass du die Gruppe verlassen möchtest?",
+          title: "Squad verlassen",
+          message: "Bist du sicher, dass du die Squad verlassen möchtest?",
           onApproval: () {
             Navigator.of(context).pop();
             groupService.leaveGroup(groupId);
