@@ -1,0 +1,123 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Admin {
+    id       String @id @default(dbgenerated("gen_random_uuid()")) @unique
+    user_id  String
+    group_id String
+
+    User  User  @relation(fields: [user_id], references: [id])
+    Group Group @relation(fields: [group_id], references: [id])
+}
+
+model CensoredRecipe {
+    id        String @id @default(dbgenerated("gen_random_uuid()")) @unique
+    recipe_id String
+    group_id  String
+
+    Recipe Recipe @relation(fields: [recipe_id], references: [id])
+    Group  Group  @relation(fields: [group_id], references: [id])
+}
+
+model BannedUser {
+    id       String @id @default(dbgenerated("gen_random_uuid()")) @unique
+    user_id  String
+    group_id String
+
+    User  User  @relation(fields: [user_id], references: [id])
+    Group Group @relation(fields: [group_id], references: [id])
+}
+
+model IngredientName {
+    name String @id
+}
+
+model Ingredient {
+    id        String  @id @default(dbgenerated("gen_random_uuid()")) @unique
+    name      String
+    icon_name String?
+    amount    Float?
+    unit      String?
+    recipe_id String
+
+    Recipe Recipe @relation(fields: [recipe_id], references: [id])
+}
+
+enum Difficulty {
+    EASY
+    MEDIUM
+    HARD
+}
+
+model GroupMember {
+    id       String @id @default(dbgenerated("gen_random_uuid()")) @unique
+    user_id  String
+    group_id String
+
+    User  User  @relation(fields: [user_id], references: [id])
+    Group Group @relation(fields: [group_id], references: [id])
+}
+
+model Favorite {
+    id        String @id @default(dbgenerated("gen_random_uuid()")) @unique
+    user_id   String
+    recipe_id String
+
+    User   User   @relation(fields: [user_id], references: [id])
+    Recipe Recipe @relation(fields: [recipe_id], references: [id])
+}
+
+model Recipe {
+    id               String     @id @default(dbgenerated("gen_random_uuid()")) @unique
+    title            String
+    author_id        String
+    image            Bytes?
+    duration         Int
+    difficulty       Difficulty
+    instructions     String
+    is_vegetarian    Boolean
+    is_vegan         Boolean
+    is_gluten_free   Boolean
+    is_halal         Boolean
+    is_kosher        Boolean
+    is_private       Boolean
+    default_portions Int
+
+    censoredRecipe CensoredRecipe[]
+    ingredient     Ingredient[]
+    favorite       Favorite[]
+
+    Author User @relation(fields: [author_id], references: [id])
+}
+
+model User {
+    id               String @id @default(dbgenerated("gen_random_uuid()")) @unique
+    user_name        String
+    email            String
+    profile_image    Bytes?
+    firebase_user_id String @unique
+    created_groups   Int
+
+    recipes     Recipe[]
+    favorites   Favorite[]
+    groupMember GroupMember[]
+    bannedUser  BannedUser[]
+    admin       Admin[]
+}
+
+model Group {
+    id         String @id @default(dbgenerated("gen_random_uuid()")) @unique
+    name       String
+    group_code String @default(dbgenerated("generate_code(8)")) @unique
+
+    groupMember    GroupMember[]
+    censoredRecipe CensoredRecipe[]
+    bannedUser     BannedUser[]
+    admin          Admin[]
+}

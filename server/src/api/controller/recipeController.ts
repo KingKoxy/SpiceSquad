@@ -2,6 +2,7 @@ import express = require('express');
 import AbstractController from './abstractController';
 import mailSender from '../../mailer/mailSender';
 import reportMailBuilder from '../../mailer/mailBuilder/reportMailWrapper';
+import schema from '../../../prisma/schemas/recipeSchema';
 
 class RecipeController extends AbstractController{
 
@@ -15,16 +16,30 @@ class RecipeController extends AbstractController{
     }
     
     public async recipePost(req: express.Request, res: express.Response): Promise<void> {
-        const requireParams = ["title", 'author_id', 'image', 'duration', 'difficulty', 'ingredients', 'instructions', 'is_vegetarian', 'is_vegan', 'is_gluten_free', 'is_kosher', 'is_halal', 'is_private', 'default_portions'];
-        const missingParams = requireParams.filter(param => !(param in req.body));
-        if (missingParams.length > 0) {
-            res.status(400).json({
-                error: 'Missing parameters: ' + missingParams.join(', ')
-            });
+        console.log(req.body);
+        const {error, value} = schema.validate(req.body);
+        if (error) {
+            res.status(422).json({ error: error.details[0].message });
             return;
         }
-
-        this.pool.query('INSERT INTO "recipe" (title, author_id, image, duration, difficulty, instructions, is_vegetarian, is_vegan, is_gluten_free, is_kosher, is_halal, is_private, default_portions) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING id', [req.body.title, req.body.author_id, req.body.image, req.body.duration, req.body.difficulty, req.body.instructions, req.body.is_vegetarian, req.body.is_vegan, req.body.is_gluten_free, req.body.is_kosher, req.body.is_halal, req.body.is_private, req.body.default_portions])
+        console.log(req.body);
+        await this.prisma.recipe.create({
+            data: {
+                title: req.body.title,
+                author_id: req.body.user_id,
+                image: Buffer.from(req.body.image, 'base64'),
+                duration: parseInt(req.body.duration),
+                difficulty: req.body.difficulty.toUpperCase(),
+                instructions: req.body.instructions,
+                is_vegetarian: req.body.is_vegetarian,
+                is_vegan: req.body.is_vegan,
+                is_gluten_free: req.body.is_gluten_free,
+                is_kosher: req.body.is_kosher,
+                is_halal: req.body.is_halal,
+                is_private: req.body.is_private,
+                default_portions: parseInt(req.body.default_portions)
+            }
+        })
         .then((result) => {
             for (const ingredient of req.body.ingredients) {
                 const requireParams = ['name', 'icon_name', 'amount', 'unit'];
@@ -35,7 +50,17 @@ class RecipeController extends AbstractController{
                     });
                     return;
                 }
-                this.pool.query('INSERT INTO ingredient (name, icon_name, amount, unit, recipe_id) VALUES ($1, $2, $3, $4, $5)', [ingredient.name, ingredient.icon_name, ingredient.amount, ingredient.unit, result.rows[0].id])
+                
+                //this.pool.query('INSERT INTO ingredient (name, icon_name, amount, unit, recipe_id) VALUES ($1, $2, $3, $4, $5)', [ingredient.name, ingredient.icon_name, ingredient.amount, ingredient.unit, result.rows[0].id])
+                this.prisma.ingredient.create({
+                    data: {
+                        name: ingredient.name,
+                        icon_name: ingredient.icon_name,
+                        amount: ingredient.amount,
+                        unit: ingredient.unit,
+                        recipe_id: result.id
+                    }
+                })
             }
             res.status(200).json({
                 message: "Recipe created successfully!",

@@ -38,18 +38,6 @@ class Application {
     private initializeMiddleware(): void {
       this.app.use(morgan('dev'));
       this.app.use(express.json());
-      this.app.use((req, res, next) => {
-        res.header('Access-Control-Allow-Origin', '*');      
-        res.header(
-          'Access-Control-Allow-Headers',
-          'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-          );
-        if (req.method === 'OPTIONS') {
-          res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE');
-          return res.status(200).json({});
-          }
-        next();
-      });
     }
     
     private initializeRoutes(): void {
@@ -63,12 +51,10 @@ class Application {
     
     private initializeErrorHandlers(): void {
       this.app.use((req: express.Request, res: express.Response) => {
-          console.log('Start');
-          const error = new Error('Not found');
+          const error = new Error('The URL you are trying to reach does not exist.');
           res.status(404).json({
-              error: {
               message: error.message,
-              }
+              
           });
       });
     }
