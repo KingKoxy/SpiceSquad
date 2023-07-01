@@ -55,6 +55,7 @@ class RegisterScreen extends ConsumerWidget {
                     SizedBox(
                       width: double.infinity,
                       child: TextFormField(
+                        autofillHints: const [AutofillHints.newUsername],
                         validator: _validateUserName,
                         keyboardType: TextInputType.name,
                         controller: _userNameController,
@@ -69,6 +70,7 @@ class RegisterScreen extends ConsumerWidget {
                     SizedBox(
                       width: double.infinity,
                       child: TextFormField(
+                        autofillHints: const [AutofillHints.email],
                         validator: _validateEmail,
                         keyboardType: TextInputType.emailAddress,
                         controller: _emailController,
@@ -83,6 +85,7 @@ class RegisterScreen extends ConsumerWidget {
                     SizedBox(
                       width: double.infinity,
                       child: TextFormField(
+                        autofillHints: const [AutofillHints.newPassword],
                         validator: _validatePassword,
                         keyboardType: TextInputType.visiblePassword,
                         obscureText: true,
@@ -185,7 +188,7 @@ class RegisterScreen extends ConsumerWidget {
     if (!RegExp(r'[a-z]').hasMatch(password)) {
       return 'Das Passwort muss mindestens einen Kleinbuchstaben enthalten';
     }
-    if (!RegExp(r'[0-9]').hasMatch(password)) {
+    if (!RegExp(r'\d').hasMatch(password)) {
       return 'Das Passwort muss mindestens eine Zahl enthalten';
     }
     if (password != _passwordRepeatController.text) {

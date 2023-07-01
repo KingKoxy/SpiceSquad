@@ -1,6 +1,16 @@
 class IngredientNameRepository {
+  static const _ingredients = [
+    "Mehl",
+    "Eier",
+    "Hackfleisch",
+    "Zucker",
+    "Auberginen",
+    "Kartoffeln",
+    "Meerrettich",
+    "Hähnchenbrust"
+  ];
+
   Future<List<String>> fetchIngredientNames() {
-    return Future.delayed(const Duration(milliseconds: 2000),
-        () => List.generate(100, (index) => index.toString()));
+    return Future.delayed(const Duration(milliseconds: 2000), () => Future(() => _ingredients));
   }
 }

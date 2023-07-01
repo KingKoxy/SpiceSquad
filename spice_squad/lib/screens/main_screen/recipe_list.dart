@@ -9,14 +9,30 @@ class RecipeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: recipes.length,
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: RecipeCard(recipe: recipes[index]),
-        );
-      },
-    );
+    return recipes.isNotEmpty
+        ? Expanded(
+          child: ListView.builder(
+              itemCount: recipes.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: RecipeCard(recipe: recipes[index]),
+                );
+              },
+            ),
+        )
+        : Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: Card(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  "Es gibt leider keine Rezepte, die deinen Filterkriterien entsprechen :(",
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.grey),
+                ),
+              ),
+            ),
+          );
   }
 }

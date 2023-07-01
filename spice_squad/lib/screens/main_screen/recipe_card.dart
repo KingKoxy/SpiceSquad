@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spice_squad/models/recipe.dart';
+import 'package:spice_squad/providers/service_providers.dart';
 import 'package:spice_squad/screens/recipe_detail_screen.dart';
+import 'package:spice_squad/services/recipe_service.dart';
 import 'package:spice_squad/widgets/favourite_button.dart';
 
-class RecipeCard extends StatelessWidget {
+class RecipeCard extends ConsumerWidget {
   final Recipe recipe;
 
   const RecipeCard({super.key, required this.recipe});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
       onTap: () => Navigator.of(context).pushNamed(RecipeDetailScreen.routeName, arguments: recipe),
       child: Card(
@@ -37,7 +40,7 @@ class RecipeCard extends StatelessWidget {
                   FavouriteButton(
                       value: recipe.isFavourite,
                       onToggle: () {
-                        /*TODO: toggle favourite*/
+                        _toggleFavourite(ref.read(recipeServiceProvider.notifier));
                       }),
                 ],
               ),
@@ -120,5 +123,9 @@ class RecipeCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _toggleFavourite(RecipeService recipeService) {
+    recipeService.toggleFavourite(recipe);
   }
 }

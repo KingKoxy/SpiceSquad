@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:spice_squad/providers/service_providers.dart';
 import 'package:spice_squad/screens/group_joining_screen.dart';
 import 'package:spice_squad/screens/main_screen/main_screen.dart';
+import 'package:spice_squad/services/group_service.dart';
 import 'package:spice_squad/widgets/or_widget.dart';
 
-class GroupCreationScreen extends StatelessWidget {
+class GroupCreationScreen extends ConsumerWidget {
   static const routeName = '/group-creation';
 
   final TextEditingController _groupNameController = TextEditingController();
@@ -12,7 +15,7 @@ class GroupCreationScreen extends StatelessWidget {
   GroupCreationScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: SafeArea(
         child: Stack(children: [
@@ -71,7 +74,7 @@ class GroupCreationScreen extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          _createGroup(context);
+                          _createGroup(context, ref.read(groupServiceProvider.notifier));
                         }
                       },
                       child: const Text('Weiter'),
@@ -103,8 +106,10 @@ class GroupCreationScreen extends StatelessWidget {
     return null;
   }
 
-  void _createGroup(BuildContext context) {
-    //TODO: Implement group creation
-    Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
+  void _createGroup(BuildContext context, GroupService groupService) {
+    //TODO: show success popup?
+    groupService
+        .createGroup(_groupNameController.text)
+        .then((value) => Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false));
   }
 }
