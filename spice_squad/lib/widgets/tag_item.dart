@@ -1,15 +1,17 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
+/// A widget that contains a tag.
 class TagItem extends StatelessWidget {
+  /// The image that is displayed as an icon in the tag.
   final ImageProvider image;
+  /// The name of the tag.
   final String name;
+  /// Whether the tag is active or not.
   final bool isActive;
 
+  /// Creates a new tag item.
   const TagItem(
-      {super.key,
-      required this.image,
-      required this.name,
-      required this.isActive});
+      {required this.image, required this.name, required this.isActive, super.key,});
 
   @override
   Widget build(BuildContext context) {

@@ -1,12 +1,20 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import "package:flutter/material.dart";
+import "package:flutter/services.dart";
 
+/// A field that is used to select an amount of portions.
 class PortionAmountField extends StatelessWidget {
+  /// The callback that is called when the amount of portions is changed.
   final ValueChanged<int> onChanged;
-  final int portionAmount;
 
-  const PortionAmountField(
-      {super.key, required this.onChanged, required this.portionAmount});
+  /// The initial amount of portions.
+  final int initialValue;
+
+  /// Creates a new portion amount field.
+  const PortionAmountField({
+    required this.onChanged,
+    required this.initialValue,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,19 +25,20 @@ class PortionAmountField extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-                child: TextFormField(
-              initialValue: portionAmount.toString(),
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              textAlign: TextAlign.center,
-              decoration: const InputDecoration(
-                filled: false,
-                border: InputBorder.none,
+              child: TextFormField(
+                initialValue: initialValue.toString(),
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                textAlign: TextAlign.center,
+                decoration: const InputDecoration(
+                  filled: false,
+                  border: InputBorder.none,
+                ),
+                keyboardType: TextInputType.number,
+                onChanged: (value) {
+                  if (value.isNotEmpty) onChanged(int.parse(value));
+                },
               ),
-              keyboardType: TextInputType.number,
-              onChanged: (value) {
-                if (value.isNotEmpty) onChanged(int.parse(value));
-              },
-            )),
+            ),
             Expanded(
               child: Container(
                 padding: const EdgeInsets.all(12),

@@ -1,8 +1,11 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
+/// Screen for displaying a recipe's details
 class RecipeDetailScreen extends StatefulWidget {
+  /// Route name for navigation
   static const routeName = "/recipe-detail";
 
+  /// Creates a new recipe detail screen
   const RecipeDetailScreen({super.key});
 
   @override

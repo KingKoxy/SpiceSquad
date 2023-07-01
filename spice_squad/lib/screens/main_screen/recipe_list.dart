@@ -1,17 +1,20 @@
-import 'package:flutter/material.dart';
-import 'package:spice_squad/screens/main_screen/recipe_card.dart';
-import 'package:spice_squad/models/recipe.dart';
+import "package:flutter/material.dart";
+import "package:spice_squad/models/recipe.dart";
+import "package:spice_squad/screens/main_screen/recipe_card.dart";
 
+/// A list of recipe cards.
 class RecipeList extends StatelessWidget {
+  /// The recipes to show.
   final List<Recipe> recipes;
 
-  const RecipeList({super.key, required this.recipes});
+  /// Creates a new recipe list.
+  const RecipeList({required this.recipes, super.key});
 
   @override
   Widget build(BuildContext context) {
     return recipes.isNotEmpty
         ? Expanded(
-          child: ListView.builder(
+            child: ListView.builder(
               itemCount: recipes.length,
               itemBuilder: (context, index) {
                 return Padding(
@@ -20,7 +23,7 @@ class RecipeList extends StatelessWidget {
                 );
               },
             ),
-        )
+          )
         : Padding(
             padding: const EdgeInsets.only(top: 10.0),
             child: Card(

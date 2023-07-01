@@ -1,18 +1,23 @@
-import 'package:flutter/material.dart';
-import 'icon_picker_dialog.dart';
+import "package:flutter/material.dart";
+import "package:spice_squad/screens/ingredient_creation_screen/icon_picker_dialog.dart";
 
+/// Widget to pick an icon for an ingredient
 class IconPickerWidget extends StatefulWidget {
-  static const List<String> iconIds = ["carrot", "milk", "bread"];
+  /// A list of possible icon ids. An icon id is the name of the icon file
+  static const List<String> _iconIds = ["carrot", "milk", "bread"];
 
+  /// The controller that contains the currently selected icon id
   final TextEditingController controller;
 
-  const IconPickerWidget({super.key, required this.controller});
+  /// Creates a new icon picker widget
+  const IconPickerWidget({required this.controller, super.key});
 
   @override
   State<IconPickerWidget> createState() => _IconPickerWidgetState();
 }
 
 class _IconPickerWidgetState extends State<IconPickerWidget> {
+  /// The currently selected icon id
   String _selectedIconId = "carrot";
 
   @override
@@ -40,17 +45,18 @@ class _IconPickerWidgetState extends State<IconPickerWidget> {
 
   void _showDialog(BuildContext context) {
     showDialog(
-        context: context,
-        builder: (context) {
-          return IconPickerDialog(
-            iconIds: IconPickerWidget.iconIds,
-            onChanged: (String value) {
-              setState(() {
-                _selectedIconId = value;
-              });
-              widget.controller.text = value;
-            },
-          );
-        });
+      context: context,
+      builder: (context) {
+        return IconPickerDialog(
+          iconIds: IconPickerWidget._iconIds,
+          onChanged: (String value) {
+            setState(() {
+              _selectedIconId = value;
+            });
+            widget.controller.text = value;
+          },
+        );
+      },
+    );
   }
 }

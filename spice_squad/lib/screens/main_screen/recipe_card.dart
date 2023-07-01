@@ -1,15 +1,18 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:spice_squad/models/recipe.dart';
-import 'package:spice_squad/providers/service_providers.dart';
-import 'package:spice_squad/screens/recipe_detail_screen.dart';
-import 'package:spice_squad/services/recipe_service.dart';
-import 'package:spice_squad/widgets/favourite_button.dart';
+import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/models/recipe.dart";
+import "package:spice_squad/providers/service_providers.dart";
+import "package:spice_squad/screens/recipe_detail_screen.dart";
+import "package:spice_squad/services/recipe_service.dart";
+import "package:spice_squad/widgets/favourite_button.dart";
 
+/// A card showing a recipe.
 class RecipeCard extends ConsumerWidget {
+  /// The recipe to show.
   final Recipe recipe;
 
-  const RecipeCard({super.key, required this.recipe});
+  /// Creates a new recipe card.
+  const RecipeCard({required this.recipe, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -38,10 +41,11 @@ class RecipeCard extends ConsumerWidget {
                     ],
                   ),
                   FavouriteButton(
-                      value: recipe.isFavourite,
-                      onToggle: () {
-                        _toggleFavourite(ref.read(recipeServiceProvider.notifier));
-                      }),
+                    value: recipe.isFavourite,
+                    onToggle: () {
+                      _toggleFavourite(ref.read(recipeServiceProvider.notifier));
+                    },
+                  ),
                 ],
               ),
               Row(

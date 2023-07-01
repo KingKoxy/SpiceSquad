@@ -1,12 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:spice_squad/providers/service_providers.dart';
-import 'package:spice_squad/screens/group_joining_screen.dart';
-import 'package:spice_squad/screens/login_screen.dart';
-import 'package:spice_squad/services/user_service.dart';
+import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/providers/service_providers.dart";
+import "package:spice_squad/screens/group_joining_screen.dart";
+import "package:spice_squad/screens/login_screen.dart";
+import "package:spice_squad/services/user_service.dart";
 
+/// Screen for registering a new user.
 class RegisterScreen extends ConsumerWidget {
-  static const routeName = '/register';
+  /// Route name for navigation
+  static const routeName = "/register";
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _userNameController = TextEditingController();
@@ -14,6 +16,7 @@ class RegisterScreen extends ConsumerWidget {
   final TextEditingController _passwordRepeatController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  /// Creates a new register screen
   RegisterScreen({super.key});
 
   @override
@@ -30,9 +33,9 @@ class RegisterScreen extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Hero(
-                    tag: 'logo',
+                    tag: "logo",
                     child: Image.asset(
-                      'assets/images/logo.png',
+                      "assets/images/logo.png",
                       width: 240,
                     ),
                   ),
@@ -42,7 +45,7 @@ class RegisterScreen extends ConsumerWidget {
                 height: 50,
               ),
               Text(
-                'Registrieren',
+                "Registrieren",
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               const SizedBox(
@@ -60,7 +63,7 @@ class RegisterScreen extends ConsumerWidget {
                         keyboardType: TextInputType.name,
                         controller: _userNameController,
                         decoration: const InputDecoration(
-                          hintText: 'Nutzername',
+                          hintText: "Nutzername",
                         ),
                       ),
                     ),
@@ -75,7 +78,7 @@ class RegisterScreen extends ConsumerWidget {
                         keyboardType: TextInputType.emailAddress,
                         controller: _emailController,
                         decoration: const InputDecoration(
-                          hintText: 'E-Mail',
+                          hintText: "E-Mail",
                         ),
                       ),
                     ),
@@ -91,7 +94,7 @@ class RegisterScreen extends ConsumerWidget {
                         obscureText: true,
                         controller: _passwordController,
                         decoration: const InputDecoration(
-                          hintText: 'Passwort',
+                          hintText: "Passwort",
                         ),
                       ),
                     ),
@@ -105,7 +108,7 @@ class RegisterScreen extends ConsumerWidget {
                         obscureText: true,
                         controller: _passwordRepeatController,
                         decoration: const InputDecoration(
-                          hintText: 'Passwort wiederholen',
+                          hintText: "Passwort wiederholen",
                         ),
                       ),
                     ),
@@ -117,7 +120,7 @@ class RegisterScreen extends ConsumerWidget {
               ),
               Row(children: [
                 Text(
-                  'Du hast bereits ein Konto?',
+                  "Du hast bereits ein Konto?",
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 const SizedBox(
@@ -127,9 +130,9 @@ class RegisterScreen extends ConsumerWidget {
                   onPressed: () {
                     Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
                   },
-                  child: const Text('Anmelden'),
+                  child: const Text("Anmelden"),
                 ),
-              ]),
+              ],),
               const SizedBox(
                 height: 10,
               ),
@@ -141,7 +144,7 @@ class RegisterScreen extends ConsumerWidget {
                       _register(context, ref.read(userServiceProvider.notifier));
                     }
                   },
-                  child: const Text('Weiter'),
+                  child: const Text("Weiter"),
                 ),
               ),
             ],
@@ -158,41 +161,41 @@ class RegisterScreen extends ConsumerWidget {
   }
 
   String? _validateEmail(String? email) {
-    const emailRegex = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
+    const emailRegex = r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
     if (email == null || email.isEmpty) {
-      return 'Bitte gib eine E-Mail-Adresse ein';
+      return "Bitte gib eine E-Mail-Adresse ein";
     }
     if (!RegExp(emailRegex).hasMatch(email)) {
-      return 'Bitte gib eine gültige E-Mail-Adresse ein';
+      return "Bitte gib eine gültige E-Mail-Adresse ein";
     }
     return null;
   }
 
   String? _validateUserName(String? userName) {
     if (userName == null || userName.isEmpty) {
-      return 'Bitte gib einen Nutzernamen ein';
+      return "Bitte gib einen Nutzernamen ein";
     }
     return null;
   }
 
   String? _validatePassword(String? password) {
     if (password == null || password.isEmpty) {
-      return 'Bitte gib ein Passwort ein';
+      return "Bitte gib ein Passwort ein";
     }
     if (password.length < 8) {
-      return 'Das Passwort muss mindestens 8 Zeichen lang sein';
+      return "Das Passwort muss mindestens 8 Zeichen lang sein";
     }
-    if (!RegExp(r'[A-Z]').hasMatch(password)) {
-      return 'Das Passwort muss mindestens einen Großbuchstaben enthalten';
+    if (!RegExp(r"[A-Z]").hasMatch(password)) {
+      return "Das Passwort muss mindestens einen Großbuchstaben enthalten";
     }
-    if (!RegExp(r'[a-z]').hasMatch(password)) {
-      return 'Das Passwort muss mindestens einen Kleinbuchstaben enthalten';
+    if (!RegExp(r"[a-z]").hasMatch(password)) {
+      return "Das Passwort muss mindestens einen Kleinbuchstaben enthalten";
     }
-    if (!RegExp(r'\d').hasMatch(password)) {
-      return 'Das Passwort muss mindestens eine Zahl enthalten';
+    if (!RegExp(r"\d").hasMatch(password)) {
+      return "Das Passwort muss mindestens eine Zahl enthalten";
     }
     if (password != _passwordRepeatController.text) {
-      return 'Die Passwörter stimmen nicht überein';
+      return "Die Passwörter stimmen nicht überein";
     }
     return null;
   }

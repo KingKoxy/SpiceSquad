@@ -1,18 +1,18 @@
-import 'package:flutter/material.dart';
-import 'package:spice_squad/screens/main_screen/sort.dart';
-import 'package:spice_squad/screens/main_screen/sort_selection_dialog.dart';
+import "package:flutter/material.dart";
+import "package:spice_squad/screens/main_screen/sort.dart";
+import "package:spice_squad/screens/main_screen/sort_selection_dialog.dart";
 
-class SortSelectionWidget extends StatefulWidget {
+/// Widget that allows the user to select a sort.
+class SortSelectionWidget extends StatelessWidget {
+  /// Callback for when the sort is changed.
   final ValueChanged<Sort> onChanged;
+
+  /// The selected sort.
   final Sort selectedSort;
 
-  const SortSelectionWidget({super.key, required this.onChanged, required this.selectedSort});
+  /// Creates a new sort selection widget.
+  const SortSelectionWidget({required this.onChanged, required this.selectedSort, super.key});
 
-  @override
-  State<SortSelectionWidget> createState() => _SortSelectionWidgetState();
-}
-
-class _SortSelectionWidgetState extends State<SortSelectionWidget> {
   @override
   Widget build(BuildContext context) {
     return TextButton(
@@ -20,14 +20,14 @@ class _SortSelectionWidgetState extends State<SortSelectionWidget> {
       child: Row(
         children: [
           ImageIcon(
-            widget.selectedSort.ascending
+            selectedSort.ascending
                 ? const AssetImage("assets/icons/sortAscending.png")
                 : const AssetImage("assets/icons/sortDescending.png"),
             color: Colors.white,
           ),
           const SizedBox(width: 5),
           Text(
-            widget.selectedSort.category.toString(),
+            selectedSort.category.toString(),
             style: Theme.of(context).textTheme.titleLarge,
           )
         ],
@@ -41,8 +41,8 @@ class _SortSelectionWidgetState extends State<SortSelectionWidget> {
       barrierDismissible: true,
       builder: (BuildContext context) {
         return SortSelectionDialog(
-          onChanged: widget.onChanged,
-          selectedSort: widget.selectedSort,
+          onSaved: onChanged,
+          initialValue: selectedSort,
         );
       },
     );
