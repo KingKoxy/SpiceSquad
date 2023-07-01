@@ -6,13 +6,16 @@ import "package:spice_squad/screens/password_reset_screen.dart";
 import "package:spice_squad/screens/register_screen.dart";
 import "package:spice_squad/services/user_service.dart";
 
+/// Screen for logging in
 class LoginScreen extends ConsumerWidget {
+  /// Route name for navigation
   static const routeName = "/login";
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  /// Creates a new login screen
   LoginScreen({super.key});
 
   @override

@@ -2,9 +2,18 @@ import "package:flutter/material.dart";
 import "package:qr_flutter/qr_flutter.dart";
 import "package:spice_squad/models/group.dart";
 
+/// Screen for displaying a QR-Code for joining a group
+///
+/// This screen is used to display a QR-Code for joining a group.
+///
+/// The QR-Code is generated using the [QrImageView] widget from the [qr_flutter](https://pub.dev/packages/qr_flutter) package.
+///
+/// The group is obtained from the route arguments.
 class QRCodeScreen extends StatelessWidget {
+  /// Route name for navigation
   static const routeName = "/qr-code";
 
+  /// Creates a new QR-Code screen
   const QRCodeScreen({super.key});
 
   @override

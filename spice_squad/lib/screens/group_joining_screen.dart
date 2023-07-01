@@ -7,12 +7,15 @@ import "package:spice_squad/screens/qr_scanner_screen.dart";
 import "package:spice_squad/services/group_service.dart";
 import "package:spice_squad/widgets/or_widget.dart";
 
+/// Screen for joining a group
 class GroupJoiningScreen extends ConsumerWidget {
+  /// Route name for navigation
   static const routeName = "/group-joining";
 
   final TextEditingController _groupCodeController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  /// Creates a new group joining screen
   GroupJoiningScreen({super.key});
 
   @override

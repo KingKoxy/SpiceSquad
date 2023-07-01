@@ -5,7 +5,9 @@ import "package:spice_squad/screens/group_joining_screen.dart";
 import "package:spice_squad/screens/login_screen.dart";
 import "package:spice_squad/services/user_service.dart";
 
+/// Screen for registering a new user.
 class RegisterScreen extends ConsumerWidget {
+  /// Route name for navigation
   static const routeName = "/register";
 
   final TextEditingController _emailController = TextEditingController();
@@ -14,6 +16,7 @@ class RegisterScreen extends ConsumerWidget {
   final TextEditingController _passwordRepeatController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  /// Creates a new register screen
   RegisterScreen({super.key});
 
   @override

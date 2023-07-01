@@ -3,12 +3,15 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/services/user_service.dart";
 
+/// Screen for resetting the password
 class PasswordResetScreen extends ConsumerWidget {
+  /// Route name for navigation
   static const routeName = "/password-reset";
 
   final TextEditingController _emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  /// Creates a new password reset screen
   PasswordResetScreen({super.key});
 
   @override
