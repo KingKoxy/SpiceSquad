@@ -101,8 +101,9 @@ class SettingsScreen extends ConsumerWidget {
 }
 
 void _logout(BuildContext context, UserService userService) {
-  userService.logout();
-  Navigator.of(context).pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
+  Navigator.of(context)
+      .pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false)
+      .then((value) => userService.logout());
 }
 
 void _renameUser(BuildContext context, UserService userService, String oldName) {
