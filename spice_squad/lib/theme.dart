@@ -54,24 +54,28 @@ abstract class SpiceSquadTheme {
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
-              alignment: Alignment.center,
-              padding: const MaterialStatePropertyAll(EdgeInsets.all(20)),
-              textStyle: const MaterialStatePropertyAll(_buttonText),
-              shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+            alignment: Alignment.center,
+            padding: const MaterialStatePropertyAll(EdgeInsets.all(20)),
+            textStyle: const MaterialStatePropertyAll(_buttonText),
+            shape: MaterialStatePropertyAll(
+              RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
-              ),),),
+              ),
+            ),
+          ),
         ),
         inputDecorationTheme: InputDecorationTheme(
-            filled: true,
-            fillColor: _secondary,
-            contentPadding: const EdgeInsets.all(12),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide.none,
-            ),
-            errorStyle: TextStyle(
-              color: _primary,
-            ),),
+          filled: true,
+          fillColor: _secondary,
+          contentPadding: const EdgeInsets.all(12),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: BorderSide.none,
+          ),
+          errorStyle: TextStyle(
+            color: _primary,
+          ),
+        ),
         textButtonTheme: const TextButtonThemeData(
           style: ButtonStyle(
             textStyle: MaterialStatePropertyAll(
@@ -85,7 +89,6 @@ abstract class SpiceSquadTheme {
       );
 }
 
-//Returns a MaterialColor object based on the given color
 MaterialColor createMaterialColor(int colorHex) {
   final Color color = Color(colorHex);
   final List strengths = <double>[.05];
