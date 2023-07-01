@@ -7,6 +7,7 @@ import "package:spice_squad/screens/group_detail_screen/group_recipe_list.dart";
 import "package:spice_squad/screens/group_detail_screen/member_list.dart";
 import "package:spice_squad/screens/qr_code_screen.dart";
 import "package:spice_squad/services/group_service.dart";
+import "package:spice_squad/widgets/approval_dialog.dart";
 
 /// Screen to display the details of a group
 ///
@@ -183,24 +184,13 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          title: const Text("Gruppe auflösen"),
-          content: const Text("Bist du dir wirklich sicher? Es gibt danach keinen Weg zurück"),
-          actions: <Widget>[
-            TextButton(
-              child: const Text("Abbrechen"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: const Text("Ich bin mir sicher"),
-              onPressed: () {
-                groupService.deleteGroup(groupId);
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
+        return ApprovalDialog(
+          title: "Gruppe auflösen",
+          message: "Bist du dir wirklich sicher? Es gibt danach keinen Weg zurück",
+          onApproval: () {
+            groupService.deleteGroup(groupId);
+            Navigator.of(context).pop();
+          },
         );
       },
     );

@@ -6,6 +6,7 @@ import "package:spice_squad/screens/settings_screen/group_list.dart";
 import "package:spice_squad/screens/settings_screen/own_recipe_list.dart";
 import "package:spice_squad/screens/settings_screen/profile_image_picker.dart";
 import "package:spice_squad/services/user_service.dart";
+import "package:spice_squad/widgets/approval_dialog.dart";
 import "package:spice_squad/widgets/nav_bar.dart";
 
 /// Screen for displaying user settings
@@ -152,24 +153,13 @@ void _deleteAccount(BuildContext context, UserService userService) {
   showDialog(
     context: context,
     builder: (context) {
-      return AlertDialog(
-        title: const Text("Konto löschen"),
-        content: const Text("Bist du dir wirklich sicher? Es gibt danach keinen Weg zurück"),
-        actions: <Widget>[
-          TextButton(
-            child: const Text("Abbrechen"),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-          TextButton(
-            child: const Text("Ich bin mir sicher"),
-            onPressed: () {
-              userService.deleteAccount();
-              Navigator.of(context).pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
-            },
-          ),
-        ],
+      return ApprovalDialog(
+        title: "Konto löschen",
+        message: "Bist du dir wirklich sicher? Es gibt danach keinen Weg zurück",
+        onApproval: () {
+          userService.deleteAccount();
+          Navigator.of(context).pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
+        },
       );
     },
   );

@@ -5,6 +5,7 @@ import "package:spice_squad/providers/repository_providers.dart";
 import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/screens/recipe_creation_screen/recipe_creation_screen.dart";
 import "package:spice_squad/services/recipe_service.dart";
+import "package:spice_squad/widgets/approval_dialog.dart";
 import "package:spice_squad/widgets/eye_button.dart";
 import "package:spice_squad/widgets/remove_button.dart";
 
@@ -115,24 +116,13 @@ class OwnRecipeList extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          title: const Text("Rezept löschen"),
-          content: const Text("Bist du sicher, dass du das Rezept löschen möchtest?"),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text("Abbrechen"),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                recipeService.deleteRecipe(recipeId);
-              },
-              child: const Text("Ich bin mir sicher"),
-            )
-          ],
+        return ApprovalDialog(
+          title: "Rezept löschen",
+          message: "Bist du sicher, dass du das Rezept löschen möchtest?",
+          onApproval: () {
+            Navigator.of(context).pop();
+            recipeService.deleteRecipe(recipeId);
+          },
         );
       },
     );

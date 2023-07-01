@@ -5,6 +5,7 @@ import "package:spice_squad/screens/group_detail_screen/group_detail_screen.dart
 import "package:spice_squad/screens/group_joining_screen.dart";
 import "package:spice_squad/services/group_service.dart";
 import "package:spice_squad/widgets/add_button.dart";
+import "package:spice_squad/widgets/approval_dialog.dart";
 import "package:spice_squad/widgets/remove_button.dart";
 
 /// Widget for displaying a list of groups the user is a member of
@@ -93,24 +94,13 @@ class GroupList extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          title: const Text("Gruppe verlassen"),
-          content: const Text("Bist du sicher, dass du die Gruppe verlassen möchtest?"),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text("Abbrechen"),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                groupService.leaveGroup(groupId);
-              },
-              child: const Text("Ich bin mir sicher"),
-            )
-          ],
+        return ApprovalDialog(
+          title: "Gruppe verlassen",
+          message: "Bist du sicher, dass du die Gruppe verlassen möchtest?",
+          onApproval: () {
+            Navigator.of(context).pop();
+            groupService.leaveGroup(groupId);
+          },
         );
       },
     );

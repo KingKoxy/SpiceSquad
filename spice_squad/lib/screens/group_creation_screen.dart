@@ -5,6 +5,7 @@ import "package:spice_squad/screens/group_joining_screen.dart";
 import "package:spice_squad/screens/main_screen/main_screen.dart";
 import "package:spice_squad/services/group_service.dart";
 import "package:spice_squad/widgets/or_widget.dart";
+import "package:spice_squad/widgets/success_dialog.dart";
 
 /// Screen for creating a new group
 class GroupCreationScreen extends ConsumerWidget {
@@ -112,9 +113,17 @@ class GroupCreationScreen extends ConsumerWidget {
   }
 
   void _createGroup(BuildContext context, GroupService groupService) {
-    //TODO: show success popup?
     groupService
         .createGroup(_groupNameController.text)
+        .then(
+          (value) => showDialog(
+            context: context,
+            builder: (context) => const SuccessDialog(
+              message: "Die Gruppe wurde erfolgreich erstellt",
+              title: "Gruppe erstellt",
+            ),
+          ),
+        )
         .then((value) => Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false));
   }
 }
