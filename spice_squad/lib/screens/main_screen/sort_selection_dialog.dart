@@ -2,11 +2,16 @@ import "package:flutter/material.dart";
 import "package:spice_squad/screens/main_screen/sort.dart";
 import "package:spice_squad/screens/main_screen/sort_category.dart";
 
+/// Dialog that allows the user to select a sort.
 class SortSelectionDialog extends StatefulWidget {
-  final ValueChanged<Sort> onChanged;
-  final Sort selectedSort;
+  /// Callback for when the sort is saved.
+  final ValueChanged<Sort> onSaved;
 
-  const SortSelectionDialog({required this.onChanged, required this.selectedSort, super.key});
+  /// The initially selected sort.
+  final Sort initialValue;
+
+  /// Creates a new sort selection dialog.
+  const SortSelectionDialog({required this.onSaved, required this.initialValue, super.key});
 
   @override
   State<SortSelectionDialog> createState() => _SortSelectionDialogState();
@@ -17,7 +22,8 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
 
   @override
   void initState() {
-    selectedSort = widget.selectedSort;
+    // Initialize the selected sort with the initial value.
+    selectedSort = widget.initialValue;
     super.initState();
   }
 
@@ -28,48 +34,49 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
       content: SizedBox(
         width: double.maxFinite,
         child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: SortCategory.values.length + 1,
-            itemBuilder: (context, index) {
-              if (index == 0) {
-                return TextButton(
-                  onPressed: () {
-                    setState(() {
-                      selectedSort = Sort(category: selectedSort.category, ascending: !selectedSort.ascending);
-                    });
-                  },
-                  child: ListTile(
-                    title: Row(
-                      children: [
-                        ImageIcon(
-                          selectedSort.ascending
-                              ? const AssetImage("assets/icons/sortAscending.png")
-                              : const AssetImage("assets/icons/sortDescending.png"),
-                          color: Colors.white,
-                        ),
-                        const SizedBox(
-                          width: 24,
-                        ),
-                        Text(
-                          selectedSort.ascending ? "Aufsteigend" : "Absteigend",
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              }
-              final key = SortCategory.values.elementAt(index - 1);
-              return RadioListTile(
-                title: Text(key.toString()),
-                value: key,
-                onChanged: (value) {
+          shrinkWrap: true,
+          itemCount: SortCategory.values.length + 1,
+          itemBuilder: (context, index) {
+            if (index == 0) {
+              return TextButton(
+                onPressed: () {
                   setState(() {
-                    selectedSort = Sort(category: value!, ascending: selectedSort.ascending);
+                    selectedSort = Sort(category: selectedSort.category, ascending: !selectedSort.ascending);
                   });
                 },
-                groupValue: selectedSort.category,
+                child: ListTile(
+                  title: Row(
+                    children: [
+                      ImageIcon(
+                        selectedSort.ascending
+                            ? const AssetImage("assets/icons/sortAscending.png")
+                            : const AssetImage("assets/icons/sortDescending.png"),
+                        color: Colors.white,
+                      ),
+                      const SizedBox(
+                        width: 24,
+                      ),
+                      Text(
+                        selectedSort.ascending ? "Aufsteigend" : "Absteigend",
+                      ),
+                    ],
+                  ),
+                ),
               );
-            },),
+            }
+            final key = SortCategory.values.elementAt(index - 1);
+            return RadioListTile(
+              title: Text(key.toString()),
+              value: key,
+              onChanged: (value) {
+                setState(() {
+                  selectedSort = Sort(category: value!, ascending: selectedSort.ascending);
+                });
+              },
+              groupValue: selectedSort.category,
+            );
+          },
+        ),
       ),
       actions: <Widget>[
         TextButton(
@@ -82,7 +89,7 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
           child: const Text("Speichern"),
           onPressed: () {
             Navigator.of(context).pop();
-            widget.onChanged(selectedSort);
+            widget.onSaved(selectedSort);
           },
         ),
       ],

@@ -6,9 +6,12 @@ import "package:spice_squad/screens/recipe_detail_screen.dart";
 import "package:spice_squad/services/recipe_service.dart";
 import "package:spice_squad/widgets/favourite_button.dart";
 
+/// A card showing a recipe.
 class RecipeCard extends ConsumerWidget {
+  /// The recipe to show.
   final Recipe recipe;
 
+  /// Creates a new recipe card.
   const RecipeCard({required this.recipe, super.key});
 
   @override
@@ -38,10 +41,11 @@ class RecipeCard extends ConsumerWidget {
                     ],
                   ),
                   FavouriteButton(
-                      value: recipe.isFavourite,
-                      onToggle: () {
-                        _toggleFavourite(ref.read(recipeServiceProvider.notifier));
-                      },),
+                    value: recipe.isFavourite,
+                    onToggle: () {
+                      _toggleFavourite(ref.read(recipeServiceProvider.notifier));
+                    },
+                  ),
                 ],
               ),
               Row(
