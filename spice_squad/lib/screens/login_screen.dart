@@ -99,8 +99,7 @@ class LoginScreen extends ConsumerWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.of(context)
-                          .pushReplacementNamed(RegisterScreen.routeName);
+                      Navigator.of(context).pushReplacementNamed(RegisterScreen.routeName);
                     },
                     child: Text(AppLocalizations.of(context)!.registerLink),
                   ),
@@ -125,8 +124,7 @@ class LoginScreen extends ConsumerWidget {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.of(context)
-                      .pushNamed(PasswordResetScreen.routeName);
+                  Navigator.of(context).pushNamed(PasswordResetScreen.routeName);
                 },
                 child: Text(AppLocalizations.of(context)!.forgotPasswordLink),
               ),
@@ -138,11 +136,8 @@ class LoginScreen extends ConsumerWidget {
   }
 
   _login(BuildContext context, UserService userService) {
-    userService
-        .login(_emailController.text, _passwordController.text)
-        .then((value) {
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
+    userService.login(_emailController.text, _passwordController.text).then((value) {
+      Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
     });
   }
 

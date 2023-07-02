@@ -86,5 +86,26 @@
   "loginLink": "Login",
   "@loginLink": {
     "description": "The link to the login page"
-  }
+  },
+  "resetPasswordHeadline": "Forgot password?",
+  "@resetPassword": {
+    "description": "The headline of the forgot password page"
+  },
+  "resetPasswordButton": "Reset password",
+  "@resetPasswordButton": {
+    "description": "The text on the reset password button"
+  },
+  "resetPasswordDescription": "No Problem! Just enter your email address and we will send you a link to reset your password.",
+  "@resetPasswordDescription": {
+    "description": "The description on the forgot password page"
+  },
+  "resetPasswordSuccessHeadline": "Password reset email sent",
+  "@resetPasswordSuccess": {
+    "description": "The headline of the password reset email sent dialog"
+  },
+    "resetPasswordSuccessDescription": "We've sent you an email with a link to reset your password.",
+    "@resetPasswordSuccessDescription": {
+    "description": "The description of the password reset email sent dialog"
+    }
+
 }

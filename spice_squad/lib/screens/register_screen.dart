@@ -14,8 +14,7 @@ class RegisterScreen extends ConsumerWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _passwordRepeatController =
-      TextEditingController();
+  final TextEditingController _passwordRepeatController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   /// Creates a new register screen
@@ -110,8 +109,7 @@ class RegisterScreen extends ConsumerWidget {
                         obscureText: true,
                         controller: _passwordRepeatController,
                         decoration: InputDecoration(
-                          hintText:
-                              AppLocalizations.of(context)!.passwordRepeatLabel,
+                          hintText: AppLocalizations.of(context)!.passwordRepeatLabel,
                         ),
                       ),
                     ),
@@ -132,8 +130,7 @@ class RegisterScreen extends ConsumerWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.of(context)
-                          .pushReplacementNamed(LoginScreen.routeName);
+                      Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
                     },
                     child: Text(AppLocalizations.of(context)!.loginLink),
                   ),
