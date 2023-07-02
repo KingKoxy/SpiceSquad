@@ -103,9 +103,104 @@
   "@resetPasswordSuccess": {
     "description": "The headline of the password reset email sent dialog"
   },
-    "resetPasswordSuccessDescription": "We've sent you an email with a link to reset your password.",
-    "@resetPasswordSuccessDescription": {
+  "resetPasswordSuccessDescription": "We've sent you an email with a link to reset your password.",
+  "@resetPasswordSuccessDescription": {
     "description": "The description of the password reset email sent dialog"
+  },
+  "filterNameFavourite": "Favourite",
+  "@filterNameFavourite": {
+    "description": "The name of the favourite filter"
+  },
+  "filterNameDifficultyEasy": "Easy",
+  "@filterNameDifficultyEasy": {
+    "description": "The name of the easy difficulty filter"
+  },
+  "filterNameDifficultyMedium": "Medium",
+  "@filterNameDifficultyMedium": {
+    "description": "The name of the medium difficulty filter"
+  },
+  "filterNameDifficultyHard": "Hard",
+  "@filterNameDifficultyHard": {
+    "description": "The name of the hard difficulty filter"
+  },
+  "filterNameLabelVegetarian": "Vegetarian",
+  "@filterNameLabelVegetarian": {
+    "description": "The name of the vegetarian filter"
+  },
+  "filterNameLabelVegan": "Vegan",
+  "@filterNameLabelVegan": {
+    "description": "The name of the vegan filter"
+  },
+  "filterNameLabelGlutenFree": "Gluten free",
+  "@filterNameLabelGlutenFree": {
+    "description": "The name of the gluten free filter"
+  },
+  "filterNameLabelKosher": "Kosher",
+  "@filterNameLabelKosher": {
+    "description": "The name of the kosher filter"
+  },
+  "filterNameLabelHalal": "Halal",
+  "@filterNameLabelHalal": {
+    "description": "The name of the halal filter"
+  },
+  "filterSelectionDialogTitle": "Select filters",
+  "@filterSelectionDialog": {
+    "description": "The headline of the filter selection dialog"
+  },
+  "saveButtonLabel": "Save",
+  "@saveButton": {
+    "description": "The label for a save button"
+  },
+  "cancelButtonLabel": "Cancel",
+  "@cancelButton": {
+    "description": "The label for a cancel button"
+  },
+  "filterSelectionHandle": "Filters",
+  "@filterSelectionHandle": {
+    "description": "The handle for the filter selection"
+  },
+  "searchInputPlaceholder": "Search...",
+  "@searchInput": {
+    "description": "The placeholder for the search input"
+  },
+  "duration": "{minutes} Min.",
+  "@minTime": {
+    "description": "The duration of a recipe in minutes",
+    "placeholders": {
+      "minutes": {
+        "type": "number",
+        "content": "{minutes}",
+        "example": "5",
+        "description": "The minutes"
+      }
     }
-
+  },
+  "noRecipesFound": "No recipes found",
+  "@noRecipesFound": {
+    "description": "The message if no recipes are found"
+  },
+  "sortNameTitle": "Title",
+  "@sortName": {
+    "description": "The name of the title sort"
+  },
+  "sortNameDate": "Date",
+  "@sortCreationDate": {
+    "description": "The name of the creation date sort"
+  },
+  "sortNameDifficulty": "Difficulty",
+  "@sortDifficulty": {
+    "description": "The name of the difficulty sort"
+  },
+  "sortSelectionDialogTitle": "Select sort",
+  "@sortSelectionDialog": {
+    "description": "The headline of the sort selection dialog"
+  },
+  "ascending": "Ascending",
+  "@ascending": {
+    "description": "The label for the ascending sort"
+  },
+  "descending": "Descending",
+  "@descending": {
+    "description": "The label for the descending sort"
+  }
 }

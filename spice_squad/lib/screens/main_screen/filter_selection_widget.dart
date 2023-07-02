@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:spice_squad/screens/main_screen/filter_category.dart";
 import "package:spice_squad/screens/main_screen/filter_selection_dialog.dart";
 
@@ -25,7 +26,7 @@ class FilterSelectionWidget extends StatelessWidget {
           ),
           const SizedBox(width: 5),
           Text(
-            "Filter",
+            AppLocalizations.of(context)!.filterSelectionHandle,
             style: Theme.of(context).textTheme.titleLarge,
           )
         ],

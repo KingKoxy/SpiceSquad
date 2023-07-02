@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:spice_squad/screens/main_screen/sort.dart";
 import "package:spice_squad/screens/main_screen/sort_category.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 
 /// Dialog that allows the user to select a sort.
 class SortSelectionDialog extends StatefulWidget {
@@ -30,7 +31,7 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text("Sortierung auswählen"),
+      title: Text(AppLocalizations.of(context)!.sortSelectionDialogTitle),
       content: SizedBox(
         width: double.maxFinite,
         child: ListView.builder(
@@ -57,7 +58,9 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
                         width: 24,
                       ),
                       Text(
-                        selectedSort.ascending ? "Aufsteigend" : "Absteigend",
+                        selectedSort.ascending
+                            ? AppLocalizations.of(context)!.ascending
+                            : AppLocalizations.of(context)!.descending,
                       ),
                     ],
                   ),
@@ -66,7 +69,7 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
             }
             final key = SortCategory.values.elementAt(index - 1);
             return RadioListTile(
-              title: Text(key.toString()),
+              title: Text(key.getName(context)),
               value: key,
               onChanged: (value) {
                 setState(() {
@@ -80,13 +83,13 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
       ),
       actions: <Widget>[
         TextButton(
-          child: const Text("Verwerfen"),
+          child: Text(AppLocalizations.of(context)!.cancelButtonLabel),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         TextButton(
-          child: const Text("Speichern"),
+          child: Text(AppLocalizations.of(context)!.saveButtonLabel),
           onPressed: () {
             Navigator.of(context).pop();
             widget.onSaved(selectedSort);

@@ -27,7 +27,7 @@ class SortSelectionWidget extends StatelessWidget {
           ),
           const SizedBox(width: 5),
           Text(
-            selectedSort.category.toString(),
+            selectedSort.category.getName(context),
             style: Theme.of(context).textTheme.titleLarge,
           )
         ],
