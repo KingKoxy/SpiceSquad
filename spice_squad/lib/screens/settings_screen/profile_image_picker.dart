@@ -33,7 +33,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
         decoration: _profileImage == null
             ? BoxDecoration(
                 borderRadius: BorderRadius.circular(20000),
-                image: const DecorationImage(image: AssetImage("assets/icons/exampleRecipeImage.jpeg")),
+                image: const DecorationImage(image: AssetImage("assets/images/exampleImage.jpeg")),
               )
             : BoxDecoration(borderRadius: BorderRadius.circular(20000), color: Theme.of(context).cardColor),
         child: CircleAvatar(

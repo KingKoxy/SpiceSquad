@@ -29,7 +29,7 @@ class GroupJoiningScreen extends ConsumerWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            if (true)
+            if (isAfterRegister)
               Positioned(
                 top: 16,
                 right: 32,
@@ -37,7 +37,8 @@ class GroupJoiningScreen extends ConsumerWidget {
                   tag: "skip-button",
                   child: TextButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          MainScreen.routeName, (route) => false,);
                     },
                     child: const Text("Überspringen"),
                   ),
@@ -99,10 +100,16 @@ class GroupJoiningScreen extends ConsumerWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context).pushNamed(QRScannerScreen.routeName).then((value) {
+                          Navigator.of(context)
+                              .pushNamed(QRScannerScreen.routeName)
+                              .then((value) {
                             if (value != null) {
                               _joinGroupByCode(
-                                  context, ref.read(groupServiceProvider.notifier), value as String, isAfterRegister);
+                                context,
+                                ref.read(groupServiceProvider.notifier),
+                                value as String,
+                                isAfterRegister,
+                              );
                             }
                           });
                         },
@@ -114,8 +121,9 @@ class GroupJoiningScreen extends ConsumerWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context)
-                              .pushReplacementNamed(GroupCreationScreen.routeName, arguments: isAfterRegister);
+                          Navigator.of(context).pushReplacementNamed(
+                              GroupCreationScreen.routeName,
+                              arguments: isAfterRegister,);
                         },
                         child: const Text("Squad erstellen"),
                       ),
@@ -137,19 +145,22 @@ class GroupJoiningScreen extends ConsumerWidget {
     return null;
   }
 
-  void _joinGroupByCode(BuildContext context, GroupService groupService, String groupCode, bool isAfterRegister) {
+  void _joinGroupByCode(BuildContext context, GroupService groupService,
+      String groupCode, bool isAfterRegister,) {
     groupService
         .joinGroup(groupCode)
         .then(
           (value) => showDialog(
             context: context,
-            builder: (context) =>
-                const SuccessDialog(message: "Du bist einer Squad beigetreten", title: "Beitritt erfolgreich"),
+            builder: (context) => const SuccessDialog(
+                message: "Du bist einer Squad beigetreten",
+                title: "Beitritt erfolgreich",),
           ),
         )
         .then(
           (value) => isAfterRegister
-              ? Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false)
+              ? Navigator.of(context).pushNamedAndRemoveUntil(
+                  MainScreen.routeName, (route) => false,)
               : Navigator.of(context).pop(),
         );
   }

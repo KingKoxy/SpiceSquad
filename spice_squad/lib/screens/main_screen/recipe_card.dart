@@ -62,7 +62,7 @@ class RecipeCard extends ConsumerWidget {
                           borderRadius: BorderRadius.circular(8),
                           child: recipe.image != null
                               ? Image.asset(
-                                  "assets/icons/exampleRecipeImage.jpeg",
+                                  "assets/images/exampleImage.jpeg",
                                   fit: BoxFit.cover,
                                 )
                               : //Image.memory(recipe.image!, fit: BoxFit.cover)
