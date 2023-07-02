@@ -1,0 +1,90 @@
+{
+  "loginHeadline": "Login",
+  "@login": {
+    "description": "The headline of the login page"
+  },
+  "loginButton": "Login",
+  "@loginButton": {
+    "description": "The text on the login button"
+  },
+  "noAccountQuestion": "Don't have an account?",
+  "@noAccountQuestion": {
+    "description": "The question if the user has no account"
+  },
+  "registerLink": "Register",
+  "@registerLink": {
+    "description": "The link to the registration page"
+  },
+  "emailLabel": "Email",
+  "@email": {
+    "description": "The label for the email input field"
+  },
+  "passwordLabel": "Password",
+  "@password": {
+    "description": "The label for the password input field"
+  },
+  "forgotPasswordLink": "Forgot password?",
+  "@forgotPasswordLink": {
+    "description": "The link to the forgot password page"
+  },
+  "emailEmptyError": "Please enter your email address",
+  "@emailEmpty": {
+    "description": "The error message if the email field is empty"
+  },
+  "emailInvalidError": "Please enter a valid email address",
+  "@emailInvalid": {
+    "description": "The error message if the email field is invalid"
+  },
+  "registerHeadline": "Register",
+  "@register": {
+    "description": "The headline of the registration page"
+  },
+  "registerButton": "Register",
+  "@registerButton": {
+    "description": "The text on the register button"
+  },
+  "userNameLabel": "Username",
+  "@name": {
+    "description": "The label for the username input field"
+  },
+  "passwordRepeatLabel": "Repeat password",
+  "@passwordRepeat": {
+    "description": "The label for the password repeat input field"
+  },
+  "userNameEmptyError": "Please enter a username",
+  "@nameEmpty": {
+    "description": "The error message if the name field is empty"
+  },
+  "passwordEmptyError": "Please enter a password",
+  "@passwordEmpty": {
+    "description": "The error message if the password field is empty"
+  },
+  "passwordTooShortError": "Your password must be at least 8 characters long",
+  "@passwordTooShort": {
+    "description": "The error message if the password is to short"
+  },
+  "passwordsDontMatchError": "Passwords don't match",
+  "@passwordsDontMatch": {
+    "description": "The error message if the passwords don't match"
+  },
+  "passwordNeedsLowercaseError": "Your password must contain at least one lowercase letter",
+  "@passwordNeedsLowercase": {
+    "description": "The error message if the password needs a lowercase letter"
+  },
+  "passwordNeedsUppercaseError": "Your password must contain at least one uppercase letter",
+  "@passwordNeedsUppercase": {
+    "description": "The error message if the password needs a uppercase letter"
+  },
+  "passwordNeedsNumberError": "Your password must contain at least one number",
+  "@passwordNeedsNumber": {
+    "description": "The error message if the password needs a number"
+  },
+  "hasAccountQuestion": "Already have an account?",
+  "@hasAccountQuestion": {
+    "description": "The question if the user has an account"
+  },
+  "loginLink": "Login",
+  "@loginLink": {
+    "description": "The link to the login page"
+  }
+}

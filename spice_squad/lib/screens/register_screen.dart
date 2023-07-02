@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/screens/group_joining_screen.dart";
@@ -13,7 +14,8 @@ class RegisterScreen extends ConsumerWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _passwordRepeatController = TextEditingController();
+  final TextEditingController _passwordRepeatController =
+      TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   /// Creates a new register screen
@@ -45,7 +47,7 @@ class RegisterScreen extends ConsumerWidget {
                 height: 50,
               ),
               Text(
-                "Registrieren",
+                AppLocalizations.of(context)!.registerHeadline,
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               const SizedBox(
@@ -59,11 +61,11 @@ class RegisterScreen extends ConsumerWidget {
                       width: double.infinity,
                       child: TextFormField(
                         autofillHints: const [AutofillHints.newUsername],
-                        validator: _validateUserName,
+                        validator: (value) => _validateUserName(context, value),
                         keyboardType: TextInputType.name,
                         controller: _userNameController,
-                        decoration: const InputDecoration(
-                          hintText: "Nutzername",
+                        decoration: InputDecoration(
+                          hintText: AppLocalizations.of(context)!.userNameLabel,
                         ),
                       ),
                     ),
@@ -74,11 +76,11 @@ class RegisterScreen extends ConsumerWidget {
                       width: double.infinity,
                       child: TextFormField(
                         autofillHints: const [AutofillHints.email],
-                        validator: _validateEmail,
+                        validator: (value) => _validateEmail(context, value),
                         keyboardType: TextInputType.emailAddress,
                         controller: _emailController,
-                        decoration: const InputDecoration(
-                          hintText: "E-Mail",
+                        decoration: InputDecoration(
+                          hintText: AppLocalizations.of(context)!.emailLabel,
                         ),
                       ),
                     ),
@@ -89,12 +91,12 @@ class RegisterScreen extends ConsumerWidget {
                       width: double.infinity,
                       child: TextFormField(
                         autofillHints: const [AutofillHints.newPassword],
-                        validator: _validatePassword,
+                        validator: (value) => _validatePassword(context, value),
                         keyboardType: TextInputType.visiblePassword,
                         obscureText: true,
                         controller: _passwordController,
-                        decoration: const InputDecoration(
-                          hintText: "Passwort",
+                        decoration: InputDecoration(
+                          hintText: AppLocalizations.of(context)!.passwordLabel,
                         ),
                       ),
                     ),
@@ -107,8 +109,9 @@ class RegisterScreen extends ConsumerWidget {
                         keyboardType: TextInputType.visiblePassword,
                         obscureText: true,
                         controller: _passwordRepeatController,
-                        decoration: const InputDecoration(
-                          hintText: "Passwort wiederholen",
+                        decoration: InputDecoration(
+                          hintText:
+                              AppLocalizations.of(context)!.passwordRepeatLabel,
                         ),
                       ),
                     ),
@@ -121,7 +124,7 @@ class RegisterScreen extends ConsumerWidget {
               Row(
                 children: [
                   Text(
-                    "Du hast bereits ein Konto?",
+                    AppLocalizations.of(context)!.hasAccountQuestion,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   const SizedBox(
@@ -129,9 +132,10 @@ class RegisterScreen extends ConsumerWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
+                      Navigator.of(context)
+                          .pushReplacementNamed(LoginScreen.routeName);
                     },
-                    child: const Text("Anmelden"),
+                    child: Text(AppLocalizations.of(context)!.loginLink),
                   ),
                 ],
               ),
@@ -143,10 +147,13 @@ class RegisterScreen extends ConsumerWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      _register(context, ref.read(userServiceProvider.notifier));
+                      _register(
+                        context,
+                        ref.read(userServiceProvider.notifier),
+                      );
                     }
                   },
-                  child: const Text("Weiter"),
+                  child: Text(AppLocalizations.of(context)!.registerButton),
                 ),
               ),
             ],
@@ -157,47 +164,57 @@ class RegisterScreen extends ConsumerWidget {
   }
 
   _register(BuildContext context, UserService userService) {
-    userService.register(_emailController.text, _passwordController.text, _userNameController.text).then((value) {
-      Navigator.of(context).pushNamedAndRemoveUntil(GroupJoiningScreen.routeName, (route) => false, arguments: true);
+    userService
+        .register(
+      _emailController.text,
+      _passwordController.text,
+      _userNameController.text,
+    )
+        .then((value) {
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        GroupJoiningScreen.routeName,
+        (route) => false,
+        arguments: true,
+      );
     });
   }
 
-  String? _validateEmail(String? email) {
+  String? _validateEmail(BuildContext context, String? email) {
     const emailRegex = r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
     if (email == null || email.isEmpty) {
-      return "Bitte gib eine E-Mail-Adresse ein";
+      return AppLocalizations.of(context)!.emailEmptyError;
     }
     if (!RegExp(emailRegex).hasMatch(email)) {
-      return "Bitte gib eine gültige E-Mail-Adresse ein";
+      return AppLocalizations.of(context)!.emailInvalidError;
     }
     return null;
   }
 
-  String? _validateUserName(String? userName) {
+  String? _validateUserName(BuildContext context, String? userName) {
     if (userName == null || userName.isEmpty) {
-      return "Bitte gib einen Nutzernamen ein";
+      return AppLocalizations.of(context)!.userNameEmptyError;
     }
     return null;
   }
 
-  String? _validatePassword(String? password) {
+  String? _validatePassword(BuildContext context, String? password) {
     if (password == null || password.isEmpty) {
-      return "Bitte gib ein Passwort ein";
+      return AppLocalizations.of(context)!.passwordEmptyError;
     }
     if (password.length < 8) {
-      return "Das Passwort muss mindestens 8 Zeichen lang sein";
+      return AppLocalizations.of(context)!.passwordTooShortError;
     }
     if (!RegExp(r"[A-Z]").hasMatch(password)) {
-      return "Das Passwort muss mindestens einen Großbuchstaben enthalten";
+      return AppLocalizations.of(context)!.passwordNeedsUppercaseError;
     }
     if (!RegExp(r"[a-z]").hasMatch(password)) {
-      return "Das Passwort muss mindestens einen Kleinbuchstaben enthalten";
+      return AppLocalizations.of(context)!.passwordNeedsLowercaseError;
     }
     if (!RegExp(r"\d").hasMatch(password)) {
-      return "Das Passwort muss mindestens eine Zahl enthalten";
+      return AppLocalizations.of(context)!.passwordNeedsNumberError;
     }
     if (password != _passwordRepeatController.text) {
-      return "Die Passwörter stimmen nicht überein";
+      return AppLocalizations.of(context)!.passwordsDontMatchError;
     }
     return null;
   }

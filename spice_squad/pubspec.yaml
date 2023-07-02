@@ -12,7 +12,10 @@ dependencies:
   auto_size_text: ^3.0.0
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   flutter_riverpod: ^2.3.6
+  intl: any
   mobile_scanner: ^3.3.0
   path_provider: ^2.0.15
   pdf: ^3.10.4
@@ -26,6 +29,7 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
+  generate: true
   uses-material-design: true
   assets:
     - assets/images/
