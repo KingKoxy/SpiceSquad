@@ -37,6 +37,7 @@ class UserController extends AbstractController {
             data: {
                 user_name: req.body.name,
                 email: req.body.email,
+                profile_image: req.body.profile_image
             }
         }).then((user) => {
             res.status(200).json({
