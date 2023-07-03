@@ -13,18 +13,16 @@ class GroupJoiningScreen extends ConsumerWidget {
   /// Route name for navigation
   static const routeName = "/group-joining";
 
+  final bool isAfterRegister;
+
   final TextEditingController _groupCodeController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   /// Creates a new group joining screen
-  GroupJoiningScreen({super.key});
+  GroupJoiningScreen({required this.isAfterRegister, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Get if screen is shown after registering
-    final dynamic args = ModalRoute.of(context)!.settings.arguments;
-    final bool isAfterRegister = args != null && (args as bool);
-
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -38,7 +36,9 @@ class GroupJoiningScreen extends ConsumerWidget {
                   child: TextButton(
                     onPressed: () {
                       Navigator.of(context).pushNamedAndRemoveUntil(
-                          MainScreen.routeName, (route) => false,);
+                        MainScreen.routeName,
+                            (route) => false,
+                      );
                     },
                     child: const Text("Überspringen"),
                   ),
@@ -53,7 +53,10 @@ class GroupJoiningScreen extends ConsumerWidget {
                   children: [
                     Text(
                       "Squad beitreten",
-                      style: Theme.of(context).textTheme.headlineMedium,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .headlineMedium,
                     ),
                     const SizedBox(
                       height: 20,
@@ -100,9 +103,7 @@ class GroupJoiningScreen extends ConsumerWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context)
-                              .pushNamed(QRScannerScreen.routeName)
-                              .then((value) {
+                          Navigator.of(context).pushNamed(QRScannerScreen.routeName).then((value) {
                             if (value != null) {
                               _joinGroupByCode(
                                 context,
@@ -122,8 +123,9 @@ class GroupJoiningScreen extends ConsumerWidget {
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).pushReplacementNamed(
-                              GroupCreationScreen.routeName,
-                              arguments: isAfterRegister,);
+                            GroupCreationScreen.routeName,
+                            arguments: isAfterRegister,
+                          );
                         },
                         child: const Text("Squad erstellen"),
                       ),
@@ -145,23 +147,31 @@ class GroupJoiningScreen extends ConsumerWidget {
     return null;
   }
 
-  void _joinGroupByCode(BuildContext context, GroupService groupService,
-      String groupCode, bool isAfterRegister,) {
+  void _joinGroupByCode(BuildContext context,
+      GroupService groupService,
+      String groupCode,
+      bool isAfterRegister,) {
     groupService
         .joinGroup(groupCode)
         .then(
-          (value) => showDialog(
+          (value) =>
+          showDialog(
             context: context,
-            builder: (context) => const SuccessDialog(
-                message: "Du bist einer Squad beigetreten",
-                title: "Beitritt erfolgreich",),
+            builder: (context) =>
+            const SuccessDialog(
+              message: "Du bist einer Squad beigetreten",
+              title: "Beitritt erfolgreich",
+            ),
           ),
-        )
+    )
         .then(
-          (value) => isAfterRegister
-              ? Navigator.of(context).pushNamedAndRemoveUntil(
-                  MainScreen.routeName, (route) => false,)
-              : Navigator.of(context).pop(),
-        );
+          (value) =>
+      isAfterRegister
+          ? Navigator.of(context).pushNamedAndRemoveUntil(
+        MainScreen.routeName,
+            (route) => false,
+      )
+          : Navigator.of(context).pop(),
+    );
   }
 }

@@ -40,15 +40,16 @@ class RemoteRecipeRepository {
           isFavourite: random.nextBool(),
           isKosher: random.nextBool(),
           isHalal: random.nextBool(),
-          ingredients: [
-            Ingredient(
+          ingredients: List.generate(
+            2 + random.nextInt(6),
+            (index) => Ingredient(
               id: "ingredientId",
               name: "Mehl",
               iconId: "iconId",
               amount: random.nextDouble() * 200,
               unit: "g",
-            )
-          ],
+            ),
+          ),
           instructions: "Instructions",
           defaultPortionAmount: random.nextInt(8),
         ),

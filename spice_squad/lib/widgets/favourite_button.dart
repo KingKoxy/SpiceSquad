@@ -14,7 +14,8 @@ class FavouriteButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-        iconSize: 64,
+      padding: EdgeInsets.zero,
+      iconSize: 64,
         splashRadius: 32,
         onPressed: onToggle,
         icon: ImageIcon(

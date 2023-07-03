@@ -13,13 +13,13 @@ class QRCodeScreen extends StatelessWidget {
   /// Route name for navigation
   static const routeName = "/qr-code";
 
+  final Group group;
+
   /// Creates a new QR-Code screen
-  const QRCodeScreen({super.key});
+  const QRCodeScreen({required this.group, super.key});
 
   @override
   Widget build(BuildContext context) {
-    final Group group = ModalRoute.of(context)!.settings.arguments as Group;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("QR-Code"),

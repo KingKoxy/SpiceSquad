@@ -16,8 +16,11 @@ class GroupDetailScreen extends ConsumerStatefulWidget {
   /// The route name of this screen
   static const routeName = "/group-detail";
 
+  /// The id of the group to display
+  final String groupId;
+
   /// Creates a [GroupDetailScreen]
-  const GroupDetailScreen({super.key});
+  const GroupDetailScreen({required this.groupId, super.key});
 
   @override
   ConsumerState<GroupDetailScreen> createState() => _GroupDetailScreenState();
@@ -26,15 +29,13 @@ class GroupDetailScreen extends ConsumerStatefulWidget {
 class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
   @override
   Widget build(BuildContext context) {
-    final groupId = ModalRoute.of(context)!.settings.arguments as String;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("Squad"),
       ),
       body: Center(
         child: FutureBuilder(
-          future: ref.watch(groupServiceProvider.notifier).getGroupById(groupId),
+          future: ref.watch(groupServiceProvider.notifier).getGroupById(widget.groupId),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final group = snapshot.data!;
@@ -117,7 +118,7 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
                   GroupRecipeList(
                     recipes: group.recipes,
                     isAdmin: isAdmin,
-                    groupId: groupId,
+                    groupId: group.id,
                   )
                 ],
               );

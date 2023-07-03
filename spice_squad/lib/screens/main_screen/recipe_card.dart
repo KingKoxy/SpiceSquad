@@ -91,7 +91,7 @@ class RecipeCard extends ConsumerWidget {
                                 Image.asset(
                                   "assets/icons/clock.png",
                                 ),
-                                const SizedBox(width: 10),
+                                const SizedBox(width: 8),
                                 Text(
                                   "${recipe.duration} min",
                                   style: Theme.of(context).textTheme.titleSmall,

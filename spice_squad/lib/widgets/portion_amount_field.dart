@@ -26,6 +26,7 @@ class PortionAmountField extends StatelessWidget {
           children: [
             Expanded(
               child: TextFormField(
+                style: Theme.of(context).textTheme.titleSmall,
                 initialValue: initialValue.toString(),
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 textAlign: TextAlign.center,
@@ -44,12 +45,9 @@ class PortionAmountField extends StatelessWidget {
                 padding: const EdgeInsets.all(12),
                 alignment: Alignment.center,
                 color: Theme.of(context).colorScheme.primary,
-                child: const Text(
+                child: Text(
                   "Portionen",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
               ),
             ),
