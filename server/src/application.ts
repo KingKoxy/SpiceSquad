@@ -47,15 +47,20 @@ class Application {
   }
 
   private initializeErrorHandlers(): void {
-    this.app.use((req: express.Request, res: express.Response) => {
-      const error = new Error(
-        "The URL you are trying to reach does not exist."
-      );
-      res.status(404).json({
-        message: error.message,
+      this.app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
+          const error = new Error('The URL you are trying to reach does not exist.');
+          res.statusCode = 404;
+          next(error);
       });
-    });
-  }
+
+      this.app.use((error: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+          res.status(req.statusCode || 500).json({
+              message: error.message,
+              stack: process.env.NODE_ENV === 'production' ? undefined : error.stack,
+          });
+      })
+    }
+
 }
 
 export default Application;

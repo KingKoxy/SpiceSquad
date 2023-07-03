@@ -11,7 +11,8 @@ class AuthentificationController extends AbstractController {
 
   public async userLogin(
     req: express.Request,
-    res: express.Response
+    res: express.Response,
+    next: express.NextFunction
   ): Promise<void> {
     firebaseAuth
       .signInWithEmailAndPassword(this.auth, req.body.email, req.body.password)
@@ -23,40 +24,15 @@ class AuthentificationController extends AbstractController {
         });
       })
       .catch((error) => {
-        switch (error.code) {
-          case "auth/invalid-email":
-            res.status(409).json({
-              error: "The email address is not valid.",
-            });
-            break;
-          case "auth/user-disabled":
-            res.status(409).json({
-              error:
-                "The user corresponding to the given email has been disabled.",
-            });
-            break;
-          case "auth/user-not-found":
-            res.status(409).json({
-              error: "There is no user corresponding to the given email.",
-            });
-            break;
-          case "auth/wrong-password":
-            res.status(409).json({
-              error: "The password is invalid for the given email.",
-            });
-            break;
-          default:
-            res.status(409).json({
-              error: "An error occurred.",
-            });
-            break;
-        }
+        req.statusCode = 409;
+        next(error)
       });
   }
 
   public async userRegister(
     req: express.Request,
-    res: express.Response
+    res: express.Response,
+    next: express.NextFunction
   ): Promise<void> {
     firebaseAuth
       .createUserWithEmailAndPassword(
@@ -80,33 +56,8 @@ class AuthentificationController extends AbstractController {
         });
       })
       .catch((error) => {
-        switch (error.code) {
-          case "auth/email-already-in-use":
-            res.status(409).json({
-              error: "The email address is already in use",
-            });
-            break;
-          case "auth/invalid-email":
-            res.status(200).json({
-              error: "The email address is not valid.",
-            });
-            break;
-          case "auth/operation-not-allowed":
-            res.status(200).json({
-              error: "The operation is not allowed.",
-            });
-            break;
-          case "auth/weak-password":
-            res.status(200).json({
-              error: "The password is not strong enough.",
-            });
-            break;
-          default:
-            res.status(200).json({
-              error: "An error occurred.",
-            });
-            break;
-        }
+        req.statusCode = 409;
+        next(error)
       });
   }
 
