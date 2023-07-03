@@ -1,21 +1,27 @@
-import UserController from '../controller/userController';
-import abstractRouter from './abstractRouter';
+import UserController from "../controller/userController";
+import abstractRouter from "./abstractRouter";
 
 class UserRouter extends abstractRouter {
+  protected Controller: UserController;
 
-    protected Controller: UserController;
+  constructor() {
+    super();
+    this.Controller = new UserController();
+    this.setupRoutes();
+  }
 
-    constructor() {
-        super();
-        this.Controller = new UserController();
-        this.setupRoutes();
-    }
-
-    protected setupRoutes(): void {
-        this.router.delete('/', this.checkAuth, this.Controller.userDelete.bind(this.Controller));
-        this.router.patch('/', this.checkAuth, this.Controller.userPatch.bind(this.Controller));
-    }
-
+  protected setupRoutes(): void {
+    this.router.delete(
+      "/",
+      this.checkAuth,
+      this.Controller.userDelete.bind(this.Controller)
+    );
+    this.router.patch(
+      "/",
+      this.checkAuth,
+      this.Controller.userPatch.bind(this.Controller)
+    );
+  }
 }
 
-export default UserRouter
+export default UserRouter;

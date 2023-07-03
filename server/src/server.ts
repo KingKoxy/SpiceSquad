@@ -1,4 +1,4 @@
-/** 
+/**
  * @fileoverview Server class.
  * @package
  * @module server
@@ -14,20 +14,18 @@
  * @version 0.1.1
  */
 
-import express = require('express');
-import Application from './application';
-import firebase = require('firebase-admin');
-import 'dotenv/config'
-import Database from './database';
-
+import express = require("express");
+import Application from "./application";
+import firebase = require("firebase-admin");
+import "dotenv/config";
+import Database from "./database";
 
 class Server {
-
-    private port: number = parseInt(process.env.SV_PORT) || 3000;
-    private firebase_credentials: any = require('../firebase_credentials.json');
-    private express: express.Application;
-    private application: Application;
-    private database: Database;
+  private port: number = parseInt(process.env.SV_PORT) || 3000;
+  private firebase_credentials: any = require("../firebase_credentials.json");
+  private express: express.Application;
+  private application: Application;
+  private database: Database;
 
   /**
    * @function start
@@ -42,34 +40,32 @@ class Server {
   public start(): void {
     if (this.connectToDatabase() && this.connectToFirebase()) {
       if (this.createServer()) {
-        console.log('Server started');
+        console.log("Server started");
       } else {
-        console.log('Server failed to start');
-      };
-      
+        console.log("Server failed to start");
+      }
     } else {
-      console.log('Server failed to start');
+      console.log("Server failed to start");
     }
   }
 
-    private connectToDatabase(): boolean {
-        this.database = new Database();
-        return true;
-    }
+  private connectToDatabase(): boolean {
+    this.database = new Database();
+    return true;
+  }
 
-
-    private connectToFirebase(): boolean {
+  private connectToFirebase(): boolean {
     try {
-          firebase.initializeApp({
-              credential: firebase.credential.cert(this.firebase_credentials),
-          });
-          console.log('Firebase connection established');
-          return true;
+      firebase.initializeApp({
+        credential: firebase.credential.cert(this.firebase_credentials),
+      });
+      console.log("Firebase connection established");
+      return true;
     } catch (error) {
-      console.log('Firebase connection failed');
+      console.log("Firebase connection failed");
       return false;
     }
-    }
+  }
 
   private createServer(): boolean {
     try {
@@ -80,8 +76,8 @@ class Server {
       this.application = new Application(this.express);
       return true;
     } catch (error) {
-      console.log('Server connection failed');
-      if (process.env.NODE_ENV !== 'production') {
+      console.log("Server connection failed");
+      if (process.env.NODE_ENV !== "production") {
         console.log(error);
       }
       return false;
