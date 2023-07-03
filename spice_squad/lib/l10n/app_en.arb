@@ -278,5 +278,45 @@
   "deleteAccountDialogDescription": "Are you sure you want to delete your account?",
   "@deleteAccountDialogDescription": {
     "description": "The description of the delete account dialog"
+  },
+  "skipButton": "Skip",
+  "@skipButton": {
+    "description": "The label for the skip button"
+  },
+  "joinSquadHeadline": "Join squad",
+  "@joinSquadHeadline": {
+    "description": "The headline of the join squad page"
+  },
+  "groupCodeInputLabel": "Squad code",
+  "@groupCodeInputLabel": {
+    "description": "The label for the group code input"
+  },
+  "joinSquadButton": "Join squad",
+  "@joinSquadButton": {
+    "description": "The label for the join squad button"
+  },
+  "joinWithQRCodeButton": "Join with QR code",
+  "@joinWithQRCodeButton": {
+    "description": "The label for the join with QR code button"
+  },
+  "createSquadButton": "Create squad",
+  "@createSquadButton": {
+    "description": "The label for the create squad button"
+  },
+  "createSquadHeadline": "Create squad",
+  "@createSquadHeadline": {
+    "description": "The headline of the create squad page"
+  },
+  "groupCodeEmptyError": "Please enter a squad code",
+  "@groupCodeEmptyError": {
+    "description": "The error message if the squad code is empty"
+  },
+  "joiningSuccessFullTitle": "Joining successful",
+  "@joiningSuccessFullTitle": {
+    "description": "The title of the joining successful page"
+  },
+  "joiningSuccessFullDescription": "You have successfully joined the squad.",
+  "@joiningSuccessFullDescription": {
+    "description": "The description of the joining successful page"
   }
 }
