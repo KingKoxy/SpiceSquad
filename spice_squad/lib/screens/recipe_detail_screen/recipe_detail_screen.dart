@@ -1,16 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:spice_squad/models/recipe.dart';
-import 'package:spice_squad/screens/recipe_detail_screen/author_date_card.dart';
-import 'package:spice_squad/screens/recipe_detail_screen/ingredient_list.dart';
-import 'package:spice_squad/screens/recipe_detail_screen/label_list.dart';
-import 'package:spice_squad/screens/recipe_detail_screen/portion_amount_Field.dart';
-import 'package:spice_squad/widgets/edit_button.dart';
+import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/models/recipe.dart";
+import "package:spice_squad/screens/recipe_detail_screen/author_date_card.dart";
+import "package:spice_squad/screens/recipe_detail_screen/ingredient_list.dart";
+import "package:spice_squad/screens/recipe_detail_screen/label_list.dart";
+import "package:spice_squad/screens/recipe_detail_screen/portion_amount_Field.dart";
+import "package:spice_squad/widgets/edit_button.dart";
 
-import 'package:spice_squad/models/difficulty.dart';
-import 'package:spice_squad/models/ingredient.dart';
-import 'package:spice_squad/models/user.dart';
-import 'package:spice_squad/widgets/favourite_button.dart';
+import "package:spice_squad/models/difficulty.dart";
+import "package:spice_squad/models/ingredient.dart";
+import "package:spice_squad/models/user.dart";
+import "package:spice_squad/widgets/favourite_button.dart";
 
 class RecipeDetailScreen extends ConsumerStatefulWidget {
   static const routeName = "/recipe-detail";
@@ -69,7 +69,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
           unit: "Stück"),
     ],
     instructions:
-    'Die Zutaten für den Knetteig in eine Schüssel geben, rasch zusammenkneten und zur Seite stellen. Für die Füllung Margarine, Zucker, Vanillezucker, Puddingpulver und Eier in einer Schüssel verrühren. Dann den Quark und die saure Sahne untermischen. Die süße Sahne steif schlagen und unterheben.Den Backofen auf 180 °C Ober-/Unterhitze vorheizen.Den Knetteig in einer gefetteten 26er Springform auslegen, etwa 2 - 3 cm am Rand hochziehen. Nun die Füllung in die Form geben, glatt streichen und im heißen Backofen auf der zweiten Schiene von unten 1 Stunde backen.Achtung: Den Kuchen erst nach dem völligen Erkalten aus der Form nehmen, da unmittelbar nach dem Herausnehmen aus dem Backofen die Konsistenz der Quarkmasse noch zu weich ist.',
+    "Die Zutaten für den Knetteig in eine Schüssel geben, rasch zusammenkneten und zur Seite stellen. Für die Füllung Margarine, Zucker, Vanillezucker, Puddingpulver und Eier in einer Schüssel verrühren. Dann den Quark und die saure Sahne untermischen. Die süße Sahne steif schlagen und unterheben.Den Backofen auf 180 °C Ober-/Unterhitze vorheizen.Den Knetteig in einer gefetteten 26er Springform auslegen, etwa 2 - 3 cm am Rand hochziehen. Nun die Füllung in die Form geben, glatt streichen und im heißen Backofen auf der zweiten Schiene von unten 1 Stunde backen.Achtung: Den Kuchen erst nach dem völligen Erkalten aus der Form nehmen, da unmittelbar nach dem Herausnehmen aus dem Backofen die Konsistenz der Quarkmasse noch zu weich ist.",
     defaultPortionAmount: 5,
   );
 
@@ -163,7 +163,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                         ],
                       )),
                   Text(
-                    'Zutaten',
+                    "Zutaten",
                     style: Theme
                         .of(context)
                         .textTheme
@@ -172,7 +172,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                   IngredientList(ingredients: recipe.ingredients),
                   const SizedBox(height: 10),
                   Text(
-                    'Zubereitung',
+                    "Zubereitung",
                     style: Theme
                         .of(context)
                         .textTheme

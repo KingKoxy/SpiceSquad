@@ -10,7 +10,7 @@ import "package:spice_squad/screens/password_reset_screen.dart";
 import "package:spice_squad/screens/qr_code_screen.dart";
 import "package:spice_squad/screens/qr_scanner_screen.dart";
 import "package:spice_squad/screens/recipe_creation_screen/recipe_creation_screen.dart";
-import "package:spice_squad/screens/recipe_detail_screen.dart";
+import "package:spice_squad/screens/recipe_detail_screen/recipe_detail_screen.dart";
 import "package:spice_squad/screens/register_screen.dart";
 import "package:spice_squad/screens/settings_screen/settings_screen.dart";
 import "package:spice_squad/theme.dart";
@@ -40,11 +40,14 @@ class SpiceSquad extends StatelessWidget {
           GroupCreationScreen.routeName: (context) => GroupCreationScreen(),
           QRScannerScreen.routeName: (context) => const QRScannerScreen(),
           GroupDetailScreen.routeName: (context) => const GroupDetailScreen(),
+          IngredientCreationScreen.routeName: (context) =>
+              IngredientCreationScreen(),
+          RecipeCreationScreen.routeName: (context) => RecipeCreationScreen(),
           IngredientCreationScreen.routeName: (context) => IngredientCreationScreen(),
-          RecipeCreationScreen.routeName: (context) => const RecipeCreationScreen(),
+          RecipeCreationScreen.routeName: (context) => RecipeCreationScreen(),
           SettingsScreen.routeName: (context) => const SettingsScreen(),
           QRCodeScreen.routeName: (context) => const QRCodeScreen(),
-          RecipeDetailScreen.routeName: (context) => const RecipeDetailScreen(),
+          RecipeDetailScreen.routeName: (context) =>  const RecipeDetailScreen(),
         },
       ),
     );
