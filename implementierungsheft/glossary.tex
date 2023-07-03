@@ -1,0 +1,132 @@
+\newglossaryentry{label}{
+    name=Label,
+    plural=Labels,
+    description={Rezepte können mit bezeichnenden Stichwörtern, sogenannten Labels, versehen werden. Dies ermöglicht das Filtern von Rezepten nach bestimmten Eigenschaften (z.B. vegetarisch, glutenfrei, halal)}
+}
+
+\newglossaryentry{schwierigkeit}{
+    name=Schwierigkeit,
+    description={Optionale Angabe zur abgeschätzten Schwierigkeit eines Rezeptes. Es gibt die Stufen "einfach", "mittel" und "schwer". Wird beim Erstellen des Rezepts keine Angabe zur Schwierigkeit gemacht, wird diese automatisch auf "mittel" gesetzt}
+}
+
+\newglossaryentry{sichtbarkeit}{
+    name=Sichtbarkeit,
+    description={Rezepte können entweder privat oder öffentlich sein. Private Rezepte können nur vom Autor eingesehen werden. Öffentliche Rezepte können von allen Mitgliedern von Gruppen, in denen der Autor sich befindet und in welchen das Rezept nicht ausgeblendet ist, eingesehen werden}   
+}
+
+\newglossaryentry{bytea}{
+    name=ByteA,
+    description={Datentyp für Binärdaten. Wird verwendet, um Bilder in der Datenbank zu speichern}
+}
+
+\newglossaryentry{uuid}{
+    name=UUID,
+    description={Universally Unique Identifier. Eine UUID ist eine 128-Bit Zahl, die in der Datenbank als Primärschlüssel verwendet wird. Sie ist eindeutig und wird automatisch generiert}
+}
+
+\newglossaryentry{varchar}{
+    name=varchar,
+    description={Datentyp für Zeichenketten. Die maximale Länge einer Zeichenkette kann angegeben werden}
+}
+
+\newglossaryentry{bool}{
+    name=boolean,
+    description={Datentyp für Wahrheitswerte. Kann entweder wahr oder falsch sein}
+}
+
+\newglossaryentry{JSON}{
+    name=JSON,
+    description={JavaScript Object Notation. Ein kompaktes Datenformat, das für Menschen einfach lesbar ist und von Maschinen einfach interpretiert werden kann}
+}
+
+\newglossaryentry{map}{
+    name=Map,
+    description={Eine Map ist eine Datenstruktur, die Schlüssel-Wert-Paare speichert. Die Schlüssel sind eindeutig und können verwendet werden, um auf die zugehörigen Werte zuzugreifen}
+}
+
+\newglossaryentry{SharedPreferences}{
+    name=SharedPreferences,
+    description={Eine Klasse, die es ermöglicht, Daten in einer Datei zu speichern. Die Daten werden in Form von Schlüssel-Wert-Paaren gespeichert}
+}
+
+\newglossaryentry{Observer}{
+    name=Observer-Pattern,
+    description={Ein Entwurfsmuster, bei dem ein Objekt (Subject) eine Liste von anderen Objekten (Observers) verwaltet, die über Änderungen des Subjects informiert werden sollen. Wenn sich der Zustand des Subjects ändert, werden alle Observer benachrichtigt}
+}
+
+\newglossaryentry{BuildContext}{
+    name=BuildContext,
+    description={Ein Objekt, das Informationen über die Position des Widgets im Widget-Baum enthält. Wird verwendet, um Widgets zu erstellen}
+}
+
+\newglossaryentry{Dialog}{
+    name=Dialog,
+    description={Ein Dialog ist ein Fenster, das über dem aktuellen Inhalt angezeigt wird. Er blockiert die Interaktion mit dem restlichen Inhalt, bis er geschlossen wird}
+}
+\newglossaryentry{Singleton}{
+    name=Singleton-Pattern,
+    description={Ein Entwurfsmuster, bei dem eine Klasse nur eine einzige Instanz besitzt. Diese kann global abgerufen werden}
+}
+
+\newglossaryentry{JWT}{
+    name=JWT,
+    description={JSON Web Token. Ein Token, das aus drei Teilen besteht: Header, Payload und Signature. Es wird verwendet, um den Benutzer zu authentifizieren. Der Header enthält Informationen über den verwendeten Algorithmus. Der Payload enthält Informationen über den Benutzer. Die Signatur wird verwendet, um die Echtheit des Tokens zu überprüfen}
+}
+
+\newglossaryentry{ausblenden}{
+    name=ausblenden,
+    description={Ein ausgeblendetes Rezept kann innerhalb des Squads, in dem es ausgeblendet ist, nicht betrachtet werden. Die Sichtbarkeit des Rezepts in anderen Gruppen wird nicht beeinflusst}
+}
+
+\newglossaryentry{nodejs}{
+    name=Node.js,
+    description={Eine JavaScript-Laufzeitumgebung, die es ermöglicht, JavaScript außerhalb des Browsers auszuführen}
+}
+
+\newglossaryentry{expressjs}{
+    name=Express.js,
+    description={Ein Webframework für Node.js, das es ermöglicht, einen Webserver zu erstellen}
+}
+
+\newglossaryentry{typescript}{
+    name=TypeScript,
+    description={Eine Programmiersprache, die auf JavaScript aufbaut. Sie erweitert JavaScript um statische Typisierung}
+}
+
+\newglossaryentry{javascript}{
+    name=JavaScript,
+    description={Eine Skriptsprache, die hauptsächlich im Web eingesetzt wird. Sie wird vom Browser interpretiert und ausgeführt}
+}
+
+\newglossaryentry{rest}{
+    name=REST,
+    description={Representational State Transfer. Ein Architekturstil für verteilte Systeme. RESTful APIs verwenden HTTP-Methoden, um auf Ressourcen zuzugreifen. Die Ressourcen werden durch URLs identifiziert. RESTful APIs sind zustandslos. Das bedeutet, dass jede Anfrage unabhängig von vorherigen Anfragen ist} 
+}
+
+\newglossaryentry{morgan}{
+    name=Morgan,
+    description={Ein Logger für Express.js. Er kann verwendet werden, um HTTP-Anfragen zu protokollieren}
+}
+
+\newglossaryentry{http-anfragen}{
+    name=HTTP-Anfrage,
+    description={Eine Anfrage, die an einen Webserver gesendet wird. Sie besteht aus einem Header und einem Body. Der Header enthält Informationen über die Anfrage. Der Body enthält die Daten, die mit der Anfrage gesendet werden}
+}
+
+\newglossaryentry{childclass}{
+    name=Kindklasse,
+    description={Eine Klasse, die von einer anderen Klasse erbt}
+}
+
+\newglossaryentry{id-token}{
+    name=ID-Token,
+    description={Ein JWT, das von Firebase ausgestellt wird. Es enthält Informationen über den Benutzer. Der ID-Token ist für maximal eine Stunde gültig, danach muss ein neuer angefordert werden}
+<<<<<<< Updated upstream
+}
+
+\newglossaryentry{refresh-token}{
+    name=Refresh-Token,
+    description={Ein JWT, das von Firebase ausgestellt wird. Der Refresh-Token ist ein spezieller Token-Typ, der dazu dient, ID-Token zu erneuern, nachdem sie abgelaufen sind}
+=======
+>>>>>>> Stashed changes
+}
