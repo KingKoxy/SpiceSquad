@@ -1,12 +1,19 @@
-import 'package:spice_squad/models/recipe.dart';
+import "package:spice_squad/models/recipe.dart";
 
-enum SortCategory{
+/// Enum for the different sort categories.
+enum SortCategory {
+  /// Sort by title.
   title,
+
+  /// Sort by difficulty.
   difficulty,
+
+  /// Sort by creation date.
   creationDate;
 
-  int compare(Recipe a, Recipe b){
-    switch(this){
+  /// Compares two recipes by the sort category. This can be used by the [List.sort()] method.
+  int compare(Recipe a, Recipe b) {
+    switch (this) {
       case SortCategory.title:
         return a.title.toLowerCase().compareTo(b.title.toLowerCase());
       case SortCategory.difficulty:

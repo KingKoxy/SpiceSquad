@@ -1,20 +1,18 @@
-import 'package:flutter/material.dart';
-import 'package:spice_squad/screens/main_screen/filter_category.dart';
+import "package:flutter/material.dart";
+import "package:spice_squad/screens/main_screen/filter_category.dart";
+import "package:spice_squad/screens/main_screen/filter_selection_dialog.dart";
 
-import 'filter_selection_dialog.dart';
-
-class FilterSelectionWidget extends StatefulWidget {
+/// Widget that allows the user to select filters.
+class FilterSelectionWidget extends StatelessWidget {
+  /// Callback for when the filters are changed.
   final ValueChanged<List<FilterCategory>> onChanged;
+
+  /// The selected filters.
   final List<FilterCategory> selectedFilters;
 
-  const FilterSelectionWidget(
-      {super.key, required this.onChanged, required this.selectedFilters});
+  /// Creates a new filter selection widget.
+  const FilterSelectionWidget({required this.onChanged, required this.selectedFilters, super.key});
 
-  @override
-  State<FilterSelectionWidget> createState() => _FilterSelectionWidgetState();
-}
-
-class _FilterSelectionWidgetState extends State<FilterSelectionWidget> {
   @override
   Widget build(BuildContext context) {
     return TextButton(
@@ -28,7 +26,7 @@ class _FilterSelectionWidgetState extends State<FilterSelectionWidget> {
           const SizedBox(width: 5),
           Text(
             "Filter",
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.titleLarge,
           )
         ],
       ),
@@ -40,7 +38,10 @@ class _FilterSelectionWidgetState extends State<FilterSelectionWidget> {
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
-        return FilterSelectionDialog(onChanged: widget.onChanged, selectedFilters: widget.selectedFilters,);
+        return FilterSelectionDialog(
+          onSave: onChanged,
+          initialValue: selectedFilters,
+        );
       },
     );
   }

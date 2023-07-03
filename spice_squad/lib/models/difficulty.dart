@@ -1,6 +1,15 @@
+/// Enum for the difficulty of a recipe.
+///
+/// The difficulty is used to determine the difficulty of a recipe.
+///
 enum Difficulty {
+  /// Easy difficulty
   easy,
+
+  /// Medium difficulty
   medium,
+
+  /// Hard difficulty
   hard;
 
   @override

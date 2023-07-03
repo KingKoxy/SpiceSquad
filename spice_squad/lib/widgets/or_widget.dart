@@ -1,13 +1,15 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
+/// A widget that is used to indicate a divider between two other widgets that are in an "or" relationship.
 class OrWidget extends StatelessWidget {
+  /// Creates a new or widget.
   const OrWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: const EdgeInsets.symmetric(vertical: 10),
+    return const Padding(padding: EdgeInsets.symmetric(vertical: 10),
     child: Row(
-      children: const [
+      children: [
         Expanded(
           child: Divider(
             color: Colors.grey,
@@ -17,7 +19,7 @@ class OrWidget extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: Text(
-            'oder',
+            "oder",
             style: TextStyle(
               color: Colors.white,
               fontSize: 20,
