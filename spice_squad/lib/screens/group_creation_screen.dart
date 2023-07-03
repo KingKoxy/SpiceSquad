@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/screens/group_joining_screen.dart";
@@ -38,7 +39,7 @@ class GroupCreationScreen extends ConsumerWidget {
                     onPressed: () {
                       Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
                     },
-                    child: const Text("Überspringen"),
+                    child: Text(AppLocalizations.of(context)!.skipButton),
                   ),
                 ),
               ),
@@ -50,7 +51,7 @@ class GroupCreationScreen extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Squad erstellen",
+                      AppLocalizations.of(context)!.createSquadHeadline,
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     const SizedBox(
@@ -63,11 +64,11 @@ class GroupCreationScreen extends ConsumerWidget {
                           SizedBox(
                             width: double.infinity,
                             child: TextFormField(
-                              validator: _validateGroupName,
+                              validator: (value) => _validateGroupName(context, value),
                               keyboardType: TextInputType.text,
                               controller: _groupNameController,
-                              decoration: const InputDecoration(
-                                hintText: "Squadname",
+                              decoration: InputDecoration(
+                                hintText: AppLocalizations.of(context)!.squadNameInputLabel,
                               ),
                             ),
                           ),
@@ -85,7 +86,7 @@ class GroupCreationScreen extends ConsumerWidget {
                             _createGroup(context, ref.read(groupServiceProvider.notifier), isAfterRegister);
                           }
                         },
-                        child: const Text("Weiter"),
+                        child: Text(AppLocalizations.of(context)!.createSquadButton),
                       ),
                     ),
                     const OrWidget(),
@@ -96,7 +97,7 @@ class GroupCreationScreen extends ConsumerWidget {
                           Navigator.of(context)
                               .pushReplacementNamed(GroupJoiningScreen.routeName, arguments: isAfterRegister);
                         },
-                        child: const Text("Squad beitreten"),
+                        child: Text(AppLocalizations.of(context)!.joinSquadButton),
                       ),
                     ),
                   ],
@@ -109,9 +110,9 @@ class GroupCreationScreen extends ConsumerWidget {
     );
   }
 
-  String? _validateGroupName(String? groupCode) {
+  String? _validateGroupName(BuildContext context, String? groupCode) {
     if (groupCode == null || groupCode.isEmpty) {
-      return "Bitte gib einen Squadnamen ein.";
+      return AppLocalizations.of(context)!.squadNameEmptyError;
     }
     return null;
   }
@@ -122,9 +123,9 @@ class GroupCreationScreen extends ConsumerWidget {
         .then(
           (value) => showDialog(
             context: context,
-            builder: (context) => const SuccessDialog(
-              message: "Die Squad wurde erfolgreich erstellt",
-              title: "Squad erstellt",
+            builder: (context) => SuccessDialog(
+              title: AppLocalizations.of(context)!.squadCreationSuccessFullTitle,
+              message: AppLocalizations.of(context)!.squadCreationSuccessFullDescription,
             ),
           ),
         )

@@ -318,5 +318,21 @@
   "joiningSuccessFullDescription": "You have successfully joined the squad.",
   "@joiningSuccessFullDescription": {
     "description": "The description of the joining successful page"
+  },
+  "squadNameInputLabel": "Squad name",
+  "@squadNameInputLabel": {
+    "description": "The label for the squad name input"
+  },
+  "squadNameEmptyError": "Please enter a squad name",
+  "@squadNameEmptyError": {
+    "description": "The error message if the squad name is empty"
+  },
+  "squadCreationSuccessFullTitle": "Squad created",
+  "@squadCreationSuccessFullTitle": {
+    "description": "The title of the squad creation successful screen"
+  },
+  "squadCreationSuccessFullDescription": "You have successfully created the squad.",
+  "@squadCreationSuccessFullDescription": {
+    "description": "The description of the squad creation successful screen"
   }
 }
