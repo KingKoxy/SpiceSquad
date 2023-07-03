@@ -83,7 +83,7 @@ class SpiceSquad extends StatelessWidget {
               );
             case RecipeCreationScreen.routeName:
               return MaterialPageRoute(
-                builder: (context) => RecipeCreationScreen(),
+                builder: (context) => RecipeCreationScreen(recipe: settings.arguments as Recipe?),
               );
             case SettingsScreen.routeName:
               return MaterialPageRoute(

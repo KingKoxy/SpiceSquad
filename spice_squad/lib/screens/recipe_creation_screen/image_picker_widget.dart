@@ -1,14 +1,11 @@
 import "dart:typed_data";
 
 import "package:flutter/material.dart";
-import "package:spice_squad/services/recipe_service.dart";
-
 class ImagePickerWidget extends StatefulWidget {
   final Uint8List? recipeImage;
-  final RecipeService recipeService;
 
   const ImagePickerWidget(
-      {required this.recipeImage, required this.recipeService, super.key,});
+      {required this.recipeImage, super.key,});
 
   @override
   State<ImagePickerWidget> createState() => _ImagePickerWidgetState();
