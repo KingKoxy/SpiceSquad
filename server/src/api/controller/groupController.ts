@@ -105,9 +105,18 @@ class GroupController extends AbstractController {
     }
 
     public async groupGetAllForUser(req: express.Request, res: express.Response): Promise<void> {
-        res.status(200).json({
-            message: 'Handling GET requests to /groups'
-        });
+        this.prisma.group.findMany({
+            where: {
+                groupMember: {
+                    some: {
+                        user_id: req.body.user_id
+                    }
+                }
+            }
+        }).then((result) => {
+            console.log(result);
+            res.status(200).json(result);
+        })
     }
 
 }

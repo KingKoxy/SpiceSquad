@@ -133,15 +133,17 @@ class RecipeController extends AbstractController{
     
     public async recipesGetAllForUser(req: express.Request, res: express.Response): Promise<void> {
         // Get all recipes for user from DB where user is author
-        await this.prisma.recipe.findMany({
-            where: 
-                    {
-                        author_id: req.params.userId,
-                    },
-            include: {
-                ingredient: true,
+        this.prisma.recipe.findMany({
+            where: {
+
+                author_id: req.body.userId
             }
-        });
+        }).then((result) => {
+            console.log(result);
+            res.status(200).json({
+                recipes: result
+            });
+        })
         //Get all recipes for user from DB where user groupmember and recipe is not private and recipe is not censorred
     }
 
