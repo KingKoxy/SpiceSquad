@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:spice_squad/models/difficulty.dart';
-import 'package:spice_squad/screens/recipe_creation_screen/difficulty_picker_diaglog.dart';
+import "package:flutter/material.dart";
+import "package:spice_squad/models/difficulty.dart";
+import "package:spice_squad/screens/recipe_creation_screen/difficulty_picker_diaglog.dart";
 
 class DifficultyPickerWidget extends StatefulWidget {
 
@@ -40,11 +40,11 @@ class _DifficultyPickerWidgetState extends State<DifficultyPickerWidget> {
                 Text(_difficulty.toString(), style: Theme
                     .of(context)
                     .textTheme
-                    .subtitle1,)
+                    .titleMedium,)
               ],
             ),
           ),
-        )));
+        ),),);
   }
 
 

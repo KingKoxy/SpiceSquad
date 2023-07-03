@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:spice_squad/models/recipe.dart';
-import 'package:spice_squad/screens/recipe_detail_screen/label_card.dart';
-import 'package:spice_squad/screens/recipe_detail_screen/recipe_detail_screen.dart';
+import "package:flutter/material.dart";
+import "package:spice_squad/models/recipe.dart";
+import "package:spice_squad/screens/recipe_detail_screen/label_card.dart";
+import "package:spice_squad/screens/recipe_detail_screen/recipe_detail_screen.dart";
 
 class AuthorDateCard extends StatelessWidget {
   final Recipe recipe;
 
-  const AuthorDateCard({super.key, required this.recipe});
+  const AuthorDateCard({required this.recipe, super.key});
 
   @override
   Widget build(BuildContext context) {

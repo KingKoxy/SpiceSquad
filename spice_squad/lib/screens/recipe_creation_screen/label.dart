@@ -1,4 +1,4 @@
-import '../../models/recipe.dart';
+import "package:spice_squad/models/recipe.dart";
 
 class Label {
   String labelText;

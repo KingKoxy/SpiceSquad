@@ -1,14 +1,14 @@
-import 'dart:typed_data';
+import "dart:typed_data";
 
-import 'package:spice_squad/services/recipe_service.dart';
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
+import "package:spice_squad/services/recipe_service.dart";
 
 class ImagePickerWidget extends StatefulWidget {
   final Uint8List? recipeImage;
   final RecipeService recipeService;
 
   const ImagePickerWidget(
-      {super.key, required this.recipeImage, required this.recipeService});
+      {required this.recipeImage, required this.recipeService, super.key,});
 
   @override
   State<ImagePickerWidget> createState() => _ImagePickerWidgetState();
@@ -36,7 +36,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                 : const BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage(
-                            "assets/icons/exampleRecipeImage.jpeg"))),
+                            "assets/icons/exampleRecipeImage.jpeg",),),),
             child: InkWell(
                 onTap: () => _selectRecipeImage(context),
                 child: const SizedBox(
@@ -46,11 +46,11 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                     AssetImage("assets/icons/image.png"),
                     color: Colors.white,
                   ),
-                )),
+                ),),
           ),
         ),
       ),
-    ));
+    ),);
   }
 }
 
@@ -88,7 +88,7 @@ void _selectRecipeImage(BuildContext context) {
                     height: 86,
                     width: 86,
                     child: RawMaterialButton(
-                      onPressed: () => _removeRecipeImage(),
+                      onPressed: _removeRecipeImage,
                       elevation: 2.0,
                       fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                       padding: const EdgeInsets.all(15.0),
@@ -101,7 +101,7 @@ void _selectRecipeImage(BuildContext context) {
                     height: 86,
                     width: 86,
                     child: RawMaterialButton(
-                      onPressed: () => _setRecipeImageFromGallery(),
+                      onPressed: _setRecipeImageFromGallery,
                       elevation: 2.0,
                       fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                       padding: const EdgeInsets.all(15.0),
@@ -114,7 +114,7 @@ void _selectRecipeImage(BuildContext context) {
                     height: 86,
                     width: 86,
                     child: RawMaterialButton(
-                      onPressed: () => _setRecipeImageFromCamera(),
+                      onPressed: _setRecipeImageFromCamera,
                       elevation: 2.0,
                       fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                       padding: const EdgeInsets.all(15.0),

@@ -1,13 +1,11 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
-import 'label.dart';
+import "package:spice_squad/screens/recipe_creation_screen/label.dart";
 class LabelButton extends StatefulWidget {
   final Label label;
   bool value;
   final VoidCallback onToggle;
-  LabelButton({super.key, required this.label,
-    required this.value,
-    required this.onToggle});
+  LabelButton({required this.label, required this.value, required this.onToggle, super.key,});
 
   @override
   State<LabelButton> createState() => _LabelButtonState();
@@ -29,9 +27,7 @@ class _LabelButtonState extends State<LabelButton> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () {
-          _toggleLabel();
-        },
+        onTap: _toggleLabel,
         child: SizedBox(
             height: 60,
             child: Card(
@@ -58,7 +54,7 @@ class _LabelButtonState extends State<LabelButton> {
                               .titleMedium,
                         ),
                       )
-                    ])))));
+                    ],),),),),);
   }
 
   void _toggleLabel() {

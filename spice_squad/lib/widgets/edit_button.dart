@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class EditButton extends StatelessWidget {
   const EditButton({super.key});
@@ -7,6 +7,6 @@ class EditButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(onPressed: () {
       Navigator.of(context).pop();
-    }, icon: const ImageIcon(AssetImage('assets/icons/edit_pen.png'),),);
+    }, icon: const ImageIcon(AssetImage("assets/icons/edit_pen.png"),),);
   }
 }

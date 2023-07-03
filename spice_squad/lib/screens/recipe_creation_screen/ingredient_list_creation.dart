@@ -1,13 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:spice_squad/screens/ingredient_creation_screen/ingredient_creation_screen.dart';
-import 'package:spice_squad/widgets/favourite_button.dart';
-
-import '../../models/ingredient.dart';
+import "package:flutter/material.dart";
+import "package:spice_squad/models/ingredient.dart";
+import "package:spice_squad/screens/ingredient_creation_screen/ingredient_creation_screen.dart";
+import "package:spice_squad/widgets/favourite_button.dart";
 
 class IngredientListCreation extends StatefulWidget {
   final List<Ingredient> ingredients;
 
-  const IngredientListCreation({super.key, required this.ingredients});
+  const IngredientListCreation({required this.ingredients, super.key});
 
   @override
   State<IngredientListCreation> createState() => _IngredientListCreationState();
@@ -28,10 +27,10 @@ class _IngredientListCreationState extends State<IngredientListCreation> {
       children: [
         Row(
           children: [
-            Text('Zutaten', style: Theme
+            Text("Zutaten", style: Theme
                 .of(context)
                 .textTheme
-                .headline4),
+                .headlineMedium,),
             FavouriteButton(value: true, onToggle: () {}),
             //TODO entfernen
             //TODO AddButton(onPressed: () {Navigator.pushNamed(context, IngredientCreationScreen.routeName);},)
@@ -51,11 +50,11 @@ class _IngredientListCreationState extends State<IngredientListCreation> {
                 onTap: () {
                   Navigator.of(context).pushNamed(
                       IngredientCreationScreen.routeName,
-                      arguments: _ingredients[index]);
+                      arguments: _ingredients[index],);
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                      vertical: 8, horizontal: 8),
+                      vertical: 8, horizontal: 8,),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
@@ -65,7 +64,7 @@ class _IngredientListCreationState extends State<IngredientListCreation> {
                       height: 50,
                       child: Image.asset(
                         _ingredients[index].iconId,
-                      )),
+                      ),),
                   FittedBox(
                     fit: BoxFit.fitWidth,
                     child: Row(
@@ -92,8 +91,8 @@ class _IngredientListCreationState extends State<IngredientListCreation> {
                                 .textTheme
                                 .titleMedium,
                           ),
-                        ]
-                    )),
+                        ],
+                    ),),
                     const Expanded(child: SizedBox()),
                     FavouriteButton(value: true, onToggle: () {}),
 

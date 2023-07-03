@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:spice_squad/models/ingredient.dart';
-import 'package:spice_squad/screens/recipe_detail_screen/ingredient_card.dart';
+import "package:flutter/material.dart";
+import "package:spice_squad/models/ingredient.dart";
+import "package:spice_squad/screens/recipe_detail_screen/ingredient_card.dart";
 
 class IngredientList extends StatelessWidget {
   final List<Ingredient> ingredients;
 
-  const IngredientList({super.key, required this.ingredients});
+  const IngredientList({required this.ingredients, super.key});
 
   @override
   Widget build(BuildContext context) {

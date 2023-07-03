@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:spice_squad/screens/recipe_detail_screen/recipe_detail_screen.dart';
+import "package:flutter/material.dart";
+import "package:spice_squad/screens/recipe_detail_screen/recipe_detail_screen.dart";
 
 class LabelCard extends StatelessWidget {
   final Label label;
 
-  const LabelCard({super.key, required this.label});
+  const LabelCard({required this.label, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +24,6 @@ class LabelCard extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               )
-            ])));
+            ],),),);
   }
 }

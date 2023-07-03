@@ -1,14 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:spice_squad/models/recipe.dart';
-import 'package:spice_squad/screens/recipe_creation_screen/label_button.dart';
-
-import 'label.dart';
+import "package:flutter/material.dart";
+import "package:spice_squad/models/recipe.dart";
+import "package:spice_squad/screens/recipe_creation_screen/label.dart";
+import "package:spice_squad/screens/recipe_creation_screen/label_button.dart";
 
 class LabelPicker extends StatefulWidget {
   final Recipe recipe;
   List<Label> labels;
 
-  LabelPicker({super.key, required this.labels, required this.recipe});
+  LabelPicker({required this.labels, required this.recipe, super.key});
 
   @override
   State<LabelPicker> createState() => _LabelPickerState();
@@ -53,8 +52,8 @@ class _LabelPickerState extends State<LabelPicker> {
             LabelButton(
                 label: Label("Koscher", "assets/icons/koscher.png"),
                 value: _recipe.isKosher,
-                onToggle: () {}),
+                onToggle: () {},),
           ],
-        ));
+        ),);
   }
 }

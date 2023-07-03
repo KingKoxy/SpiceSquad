@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:spice_squad/models/ingredient.dart';
+import "package:flutter/material.dart";
+import "package:spice_squad/models/ingredient.dart";
 
 class IngredientCard extends StatelessWidget {
   final Ingredient ingredient;
 
-  const IngredientCard({super.key, required this.ingredient});
+  const IngredientCard({required this.ingredient, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,15 +17,15 @@ class IngredientCard extends StatelessWidget {
               child: Text(
                 "${ingredient.amount.toString()} ${ingredient.unit}",
                 textAlign: TextAlign.end,
-                style: Theme.of(context).textTheme.bodyText1,
-              ))),
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),),),
       const SizedBox(width: 8),
       FittedBox(
           fit: BoxFit.fitWidth,
           child: Text(
             ingredient.name,
-            style: Theme.of(context).textTheme.bodyText1,
-          )),
-    ]);
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),),
+    ],);
   }
 }

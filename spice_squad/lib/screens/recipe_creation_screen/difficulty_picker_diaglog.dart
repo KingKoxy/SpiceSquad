@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:spice_squad/models/difficulty.dart';
+import "package:flutter/material.dart";
+import "package:spice_squad/models/difficulty.dart";
 
 class DifficultyPickerDialog extends StatefulWidget {
   final Difficulty? initialValue;
@@ -8,7 +7,7 @@ class DifficultyPickerDialog extends StatefulWidget {
   final ValueChanged<Difficulty> onChange;
 
   const DifficultyPickerDialog(
-      {super.key, required this.initialValue, required this.onChange});
+      {required this.initialValue, required this.onChange, super.key,});
 
   @override
   State<DifficultyPickerDialog> createState() => _DifficultyPickerDialogState();
@@ -51,8 +50,8 @@ class _DifficultyPickerDialogState extends State<DifficultyPickerDialog> {
                             Navigator.of(context).pop();
                             onChange(Difficulty.values[index]);
                           },
-                        )));
+                        ),),);
               },
-            )));
+            ),),);
   }
 }
