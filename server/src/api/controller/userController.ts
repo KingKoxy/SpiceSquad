@@ -8,14 +8,45 @@ class UserController extends AbstractController {
     }
 
     public async userDelete(req: express.Request, res: express.Response): Promise<void> {
-        res.status(200).json({
-            message: 'Deleted user!'
+        this.prisma.user.delete({
+            where: {
+                id: req.params.id
+            }
+        }).then((user) => {
+            this.firebaseAdmin.auth().deleteUser(user.firebase_user_id).catch((error) => {
+                res.status(500).json({
+                    error: error
+                    });
+            });
+            res.status(200).json({
+                message: "User deleted successfully!",
+            });
+
+        }).catch((error) => {
+            res.status(500).json({
+                error: error
+                });
         });
     }
 
     public async userPatch(req: express.Request, res: express.Response): Promise<void>{
-        res.status(200).json({
-            message: 'Updated user!'
+        this.prisma.user.update({
+            where: {
+                id: req.params.id
+            },
+            data: {
+                user_name: req.body.name,
+                email: req.body.email,
+            }
+        }).then((user) => {
+            res.status(200).json({
+                message: "User updated successfully!",
+            });
+
+        }).catch((error) => {
+            res.status(500).json({
+                error: error
+                });
         });
     }
 }
