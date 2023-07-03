@@ -1,13 +1,11 @@
 import "package:flutter/material.dart";
-import "package:spice_squad/models/ingredient.dart";
 import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/screens/recipe_detail_screen/ingredient_list.dart";
 import "package:spice_squad/screens/recipe_detail_screen/label_list.dart";
 import "package:spice_squad/widgets/edit_button.dart";
 import "package:spice_squad/widgets/favourite_button.dart";
+import "package:spice_squad/widgets/portion_amount_field.dart";
 import "package:spice_squad/widgets/tag_item.dart";
-
-import "../../widgets/portion_amount_field.dart";
 
 /// A screen showing the details of a recipe.
 class RecipeDetailScreen extends StatefulWidget {
@@ -84,7 +82,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                             portionAmount = value;
                           });
                         },
-                        initialValue: widget.recipe.defaultPortionAmount)),
+                        initialValue: widget.recipe.defaultPortionAmount,),),
                 FavouriteButton(
                   value: widget.recipe.isFavourite,
                   onToggle: () {
@@ -99,7 +97,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
             ),
             IngredientList(
                 ingredients: widget.recipe.ingredients,
-                amountFactor: portionAmount / widget.recipe.defaultPortionAmount),
+                amountFactor: portionAmount / widget.recipe.defaultPortionAmount,),
             const SizedBox(height: 10),
             Text(
               "Zubereitung",

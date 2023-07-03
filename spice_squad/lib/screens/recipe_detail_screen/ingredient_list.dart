@@ -5,7 +5,7 @@ class IngredientList extends StatelessWidget {
   final List<Ingredient> ingredients;
   final double amountFactor;
 
-  const IngredientList({required this.ingredients, super.key, required this.amountFactor});
+  const IngredientList({required this.ingredients, required this.amountFactor, super.key});
 
   @override
   Widget build(BuildContext context) {

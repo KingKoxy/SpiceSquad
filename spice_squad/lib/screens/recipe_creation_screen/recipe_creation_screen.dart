@@ -11,7 +11,7 @@ import "package:spice_squad/screens/recipe_creation_screen/ingredient_list_creat
 import "package:spice_squad/screens/recipe_creation_screen/label.dart";
 import "package:spice_squad/screens/recipe_creation_screen/label_picker.dart";
 
-import "../../widgets/portion_amount_field.dart";
+import "package:spice_squad/widgets/portion_amount_field.dart";
 
 /// Screen for creating a new recipe
 class RecipeCreationScreen extends ConsumerWidget {

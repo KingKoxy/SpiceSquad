@@ -1,8 +1,6 @@
 import "package:flutter/cupertino.dart";
-import "package:spice_squad/screens/recipe_detail_screen/recipe_detail_screen.dart";
-
-import "../../models/recipe.dart";
-import "../../widgets/tag_item.dart";
+import "package:spice_squad/models/recipe.dart";
+import "package:spice_squad/widgets/tag_item.dart";
 
 class LabelList extends StatelessWidget {
   final Recipe recipe;

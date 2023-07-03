@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/models/group.dart";
+import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/screens/group_creation_screen.dart";
 import "package:spice_squad/screens/group_detail_screen/group_detail_screen.dart";
 import "package:spice_squad/screens/group_joining_screen.dart";
@@ -14,9 +16,6 @@ import "package:spice_squad/screens/recipe_detail_screen/recipe_detail_screen.da
 import "package:spice_squad/screens/register_screen.dart";
 import "package:spice_squad/screens/settings_screen/settings_screen.dart";
 import "package:spice_squad/theme.dart";
-
-import "models/group.dart";
-import "models/recipe.dart";
 
 void main() {
   runApp(const SpiceSquad());
