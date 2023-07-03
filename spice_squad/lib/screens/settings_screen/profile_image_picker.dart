@@ -1,5 +1,6 @@
 import "dart:typed_data";
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:spice_squad/services/user_service.dart";
 
 /// Widget for selecting a profile image
@@ -78,7 +79,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "Profilbild auswählen",
+                  AppLocalizations.of(context)!.selectProfileImageDialogTitle,
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const SizedBox(

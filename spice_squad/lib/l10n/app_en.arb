@@ -1,6 +1,6 @@
 {
   "loginHeadline": "Login",
-  "@login": {
+  "@loginHeadline": {
     "description": "The headline of the login page"
   },
   "loginButton": "Login",
@@ -16,11 +16,11 @@
     "description": "The link to the registration page"
   },
   "emailLabel": "Email",
-  "@email": {
+  "@emailLabel": {
     "description": "The label for the email input field"
   },
   "passwordLabel": "Password",
-  "@password": {
+  "@passwordLabel": {
     "description": "The label for the password input field"
   },
   "forgotPasswordLink": "Forgot password?",
@@ -28,15 +28,15 @@
     "description": "The link to the forgot password page"
   },
   "emailEmptyError": "Please enter your email address",
-  "@emailEmpty": {
+  "@emailEmptyError": {
     "description": "The error message if the email field is empty"
   },
   "emailInvalidError": "Please enter a valid email address",
-  "@emailInvalid": {
+  "@emailInvalidError": {
     "description": "The error message if the email field is invalid"
   },
   "registerHeadline": "Register",
-  "@register": {
+  "@registerHeadline": {
     "description": "The headline of the registration page"
   },
   "registerButton": "Register",
@@ -44,39 +44,39 @@
     "description": "The text on the register button"
   },
   "userNameLabel": "Username",
-  "@name": {
+  "@userNameLabel": {
     "description": "The label for the username input field"
   },
   "passwordRepeatLabel": "Repeat password",
-  "@passwordRepeat": {
+  "@passwordRepeatLabel": {
     "description": "The label for the password repeat input field"
   },
   "userNameEmptyError": "Please enter a username",
-  "@nameEmpty": {
+  "@userNameEmptyError": {
     "description": "The error message if the name field is empty"
   },
   "passwordEmptyError": "Please enter a password",
-  "@passwordEmpty": {
+  "@passwordEmptyError": {
     "description": "The error message if the password field is empty"
   },
   "passwordTooShortError": "Your password must be at least 8 characters long",
-  "@passwordTooShort": {
+  "@passwordTooShortError": {
     "description": "The error message if the password is to short"
   },
   "passwordsDontMatchError": "Passwords don't match",
-  "@passwordsDontMatch": {
+  "@passwordsDontMatchError": {
     "description": "The error message if the passwords don't match"
   },
   "passwordNeedsLowercaseError": "Your password must contain at least one lowercase letter",
-  "@passwordNeedsLowercase": {
+  "@passwordNeedsLowercaseError": {
     "description": "The error message if the password needs a lowercase letter"
   },
   "passwordNeedsUppercaseError": "Your password must contain at least one uppercase letter",
-  "@passwordNeedsUppercase": {
+  "@passwordNeedsUppercaseError": {
     "description": "The error message if the password needs a uppercase letter"
   },
   "passwordNeedsNumberError": "Your password must contain at least one number",
-  "@passwordNeedsNumber": {
+  "@passwordNeedsNumberError": {
     "description": "The error message if the password needs a number"
   },
   "hasAccountQuestion": "Already have an account?",
@@ -88,7 +88,7 @@
     "description": "The link to the login page"
   },
   "resetPasswordHeadline": "Forgot password?",
-  "@resetPassword": {
+  "@resetPasswordHeadline": {
     "description": "The headline of the forgot password page"
   },
   "resetPasswordButton": "Reset password",
@@ -100,7 +100,7 @@
     "description": "The description on the forgot password page"
   },
   "resetPasswordSuccessHeadline": "Password reset email sent",
-  "@resetPasswordSuccess": {
+  "@resetPasswordSuccessHeadline": {
     "description": "The headline of the password reset email sent dialog"
   },
   "resetPasswordSuccessDescription": "We've sent you an email with a link to reset your password.",
@@ -144,15 +144,15 @@
     "description": "The name of the halal filter"
   },
   "filterSelectionDialogTitle": "Select filters",
-  "@filterSelectionDialog": {
+  "@filterSelectionDialogTitle": {
     "description": "The headline of the filter selection dialog"
   },
   "saveButtonLabel": "Save",
-  "@saveButton": {
+  "@saveButtonLabel": {
     "description": "The label for a save button"
   },
   "cancelButtonLabel": "Cancel",
-  "@cancelButton": {
+  "@cancelButtonLabel": {
     "description": "The label for a cancel button"
   },
   "filterSelectionHandle": "Filters",
@@ -160,15 +160,15 @@
     "description": "The handle for the filter selection"
   },
   "searchInputPlaceholder": "Search...",
-  "@searchInput": {
+  "@searchInputPlaceholder": {
     "description": "The placeholder for the search input"
   },
   "duration": "{minutes} Min.",
-  "@minTime": {
+  "@duration": {
     "description": "The duration of a recipe in minutes",
     "placeholders": {
       "minutes": {
-        "type": "number",
+        "type": "int",
         "content": "{minutes}",
         "example": "5",
         "description": "The minutes"
@@ -180,19 +180,19 @@
     "description": "The message if no recipes are found"
   },
   "sortNameTitle": "Title",
-  "@sortName": {
+  "@sortNameTitle": {
     "description": "The name of the title sort"
   },
   "sortNameDate": "Date",
-  "@sortCreationDate": {
+  "@sortNameDate": {
     "description": "The name of the creation date sort"
   },
   "sortNameDifficulty": "Difficulty",
-  "@sortDifficulty": {
+  "@sortNameDifficulty": {
     "description": "The name of the difficulty sort"
   },
   "sortSelectionDialogTitle": "Select sort",
-  "@sortSelectionDialog": {
+  "@sortSelectionDialogTitle": {
     "description": "The headline of the sort selection dialog"
   },
   "ascending": "Ascending",
@@ -202,5 +202,81 @@
   "descending": "Descending",
   "@descending": {
     "description": "The label for the descending sort"
+  },
+  "squadListLabel": "Squads",
+  "@squadListLabel": {
+    "description": "The label for the squad list"
+  },
+  "userNotInAnySquads": "You are not part of any squads yet",
+  "@userNotInAnySquads": {
+    "description": "The message if the user is not part of any squads"
+  },
+  "leaveSquadDialogTitle": "Leave squad",
+  "@leaveSquadDialogTitle": {
+    "description": "The headline of the leave squad dialog"
+  },
+  "leaveSquadDialogDescription": "Are you sure you want to leave the squad \"{squadName}\"?",
+  "@leaveSquadDialogDescription": {
+    "description": "The description of the leave squad dialog",
+    "placeholders": {
+      "squadName": {
+        "type": "String",
+        "content": "{squadName}",
+        "example": "WG",
+        "description": "The name of the squad"
+      }
+    }
+  },
+  "myRecipeListLabel": "My recipes",
+  "@myRecipeListLabel": {
+    "description": "The label for the my recipe list"
+  },
+  "userHasNoRecipes": "You have not yet created any recipes",
+  "@userHasNoRecipes": {
+    "description": "The message if the user has no recipes"
+  },
+  "deleteRecipeDialogTitle": "Delete recipe",
+  "@deleteRecipeDialogTitle": {
+    "description": "The headline of the delete recipe dialog"
+  },
+  "deleteRecipeDialogDescription": "Are you sure you want to delete your recipe \"{recipeName}\"?",
+  "@deleteRecipeDialogDescription": {
+    "description": "The description of the delete recipe dialog",
+    "placeholders": {
+      "recipeName": {
+        "type": "String",
+        "content": "{recipeName}",
+        "example": "Pizza",
+        "description": "The name of the recipe"
+      }
+    }
+  },
+  "selectProfileImageDialogTitle": "Select profile image",
+  "@selectProfileImageDialogTitle": {
+    "description": "The headline of the select profile image dialog"
+  },
+  "settingsHeadline": "Settings",
+  "@settingsHeadline": {
+    "description": "The headline of the settings page"
+  },
+  "deleteAccountButton": "Delete account",
+  "@deleteAccountButton": {
+    "description": "The label for the delete account button"
+  },
+  "renameDialogTitle": "Rename",
+  "@renameDialogTitle": {
+    "description": "The headline of the rename dialog"
+  },
+  "renameDialogEmptyError": "Please enter a name",
+  "@renameDialogEmptyError": {
+    "description": "The error message if the name is empty"
+  },
+  "deleteAccountDialogTitle": "Delete account",
+  "@deleteAccountDialogTitle": {
+    "description": "The headline of the delete account dialog"
+  },
+  "deleteAccountDialogDescription": "Are you sure you want to delete your account?",
+  "@deleteAccountDialogDescription": {
+    "description": "The description of the delete account dialog"
   }
 }
