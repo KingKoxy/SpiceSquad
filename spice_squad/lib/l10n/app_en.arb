@@ -334,5 +334,9 @@
   "squadCreationSuccessFullDescription": "You have successfully created the squad.",
   "@squadCreationSuccessFullDescription": {
     "description": "The description of the squad creation successful screen"
+  },
+  "qrScannerHeadline": "Scan QR code",
+  "@qrScannerHeadline": {
+    "description": "The headline of the QR scanner page"
   }
 }

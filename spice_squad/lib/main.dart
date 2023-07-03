@@ -39,13 +39,13 @@ class SpiceSquad extends StatelessWidget {
           PasswordResetScreen.routeName: (context) => PasswordResetScreen(),
           SettingsScreen.routeName: (context) => const SettingsScreen(),
           GroupJoiningScreen.routeName: (context) => GroupJoiningScreen(),
-
           GroupCreationScreen.routeName: (context) => GroupCreationScreen(),
+
           QRScannerScreen.routeName: (context) => const QRScannerScreen(),
           GroupDetailScreen.routeName: (context) => const GroupDetailScreen(),
           IngredientCreationScreen.routeName: (context) => IngredientCreationScreen(),
-          RecipeCreationScreen.routeName: (context) => const RecipeCreationScreen(),
           QRCodeScreen.routeName: (context) => const QRCodeScreen(),
+          RecipeCreationScreen.routeName: (context) => const RecipeCreationScreen(),
           RecipeDetailScreen.routeName: (context) => const RecipeDetailScreen(),
         },
         localizationsDelegates: AppLocalizations.localizationsDelegates,
