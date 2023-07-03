@@ -5,21 +5,9 @@ import firebase = require("firebase/app");
 import firebaseAdmin = require("firebase-admin");
 
 class AuthentificationController extends AbstractController {
-    private firebaseConfig = {
-        apiKey: process.env.FB_API_KEY,
-        authDomain: process.env.FB_AUTH_DOMAIN,
-        databaseURL: process.env.FB_DATABASE_URL,
-        projectId: process.env.FB_PROJECT_ID,
-        storageBucket: process.env.FB_STORAGE_BUCKET,
-        messagingSenderId: process.env.FB_MESSAGING_SENDER_ID,
-        appId: process.env.FB_APP_ID,
-    };
-    private auth: firebaseAuth.Auth;
 
     constructor() {
         super();
-        firebase.initializeApp(this.firebaseConfig);
-        this.auth = firebaseAuth.getAuth();
     }
 
     public async userLogin(
