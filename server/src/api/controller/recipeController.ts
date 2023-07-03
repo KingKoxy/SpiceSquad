@@ -2,7 +2,7 @@ import express = require("express");
 import AbstractController from "./abstractController";
 import mailSender from "../../mailer/mailSender";
 import reportMailBuilder from "../../mailer/mailBuilder/reportMailBuilder";
-import schema from "../../../prisma/schemas/recipeSchema";
+import schema from "../../../joi/schemas/recipeSchema";
 
 class RecipeController extends AbstractController {
   private mailSender: mailSender;

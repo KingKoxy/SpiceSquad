@@ -1,7 +1,7 @@
 import express = require("express");
 import AbstractController from "./abstractController";
-import schema from "../../../prisma/schemas/adminTargetSchema";
-import recipeSchema from "../../../prisma/schemas/censoredRecipeSchema";
+import schema from "../../../joi/schemas/groupMemberSchema";
+import recipeSchema from "../../../joi/schemas/censoredRecipeSchema";
 
 class AdminUserController extends AbstractController {
   constructor() {

@@ -1,7 +1,7 @@
 import express = require("express");
 import AbstractController from "./abstractController";
-import schema from "../../../prisma/schemas/groupSchema";
-import memberSchema from "../../../prisma/schemas/adminTargetSchema";
+import schema from "../../../joi/schemas/groupSchema";
+import memberSchema from "../../../joi/schemas/groupMemberSchema";
 
 class GroupController extends AbstractController {
   constructor() {
