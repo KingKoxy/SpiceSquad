@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:spice_squad/models/group_recipe.dart";
 import "package:spice_squad/providers/service_providers.dart";
@@ -30,7 +31,7 @@ class GroupRecipeList extends ConsumerWidget {
         Row(
           children: [
             Text(
-              "Rezepte",
+              AppLocalizations.of(context)!.recipeListHeadline,
               style: Theme.of(context).textTheme.headlineMedium,
             )
           ],
@@ -79,7 +80,7 @@ class GroupRecipeList extends ConsumerWidget {
               : Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
-                    "Bisher gibt es keine Rezepte für diese Squad",
+                  AppLocalizations.of(context)!.noRecipesFound,
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.grey),
                   ),
               ),

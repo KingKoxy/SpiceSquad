@@ -338,5 +338,79 @@
   "qrScannerHeadline": "Scan QR code",
   "@qrScannerHeadline": {
     "description": "The headline of the QR scanner page"
+  },
+  "groupDetailHeadline": "Squad",
+  "@groupDetailHeadline": {
+    "description": "The headline of the squad detail page"
+  },
+  "deleteSquadButton": "Delete squad",
+  "@deleteSquadButton": {
+    "description": "The label for the delete squad button"
+  },
+  "deleteSquadDialogTitle": "Delete squad",
+  "@deleteSquadDialogTitle": {
+    "description": "The headline of the delete squad dialog"
+  },
+  "deleteSquadDialogDescription": "Are you sure you want to delete the squad \"{squadName}\"?",
+  "@deleteSquadDialogDescription": {
+    "description": "The description of the delete squad dialog",
+    "placeholders": {
+      "squadName": {
+        "type": "String",
+        "content": "{squadName}",
+        "example": "WG",
+        "description": "The name of the squad"
+      }
+    }
+  },
+  "recipeListHeadline": "Recipes",
+  "@recipeListHeadline": {
+    "description": "The headline of the recipe list page"
+  },
+  "memberListHeadline": "Members",
+  "@memberListHeadline": {
+    "description": "The headline of the member list page"
+  },
+  "groupCodeShareMessage": "Join my SpiceSquad \"{squadName}\"! Just enter this code in the app: {groupCode}",
+  "@groupCodeShareMessage": {
+    "description": "The message to share the squad code",
+    "placeholders": {
+      "squadName": {
+        "type": "String",
+        "content": "{squadName}",
+        "example": "WG",
+        "description": "The name of the squad"
+      },
+      "groupCode": {
+        "type": "String",
+        "content": "{groupCode}",
+        "example": "123456",
+        "description": "The code of the squad"
+      }
+    }
+  },
+  "groupCodeShareSubject": "Join my SpiceSquad!",
+  "@groupCodeShareSubject": {
+    "description": "The subject to share the squad code"
+  },
+  "administrator": "Administrator",
+  "@administrator": {
+    "description": "The label for the administrator role"
+  },
+  "adminActionKick": "Kick user",
+  "@adminActionKick": {
+    "description": "The label for the kick user action"
+  },
+  "adminActionMakeAdmin": "Make admin",
+  "@adminActionMakeAdmin": {
+    "description": "The label for the make admin action"
+  },
+  "adminActionRemoveAdmin": "Remove admin role",
+  "@adminActionRemoveAdmin": {
+    "description": "The label for the remove admin action"
+  },
+  "adminActionBan": "Ban user",
+  "@adminActionBan": {
+    "description": "The label for the ban user action"
   }
 }

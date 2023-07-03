@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:share_plus/share_plus.dart";
 import "package:spice_squad/models/group_member.dart";
@@ -7,33 +8,27 @@ import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/services/group_service.dart";
 import "package:spice_squad/widgets/add_button.dart";
 
+import "../../models/group.dart";
+
 /// Widget to display a list of [GroupMember]s
 class MemberList extends ConsumerWidget {
-  /// The list of [GroupMember]s to display
-  final List<GroupMember> members;
-
   /// Whether or not the user is admin and can access admin actions
   final bool isAdmin;
 
-  /// The code of the group the members belong to
-  final String groupCode;
-
-  /// The id of the group the members belong to
-  final String groupId;
+  /// The group the members belong to
+  final Group group;
 
   /// Creates a [MemberList]
   const MemberList({
-    required this.groupCode,
-    required this.members,
+    required this.group,
     required this.isAdmin,
-    required this.groupId,
     super.key,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final String userId = ref.read(userRepositoryProvider).getUserId()!;
-
+    final List<GroupMember> members = group.members;
     // Sorts the members alphabetically so that the current user is always at the top, followed by the admins, followed by the rest
     members.sort((a, b) {
       if (a.id == userId && b.id != userId) return -1;
@@ -48,14 +43,14 @@ class MemberList extends ConsumerWidget {
         Row(
           children: [
             Text(
-              "Mitglieder",
+              AppLocalizations.of(context)!.memberListHeadline,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             AddButton(
               onPressed: () {
                 Share.share(
-                  "Tritt jetzt meiner SpiceSquad bei. Gib dazu einfach diesen Code in der App ein: $groupCode",
-                  subject: "Tritt meiner SpiceSquad bei!",
+                  AppLocalizations.of(context)!.groupCodeShareMessage(group.name, group.groupCode),
+                  subject: AppLocalizations.of(context)!.groupCodeShareSubject,
                 );
               },
             )
@@ -110,7 +105,7 @@ class MemberList extends ConsumerWidget {
                             ),
                             if (member.isAdmin)
                               Text(
-                                "Administrator",
+                                AppLocalizations.of(context)!.administrator,
                                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey),
                               ),
                           ],
@@ -124,19 +119,19 @@ class MemberList extends ConsumerWidget {
                           member.isAdmin
                               ? PopupMenuItem<VoidCallback>(
                                   value: () => _removeAdminStatus(ref.read(groupServiceProvider.notifier), member),
-                                  child: const Text("Adminstatus entfernen"),
+                                  child: Text(AppLocalizations.of(context)!.adminActionRemoveAdmin),
                                 )
                               : PopupMenuItem<VoidCallback>(
                                   value: () => _makeAdmin(ref.read(groupServiceProvider.notifier), member),
-                                  child: const Text("Zum Admin ernennen"),
+                                  child: Text(AppLocalizations.of(context)!.adminActionMakeAdmin),
                                 ),
                           PopupMenuItem<VoidCallback>(
                             value: () => _kickUser(ref.read(groupServiceProvider.notifier), member),
-                            child: const Text("Nutzer entfernen"),
+                            child: Text(AppLocalizations.of(context)!.adminActionKick),
                           ),
                           PopupMenuItem<VoidCallback>(
                             value: () => _banUser(ref.read(groupServiceProvider.notifier), member),
-                            child: const Text("Nutzer bannen"),
+                            child: Text(AppLocalizations.of(context)!.adminActionBan),
                           ),
                         ];
                       },
@@ -152,18 +147,18 @@ class MemberList extends ConsumerWidget {
   }
 
   _removeAdminStatus(GroupService groupService, GroupMember member) {
-    groupService.removeAdminStatus(member.id, groupId);
+    groupService.removeAdminStatus(member.id, group.id);
   }
 
   _makeAdmin(GroupService groupService, GroupMember member) {
-    groupService.makeAdmin(member.id, groupId);
+    groupService.makeAdmin(member.id, group.id);
   }
 
   _kickUser(GroupService groupService, GroupMember member) {
-    groupService.kickUser(member.id, groupId);
+    groupService.kickUser(member.id, group.id);
   }
 
   _banUser(GroupService groupService, GroupMember member) {
-    groupService.banUser(member.id, groupId);
+    groupService.banUser(member.id, group.id);
   }
 }
