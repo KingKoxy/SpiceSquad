@@ -8,25 +8,32 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const firebase = require("firebase-admin");
-const morgan = require("morgan");
+const database_1 = __importDefault(require("../../database"));
 class CheckAuthorization {
-    constructor() { }
+    constructor() {
+        this.database = new database_1.default();
+        this.pool = this.database.getPool();
+    }
     checkAuthorization(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             const token = req.get('Authorization');
+            let uid;
             try {
-                morgan('dev');
-                firebase.auth().verifyIdToken(token).then((decodedToken) => {
-                    const uid = decodedToken.uid;
+                firebase.auth().verifyIdToken(token).then((decodedToken) => __awaiter(this, void 0, void 0, function* () {
+                    uid = decodedToken.uid;
+                    req.body.user_id = (yield this.pool.query('SELECT id FROM "user" WHERE firebase_user_id = $1', [uid])).rows[0].id;
                     next();
-                }).catch((error) => {
-                    res.status(401).json({ message: 'Handle error; checkAuthorization' });
+                })).catch((error) => {
+                    res.status(401).json({ message: 'No valid user' });
                 });
             }
             catch (error) {
-                res.status(401).json({ message: 'No valid user' });
+                res.status(401).json({ message: 'Some error occurred' });
             }
             ;
         });

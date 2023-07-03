@@ -1,6 +1,6 @@
 import express = require("express");
 import AbstractController from "./abstractController";
-import schema from "../../../prisma/schemas/groupMemberSchema";
+import schema from "../../../prisma/schemas/adminTargetSchema";
 import recipeSchema from "../../../prisma/schemas/censoredRecipeSchema";
 
 class AdminUserController extends AbstractController {
@@ -22,7 +22,7 @@ class AdminUserController extends AbstractController {
     this.prisma.admin
       .create({
         data: {
-          user_id: req.body.user_id,
+          user_id: req.body.target_id,
           group_id: req.body.group_id,
         },
       })
@@ -46,7 +46,7 @@ class AdminUserController extends AbstractController {
     this.prisma.admin
       .deleteMany({
         where: {
-          user_id: req.body.user_id,
+          user_id: req.body.target_id,
           group_id: req.body.group_id,
         },
       })
@@ -70,7 +70,7 @@ class AdminUserController extends AbstractController {
     this.prisma.groupMember
       .deleteMany({
         where: {
-          user_id: req.body.user_id,
+          user_id: req.body.target_id,
           group_id: req.body.group_id,
         },
       })
@@ -94,7 +94,7 @@ class AdminUserController extends AbstractController {
     this.prisma.groupMember
       .deleteMany({
         where: {
-          user_id: req.body.user_id,
+          user_id: req.body.target_id,
           group_id: req.body.group_id,
         },
       })
@@ -103,7 +103,7 @@ class AdminUserController extends AbstractController {
     this.prisma.bannedUser
       .create({
         data: {
-          user_id: req.body.user_id,
+          user_id: req.body.target_id,
           group_id: req.body.group_id,
         },
       })

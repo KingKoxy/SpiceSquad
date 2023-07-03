@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const abstractController_1 = __importDefault(require("./abstractController"));
 const firebaseAuth = require("firebase/auth");
 const firebase = require("firebase/app");
+const firebaseAdmin = require("firebase-admin");
 class AuthentificationController extends abstractController_1.default {
     constructor() {
         super();
@@ -76,6 +77,7 @@ class AuthentificationController extends abstractController_1.default {
             firebaseAuth.createUserWithEmailAndPassword(this.auth, req.body.email, req.body.password)
                 .then((userCredentials) => __awaiter(this, void 0, void 0, function* () {
                 console.log('Successfully created new user:', userCredentials.user);
+                this.pool.query('INSERT INTO "user" (user_name, email, firebase_user_id, created_groups) VALUES ($1, $2, $3, $4)', [req.body.user_name, req.body.email, userCredentials.user.uid, 0]);
                 res.status(200).json({
                     refreshToken: userCredentials.user.refreshToken,
                     idToken: yield firebaseAuth.getIdToken(userCredentials.user)
@@ -113,26 +115,24 @@ class AuthentificationController extends abstractController_1.default {
         });
     }
     userResetPassword(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            firebaseAuth.sendPasswordResetEmail(this.auth, req.body.email)
-                .then(() => {
-                res.status(200).json({
-                    message: "Email sent",
-                });
-            }).catch((error) => {
-                switch (error.code) {
-                    case 'auth/invalid-email':
-                        res.status(200).json({
-                            error: "The email address is not valid.",
-                        });
-                        break;
-                    default:
-                        res.status(200).json({
-                            error: "An error occurred.",
-                        });
-                        break;
-                }
+        firebaseAuth.sendPasswordResetEmail(this.auth, req.body.email)
+            .then(() => {
+            res.status(200).json({
+                message: "Email sent",
             });
+        }).catch((error) => {
+            switch (error.code) {
+                case 'auth/invalid-email':
+                    res.status(200).json({
+                        error: "The email address is not valid.",
+                    });
+                    break;
+                default:
+                    res.status(200).json({
+                        error: "An error occurred.",
+                    });
+                    break;
+            }
         });
     }
     ;
@@ -150,13 +150,22 @@ class AuthentificationController extends abstractController_1.default {
     }
     userRefreshToken(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            // TODO: Check if token is valid
+            firebaseAdmin.auth().verifyIdToken(req.body.refreshToken)
+                .then((sessionCookie) => __awaiter(this, void 0, void 0, function* () {
+                console.log('Successfully logged in:', sessionCookie);
+                res.status(200).json({
+                    idToken: sessionCookie
+                });
+            }));
         });
     }
     userLogout(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            res.status(200).json({
-                message: "Successfully logged out",
+            firebaseAuth.signOut(this.auth)
+                .then(() => {
+                res.status(200).json({
+                    message: "Successfully logged out",
+                });
             });
         });
     }

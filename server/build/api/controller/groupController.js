@@ -19,14 +19,22 @@ class GroupController extends abstractController_1.default {
     }
     groupPost(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                res.status(200).json({
-                    message: 'Handling POST request to /groups'
+            const requireParams = ["name"];
+            const missingParams = requireParams.filter(param => !(param in req.body));
+            if (missingParams.length > 0) {
+                res.status(400).json({
+                    error: 'Missing parameters: ' + missingParams.join(', ')
                 });
+                return;
             }
-            catch (error) {
-                res.status(500).json({ error: 'Internal server error' });
-            }
+            this.pool.query('INSERT INTO "group" (name) VALUES ($1) RETURNING id', [req.body.name])
+                .then((result) => {
+                this.pool.query('INSERT INTO "groupmember" (user_id, group_id) VALUES ($1, $2)', [req.body.user_id, result.rows[0].id]);
+                this.pool.query('INSERT INTO "admin" (user_id, group_id) VALUES ($1, $2)', [req.body.user_id, result.rows[0].id]);
+                res.status(200).json({
+                    message: "Group created successfully!",
+                });
+            });
         });
     }
     groupDelete(req, res) {
