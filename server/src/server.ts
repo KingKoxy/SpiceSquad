@@ -7,6 +7,7 @@
  * @requires firebase-admin
  * @requires dotenv
  * @requires database
+ * @requires firebase_credentials.json
  * @class Server
  * @description This class is used to start the server.
  * @exports Server
@@ -28,48 +29,64 @@ class Server {
     private application: Application;
     private database: Database;
 
-    constructor() {
+  /**
+   * @function start
+   * @description This function starts the server.
+   * @memberof Server
+   * @instance
+   * @returns {void}
+   * @example
+   * const server = new Server();
+   * server.start();
+   */
+  public start(): void {
+    if (this.connectToDatabase() && this.connectToFirebase()) {
+      if (this.createServer()) {
+        console.log('Server started');
+      } else {
+        console.log('Server failed to start');
+      };
+      
+    } else {
+      console.log('Server failed to start');
     }
-
-    /**
-     * @function start
-     * @description This function starts the server.
-     * @memberof Server
-     * @instance
-     * @returns {void}
-     * @example
-     * const server = new Server();
-     * server.start();
-     */
-    public start(): void {
-        this.connectToDatabase();
-        this.connectToFirebase();
-        this.createServer();
-    }
-
-    public stop(): void {
-        firebase.database().goOffline()
-    }
+  }
 
     private connectToDatabase(): boolean {
         this.database = new Database();
         return true;
     }
 
+
     private connectToFirebase(): boolean {
-        firebase.initializeApp({
-            credential: firebase.credential.cert(this.firebase_credentials)
-        });
-        console.log('Firebase connection established');
-        return true;
+    try {
+          firebase.initializeApp({
+              credential: firebase.credential.cert(this.firebase_credentials),
+          });
+          console.log('Firebase connection established');
+          return true;
+    } catch (error) {
+      console.log('Firebase connection failed');
+      return false;
+    }
     }
 
-    private createServer(): void {
-        this.express = express();
-        this.express.listen(this.port, () => console.log(`Listen on port ${this.port}`));
-        this.application = new Application(this.express);
-        
+  private createServer(): boolean {
+    try {
+      this.express = express();
+      this.express.listen(this.port, () =>
+        console.log(`Listen on port ${this.port}`)
+      );
+      this.application = new Application(this.express);
+      return true;
+    } catch (error) {
+      console.log('Server connection failed');
+      if (process.env.NODE_ENV !== 'production') {
+        console.log(error);
+      }
+      return false;
     }
+  }
 }
 
 const server = new Server();
