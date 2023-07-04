@@ -35,7 +35,7 @@ class Application {
   private initializeMiddleware(): void {
     if (process.env.NODE_ENV === "development") {
       this.app.use(morgan("dev"));
-    } else
+    }
     try {
       this.app.use(express.json());
     } catch (error) {
@@ -61,8 +61,10 @@ class Application {
 
       this.app.use((error: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
           res.status(req.statusCode || 500).json({
+            error: {
               message: error.message,
               stack: process.env.NODE_ENV === 'development' ? error.stack : undefined,
+            },
           });
       })
     }
