@@ -1,18 +1,12 @@
 import firebase = require("firebase-admin");
 import express = require("express");
-import pg = require("pg");
-import Database from "../../database";
 import { PrismaClient } from "@prisma/client";
+import abstractMiddleware from "./abstractMiddleware";
 
-class CheckAuthorization {
-  protected database: Database;
-  protected pool: pg.Pool;
-  protected prisma: PrismaClient;
+class CheckAuthorization extends abstractMiddleware {
 
   constructor() {
-    this.database = new Database();
-    this.pool = this.database.getPool();
-    this.prisma = new PrismaClient();
+    super();
   }
 
   public async checkAuthorization(
@@ -20,15 +14,18 @@ class CheckAuthorization {
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
+    if (req.get("Authorization") === undefined) {
+      req.statusCode = 401;
+      next(new Error("No Authorization header provided"));
+      return;
+    }
     const token = req.get("Authorization");
     let uid: string;
-    try {
       firebase
         .auth()
         .verifyIdToken(token)
         .then(async (decodedToken) => {
           uid = decodedToken.uid;
-          //req.body.user_id = (await this.pool.query('SELECT id FROM "user" WHERE firebase_user_id = $1', [uid])).rows[0].id;
           await this.prisma.user
             .findUnique({
               where: {
@@ -41,11 +38,9 @@ class CheckAuthorization {
           next();
         })
         .catch((error) => {
-          res.status(401).json({ message: "No valid user:" });
+          req.statusCode = 401;
+          next(error);
         });
-    } catch (error) {
-      res.status(401).json({ message: "Some error occurred" });
-    }
   }
 }
 

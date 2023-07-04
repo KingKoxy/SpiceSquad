@@ -1,19 +1,12 @@
 import firebase = require("firebase-admin");
 import morgan = require("morgan");
 import express = require("express");
-import pg = require("pg");
-import { PrismaClient } from "@prisma/client";
-import Database from "../../database";
+import abstractMiddleware from "./abstractMiddleware";
 
-class CheckAdminStatus {
-  protected database: Database;
-  protected pool: pg.Pool;
-  protected prisma: PrismaClient;
+class CheckAdminStatus extends abstractMiddleware{
 
   constructor() {
-    this.database = new Database();
-    this.pool = this.database.getPool();
-    this.prisma = new PrismaClient();
+    super();
   }
 
   public async checkAdminStatus(
@@ -30,7 +23,8 @@ class CheckAdminStatus {
       if (result.length > 0) {
         next();
       } else {
-        res.status(401).json({ message: "No valid admin:" });
+        req.statusCode = 401;
+        next(new Error("No valid admin"));
       }
     });
   }
