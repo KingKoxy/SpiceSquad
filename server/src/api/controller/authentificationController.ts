@@ -15,6 +15,7 @@ class AuthentificationController extends AbstractController {
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
+    console.log(req.body);
     firebaseAuth
       .signInWithEmailAndPassword(this.auth, req.body.email, req.body.password)
       .then(async (userCredentials) => {

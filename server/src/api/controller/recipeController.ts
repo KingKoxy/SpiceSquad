@@ -126,38 +126,37 @@ class RecipeController extends AbstractController {
       });
       return;
     }
-    const result = await this.pool.query(
-      'SELECT author_id FROM "recipe" WHERE id = $1',
-      [req.body.recipe_id]
-    );
-    console.log(result.rows[0].author_id);
-    console.log(req.body.user_id);
-    if (req.body.user_id != result.rows[0].author_id) {
+    //const result = await this.pool.query('SELECT author_id FROM "recipe" WHERE id = $1',[req.body.recipe_id]);
+    const author = await this.prisma.recipe.findUnique({
+      where: {
+        id: req.body.recipe_id,
+      },
+    })
+    if (req.body.user_id != author.author_id) {
       res.status(401).json({
         error: "You are not authorized to edit this recipe!",
       });
       return;
     }
-
-    this.pool
-      .query(
-        'UPDATE "recipe" SET title = $1, image = $2, duration = $3, difficulty = $4, instructions = $5, is_vegetarian = $6, is_vegan = $7, is_gluten_free = $8, is_kosher = $9, is_halal = $10, is_private = $11, default_portions = $12 WHERE id = $13',
-        [
-          req.body.title,
-          req.body.image,
-          req.body.duration,
-          req.body.difficulty,
-          req.body.instructions,
-          req.body.is_vegetarian,
-          req.body.is_vegan,
-          req.body.is_gluten_free,
-          req.body.is_kosher,
-          req.body.is_halal,
-          req.body.is_private,
-          req.body.default_portions,
-          req.body.recipe_id,
-        ]
-      )
+      this.prisma.recipe.update({
+        where: {
+          id: req.body.recipe_id,
+        },
+        data: {
+          title: req.body.title,
+          image: Buffer.from(req.body.image, "base64"),
+          duration: parseInt(req.body.duration),
+          difficulty: req.body.difficulty.toUpperCase(),
+          instructions: req.body.instructions,
+          is_vegetarian: req.body.is_vegetarian,
+          is_vegan: req.body.is_vegan,
+          is_gluten_free: req.body.is_gluten_free,
+          is_kosher: req.body.is_kosher,
+          is_halal: req.body.is_halal,
+          is_private: req.body.is_private,
+          default_portions: parseInt(req.body.default_portions),
+        },
+      })
       .then((result) => {
         for (const ingredient of req.body.ingredients) {
           const requireParams = ["name", "icon_name", "amount", "unit"];
@@ -170,16 +169,17 @@ class RecipeController extends AbstractController {
             });
             return;
           }
-          this.pool.query(
-            "UPDATE ingredient SET name = $1, icon_name = $2, amount = $3, unit = $4 WHERE id = $5",
-            [
-              ingredient.name,
-              ingredient.icon_name,
-              ingredient.amount,
-              ingredient.unit,
-              ingredient.id,
-            ]
-          );
+          this.prisma.ingredient.update({
+            where: {
+              id: ingredient.id,
+            },
+            data: {
+              name: ingredient.name,
+              icon_name: ingredient.icon_name,
+              amount: ingredient.amount,
+              unit: ingredient.unit,
+            },
+          });
         }
         res.status(200).json({
           message: "Recipe updated successfully!",

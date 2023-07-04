@@ -1,11 +1,12 @@
-import pg = require("pg");
 import Database from "./../../database";
 import { PrismaClient } from "@prisma/client";
 import firebase = require("firebase/app");
 import firebaseAdmin = require("firebase-admin");
 import firebaseAuth = require("firebase/auth");
 
+
 abstract class AbstractController {
+
   private firebaseConfig = {
     apiKey: process.env.FB_API_KEY,
     authDomain: process.env.FB_AUTH_DOMAIN,
@@ -20,15 +21,14 @@ abstract class AbstractController {
   protected firebaseAuth = firebaseAuth;
   protected auth: firebaseAuth.Auth;
   protected database: Database;
-  protected pool: pg.Pool;
   protected prisma: PrismaClient;
 
   constructor() {
     this.database = new Database();
-    this.pool = this.database.getPool();
     this.prisma = new PrismaClient();
     firebase.initializeApp(this.firebaseConfig);
     this.auth = firebaseAuth.getAuth();
+    
   }
 }
 
