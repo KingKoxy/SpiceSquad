@@ -33,8 +33,14 @@ class Application {
   }
 
   private initializeMiddleware(): void {
-    this.app.use(morgan("dev"));
-    this.app.use(express.json());
+    if (process.env.NODE_ENV === "development") {
+      this.app.use(morgan("dev"));
+    } else
+    try {
+      this.app.use(express.json());
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   private initializeRoutes(): void {
@@ -49,14 +55,14 @@ class Application {
   private initializeErrorHandlers(): void {
       this.app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
           const error = new Error('The URL you are trying to reach does not exist.');
-          res.statusCode = 404;
+          req.statusCode = 404;
           next(error);
       });
 
       this.app.use((error: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
           res.status(req.statusCode || 500).json({
               message: error.message,
-              stack: process.env.NODE_ENV === 'production' ? undefined : error.stack,
+              stack: process.env.NODE_ENV === 'development' ? error.stack : undefined,
           });
       })
     }
