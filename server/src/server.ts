@@ -41,6 +41,7 @@ class Server {
     if (this.connectToDatabase() && this.connectToFirebase()) {
       if (this.createServer()) {
         console.log("Server started");
+        console.log(`Listen on port ${this.port}`)
       } else {
         console.log("Server failed to start");
       }
@@ -70,9 +71,7 @@ class Server {
   private createServer(): boolean {
     try {
       this.express = express();
-      this.express.listen(this.port, () =>
-        console.log(`Listen on port ${this.port}`)
-      );
+      this.express.listen(this.port);
       this.application = new Application(this.express);
       return true;
     } catch (error) {
