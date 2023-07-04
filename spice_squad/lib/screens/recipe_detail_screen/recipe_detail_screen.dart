@@ -3,7 +3,6 @@ import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/screens/recipe_creation_screen/recipe_creation_screen.dart";
 import "package:spice_squad/screens/recipe_detail_screen/ingredient_list.dart";
 import "package:spice_squad/screens/recipe_detail_screen/label_list.dart";
-import "package:spice_squad/widgets/edit_button.dart";
 import "package:spice_squad/widgets/favourite_button.dart";
 import "package:spice_squad/widgets/portion_amount_field.dart";
 import "package:spice_squad/widgets/tag_item.dart";

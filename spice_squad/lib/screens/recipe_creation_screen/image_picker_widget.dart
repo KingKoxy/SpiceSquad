@@ -1,11 +1,14 @@
 import "dart:typed_data";
 
 import "package:flutter/material.dart";
+
 class ImagePickerWidget extends StatefulWidget {
   final Uint8List? recipeImage;
 
-  const ImagePickerWidget(
-      {required this.recipeImage, super.key,});
+  const ImagePickerWidget({
+    required this.recipeImage,
+    super.key,
+  });
 
   @override
   State<ImagePickerWidget> createState() => _ImagePickerWidgetState();
@@ -22,32 +25,30 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        child: Center(
-      child: FittedBox(
-        fit: BoxFit.fill,
-        child: ClipRRect(
-          child: Ink(
-            decoration: _recipeImage == null
-                ? BoxDecoration(color: Theme.of(context).cardColor)
-                : const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(
-                            "assets/icons/exampleRecipeImage.jpeg",),),),
-            child: InkWell(
-                onTap: () => _selectRecipeImage(context),
-                child: const SizedBox(
-                  width: 150,
-                  height: 150,
-                  child: ImageIcon(
-                    AssetImage("assets/icons/image.png"),
-                    color: Colors.white,
-                  ),
-                ),),
+    return ClipRRect(
+      borderRadius: const BorderRadius.all(Radius.circular(16)),
+      child: Material(
+        child: Ink(
+          padding: EdgeInsets.zero,
+          color: Theme.of(context).cardColor,
+          child: InkWell(
+            onTap: () => _selectRecipeImage(context),
+            child: _recipeImage == null
+                ? const Center(
+                    child: SizedBox(
+                      height: 200,
+                      child: ImageIcon(
+                        size: 64,
+                        AssetImage("assets/icons/image.png"),
+                        color: Colors.white,
+                      ),
+                    ),
+                  )
+                : Image.memory(_recipeImage!),
           ),
         ),
       ),
-    ),);
+    );
   }
 }
 
@@ -90,8 +91,7 @@ void _selectRecipeImage(BuildContext context) {
                       fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                       padding: const EdgeInsets.all(15.0),
                       shape: const CircleBorder(),
-                      child:
-                          const ImageIcon(AssetImage("assets/icons/image.png")),
+                      child: const ImageIcon(AssetImage("assets/icons/image.png")),
                     ),
                   ),
                   SizedBox(
@@ -103,21 +103,7 @@ void _selectRecipeImage(BuildContext context) {
                       fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                       padding: const EdgeInsets.all(15.0),
                       shape: const CircleBorder(),
-                      child:
-                          const ImageIcon(AssetImage("assets/icons/image.png")),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 86,
-                    width: 86,
-                    child: RawMaterialButton(
-                      onPressed: _setRecipeImageFromCamera,
-                      elevation: 2.0,
-                      fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
-                      padding: const EdgeInsets.all(15.0),
-                      shape: const CircleBorder(),
-                      child:
-                          const ImageIcon(AssetImage("assets/icons/image.png")),
+                      child: const ImageIcon(AssetImage("assets/icons/camera.png")),
                     ),
                   ),
                 ],

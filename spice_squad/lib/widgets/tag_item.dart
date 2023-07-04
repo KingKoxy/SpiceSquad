@@ -22,8 +22,9 @@ class TagItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: EdgeInsets.zero,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5.0),
+        borderRadius: BorderRadius.circular(10.0),
       ),
       color: isActive ? Theme.of(context).colorScheme.tertiary : Theme.of(context).colorScheme.onSurface,
       child: Padding(

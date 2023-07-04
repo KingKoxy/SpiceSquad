@@ -3,6 +3,7 @@ import "dart:typed_data";
 import "package:spice_squad/models/difficulty.dart";
 import "package:spice_squad/models/ingredient.dart";
 import "package:spice_squad/models/recipe.dart";
+import "package:spice_squad/models/recipe_creation_data.dart";
 import "package:spice_squad/models/user.dart";
 import "package:spice_squad/repositories/user_repository.dart";
 
@@ -58,7 +59,7 @@ class RemoteRecipeRepository {
   }
 
   /// Creates a new recipe with the values from [recipe]
-  Future<void> createRecipe(Recipe recipe) {
+  Future<void> createRecipe(RecipeCreationData recipe) {
     //TODO: implement recipe creation
     throw UnimplementedError();
   }
