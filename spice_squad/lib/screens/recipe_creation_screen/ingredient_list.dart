@@ -71,7 +71,7 @@ class _IngredientListState extends State<IngredientList> {
                               width: 50,
                               height: 50,
                               child: Image.asset(
-                                _ingredients[index].iconId,
+                                "assets/icons/ingredientIcons/${_ingredients[index].iconId}.png",
                               ),
                             ),
                             FittedBox(
@@ -90,14 +90,14 @@ class _IngredientListState extends State<IngredientList> {
                                     width: 10,
                                   ),
                                   Text(
-                                    "${_ingredients[index].amount} ${_ingredients[index].unit}",
+                                    "${_ingredients[index].amount.toStringAsFixed(2)} ${_ingredients[index].unit}",
                                     style: Theme.of(context).textTheme.titleMedium,
                                   ),
                                 ],
                               ),
                             ),
                             const Expanded(child: SizedBox()),
-                            RemoveButton(onPressed: (){
+                            RemoveButton(onPressed: () {
                               setState(() {
                                 _ingredients.removeAt(index);
                               });

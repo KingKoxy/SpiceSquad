@@ -112,7 +112,7 @@ class RecipeCreationScreen extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(
-              height: 8,
+              height: 16,
             ),
             TextFormField(
               controller: _instructionsController,

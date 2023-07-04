@@ -24,7 +24,7 @@ class RemoteRecipeRepository {
         random.nextInt(20),
         (index) => Recipe(
           id: "recipeId",
-          title: {"Lasagne", "Pizza", "Spagghetti"}.elementAt(random.nextInt(3)),
+          title: {"Lasagne", "Pizza", "Spaghetti"}.elementAt(random.nextInt(3)),
           image: random.nextBool() ? Uint8List(1) : null,
           author: User(
             id: "userId",
@@ -44,8 +44,8 @@ class RemoteRecipeRepository {
             2 + random.nextInt(6),
             (index) => Ingredient(
               id: "ingredientId",
-              name: "Mehl",
-              iconId: "iconId",
+              name: "Karotten",
+              iconId: "carrot",
               amount: random.nextDouble() * 200,
               unit: "g",
             ),

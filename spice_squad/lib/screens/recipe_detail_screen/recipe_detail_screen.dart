@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:spice_squad/models/recipe.dart";
+import "package:spice_squad/screens/recipe_creation_screen/recipe_creation_screen.dart";
 import "package:spice_squad/screens/recipe_detail_screen/ingredient_list.dart";
 import "package:spice_squad/screens/recipe_detail_screen/label_list.dart";
 import "package:spice_squad/widgets/edit_button.dart";
@@ -35,8 +36,11 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.recipe.title),
-        actions: const <Widget>[
-          EditButton(),
+        actions: <Widget>[
+          IconButton(
+            onPressed: () => Navigator.of(context).pushNamed(RecipeCreationScreen.routeName, arguments: widget.recipe),
+            icon: const Icon(Icons.edit),
+          )
         ],
       ),
       body: SingleChildScrollView(
@@ -76,13 +80,15 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                    child: PortionAmountField(
-                        onChanged: (value) {
-                          setState(() {
-                            portionAmount = value;
-                          });
-                        },
-                        initialValue: widget.recipe.defaultPortionAmount,),),
+                  child: PortionAmountField(
+                    onChanged: (value) {
+                      setState(() {
+                        portionAmount = value;
+                      });
+                    },
+                    initialValue: widget.recipe.defaultPortionAmount,
+                  ),
+                ),
                 FavouriteButton(
                   value: widget.recipe.isFavourite,
                   onToggle: () {
@@ -96,8 +102,9 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             IngredientList(
-                ingredients: widget.recipe.ingredients,
-                amountFactor: portionAmount / widget.recipe.defaultPortionAmount,),
+              ingredients: widget.recipe.ingredients,
+              amountFactor: portionAmount / widget.recipe.defaultPortionAmount,
+            ),
             const SizedBox(height: 10),
             Text(
               "Zubereitung",
