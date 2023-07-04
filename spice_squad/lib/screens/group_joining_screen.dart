@@ -13,6 +13,7 @@ class GroupJoiningScreen extends ConsumerWidget {
   /// Route name for navigation
   static const routeName = "/group-joining";
 
+  /// Whether this screen is shown after the user registered
   final bool isAfterRegister;
 
   final TextEditingController _groupCodeController = TextEditingController();

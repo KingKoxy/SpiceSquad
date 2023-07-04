@@ -4,9 +4,12 @@ import "package:spice_squad/screens/ingredient_creation_screen/ingredient_creati
 import "package:spice_squad/widgets/add_button.dart";
 import "package:spice_squad/widgets/remove_button.dart";
 
+/// Widget for displaying a list of ingredients
 class IngredientList extends StatefulWidget {
+  /// The ingredients to display
   final List<Ingredient> ingredients;
 
+  /// Creates a new ingredient list
   const IngredientList({required this.ingredients, super.key});
 
   @override
@@ -34,9 +37,11 @@ class _IngredientListState extends State<IngredientList> {
             ),
             AddButton(
               onPressed: () {
-                Navigator.pushNamed(context, IngredientCreationScreen.routeName).then((value) => setState(() {
-                      if (value != null) _ingredients.add(value as Ingredient);
-                    }),);
+                Navigator.pushNamed(context, IngredientCreationScreen.routeName).then(
+                  (value) => setState(() {
+                    if (value != null) _ingredients.add(value as Ingredient);
+                  }),
+                );
               },
             ),
           ],
@@ -85,11 +90,13 @@ class _IngredientListState extends State<IngredientList> {
                             ],
                           ),
                           const Expanded(child: SizedBox()),
-                          RemoveButton(onPressed: () {
-                            setState(() {
-                              _ingredients.removeAt(index);
-                            });
-                          },),
+                          RemoveButton(
+                            onPressed: () {
+                              setState(() {
+                                _ingredients.removeAt(index);
+                              });
+                            },
+                          ),
                         ],
                       ),
                     );

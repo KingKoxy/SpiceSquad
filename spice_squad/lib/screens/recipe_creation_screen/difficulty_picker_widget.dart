@@ -3,9 +3,12 @@ import "package:spice_squad/models/difficulty.dart";
 import "package:spice_squad/screens/recipe_creation_screen/difficulty_picker_diaglog.dart";
 import "package:spice_squad/widgets/tag_item.dart";
 
+/// Widget for picking a difficulty
 class DifficultyPickerWidget extends StatefulWidget {
+  /// The initial value of the picker
   final Difficulty? initialValue;
 
+  /// Creates a new difficulty picker widget
   const DifficultyPickerWidget({super.key, this.initialValue});
 
   @override

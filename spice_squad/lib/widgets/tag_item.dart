@@ -11,6 +11,7 @@ class TagItem extends StatelessWidget {
   /// Whether the tag is active or not.
   final bool isActive;
 
+  /// The margin of the tag.
   final EdgeInsets? margin;
 
   /// Creates a new tag item.

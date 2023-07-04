@@ -2,9 +2,12 @@ import "package:flutter/cupertino.dart";
 import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/widgets/tag_item.dart";
 
+/// A widget that displays a list of labels.
 class LabelList extends StatelessWidget {
+  /// The recipe whose labels are displayed.
   final Recipe recipe;
 
+  /// Creates a new [LabelList].
   const LabelList({required this.recipe, super.key});
 
   @override

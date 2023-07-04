@@ -21,6 +21,8 @@ class RecipeCreationScreen extends StatefulWidget {
   static const routeName = "/recipe-creation";
 
   final _formKey = GlobalKey<FormState>();
+
+  /// The recipe to edit if this screen is used for editing
   final Recipe? recipe;
 
   /// Creates a new recipe creation screen
@@ -111,17 +113,11 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
                       initialActive: _isVegetarian,
                       onChanged: (value) => _isVegetarian = value,
                     ),
-                    const SizedBox(
-                      width: 5,
-                    ),
                     ToggleableLabelWidget(
                       image: const AssetImage("assets/icons/avocado.png"),
                       name: "Vegan",
                       initialActive: _isVegan,
                       onChanged: (value) => _isVegan = value,
-                    ),
-                    const SizedBox(
-                      width: 5,
                     ),
                     ToggleableLabelWidget(
                       image: const AssetImage("assets/icons/glutenFree.png"),
@@ -129,17 +125,11 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
                       initialActive: _isGlutenFree,
                       onChanged: (value) => _isGlutenFree = value,
                     ),
-                    const SizedBox(
-                      width: 5,
-                    ),
                     ToggleableLabelWidget(
                       image: const AssetImage("assets/icons/islam.png"),
                       name: "Halal",
                       initialActive: _isHalal,
                       onChanged: (value) => _isHalal = value,
-                    ),
-                    const SizedBox(
-                      width: 5,
                     ),
                     ToggleableLabelWidget(
                       image: const AssetImage("assets/icons/judaism.png"),

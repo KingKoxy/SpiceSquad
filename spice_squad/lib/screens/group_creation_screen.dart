@@ -12,6 +12,7 @@ class GroupCreationScreen extends ConsumerWidget {
   /// Route name for navigation
   static const routeName = "/group-creation";
 
+  /// Whether this screen is shown after the user registered
   final bool isAfterRegister;
 
   final TextEditingController _groupNameController = TextEditingController();

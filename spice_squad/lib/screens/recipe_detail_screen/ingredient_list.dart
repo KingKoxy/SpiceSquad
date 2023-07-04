@@ -1,10 +1,15 @@
 import "package:flutter/material.dart";
 import "package:spice_squad/models/ingredient.dart";
 
+/// A list of ingredients.
 class IngredientList extends StatelessWidget {
+  /// The ingredients to display.
   final List<Ingredient> ingredients;
+
+  /// The factor by which the amount of the ingredients is multiplied.
   final double amountFactor;
 
+  /// Creates a new ingredient list.
   const IngredientList({required this.ingredients, required this.amountFactor, super.key});
 
   @override

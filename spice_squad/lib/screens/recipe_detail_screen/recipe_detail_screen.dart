@@ -12,6 +12,7 @@ class RecipeDetailScreen extends StatefulWidget {
   /// The route name of this screen.
   static const routeName = "/recipe-detail";
 
+  /// The recipe that is displayed on this screen.
   final Recipe recipe;
 
   /// Creates a new recipe detail screen.

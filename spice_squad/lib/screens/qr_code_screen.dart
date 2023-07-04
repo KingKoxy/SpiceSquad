@@ -13,6 +13,7 @@ class QRCodeScreen extends StatelessWidget {
   /// Route name for navigation
   static const routeName = "/qr-code";
 
+  /// The group to display the QR-Code for
   final Group group;
 
   /// Creates a new QR-Code screen

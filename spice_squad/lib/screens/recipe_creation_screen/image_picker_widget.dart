@@ -4,9 +4,12 @@ import "dart:typed_data";
 import "package:flutter/material.dart";
 import "package:image_picker/image_picker.dart";
 
+/// Widget for selecting an image
 class ImagePickerWidget extends StatefulWidget {
+  /// Initial image to display
   final Uint8List? recipeImage;
 
+  /// Creates a new image picker
   const ImagePickerWidget({
     required this.recipeImage,
     super.key,
