@@ -26,7 +26,7 @@ class _DifficultyPickerWidgetState extends State<DifficultyPickerWidget> {
     return SizedBox(
       height: double.infinity,
       child: InkWell(
-        child: TagItem(margin: EdgeInsets.zero, image: const AssetImage("assets/icons/flame.png"), name: _difficulty!.toString()),
+        child: TagItem(margin: EdgeInsets.zero, image: const AssetImage("assets/icons/flame.png"), name: _difficulty.toString()),
         onTap: () => _showDifficultyPickerDialog(context),
       ),
     );

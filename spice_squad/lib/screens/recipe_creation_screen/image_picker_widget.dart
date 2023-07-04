@@ -47,7 +47,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                         )
                       : Image.memory(_recipeImage!, fit: BoxFit.cover),
                 ),
-              )),
+              ),),
         ),
       ),
     );

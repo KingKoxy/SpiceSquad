@@ -2,7 +2,6 @@ import "package:flutter/material.dart";
 import "package:spice_squad/models/ingredient.dart";
 import "package:spice_squad/screens/ingredient_creation_screen/ingredient_creation_screen.dart";
 import "package:spice_squad/widgets/add_button.dart";
-import "package:spice_squad/widgets/favourite_button.dart";
 import "package:spice_squad/widgets/remove_button.dart";
 
 class IngredientList extends StatefulWidget {
@@ -37,7 +36,7 @@ class _IngredientListState extends State<IngredientList> {
               onPressed: () {
                 Navigator.pushNamed(context, IngredientCreationScreen.routeName).then((value) => setState(() {
                       if (value != null) _ingredients.add(value as Ingredient);
-                    }));
+                    }),);
               },
             ),
           ],
@@ -90,7 +89,7 @@ class _IngredientListState extends State<IngredientList> {
                             setState(() {
                               _ingredients.removeAt(index);
                             });
-                          }),
+                          },),
                         ],
                       ),
                     );

@@ -40,7 +40,7 @@ class _DifficultyPickerDialogState extends State<DifficultyPickerDialog> {
                   setState(() {
                     _difficulty = value!;
                   });
-                }),
+                },),
             RadioListTile(
                 title: Text(Difficulty.medium.toString()),
                 value: Difficulty.medium,
@@ -49,7 +49,7 @@ class _DifficultyPickerDialogState extends State<DifficultyPickerDialog> {
                   setState(() {
                     _difficulty = value!;
                   });
-                }),
+                },),
             RadioListTile(
                 title: Text(Difficulty.hard.toString()),
                 value: Difficulty.hard,
@@ -58,7 +58,7 @@ class _DifficultyPickerDialogState extends State<DifficultyPickerDialog> {
                   setState(() {
                     _difficulty = value!;
                   });
-                }),
+                },),
           ],
         ),
       ),
@@ -67,13 +67,13 @@ class _DifficultyPickerDialogState extends State<DifficultyPickerDialog> {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: const Text("Abbrechen")),
+            child: const Text("Abbrechen"),),
         TextButton(
             onPressed: () {
-              widget.onChanged(_difficulty!);
+              widget.onChanged(_difficulty);
               Navigator.of(context).pop();
             },
-            child: const Text("Speichern"))
+            child: const Text("Speichern"),)
       ],
     );
   }

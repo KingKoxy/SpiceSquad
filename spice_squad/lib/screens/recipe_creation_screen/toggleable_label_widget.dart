@@ -8,7 +8,7 @@ class ToggleableLabelWidget extends StatefulWidget {
   final ValueChanged<bool> onChanged;
 
   const ToggleableLabelWidget(
-      {required this.image, required this.name, this.initialActive = false, required this.onChanged, super.key});
+      {required this.image, required this.name, required this.onChanged, this.initialActive = false, super.key,});
 
   @override
   State<ToggleableLabelWidget> createState() => _ToggleableLabelWidgetState();

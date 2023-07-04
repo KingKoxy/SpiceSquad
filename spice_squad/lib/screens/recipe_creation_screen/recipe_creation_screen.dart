@@ -2,20 +2,18 @@ import "dart:typed_data";
 
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/models/difficulty.dart";
+import "package:spice_squad/models/ingredient.dart";
 import "package:spice_squad/models/recipe.dart";
+import "package:spice_squad/models/recipe_creation_data.dart";
 import "package:spice_squad/providers/service_providers.dart";
+import "package:spice_squad/screens/recipe_creation_screen/difficulty_picker_widget.dart";
 import "package:spice_squad/screens/recipe_creation_screen/image_picker_widget.dart";
 import "package:spice_squad/screens/recipe_creation_screen/ingredient_list.dart";
 import "package:spice_squad/screens/recipe_creation_screen/toggleable_label_widget.dart";
 import "package:spice_squad/services/recipe_service.dart";
 import "package:spice_squad/widgets/nav_bar.dart";
-
 import "package:spice_squad/widgets/portion_amount_field.dart";
-
-import "../../models/difficulty.dart";
-import "../../models/ingredient.dart";
-import "../../models/recipe_creation_data.dart";
-import "difficulty_picker_widget.dart";
 
 /// Screen for creating a new recipe
 class RecipeCreationScreen extends StatefulWidget {
