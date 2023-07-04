@@ -50,60 +50,48 @@ class _IngredientListState extends State<IngredientList> {
                   shrinkWrap: true,
                   itemCount: _ingredients.length,
                   itemBuilder: (context, index) {
-                    return InkWell(
-                      borderRadius: BorderRadius.circular(16),
-                      onTap: () {
-                        Navigator.of(context).pushNamed(
-                          IngredientCreationScreen.routeName,
-                          arguments: _ingredients[index],
-                        );
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 8,
-                          horizontal: 8,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SizedBox(
-                              width: 50,
-                              height: 50,
-                              child: Image.asset(
-                                "assets/icons/ingredientIcons/${_ingredients[index].iconId}.png",
-                              ),
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 8,
+                        horizontal: 8,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(
+                            width: 50,
+                            height: 50,
+                            child: Image.asset(
+                              "assets/icons/ingredientIcons/${_ingredients[index].iconId}.png",
                             ),
-                            FittedBox(
-                              fit: BoxFit.fitWidth,
-                              child: Row(
-                                children: [
-                                  Text(
-                                    _ingredients[index].name,
-                                    style: Theme.of(context).textTheme.titleLarge,
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  const Text("•"),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    "${_ingredients[index].amount.toStringAsFixed(2)} ${_ingredients[index].unit}",
-                                    style: Theme.of(context).textTheme.titleMedium,
-                                  ),
-                                ],
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                _ingredients[index].name,
+                                style: Theme.of(context).textTheme.titleLarge,
                               ),
-                            ),
-                            const Expanded(child: SizedBox()),
-                            RemoveButton(onPressed: () {
-                              setState(() {
-                                _ingredients.removeAt(index);
-                              });
-                            }),
-                          ],
-                        ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              const Text("•"),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                "${_ingredients[index].amount.toStringAsFixed(2)} ${_ingredients[index].unit}",
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                            ],
+                          ),
+                          const Expanded(child: SizedBox()),
+                          RemoveButton(onPressed: () {
+                            setState(() {
+                              _ingredients.removeAt(index);
+                            });
+                          }),
+                        ],
                       ),
                     );
                   },

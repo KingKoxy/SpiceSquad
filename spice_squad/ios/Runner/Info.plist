@@ -2,8 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Die App benötigt Zugriff auf die Galerie, um Bilder hochzuladen</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.food-and-drink</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Die App benötigt Zugriff auf die Kamera, um QR-Codes zu scannen</string>
+	<string>Die App benötigt Zugriff auf die Kamera, um Bilder anzufertigen und QR-Codes zu scannen</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

@@ -11,10 +11,13 @@ class TagItem extends StatelessWidget {
   /// Whether the tag is active or not.
   final bool isActive;
 
+  final EdgeInsets? margin;
+
   /// Creates a new tag item.
   const TagItem({
     required this.image,
     required this.name,
+    this.margin,
     this.isActive = false,
     super.key,
   });
@@ -22,7 +25,7 @@ class TagItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.zero,
+      margin: margin,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),

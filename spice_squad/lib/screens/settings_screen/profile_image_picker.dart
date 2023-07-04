@@ -1,5 +1,7 @@
+import "dart:io";
 import "dart:typed_data";
 import "package:flutter/material.dart";
+import "package:image_picker/image_picker.dart";
 import "package:spice_squad/services/user_service.dart";
 
 /// Widget for selecting a profile image
@@ -147,12 +149,26 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
   }
 
   void _setProfileImageFromGallery() {
-    //TODO: implement setting profile image from gallery
-    //widget.userService.setProfileImage(image);
+    ImagePicker().pickImage(source: ImageSource.gallery).then((image) {
+      if (image != null) {
+        setState(() {
+          final File file = File(image.path);
+          _profileImage = file.readAsBytesSync();
+          widget.userService.setProfileImage(file);
+        });
+      }
+    });
   }
 
   void _setProfileImageFromCamera() {
-    //TODO: implement setting profile image from camera
-    //widget.userService.setProfileImage(image);
+    ImagePicker().pickImage(source: ImageSource.camera).then((image) {
+      if (image != null) {
+        setState(() {
+          final File file = File(image.path);
+          _profileImage = file.readAsBytesSync();
+          widget.userService.setProfileImage(file);
+        });
+      }
+    });
   }
 }
