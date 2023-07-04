@@ -1,5 +1,6 @@
 import AuthentificationController from "../controller/authentificationController";
 import abstractRouter from "./abstractRouter";
+import loginSchema from "../../../joi/schemas/loginSchema";
 
 class AuthentificationRouter extends abstractRouter {
   protected Controller: AuthentificationController;
@@ -15,7 +16,7 @@ class AuthentificationRouter extends abstractRouter {
       "/register",
       this.Controller.userRegister.bind(this.Controller)
     );
-    this.router.post("/login", this.Controller.userLogin.bind(this.Controller));
+    this.router.post("/login", this.schemaValidator.checkSchema(loginSchema), this.Controller.userLogin.bind(this.Controller));
     this.router.post(
       "/resetPassword",
       this.Controller.userResetPassword.bind(this.Controller)
