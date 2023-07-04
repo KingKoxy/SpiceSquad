@@ -1,58 +1,89 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:spice_squad/models/difficulty.dart';
+import "package:flutter/material.dart";
+import "package:spice_squad/models/difficulty.dart";
 
+/// A dialog that lets the user pick a [Difficulty].
 class DifficultyPickerDialog extends StatefulWidget {
-  final Difficulty? initialValue;
+  /// The initial value of the dialog.
+  final Difficulty initialValue;
 
-  final ValueChanged<Difficulty> onChange;
+  /// The callback that is called when the user selects a value.
+  final ValueChanged<Difficulty> onChanged;
 
-  const DifficultyPickerDialog(
-      {super.key, required this.initialValue, required this.onChange});
+  /// Creates a new [DifficultyPickerDialog].
+  const DifficultyPickerDialog({
+    required this.initialValue,
+    required this.onChanged,
+    super.key,
+  });
 
   @override
   State<DifficultyPickerDialog> createState() => _DifficultyPickerDialogState();
 }
 
 class _DifficultyPickerDialogState extends State<DifficultyPickerDialog> {
-  late Difficulty? difficulty;
-  late ValueChanged<Difficulty> onChange;
+  late Difficulty _difficulty;
 
   @override
   void initState() {
-    difficulty = widget.initialValue;
-    onChange = widget.onChange;
+    _difficulty = widget.initialValue;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-        title: const Text("Schwierigkeit auswählen"),
-        content: SizedBox(
-            width: double.maxFinite,
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: Difficulty.values.length,
-              itemBuilder: (context, index) {
-                return Card(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    child: Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: ListTile(
-                          title: Text(
-                            Difficulty.values[index].toString(),
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          selected: difficulty?.index == index,
-                          tileColor:
-                              Theme.of(context).colorScheme.onSurfaceVariant,
-                          onTap: () {
-                            Navigator.of(context).pop();
-                            onChange(Difficulty.values[index]);
-                          },
-                        )));
+      title: const Text("Schwierigkeit auswählen"),
+      content: SingleChildScrollView(
+        child: Column(
+          children: [
+            RadioListTile(
+              title: Text(Difficulty.easy.toString()),
+              value: Difficulty.easy,
+              groupValue: _difficulty,
+              onChanged: (value) {
+                setState(() {
+                  _difficulty = value!;
+                });
               },
-            )));
+            ),
+            RadioListTile(
+              title: Text(Difficulty.medium.toString()),
+              value: Difficulty.medium,
+              groupValue: _difficulty,
+              onChanged: (value) {
+                setState(() {
+                  _difficulty = value!;
+                });
+              },
+            ),
+            RadioListTile(
+              title: Text(Difficulty.hard.toString()),
+              value: Difficulty.hard,
+              groupValue: _difficulty,
+              onChanged: (value) {
+                setState(() {
+                  _difficulty = value!;
+                });
+              },
+            ),
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: const Text("Abbrechen"),
+        ),
+        TextButton(
+          onPressed: () {
+            widget.onChanged(_difficulty);
+            Navigator.of(context).pop();
+          },
+          child: const Text("Speichern"),
+        )
+      ],
+    );
   }
 }

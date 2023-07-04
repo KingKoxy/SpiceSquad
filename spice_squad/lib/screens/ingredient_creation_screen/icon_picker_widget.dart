@@ -21,6 +21,12 @@ class _IconPickerWidgetState extends State<IconPickerWidget> {
   String _selectedIconId = "carrot";
 
   @override
+  void initState() {
+    widget.controller.text = _selectedIconId;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(color: Theme.of(context).cardColor, borderRadius: BorderRadius.circular(10)),

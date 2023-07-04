@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 /// A button that is used to indicate toggling the favourite status of something.
 class FavouriteButton extends StatelessWidget {
@@ -14,7 +14,8 @@ class FavouriteButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-        iconSize: 64,
+      padding: EdgeInsets.zero,
+      iconSize: 64,
         splashRadius: 32,
         onPressed: onToggle,
         icon: ImageIcon(

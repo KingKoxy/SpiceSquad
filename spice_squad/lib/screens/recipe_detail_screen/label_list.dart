@@ -1,26 +1,32 @@
-import 'package:flutter/cupertino.dart';
-import 'package:spice_squad/screens/recipe_detail_screen/recipe_detail_screen.dart';
+import "package:flutter/cupertino.dart";
+import "package:spice_squad/models/recipe.dart";
+import "package:spice_squad/widgets/tag_item.dart";
 
-import 'label_card.dart';
-
+/// A widget that displays a list of labels.
 class LabelList extends StatelessWidget {
-  final List<Label> labels;
+  /// The recipe whose labels are displayed.
+  final Recipe recipe;
 
-  const LabelList({super.key, required this.labels});
+  /// Creates a new [LabelList].
+  const LabelList({required this.recipe, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        height: 60,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: labels.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: LabelCard(label: labels[index]),
-            );
-          },
-        ));
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          TagItem(image: const AssetImage("assets/icons/clock.png"), name: "${recipe.duration} min"),
+          TagItem(image: const AssetImage("assets/icons/flame.png"), name: recipe.difficulty.toString()),
+          if (recipe.isVegetarian) const TagItem(image: AssetImage("assets/icons/milk.png"), name: "Vegetarisch"),
+          if (recipe.isVegan) const TagItem(image: AssetImage("assets/icons/avocado.png"), name: "Vegan"),
+          if (recipe.isGlutenFree)
+            const TagItem(image: AssetImage("assets/icons/glutenFree.png"), name: "Glutenfrei"),
+          if (recipe.isHalal) const TagItem(image: AssetImage("assets/icons/islam.png"), name: "Halal"),
+          if (recipe.isHalal) const TagItem(image: AssetImage("assets/icons/judaism.png"), name: "Koscher"),
+        ],
+      ),
+    );
   }
 }

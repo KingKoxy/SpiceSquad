@@ -13,6 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_riverpod: ^2.3.6
+  image_picker: 1.0.0
   mobile_scanner: ^3.3.0
   path_provider: ^2.0.15
   pdf: ^3.10.4

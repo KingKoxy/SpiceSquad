@@ -1,26 +1,46 @@
-import 'package:flutter/material.dart';
-import 'package:spice_squad/models/ingredient.dart';
-import 'package:spice_squad/screens/recipe_detail_screen/ingredient_card.dart';
+import "package:flutter/material.dart";
+import "package:spice_squad/models/ingredient.dart";
 
+/// A list of ingredients.
 class IngredientList extends StatelessWidget {
+  /// The ingredients to display.
   final List<Ingredient> ingredients;
 
-  const IngredientList({super.key, required this.ingredients});
+  /// The factor by which the amount of the ingredients is multiplied.
+  final double amountFactor;
+
+  /// Creates a new ingredient list.
+  const IngredientList({required this.ingredients, required this.amountFactor, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: ingredients.length,
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: IngredientCard(
-            ingredient: ingredients[index],
-          ),
-        );
+    return Table(
+      columnWidths: const {
+        0: IntrinsicColumnWidth(),
+        1: FixedColumnWidth(10),
+        2: FlexColumnWidth(),
       },
+      children: [
+        for (final Ingredient ingredient in ingredients)
+          TableRow(
+            children: [
+              TableCell(
+                child: Text(
+                  "${(ingredient.amount * amountFactor).toStringAsFixed(2)} ${ingredient.unit}",
+                  textAlign: TextAlign.right,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              ),
+              const SizedBox(),
+              TableCell(
+                child: Text(
+                  ingredient.name,
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+              ),
+            ],
+          ),
+      ],
     );
   }
 }

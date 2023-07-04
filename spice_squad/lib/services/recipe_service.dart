@@ -1,6 +1,7 @@
 import "dart:async";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:spice_squad/models/recipe.dart";
+import "package:spice_squad/models/recipe_creation_data.dart";
 import "package:spice_squad/providers/repository_providers.dart";
 import "package:spice_squad/services/pdf_exporter.dart";
 
@@ -14,11 +15,8 @@ class RecipeService extends AsyncNotifier<List<Recipe>> {
   }
 
   /// Creates a new recipe with the given [recipe].
-  Future<void> createRecipe(Recipe recipe) {
-    if (state.valueOrNull == null) throw Exception("state not set");
-    final List<Recipe> list = state.value!;
-    list.add(recipe);
-    state = AsyncData(list);
+  Future<void> createRecipe(RecipeCreationData recipe) {
+    state = const AsyncLoading();
     return ref.read(remoteRecipeRepositoryProvider).createRecipe(recipe).then((value) => _refetch());
   }
 

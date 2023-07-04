@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/providers/service_providers.dart";
-import "package:spice_squad/screens/recipe_detail_screen.dart";
+import "package:spice_squad/screens/recipe_detail_screen/recipe_detail_screen.dart";
 import "package:spice_squad/services/recipe_service.dart";
 import "package:spice_squad/widgets/favourite_button.dart";
 
@@ -91,7 +91,7 @@ class RecipeCard extends ConsumerWidget {
                                 Image.asset(
                                   "assets/icons/clock.png",
                                 ),
-                                const SizedBox(width: 10),
+                                const SizedBox(width: 8),
                                 Text(
                                   "${recipe.duration} min",
                                   style: Theme.of(context).textTheme.titleSmall,
