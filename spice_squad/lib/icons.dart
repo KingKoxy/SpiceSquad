@@ -20,11 +20,16 @@ abstract class SpiceSquadIconImages {
   static const ImageProvider qrCode = AssetImage("assets/icons/qr_code.png");
   static const ImageProvider leave = AssetImage("assets/icons/leave.png");
   static const ImageProvider edit = AssetImage("assets/icons/edit.png");
-
   static const ImageProvider share = AssetImage("assets/icons/share.png");
   static const ImageProvider export = AssetImage("assets/icons/export.png");
   static const ImageProvider editUser = AssetImage("assets/icons/edit_user.png");
   static const ImageProvider trash = AssetImage("assets/icons/trash.png");
   static const ImageProvider camera = AssetImage("assets/icons/camera.png");
-
+  static const ImageProvider cheese = AssetImage("assets/icons/cheese.png");
+  static const ImageProvider avocado = AssetImage("assets/icons/avocado.png");
+  static const ImageProvider glutenFree = AssetImage("assets/icons/gluten_free.png");
+  static const ImageProvider islam = AssetImage("assets/icons/islam.png");
+  static const ImageProvider judaism = AssetImage("assets/icons/judaism.png");
+  static const ImageProvider person = AssetImage("assets/icons/person.png");
+  static const ImageProvider calendar = AssetImage("assets/icons/calendar.png");
 }
