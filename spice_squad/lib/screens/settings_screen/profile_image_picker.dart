@@ -4,6 +4,7 @@ import "dart:typed_data";
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:image_picker/image_picker.dart";
+import "package:spice_squad/icons.dart";
 import "package:spice_squad/services/user_service.dart";
 
 /// Widget for selecting a profile image
@@ -46,13 +47,10 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
           child: InkWell(
             borderRadius: BorderRadius.circular(20000),
             onTap: () => _selectProfileImage(context),
-            child: const SizedBox(
-              width: 150,
-              height: 150,
-              child: ImageIcon(
-                AssetImage("assets/icons/user_edit.png"),
-                color: Colors.white,
-              ),
+            child: const ImageIcon(
+              SpiceSquadIconImages.editUser,
+              size: 64,
+              color: Colors.white,
             ),
           ),
         ),
@@ -100,7 +98,10 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),
                         shape: const CircleBorder(),
-                        child: const ImageIcon(AssetImage("assets/icons/trash.png")),
+                        child: const ImageIcon(
+                          SpiceSquadIconImages.trash,
+                          size: 40,
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -112,7 +113,10 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),
                         shape: const CircleBorder(),
-                        child: const ImageIcon(AssetImage("assets/icons/image.png")),
+                        child: const ImageIcon(
+                          SpiceSquadIconImages.image,
+                          size: 40,
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -124,7 +128,10 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),
                         shape: const CircleBorder(),
-                        child: const ImageIcon(AssetImage("assets/icons/camera.png")),
+                        child: const ImageIcon(
+                          SpiceSquadIconImages.camera,
+                          size: 40,
+                        ),
                       ),
                     ),
                   ],

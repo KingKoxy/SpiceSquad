@@ -17,9 +17,14 @@ abstract class SpiceSquadIconImages {
   static const ImageProvider flame = AssetImage("assets/icons/flame.png");
   static const ImageProvider sortDescending = AssetImage("assets/icons/sort_descending.png");
   static const ImageProvider sortAscending = AssetImage("assets/icons/sort_ascending.png");
-
   static const ImageProvider qrCode = AssetImage("assets/icons/qr_code.png");
   static const ImageProvider leave = AssetImage("assets/icons/leave.png");
   static const ImageProvider edit = AssetImage("assets/icons/edit.png");
+
+  static const ImageProvider share = AssetImage("assets/icons/share.png");
+  static const ImageProvider export = AssetImage("assets/icons/export.png");
+  static const ImageProvider editUser = AssetImage("assets/icons/edit_user.png");
+  static const ImageProvider trash = AssetImage("assets/icons/trash.png");
+  static const ImageProvider camera = AssetImage("assets/icons/camera.png");
 
 }
