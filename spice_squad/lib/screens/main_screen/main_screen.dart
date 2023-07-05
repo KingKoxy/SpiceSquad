@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/icons.dart";
 import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/screens/main_screen/filter_category.dart";
@@ -9,8 +10,6 @@ import "package:spice_squad/screens/main_screen/recipe_list.dart";
 import "package:spice_squad/screens/main_screen/sort.dart";
 import "package:spice_squad/screens/main_screen/sort_selection_widget.dart";
 import "package:spice_squad/widgets/nav_bar.dart";
-
-import "../../icons.dart";
 
 /// The main screen of the app showing a list of recipes for the user.
 class MainScreen extends ConsumerStatefulWidget {

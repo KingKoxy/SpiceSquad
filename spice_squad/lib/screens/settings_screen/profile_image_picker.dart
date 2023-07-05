@@ -100,7 +100,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                         shape: const CircleBorder(),
                         child: const ImageIcon(
                           SpiceSquadIconImages.trash,
-                          size: 40,
+                          size: 32,
                         ),
                       ),
                     ),
@@ -115,7 +115,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                         shape: const CircleBorder(),
                         child: const ImageIcon(
                           SpiceSquadIconImages.image,
-                          size: 40,
+                          size: 32,
                         ),
                       ),
                     ),
@@ -130,7 +130,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                         shape: const CircleBorder(),
                         child: const ImageIcon(
                           SpiceSquadIconImages.camera,
-                          size: 40,
+                          size: 32,
                         ),
                       ),
                     ),

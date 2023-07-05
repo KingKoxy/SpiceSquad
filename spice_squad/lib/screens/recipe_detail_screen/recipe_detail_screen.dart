@@ -95,7 +95,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                     initialValue: widget.recipe.defaultPortionAmount,
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Consumer(builder: (context, ref, child) {
                   return FavouriteButton(
                     value: widget.recipe.isFavourite,
@@ -103,7 +103,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                       ref.read(recipeServiceProvider.notifier).toggleFavourite(widget.recipe);
                     },
                   );
-                }),
+                },),
               ],
             ),
             Text(

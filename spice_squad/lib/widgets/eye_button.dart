@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 
-import "../icons.dart";
+import "package:spice_squad/icons.dart";
 
 /// A button that is used to indicate toggling the visibility of something.
 class EyeButton extends StatelessWidget {

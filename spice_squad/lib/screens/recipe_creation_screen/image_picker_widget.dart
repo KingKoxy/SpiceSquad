@@ -97,7 +97,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),
                         shape: const CircleBorder(),
-                        child: const ImageIcon(SpiceSquadIconImages.trash),
+                        child: const ImageIcon(SpiceSquadIconImages.trash, size: 32,),
                       ),
                     ),
                     SizedBox(
@@ -109,7 +109,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),
                         shape: const CircleBorder(),
-                        child: const ImageIcon(SpiceSquadIconImages.image),
+                        child: const ImageIcon(SpiceSquadIconImages.image, size: 32,),
                       ),
                     ),
                     SizedBox(
@@ -121,7 +121,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),
                         shape: const CircleBorder(),
-                        child: const ImageIcon(SpiceSquadIconImages.camera),
+                        child: const ImageIcon(SpiceSquadIconImages.camera, size: 32,),
                       ),
                     ),
                   ],

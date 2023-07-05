@@ -1,9 +1,8 @@
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
+import "package:spice_squad/icons.dart";
 import "package:spice_squad/screens/main_screen/filter_category.dart";
 import "package:spice_squad/screens/main_screen/filter_selection_dialog.dart";
-
-import "../../icons.dart";
 
 /// Widget that allows the user to select filters.
 class FilterSelectionWidget extends StatelessWidget {

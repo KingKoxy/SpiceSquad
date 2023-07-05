@@ -2,7 +2,6 @@ import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:spice_squad/icons.dart";
-import "package:spice_squad/main.dart";
 import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/screens/recipe_detail_screen/recipe_detail_screen.dart";

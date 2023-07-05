@@ -89,7 +89,7 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
                               Navigator.of(context).pushNamed(QRCodeScreen.routeName, arguments: group);
                             },
                             icon: const ImageIcon(
-                              SpiceSquadIconImages.qrCode
+                              SpiceSquadIconImages.qrCode,
                             ),
                           ),
                           IconButton(
