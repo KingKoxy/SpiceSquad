@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 
+import "../icons.dart";
+
 /// A button that is used to indicate toggling the visibility of something.
 class EyeButton extends StatelessWidget {
   /// Whether the eye is open or closed.
@@ -18,10 +20,8 @@ class EyeButton extends StatelessWidget {
       splashRadius: 24,
       onPressed: onToggle,
       icon: ImageIcon(
+        open ? SpiceSquadIconImages.eyeOpen : SpiceSquadIconImages.eyeClosed,
         size: 24,
-        AssetImage(
-          open ? "assets/icons/eye_open.png" : "assets/icons/eye_closed.png",
-        ),
       ),
     );
   }

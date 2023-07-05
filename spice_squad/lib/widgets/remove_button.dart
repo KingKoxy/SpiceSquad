@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:spice_squad/icons.dart";
 
 /// A button that is used to indicate removing something.
 class RemoveButton extends StatelessWidget {
@@ -14,8 +15,8 @@ class RemoveButton extends StatelessWidget {
       iconSize: 24,
       padding: EdgeInsets.zero,
       onPressed: onPressed,
-      icon: const Icon(
-        Icons.remove_circle,
+      icon: const ImageIcon(
+        SpiceSquadIconImages.remove,
         color: Color(0xFFFF4170),
         size: 24,
       ),
