@@ -1,0 +1,15 @@
+[Unit]
+Description= Starts and stops SpiceSquad-Server
+
+[Service]
+ExecStart = ~/SpiceSquad/server/build/src/server.js
+Restart = always
+RestartSec = 10
+User = nobody
+Group = nogroup
+Environment = PATH=~/SpiceSquad/server/build/.env
+WorkingDirectory = ~/SpiceSquad/server/build/
+
+[Install]
+WantedBy = multi-user.target
+```
