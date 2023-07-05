@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:spice_squad/icons.dart";
 import "package:spice_squad/models/difficulty.dart";
 import "package:spice_squad/screens/recipe_creation_screen/difficulty_picker_dialog.dart";
 import "package:spice_squad/widgets/tag_item.dart";
@@ -32,7 +33,7 @@ class _DifficultyPickerWidgetState extends State<DifficultyPickerWidget> {
       height: double.infinity,
       child: InkWell(
         child: TagItem(
-            margin: EdgeInsets.zero, image: const AssetImage("assets/icons/flame.png"), name: _difficulty.toString(),),
+            margin: EdgeInsets.zero, image: SpiceSquadIconImages.flame, name: _difficulty.toString(),),
         onTap: () => _showDifficultyPickerDialog(context),
       ),
     );

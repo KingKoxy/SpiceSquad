@@ -3,6 +3,7 @@ import "dart:typed_data";
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:image_picker/image_picker.dart";
+import "package:spice_squad/icons.dart";
 
 /// Widget for selecting an image
 class ImagePickerWidget extends StatefulWidget {
@@ -45,7 +46,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                 child: _recipeImage == null
                     ? const ImageIcon(
                         size: 64,
-                        AssetImage("assets/icons/image.png"),
+                        SpiceSquadIconImages.image,
                         color: Colors.white,
                       )
                     : Image.memory(_recipeImage!, fit: BoxFit.cover),
@@ -96,7 +97,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),
                         shape: const CircleBorder(),
-                        child: const ImageIcon(AssetImage("assets/icons/trash.png")),
+                        child: const ImageIcon(SpiceSquadIconImages.trash),
                       ),
                     ),
                     SizedBox(
@@ -108,7 +109,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),
                         shape: const CircleBorder(),
-                        child: const ImageIcon(AssetImage("assets/icons/image.png")),
+                        child: const ImageIcon(SpiceSquadIconImages.image),
                       ),
                     ),
                     SizedBox(
@@ -120,7 +121,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),
                         shape: const CircleBorder(),
-                        child: const ImageIcon(AssetImage("assets/icons/camera.png")),
+                        child: const ImageIcon(SpiceSquadIconImages.camera),
                       ),
                     ),
                   ],
