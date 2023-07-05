@@ -1,0 +1,556 @@
+{
+  "loginHeadline": "Login",
+  "@loginHeadline": {
+    "description": "The headline of the login page"
+  },
+  "loginButton": "Login",
+  "@loginButton": {
+    "description": "The text on the login button"
+  },
+  "noAccountQuestion": "Don't have an account?",
+  "@noAccountQuestion": {
+    "description": "The question if the user has no account"
+  },
+  "registerLink": "Register",
+  "@registerLink": {
+    "description": "The link to the registration page"
+  },
+  "emailLabel": "Email",
+  "@emailLabel": {
+    "description": "The label for the email input field"
+  },
+  "passwordLabel": "Password",
+  "@passwordLabel": {
+    "description": "The label for the password input field"
+  },
+  "forgotPasswordLink": "Forgot password?",
+  "@forgotPasswordLink": {
+    "description": "The link to the forgot password page"
+  },
+  "emailEmptyError": "Please enter your email address",
+  "@emailEmptyError": {
+    "description": "The error message if the email field is empty"
+  },
+  "emailInvalidError": "Please enter a valid email address",
+  "@emailInvalidError": {
+    "description": "The error message if the email field is invalid"
+  },
+  "registerHeadline": "Register",
+  "@registerHeadline": {
+    "description": "The headline of the registration page"
+  },
+  "registerButton": "Register",
+  "@registerButton": {
+    "description": "The text on the register button"
+  },
+  "userNameLabel": "Username",
+  "@userNameLabel": {
+    "description": "The label for the username input field"
+  },
+  "passwordRepeatLabel": "Repeat password",
+  "@passwordRepeatLabel": {
+    "description": "The label for the password repeat input field"
+  },
+  "userNameEmptyError": "Please enter a username",
+  "@userNameEmptyError": {
+    "description": "The error message if the name field is empty"
+  },
+  "passwordEmptyError": "Please enter a password",
+  "@passwordEmptyError": {
+    "description": "The error message if the password field is empty"
+  },
+  "passwordTooShortError": "Your password must be at least 8 characters long",
+  "@passwordTooShortError": {
+    "description": "The error message if the password is to short"
+  },
+  "passwordsDontMatchError": "Passwords don't match",
+  "@passwordsDontMatchError": {
+    "description": "The error message if the passwords don't match"
+  },
+  "passwordNeedsLowercaseError": "Your password must contain at least one lowercase letter",
+  "@passwordNeedsLowercaseError": {
+    "description": "The error message if the password needs a lowercase letter"
+  },
+  "passwordNeedsUppercaseError": "Your password must contain at least one uppercase letter",
+  "@passwordNeedsUppercaseError": {
+    "description": "The error message if the password needs a uppercase letter"
+  },
+  "passwordNeedsNumberError": "Your password must contain at least one number",
+  "@passwordNeedsNumberError": {
+    "description": "The error message if the password needs a number"
+  },
+  "hasAccountQuestion": "Already have an account?",
+  "@hasAccountQuestion": {
+    "description": "The question if the user has an account"
+  },
+  "loginLink": "Login",
+  "@loginLink": {
+    "description": "The link to the login page"
+  },
+  "resetPasswordHeadline": "Forgot password?",
+  "@resetPasswordHeadline": {
+    "description": "The headline of the forgot password page"
+  },
+  "resetPasswordButton": "Reset password",
+  "@resetPasswordButton": {
+    "description": "The text on the reset password button"
+  },
+  "resetPasswordDescription": "No Problem! Just enter your email address and we will send you a link to reset your password.",
+  "@resetPasswordDescription": {
+    "description": "The description on the forgot password page"
+  },
+  "resetPasswordSuccessHeadline": "Password reset email sent",
+  "@resetPasswordSuccessHeadline": {
+    "description": "The headline of the password reset email sent dialog"
+  },
+  "resetPasswordSuccessDescription": "We've sent you an email with a link to reset your password.",
+  "@resetPasswordSuccessDescription": {
+    "description": "The description of the password reset email sent dialog"
+  },
+  "filterNameFavourite": "Favourite",
+  "@filterNameFavourite": {
+    "description": "The name of the favourite filter"
+  },
+  "filterNameDifficultyEasy": "Easy",
+  "@filterNameDifficultyEasy": {
+    "description": "The name of the easy difficulty filter"
+  },
+  "filterNameDifficultyMedium": "Medium",
+  "@filterNameDifficultyMedium": {
+    "description": "The name of the medium difficulty filter"
+  },
+  "filterNameDifficultyHard": "Hard",
+  "@filterNameDifficultyHard": {
+    "description": "The name of the hard difficulty filter"
+  },
+  "filterNameLabelVegetarian": "Vegetarian",
+  "@filterNameLabelVegetarian": {
+    "description": "The name of the vegetarian filter"
+  },
+  "filterNameLabelVegan": "Vegan",
+  "@filterNameLabelVegan": {
+    "description": "The name of the vegan filter"
+  },
+  "filterNameLabelGlutenFree": "Gluten free",
+  "@filterNameLabelGlutenFree": {
+    "description": "The name of the gluten free filter"
+  },
+  "filterNameLabelKosher": "Kosher",
+  "@filterNameLabelKosher": {
+    "description": "The name of the kosher filter"
+  },
+  "filterNameLabelHalal": "Halal",
+  "@filterNameLabelHalal": {
+    "description": "The name of the halal filter"
+  },
+  "filterSelectionDialogTitle": "Select filters",
+  "@filterSelectionDialogTitle": {
+    "description": "The headline of the filter selection dialog"
+  },
+  "saveButtonLabel": "Save",
+  "@saveButtonLabel": {
+    "description": "The label for a save button"
+  },
+  "cancelButtonLabel": "Cancel",
+  "@cancelButtonLabel": {
+    "description": "The label for a cancel button"
+  },
+  "filterSelectionHandle": "Filters",
+  "@filterSelectionHandle": {
+    "description": "The handle for the filter selection"
+  },
+  "searchInputPlaceholder": "Search...",
+  "@searchInputPlaceholder": {
+    "description": "The placeholder for the search input"
+  },
+  "duration": "{minutes} Min.",
+  "@duration": {
+    "description": "The duration of a recipe in minutes",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "content": "{minutes}",
+        "example": "5",
+        "description": "The minutes"
+      }
+    }
+  },
+  "noRecipesFound": "No recipes found",
+  "@noRecipesFound": {
+    "description": "The message if no recipes are found"
+  },
+  "sortNameTitle": "Title",
+  "@sortNameTitle": {
+    "description": "The name of the title sort"
+  },
+  "sortNameDate": "Date",
+  "@sortNameDate": {
+    "description": "The name of the creation date sort"
+  },
+  "sortNameDifficulty": "Difficulty",
+  "@sortNameDifficulty": {
+    "description": "The name of the difficulty sort"
+  },
+  "sortSelectionDialogTitle": "Select sort",
+  "@sortSelectionDialogTitle": {
+    "description": "The headline of the sort selection dialog"
+  },
+  "ascending": "Ascending",
+  "@ascending": {
+    "description": "The label for the ascending sort"
+  },
+  "descending": "Descending",
+  "@descending": {
+    "description": "The label for the descending sort"
+  },
+  "squadListLabel": "Squads",
+  "@squadListLabel": {
+    "description": "The label for the squad list"
+  },
+  "userNotInAnySquads": "You are not part of any squads yet",
+  "@userNotInAnySquads": {
+    "description": "The message if the user is not part of any squads"
+  },
+  "leaveSquadDialogTitle": "Leave squad",
+  "@leaveSquadDialogTitle": {
+    "description": "The headline of the leave squad dialog"
+  },
+  "leaveSquadDialogDescription": "Are you sure you want to leave the squad \"{squadName}\"?",
+  "@leaveSquadDialogDescription": {
+    "description": "The description of the leave squad dialog",
+    "placeholders": {
+      "squadName": {
+        "type": "String",
+        "content": "{squadName}",
+        "example": "WG",
+        "description": "The name of the squad"
+      }
+    }
+  },
+  "myRecipeListLabel": "My recipes",
+  "@myRecipeListLabel": {
+    "description": "The label for the my recipe list"
+  },
+  "userHasNoRecipes": "You have not yet created any recipes",
+  "@userHasNoRecipes": {
+    "description": "The message if the user has no recipes"
+  },
+  "deleteRecipeDialogTitle": "Delete recipe",
+  "@deleteRecipeDialogTitle": {
+    "description": "The headline of the delete recipe dialog"
+  },
+  "deleteRecipeDialogDescription": "Are you sure you want to delete your recipe \"{recipeName}\"?",
+  "@deleteRecipeDialogDescription": {
+    "description": "The description of the delete recipe dialog",
+    "placeholders": {
+      "recipeName": {
+        "type": "String",
+        "content": "{recipeName}",
+        "example": "Pizza",
+        "description": "The name of the recipe"
+      }
+    }
+  },
+  "selectProfileImageDialogTitle": "Select profile image",
+  "@selectProfileImageDialogTitle": {
+    "description": "The headline of the select profile image dialog"
+  },
+  "settingsHeadline": "Settings",
+  "@settingsHeadline": {
+    "description": "The headline of the settings page"
+  },
+  "deleteAccountButton": "Delete account",
+  "@deleteAccountButton": {
+    "description": "The label for the delete account button"
+  },
+  "renameDialogTitle": "Rename",
+  "@renameDialogTitle": {
+    "description": "The headline of the rename dialog"
+  },
+  "renameDialogEmptyError": "Please enter a name",
+  "@renameDialogEmptyError": {
+    "description": "The error message if the name is empty"
+  },
+  "deleteAccountDialogTitle": "Delete account",
+  "@deleteAccountDialogTitle": {
+    "description": "The headline of the delete account dialog"
+  },
+  "deleteAccountDialogDescription": "Are you sure you want to delete your account?",
+  "@deleteAccountDialogDescription": {
+    "description": "The description of the delete account dialog"
+  },
+  "skipButton": "Skip",
+  "@skipButton": {
+    "description": "The label for the skip button"
+  },
+  "joinSquadHeadline": "Join squad",
+  "@joinSquadHeadline": {
+    "description": "The headline of the join squad page"
+  },
+  "groupCodeInputLabel": "Squad code",
+  "@groupCodeInputLabel": {
+    "description": "The label for the group code input"
+  },
+  "joinSquadButton": "Join squad",
+  "@joinSquadButton": {
+    "description": "The label for the join squad button"
+  },
+  "joinWithQRCodeButton": "Join with QR code",
+  "@joinWithQRCodeButton": {
+    "description": "The label for the join with QR code button"
+  },
+  "createSquadButton": "Create squad",
+  "@createSquadButton": {
+    "description": "The label for the create squad button"
+  },
+  "createSquadHeadline": "Create squad",
+  "@createSquadHeadline": {
+    "description": "The headline of the create squad page"
+  },
+  "groupCodeEmptyError": "Please enter a squad code",
+  "@groupCodeEmptyError": {
+    "description": "The error message if the squad code is empty"
+  },
+  "joiningSuccessFullTitle": "Joining successful",
+  "@joiningSuccessFullTitle": {
+    "description": "The title of the joining successful page"
+  },
+  "joiningSuccessFullDescription": "You have successfully joined the squad.",
+  "@joiningSuccessFullDescription": {
+    "description": "The description of the joining successful page"
+  },
+  "squadNameInputLabel": "Squad name",
+  "@squadNameInputLabel": {
+    "description": "The label for the squad name input"
+  },
+  "squadNameEmptyError": "Please enter a squad name",
+  "@squadNameEmptyError": {
+    "description": "The error message if the squad name is empty"
+  },
+  "squadCreationSuccessFullTitle": "Squad created",
+  "@squadCreationSuccessFullTitle": {
+    "description": "The title of the squad creation successful screen"
+  },
+  "squadCreationSuccessFullDescription": "You have successfully created the squad.",
+  "@squadCreationSuccessFullDescription": {
+    "description": "The description of the squad creation successful screen"
+  },
+  "qrScannerHeadline": "Scan QR code",
+  "@qrScannerHeadline": {
+    "description": "The headline of the QR scanner page"
+  },
+  "groupDetailHeadline": "Squad",
+  "@groupDetailHeadline": {
+    "description": "The headline of the squad detail page"
+  },
+  "deleteSquadButton": "Delete squad",
+  "@deleteSquadButton": {
+    "description": "The label for the delete squad button"
+  },
+  "deleteSquadDialogTitle": "Delete squad",
+  "@deleteSquadDialogTitle": {
+    "description": "The headline of the delete squad dialog"
+  },
+  "deleteSquadDialogDescription": "Are you sure you want to delete the squad \"{squadName}\"?",
+  "@deleteSquadDialogDescription": {
+    "description": "The description of the delete squad dialog",
+    "placeholders": {
+      "squadName": {
+        "type": "String",
+        "content": "{squadName}",
+        "example": "WG",
+        "description": "The name of the squad"
+      }
+    }
+  },
+  "recipeListHeadline": "Recipes",
+  "@recipeListHeadline": {
+    "description": "The headline of the recipe list page"
+  },
+  "memberListHeadline": "Members",
+  "@memberListHeadline": {
+    "description": "The headline of the member list page"
+  },
+  "groupCodeShareMessage": "Join my SpiceSquad \"{squadName}\"! Just enter this code in the app: {groupCode}",
+  "@groupCodeShareMessage": {
+    "description": "The message to share the squad code",
+    "placeholders": {
+      "squadName": {
+        "type": "String",
+        "content": "{squadName}",
+        "example": "WG",
+        "description": "The name of the squad"
+      },
+      "groupCode": {
+        "type": "String",
+        "content": "{groupCode}",
+        "example": "123456",
+        "description": "The code of the squad"
+      }
+    }
+  },
+  "groupCodeShareSubject": "Join my SpiceSquad!",
+  "@groupCodeShareSubject": {
+    "description": "The subject to share the squad code"
+  },
+  "administrator": "Administrator",
+  "@administrator": {
+    "description": "The label for the administrator role"
+  },
+  "adminActionKick": "Kick user",
+  "@adminActionKick": {
+    "description": "The label for the kick user action"
+  },
+  "adminActionMakeAdmin": "Make admin",
+  "@adminActionMakeAdmin": {
+    "description": "The label for the make admin action"
+  },
+  "adminActionRemoveAdmin": "Remove admin role",
+  "@adminActionRemoveAdmin": {
+    "description": "The label for the remove admin action"
+  },
+  "adminActionBan": "Ban user",
+  "@adminActionBan": {
+    "description": "The label for the ban user action"
+  },
+  "iconPickerDialogTitle": "Select icon",
+  "@iconPickerDialogTitle": {
+    "description": "The headline of the icon picker dialog"
+  },
+  "ingredientCreationHeadline": "Create ingredient",
+  "@ingredientCreationHeadline": {
+    "description": "The headline of the ingredient creation page"
+  },
+  "valueNotANumberError": "Please enter a number",
+  "@valueNotANumberError": {
+    "description": "The error message if the value is not a number"
+  },
+  "amountInputLabel": "Amount",
+  "@amountInputLabel": {
+    "description": "The label for the amount input"
+  },
+  "unitInputLabel": "Unit",
+  "@unitInputLabel": {
+    "description": "The label for the unit input"
+  },
+  "unitEmptyError": "Please enter a unit",
+  "@unitEmptyError": {
+    "description": "The error message if the unit is empty"
+  },
+  "addButton": "Add",
+  "@addButton": {
+    "description": "The label for the add button"
+  },
+  "ingredientNameEmptyError": "Please enter an ingredient name",
+  "@ingredientNameEmptyError": {
+    "description": "The error message if the ingredient name is empty"
+  },
+  "ingredientNameInputLabel": "Ingredient",
+  "@ingredientNameInputLabel": {
+    "description": "The label for the ingredient name input"
+  },
+  "qrCodeHeadline": "QR code",
+  "@qrCodeHeadline": {
+    "description": "The headline of the QR code page"
+  },
+  "qrCodeSquadLabel": "Squad",
+  "@qrCodeSquadLabel": {
+    "description": "The label for the squad name above the qr code"
+  },
+  "qrCodeInstructions": "Share this QR code with your friends! They can scan it in their app to join the squad.",
+  "@qrCodeInstructions": {
+    "description": "The instructions for the qr code"
+  },
+  "approvalActionButton": "I am sure",
+  "@approvalActionButton": {
+    "description": "The label for the approval button in the approval dialog"
+  },
+  "or": "or",
+  "@or": {
+    "description": "The label for the or separator"
+  },
+  "portions": "Portions",
+  "@portions": {
+    "description": "The label for the portion amount picker"
+  },
+  "okActionButton": "OK",
+  "@okActionButton": {
+    "description": "The label for the ok button"
+  },
+  "selectDifficultyHeadline": "Select difficulty",
+  "@selectDifficultyHeadline": {
+    "description": "The headline of the select difficulty page"
+  },
+  "selectRecipeImageHeadline": "Select image",
+  "@selectRecipeImageHeadline": {
+    "description": "The headline of the select recipe image page"
+  },
+  "ingredientListHeadline": "Ingredients",
+  "@ingredientListHeadline": {
+    "description": "The headline of the ingredient list"
+  },
+  "noIngredientsAddedMessage": "You have not added any ingredients yet.",
+  "@noIngredientsAddedMessage": {
+    "description": "The message if no ingredients are added"
+  },
+  "createRecipeHeadline": "Create recipe",
+  "@createRecipeHeadline": {
+    "description": "The headline of the create recipe page"
+  },
+  "editRecipeHeadline": "Edit recipe",
+  "@editRecipeHeadline": {
+    "description": "The headline of the edit recipe page"
+  },
+  "titleEmptyError": "Please enter a title",
+  "@titleEmptyError": {
+    "description": "The error message if the title is empty"
+  },
+  "titleInputLabel": "Title",
+  "@titleInputLabel": {
+    "description": "The label for the title input"
+  },
+  "labelVegetarian": "Vegetarisch",
+  "@labelVegetarian": {
+    "description": "The label for the vegetarian checkbox"
+  },
+  "labelVegan": "Vegan",
+  "@labelVegan": {
+    "description": "The label for the vegan checkbox"
+  },
+  "labelGlutenFree": "Glutenfrei",
+  "@labelGlutenFree": {
+    "description": "The label for the gluten free checkbox"
+  },
+  "labelHalal": "Halal",
+  "@labelHalal": {
+    "description": "The label for the halal checkbox"
+  },
+  "labelKosher": "Koscher",
+  "@labelKosher": {
+    "description": "The label for the kosher checkbox"
+  },
+  "durationEmptyError": "Please enter a duration",
+  "@durationEmptyError": {
+    "description": "The error message if the duration is empty"
+  },
+  "durationInputLabel": "Duration",
+  "@durationInputLabel": {
+    "description": "The label for the duration input"
+  },
+  "durationUnit": "min",
+  "@durationUnit": {
+    "description": "The unit for the duration"
+  },
+  "instructionsHeadline": "Instructions",
+  "@instructionsHeadline": {
+    "description": "The headline of the instructions"
+  },
+  "instructionsEmptyError": "Please enter instructions",
+  "@instructionsEmptyError": {
+    "description": "The error message if the instructions are empty"
+  },
+  "instructionsInputLabel": "Instructions",
+  "@instructionsInputLabel": {
+    "description": "The label for the instructions input"
+  }
+}

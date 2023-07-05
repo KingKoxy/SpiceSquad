@@ -1,19 +1,26 @@
-import 'package:flutter/material.dart';
-import 'package:spice_squad/screens/main_screen/main_screen.dart';
-import 'package:spice_squad/screens/password_reset_screen.dart';
-import 'package:spice_squad/screens/register_screen.dart';
+import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/providers/service_providers.dart";
+import "package:spice_squad/screens/main_screen/main_screen.dart";
+import "package:spice_squad/screens/password_reset_screen.dart";
+import "package:spice_squad/screens/register_screen.dart";
+import "package:spice_squad/services/user_service.dart";
 
-class LoginScreen extends StatelessWidget {
-  static const routeName = '/login';
+/// Screen for logging in
+class LoginScreen extends ConsumerWidget {
+  /// Route name for navigation
+  static const routeName = "/login";
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  /// Creates a new login screen
   LoginScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: Center(
         child: Padding(
@@ -26,9 +33,9 @@ class LoginScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Hero(
-                    tag: 'logo',
+                    tag: "logo",
                     child: Image.asset(
-                      'assets/images/logo.png',
+                      "assets/images/logo.png",
                       width: 240,
                     ),
                   ),
@@ -38,8 +45,8 @@ class LoginScreen extends StatelessWidget {
                 height: 50,
               ),
               Text(
-                'Login',
-                style: Theme.of(context).textTheme.headline4,
+                AppLocalizations.of(context)!.loginHeadline,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
               const SizedBox(
                 height: 20,
@@ -51,11 +58,12 @@ class LoginScreen extends StatelessWidget {
                     SizedBox(
                       width: double.infinity,
                       child: TextFormField(
-                        validator: _validateEmail,
+                        autofillHints: const [AutofillHints.email],
+                        validator: (value) => _validateEmail(context, value),
                         keyboardType: TextInputType.emailAddress,
                         controller: _emailController,
-                        decoration: const InputDecoration(
-                          hintText: 'E-Mail',
+                        decoration: InputDecoration(
+                          hintText: AppLocalizations.of(context)!.emailLabel,
                         ),
                       ),
                     ),
@@ -65,11 +73,12 @@ class LoginScreen extends StatelessWidget {
                     SizedBox(
                       width: double.infinity,
                       child: TextFormField(
+                        autofillHints: const [AutofillHints.password],
                         keyboardType: TextInputType.visiblePassword,
                         obscureText: true,
                         controller: _passwordController,
-                        decoration: const InputDecoration(
-                          hintText: 'Passwort',
+                        decoration: InputDecoration(
+                          hintText: AppLocalizations.of(context)!.passwordLabel,
                         ),
                       ),
                     ),
@@ -79,21 +88,23 @@ class LoginScreen extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              Row(children: [
-                Text(
-                  'Du hast noch kein Konto?',
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
-                const SizedBox(
-                  width: 4,
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(RegisterScreen.routeName);
-                  },
-                  child: const Text('Registrieren'),
-                ),
-              ]),
+              Row(
+                children: [
+                  Text(
+                    AppLocalizations.of(context)!.noAccountQuestion,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  const SizedBox(
+                    width: 4,
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pushReplacementNamed(RegisterScreen.routeName);
+                    },
+                    child: Text(AppLocalizations.of(context)!.registerLink),
+                  ),
+                ],
+              ),
               const SizedBox(
                 height: 10,
               ),
@@ -101,9 +112,11 @@ class LoginScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) _login(context);
+                    if (_formKey.currentState!.validate()) {
+                      _login(context, ref.read(userServiceProvider.notifier));
+                    }
                   },
-                  child: const Text('Weiter'),
+                  child: Text(AppLocalizations.of(context)!.loginButton),
                 ),
               ),
               const SizedBox(
@@ -111,10 +124,9 @@ class LoginScreen extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.of(context)
-                      .pushNamed(PasswordResetScreen.routeName);
+                  Navigator.of(context).pushNamed(PasswordResetScreen.routeName);
                 },
-                child: const Text('Passwort vergessen?'),
+                child: Text(AppLocalizations.of(context)!.forgotPasswordLink),
               ),
             ],
           ),
@@ -123,17 +135,19 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  _login(BuildContext context) {
-    Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
+  _login(BuildContext context, UserService userService) {
+    userService.login(_emailController.text, _passwordController.text).then((value) {
+      Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
+    });
   }
 
-  String? _validateEmail(String? email) {
-    const emailRegex = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
+  String? _validateEmail(BuildContext context, String? email) {
+    const emailRegex = r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
     if (email == null || email.isEmpty) {
-      return 'Bitte gib eine E-Mail-Adresse ein';
+      return AppLocalizations.of(context)!.emailEmptyError;
     }
     if (!RegExp(emailRegex).hasMatch(email)) {
-      return 'Bitte gib eine gültige E-Mail-Adresse ein';
+      return AppLocalizations.of(context)!.emailInvalidError;
     }
     return null;
   }
