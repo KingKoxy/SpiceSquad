@@ -1,6 +1,6 @@
 import "package:flutter/cupertino.dart";
-import "package:spice_squad/models/recipe.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
+import "package:spice_squad/models/recipe.dart";
 
 /// Enum for the different sort categories.
 enum SortCategory {

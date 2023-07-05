@@ -2,13 +2,12 @@ import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:share_plus/share_plus.dart";
+import "package:spice_squad/models/group.dart";
 import "package:spice_squad/models/group_member.dart";
 import "package:spice_squad/providers/repository_providers.dart";
 import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/services/group_service.dart";
 import "package:spice_squad/widgets/add_button.dart";
-
-import "../../models/group.dart";
 
 /// Widget to display a list of [GroupMember]s
 class MemberList extends ConsumerWidget {

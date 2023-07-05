@@ -448,5 +448,17 @@
   "ingredientNameInputLabel": "Ingredient",
   "@ingredientNameInputLabel": {
     "description": "The label for the ingredient name input"
+  },
+  "qrCodeHeadline": "QR code",
+  "@qrCodeHeadline": {
+    "description": "The headline of the QR code page"
+  },
+  "qrCodeSquadLabel": "Squad",
+  "@qrCodeSquadLabel": {
+    "description": "The label for the squad name above the qr code"
+  },
+  "qrCodeInstructions": "Share this QR code with your friends! They can scan it in their app to join the squad.",
+  "@qrCodeInstructions": {
+    "description": "The instructions for the qr code"
   }
 }

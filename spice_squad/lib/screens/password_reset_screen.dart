@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/services/user_service.dart";
-import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:spice_squad/widgets/success_dialog.dart";
 
 /// Screen for resetting the password

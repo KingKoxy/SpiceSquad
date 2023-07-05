@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:spice_squad/screens/main_screen/sort.dart";
 import "package:spice_squad/screens/main_screen/sort_category.dart";
-import "package:flutter_gen/gen_l10n/app_localizations.dart";
 
 /// Dialog that allows the user to select a sort.
 class SortSelectionDialog extends StatefulWidget {

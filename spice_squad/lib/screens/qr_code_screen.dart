@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:qr_flutter/qr_flutter.dart";
 import "package:spice_squad/models/group.dart";
 
@@ -22,7 +23,7 @@ class QRCodeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("QR-Code"),
+        title: Text(AppLocalizations.of(context)!.qrCodeHeadline),
       ),
       body: Center(
         child: Column(
@@ -39,7 +40,8 @@ class QRCodeScreen extends StatelessWidget {
                       group.name,
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
-                    Text("Squad", style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Colors.grey)),
+                    Text(AppLocalizations.of(context)!.qrCodeSquadLabel,
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Colors.grey),),
                     const SizedBox(
                       height: 16,
                     ),
@@ -64,7 +66,7 @@ class QRCodeScreen extends StatelessWidget {
             SizedBox(
               width: 300,
               child: Text(
-                "Wenn du diesen QR-Code mit jemandem teilst, kann diese Person ihn in der App scannen, um dieser Squad beizutreten.",
+                AppLocalizations.of(context)!.qrCodeInstructions,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey),
               ),

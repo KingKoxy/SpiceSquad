@@ -2,6 +2,7 @@ import "package:auto_size_text/auto_size_text.dart";
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/models/group.dart";
 import "package:spice_squad/providers/repository_providers.dart";
 import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/screens/group_detail_screen/group_recipe_list.dart";
@@ -9,9 +10,7 @@ import "package:spice_squad/screens/group_detail_screen/member_list.dart";
 import "package:spice_squad/screens/qr_code_screen.dart";
 import "package:spice_squad/services/group_service.dart";
 import "package:spice_squad/widgets/approval_dialog.dart";
-
-import "../../models/group.dart";
-import "../../widgets/input_dialog.dart";
+import "package:spice_squad/widgets/input_dialog.dart";
 
 /// Screen to display the details of a group
 ///
