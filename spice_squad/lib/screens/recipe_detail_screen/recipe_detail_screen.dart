@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/screens/recipe_creation_screen/recipe_creation_screen.dart";
 import "package:spice_squad/screens/recipe_detail_screen/ingredient_list.dart";
@@ -98,7 +99,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
               ],
             ),
             Text(
-              "Zutaten",
+              AppLocalizations.of(context)!.ingredientListHeadline,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             IngredientList(
@@ -107,7 +108,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
             ),
             const SizedBox(height: 10),
             Text(
-              "Zubereitung",
+              AppLocalizations.of(context)!.instructionsHeadline,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             Text(

@@ -11,7 +11,7 @@ class DifficultyPickerWidget extends StatefulWidget {
   final ValueChanged<Difficulty> onChanged;
 
   /// Creates a new difficulty picker widget
-  const DifficultyPickerWidget({super.key, this.initialValue, required this.onChanged});
+  const DifficultyPickerWidget({required this.onChanged, super.key, this.initialValue});
 
   @override
   State<DifficultyPickerWidget> createState() => _DifficultyPickerWidgetState();
@@ -32,7 +32,7 @@ class _DifficultyPickerWidgetState extends State<DifficultyPickerWidget> {
       height: double.infinity,
       child: InkWell(
         child: TagItem(
-            margin: EdgeInsets.zero, image: const AssetImage("assets/icons/flame.png"), name: _difficulty.toString()),
+            margin: EdgeInsets.zero, image: const AssetImage("assets/icons/flame.png"), name: _difficulty.toString(),),
         onTap: () => _showDifficultyPickerDialog(context),
       ),
     );

@@ -1,9 +1,10 @@
 import "dart:io";
 import "dart:typed_data";
+
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
-import "package:spice_squad/services/user_service.dart";
 import "package:image_picker/image_picker.dart";
+import "package:spice_squad/services/user_service.dart";
 
 /// Widget for selecting a profile image
 class ProfileImagePicker extends StatefulWidget {

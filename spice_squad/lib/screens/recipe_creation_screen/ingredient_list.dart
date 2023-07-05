@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:spice_squad/models/ingredient.dart";
 import "package:spice_squad/screens/ingredient_creation_screen/ingredient_creation_screen.dart";
 import "package:spice_squad/widgets/add_button.dart";
 import "package:spice_squad/widgets/remove_button.dart";
-import "package:flutter_gen/gen_l10n/app_localizations.dart";
 
 /// Widget for displaying a list of ingredients
 class IngredientList extends StatefulWidget {
@@ -13,7 +13,7 @@ class IngredientList extends StatefulWidget {
   final ValueChanged<List<Ingredient>> onChanged;
 
   /// Creates a new ingredient list
-  const IngredientList({required this.initialList, super.key, required this.onChanged});
+  const IngredientList({required this.initialList, required this.onChanged, super.key});
 
   @override
   State<IngredientList> createState() => _IngredientListState();
