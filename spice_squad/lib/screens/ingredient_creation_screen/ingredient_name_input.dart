@@ -1,6 +1,7 @@
 import "dart:math";
 import "package:auto_size_text/auto_size_text.dart";
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:spice_squad/providers/repository_providers.dart";
 
@@ -25,11 +26,11 @@ class _IngredientNameInputState extends ConsumerState<IngredientNameInput> {
       children: [
         TextFormField(
           validator: (value) {
-            if (value == null || value.isEmpty) return "Gib bitte einen Namen ein";
+            if (value == null || value.isEmpty) return AppLocalizations.of(context)!.ingredientNameEmptyError;
             return null;
           },
           controller: widget.controller,
-          decoration: const InputDecoration(hintText: "Zutat"),
+          decoration: InputDecoration(hintText: AppLocalizations.of(context)!.ingredientNameInputLabel),
           onChanged: (value) {
             setState(() {
               _searchText = value;

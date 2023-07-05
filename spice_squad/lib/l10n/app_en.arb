@@ -412,5 +412,41 @@
   "adminActionBan": "Ban user",
   "@adminActionBan": {
     "description": "The label for the ban user action"
+  },
+  "iconPickerDialogTitle": "Select icon",
+  "@iconPickerDialogTitle": {
+    "description": "The headline of the icon picker dialog"
+  },
+  "ingredientCreationHeadline": "Create ingredient",
+  "@ingredientCreationHeadline": {
+    "description": "The headline of the ingredient creation page"
+  },
+  "valueNotANumberError": "Please enter a number",
+  "@valueNotANumberError": {
+    "description": "The error message if the value is not a number"
+  },
+  "amountInputLabel": "Amount",
+  "@amountInputLabel": {
+    "description": "The label for the amount input"
+  },
+  "unitInputLabel": "Unit",
+  "@unitInputLabel": {
+    "description": "The label for the unit input"
+  },
+  "unitEmptyError": "Please enter a unit",
+  "@unitEmptyError": {
+    "description": "The error message if the unit is empty"
+  },
+  "addButton": "Add",
+  "@addButton": {
+    "description": "The label for the add button"
+  },
+  "ingredientNameEmptyError": "Please enter an ingredient name",
+  "@ingredientNameEmptyError": {
+    "description": "The error message if the ingredient name is empty"
+  },
+  "ingredientNameInputLabel": "Ingredient",
+  "@ingredientNameInputLabel": {
+    "description": "The label for the ingredient name input"
   }
 }
