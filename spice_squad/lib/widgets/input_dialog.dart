@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 
 /// A dialog that gives the user the possibility to enter a text and save it.
 class InputDialog extends StatelessWidget {
@@ -33,13 +34,13 @@ class InputDialog extends StatelessWidget {
       ),
       actions: <Widget>[
         TextButton(
-          child: const Text("Abbrechen"),
+          child: Text(AppLocalizations.of(context)!.cancelButtonLabel),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         TextButton(
-          child: const Text("Speichern"),
+          child: Text(AppLocalizations.of(context)!.saveButtonLabel),
           onPressed: () {
             if (_formKey.currentState!.validate()) {
               Navigator.of(context).pop();

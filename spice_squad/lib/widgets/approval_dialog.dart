@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 
 /// A dialog that displays a message and asks for approval.
 class ApprovalDialog extends StatelessWidget {
@@ -8,9 +9,6 @@ class ApprovalDialog extends StatelessWidget {
   /// The message to display.
   final String message;
 
-  /// The text of the approval action.
-  final String approvalActionText;
-
   /// The callback that is called when the user approves.
   final VoidCallback onApproval;
 
@@ -19,7 +17,6 @@ class ApprovalDialog extends StatelessWidget {
     required this.title,
     required this.message,
     required this.onApproval,
-    this.approvalActionText = "Ich bin mir sicher",
     super.key,
   });
 
@@ -31,11 +28,11 @@ class ApprovalDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text("Abbrechen"),
+          child: Text(AppLocalizations.of(context)!.cancelButtonLabel),
         ),
         TextButton(
           onPressed: onApproval,
-          child: Text(approvalActionText),
+          child: Text(AppLocalizations.of(context)!.approvalActionButton),
         ),
       ],
     );

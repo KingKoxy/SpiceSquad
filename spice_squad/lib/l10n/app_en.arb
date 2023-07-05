@@ -460,5 +460,21 @@
   "qrCodeInstructions": "Share this QR code with your friends! They can scan it in their app to join the squad.",
   "@qrCodeInstructions": {
     "description": "The instructions for the qr code"
+  },
+  "approvalActionButton": "I am sure",
+  "@approvalActionButton": {
+    "description": "The label for the approval button in the approval dialog"
+  },
+  "or": "or",
+  "@or": {
+    "description": "The label for the or separator"
+  },
+  "portions": "Portions",
+  "@portions": {
+    "description": "The label for the portion amount picker"
+  },
+  "okActionButton": "OK",
+  "@okActionButton": {
+    "description": "The label for the ok button"
   }
 }

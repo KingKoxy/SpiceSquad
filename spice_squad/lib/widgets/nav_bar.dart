@@ -38,7 +38,7 @@ class NavBar extends StatelessWidget {
           items: const [
             BottomNavigationBarItem(
               icon: ImageIcon(AssetImage("assets/icons/writing.png")),
-              label: "Rezept erstellen",
+              label: "Create Recipe",
             ),
             BottomNavigationBarItem(
               icon: ImageIcon(AssetImage("assets/icons/home.png")),
