@@ -1,7 +1,7 @@
 import "dart:io";
 import "dart:typed_data";
-
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:image_picker/image_picker.dart";
 
 /// Widget for selecting an image
@@ -37,20 +37,21 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
           padding: EdgeInsets.zero,
           color: Theme.of(context).cardColor,
           child: InkWell(
-              onTap: () => _selectRecipeImage(context),
-              child: Center(
-                child: SizedBox(
-                  height: 200,
-                  width: double.infinity,
-                  child: _recipeImage == null
-                      ? const ImageIcon(
-                          size: 64,
-                          AssetImage("assets/icons/image.png"),
-                          color: Colors.white,
-                        )
-                      : Image.memory(_recipeImage!, fit: BoxFit.cover),
-                ),
-              ),),
+            onTap: () => _selectRecipeImage(context),
+            child: Center(
+              child: SizedBox(
+                height: 200,
+                width: double.infinity,
+                child: _recipeImage == null
+                    ? const ImageIcon(
+                        size: 64,
+                        AssetImage("assets/icons/image.png"),
+                        color: Colors.white,
+                      )
+                    : Image.memory(_recipeImage!, fit: BoxFit.cover),
+              ),
+            ),
+          ),
         ),
       ),
     );
@@ -77,7 +78,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "Rezeptbild auswählen",
+                  AppLocalizations.of(context)!.selectRecipeImageHeadline,
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const SizedBox(

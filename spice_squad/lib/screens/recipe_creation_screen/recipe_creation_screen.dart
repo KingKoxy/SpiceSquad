@@ -1,6 +1,6 @@
 import "dart:typed_data";
-
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:spice_squad/models/difficulty.dart";
 import "package:spice_squad/models/ingredient.dart";
@@ -71,8 +71,10 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
         currentIndex: 0,
       ),
       appBar: AppBar(
-        title: const Text(
-          "Rezept erstellen",
+        title: Text(
+          widget.recipe == null
+              ? AppLocalizations.of(context)!.createRecipeHeadline
+              : AppLocalizations.of(context)!.editRecipeHeadline,
         ),
       ),
       body: SingleChildScrollView(
@@ -84,7 +86,6 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
             children: [
               ImagePickerWidget(
                 recipeImage: widget.recipe?.image,
-                // TODO Anpassen an den Provider
               ),
               const SizedBox(
                 height: 16,
@@ -92,13 +93,13 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
               TextFormField(
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Bitte gib einen Titel ein";
+                    return AppLocalizations.of(context)!.titleEmptyError;
                   }
                   return null;
                 },
                 initialValue: _title,
                 onChanged: (value) => _title = value,
-                decoration: const InputDecoration(hintText: "Rezepttitel"),
+                decoration: InputDecoration(hintText: AppLocalizations.of(context)!.titleInputLabel),
               ),
               const SizedBox(
                 height: 16,
@@ -109,31 +110,31 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
                   children: [
                     ToggleableLabelWidget(
                       image: const AssetImage("assets/icons/milk.png"),
-                      name: "Vegetarisch",
+                      name: AppLocalizations.of(context)!.labelVegetarian,
                       initialActive: _isVegetarian,
                       onChanged: (value) => _isVegetarian = value,
                     ),
                     ToggleableLabelWidget(
                       image: const AssetImage("assets/icons/avocado.png"),
-                      name: "Vegan",
+                      name: AppLocalizations.of(context)!.labelVegan,
                       initialActive: _isVegan,
                       onChanged: (value) => _isVegan = value,
                     ),
                     ToggleableLabelWidget(
                       image: const AssetImage("assets/icons/glutenFree.png"),
-                      name: "Glutenfrei",
+                      name: AppLocalizations.of(context)!.labelGlutenFree,
                       initialActive: _isGlutenFree,
                       onChanged: (value) => _isGlutenFree = value,
                     ),
                     ToggleableLabelWidget(
                       image: const AssetImage("assets/icons/islam.png"),
-                      name: "Halal",
+                      name: AppLocalizations.of(context)!.labelHalal,
                       initialActive: _isHalal,
                       onChanged: (value) => _isHalal = value,
                     ),
                     ToggleableLabelWidget(
                       image: const AssetImage("assets/icons/judaism.png"),
-                      name: "Koscher",
+                      name: AppLocalizations.of(context)!.labelKosher,
                       initialActive: _isKosher,
                       onChanged: (value) => _isKosher = value,
                     ),
@@ -152,7 +153,7 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
                     child: TextFormField(
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return "Bitte gib eine Dauer ein";
+                          return AppLocalizations.of(context)!.durationEmptyError;
                         }
                         return null;
                       },
@@ -160,10 +161,10 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
                       initialValue: _duration.toString(),
                       textAlign: TextAlign.center,
                       onChanged: (value) => {if (value != "") _duration = int.parse(value)},
-                      decoration: const InputDecoration(
-                        hintText: "Dauer",
-                        suffixText: "min",
-                        prefixIcon: ImageIcon(AssetImage("assets/icons/clock.png")),
+                      decoration: InputDecoration(
+                        hintText: AppLocalizations.of(context)!.durationInputLabel,
+                        suffixText: AppLocalizations.of(context)!.durationUnit,
+                        prefixIcon: const ImageIcon(AssetImage("assets/icons/clock.png")),
                         prefixIconColor: Colors.white,
                       ),
                     ),
@@ -171,25 +172,44 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
                   const SizedBox(
                     width: 16,
                   ),
-                  Expanded(child: SizedBox(height: 54, child: DifficultyPickerWidget(initialValue: _difficulty)))
+                  Expanded(
+                    child: SizedBox(
+                      height: 54,
+                      child: DifficultyPickerWidget(
+                        initialValue: _difficulty,
+                        onChanged: (value) => _difficulty = value,
+                      ),
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(
                 height: 16,
               ),
               PortionAmountField(
-                onChanged: (value) {},
+                onChanged: (value) {
+                  setState(() {
+                    _defaultPortionAmount = value;
+                  });
+                },
                 initialValue: widget.recipe?.defaultPortionAmount ?? 4,
               ),
               const SizedBox(
                 height: 16,
               ),
-              IngredientList(ingredients: widget.recipe?.ingredients ?? []),
+              IngredientList(
+                initialList: widget.recipe?.ingredients ?? [],
+                onChanged: (List<Ingredient> value) {
+                  setState(() {
+                    _ingredients = value;
+                  });
+                },
+              ),
               const SizedBox(
                 height: 16,
               ),
               Text(
-                "Zubereitung",
+                AppLocalizations.of(context)!.instructionsHeadline,
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               const SizedBox(
@@ -198,7 +218,7 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
               TextFormField(
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Bitte gib eine Zubereitungsbeschreibung ein";
+                    return AppLocalizations.of(context)!.instructionsEmptyError;
                   }
                   return null;
                 },
@@ -206,8 +226,8 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
                 onChanged: (value) => _instructions = value,
                 initialValue: _instructions,
                 maxLines: null,
-                decoration: const InputDecoration(
-                  hintText: "Zubereitungbeschreibung",
+                decoration: InputDecoration(
+                  hintText: AppLocalizations.of(context)!.instructionsInputLabel,
                 ),
               ),
               const SizedBox(
@@ -222,7 +242,7 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
                         saveRecipe(ref.read(recipeServiceProvider.notifier));
                       }
                     },
-                    child: const Text("Speichern"),
+                    child: Text(AppLocalizations.of(context)!.saveButtonLabel),
                   ),
                 ),
               )

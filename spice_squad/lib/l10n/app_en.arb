@@ -476,5 +476,81 @@
   "okActionButton": "OK",
   "@okActionButton": {
     "description": "The label for the ok button"
+  },
+  "selectDifficultyHeadline": "Select difficulty",
+  "@selectDifficultyHeadline": {
+    "description": "The headline of the select difficulty page"
+  },
+  "selectRecipeImageHeadline": "Select image",
+  "@selectRecipeImageHeadline": {
+    "description": "The headline of the select recipe image page"
+  },
+  "ingredientListHeadline": "Ingredients",
+  "@ingredientListHeadline": {
+    "description": "The headline of the ingredient list"
+  },
+  "noIngredientsAddedMessage": "You have not added any ingredients yet.",
+  "@noIngredientsAddedMessage": {
+    "description": "The message if no ingredients are added"
+  },
+  "createRecipeHeadline": "Create recipe",
+  "@createRecipeHeadline": {
+    "description": "The headline of the create recipe page"
+  },
+  "editRecipeHeadline": "Edit recipe",
+  "@editRecipeHeadline": {
+    "description": "The headline of the edit recipe page"
+  },
+  "titleEmptyError": "Please enter a title",
+  "@titleEmptyError": {
+    "description": "The error message if the title is empty"
+  },
+  "titleInputLabel": "Title",
+  "@titleInputLabel": {
+    "description": "The label for the title input"
+  },
+  "labelVegetarian": "Vegetarisch",
+  "@labelVegetarian": {
+    "description": "The label for the vegetarian checkbox"
+  },
+  "labelVegan": "Vegan",
+  "@labelVegan": {
+    "description": "The label for the vegan checkbox"
+  },
+  "labelGlutenFree": "Glutenfrei",
+  "@labelGlutenFree": {
+    "description": "The label for the gluten free checkbox"
+  },
+  "labelHalal": "Halal",
+  "@labelHalal": {
+    "description": "The label for the halal checkbox"
+  },
+  "labelKosher": "Koscher",
+  "@labelKosher": {
+    "description": "The label for the kosher checkbox"
+  },
+  "durationEmptyError": "Please enter a duration",
+  "@durationEmptyError": {
+    "description": "The error message if the duration is empty"
+  },
+  "durationInputLabel": "Duration",
+  "@durationInputLabel": {
+    "description": "The label for the duration input"
+  },
+  "durationUnit": "min",
+  "@durationUnit": {
+    "description": "The unit for the duration"
+  },
+  "instructionsHeadline": "Instructions",
+  "@instructionsHeadline": {
+    "description": "The headline of the instructions"
+  },
+  "instructionsEmptyError": "Please enter instructions",
+  "@instructionsEmptyError": {
+    "description": "The error message if the instructions are empty"
+  },
+  "instructionsInputLabel": "Instructions",
+  "@instructionsInputLabel": {
+    "description": "The label for the instructions input"
   }
 }
