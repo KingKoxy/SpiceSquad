@@ -3,6 +3,8 @@ import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:spice_squad/screens/main_screen/sort.dart";
 import "package:spice_squad/screens/main_screen/sort_category.dart";
 
+import "../../icons.dart";
+
 /// Dialog that allows the user to select a sort.
 class SortSelectionDialog extends StatefulWidget {
   /// Callback for when the sort is saved.
@@ -50,8 +52,7 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
                     children: [
                       ImageIcon(
                         selectedSort.ascending
-                            ? const AssetImage("assets/icons/sortAscending.png")
-                            : const AssetImage("assets/icons/sortDescending.png"),
+                            ? SpiceSquadIconImages.sortAscending : SpiceSquadIconImages.sortDescending,
                         color: Colors.white,
                       ),
                       const SizedBox(

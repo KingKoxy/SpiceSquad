@@ -10,6 +10,8 @@ import "package:spice_squad/screens/main_screen/sort.dart";
 import "package:spice_squad/screens/main_screen/sort_selection_widget.dart";
 import "package:spice_squad/widgets/nav_bar.dart";
 
+import "../../icons.dart";
+
 /// The main screen of the app showing a list of recipes for the user.
 class MainScreen extends ConsumerStatefulWidget {
   /// The route name of the main screen.
@@ -44,7 +46,10 @@ class _MainScreenState extends ConsumerState<MainScreen> {
               controller: widget._searchController,
               decoration: InputDecoration(
                 iconColor: Colors.white,
-                icon: const ImageIcon(AssetImage("assets/icons/search.png")),
+                icon: const ImageIcon(
+                  size: 32,
+                  SpiceSquadIconImages.search,
+                ),
                 suffixIconColor: Colors.white,
                 suffixIcon: widget._searchController.text != ""
                     ? IconButton(

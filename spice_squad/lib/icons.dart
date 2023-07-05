@@ -10,4 +10,12 @@ abstract class SpiceSquadIconImages {
   static const ImageProvider createDocument = AssetImage("assets/icons/create_document.png");
   static const ImageProvider home = AssetImage("assets/icons/home.png");
   static const ImageProvider people = AssetImage("assets/icons/people.png");
+  static const ImageProvider filter = AssetImage("assets/icons/filter.png");
+  static const ImageProvider search = AssetImage("assets/icons/search.png");
+  static const ImageProvider image = AssetImage("assets/icons/image.png");
+  static const ImageProvider timer = AssetImage("assets/icons/timer.png");
+  static const ImageProvider flame = AssetImage("assets/icons/flame.png");
+  static const ImageProvider sortDescending = AssetImage("assets/icons/sort_descending.png");
+  static const ImageProvider sortAscending = AssetImage("assets/icons/sort_ascending.png");
+
 }
