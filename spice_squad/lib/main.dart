@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/models/group.dart";
+import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/screens/group_creation_screen.dart";
 import "package:spice_squad/screens/group_detail_screen/group_detail_screen.dart";
 import "package:spice_squad/screens/group_joining_screen.dart";
@@ -11,7 +13,7 @@ import "package:spice_squad/screens/password_reset_screen.dart";
 import "package:spice_squad/screens/qr_code_screen.dart";
 import "package:spice_squad/screens/qr_scanner_screen.dart";
 import "package:spice_squad/screens/recipe_creation_screen/recipe_creation_screen.dart";
-import "package:spice_squad/screens/recipe_detail_screen.dart";
+import "package:spice_squad/screens/recipe_detail_screen/recipe_detail_screen.dart";
 import "package:spice_squad/screens/register_screen.dart";
 import "package:spice_squad/screens/settings_screen/settings_screen.dart";
 import "package:spice_squad/theme.dart";
@@ -32,21 +34,77 @@ class SpiceSquad extends StatelessWidget {
         title: "SpiceSquad",
         theme: SpiceSquadTheme.themeData,
         initialRoute: MainScreen.routeName,
-        routes: {
-          MainScreen.routeName: (context) => MainScreen(),
-          LoginScreen.routeName: (context) => LoginScreen(),
-          RegisterScreen.routeName: (context) => RegisterScreen(),
-          PasswordResetScreen.routeName: (context) => PasswordResetScreen(),
-          SettingsScreen.routeName: (context) => const SettingsScreen(),
-          GroupJoiningScreen.routeName: (context) => GroupJoiningScreen(),
-          GroupCreationScreen.routeName: (context) => GroupCreationScreen(),
-          QRScannerScreen.routeName: (context) => const QRScannerScreen(),
-          GroupDetailScreen.routeName: (context) => const GroupDetailScreen(),
-          IngredientCreationScreen.routeName: (context) => IngredientCreationScreen(),
-          QRCodeScreen.routeName: (context) => const QRCodeScreen(),
-
-          RecipeCreationScreen.routeName: (context) => const RecipeCreationScreen(),
-          RecipeDetailScreen.routeName: (context) => const RecipeDetailScreen(),
+        onGenerateRoute: (settings) {
+          switch (settings.name) {
+            case MainScreen.routeName:
+              return MaterialPageRoute(
+                builder: (context) => MainScreen(),
+              );
+            case LoginScreen.routeName:
+              return MaterialPageRoute(
+                builder: (context) => LoginScreen(),
+              );
+            case RegisterScreen.routeName:
+              return MaterialPageRoute(
+                builder: (context) => RegisterScreen(),
+              );
+            case PasswordResetScreen.routeName:
+              return MaterialPageRoute(
+                builder: (context) => PasswordResetScreen(),
+              );
+            case GroupJoiningScreen.routeName:
+              return MaterialPageRoute(
+                builder: (context) {
+                  final dynamic args = settings.arguments;
+                  final bool isAfterRegister = args != null && (args as bool);
+                  return GroupJoiningScreen(isAfterRegister: isAfterRegister);
+                },
+              );
+            case GroupCreationScreen.routeName:
+              return MaterialPageRoute(
+                builder: (context) {
+                  final dynamic args = settings.arguments;
+                  final bool isAfterRegister = args != null && (args as bool);
+                  return GroupCreationScreen(
+                    isAfterRegister: isAfterRegister,
+                  );
+                },
+              );
+            case QRScannerScreen.routeName:
+              return MaterialPageRoute(
+                builder: (context) => const QRScannerScreen(),
+              );
+            case GroupDetailScreen.routeName:
+              return MaterialPageRoute(
+                builder: (context) => GroupDetailScreen(groupId: settings.arguments as String),
+              );
+            case IngredientCreationScreen.routeName:
+              return MaterialPageRoute(
+                builder: (context) => IngredientCreationScreen(),
+              );
+            case RecipeCreationScreen.routeName:
+              return MaterialPageRoute(
+                builder: (context) => RecipeCreationScreen(recipe: settings.arguments as Recipe?),
+              );
+            case SettingsScreen.routeName:
+              return MaterialPageRoute(
+                builder: (context) => const SettingsScreen(),
+              );
+            case QRCodeScreen.routeName:
+              return MaterialPageRoute(
+                builder: (context) => QRCodeScreen(
+                  group: settings.arguments as Group,
+                ),
+              );
+            case RecipeDetailScreen.routeName:
+              return MaterialPageRoute(
+                builder: (context) => RecipeDetailScreen(
+                  recipe: settings.arguments as Recipe,
+                ),
+              );
+            default:
+              return null;
+          }
         },
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,

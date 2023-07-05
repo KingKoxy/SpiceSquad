@@ -3,6 +3,7 @@ import "dart:typed_data";
 import "package:spice_squad/models/difficulty.dart";
 import "package:spice_squad/models/ingredient.dart";
 import "package:spice_squad/models/recipe.dart";
+import "package:spice_squad/models/recipe_creation_data.dart";
 import "package:spice_squad/models/user.dart";
 import "package:spice_squad/repositories/user_repository.dart";
 
@@ -24,7 +25,7 @@ class RemoteRecipeRepository {
         random.nextInt(20),
         (index) => Recipe(
           id: "recipeId",
-          title: {"Lasagne", "Pizza", "Spagghetti"}.elementAt(random.nextInt(3)),
+          title: {"Lasagne", "Pizza", "Spaghetti"}.elementAt(random.nextInt(3)),
           image: random.nextBool() ? Uint8List(1) : null,
           author: User(
             id: "userId",
@@ -40,24 +41,25 @@ class RemoteRecipeRepository {
           isFavourite: random.nextBool(),
           isKosher: random.nextBool(),
           isHalal: random.nextBool(),
-          ingredients: [
-            Ingredient(
+          ingredients: List.generate(
+            2 + random.nextInt(6),
+            (index) => Ingredient(
               id: "ingredientId",
-              name: "Mehl",
-              iconId: "iconId",
+              name: "Karotten",
+              iconId: "carrot",
               amount: random.nextDouble() * 200,
               unit: "g",
-            )
-          ],
+            ),
+          ),
           instructions: "Instructions",
-          defaultPortionAmount: random.nextInt(8),
+          defaultPortionAmount: 1 + random.nextInt(8),
         ),
       ),
     );
   }
 
   /// Creates a new recipe with the values from [recipe]
-  Future<void> createRecipe(Recipe recipe) {
+  Future<void> createRecipe(RecipeCreationData recipe) {
     //TODO: implement recipe creation
     throw UnimplementedError();
   }

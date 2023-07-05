@@ -14,18 +14,17 @@ class GroupJoiningScreen extends ConsumerWidget {
   /// Route name for navigation
   static const routeName = "/group-joining";
 
+  /// Whether this screen is shown after the user registered
+  final bool isAfterRegister;
+
   final TextEditingController _groupCodeController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   /// Creates a new group joining screen
-  GroupJoiningScreen({super.key});
+  GroupJoiningScreen({required this.isAfterRegister, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Get if screen is shown after registering
-    final dynamic args = ModalRoute.of(context)!.settings.arguments;
-    final bool isAfterRegister = args != null && (args as bool);
-
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -156,14 +155,15 @@ class GroupJoiningScreen extends ConsumerWidget {
     groupService
         .joinGroup(groupCode)
         .then(
-          (value) => showDialog(
+          (value) =>
+          showDialog(
             context: context,
             builder: (context) => SuccessDialog(
               title: AppLocalizations.of(context)!.joiningSuccessFullTitle,
               message: AppLocalizations.of(context)!.joiningSuccessFullDescription,
             ),
           ),
-        )
+    )
         .then(
           (value) => isAfterRegister
               ? Navigator.of(context).pushNamedAndRemoveUntil(

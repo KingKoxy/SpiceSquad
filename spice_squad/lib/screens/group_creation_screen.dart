@@ -13,18 +13,17 @@ class GroupCreationScreen extends ConsumerWidget {
   /// Route name for navigation
   static const routeName = "/group-creation";
 
+  /// Whether this screen is shown after the user registered
+  final bool isAfterRegister;
+
   final TextEditingController _groupNameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   /// Creates a new group creation screen
-  GroupCreationScreen({super.key});
+  GroupCreationScreen({required this.isAfterRegister, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Get if screen is shown after registering
-    final dynamic args = ModalRoute.of(context)!.settings.arguments;
-    final bool isAfterRegister = args != null && (args as bool);
-
     return Scaffold(
       body: SafeArea(
         child: Stack(

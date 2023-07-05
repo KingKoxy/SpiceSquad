@@ -1,66 +1,62 @@
 import "dart:io";
 import "dart:typed_data";
+
 import "package:flutter/material.dart";
-import "package:flutter_gen/gen_l10n/app_localizations.dart";
-import "package:spice_squad/services/user_service.dart";
 import "package:image_picker/image_picker.dart";
 
-/// Widget for selecting a profile image
-class ProfileImagePicker extends StatefulWidget {
-  /// Initial Profile image to display
-  final Uint8List? initialValue;
+/// Widget for selecting an image
+class ImagePickerWidget extends StatefulWidget {
+  /// Initial image to display
+  final Uint8List? recipeImage;
 
-  /// User service for updating the profile image
-  final UserService userService;
-
-  /// Creates a new profile image picker
-  const ProfileImagePicker({required this.initialValue, required this.userService, super.key});
+  /// Creates a new image picker
+  const ImagePickerWidget({
+    required this.recipeImage,
+    super.key,
+  });
 
   @override
-  State<ProfileImagePicker> createState() => _ProfileImagePickerState();
+  State<ImagePickerWidget> createState() => _ImagePickerWidgetState();
 }
 
-class _ProfileImagePickerState extends State<ProfileImagePicker> {
-  Uint8List? _profileImage;
+class _ImagePickerWidgetState extends State<ImagePickerWidget> {
+  Uint8List? _recipeImage;
 
   @override
   void initState() {
-    _profileImage = widget.initialValue;
+    _recipeImage = widget.recipeImage;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      child: Ink(
-        decoration: _profileImage == null
-            ? BoxDecoration(
-                borderRadius: BorderRadius.circular(20000),
-                image: const DecorationImage(image: AssetImage("assets/images/exampleImage.jpeg")),
-              )
-            : BoxDecoration(borderRadius: BorderRadius.circular(20000), color: Theme.of(context).cardColor),
-        child: CircleAvatar(
-          backgroundColor: Colors.transparent,
-          radius: 75,
+      borderRadius: const BorderRadius.all(Radius.circular(16)),
+      child: Material(
+        child: Ink(
+          padding: EdgeInsets.zero,
+          color: Theme.of(context).cardColor,
           child: InkWell(
-            borderRadius: BorderRadius.circular(20000),
-            onTap: () => _selectProfileImage(context),
-            child: const SizedBox(
-              width: 150,
-              height: 150,
-              child: ImageIcon(
-                AssetImage("assets/icons/user_edit.png"),
-                color: Colors.white,
-              ),
-            ),
-          ),
+              onTap: () => _selectRecipeImage(context),
+              child: Center(
+                child: SizedBox(
+                  height: 200,
+                  width: double.infinity,
+                  child: _recipeImage == null
+                      ? const ImageIcon(
+                          size: 64,
+                          AssetImage("assets/icons/image.png"),
+                          color: Colors.white,
+                        )
+                      : Image.memory(_recipeImage!, fit: BoxFit.cover),
+                ),
+              ),),
         ),
       ),
     );
   }
 
-  // Show dialog from bottom to remove or change profile image
-  void _selectProfileImage(BuildContext context) {
+  void _selectRecipeImage(BuildContext context) {
     showGeneralDialog(
       barrierLabel: "showGeneralDialog",
       barrierDismissible: true,
@@ -81,7 +77,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  AppLocalizations.of(context)!.selectProfileImageDialogTitle,
+                  "Rezeptbild auswählen",
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const SizedBox(
@@ -94,7 +90,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                       height: 86,
                       width: 86,
                       child: RawMaterialButton(
-                        onPressed: _removeProfileImage,
+                        onPressed: _removeRecipeImage,
                         elevation: 2.0,
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),
@@ -106,7 +102,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                       height: 86,
                       width: 86,
                       child: RawMaterialButton(
-                        onPressed: _setProfileImageFromGallery,
+                        onPressed: _setRecipeImageFromGallery,
                         elevation: 2.0,
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),
@@ -118,7 +114,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                       height: 86,
                       width: 86,
                       child: RawMaterialButton(
-                        onPressed: _setProfileImageFromCamera,
+                        onPressed: _setRecipeImageFromCamera,
                         elevation: 2.0,
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),
@@ -145,29 +141,27 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
     );
   }
 
-  void _removeProfileImage() {
-    widget.userService.removeProfileImage();
+  void _removeRecipeImage() {
+    setState(() {
+      _recipeImage = null;
+    });
   }
 
-  void _setProfileImageFromGallery() {
+  void _setRecipeImageFromGallery() {
     ImagePicker().pickImage(source: ImageSource.gallery).then((image) {
       if (image != null) {
         setState(() {
-          final File file = File(image.path);
-          _profileImage = file.readAsBytesSync();
-          widget.userService.setProfileImage(file);
+          _recipeImage = File(image.path).readAsBytesSync();
         });
       }
     });
   }
 
-  void _setProfileImageFromCamera() {
+  void _setRecipeImageFromCamera() {
     ImagePicker().pickImage(source: ImageSource.camera).then((image) {
       if (image != null) {
         setState(() {
-          final File file = File(image.path);
-          _profileImage = file.readAsBytesSync();
-          widget.userService.setProfileImage(file);
+          _recipeImage = File(image.path).readAsBytesSync();
         });
       }
     });
