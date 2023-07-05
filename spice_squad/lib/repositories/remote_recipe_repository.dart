@@ -52,7 +52,7 @@ class RemoteRecipeRepository {
             ),
           ),
           instructions: "Instructions",
-          defaultPortionAmount: random.nextInt(8),
+          defaultPortionAmount: 1 + random.nextInt(8),
         ),
       ),
     );
