@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:spice_squad/models/difficulty.dart";
-import "package:spice_squad/screens/recipe_creation_screen/difficulty_picker_diaglog.dart";
+import "package:spice_squad/screens/recipe_creation_screen/difficulty_picker_dialog.dart";
 import "package:spice_squad/widgets/tag_item.dart";
 
 /// Widget for picking a difficulty
@@ -8,8 +8,10 @@ class DifficultyPickerWidget extends StatefulWidget {
   /// The initial value of the picker
   final Difficulty? initialValue;
 
+  final ValueChanged<Difficulty> onChanged;
+
   /// Creates a new difficulty picker widget
-  const DifficultyPickerWidget({super.key, this.initialValue});
+  const DifficultyPickerWidget({required this.onChanged, super.key, this.initialValue});
 
   @override
   State<DifficultyPickerWidget> createState() => _DifficultyPickerWidgetState();
@@ -29,7 +31,8 @@ class _DifficultyPickerWidgetState extends State<DifficultyPickerWidget> {
     return SizedBox(
       height: double.infinity,
       child: InkWell(
-        child: TagItem(margin: EdgeInsets.zero, image: const AssetImage("assets/icons/flame.png"), name: _difficulty.toString()),
+        child: TagItem(
+            margin: EdgeInsets.zero, image: const AssetImage("assets/icons/flame.png"), name: _difficulty.toString(),),
         onTap: () => _showDifficultyPickerDialog(context),
       ),
     );
@@ -44,6 +47,7 @@ class _DifficultyPickerWidgetState extends State<DifficultyPickerWidget> {
             setState(() {
               _difficulty = value;
             });
+            widget.onChanged(value);
           },
           initialValue: _difficulty,
         );

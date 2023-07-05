@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 
 /// Dialog to pick an icon for an ingredient
 class IconPickerDialog extends StatelessWidget {
@@ -18,7 +19,7 @@ class IconPickerDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text("Icon auwählen"),
+      title: Text(AppLocalizations.of(context)!.iconPickerDialogTitle),
       content: SizedBox(
         width: double.maxFinite,
         child: GridView.builder(
@@ -46,7 +47,7 @@ class IconPickerDialog extends StatelessWidget {
       ),
       actions: <Widget>[
         TextButton(
-          child: const Text("Abbrechen"),
+          child: Text(AppLocalizations.of(context)!.cancelButtonLabel),
           onPressed: () {
             Navigator.of(context).pop();
           },

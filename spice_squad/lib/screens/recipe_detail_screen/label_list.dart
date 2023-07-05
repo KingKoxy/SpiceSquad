@@ -1,4 +1,5 @@
 import "package:flutter/cupertino.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/widgets/tag_item.dart";
 
@@ -17,14 +18,25 @@ class LabelList extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          TagItem(image: const AssetImage("assets/icons/clock.png"), name: "${recipe.duration} min"),
+          TagItem(
+              image: const AssetImage("assets/icons/clock.png"),
+              name: AppLocalizations.of(context)!.duration(recipe.duration),),
           TagItem(image: const AssetImage("assets/icons/flame.png"), name: recipe.difficulty.toString()),
-          if (recipe.isVegetarian) const TagItem(image: AssetImage("assets/icons/milk.png"), name: "Vegetarisch"),
-          if (recipe.isVegan) const TagItem(image: AssetImage("assets/icons/avocado.png"), name: "Vegan"),
+          if (recipe.isVegetarian)
+            TagItem(
+                image: const AssetImage("assets/icons/milk.png"), name: AppLocalizations.of(context)!.labelVegetarian,),
+          if (recipe.isVegan)
+            TagItem(
+                image: const AssetImage("assets/icons/avocado.png"), name: AppLocalizations.of(context)!.labelVegan,),
           if (recipe.isGlutenFree)
-            const TagItem(image: AssetImage("assets/icons/glutenFree.png"), name: "Glutenfrei"),
-          if (recipe.isHalal) const TagItem(image: AssetImage("assets/icons/islam.png"), name: "Halal"),
-          if (recipe.isHalal) const TagItem(image: AssetImage("assets/icons/judaism.png"), name: "Koscher"),
+            TagItem(
+                image: const AssetImage("assets/icons/glutenFree.png"),
+                name: AppLocalizations.of(context)!.labelGlutenFree,),
+          if (recipe.isHalal)
+            TagItem(image: const AssetImage("assets/icons/islam.png"), name: AppLocalizations.of(context)!.labelHalal),
+          if (recipe.isHalal)
+            TagItem(
+                image: const AssetImage("assets/icons/judaism.png"), name: AppLocalizations.of(context)!.labelKosher,),
         ],
       ),
     );

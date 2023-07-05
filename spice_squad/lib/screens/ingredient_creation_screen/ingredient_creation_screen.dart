@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:spice_squad/models/ingredient.dart";
 import "package:spice_squad/screens/ingredient_creation_screen/icon_picker_widget.dart";
 import "package:spice_squad/screens/ingredient_creation_screen/ingredient_name_input.dart";
@@ -21,7 +22,7 @@ class IngredientCreationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Zutat erstellen"),
+        title: Text(AppLocalizations.of(context)!.ingredientCreationHeadline),
       ),
       body: Center(
         child: Padding(
@@ -44,12 +45,8 @@ class IngredientCreationScreen extends StatelessWidget {
                     Expanded(
                       child: TextFormField(
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Gib bitte einen Wert ein";
-                          }
-
-                          if (double.tryParse(value) == null) {
-                            return "Gib bitte eine Zahl ein";
+                          if (value == null || value.isEmpty || double.tryParse(value) == null) {
+                            return AppLocalizations.of(context)!.valueNotANumberError;
                           }
 
                           return null;
@@ -61,7 +58,7 @@ class IngredientCreationScreen extends StatelessWidget {
                           }
                         },
                         keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                        decoration: const InputDecoration(hintText: "Menge"),
+                        decoration: InputDecoration(hintText: AppLocalizations.of(context)!.amountInputLabel),
                       ),
                     ),
                     const SizedBox(width: 10),
@@ -69,12 +66,12 @@ class IngredientCreationScreen extends StatelessWidget {
                       child: TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "Gib bitte eine Einheit ein";
+                            return AppLocalizations.of(context)!.unitEmptyError;
                           }
                           return null;
                         },
                         controller: _unitController,
-                        decoration: const InputDecoration(hintText: "Einheit"),
+                        decoration: InputDecoration(hintText: AppLocalizations.of(context)!.unitInputLabel),
                       ),
                     ),
                   ],
@@ -99,7 +96,7 @@ class IngredientCreationScreen extends StatelessWidget {
 
                       Navigator.of(context).pop(ingredient);
                     },
-                    child: const Text("Hinzufügen"),
+                    child: Text(AppLocalizations.of(context)!.addButton),
                   ),
                 )
               ],

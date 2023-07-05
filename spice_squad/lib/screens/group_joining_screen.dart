@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/screens/group_creation_screen.dart";
@@ -38,10 +39,10 @@ class GroupJoiningScreen extends ConsumerWidget {
                     onPressed: () {
                       Navigator.of(context).pushNamedAndRemoveUntil(
                         MainScreen.routeName,
-                            (route) => false,
+                        (route) => false,
                       );
                     },
-                    child: const Text("Überspringen"),
+                    child: Text(AppLocalizations.of(context)!.skipButton),
                   ),
                 ),
               ),
@@ -53,11 +54,8 @@ class GroupJoiningScreen extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Squad beitreten",
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .headlineMedium,
+                      AppLocalizations.of(context)!.joinSquadHeadline,
+                      style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     const SizedBox(
                       height: 20,
@@ -69,11 +67,11 @@ class GroupJoiningScreen extends ConsumerWidget {
                           SizedBox(
                             width: double.infinity,
                             child: TextFormField(
-                              validator: _validateGroupCode,
+                              validator: (value) => _validateGroupCode(context, value),
                               keyboardType: TextInputType.text,
                               controller: _groupCodeController,
-                              decoration: const InputDecoration(
-                                hintText: "Squadkürzel",
+                              decoration: InputDecoration(
+                                hintText: AppLocalizations.of(context)!.groupCodeInputLabel,
                               ),
                             ),
                           ),
@@ -96,7 +94,7 @@ class GroupJoiningScreen extends ConsumerWidget {
                             );
                           }
                         },
-                        child: const Text("Weiter"),
+                        child: Text(AppLocalizations.of(context)!.joinSquadButton),
                       ),
                     ),
                     const OrWidget(),
@@ -115,7 +113,7 @@ class GroupJoiningScreen extends ConsumerWidget {
                             }
                           });
                         },
-                        child: const Text("Mit QR-Code beitreten"),
+                        child: Text(AppLocalizations.of(context)!.joinWithQRCodeButton),
                       ),
                     ),
                     const OrWidget(),
@@ -128,7 +126,7 @@ class GroupJoiningScreen extends ConsumerWidget {
                             arguments: isAfterRegister,
                           );
                         },
-                        child: const Text("Squad erstellen"),
+                        child: Text(AppLocalizations.of(context)!.createSquadButton),
                       ),
                     ),
                   ],
@@ -141,38 +139,38 @@ class GroupJoiningScreen extends ConsumerWidget {
     );
   }
 
-  String? _validateGroupCode(String? groupCode) {
+  String? _validateGroupCode(BuildContext context, String? groupCode) {
     if (groupCode == null || groupCode.isEmpty) {
-      return "Bitte gib ein Squadkürzel ein.";
+      return AppLocalizations.of(context)!.groupCodeEmptyError;
     }
     return null;
   }
 
-  void _joinGroupByCode(BuildContext context,
-      GroupService groupService,
-      String groupCode,
-      bool isAfterRegister,) {
+  void _joinGroupByCode(
+    BuildContext context,
+    GroupService groupService,
+    String groupCode,
+    bool isAfterRegister,
+  ) {
     groupService
         .joinGroup(groupCode)
         .then(
           (value) =>
           showDialog(
             context: context,
-            builder: (context) =>
-            const SuccessDialog(
-              message: "Du bist einer Squad beigetreten",
-              title: "Beitritt erfolgreich",
+            builder: (context) => SuccessDialog(
+              title: AppLocalizations.of(context)!.joiningSuccessFullTitle,
+              message: AppLocalizations.of(context)!.joiningSuccessFullDescription,
             ),
           ),
     )
         .then(
-          (value) =>
-      isAfterRegister
-          ? Navigator.of(context).pushNamedAndRemoveUntil(
-        MainScreen.routeName,
-            (route) => false,
-      )
-          : Navigator.of(context).pop(),
-    );
+          (value) => isAfterRegister
+              ? Navigator.of(context).pushNamedAndRemoveUntil(
+                  MainScreen.routeName,
+                  (route) => false,
+                )
+              : Navigator.of(context).pop(),
+        );
   }
 }

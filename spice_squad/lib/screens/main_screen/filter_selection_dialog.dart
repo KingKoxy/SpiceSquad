@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:spice_squad/screens/main_screen/filter_category.dart";
 
 /// Dialog for selecting filters.
@@ -30,7 +31,7 @@ class _FilterSelectionDialogState extends State<FilterSelectionDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text("Filter auswählen"),
+      title: Text(AppLocalizations.of(context)!.filterSelectionDialogTitle),
       content: SizedBox(
         width: double.maxFinite,
         child: ListView.builder(
@@ -39,7 +40,7 @@ class _FilterSelectionDialogState extends State<FilterSelectionDialog> {
           itemBuilder: (context, index) {
             final key = filterMap.keys.elementAt(index);
             return CheckboxListTile(
-              title: Text(key.toString()),
+              title: Text(key.getName(context)),
               value: filterMap[key],
               onChanged: (value) {
                 setState(() {
@@ -52,13 +53,13 @@ class _FilterSelectionDialogState extends State<FilterSelectionDialog> {
       ),
       actions: <Widget>[
         TextButton(
-          child: const Text("Verwerfen"),
+          child: Text(AppLocalizations.of(context)!.cancelButtonLabel),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         TextButton(
-          child: const Text("Speichern"),
+          child: Text(AppLocalizations.of(context)!.saveButtonLabel),
           onPressed: () {
             Navigator.of(context).pop();
 

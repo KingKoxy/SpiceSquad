@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 
 /// A dialog that displays a success message.
 class SuccessDialog extends StatelessWidget {
@@ -19,7 +20,7 @@ class SuccessDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text("OK"),
+          child: Text(AppLocalizations.of(context)!.okActionButton),
         ),
       ],
     );

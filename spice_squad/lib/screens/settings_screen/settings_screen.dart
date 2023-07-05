@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/screens/login_screen.dart";
@@ -7,6 +8,7 @@ import "package:spice_squad/screens/settings_screen/own_recipe_list.dart";
 import "package:spice_squad/screens/settings_screen/profile_image_picker.dart";
 import "package:spice_squad/services/user_service.dart";
 import "package:spice_squad/widgets/approval_dialog.dart";
+import "package:spice_squad/widgets/input_dialog.dart";
 import "package:spice_squad/widgets/nav_bar.dart";
 
 /// Screen for displaying user settings
@@ -24,7 +26,7 @@ class SettingsScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Row(
           children: [
-            const Expanded(child: Center(child: Text("Einstellungen"))),
+            Expanded(child: Center(child: Text(AppLocalizations.of(context)!.settingsHeadline))),
             IconButton(
               onPressed: () {
                 _logout(context, ref.read(userServiceProvider.notifier));
@@ -75,7 +77,7 @@ class SettingsScreen extends ConsumerWidget {
                           onPressed: () {
                             _deleteAccount(context, ref.read(userServiceProvider.notifier));
                           },
-                          child: const Text("Konto löschen"),
+                          child: Text(AppLocalizations.of(context)!.deleteAccountButton),
                         )
                       ],
                     );
@@ -107,44 +109,19 @@ void _logout(BuildContext context, UserService userService) {
 }
 
 void _renameUser(BuildContext context, UserService userService, String oldName) {
-  final formKey = GlobalKey<FormState>();
-  final TextEditingController controller = TextEditingController();
-  controller.text = oldName;
   showDialog(
     context: context,
     builder: (context) {
-      return AlertDialog(
-        title: const Text("Umbenennen"),
-        content: Form(
-          key: formKey,
-          child: TextFormField(
-            decoration: InputDecoration(fillColor: Theme.of(context).colorScheme.onSurfaceVariant),
-            controller: controller,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Bitte gib einen neuen Namen ein.";
-              }
-              return null;
-            },
-          ),
-        ),
-        actions: <Widget>[
-          TextButton(
-            child: const Text("Abbrechen"),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-          TextButton(
-            child: const Text("Speichern"),
-            onPressed: () {
-              if (formKey.currentState!.validate()) {
-                Navigator.of(context).pop();
-                userService.setUserName(controller.text);
-              }
-            },
-          ),
-        ],
+      return InputDialog(
+        title: AppLocalizations.of(context)!.renameDialogTitle,
+        onSave: (value) => userService.setUserName(value),
+        initialValue: oldName,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return AppLocalizations.of(context)!.renameDialogEmptyError;
+          }
+          return null;
+        },
       );
     },
   );
@@ -155,8 +132,8 @@ void _deleteAccount(BuildContext context, UserService userService) {
     context: context,
     builder: (context) {
       return ApprovalDialog(
-        title: "Konto löschen",
-        message: "Bist du dir wirklich sicher? Es gibt danach keinen Weg zurück",
+        title: AppLocalizations.of(context)!.deleteAccountDialogTitle,
+        message: AppLocalizations.of(context)!.deleteAccountDialogDescription,
         onApproval: () {
           userService.deleteAccount();
           Navigator.of(context).pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);

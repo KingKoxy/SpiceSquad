@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/models/group.dart";
 import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/screens/group_detail_screen/group_detail_screen.dart";
 import "package:spice_squad/screens/group_joining_screen.dart";
@@ -21,7 +23,7 @@ class GroupList extends ConsumerWidget {
         Row(
           children: [
             Text(
-              "Squads",
+              AppLocalizations.of(context)!.squadListLabel,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             AddButton(
@@ -61,7 +63,7 @@ class GroupList extends ConsumerWidget {
                                 ),
                                 RemoveButton(
                                   onPressed: () {
-                                    _leaveGroup(context, ref.read(groupServiceProvider.notifier), groups[index].id);
+                                    _leaveGroup(context, ref.read(groupServiceProvider.notifier), groups[index]);
                                   },
                                 )
                               ],
@@ -73,7 +75,7 @@ class GroupList extends ConsumerWidget {
                   : Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Text(
-                        "Bisher bist du kein Mitglied einer Squad",
+                        AppLocalizations.of(context)!.userNotInAnySquads,
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.grey),
                       ),
                     ),
@@ -90,16 +92,16 @@ class GroupList extends ConsumerWidget {
     );
   }
 
-  void _leaveGroup(BuildContext context, GroupService groupService, String groupId) {
+  void _leaveGroup(BuildContext context, GroupService groupService, Group group) {
     showDialog(
       context: context,
       builder: (context) {
         return ApprovalDialog(
-          title: "Squad verlassen",
-          message: "Bist du sicher, dass du die Squad verlassen möchtest?",
+          title: AppLocalizations.of(context)!.leaveSquadDialogTitle,
+          message: AppLocalizations.of(context)!.leaveSquadDialogDescription(group.name),
           onApproval: () {
             Navigator.of(context).pop();
-            groupService.leaveGroup(groupId);
+            groupService.leaveGroup(group.id);
           },
         );
       },

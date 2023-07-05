@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:spice_squad/models/ingredient.dart";
 import "package:spice_squad/screens/ingredient_creation_screen/ingredient_creation_screen.dart";
 import "package:spice_squad/widgets/add_button.dart";
@@ -7,10 +8,12 @@ import "package:spice_squad/widgets/remove_button.dart";
 /// Widget for displaying a list of ingredients
 class IngredientList extends StatefulWidget {
   /// The ingredients to display
-  final List<Ingredient> ingredients;
+  final List<Ingredient> initialList;
+
+  final ValueChanged<List<Ingredient>> onChanged;
 
   /// Creates a new ingredient list
-  const IngredientList({required this.ingredients, super.key});
+  const IngredientList({required this.initialList, required this.onChanged, super.key});
 
   @override
   State<IngredientList> createState() => _IngredientListState();
@@ -21,7 +24,7 @@ class _IngredientListState extends State<IngredientList> {
 
   @override
   void initState() {
-    _ingredients = widget.ingredients;
+    _ingredients = widget.initialList;
     super.initState();
   }
 
@@ -32,14 +35,17 @@ class _IngredientListState extends State<IngredientList> {
         Row(
           children: [
             Text(
-              "Zutaten",
+              AppLocalizations.of(context)!.ingredientListHeadline,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             AddButton(
               onPressed: () {
                 Navigator.pushNamed(context, IngredientCreationScreen.routeName).then(
                   (value) => setState(() {
-                    if (value != null) _ingredients.add(value as Ingredient);
+                    if (value != null) {
+                      _ingredients.add(value as Ingredient);
+                      widget.onChanged(_ingredients);
+                    }
                   }),
                 );
               },
@@ -105,7 +111,7 @@ class _IngredientListState extends State<IngredientList> {
               : Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
-                    "Bisher hast du noch keine Zutate hinzugefügt.",
+                    AppLocalizations.of(context)!.noIngredientsAddedMessage,
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.grey),
                   ),
                 ),

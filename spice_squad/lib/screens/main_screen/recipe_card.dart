@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/providers/service_providers.dart";
@@ -93,7 +94,7 @@ class RecipeCard extends ConsumerWidget {
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
-                                  "${recipe.duration} min",
+                                  AppLocalizations.of(context)!.duration(recipe.duration),
                                   style: Theme.of(context).textTheme.titleSmall,
                                 )
                               ],

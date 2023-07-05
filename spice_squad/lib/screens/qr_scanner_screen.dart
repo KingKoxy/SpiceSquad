@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:mobile_scanner/mobile_scanner.dart";
 
 /// Screen for scanning a QR-Code
@@ -19,7 +20,7 @@ class QRScannerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final groupCodeRegex = RegExp(r"\d{4}-\d{4}");
     return Scaffold(
-      appBar: AppBar(title: const Text("QR-Code scannen")),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.qrScannerHeadline)),
       body: MobileScanner(
         // fit: BoxFit.contain,
         onDetect: (capture) {

@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 
 /// A field that is used to select an amount of portions.
 class PortionAmountField extends StatelessWidget {
@@ -27,6 +28,10 @@ class PortionAmountField extends StatelessWidget {
           children: [
             Expanded(
               child: TextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) return AppLocalizations.of(context)!.valueNotANumberError;
+                  return null;
+                },
                 style: Theme.of(context).textTheme.titleSmall,
                 initialValue: initialValue.toString(),
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -47,7 +52,7 @@ class PortionAmountField extends StatelessWidget {
                 alignment: Alignment.center,
                 color: Theme.of(context).colorScheme.primary,
                 child: Text(
-                  "Portionen",
+                  AppLocalizations.of(context)!.portions,
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
               ),

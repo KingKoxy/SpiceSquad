@@ -1,3 +1,5 @@
+import "package:flutter/cupertino.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:spice_squad/models/recipe.dart";
 
 /// Enum for the different sort categories.
@@ -23,15 +25,15 @@ enum SortCategory {
     }
   }
 
-  @override
-  String toString() {
+  /// Returns the string representation of the sort category.
+  String getName(BuildContext context) {
     switch (this) {
       case SortCategory.title:
-        return "Titel";
+        return AppLocalizations.of(context)!.sortNameTitle;
       case SortCategory.difficulty:
-        return "Schwierigkeit";
+        return AppLocalizations.of(context)!.sortNameDifficulty;
       case SortCategory.creationDate:
-        return "Datum";
+        return AppLocalizations.of(context)!.sortNameDate;
     }
   }
 }

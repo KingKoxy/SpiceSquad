@@ -1,6 +1,8 @@
 import "package:auto_size_text/auto_size_text.dart";
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/models/group.dart";
 import "package:spice_squad/providers/repository_providers.dart";
 import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/screens/group_detail_screen/group_recipe_list.dart";
@@ -8,6 +10,7 @@ import "package:spice_squad/screens/group_detail_screen/member_list.dart";
 import "package:spice_squad/screens/qr_code_screen.dart";
 import "package:spice_squad/services/group_service.dart";
 import "package:spice_squad/widgets/approval_dialog.dart";
+import "package:spice_squad/widgets/input_dialog.dart";
 
 /// Screen to display the details of a group
 ///
@@ -31,7 +34,7 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Squad"),
+        title: Text(AppLocalizations.of(context)!.groupDetailHeadline),
       ),
       body: Center(
         child: FutureBuilder(
@@ -88,7 +91,7 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
                           ),
                           IconButton(
                             onPressed: () {
-                              _leaveGroup(ref.read(groupServiceProvider.notifier), group.id);
+                              _leaveGroup(ref.read(groupServiceProvider.notifier), group);
                             },
                             icon: const ImageIcon(
                               AssetImage("assets/icons/logout.png"),
@@ -98,8 +101,8 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
                         ],
                       ),
                       TextButton(
-                        onPressed: () => _deleteGroup(context, ref.read(groupServiceProvider.notifier), group.id),
-                        child: const Text("Squad auflösen"),
+                        onPressed: () => _deleteGroup(context, ref.read(groupServiceProvider.notifier), group),
+                        child: Text(AppLocalizations.of(context)!.deleteSquadButton),
                       ),
                     ],
                   ),
@@ -107,10 +110,8 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
                     height: 20,
                   ),
                   MemberList(
-                    members: group.members,
                     isAdmin: isAdmin,
-                    groupCode: group.groupCode,
-                    groupId: group.id,
+                    group: group,
                   ),
                   const SizedBox(
                     height: 20,
@@ -132,71 +133,48 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
 
   /// Show a dialog to rename the group with the given [groupId]
   void _renameGroup(BuildContext context, GroupService groupService, String oldName, String groupId) {
-    final formKey = GlobalKey<FormState>();
-    final TextEditingController controller = TextEditingController();
-    controller.text = oldName;
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          title: const Text("Umbenennen"),
-          content: Form(
-            key: formKey,
-            child: TextFormField(
-              decoration: InputDecoration(fillColor: Theme.of(context).colorScheme.onSurfaceVariant),
-              controller: controller,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return "Bitte gib einen neuen Squadnamen ein.";
-                }
-                return null;
-              },
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text("Abbrechen"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: const Text("Speichern"),
-              onPressed: () {
-                if (formKey.currentState!.validate()) {
-                  groupService.setGroupName(groupId, controller.text);
-                  Navigator.of(context).pop();
-                }
-              },
-            ),
-          ],
+        return InputDialog(
+          title: AppLocalizations.of(context)!.renameDialogTitle,
+          initialValue: oldName,
+          onSave: (String value) {
+            groupService.setGroupName(groupId, value);
+          },
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return AppLocalizations.of(context)!.squadNameEmptyError;
+            }
+            return null;
+          },
         );
       },
     );
   }
 
-  /// Leaves the group with the given [groupId]
-  void _leaveGroup(GroupService groupService, String groupId) {
+  /// Leaves the given group
+  void _leaveGroup(GroupService groupService, Group group) {
     showDialog(
       context: context,
       builder: (context) => ApprovalDialog(
-        title: "Squad verlassen",
-        message: "Willst du wirklich die Squad verlassen?",
-        onApproval: () => groupService.leaveGroup(groupId),
+        title: AppLocalizations.of(context)!.leaveSquadDialogTitle,
+        message: AppLocalizations.of(context)!.leaveSquadDialogDescription(group.name),
+        onApproval: () => groupService.leaveGroup(group.id),
       ),
     );
   }
 
   /// Shows a dialog to confirm the deletion of a group
-  void _deleteGroup(BuildContext context, GroupService groupService, String groupId) {
+  void _deleteGroup(BuildContext context, GroupService groupService, Group group) {
     showDialog(
       context: context,
       builder: (context) {
         return ApprovalDialog(
-          title: "Squad auflösen",
-          message: "Bist du dir wirklich sicher? Es gibt danach keinen Weg zurück",
+          title: AppLocalizations.of(context)!.deleteSquadDialogTitle,
+          message: AppLocalizations.of(context)!.deleteSquadDialogDescription(group.name),
           onApproval: () {
-            groupService.deleteGroup(groupId);
+            groupService.deleteGroup(group.id);
             Navigator.of(context).pop();
           },
         );

@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:spice_squad/models/difficulty.dart";
 
 /// A dialog that lets the user pick a [Difficulty].
@@ -32,7 +33,7 @@ class _DifficultyPickerDialogState extends State<DifficultyPickerDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text("Schwierigkeit auswählen"),
+      title: Text(AppLocalizations.of(context)!.selectDifficultyHeadline),
       content: SingleChildScrollView(
         child: Column(
           children: [
@@ -74,14 +75,14 @@ class _DifficultyPickerDialogState extends State<DifficultyPickerDialog> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: const Text("Abbrechen"),
+          child: Text(AppLocalizations.of(context)!.cancelButtonLabel),
         ),
         TextButton(
           onPressed: () {
             widget.onChanged(_difficulty);
             Navigator.of(context).pop();
           },
-          child: const Text("Speichern"),
+          child: Text(AppLocalizations.of(context)!.saveButtonLabel),
         )
       ],
     );

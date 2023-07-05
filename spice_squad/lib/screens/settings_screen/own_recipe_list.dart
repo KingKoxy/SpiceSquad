@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/providers/repository_providers.dart";
@@ -23,7 +24,7 @@ class OwnRecipeList extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              "Meine Rezepte",
+              AppLocalizations.of(context)!.myRecipeListLabel,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
@@ -74,7 +75,7 @@ class OwnRecipeList extends ConsumerWidget {
                                     ),
                                     RemoveButton(
                                       onPressed: () =>
-                                          _deleteRecipe(context, ref.read(recipeServiceProvider.notifier), recipe.id),
+                                          _deleteRecipe(context, ref.read(recipeServiceProvider.notifier), recipe),
                                     ),
                                   ],
                                 )
@@ -87,7 +88,7 @@ class OwnRecipeList extends ConsumerWidget {
                   : Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Text(
-                        "Bisher hast du keine Rezepte erstellt",
+                        AppLocalizations.of(context)!.userHasNoRecipes,
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.grey),
                       ),
                     ),
@@ -112,16 +113,16 @@ class OwnRecipeList extends ConsumerWidget {
     recipeService.exportRecipe(recipe);
   }
 
-  void _deleteRecipe(BuildContext context, RecipeService recipeService, String recipeId) {
+  void _deleteRecipe(BuildContext context, RecipeService recipeService, Recipe recipe) {
     showDialog(
       context: context,
       builder: (context) {
         return ApprovalDialog(
-          title: "Rezept löschen",
-          message: "Bist du sicher, dass du das Rezept löschen möchtest?",
+          title: AppLocalizations.of(context)!.deleteRecipeDialogTitle,
+          message: AppLocalizations.of(context)!.deleteRecipeDialogDescription(recipe.title),
           onApproval: () {
             Navigator.of(context).pop();
-            recipeService.deleteRecipe(recipeId);
+            recipeService.deleteRecipe(recipe.id);
           },
         );
       },
