@@ -18,4 +18,8 @@ abstract class SpiceSquadIconImages {
   static const ImageProvider sortDescending = AssetImage("assets/icons/sort_descending.png");
   static const ImageProvider sortAscending = AssetImage("assets/icons/sort_ascending.png");
 
+  static const ImageProvider qrCode = AssetImage("assets/icons/qr_code.png");
+  static const ImageProvider leave = AssetImage("assets/icons/leave.png");
+  static const ImageProvider edit = AssetImage("assets/icons/edit.png");
+
 }
