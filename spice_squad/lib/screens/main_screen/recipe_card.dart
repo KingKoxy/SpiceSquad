@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/icons.dart";
 import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/screens/recipe_detail_screen/recipe_detail_screen.dart";
@@ -49,6 +50,9 @@ class RecipeCard extends ConsumerWidget {
                   ),
                 ],
               ),
+              const SizedBox(
+                height: 10,
+              ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -67,8 +71,8 @@ class RecipeCard extends ConsumerWidget {
                                   fit: BoxFit.cover,
                                 )
                               : //Image.memory(recipe.image!, fit: BoxFit.cover)
-                              Center(
-                                  child: SizedBox(height: 32, width: 32, child: Image.asset("assets/icons/image.png")),
+                              const Center(
+                                  child: ImageIcon(SpiceSquadIconImages.image, size: 32),
                                 ),
                         ),
                       ),
@@ -89,9 +93,9 @@ class RecipeCard extends ConsumerWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset(
-                                  "assets/icons/clock.png",
-                                ),
+                                const ImageIcon(
+                                  SpiceSquadIconImages.timer,
+                                  size: 32,),
                                 const SizedBox(width: 8),
                                 Text(
                                   AppLocalizations.of(context)!.duration(recipe.duration),
@@ -108,7 +112,9 @@ class RecipeCard extends ConsumerWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset("assets/icons/flame.png"),
+                                const ImageIcon(
+                                  SpiceSquadIconImages.flame,
+                                  size: 32,),
                                 const SizedBox(width: 8),
                                 Text(
                                   recipe.difficulty.toString(),

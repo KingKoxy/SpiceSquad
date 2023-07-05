@@ -1,6 +1,9 @@
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/icons.dart";
 import "package:spice_squad/models/recipe.dart";
+import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/screens/recipe_creation_screen/recipe_creation_screen.dart";
 import "package:spice_squad/screens/recipe_detail_screen/ingredient_list.dart";
 import "package:spice_squad/screens/recipe_detail_screen/label_list.dart";
@@ -39,8 +42,10 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
         title: Text(widget.recipe.title),
         actions: <Widget>[
           IconButton(
+            iconSize: 32,
+            splashRadius: 24,
             onPressed: () => Navigator.of(context).pushNamed(RecipeCreationScreen.routeName, arguments: widget.recipe),
-            icon: const Icon(Icons.edit),
+            icon: const ImageIcon(SpiceSquadIconImages.edit),
           )
         ],
       ),
@@ -54,9 +59,9 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  TagItem(image: const AssetImage("assets/icons/person.png"), name: widget.recipe.author.userName),
+                  TagItem(image: SpiceSquadIconImages.person, name: widget.recipe.author.userName),
                   TagItem(
-                    image: const AssetImage("assets/icons/calendar.png"),
+                    image: SpiceSquadIconImages.calendar,
                     name:
                         "${widget.recipe.uploadDate.day}.${widget.recipe.uploadDate.month}.${widget.recipe.uploadDate.year}",
                   ),
@@ -90,12 +95,15 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                     initialValue: widget.recipe.defaultPortionAmount,
                   ),
                 ),
-                FavouriteButton(
-                  value: widget.recipe.isFavourite,
-                  onToggle: () {
-                    //TODO: Implement favourite toggle
-                  },
-                ),
+                const SizedBox(width: 10),
+                Consumer(builder: (context, ref, child) {
+                  return FavouriteButton(
+                    value: widget.recipe.isFavourite,
+                    onToggle: () {
+                      ref.read(recipeServiceProvider.notifier).toggleFavourite(widget.recipe);
+                    },
+                  );
+                },),
               ],
             ),
             Text(

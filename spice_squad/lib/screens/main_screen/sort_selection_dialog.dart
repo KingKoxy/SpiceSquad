@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
+import "package:spice_squad/icons.dart";
 import "package:spice_squad/screens/main_screen/sort.dart";
 import "package:spice_squad/screens/main_screen/sort_category.dart";
 
@@ -50,8 +51,7 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
                     children: [
                       ImageIcon(
                         selectedSort.ascending
-                            ? const AssetImage("assets/icons/sortAscending.png")
-                            : const AssetImage("assets/icons/sortDescending.png"),
+                            ? SpiceSquadIconImages.sortAscending : SpiceSquadIconImages.sortDescending,
                         color: Colors.white,
                       ),
                       const SizedBox(

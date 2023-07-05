@@ -48,7 +48,7 @@ abstract class SpiceSquadTheme {
           showSelectedLabels: false,
           showUnselectedLabels: false,
           selectedIconTheme: const IconThemeData(
-            size: 48,
+            size: 40,
           ),
           unselectedIconTheme: const IconThemeData(
             size: 32,

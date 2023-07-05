@@ -2,6 +2,7 @@ import "dart:typed_data";
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/icons.dart";
 import "package:spice_squad/models/difficulty.dart";
 import "package:spice_squad/models/ingredient.dart";
 import "package:spice_squad/models/recipe.dart";
@@ -109,31 +110,31 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
                 child: Row(
                   children: [
                     ToggleableLabelWidget(
-                      image: const AssetImage("assets/icons/milk.png"),
+                      image: SpiceSquadIconImages.cheese,
                       name: AppLocalizations.of(context)!.labelVegetarian,
                       initialActive: _isVegetarian,
                       onChanged: (value) => _isVegetarian = value,
                     ),
                     ToggleableLabelWidget(
-                      image: const AssetImage("assets/icons/avocado.png"),
+                      image: SpiceSquadIconImages.avocado,
                       name: AppLocalizations.of(context)!.labelVegan,
                       initialActive: _isVegan,
                       onChanged: (value) => _isVegan = value,
                     ),
                     ToggleableLabelWidget(
-                      image: const AssetImage("assets/icons/glutenFree.png"),
+                      image: SpiceSquadIconImages.glutenFree,
                       name: AppLocalizations.of(context)!.labelGlutenFree,
                       initialActive: _isGlutenFree,
                       onChanged: (value) => _isGlutenFree = value,
                     ),
                     ToggleableLabelWidget(
-                      image: const AssetImage("assets/icons/islam.png"),
+                      image: SpiceSquadIconImages.islam,
                       name: AppLocalizations.of(context)!.labelHalal,
                       initialActive: _isHalal,
                       onChanged: (value) => _isHalal = value,
                     ),
                     ToggleableLabelWidget(
-                      image: const AssetImage("assets/icons/judaism.png"),
+                      image: SpiceSquadIconImages.judaism,
                       name: AppLocalizations.of(context)!.labelKosher,
                       initialActive: _isKosher,
                       onChanged: (value) => _isKosher = value,
@@ -164,7 +165,8 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
                       decoration: InputDecoration(
                         hintText: AppLocalizations.of(context)!.durationInputLabel,
                         suffixText: AppLocalizations.of(context)!.durationUnit,
-                        prefixIcon: const ImageIcon(AssetImage("assets/icons/clock.png")),
+                        prefixIcon:
+                            const Padding(padding: EdgeInsets.all(10), child: ImageIcon(SpiceSquadIconImages.timer)),
                         prefixIconColor: Colors.white,
                       ),
                     ),

@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:spice_squad/icons.dart";
 import "package:spice_squad/screens/main_screen/sort.dart";
 import "package:spice_squad/screens/main_screen/sort_selection_dialog.dart";
 
@@ -20,9 +21,7 @@ class SortSelectionWidget extends StatelessWidget {
       child: Row(
         children: [
           ImageIcon(
-            selectedSort.ascending
-                ? const AssetImage("assets/icons/sortAscending.png")
-                : const AssetImage("assets/icons/sortDescending.png"),
+            selectedSort.ascending ? SpiceSquadIconImages.sortAscending : SpiceSquadIconImages.sortDescending,
             color: Colors.white,
           ),
           const SizedBox(width: 5),

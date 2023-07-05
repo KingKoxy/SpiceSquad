@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/icons.dart";
 import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/screens/main_screen/filter_category.dart";
@@ -44,7 +45,10 @@ class _MainScreenState extends ConsumerState<MainScreen> {
               controller: widget._searchController,
               decoration: InputDecoration(
                 iconColor: Colors.white,
-                icon: const ImageIcon(AssetImage("assets/icons/search.png")),
+                icon: const ImageIcon(
+                  size: 32,
+                  SpiceSquadIconImages.search,
+                ),
                 suffixIconColor: Colors.white,
                 suffixIcon: widget._searchController.text != ""
                     ? IconButton(

@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
+import "package:spice_squad/icons.dart";
 import "package:spice_squad/screens/main_screen/filter_category.dart";
 import "package:spice_squad/screens/main_screen/filter_selection_dialog.dart";
 
@@ -21,7 +22,7 @@ class FilterSelectionWidget extends StatelessWidget {
       child: Row(
         children: [
           const ImageIcon(
-            AssetImage("assets/icons/filter.png"),
+            SpiceSquadIconImages.filter,
             color: Colors.white,
           ),
           const SizedBox(width: 5),

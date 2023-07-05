@@ -2,6 +2,7 @@ import "package:auto_size_text/auto_size_text.dart";
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/icons.dart";
 import "package:spice_squad/models/group.dart";
 import "package:spice_squad/providers/repository_providers.dart";
 import "package:spice_squad/providers/service_providers.dart";
@@ -71,8 +72,9 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
                               ),
                             if (isAdmin)
                               const ImageIcon(
-                                AssetImage("assets/icons/pen2.png"),
+                                SpiceSquadIconImages.edit,
                                 color: Colors.white,
+                                size: 32,
                               )
                           ],
                         ),
@@ -81,21 +83,23 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           IconButton(
+                            iconSize: 48,
+                            splashRadius: 32,
                             onPressed: () {
                               Navigator.of(context).pushNamed(QRCodeScreen.routeName, arguments: group);
                             },
                             icon: const ImageIcon(
-                              AssetImage("assets/icons/qr_code.png"),
-                              size: 48,
+                              SpiceSquadIconImages.qrCode,
                             ),
                           ),
                           IconButton(
+                            iconSize: 48,
+                            splashRadius: 32,
                             onPressed: () {
                               _leaveGroup(ref.read(groupServiceProvider.notifier), group);
                             },
                             icon: const ImageIcon(
-                              AssetImage("assets/icons/logout.png"),
-                              size: 48,
+                              SpiceSquadIconImages.leave,
                             ),
                           ),
                         ],

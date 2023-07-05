@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:spice_squad/icons.dart";
 import "package:spice_squad/screens/main_screen/main_screen.dart";
 import "package:spice_squad/screens/recipe_creation_screen/recipe_creation_screen.dart";
 import "package:spice_squad/screens/settings_screen/settings_screen.dart";
@@ -37,15 +38,15 @@ class NavBar extends StatelessWidget {
           onTap: (index) => {if (index != currentIndex) Navigator.of(context).pushReplacementNamed(_routes[index])},
           items: const [
             BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage("assets/icons/writing.png")),
+              icon: ImageIcon(SpiceSquadIconImages.createDocument),
               label: "Create Recipe",
             ),
             BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage("assets/icons/home.png")),
+              icon: ImageIcon(SpiceSquadIconImages.home),
               label: "Home",
             ),
             BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage("assets/icons/user.png")),
+              icon: ImageIcon(SpiceSquadIconImages.people),
               label: "Settings",
             ),
           ],

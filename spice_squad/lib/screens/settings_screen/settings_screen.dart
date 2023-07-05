@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/icons.dart";
 import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/screens/login_screen.dart";
 import "package:spice_squad/screens/settings_screen/group_list.dart";
@@ -31,7 +32,7 @@ class SettingsScreen extends ConsumerWidget {
               onPressed: () {
                 _logout(context, ref.read(userServiceProvider.notifier));
               },
-              icon: const ImageIcon(AssetImage("assets/icons/logout.png")),
+              icon: const ImageIcon(SpiceSquadIconImages.leave),
             )
           ],
         ),
@@ -67,7 +68,7 @@ class SettingsScreen extends ConsumerWidget {
                                 width: 8,
                               ),
                               const ImageIcon(
-                                AssetImage("assets/icons/pen2.png"),
+                                SpiceSquadIconImages.edit,
                                 color: Colors.white,
                               )
                             ],

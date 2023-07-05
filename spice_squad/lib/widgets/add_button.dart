@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:spice_squad/icons.dart";
 
 /// A button that is used to indicate adding something.
 class AddButton extends StatelessWidget {
@@ -13,8 +14,8 @@ class AddButton extends StatelessWidget {
     return IconButton(
       iconSize: 24,
       onPressed: onPressed,
-      icon: const Icon(
-        Icons.add_circle,
+      icon: const ImageIcon(
+        SpiceSquadIconImages.add,
         size: 24,
         color: Color(0xFF00F5AD),
       ),
