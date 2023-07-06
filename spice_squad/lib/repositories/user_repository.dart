@@ -25,6 +25,7 @@ class UserRepository {
     return user;
   }
 
+  /// Gets the user id that has been obtained by the [fetchCurrentUser] method or returns null if the user is not logged in
   String? getUserId() {
     return _userId;
   }

@@ -9,6 +9,7 @@ class DifficultyPickerWidget extends StatefulWidget {
   /// The initial value of the picker
   final Difficulty? initialValue;
 
+  /// The callback for when the value changes
   final ValueChanged<Difficulty> onChanged;
 
   /// Creates a new difficulty picker widget
@@ -33,7 +34,10 @@ class _DifficultyPickerWidgetState extends State<DifficultyPickerWidget> {
       height: double.infinity,
       child: InkWell(
         child: TagItem(
-            margin: EdgeInsets.zero, image: SpiceSquadIconImages.flame, name: _difficulty.toString(),),
+          margin: EdgeInsets.zero,
+          image: SpiceSquadIconImages.flame,
+          name: _difficulty.toString(),
+        ),
         onTap: () => _showDifficultyPickerDialog(context),
       ),
     );
