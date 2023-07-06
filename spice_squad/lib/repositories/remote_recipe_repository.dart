@@ -1,5 +1,9 @@
+import "dart:convert";
+import "dart:io";
 import "dart:math";
 import "dart:typed_data";
+import "package:http/http.dart" as http;
+import "package:spice_squad/api_endpoints.dart";
 import "package:spice_squad/models/difficulty.dart";
 import "package:spice_squad/models/ingredient.dart";
 import "package:spice_squad/models/recipe.dart";
@@ -59,9 +63,14 @@ class RemoteRecipeRepository {
   }
 
   /// Creates a new recipe with the values from [recipe]
-  Future<void> createRecipe(RecipeCreationData recipe) {
-    //TODO: implement recipe creation
-    throw UnimplementedError();
+  Future<void> createRecipe(RecipeCreationData recipe) async {
+    await http.post(
+      Uri.parse(ApiEndpoints.recipeBase),
+      headers: {
+        HttpHeaders.authorizationHeader: "Bearer ${await _userRepository.getToken()}",
+      },
+      body: jsonEncode(recipe),
+    );
   }
 
   /// Deletes the recipe with the given [recipeId]

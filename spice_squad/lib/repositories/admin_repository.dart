@@ -1,3 +1,6 @@
+import "dart:io";
+import "package:http/http.dart" as http;
+import "package:spice_squad/api_endpoints.dart";
 import "package:spice_squad/repositories/user_repository.dart";
 
 /// Repository for admin actions
@@ -10,9 +13,20 @@ class AdminRepository {
   AdminRepository(this._userRepository);
 
   /// Makes the user with the given [userId] an admin of the group with the given [groupId]
-  Future<void> makeAdmin(String userId, String groupId) {
-    //TODO: implement admin making
-    throw UnimplementedError();
+  Future<void> makeAdmin(String userId, String groupId) async {
+    final response = await http.patch(
+      Uri.parse(ApiEndpoints.makeAdmin),
+      headers: {
+        HttpHeaders.authorizationHeader: "Bearer ${await _userRepository.getToken()}",
+      },
+      body: {
+        "userId": userId,
+        "groupId": groupId,
+      },
+    );
+    if (response.statusCode != 200) {
+      throw Exception("Failed to make user admin");
+    }
   }
 
   /// Removes the admin status of the user with the given [userId] in the group with the given [groupId]

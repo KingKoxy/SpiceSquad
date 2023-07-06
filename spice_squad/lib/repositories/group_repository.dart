@@ -1,5 +1,8 @@
+import "dart:io";
 import "dart:math";
 import "dart:typed_data";
+import "package:http/http.dart" as http;
+import "package:spice_squad/api_endpoints.dart";
 import "package:spice_squad/models/difficulty.dart";
 import "package:spice_squad/models/group.dart";
 import "package:spice_squad/models/group_member.dart";
@@ -144,9 +147,16 @@ class GroupRepository {
   }
 
   /// Makes the current user join the group with the given [groupCode]
-  Future<List<Group>> joinGroup(String groupCode) {
-    //TODO: implement group joining
-    throw UnimplementedError();
+  Future<void> joinGroup(String groupCode) async {
+    await http.patch(
+      Uri.parse(ApiEndpoints.joinGroup),
+      headers: {
+        HttpHeaders.authorizationHeader: "Bearer ${await _userRepository.getToken()}",
+      },
+      body: {
+        "groupCode": groupCode,
+      },
+    );
   }
 
   /// Makes the current user leave the group with the given [groupId]
