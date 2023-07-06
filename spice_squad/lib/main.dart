@@ -33,7 +33,7 @@ class SpiceSquad extends StatelessWidget {
       child: MaterialApp(
         title: "SpiceSquad",
         theme: SpiceSquadTheme.themeData,
-        initialRoute: MainScreen.routeName,
+        initialRoute: LoginScreen.routeName,
         onGenerateRoute: (settings) {
           switch (settings.name) {
             case MainScreen.routeName:
