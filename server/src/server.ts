@@ -18,14 +18,13 @@ import express = require("express");
 import Application from "./application";
 import firebase = require("firebase-admin");
 import "dotenv/config";
-import Database from "./database";
 
 class Server {
   private port: number = parseInt(process.env.SV_PORT) || 3000;
   private firebase_credentials: any = require("../firebase_credentials.json");
   private express: express.Application;
   private application: Application;
-  private database: Database;
+
 
   /**
    * @function start
@@ -51,7 +50,6 @@ class Server {
   }
 
   private connectToDatabase(): boolean {
-    this.database = new Database();
     return true;
   }
 

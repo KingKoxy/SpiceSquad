@@ -48,7 +48,7 @@ model Ingredient {
   amount         Float?
   unit           String?        @db.VarChar(16)
   recipe_id      String         @db.Uuid
-  IngredientIcon IngredientIcon @relation(fields: [icon_name], references: [id], onDelete: Cascade)
+  IngredientIcon IngredientIcon @relation(fields: [icon_name], references: [id])
   Recipe         Recipe         @relation(fields: [recipe_id], references: [id], onDelete: Cascade)
 }
 

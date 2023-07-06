@@ -1,4 +1,3 @@
-import Database from "./../../database";
 import { PrismaClient } from "@prisma/client";
 import firebase = require("firebase/app");
 import firebaseAdmin = require("firebase-admin");
@@ -20,11 +19,9 @@ abstract class AbstractController {
   protected firebaseAdmin = firebaseAdmin;
   protected firebaseAuth = firebaseAuth;
   protected auth: firebaseAuth.Auth;
-  protected database: Database;
   protected prisma: PrismaClient;
 
   constructor() {
-    this.database = new Database();
     this.prisma = new PrismaClient();
     firebase.initializeApp(this.firebaseConfig);
     this.auth = firebaseAuth.getAuth();
