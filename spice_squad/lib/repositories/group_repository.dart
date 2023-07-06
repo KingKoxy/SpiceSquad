@@ -30,7 +30,7 @@ class GroupRepository {
         random.nextInt(8),
         (_) => Group(
           id: "groupId",
-          name: {"Backen", "WG", "Karlsruher Intellektuelle", "BDSM Club"}.elementAt(random.nextInt(4)),
+          name: {"Backen", "WG", "Karlsruher Intellektuelle", "Lerngruppe"}.elementAt(random.nextInt(4)),
           groupCode: "1234-5678",
           members: List.generate(
             random.nextInt(20),
@@ -67,7 +67,7 @@ class GroupRepository {
                 ingredients: [
                   Ingredient(
                     id: "ingredientId",
-                    name: "Mehl",
+                    name:  {"Mehl", "Eier", "Karotten"}.elementAt(random.nextInt(3)),
                     iconId: "iconId",
                     amount: random.nextDouble() * 200,
                     unit: "g",
@@ -92,8 +92,8 @@ class GroupRepository {
       const Duration(milliseconds: 2000),
       () => Group(
         id: id,
-        name: {"Backen", "WG", "Karlsruher Intellektuelle", "BDSM Club"}.elementAt(random.nextInt(4)),
-        groupCode: "1234-5678",
+        name: {"Backen", "WG", "Karlsruher Intellektuelle", "Lerngruppe"}.elementAt(random.nextInt(4)),
+        groupCode: "${1000+random.nextInt(9000)}-${1000+random.nextInt(9000)}",
         members: List.generate(
           1 + random.nextInt(12),
           (_) => GroupMember(
@@ -130,7 +130,7 @@ class GroupRepository {
               ingredients: [
                 Ingredient(
                   id: "ingredientId",
-                  name: "Mehl",
+                  name: {"Mehl", "Eier", "Karotten"}.elementAt(random.nextInt(3)),
                   iconId: "iconId",
                   amount: random.nextDouble() * 200,
                   unit: "g",

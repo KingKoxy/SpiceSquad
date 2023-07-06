@@ -10,7 +10,7 @@ class IngredientNameRepository {
     "Auberginen",
     "Kartoffeln",
     "Meerrettich",
-    "Hähnchenbrust"
+    "Hühnchenbrust"
   ];
 
   /// Fetches all ingredient names

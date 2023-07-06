@@ -49,7 +49,7 @@ class RemoteRecipeRepository {
             2 + random.nextInt(6),
             (index) => Ingredient(
               id: "ingredientId",
-              name: "Karotten",
+              name: {"Mehl", "Eier", "Karotten"}.elementAt(random.nextInt(3)),
               iconId: "carrot",
               amount: random.nextDouble() * 200,
               unit: "g",
