@@ -192,18 +192,61 @@ class RecipeController extends AbstractController {
     res: express.Response
   ): Promise<void> {
     // Get all recipes for user from DB where user is author
-    this.prisma.recipe
-      .findMany({
+
+    this.prisma.groupMember.findMany({
+      where: {
+        user_id: req.body.userId,
+      },
+
+    }).then((result) => {
+      var groups: Set<string> = new Set();
+      for (var a of result) {
+        groups.add(a.group_id);
+      }
+      let groupArray = Array.from(groups);
+      this.prisma.groupMember.findMany({
         where: {
-          author_id: req.body.userId,
-        },
+          group_id: {
+            in: groupArray
+          }
+        }
+      }).then((result) => {
+      var allusers: Set<string> = new Set();
+      for (var a of result) {
+        allusers.add(a.user_id);
+      }
+      let userArray = Array.from(allusers);
+      
+      this.prisma.recipe.findMany({
+        where: {
+          author_id: {
+            in: userArray
+          },
+          is_private: false
+        }
+      }).then((result) => {
+        var recipes: Map<string,string> = new Map();
+        for (var a of result) {
+          recipes.set(a.id, a.author_id);
+        }
+        let recipeArray = Array.from(recipes.keys());
+        this.prisma.censoredRecipe.findMany({
+          where: {
+            recipe_id: {
+              in: recipeArray
+            }
+          }
+        }).then((result) => {
+          var censoredRecipes: Set<string> = new Set();
+          for (var a of result) { 
+            censoredRecipes.add(a.recipe_id);
+          }
+          
+        })
       })
-      .then((result) => {
-        console.log(result);
-        res.status(200).json({
-          recipes: result,
-        });
-      });
+    })
+    })
+
     //Get all recipes for user from DB where user groupmember and recipe is not private and recipe is not censorred
   }
 

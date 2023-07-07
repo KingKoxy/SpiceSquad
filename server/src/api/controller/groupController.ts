@@ -2,7 +2,7 @@ import express = require("express");
 import AbstractController from "./abstractController";
 import schema from "../../../joi/schemas/groupSchema";
 import memberSchema from "../../../joi/schemas/groupMemberSchema";
-
+import adminTargetSchema from "../../../joi/schemas/adminTargetSchema";
 class GroupController extends AbstractController {
   constructor() {
     super();
@@ -10,7 +10,8 @@ class GroupController extends AbstractController {
 
   public async groupPost(
     req: express.Request,
-    res: express.Response
+    res: express.Response,
+    next: express.NextFunction
   ): Promise<void> {
     const { error, value } = schema.validate(req.body);
     if (error) {
@@ -18,7 +19,18 @@ class GroupController extends AbstractController {
       return;
     }
 
-    this.prisma.group
+    const result = await this.prisma.user.findFirst({
+      where: {id : req.body.user_id}
+    })
+
+      
+      if(result.created_groups > 9) {
+        console.log(result.created_groups)
+        next(new Error("User has already created maximum number of groups"));
+        return;
+      }
+
+    await this.prisma.group
       .create({
         data: {
           name: req.body.name,
@@ -36,9 +48,14 @@ class GroupController extends AbstractController {
         include: { admin: true, groupMember: true },
       })
       .then((result) => {
+        this.prisma.user.update({
+          where: {id : req.body.user_id},
+          data: {created_groups : {increment : 1}}
+        }).then((result) => {
         res.status(200).json({
           message: "Group created successfully!",
         });
+      });
       });
   }
 
@@ -81,17 +98,34 @@ class GroupController extends AbstractController {
 
   public async groupJoin(
     req: express.Request,
-    res: express.Response
+    res: express.Response,
+    next: express.NextFunction
   ): Promise<void> {
-    const { error, value } = memberSchema.validate(req.body);
+    const { error, value } =  memberSchema.validate(req.body);
     if (error) {
       res.status(422).json({ error: error.details[0].message });
       return;
     }
+
+    try{
+    const result = await this.prisma.bannedUser.findMany({
+      where : {
+        user_id : req.body.user_id,
+        group_id : req.body.group_id
+      }
+
+    });
+      if (result.length > 0) {
+        res.status(403).json({
+          error : "User is banned from this group"
+        });
+        return;
+      }
+
     this.prisma.groupMember
       .create({
         data: {
-          user_id: req.body.user_id,
+          user_id: req.body.target_id,
           group_id: req.body.group_id,
         },
       })
@@ -99,7 +133,10 @@ class GroupController extends AbstractController {
         res.status(200).json({
           message: "Joined group!",
         });
-      });
+      })
+    } catch(error){
+      next(error)
+    }
   }
 
   public async groupLeave(

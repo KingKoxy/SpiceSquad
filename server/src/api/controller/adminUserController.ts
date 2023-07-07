@@ -1,6 +1,6 @@
 import express = require("express");
 import AbstractController from "./abstractController";
-import schema from "../../../joi/schemas/groupMemberSchema";
+import schema from "../../../joi/schemas/adminTargetSchema";
 import recipeSchema from "../../../joi/schemas/censoredRecipeSchema";
 
 class AdminUserController extends AbstractController {
