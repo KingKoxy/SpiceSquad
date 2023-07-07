@@ -34,7 +34,7 @@ class GroupController extends AbstractController {
       .create({
         data: {
           name: req.body.name,
-          admin: {
+          Admin: {
             create: {
               user_id: req.body.user_id,
             },
@@ -45,7 +45,7 @@ class GroupController extends AbstractController {
             },
           },
         },
-        include: { admin: true, groupMember: true },
+        include: { Admin: true, groupMember: true },
       })
       .then((result) => {
         this.prisma.user.update({

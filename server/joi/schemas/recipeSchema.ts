@@ -1,7 +1,7 @@
 import Joi from 'joi';
 
 const RecipeSchema = Joi.object({
-    id: Joi.number().positive(),
+    id: Joi.string().length(36),
     title: Joi.string().required(),
     image: Joi.string(),
     duration: Joi.number().positive().required(),

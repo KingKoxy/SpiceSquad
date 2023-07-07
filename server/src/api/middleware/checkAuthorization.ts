@@ -26,6 +26,7 @@ class CheckAuthorization extends abstractMiddleware {
         .verifyIdToken(token)
         .then(async (decodedToken) => {
           uid = decodedToken.uid;
+          console.log(uid);
           await this.prisma.user
             .findUnique({
               where: {
@@ -33,6 +34,7 @@ class CheckAuthorization extends abstractMiddleware {
               },
             })
             .then((user) => {
+              console.log(user);
               req.body.user_id = user.id;
             });
           next();

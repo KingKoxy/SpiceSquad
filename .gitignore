@@ -49,4 +49,5 @@ firebase_credentials.json
 *.code-workspace
 package-lock.json
 *.sql
+server/build
 ```
