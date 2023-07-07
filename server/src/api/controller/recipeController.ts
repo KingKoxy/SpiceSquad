@@ -237,8 +237,10 @@ export default class RecipeController extends AbstractController {
         }
       }).then((result) => {
       var allusers: Set<string> = new Set();
+      var usercount: Map<string,number> = new Map();
       for (var a of result) {
         allusers.add(a.user_id);
+        usercount.set(a.user_id, (usercount.get(a.user_id) || 0) + 1);
       }
       let userArray = Array.from(allusers);
       
@@ -251,8 +253,10 @@ export default class RecipeController extends AbstractController {
         }
       }).then((result) => {
         var recipes: Map<string,string> = new Map();
+        var recipecount: Map<string,number> = new Map();
         for (var a of result) {
           recipes.set(a.id, a.author_id);
+          recipecount.set(a.id, usercount.get(a.author_id));
         }
         let recipeArray = Array.from(recipes.keys());
         this.prisma.censoredRecipe.findMany({
@@ -262,10 +266,28 @@ export default class RecipeController extends AbstractController {
             }
           }
         }).then((result) => {
-          var censoredRecipes: Set<string> = new Set();
           for (var a of result) { 
-            censoredRecipes.add(a.recipe_id);
+            recipecount.set(a.recipe_id, recipecount.get(a.recipe_id) - 1);
           }
+          var retRecipes: Set<string> = new Set();
+          for (var b of recipecount.keys()) {
+            if (recipecount.get(b) > 0) {
+              retRecipes.add(b);
+            }
+          }
+          this.prisma.recipe.findMany({
+            where: {
+              id: {
+                in: Array.from(retRecipes)
+              }
+            },
+            include: {
+              ingredient: true,
+            }
+          }).then((result) => {
+            res.status(200).json(result);
+          }
+          )
           
         })
       })

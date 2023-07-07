@@ -1,6 +1,7 @@
 import express = require("express");
 import AbstractController from "./abstractController";
 
+
 /**
  * @description This class contains the controller for the group router.
  * @class GroupRouter
@@ -49,12 +50,12 @@ export default class GroupController extends AbstractController {
       .create({
         data: {
           name: req.body.groupName,
-          Admin: {
+          Admin: { 
             create: {
               user_id: req.body.userId,
             },
           },
-          groupMember: {
+          groupMember: { 
             create: {
               user_id: req.body.userId,
             },
