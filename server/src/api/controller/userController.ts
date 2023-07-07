@@ -1,14 +1,37 @@
 import express = require("express");
 import AbstractController from "./abstractController";
 
-class UserController extends AbstractController {
+/**
+ * @description This class contains the controller for the user router.
+ * @class UserRouter
+ * @extends abstractRouter
+ * @exports UserRouter
+ * @version 1.0.0
+ * @requires UserController
+ * @requires express
+ */
+export default class UserController extends AbstractController {
+
+  /**
+   * @description This constructor calls the constructor of the abstractController.
+   * @constructor
+   * @param void
+   */
   constructor() {
     super();
   }
 
+  /**
+   * @description This function gets all users.
+   * @param req Express request handler
+   * @param res Express response handler
+   * @param next Express next function (for error handling)
+   * @returns Promise<void>
+   */
   public async userDelete(
     req: express.Request,
-    res: express.Response
+    res: express.Response,
+    next: express.NextFunction
   ): Promise<void> {
     this.prisma.user
       .delete({
@@ -30,15 +53,22 @@ class UserController extends AbstractController {
         });
       })
       .catch((error) => {
-        res.status(500).json({
-          error: error,
-        });
+        req.statusCode = 409;
+        next(error);
       });
   }
 
+  /**
+   * @description This function gets all users.
+   * @param req Express request handler
+   * @param res Express response handler
+   * @param next Express next function (for error handling)
+   * @returns Promise<void>
+   */
   public async userPatch(
     req: express.Request,
-    res: express.Response
+    res: express.Response,
+    next: express.NextFunction
   ): Promise<void> {
     this.prisma.user
       .update({
@@ -57,11 +87,8 @@ class UserController extends AbstractController {
         });
       })
       .catch((error) => {
-        res.status(500).json({
-          error: error,
-        });
+        req.statusCode = 409;
+        next(error);
       });
   }
 }
-
-export default UserController;

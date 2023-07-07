@@ -2,49 +2,81 @@ import express = require("express");
 import AbstractController from "./abstractController";
 import mailSender from "../../mailer/mailSender";
 import reportMailBuilder from "../../mailer/mailBuilder/reportMailBuilder";
-import schema from "../../../joi/schemas/recipeSchema";
 
-class RecipeController extends AbstractController {
+/**
+ * @description This class contains the controller for the recipe router.
+ * @class RecipeRouter
+ * @extends abstractRouter
+ * @exports RecipeRouter
+ * @version 1.0.0
+ * @requires RecipeController
+ * @requires express
+ * @requires AbstractController
+ * @requires mailSender
+ * @requires reportMailBuilder
+ */
+export default class RecipeController extends AbstractController {
+
+  
+  /**
+   * @description This variable contains the mailSender.
+   * @private
+   * @type {mailSender}
+   */
   private mailSender: mailSender;
+
+  /**
+   * @description This variable contains the reportMailBuilder.
+   * @private
+   * @type {reportMailBuilder}
+   */
   private reportMailBuilder: reportMailBuilder;
 
+  /**
+   * @description This constructor calls the constructor of the abstractController.
+   * @constructor
+   * @param void
+   */
   constructor() {
     super();
     this.mailSender = new mailSender();
     this.reportMailBuilder = new reportMailBuilder();
   }
 
+  /**
+   * @description This function gets all recipes.
+   * @param req Express request handler
+   * @param res Express response handler
+   * @param next Express next function (for error handling)
+   * @returns Promise<void>
+   */
   public async recipePost(
     req: express.Request,
-    res: express.Response
+    res: express.Response,
+    next: express.NextFunction
   ): Promise<void> {
-    const { error, value } = schema.validate(req.body);
-    if (error) {
-      res.status(422).json({ error: error.details[0].message });
-      return;
-    }
     await this.prisma.recipe
       .create({
         data: {
           title: req.body.title,
-          author_id: req.body.user_id,
-          image: Buffer.from(req.body.image, "base64"),
+          author_id: req.body.userId,
+          image: Buffer.from(req.body.image, "base64") ,
           duration: parseInt(req.body.duration),
           difficulty: req.body.difficulty.toUpperCase(),
           instructions: req.body.instructions,
-          is_vegetarian: req.body.is_vegetarian,
-          is_vegan: req.body.is_vegan,
-          is_gluten_free: req.body.is_gluten_free,
-          is_kosher: req.body.is_kosher,
-          is_halal: req.body.is_halal,
-          is_private: req.body.is_private,
-          default_portions: parseInt(req.body.default_portions),
+          is_vegetarian: req.body.isVegetarian,
+          is_vegan: req.body.isVegan,
+          is_gluten_free: req.body.isGlutenFree,
+          is_kosher: req.body.isKosher,
+          is_halal: req.body.isHalal,
+          is_private: req.body.isPrivate,
+          default_portions: parseInt(req.body.defaultPortions),
           ingredient: {
             createMany: {
               data: req.body.ingredients.map((ingredient: any) => {
                 return {
                   name: ingredient.name,
-                  icon_name: ingredient.icon_name,
+                  icon_name: ingredient.iconName,
                   amount: parseInt(ingredient.amount),
                   unit: ingredient.unit,
                 };
@@ -55,6 +87,7 @@ class RecipeController extends AbstractController {
         include: {
           ingredient: true,
         },
+        
       })
       .then(() => {
         res.status(200).json({
@@ -66,25 +99,29 @@ class RecipeController extends AbstractController {
           error: error,
         });
       });
+
   }
 
+  /**
+   * @dexcription This function gets a recipe by id.
+   * @param req Express request handler
+   * @param res Express response handler
+   * @param next Express next function (for error handling)
+   * @returns Promise<void>
+   */
   public async recipeDelete(
     req: express.Request,
-    res: express.Response
+    res: express.Response,
+    next: express.NextFunction
   ): Promise<void> {
-    const requireParams = ["recipe_id"];
-    const missingParams = requireParams.filter((param) => !(param in req.body));
-    if (missingParams.length > 0) {
-      res.status(400).json({
-        error: "Missing parameters: " + missingParams.join(", "),
-      });
-      return;
-    }
-    console.log(req.body.recipe_id);
+    if (req.body.userId != req.body.author_id) {
+      res.statusCode = 401;
+        next(new Error("You are not authorized to delete this recipe!"));
+      };
     await this.prisma.recipe
       .delete({
         where: {
-          id: req.body.recipe_id,
+          id: req.params.id,
         },
       })
       .then((result) => {
@@ -99,34 +136,18 @@ class RecipeController extends AbstractController {
       });
   }
 
+  /**
+   * @description This function changes a recipe by id.
+   * @param req Express request handler
+   * @param res Express response handler
+   * @param next Express next function (for error handling)
+   * @returns Promise<void>
+   */
   public async recipePatch(
     req: express.Request,
-    res: express.Response
+    res: express.Response,
+    next: express.NextFunction
   ): Promise<void> {
-    const requireParams = [
-      "recipe_id",
-      "user_id",
-      "title",
-      "image",
-      "duration",
-      "difficulty",
-      "instructions",
-      "is_vegetarian",
-      "is_vegan",
-      "is_gluten_free",
-      "is_kosher",
-      "is_halal",
-      "is_private",
-      "default_portions",
-    ];
-    const missingParams = requireParams.filter((param) => !(param in req.body));
-    if (missingParams.length > 0) {
-      res.status(400).json({
-        error: "Missing parameters: " + missingParams.join(", "),
-      });
-      return;
-    }
-    //const result = await this.pool.query('SELECT author_id FROM "recipe" WHERE id = $1',[req.body.recipe_id]);
     const author = await this.prisma.recipe.findUnique({
       where: {
         id: req.body.recipe_id,
@@ -138,58 +159,62 @@ class RecipeController extends AbstractController {
       });
       return;
     }
+
       this.prisma.recipe.update({
         where: {
           id: req.body.recipe_id,
         },
         data: {
-          title: req.body.title,
-          image: Buffer.from(req.body.image, "base64"),
-          duration: parseInt(req.body.duration),
-          difficulty: req.body.difficulty.toUpperCase(),
-          instructions: req.body.instructions,
-          is_vegetarian: req.body.is_vegetarian,
-          is_vegan: req.body.is_vegan,
-          is_gluten_free: req.body.is_gluten_free,
-          is_kosher: req.body.is_kosher,
-          is_halal: req.body.is_halal,
-          is_private: req.body.is_private,
-          default_portions: parseInt(req.body.default_portions),
+          title: req.body.title || undefined,
+          image: Buffer.from(req.body.image, "base64") || undefined,
+          duration: parseInt(req.body.duration) || undefined,
+          difficulty: req.body.difficulty.toUpperCase() || undefined,
+          instructions: req.body.instructions || undefined,
+          is_vegetarian: req.body.isVegetarian || undefined,
+          is_vegan: req.body.isVegan || undefined,
+          is_gluten_free: req.body.isGlutenFree || undefined,
+          is_kosher: req.body.isKosher || undefined,
+          is_halal: req.body.isHalal || undefined,
+          is_private: req.body.isPrivate || undefined,
+          default_portions: parseInt(req.body.defaultPortions) || undefined,
+          ingredient: {
+            createMany: {
+              data: req.body.ingredients.map((ingredient: any) => {
+                return {
+                  name: ingredient.name,
+                  icon_name: ingredient.iconName,
+                  amount: parseInt(ingredient.amount),
+                  unit: ingredient.unit,
+                };
+              }),
+          },
         },
-      })
+      },
+        include: {
+          ingredient: true,
+        }})
       .then((result) => {
-        for (const ingredient of req.body.ingredients) {
-          const requireParams = ["name", "icon_name", "amount", "unit"];
-          const missingParams = requireParams.filter(
-            (param) => !(param in ingredient)
-          );
-          if (missingParams.length > 0) {
-            res.status(400).json({
-              error: "Missing parameters: " + missingParams.join(", "),
-            });
-            return;
-          }
-          this.prisma.ingredient.update({
-            where: {
-              id: ingredient.id,
-            },
-            data: {
-              name: ingredient.name,
-              icon_name: ingredient.icon_name,
-              amount: ingredient.amount,
-              unit: ingredient.unit,
-            },
-          });
-        }
         res.status(200).json({
           message: "Recipe updated successfully!",
         });
-      });
-  }
+      })
+      .catch((error) => {
+        req.statusCode = 409;
+        next(error);
+        });
+      }
 
+  /**
+   * @description This function gets a recipe by id.
+   * @param req Express request handler
+   * @param res Express response handler
+   * @param next Express next function (for error handling)
+   * @returns Promise<void>
+   */
   public async recipesGetAllForUser(
     req: express.Request,
-    res: express.Response
+    res: express.Response,
+    next: express.NextFunction
   ): Promise<void> {
     // Get all recipes for user from DB where user is author
 
@@ -250,9 +275,17 @@ class RecipeController extends AbstractController {
     //Get all recipes for user from DB where user groupmember and recipe is not private and recipe is not censorred
   }
 
+  /**
+   * @description This function gets a recipe by id.
+   * @param req Express request handler
+   * @param res Express response handler
+   * @param next Express next function (for error handling)
+   * @returns Promise<void>
+   */
   public async recipeReport(
     req: express.Request,
-    res: express.Response
+    res: express.Response,
+    next: express.NextFunction
   ): Promise<void> {
     //get all admins where recipe is in group of admin
     const author = await this.prisma.recipe.findUnique({
@@ -283,19 +316,18 @@ class RecipeController extends AbstractController {
     });
   }
 
+  /**
+   * @description This function changes the favorite status of recipe.
+   * @param req Express request handler
+   * @param res Express response handler
+   * @param next Express next function (for error handling)
+   * @returns Promise<void>
+   */
   public async recipeSetFavorite(
     req: express.Request,
-    res: express.Response
+    res: express.Response,
+    next: express.NextFunction
   ): Promise<void> {
-    const requireParams = ["user_id", "is_favorite"];
-    const missingParams = requireParams.filter((param) => !(param in req.body));
-    if (missingParams.length > 0) {
-      res.status(400).json({
-        error: "Missing parameters2: " + missingParams.join(", "),
-      });
-      return;
-    }
-
     await this.prisma.favorite
       .count({
         where: {
@@ -322,7 +354,6 @@ class RecipeController extends AbstractController {
               });
             });
         } else if (!req.body.is_favorite && result > 0) {
-          //delete recipe from favorites table where recipe_id = req.params.productId and user_id = req.body.user_id
           this.prisma.favorite
             .deleteMany({
               where: {
@@ -351,11 +382,8 @@ class RecipeController extends AbstractController {
         }
       })
       .catch((error) => {
-        res.status(500).json({
-          error: error,
+        req.statusCode = 409;
+          next(error);
         });
-      });
   }
 }
-
-export default RecipeController;

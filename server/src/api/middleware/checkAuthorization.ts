@@ -3,12 +3,38 @@ import express = require("express");
 import { PrismaClient } from "@prisma/client";
 import abstractMiddleware from "./abstractMiddleware";
 
-class CheckAuthorization extends abstractMiddleware {
+/**
+ * @class CheckAuthorization
+ * @description This class is used to check the authorization of a request.
+ * @exports CheckAuthorization
+ * @version 1.0.0
+ * @extends abstractMiddleware
+ * @requires firebase
+ * @requires express
+ * @requires PrismaClient
+ * @requires abstractMiddleware
+ */
+export default class CheckAuthorization extends abstractMiddleware {
 
+  /**
+   * @constructor This constructor initializes the check authorization middleware.
+   * @memberof CheckAuthorization
+   */
   constructor() {
     super();
   }
 
+  /**
+   * @function checkAuthorization
+   * @description This function checks the authorization of a request.
+   * @memberof CheckAuthorization
+   * @param {express.Request} req - The request.
+   * @param {express.Response} res - The response.
+   * @param {express.NextFunction} next - The next function.
+   * @returns {Promise<void>}
+   * @public
+   * @async
+   */
   public async checkAuthorization(
     req: express.Request,
     res: express.Response,
@@ -35,7 +61,7 @@ class CheckAuthorization extends abstractMiddleware {
             })
             .then((user) => {
               console.log(user);
-              req.body.user_id = user.id;
+              req.body.userId = user.id;
             });
           next();
         })
@@ -45,5 +71,3 @@ class CheckAuthorization extends abstractMiddleware {
         });
   }
 }
-
-export default CheckAuthorization;

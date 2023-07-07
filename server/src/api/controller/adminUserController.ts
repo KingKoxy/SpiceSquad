@@ -1,101 +1,121 @@
 import express = require("express");
 import AbstractController from "./abstractController";
-import schema from "../../../joi/schemas/adminTargetSchema";
+import schema from "../../../joi/schemas/groupMemberSchema";
 import recipeSchema from "../../../joi/schemas/censoredRecipeSchema";
 
-class AdminUserController extends AbstractController {
+   */ 
   constructor() {
     super();
   }
 
   //TODO: Add member check in middleware
+  /**
+   * @description This function adds a user to a group.
+   * @param req Express request handler
+   * @param res Express response handler
+   * @param next Express next function (for error handling)
+   * @returns Promise<void>
+   */
   public async makeAdmin(
     req: express.Request,
-    res: express.Response
+    res: express.Response,
+    next: express.NextFunction
   ): Promise<void> {
-    const { error, value } = schema.validate(req.body);
-    if (error) {
-      res.status(422).json({ error: error.details[0].message });
-      return;
-    }
-
     this.prisma.admin
       .create({
         data: {
-          user_id: req.body.target_id,
-          group_id: req.body.group_id,
+          user_id: req.body.targetId,
+          group_id: req.body.groupId,
         },
       })
       .then((result) => {
         res.status(200).json({
           message: "Admin created successfully!",
         });
+      })
+      .catch((error) => {
+        req.statusCode = 422;
+        next(error);
       });
   }
 
+  /**
+   * @decscription This function removes an admin from a group.
+   * @param req Express request handler
+   * @param res Express response handler
+   * @param next Express next function (for error handling)
+   * @returns Promise<void>
+   */
   public async removeAdmin(
     req: express.Request,
-    res: express.Response
+    res: express.Response,
+    next: express.NextFunction
   ): Promise<void> {
-    const { error, value } = schema.validate(req.body);
-    if (error) {
-      res.status(422).json({ error: error.details[0].message });
-      return;
-    }
-
     this.prisma.admin
       .deleteMany({
         where: {
-          user_id: req.body.target_id,
-          group_id: req.body.group_id,
+          user_id: req.body.targetId,
+          group_id: req.body.groupId,
         },
       })
       .then((result) => {
         res.status(200).json({
           message: "Admin removed successfully!",
         });
+      })
+      .catch((error) => {
+        req.statusCode = 422;
+        next(error);
       });
   }
 
+  /**
+   * @description This function kicks a user from a group.
+   * @param req Express request handler
+   * @param res Express response handler
+   * @param next Express next function (for error handling)
+   * @returns Promise<void>
+   */
   public async kickUser(
     req: express.Request,
-    res: express.Response
+    res: express.Response,
+    next: express.NextFunction
   ): Promise<void> {
-    const { error, value } = schema.validate(req.body);
-    if (error) {
-      res.status(422).json({ error: error.details[0].message });
-      return;
-    }
-
     this.prisma.groupMember
       .deleteMany({
         where: {
-          user_id: req.body.target_id,
-          group_id: req.body.group_id,
+          user_id: req.body.targetId,
+          group_id: req.body.groupId,
         },
       })
       .then((result) => {
         res.status(200).json({
           message: "User kicked successfully!",
         });
+      })
+      .catch((error) => {
+        req.statusCode = 422;
+        next(error);
       });
   }
 
+  /**
+   * @description This function bans a user from a group.
+   * @param req Express request handler
+   * @param res Express response handler
+   * @param next Express next function (for error handling)
+   * @returns Promise<void>
+   */
   public async banUser(
     req: express.Request,
-    res: express.Response
+    res: express.Response,
+    next: express.NextFunction
   ): Promise<void> {
-    const { error, value } = schema.validate(req.body);
-    if (error) {
-      res.status(422).json({ error: error.details[0].message });
-      return;
-    }
-
     this.prisma.groupMember
       .deleteMany({
         where: {
-          user_id: req.body.target_id,
-          group_id: req.body.group_id,
+          user_id: req.body.targetId,
+          group_id: req.body.groupId,
         },
       })
       .then((result) => {});
@@ -103,27 +123,33 @@ class AdminUserController extends AbstractController {
     this.prisma.bannedUser
       .create({
         data: {
-          user_id: req.body.target_id,
-          group_id: req.body.group_id,
+          user_id: req.body.targetId,
+          group_id: req.body.groupId,
         },
       })
       .then((result) => {
         res.status(200).json({
           message: "User banned successfully!",
         });
+      })
+      .catch((error) => {
+        req.statusCode = 422;
+        next(error);
       });
   }
 
+  /**
+   * @description This function sets a recipe to censored.
+   * @param req Express request handler
+   * @param res Express response handler
+   * @param next Express next function (for error handling)
+   * @returns Promise<void>
+   */
   public async setCensored(
     req: express.Request,
-    res: express.Response
+    res: express.Response,
+    next: express.NextFunction
   ): Promise<void> {
-    const { error, value } = recipeSchema.validate(req.body);
-    if (error) {
-      res.status(422).json({ error: error.details[0].message });
-      return;
-    }
-
     this.prisma.censoredRecipe
       .create({
         data: {
@@ -136,8 +162,10 @@ class AdminUserController extends AbstractController {
         res.status(200).json({
           message: "Recipe censored successfully!",
         });
+      })
+      .catch((error) => {
+        req.statusCode = 422;
+        next(error);
       });
   }
 }
-
-export default AdminUserController;

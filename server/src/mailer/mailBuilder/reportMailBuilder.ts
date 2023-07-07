@@ -1,17 +1,47 @@
 import fs = require("fs");
-import abstractMailBuilder from "./abstractMailOptionBuilder";
+import abstractMailBuilder from "./abstractMailBuilder";
 import nodemailer = require("nodemailer");
 
-class ReportMailBuilder extends abstractMailBuilder {
+/**
+ * @class ReportMailBuilder
+ * @description This class is used to build a report mail.
+ * @exports ReportMailBuilder
+ * @version 0.0.1
+ * @extends AbstractMailBuilder
+ * @requires fs
+ * @requires AbstractMailBuilder
+ * @requires nodemailer
+ * @requires reportMail.html
+ */
+export default class ReportMailBuilder extends abstractMailBuilder {
   private htmlPath: string = "./src/mailer/templates/reportMail.html";
   private htmlText: string = fs.readFileSync(this.htmlPath, "utf8");
 
+  /**
+   * @constructor
+   * @description This constructor initializes the report mail.
+   * @memberof ReportMailBuilder
+   * @instance
+   * @returns {void}
+   */
   constructor() {
     super();
     this.sender = process.env.EMAIL_USER;
     this.subject = "Report";
   }
 
+  /**
+   * @function buildMail
+   * @description This function builds the report mail.
+   * @memberof ReportMailBuilder
+   * @instance
+   * @param {string} receiver - The receiver of the mail.
+   * @param {string} adminUsername - The username of the admin.
+   * @param {string} recipeTitle - The title of the recipe.
+   * @param {string} reportedUsername - The username of the reported user.
+   * @param {string} groupName - The name of the group.
+   * @returns {nodemailer.SendMailOptions} The mail options.
+   */
   public buildMail(
     receiver: string,
     adminUsername: string,
@@ -34,5 +64,3 @@ class ReportMailBuilder extends abstractMailBuilder {
     };
   }
 }
-
-export default ReportMailBuilder;

@@ -2,12 +2,36 @@ import express = require("express");
 import AbstractController from "./abstractController";
 import schema from "../../../joi/schemas/groupSchema";
 import memberSchema from "../../../joi/schemas/groupMemberSchema";
-import adminTargetSchema from "../../../joi/schemas/adminTargetSchema";
-class GroupController extends AbstractController {
+
+/**
+ * @description This class contains the controller for the group router.
+ * @class GroupRouter
+ * @extends abstractRouter
+ * @exports GroupRouter
+ * @version 1.0.0
+ * @requires GroupController
+ * @requires express
+ * @requires AbstractController
+ * 
+ */
+export default class GroupController extends AbstractController {
+
+  /**
+   * @description This constructor calls the constructor of the abstractController.
+   * @constructor
+   * @param void
+   */
   constructor() {
     super();
   }
 
+  /**
+   * @description This function creates a new group.
+   * @param req Express request handler
+   * @param res Express response handler
+   * @param next Express next function (for error handling)
+   * @returns Promise<void>
+   */
   public async groupPost(
     req: express.Request,
     res: express.Response,
@@ -29,19 +53,18 @@ class GroupController extends AbstractController {
         next(new Error("User has already created maximum number of groups"));
         return;
       }
-
-    await this.prisma.group
+    this.prisma.group
       .create({
         data: {
-          name: req.body.name,
+          name: req.body.groupName,
           Admin: {
             create: {
-              user_id: req.body.user_id,
+              user_id: req.body.userId,
             },
           },
           groupMember: {
             create: {
-              user_id: req.body.user_id,
+              user_id: req.body.userId,
             },
           },
         },
@@ -55,35 +78,58 @@ class GroupController extends AbstractController {
         res.status(200).json({
           message: "Group created successfully!",
         });
+      })
+      .catch((error) => {
+        req.statusCode = 422;
+        next(error);
       });
       });
-  }
+    }
 
+  /**
+   * @description This function deletes a group by id.
+   * @param req Express request handler
+   * @param res Express response handler
+   * @param next Express next function (for error handling)
+   * @returns Promise<void>
+   */
   public async groupDelete(
     req: express.Request,
-    res: express.Response
+    res: express.Response,
+    next: express.NextFunction
   ): Promise<void> {
     await this.prisma.group
       .delete({
         where: {
-          id: req.body.group_id,
+          id: req.params.groupId,
         },
       })
       .then((result) => {
         res.status(200).json({
           message: "Deleted group!",
         });
+      }).catch((error) => {
+        req.statusCode = 422;
+        next(error);
       });
   }
 
+  /**
+   * @description This function updates a group by id.
+   * @param req Express request handler
+   * @param res Express response handler
+   * @param next Express next function (for error handling)
+   * @returns Promise<void>
+   */
   public async groupPatch(
     req: express.Request,
-    res: express.Response
+    res: express.Response,
+    next: express.NextFunction
   ): Promise<void> {
     this.prisma.group
       .update({
         where: {
-          id: req.body.group_id,
+          id: req.body.groupId,
         },
         data: {
           name: req.body.name,
@@ -93,76 +139,77 @@ class GroupController extends AbstractController {
         res.status(200).json({
           message: "Updated group!",
         });
+      }).catch((error) => {
+        req.statusCode = 422;
+        next(error);
       });
   }
 
+  /**
+   * @description This function gets a group by id.
+   * @param req Express request handler
+   * @param res Express response handler
+   * @param next Express next function (for error handling)
+   * @returns Promise<void>
+   */
   public async groupJoin(
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
-  ): Promise<void> {
-    const { error, value } =  memberSchema.validate(req.body);
-    if (error) {
-      res.status(422).json({ error: error.details[0].message });
-      return;
-    }
-
-    try{
-    const result = await this.prisma.bannedUser.findMany({
-      where : {
-        user_id : req.body.user_id,
-        group_id : req.body.group_id
-      }
-
-    });
-      if (result.length > 0) {
-        res.status(403).json({
-          error : "User is banned from this group"
-        });
-        return;
-      }
-
-    this.prisma.groupMember
-      .create({
-        data: {
-          user_id: req.body.target_id,
-          group_id: req.body.group_id,
-        },
-      })
-      .then((result) => {
-        res.status(200).json({
-          message: "Joined group!",
-        });
-      })
-    } catch(error){
-      next(error)
-    }
-  }
-
-  public async groupLeave(
-    req: express.Request,
-    res: express.Response
   ): Promise<void> {
     const { error, value } = memberSchema.validate(req.body);
     if (error) {
       res.status(422).json({ error: error.details[0].message });
       return;
     }
+    this.prisma.groupMember
+      .create({
+        data: {
+          user_id: req.body.userId,
+          group_id: req.body.groupId,
+        },
+      })
+      .then((result) => {
+        res.status(200).json({
+          message: "Joined group!",
+        });
+      });
+  }
+
+  /**
+   * @description This function gets a group by id.
+   * @param req Express request handler
+   * @param res Express response handler
+   * @param next Express next function (for error handling)
+   * @returns Promise<void>
+   */
+  public async groupLeave(
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<void> {
     this.prisma.groupMember.deleteMany({
       where: {
         user_id: req.body.user_id,
         group_id: req.body.group_id,
       },
     });
-
     res.status(200).json({
       message: "Left group!",
     });
   }
 
+  /**
+   * @description This function gets a group by id.
+   * @param req Express request handler
+   * @param res Express response handler
+   * @param next Express next function (for error handling)
+   * @returns Promise<void>
+   */
   public async groupGetAllForUser(
     req: express.Request,
-    res: express.Response
+    res: express.Response,
+    next: express.NextFunction
   ): Promise<void> {
     this.prisma.group
       .findMany({
@@ -177,8 +224,10 @@ class GroupController extends AbstractController {
       .then((result) => {
         console.log(result);
         res.status(200).json(result);
+      })
+      .catch((error) => {
+        res.statusCode = 422;
+        next(error);
       });
   }
 }
-
-export default GroupController;

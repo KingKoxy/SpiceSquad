@@ -8,7 +8,22 @@ import IngredientRouter from "./api/router/ingredientRouter";
 import AdminUserRouter from "./api/router/adminUserRouter";
 import AuthentificationRouter from "./api/router/authentificationRouter";
 
-class Application {
+/**
+ * @class Application
+ * @description This class is used to initialize the application.
+ * @exports Application
+ * @version 1.0.0
+ * @extends express.Application
+ * @requires express
+ * @requires morgan
+ * @requires recipeRouter
+ * @requires groupRouter
+ * @requires userRouter
+ * @requires ingredientRouter
+ * @requires adminUserRouter
+ * @requires authentificationRouter
+ */
+export default class Application {
   private app: express.Application;
 
   private authentificationRoutes: AuthentificationRouter;
@@ -18,6 +33,14 @@ class Application {
   private ingredientRoutes: IngredientRouter;
   private adminUserRoutes: AdminUserRouter;
 
+  /**
+   * @constructor
+   * @description This constructor initializes the application.
+   * @param {express.Application} express - The express application.
+   * @memberof Application
+   * @instance
+   * @returns {void}
+   */
   constructor(express: express.Application) {
     this.app = express;
     this.authentificationRoutes = new AuthentificationRouter();
@@ -51,7 +74,7 @@ class Application {
     this.app.use("/ingredient", this.ingredientRoutes.getRouter());
     this.app.use("/admin", this.adminUserRoutes.getRouter());
   }
-
+  
   private initializeErrorHandlers(): void {
       this.app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
           const error = new Error('The URL you are trying to reach does not exist.');
@@ -70,5 +93,3 @@ class Application {
     }
 
 }
-
-export default Application;

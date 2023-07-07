@@ -1,14 +1,35 @@
 import firebase = require("firebase-admin");
-import morgan = require("morgan");
 import express = require("express");
 import abstractMiddleware from "./abstractMiddleware";
 
-class CheckAdminStatus extends abstractMiddleware{
+/**
+ * @class CheckAdminStatus
+ * @description This class is used to check the admin status of a user.
+ * @exports CheckAdminStatus
+ * @version 1.0.0
+ * @extends abstractMiddleware
+ * @requires firebase-admin
+ * @requires express
+ */
+export default class CheckAdminStatus extends abstractMiddleware{
 
+  /**
+   * @constructor This constructor initializes the check admin status middleware.
+   * @memberof CheckAdminStatus
+   * @instance
+   * @returns {void}
+   * @protected
+  */
   constructor() {
     super();
   }
 
+  /**
+   * @function checkAdminStatus
+   * @description This function checks the admin status of a user.
+   * @memberof CheckAdminStatus
+   * @async
+   */
   public async checkAdminStatus(
     req: express.Request,
     res: express.Response,
@@ -29,5 +50,3 @@ class CheckAdminStatus extends abstractMiddleware{
     });
   }
 }
-
-export default CheckAdminStatus;
