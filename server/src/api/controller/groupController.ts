@@ -65,7 +65,7 @@ export default class GroupController extends AbstractController {
       })
       .then((result) => {
         this.prisma.user.update({
-          where: {id : req.body.user_id},
+          where: {id : req.body.userId},
           data: {created_groups : {increment : 1}}
         }).then((result) => {
         res.status(200).json({
@@ -153,8 +153,8 @@ export default class GroupController extends AbstractController {
     try{
     const result = await this.prisma.bannedUser.findMany({
       where : {
-        user_id : req.body.user_id,
-        group_id : req.body.group_id
+        user_id : req.body.userId,
+        group_id : req.body.groupId
       }
 
     });
@@ -168,8 +168,8 @@ export default class GroupController extends AbstractController {
     this.prisma.groupMember
       .create({
         data: {
-          user_id: req.body.target_id,
-          group_id: req.body.group_id,
+          user_id: req.body.userId,
+          group_id: req.body.groupId,
         },
       })
       .then((result) => {

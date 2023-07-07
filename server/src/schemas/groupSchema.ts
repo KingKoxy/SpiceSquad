@@ -16,7 +16,10 @@ export const GroupUpdateSchema = Joi.object({
     groupName: groupName,
 });
 
-export const GroupJoinSchema = Joi.object({});
+export const GroupJoinSchema = Joi.object({
+    userId: userId,
+    groupId: Joi.string().required()
+});
 
 export const GroupLeaveSchema = Joi.object({});
 

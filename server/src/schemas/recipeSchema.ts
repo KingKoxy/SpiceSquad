@@ -41,7 +41,9 @@ export const recipeCreateSchema = Joi.object().keys({
     ingredients: ingredients
   });
 
-export const recipeGetAllSchema = Joi.object({});
+export const recipeGetAllSchema = Joi.object({
+    userId: userId.required()
+});
 
 export const recipeDeleteSchema = Joi.object({});
 
