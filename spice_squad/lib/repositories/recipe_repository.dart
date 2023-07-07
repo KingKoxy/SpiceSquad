@@ -9,11 +9,11 @@ import "package:spice_squad/repositories/user_repository.dart";
 /// Repository for recipe actions
 ///
 /// This class is used to perform recipe actions like fetching all recipes of a user or creating a new recipe.
-class RemoteRecipeRepository {
+class RecipeRepository {
   final UserRepository _userRepository;
 
-  /// Creates a new [RemoteRecipeRepository] with the given [UserRepository]
-  RemoteRecipeRepository(this._userRepository);
+  /// Creates a new [RecipeRepository] with the given [UserRepository]
+  RecipeRepository(this._userRepository);
 
   /// Fetches all recipes the current user should be allowed to see
   Future<List<Recipe>> fetchAllRecipesForUser() async {
@@ -81,9 +81,9 @@ class RemoteRecipeRepository {
       headers: {
         HttpHeaders.authorizationHeader: "Bearer ${await _userRepository.getToken()}",
       },
-      body: {
+      body: jsonEncode(<String, String>{
         "favourite": value.toString(),
-      },
+      }),
     );
     if (result.statusCode != 200) {
       throw Exception(result.body);

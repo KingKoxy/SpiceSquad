@@ -1,3 +1,5 @@
+import "dart:typed_data";
+
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:spice_squad/models/ingredient.dart";
@@ -11,7 +13,7 @@ class IngredientCreationScreen extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _iconIdController = TextEditingController();
+  final TextEditingController _iconController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
   final TextEditingController _unitController = TextEditingController();
 
@@ -39,7 +41,11 @@ class IngredientCreationScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
-                      child: SizedBox(height: 52, child: IconPickerWidget(controller: _iconIdController)),
+                      child: SizedBox(
+                          height: 52,
+                          child: IconPickerWidget(
+                            iconController: _iconController,
+                          )),
                     ),
                     const SizedBox(width: 10),
                     Expanded(
@@ -89,9 +95,10 @@ class IngredientCreationScreen extends StatelessWidget {
                       final ingredient = Ingredient(
                         id: "",
                         name: _nameController.text,
-                        iconId: _iconIdController.text,
                         amount: double.parse(_amountController.text),
                         unit: _unitController.text,
+                        //TODO: Vernünftiges übergeben von icon
+                        icon: Uint8List(int.parse(_iconController.text)),
                       );
 
                       Navigator.of(context).pop(ingredient);

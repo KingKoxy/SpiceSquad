@@ -1,3 +1,5 @@
+import "dart:typed_data";
+
 /// Model for an ingredient
 class Ingredient {
   /// The id of the ingredient
@@ -7,7 +9,7 @@ class Ingredient {
   final String name;
 
   /// The icon id of the ingredient
-  final String iconId;
+  final Uint8List icon;
 
   /// The amount of the ingredient
   final double amount;
@@ -15,11 +17,11 @@ class Ingredient {
   /// The unit of the ingredient
   final String unit;
 
-  /// Creates a new [Ingredient] with the given [id], [name], [iconId], [amount], and [unit]
+  /// Creates a new [Ingredient] with the given [id], [name], [icon], [amount], and [unit]
   Ingredient({
     required this.id,
     required this.name,
-    required this.iconId,
+    required this.icon,
     required this.amount,
     required this.unit,
   });
@@ -29,7 +31,7 @@ class Ingredient {
     return Ingredient(
       id: map["id"],
       name: map["name"],
-      iconId: map["iconId"],
+      icon: map["icon"],
       amount: map["amount"],
       unit: map["unit"],
     );

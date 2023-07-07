@@ -1,6 +1,7 @@
 import "dart:async";
 import "dart:convert";
 import "dart:io";
+import "package:flutter/cupertino.dart";
 import "package:http/http.dart" as http;
 import "package:jwt_decoder/jwt_decoder.dart";
 import "package:shared_preferences/shared_preferences.dart";
@@ -48,9 +49,9 @@ class UserRepository {
           headers: {
             HttpHeaders.contentTypeHeader: "application/json",
           },
-          body: {
+          body: jsonEncode(<String, String>{
             "refreshToken": refreshToken,
-          },
+          }),
         );
         if (response.statusCode == 200) {
           final Map<String, dynamic> body = jsonDecode(response.body);
@@ -81,20 +82,24 @@ class UserRepository {
 
   /// Tries to login the user and setting the id token and refresh token
   Future<void> login(String email, String password) async {
+    debugPrint("Login with $email and $password");
     final response = await http.post(
       Uri.parse(ApiEndpoints.login),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
       },
-      body: {
+      body: jsonEncode(<String, String>{
         "email": email,
         "password": password,
-      },
+      }),
     );
+    debugPrint("Response: ${response.body}");
     if (response.statusCode == 200) {
       //Set tokens
       final Map<String, dynamic> body = jsonDecode(response.body);
       _idToken = body["idToken"];
+      _userId = body["userId"];
+      debugPrint("User id: $_userId");
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString(_refreshTokenPath, body["refreshToken"]);
     } else {
@@ -127,11 +132,11 @@ class UserRepository {
     final response = await http.post(
       Uri.parse(ApiEndpoints.register),
       headers: {HttpHeaders.contentTypeHeader: "application/json"},
-      body: {
+      body: jsonEncode(<String, String>{
         "email": email,
         "password": password,
         "userName": userName,
-      },
+      }),
     );
     if (response.statusCode == 200) {
       //Set tokens

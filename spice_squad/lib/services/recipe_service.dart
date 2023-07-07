@@ -11,13 +11,13 @@ import "package:spice_squad/services/pdf_exporter.dart";
 class RecipeService extends AsyncNotifier<List<Recipe>> {
   @override
   FutureOr<List<Recipe>> build() {
-    return ref.watch(remoteRecipeRepositoryProvider).fetchAllRecipesForUser();
+    return ref.watch(recipeRepositoryProvider).fetchAllRecipesForUser();
   }
 
   /// Creates a new recipe with the given [recipe].
   Future<void> createRecipe(RecipeCreationData recipe) {
     state = const AsyncLoading();
-    return ref.read(remoteRecipeRepositoryProvider).createRecipe(recipe).then((value) => _refetch());
+    return ref.read(recipeRepositoryProvider).createRecipe(recipe).then((value) => _refetch());
   }
 
   /// Deletes the recipe with the given [recipeId].
@@ -26,13 +26,13 @@ class RecipeService extends AsyncNotifier<List<Recipe>> {
     final List<Recipe> list = state.value!;
     list.removeWhere((element) => element.id == recipeId);
     state = AsyncData(list);
-    return ref.read(remoteRecipeRepositoryProvider).deleteRecipe(recipeId).then((value) => _refetch());
+    return ref.read(recipeRepositoryProvider).deleteRecipe(recipeId).then((value) => _refetch());
   }
 
   /// Updates the recipe with the same id with the given [recipe].
   Future<void> updateRecipe(Recipe recipe) {
     _updateSingleRecipe(recipe.id, (oldRecipe) => recipe);
-    return ref.read(remoteRecipeRepositoryProvider).updateRecipe(recipe).then((value) => _refetch());
+    return ref.read(recipeRepositoryProvider).updateRecipe(recipe).then((value) => _refetch());
   }
 
   /// Toggles the favourite status of the given [recipe].
@@ -60,7 +60,7 @@ class RecipeService extends AsyncNotifier<List<Recipe>> {
       ),
     );
     return ref
-        .read(remoteRecipeRepositoryProvider)
+        .read(recipeRepositoryProvider)
         .setFavourite(recipe.id, !recipe.isFavourite)
         .then((value) => _refetch());
   }
@@ -89,12 +89,12 @@ class RecipeService extends AsyncNotifier<List<Recipe>> {
         isPrivate: !oldRecipe.isPrivate,
       ),
     );
-    return ref.read(remoteRecipeRepositoryProvider).updateRecipe(updatedRecipe).then((value) => _refetch());
+    return ref.read(recipeRepositoryProvider).updateRecipe(updatedRecipe).then((value) => _refetch());
   }
 
   /// Reports the recipe with the given [recipeId].
   Future<void> reportRecipe(String recipeId) {
-    return ref.read(remoteRecipeRepositoryProvider).reportRecipe(recipeId);
+    return ref.read(recipeRepositoryProvider).reportRecipe(recipeId);
   }
 
   /// Exports the given [recipe] as a pdf.
@@ -104,7 +104,7 @@ class RecipeService extends AsyncNotifier<List<Recipe>> {
 
   /// Refetches all recipes.
   Future<void> _refetch() {
-    return ref.read(remoteRecipeRepositoryProvider).fetchAllRecipesForUser().then((value) => state = AsyncData(value));
+    return ref.read(recipeRepositoryProvider).fetchAllRecipesForUser().then((value) => state = AsyncData(value));
   }
 
   /// Updates the recipe with the given [recipeId] with the given [updatingFunction] in the [state] and returns the updated recipe.

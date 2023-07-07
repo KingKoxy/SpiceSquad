@@ -42,7 +42,7 @@ class _IngredientNameInputState extends ConsumerState<IngredientNameInput> {
         ),
         //Shows the suggestions
         FutureBuilder(
-          future: ref.watch(ingredientNameRepositoryProvider).fetchIngredientNames(),
+          future: ref.watch(ingredientDataRepository).fetchIngredientNames(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               // Search for matches and show in grid

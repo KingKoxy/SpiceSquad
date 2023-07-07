@@ -73,8 +73,8 @@ class _IngredientListState extends State<IngredientList> {
                           SizedBox(
                             width: 50,
                             height: 50,
-                            child: Image.asset(
-                              "assets/icons/ingredientIcons/${_ingredients[index].iconId}.png",
+                            child: Image.memory(
+                              _ingredients[index].icon,
                             ),
                           ),
                           Row(
