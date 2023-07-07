@@ -1,7 +1,22 @@
 import express = require("express");
 import AbstractController from "./abstractController";
-import schema from "../../../joi/schemas/groupMemberSchema";
-import recipeSchema from "../../../joi/schemas/censoredRecipeSchema";
+
+/**
+ * @description This class contains the router for the admin user router.
+ * @class AdminUserRouter
+ * @extends abstractRouter
+ * @exports AdminUserRouter
+ * @version 1.0.0
+ * @requires AdminUserController
+ * @requires express
+ * @requires AbstractController
+ */
+export default class AdminUserController extends AbstractController {
+
+  /**
+   * @description This constructor calls the constructor of the abstractController.
+   * @constructor
+   * @param void
 
    */ 
   constructor() {

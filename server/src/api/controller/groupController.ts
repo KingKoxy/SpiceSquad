@@ -1,7 +1,5 @@
 import express = require("express");
 import AbstractController from "./abstractController";
-import schema from "../../../joi/schemas/groupSchema";
-import memberSchema from "../../../joi/schemas/groupMemberSchema";
 
 /**
  * @description This class contains the controller for the group router.
@@ -37,12 +35,6 @@ export default class GroupController extends AbstractController {
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
-    const { error, value } = schema.validate(req.body);
-    if (error) {
-      res.status(422).json({ error: error.details[0].message });
-      return;
-    }
-
     const result = await this.prisma.user.findFirst({
       where: {id : req.body.user_id}
     })
@@ -157,23 +149,36 @@ export default class GroupController extends AbstractController {
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
-    const { error, value } = memberSchema.validate(req.body);
-    if (error) {
-      res.status(422).json({ error: error.details[0].message });
-      return;
-    }
+    try{
+    const result = await this.prisma.bannedUser.findMany({
+      where : {
+        user_id : req.body.user_id,
+        group_id : req.body.group_id
+      }
+
+    });
+      if (result.length > 0) {
+        res.status(403).json({
+          error : "User is banned from this group"
+        });
+        return;
+      }
+
     this.prisma.groupMember
       .create({
         data: {
-          user_id: req.body.userId,
-          group_id: req.body.groupId,
+          user_id: req.body.target_id,
+          group_id: req.body.group_id,
         },
       })
       .then((result) => {
         res.status(200).json({
           message: "Joined group!",
         });
-      });
+      })
+    } catch(error){
+      next(error)
+    }
   }
 
   /**
