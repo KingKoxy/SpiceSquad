@@ -2,7 +2,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:spice_squad/repositories/admin_repository.dart";
 import "package:spice_squad/repositories/group_repository.dart";
 import "package:spice_squad/repositories/ingredient_name_repository.dart";
-import "package:spice_squad/repositories/remote_recipe_repository.dart";
+import "package:spice_squad/repositories/recipe_repository.dart";
 import "package:spice_squad/repositories/user_repository.dart";
 
 /// Provider for the [IngredientNameRepository]

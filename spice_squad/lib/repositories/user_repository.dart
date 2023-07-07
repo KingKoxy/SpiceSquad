@@ -1,6 +1,6 @@
 import "dart:async";
 import "dart:convert";
-import "dart:math";
+import "dart:io";
 import "package:http/http.dart" as http;
 import "package:jwt_decoder/jwt_decoder.dart";
 import "package:shared_preferences/shared_preferences.dart";
@@ -19,13 +19,18 @@ class UserRepository {
 
   /// Fetches the current user
   Future<User?> fetchCurrentUser() async {
-    final Random random = Random();
-    final user = await Future.delayed(
-      const Duration(milliseconds: 2000),
-      () => User(id: "userId", userName: {"Konrad", "Lukas", "Henri", "Raphael"}.elementAt(random.nextInt(4))),
+    final response = await http.get(
+      Uri.parse(ApiEndpoints.user),
+      headers: {
+        HttpHeaders.contentTypeHeader: "application/json",
+        HttpHeaders.authorizationHeader: "Bearer ${await getToken()}",
+      },
     );
-    _userId = user.id;
-    return user;
+    if (response.statusCode == 200) {
+      return User.fromMap(jsonDecode(response.body));
+    } else {
+      throw Exception(response.body);
+    }
   }
 
   /// Gets the user id that has been obtained by the [fetchCurrentUser] method or returns null if the user is not logged in
@@ -41,7 +46,7 @@ class UserRepository {
         final response = await http.post(
           Uri.parse(ApiEndpoints.refreshToken),
           headers: {
-            "Content-Type": "application/json",
+            HttpHeaders.contentTypeHeader: "application/json",
           },
           body: {
             "refreshToken": refreshToken,
@@ -79,7 +84,7 @@ class UserRepository {
     final response = await http.post(
       Uri.parse(ApiEndpoints.login),
       headers: {
-        "Content-Type": "application/json",
+        HttpHeaders.contentTypeHeader: "application/json",
       },
       body: {
         "email": email,
@@ -87,6 +92,7 @@ class UserRepository {
       },
     );
     if (response.statusCode == 200) {
+      //Set tokens
       final Map<String, dynamic> body = jsonDecode(response.body);
       _idToken = body["idToken"];
       final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -101,8 +107,8 @@ class UserRepository {
     final response = await http.post(
       Uri.parse(ApiEndpoints.logout),
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer ${await getToken()}",
+        HttpHeaders.contentTypeHeader: "application/json",
+        HttpHeaders.authorizationHeader: "Bearer ${await getToken()}",
       },
     );
     if (response.statusCode == 200) {
@@ -118,14 +124,17 @@ class UserRepository {
 
   /// Registers a new user with the given email, password and username and logs the user in
   Future<void> register(String email, String password, String userName) async {
-    final response = await http.post(Uri.parse(ApiEndpoints.register), headers: {
-      "Content-Type": "application/json",
-    }, body: {
-      "email": email,
-      "password": password,
-      "userName": userName,
-    });
+    final response = await http.post(
+      Uri.parse(ApiEndpoints.register),
+      headers: {HttpHeaders.contentTypeHeader: "application/json"},
+      body: {
+        "email": email,
+        "password": password,
+        "userName": userName,
+      },
+    );
     if (response.statusCode == 200) {
+      //Set tokens
       final Map<String, dynamic> body = jsonDecode(response.body);
       _idToken = body["idToken"];
       final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -137,19 +146,44 @@ class UserRepository {
 
   /// Updates the current user with the given user on the server
   Future<void> updateUser(User user) async {
-    //TODO: implement user updating
-    throw UnimplementedError();
+    final response = await http.patch(
+      Uri.parse(ApiEndpoints.user),
+      headers: {
+        HttpHeaders.contentTypeHeader: "application/json",
+        HttpHeaders.authorizationHeader: "Bearer ${await getToken()}",
+      },
+      body: jsonEncode(user),
+    );
+    if (response.statusCode != 200) {
+      throw Exception(response.body);
+    }
   }
 
   /// Deletes the current users account from the server
   Future<void> deleteAccount() async {
-    //TODO: implement account deletion
-    throw UnimplementedError();
+    final response = await http.delete(
+      Uri.parse(ApiEndpoints.user),
+      headers: {
+        HttpHeaders.contentTypeHeader: "application/json",
+        HttpHeaders.authorizationHeader: "Bearer ${await getToken()}",
+      },
+    );
+    if (response.statusCode != 200) {
+      throw Exception(response.body);
+    }
   }
 
   /// Requests a password reset for the given email
   Future<void> resetPassword(String email) async {
-    //TODO: implement password resetting
-    throw UnimplementedError();
+    final response = await http.post(
+      Uri.parse(ApiEndpoints.resetPassword),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer ${await getToken()}",
+      },
+    );
+    if (response.statusCode != 200) {
+      throw Exception(response.body);
+    }
   }
 }
