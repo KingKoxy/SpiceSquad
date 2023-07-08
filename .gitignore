@@ -50,3 +50,4 @@ firebase_credentials.json
 *.sql
 server/build
 ```
+/server/docs/
