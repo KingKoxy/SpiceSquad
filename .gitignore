@@ -47,7 +47,6 @@ node_modules
 firebase_credentials.json
 *.env
 *.code-workspace
-package-lock.json
 *.sql
 server/build
 ```
