@@ -11,4 +11,4 @@ interface AuthenticatedRequest<
     userId?: string
 }
 
-export { AuthenticatedRequest }
+export default AuthenticatedRequest

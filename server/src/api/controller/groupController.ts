@@ -1,6 +1,6 @@
 import express = require('express')
 import AbstractController from './abstractController'
-import { AuthenticatedRequest } from '../middleware/authenticatedRequest'
+import AuthenticatedRequest from '../middleware/authenticatedRequest'
 
 /**
  * @description This class contains the controller for the group router.
