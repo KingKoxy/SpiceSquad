@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client'
 
 /**
  * @class AbstractMiddleware
@@ -9,7 +9,7 @@ import { PrismaClient } from "@prisma/client";
  * @requires PrismaClient
  */
 export default class AbstractMiddleware {
-    protected prisma: PrismaClient;
+    protected prisma: PrismaClient
 
     /**
      * @constructor
@@ -18,7 +18,6 @@ export default class AbstractMiddleware {
      * @returns {void}
      */
     constructor() {
-        this.prisma = new PrismaClient();
+        this.prisma = new PrismaClient()
     }
-
 }

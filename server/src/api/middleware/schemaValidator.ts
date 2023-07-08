@@ -1,6 +1,6 @@
-import express = require("express");
-import AbstractMiddleware from "./abstractMiddleware";
-import joi = require("joi");
+import express = require('express')
+import AbstractMiddleware from './abstractMiddleware'
+import joi = require('joi')
 
 /**
  * @class SchemaValidator
@@ -9,14 +9,13 @@ import joi = require("joi");
  * @version 1.0.0
  * @extends AbstractMiddleware
  */
-export default class SchemaValidator extends AbstractMiddleware{
-
+export default class SchemaValidator extends AbstractMiddleware {
     /**
      * @constructor: This constructor initializes the schema validator.
      * @memberof SchemaValidator
      */
     constructor() {
-        super();
+        super()
     }
 
     /**
@@ -28,17 +27,16 @@ export default class SchemaValidator extends AbstractMiddleware{
      * @public
      */
     public checkSchema(schema: joi.ObjectSchema<any>): express.RequestHandler {
-    return (req: express.Request, res: express.Response, next: express.NextFunction) => {
-        console.log(req.body);
-        console.log("test");
-        const { error } = schema.validate(req.body);
-        if (error) {
-            req.statusCode = 422;
-            next(new Error(error.details[0].message));
-            return;
+        return (req: express.Request, res: express.Response, next: express.NextFunction) => {
+            console.log(req.body)
+            console.log('test')
+            const { error } = schema.validate(req.body)
+            if (error) {
+                req.statusCode = 422
+                next(new Error(error.details[0].message))
+                return
+            }
+            next()
         }
-        next();
     }
-  }
-    
 }

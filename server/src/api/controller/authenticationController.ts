@@ -1,9 +1,9 @@
-import express = require("express");
-import AbstractController from "./abstractController";
-import firebaseAuth = require("firebase/auth");
-import firebase = require("firebase/app");
-import firebaseAdmin = require("firebase-admin");
-import {AuthenticatedRequest} from "../middleware/authenticatedRequest";
+import express = require('express')
+import AbstractController from './abstractController'
+import firebaseAuth = require('firebase/auth')
+import firebase = require('firebase/app')
+import firebaseAdmin = require('firebase-admin')
+import { AuthenticatedRequest } from '../middleware/authenticatedRequest'
 
 /**
  * @description This class contains the router for the authentification router.
@@ -19,7 +19,6 @@ import {AuthenticatedRequest} from "../middleware/authenticatedRequest";
  * @requires firebaseAuth
  */
 export default class AuthenticationController extends AbstractController {
-
     /**
      * @description This constructor calls the constructor of the abstractController.
      * @constructor
@@ -27,7 +26,7 @@ export default class AuthenticationController extends AbstractController {
      * @returns void
      */
     constructor() {
-        super();
+        super()
     }
 
     /**
@@ -37,25 +36,21 @@ export default class AuthenticationController extends AbstractController {
      * @param next Express next function (for error handling)
      * @returns Promise<void>
      */
-    public async userLogin(
-        req: express.Request,
-        res: express.Response,
-        next: express.NextFunction
-    ): Promise<void> {
+    public async userLogin(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
         firebaseAuth
             .signInWithEmailAndPassword(this.auth, req.body.email, req.body.password)
             .then(async (userCredentials) => {
-                console.log("Successfully logged in:", userCredentials.user);
+                console.log('Successfully logged in:', userCredentials.user)
                 res.status(200).json({
                     user: userCredentials.user,
                     //refreshToken: userCredentials.user.refreshToken,
                     idToken: await firebaseAuth.getIdToken(userCredentials.user),
-                });
+                })
             })
             .catch((error) => {
-                req.statusCode = 409;
+                req.statusCode = 409
                 next(error)
-            });
+            })
     }
 
     /**
@@ -65,21 +60,12 @@ export default class AuthenticationController extends AbstractController {
      * @param next Express next function (for error handling)
      * @returns Promise<void>
      */
-    public async userRegister(
-        req: express.Request,
-        res: express.Response,
-        next: express.NextFunction
-    ): Promise<void> {
-
+    public async userRegister(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
         firebaseAuth
-            .createUserWithEmailAndPassword(
-                this.auth,
-                req.body.email,
-                req.body.password
-            )
+            .createUserWithEmailAndPassword(this.auth, req.body.email, req.body.password)
             .then(async (userCredentials) => {
-                console.log("Successfully created new user:", userCredentials.user);
-                const uuid = userCredentials.user.uid;
+                console.log('Successfully created new user:', userCredentials.user)
+                const uuid = userCredentials.user.uid
                 await this.prisma.user.create({
                     data: {
                         user_name: req.body.userName,
@@ -87,16 +73,16 @@ export default class AuthenticationController extends AbstractController {
                         firebase_user_id: userCredentials.user.uid,
                         created_groups: 0,
                     },
-                });
+                })
                 res.status(200).json({
                     refreshToken: userCredentials.user.refreshToken,
                     idToken: await firebaseAuth.getIdToken(userCredentials.user),
                 })
             })
             .catch((error) => {
-                req.statusCode = 409;
+                req.statusCode = 409
                 next(error)
-            });
+            })
     }
 
     /**
@@ -111,13 +97,13 @@ export default class AuthenticationController extends AbstractController {
             .sendPasswordResetEmail(this.auth, req.body.email)
             .then(() => {
                 res.status(200).json({
-                    message: "Reset email sent successfully.",
-                });
+                    message: 'Reset email sent successfully.',
+                })
             })
             .catch((error) => {
-                req.statusCode = 409;
-                next(error);
-            });
+                req.statusCode = 409
+                next(error)
+            })
     }
 
     /**
@@ -132,7 +118,7 @@ export default class AuthenticationController extends AbstractController {
         res: express.Response,
         next: express.NextFunction
     ): Promise<void> {
-        res.json(this.prisma.user.findUnique({where: {id: req.userId}}));
+        res.json(this.prisma.user.findUnique({ where: { id: req.userId } }))
     }
 
     /**
@@ -144,23 +130,21 @@ export default class AuthenticationController extends AbstractController {
      */
     public async
 
-    userRefreshToken(
-        req: express.Request,
-        res: express.Response,
-        next: express.NextFunction
-    ): Promise<void> {
-        return this.auth.updateCurrentUser(this.auth.currentUser).then(async (token) => {
-                console.log("Successfully logged in:", token);
+    userRefreshToken(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
+        return this.auth
+            .updateCurrentUser(this.auth.currentUser)
+            .then(async (token) => {
+                console.log('Successfully logged in:', token)
                 res.status(200).json({
                     idToken: token,
-                });
-            }
-        ).catch((error) => {
-            res.status(402).json({
-                error: "An error occurred.",
-                "error message": error
-            });
-        });
+                })
+            })
+            .catch((error) => {
+                res.status(402).json({
+                    error: 'An error occurred.',
+                    'error message': error,
+                })
+            })
     }
 
     /**
@@ -170,15 +154,11 @@ export default class AuthenticationController extends AbstractController {
      * @param next Express next function (for error handling)
      * @returns Promise<void>
      */
-    public async userLogout(
-        req : express.Request,
-        res : express.Response,
-        next : express.NextFunction
-    ): Promise<void> {
+    public async userLogout(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
         firebaseAuth.signOut(this.auth).then(() => {
             res.status(200).json({
-                message: "Successfully logged out",
-            });
-        });
+                message: 'Successfully logged out',
+            })
+        })
     }
 }

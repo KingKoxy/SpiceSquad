@@ -1,6 +1,6 @@
-import IngredientController from "../controller/ingredientController";
-import abstractRouter from "./abstractRouter";
-import {ingredientGetSchema} from "../../schemas/ingredientSchema"
+import IngredientController from '../controller/ingredientController'
+import abstractRouter from './abstractRouter'
+import { ingredientGetSchema } from '../../schemas/ingredientSchema'
 
 /**
  * @description This class contains the router for the ingredient router.
@@ -11,37 +11,38 @@ import {ingredientGetSchema} from "../../schemas/ingredientSchema"
  * @requires IngredientController
  */
 class IngredientRouter extends abstractRouter {
-  protected Controller: IngredientController;
+    protected Controller: IngredientController
 
-  /**
-   * @constructor
-   * @description This constructor initializes the admin user router.
-   * @memberof IngredientRouter
-   * @instance
-   * @returns {void}
-   * @protected
-  */
-  constructor() {
-    super();
-    this.Controller = new IngredientController();
-    this.setupRoutes();
-  }
+    /**
+     * @constructor
+     * @description This constructor initializes the admin user router.
+     * @memberof IngredientRouter
+     * @instance
+     * @returns {void}
+     * @protected
+     */
+    constructor() {
+        super()
+        this.Controller = new IngredientController()
+        this.setupRoutes()
+    }
 
-  /**
-   * @function setupRoutes
-   * @description This function sets up the routes for the admin user.
-   * @memberof IngredientRouter
-   * @instance
-   * @returns {void}
-   * @protected
-   */
-  protected setupRoutes(): void {
-    this.router.get(
-      "/",
-      this.checkAuth, this.schemaValidator.checkSchema(ingredientGetSchema),
-      this.Controller.ingredientsGet.bind(this.Controller)
-    );
-  }
+    /**
+     * @function setupRoutes
+     * @description This function sets up the routes for the admin user.
+     * @memberof IngredientRouter
+     * @instance
+     * @returns {void}
+     * @protected
+     */
+    protected setupRoutes(): void {
+        this.router.get(
+            '/',
+            this.checkAuth,
+            this.schemaValidator.checkSchema(ingredientGetSchema),
+            this.Controller.ingredientsGet.bind(this.Controller)
+        )
+    }
 }
 
-export default IngredientRouter;
+export default IngredientRouter

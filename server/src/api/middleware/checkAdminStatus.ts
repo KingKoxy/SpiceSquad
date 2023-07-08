@@ -1,6 +1,6 @@
-import firebase = require("firebase-admin");
-import express = require("express");
-import AbstractMiddleware from "./abstractMiddleware";
+import firebase = require('firebase-admin')
+import express = require('express')
+import AbstractMiddleware from './abstractMiddleware'
 
 /**
  * @class CheckAdminStatus
@@ -11,42 +11,43 @@ import AbstractMiddleware from "./abstractMiddleware";
  * @requires firebase-admin
  * @requires express
  */
-export default class CheckAdminStatus extends AbstractMiddleware{
+export default class CheckAdminStatus extends AbstractMiddleware {
+    /**
+     * @constructor This constructor initializes the check admin status middleware.
+     * @memberof CheckAdminStatus
+     * @instance
+     * @returns {void}
+     * @protected
+     */
+    constructor() {
+        super()
+    }
 
-  /**
-   * @constructor This constructor initializes the check admin status middleware.
-   * @memberof CheckAdminStatus
-   * @instance
-   * @returns {void}
-   * @protected
-  */
-  constructor() {
-    super();
-  }
-
-  /**
-   * @function checkAdminStatus
-   * @description This function checks the admin status of a user.
-   * @memberof CheckAdminStatus
-   * @async
-   */
-  public async checkAdminStatus(
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
-  ): Promise<void> {
-    this.prisma.admin.findMany({
-      where: {
-        user_id: req.body.user_id,
-        group_id: req.body.group_id
-      }
-    }).then((result) => {
-      if (result.length > 0) {
-        next();
-      } else {
-        req.statusCode = 401;
-        next(new Error("No valid admin"));
-      }
-    });
-  }
+    /**
+     * @function checkAdminStatus
+     * @description This function checks the admin status of a user.
+     * @memberof CheckAdminStatus
+     * @async
+     */
+    public async checkAdminStatus(
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ): Promise<void> {
+        this.prisma.admin
+            .findMany({
+                where: {
+                    user_id: req.body.user_id,
+                    group_id: req.body.group_id,
+                },
+            })
+            .then((result) => {
+                if (result.length > 0) {
+                    next()
+                } else {
+                    req.statusCode = 401
+                    next(new Error('No valid admin'))
+                }
+            })
+    }
 }
