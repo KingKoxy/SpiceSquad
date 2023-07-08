@@ -11,42 +11,42 @@ import { ingredientIconGetSchema, ingredientNameGetSchema } from '../../schemas/
  * @requires IngredientController
  */
 class IngredientRouter extends abstractRouter {
-    protected Controller: IngredientController
+  protected Controller: IngredientController
 
-    /**
-     * @constructor
-     * @description This constructor initializes the admin user router.
-     * @memberof IngredientRouter
-     * @instance
-     * @returns {void}
-     * @protected
-     */
-    constructor() {
-        super()
-        this.Controller = new IngredientController()
-        this.setupRoutes()
-    }
+  /**
+   * @constructor
+   * @description This constructor initializes the admin user router.
+   * @memberof IngredientRouter
+   * @instance
+   * @returns {void}
+   * @protected
+   */
+  constructor() {
+    super()
+    this.Controller = new IngredientController()
+    this.setupRoutes()
+  }
 
-    /**
-     * @function setupRoutes
-     * @description This function sets up the routes for the admin user.
-     * @memberof IngredientRouter
-     * @instance
-     * @returns {void}
-     * @protected
-     */
-    protected setupRoutes(): void {
-        this.router.get(
-            '/names',
-            this.schemaValidator.checkSchema(ingredientNameGetSchema),
-            this.Controller.ingredientNameGet.bind(this.Controller)
-        )
-        this.router.get(
-            '/icons',
-            this.schemaValidator.checkSchema(ingredientIconGetSchema),
-            this.Controller.ingredientIconGet.bind(this.Controller)
-        )
-    }
+  /**
+   * @function setupRoutes
+   * @description This function sets up the routes for the admin user.
+   * @memberof IngredientRouter
+   * @instance
+   * @returns {void}
+   * @protected
+   */
+  protected setupRoutes(): void {
+    this.router.get(
+      '/names',
+      this.schemaValidator.checkSchema(ingredientNameGetSchema),
+      this.Controller.ingredientNameGet.bind(this.Controller)
+    )
+    this.router.get(
+      '/icons',
+      this.schemaValidator.checkSchema(ingredientIconGetSchema),
+      this.Controller.ingredientIconGet.bind(this.Controller)
+    )
+  }
 }
 
 export default IngredientRouter

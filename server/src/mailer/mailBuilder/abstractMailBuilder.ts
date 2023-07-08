@@ -10,8 +10,8 @@ import nodemailer = require('nodemailer')
  * @requires nodemailer
  */
 export default abstract class AbstractMailBuilder {
-    protected sender: string
-    protected receiver: string
-    protected subject: string
-    protected html: string
+  protected sender: string
+  protected receiver: string
+  protected subject: string
+  protected html: string
 }

@@ -5,18 +5,18 @@ const email = Joi.string().email()
 const password = Joi.string()
 
 export const registerSchema = Joi.object().keys({
-    userName: userName.required(),
-    email: email.required(),
-    password: password.required(),
+  userName: userName.required(),
+  email: email.required(),
+  password: password.required(),
 })
 
 export const loginSchema = Joi.object().keys({
-    email: email.required(),
-    password: password.required(),
+  email: email.required(),
+  password: password.required(),
 })
 
 export const resetPasswordSchema = Joi.object().keys({
-    email: email.required(),
+  email: email.required(),
 })
 
 //Specify the schema for the refreshToken route

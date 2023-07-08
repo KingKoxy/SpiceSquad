@@ -9,15 +9,15 @@ import { PrismaClient } from '@prisma/client'
  * @requires PrismaClient
  */
 export default class AbstractMiddleware {
-    protected prisma: PrismaClient
+  protected prisma: PrismaClient
 
-    /**
-     * @constructor
-     * @description This constructor initializes the abstract middleware.
-     * @memberof abstractMiddleware
-     * @returns {void}
-     */
-    constructor() {
-        this.prisma = new PrismaClient()
-    }
+  /**
+   * @constructor
+   * @description This constructor initializes the abstract middleware.
+   * @memberof abstractMiddleware
+   * @returns {void}
+   */
+  constructor() {
+    this.prisma = new PrismaClient()
+  }
 }

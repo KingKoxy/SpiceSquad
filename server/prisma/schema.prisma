@@ -44,7 +44,7 @@ model IngredientIcon {
 model Ingredient {
   id             String         @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name           String         @db.VarChar(32)
-  icon_name      String         @db.Uuid
+  icon           Blob           @db.Uuid
   amount         Float?
   unit           String?        @db.VarChar(16)
   recipe_id      String         @db.Uuid
