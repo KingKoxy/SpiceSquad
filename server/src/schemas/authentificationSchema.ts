@@ -19,9 +19,6 @@ export const resetPasswordSchema = Joi.object().keys({
     email: email.required(),
 })
 
-//Specify the schema for getUserByToken
-export const getUserByTokenSchema = Joi.object({})
-
 //Specify the schema for the refreshToken route
 export const refreshTokenSchema = Joi.object({})
 

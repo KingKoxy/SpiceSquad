@@ -1,5 +1,6 @@
 import express = require('express')
 import AbstractController from './abstractController'
+import { AuthenticatedRequest } from '../middleware/authenticatedRequest'
 
 /**
  * @description This class contains the controller for the user router.
@@ -81,5 +82,16 @@ export default class UserController extends AbstractController {
                 req.statusCode = 409
                 next(error)
             })
+    }
+
+    /**
+     * @description This function gets the current user by their token.
+     * @param req Express request handler
+     * @param res Express response handler
+     * @param next Express next function (for error handling)
+     * @returns Promise<void>
+     */
+    public async userGet(req: AuthenticatedRequest, res: express.Response, next: express.NextFunction): Promise<void> {
+        res.json(this.prisma.user.findUnique({ where: { id: req.userId } }))
     }
 }

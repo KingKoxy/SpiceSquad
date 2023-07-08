@@ -1,13 +1,10 @@
 import express = require('express')
 import AbstractController from './abstractController'
 import firebaseAuth = require('firebase/auth')
-import firebase = require('firebase/app')
-import firebaseAdmin = require('firebase-admin')
-import { AuthenticatedRequest } from '../middleware/authenticatedRequest'
 
 /**
- * @description This class contains the router for the authentification router.
- * @class AuthentificationRouter
+ * @description This class contains the router for the authentication router.
+ * @class AuthenticationRouter
  * @extends abstractRouter
  * @exports AuthenticationRouter
  * @version 1.0.0
@@ -104,21 +101,6 @@ export default class AuthenticationController extends AbstractController {
                 req.statusCode = 409
                 next(error)
             })
-    }
-
-    /**
-     * @description This function gets the current user by their token.
-     * @param req Express request handler
-     * @param res Express response handler
-     * @param next Express next function (for error handling)
-     * @returns Promise<void>
-     */
-    public async getCurrentUser(
-        req: AuthenticatedRequest,
-        res: express.Response,
-        next: express.NextFunction
-    ): Promise<void> {
-        res.json(this.prisma.user.findUnique({ where: { id: req.userId } }))
     }
 
     /**

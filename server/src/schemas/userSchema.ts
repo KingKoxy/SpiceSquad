@@ -9,3 +9,6 @@ export const userPatchSchema = Joi.object().keys({
     userName: userName,
     profileImage: profileImage,
 })
+
+//Specify the schema for userGet
+export const userGetSchema = Joi.object({})

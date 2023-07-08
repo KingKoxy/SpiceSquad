@@ -13,11 +13,11 @@ import AbstractController from './abstractController'
  */
 export default class AdminUserController extends AbstractController {
     /**
-   * @description This constructor calls the constructor of the abstractController.
-   * @constructor
-   * @param void
+     * @description This constructor calls the constructor of the abstractController.
+     * @constructor
+     * @param void
 
-   */
+     */
     constructor() {
         super()
     }

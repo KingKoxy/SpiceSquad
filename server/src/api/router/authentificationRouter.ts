@@ -58,11 +58,6 @@ export default class AuthentificationRouter extends abstractRouter {
             this.Controller.userResetPassword.bind(this.Controller)
         )
         this.router.get(
-            '/getUserByToken',
-            this.schemaValidator.checkSchema(getUserByTokenSchema),
-            this.Controller.getUserByToken.bind(this.Controller)
-        )
-        this.router.get(
             '/refreshToken',
             this.schemaValidator.checkSchema(refreshTokenSchema),
             this.Controller.userRefreshToken.bind(this.Controller)
