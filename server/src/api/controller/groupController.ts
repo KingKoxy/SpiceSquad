@@ -1,5 +1,6 @@
 import express = require('express')
 import AbstractController from './abstractController'
+import { AuthenticatedRequest } from '../middleware/authenticatedRequest'
 
 /**
  * @description This class contains the controller for the group router.
@@ -29,40 +30,44 @@ export default class GroupController extends AbstractController {
      * @param next Express next function (for error handling)
      * @returns Promise<void>
      */
-    public async groupPost(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
-        const result = await this.prisma.user.findFirst({
-            where: { id: req.body.user_id },
+    public async groupPost(
+        req: AuthenticatedRequest<never, never, { groupName: string }>,
+        res: express.Response,
+        next: express.NextFunction
+    ): Promise<void> {
+        const user = await this.prisma.user.findFirst({
+            where: { id: req.userId },
         })
 
-        if (result.created_groups > 9) {
-            console.log(result.created_groups)
+        //TODO: Maximum user groups should be a variable
+        if (user.created_groups > 9) {
             next(new Error('User has already created maximum number of groups'))
-            return
         }
+        //TODO: Einheitliches bennenen von Prisma variablen
         this.prisma.group
             .create({
                 data: {
                     name: req.body.groupName,
                     Admin: {
                         create: {
-                            user_id: req.body.userId,
+                            user_id: req.userId,
                         },
                     },
                     groupMember: {
                         create: {
-                            user_id: req.body.userId,
+                            user_id: req.userId,
                         },
                     },
                 },
                 include: { Admin: true, groupMember: true },
             })
-            .then((result) => {
+            .then(() => {
                 this.prisma.user
                     .update({
-                        where: { id: req.body.userId },
+                        where: { id: req.userId },
                         data: { created_groups: { increment: 1 } },
                     })
-                    .then((result) => {
+                    .then(() => {
                         res.status(200).json({
                             message: 'Group created successfully!',
                         })
@@ -81,14 +86,24 @@ export default class GroupController extends AbstractController {
      * @param next Express next function (for error handling)
      * @returns Promise<void>
      */
-    public async groupDelete(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
+    public async groupDelete(
+        req: AuthenticatedRequest<
+            {
+                groupId: string
+            },
+            never,
+            never
+        >,
+        res: express.Response,
+        next: express.NextFunction
+    ): Promise<void> {
         await this.prisma.group
             .delete({
                 where: {
                     id: req.params.groupId,
                 },
             })
-            .then((result) => {
+            .then(() => {
                 res.status(200).json({
                     message: 'Deleted group!',
                 })
@@ -106,17 +121,25 @@ export default class GroupController extends AbstractController {
      * @param next Express next function (for error handling)
      * @returns Promise<void>
      */
-    public async groupPatch(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
+    public async groupPatch(
+        req: AuthenticatedRequest<
+            { groupId: string },
+            never,
+            {
+                group: { name: string }
+            }
+        >,
+        res: express.Response,
+        next: express.NextFunction
+    ): Promise<void> {
         this.prisma.group
             .update({
                 where: {
-                    id: req.body.groupId,
+                    id: req.params.groupId,
                 },
-                data: {
-                    name: req.body.name,
-                },
+                data: req.body.group,
             })
-            .then((result) => {
+            .then(() => {
                 res.status(200).json({
                     message: 'Updated group!',
                 })
@@ -134,29 +157,49 @@ export default class GroupController extends AbstractController {
      * @param next Express next function (for error handling)
      * @returns Promise<void>
      */
-    public async groupJoin(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
-        try {
-            const result = await this.prisma.bannedUser.findMany({
-                where: {
-                    user_id: req.body.userId,
-                    group_id: req.body.groupId,
-                },
-            })
-            if (result.length > 0) {
-                res.status(403).json({
-                    error: 'User is banned from this group',
-                })
-                return
+    public async groupJoin(
+        req: AuthenticatedRequest<
+            never,
+            never,
+            {
+                groupCode: string
             }
-
-            this.prisma.groupMember
-                .create({
-                    data: {
-                        user_id: req.body.userId,
-                        group_id: req.body.groupId,
+        >,
+        res: express.Response,
+        next: express.NextFunction
+    ): Promise<void> {
+        try {
+            const groupId = (
+                await this.prisma.group.findFirst({
+                    where: {
+                        group_code: req.body.groupCode,
+                    },
+                })
+            ).id
+            await this.prisma.bannedUser
+                .findFirst({
+                    where: {
+                        user_id: req.userId,
+                        group_id: groupId,
                     },
                 })
                 .then((result) => {
+                    if (result) {
+                        res.status(403).json({
+                            error: 'User is banned from this group',
+                        })
+                        return
+                    }
+                })
+            //TODO: check if group has places left
+            this.prisma.groupMember
+                .create({
+                    data: {
+                        user_id: req.userId,
+                        group_id: groupId,
+                    },
+                })
+                .then(() => {
                     res.status(200).json({
                         message: 'Joined group!',
                     })
@@ -173,11 +216,20 @@ export default class GroupController extends AbstractController {
      * @param next Express next function (for error handling)
      * @returns Promise<void>
      */
-    public async groupLeave(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
+    public async groupLeave(
+        req: AuthenticatedRequest<
+            {
+                groupId: string
+            },
+            never,
+            never
+        >,
+        res: express.Response
+    ): Promise<void> {
         this.prisma.groupMember.deleteMany({
             where: {
-                user_id: req.body.user_id,
-                group_id: req.body.group_id,
+                user_id: req.userId,
+                group_id: req.params.groupId,
             },
         })
         res.status(200).json({
@@ -193,7 +245,7 @@ export default class GroupController extends AbstractController {
      * @returns Promise<void>
      */
     public async groupGetAllForUser(
-        req: express.Request,
+        req: AuthenticatedRequest<never, never, never>,
         res: express.Response,
         next: express.NextFunction
     ): Promise<void> {
@@ -202,7 +254,7 @@ export default class GroupController extends AbstractController {
                 where: {
                     groupMember: {
                         some: {
-                            user_id: req.body.user_id,
+                            user_id: req.userId,
                         },
                     },
                 },

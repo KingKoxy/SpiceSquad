@@ -6,7 +6,7 @@ import GroupRouter from './api/router/groupRouter'
 import UserRouter from './api/router/userRouter'
 import IngredientRouter from './api/router/ingredientRouter'
 import AdminUserRouter from './api/router/adminUserRouter'
-import AuthentificationRouter from './api/router/authentificationRouter'
+import AuthenticationRouter from './api/router/authenticationRouter'
 
 /**
  * @class Application
@@ -26,7 +26,7 @@ import AuthentificationRouter from './api/router/authentificationRouter'
 export default class Application {
     private app: express.Application
 
-    private authentificationRoutes: AuthentificationRouter
+    private authenticationRoutes: AuthenticationRouter
     private recipeRoutes: RecipeRouter
     private groupRoutes: GroupRouter
     private userRoutes: UserRouter
@@ -43,7 +43,7 @@ export default class Application {
      */
     constructor(express: express.Application) {
         this.app = express
-        this.authentificationRoutes = new AuthentificationRouter()
+        this.authenticationRoutes = new AuthenticationRouter()
         this.recipeRoutes = new RecipeRouter()
         this.groupRoutes = new GroupRouter()
         this.userRoutes = new UserRouter()
@@ -67,7 +67,7 @@ export default class Application {
     }
 
     private initializeRoutes(): void {
-        this.app.use('/auth', this.authentificationRoutes.getRouter())
+        this.app.use('/auth', this.authenticationRoutes.getRouter())
         this.app.use('/recipe', this.recipeRoutes.getRouter())
         this.app.use('/group', this.groupRoutes.getRouter())
         this.app.use('/user', this.userRoutes.getRouter())

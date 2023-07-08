@@ -7,7 +7,7 @@ import firebaseAuth = require('firebase/auth')
  * @description This class contains the router for the authentification router.
  * @class AuthentificationRouter
  * @extends abstractRouter
- * @exports AuthentificationRouter
+ * @exports AuthenticationRouter
  * @version 1.0.0
  * @requires AuthentificationController
  * @requires express

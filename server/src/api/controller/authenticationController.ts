@@ -110,9 +110,11 @@ export default class AuthenticationController extends AbstractController {
      * @param next Express next function (for error handling)
      * @returns Promise<void>
      */
-    public async
-
-    userRefreshToken(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
+    public async userRefreshToken(
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ): Promise<void> {
         return this.auth
             .updateCurrentUser(this.auth.currentUser)
             .then(async (token) => {
@@ -137,7 +139,7 @@ export default class AuthenticationController extends AbstractController {
      * @returns Promise<void>
      */
     public async userLogout(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
-        firebaseAuth.signOut(this.auth).then(() => {
+        await firebaseAuth.signOut(this.auth).then(() => {
             res.status(200).json({
                 message: 'Successfully logged out',
             })

@@ -4,26 +4,25 @@ import {
     registerSchema,
     loginSchema,
     resetPasswordSchema,
-    getUserByTokenSchema,
     refreshTokenSchema,
     logoutSchema,
 } from '../../schemas/authentificationSchema'
 
 /**
- * @description This class contains the routes for the authentification.
- * @class AuthentificationRouter
+ * @description This class contains the routes for the authentication.
+ * @class AuthenticationRouter
  * @extends abstractRouter
- * @exports AuthentificationRouter
+ * @exports AuthenticationRouter
  * @version 1.0.0
  * @requires AuthenticationController
  */
-export default class AuthentificationRouter extends abstractRouter {
+export default class AuthenticationRouter extends abstractRouter {
     protected Controller: AuthenticationController
 
     /**
      * @constructor
      * @description This constructor initializes the admin user router.
-     * @memberof AuthentificationRouter
+     * @memberof AuthenticationRouter
      * @returns {void}
      * @protected
      */
@@ -36,7 +35,7 @@ export default class AuthentificationRouter extends abstractRouter {
     /**
      * @function setupRoutes
      * @description This function sets up the routes for the admin user.
-     * @memberof AuthentificationRouter
+     * @memberof AuthenticationRouter
      * @instance
      * @returns {void}
      * @protected

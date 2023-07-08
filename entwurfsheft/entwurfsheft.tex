@@ -1554,9 +1554,9 @@ Das Attribut \texttt{application} speichert die \newline
 \texttt{express.Application}, die beim erzeugen des Objekts dem Konstruktor übergeben wird.
 Durch dieses Attribut bekommt die Klasse Application mitgeteilt, auf welcher \texttt{express.Application} die in dieser Klasse erzeugten Routing-Punkte angewendet werden sollen.
 \texttt{Application} ist vom Typ \texttt{express.Application}.
-\paragraph{\texttt{authentificationRoutes: AuthentificationRouter}}
+\paragraph{\texttt{authentificationRoutes: AuthenticationRouter}}
 Dieses Attribut repräsentiert den \newline
-\texttt{AuthentificationRouter}. \texttt{AuthenthificationRouter} ist vom Typ \texttt{AuthentificationRouter}.
+\texttt{AuthenticationRouter}. \texttt{AuthenthificationRouter} ist vom Typ \texttt{AuthenticationRouter}.
 \paragraph{\texttt{recipeRoutes: RecipeRouter}}
 Dieses Attribut repräsentiert den \texttt{RecipeRouter}. \texttt{RecipeRouter} ist vom Typ \texttt{RecipeRouter}.
 \paragraph{\texttt{groupRoutes: GroupRouter}}
@@ -1653,11 +1653,11 @@ Diese abstrakte Methode definiert einen Methode, die die \glslink{childclass}{Ki
 \paragraph{\texttt{getRouter(): express.Router}}
 Getter-Methode für das Attribut \texttt{router}.
 
-\subsubsection{\texttt{AuthentificationRouter}}\label{sec:AuthentificationRouter}
-Der \texttt{AuthentificationRouter} ist speziell für die Verarbeitung von Authentifizierungsanfragen zuständig.
+\subsubsection{\texttt{AuthenticationRouter}}\label{sec:AuthenticationRouter}
+Der \texttt{AuthenticationRouter} ist speziell für die Verarbeitung von Authentifizierungsanfragen zuständig.
 \subsubsection*{Methoden}
 \paragraph{\texttt{AuthenthificationRouter():void}}
-Die Methode ist der Konstruktor der Klasse \texttt{AuthentificationRouter\\}.
+Die Methode ist der Konstruktor der Klasse \texttt{AuthenticationRouter\\}.
 \paragraph{\texttt{setupRoutes(): void}}
 Mit dieser Methode werden die Handler im jeweiligen Controller den zugehörigen Routestellen zugewiesen.
 
@@ -1954,7 +1954,7 @@ Die genaue Bedeutung der einzelnen Fehlercodes kann in der \href{https://develop
 
 \subsection{/auth}
 Die Route \texttt{/auth} ist die Route, die für alle Anfragen zuständig ist, die mit der Nutzerverwaltung zu tun haben.
-Der zugehörige Router ist der \texttt{AuthentificationRouter} \\ (siehe \nameref{sec:AuthentificationRouter}).
+Der zugehörige Router ist der \texttt{AuthenticationRouter} \\ (siehe \nameref{sec:AuthenticationRouter}).
 
 \subsubsection*{POST /auth/register}
 \paragraph{Request}
@@ -2160,7 +2160,7 @@ Um unseren Nutzern eine sichere und reibungslose Nutzerverwaltung gewährleisten
 Firebase-Authentifizierung ermöglicht es, sicher Nutzerdaten zu speichern und Anfragen an den Server von angemeldeten Nutzern zu authentifizieren.
 Hierbei verwendet Firebase sogenannte \glslink{JWT}{JWT} (JSON Web Token), die bei Firebase \glslink{id-token}{ID-Token} genannt werden.
 \glslink{id-token}{ID-Token} müssen durch regelmäßige Anfragen erneuert werden.
-Firebase anfragen, die Firebase direkt betreffen, sollen über den \texttt{AuthentificationRouter} laufen.
+Firebase anfragen, die Firebase direkt betreffen, sollen über den \texttt{AuthenticationRouter} laufen.
 Dieser beinhaltet beispielsweise das Registrieren, Einloggen und Zurücksetzen des Passworts.
 SpiceSquad verwendet diese Token um Anfragen an die \glslink{rest}{REST-API} zu verifizieren und diese gleich einem Nutzer zuzuweisen.
 Wir haben uns beim Entwurf entschieden, jede Kommunikation nur zwischen Client (Android-App) und Server (REST Webserver) laufen zu lassen. Das heißt, dass alle Anfragen an Firebase erst über den \glslink{rest}{REST} Webserver laufen und dann anschließend an Firebase weitergeleitet werden.
@@ -2381,7 +2381,7 @@ Die Tabelle "BannedUser" repräsentiert die Many-To-Many-Beziehung zwischen den 
         \item \nameref{sec:AdminUserRouter}
         \item \nameref{sec:Application}
         \item \nameref{sec:AuthentificationController}
-        \item \nameref{sec:AuthentificationRouter}
+        \item \nameref{sec:AuthenticationRouter}
         \item \nameref{sec:CheckAuthorization}
         \item \nameref{sec:CheckAdminStatus}
         \item \nameref{sec:Database}
