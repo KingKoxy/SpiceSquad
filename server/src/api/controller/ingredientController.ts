@@ -22,18 +22,41 @@ export default class IngredientController extends AbstractController {
     }
 
     /**
-     * @description This function gets all ingredients.
+     * @description This function gets all ingredient names.
      * @param req Express request handler
      * @param res Express response handler
      * @param next Express next function (for error handling)
      * @returns Promise<void>
      */
-    public async ingredientsGet(
+    public async ingredientNameGet(
         req: express.Request,
         res: express.Response,
         next: express.NextFunction
     ): Promise<void> {
-        this.prisma.ingredient
+        this.prisma.ingredientName
+            .findMany()
+            .then((result) => {
+                res.status(200).json(result)
+            })
+            .catch((error) => {
+                req.statusCode = 409
+                next(error)
+            })
+    }
+
+    /**
+     * @description This function gets all ingredient icons.
+     * @param req Express request handler
+     * @param res Express response handler
+     * @param next Express next function (for error handling)
+     * @returns Promise<void>
+     */
+    public async ingredientIconGet(
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ): Promise<void> {
+        this.prisma.ingredientIcon
             .findMany()
             .then((result) => {
                 res.status(200).json(result)
