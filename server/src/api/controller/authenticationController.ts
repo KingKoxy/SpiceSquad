@@ -2,24 +2,10 @@ import express = require('express')
 import AbstractController from './abstractController'
 import firebaseAuth = require('firebase/auth')
 
-/**
- * @description This class contains the router for the authentication router.
- * @class AuthenticationRouter
- * @extends abstractRouter
- * @exports AuthenticationRouter
- * @version 1.0.0
- * @requires AuthenticationController
- * @requires express
- * @requires AbstractController
- * @requires firebase
- * @requires firebaseAdmin
- * @requires firebaseAuth
- */
 export default class AuthenticationController extends AbstractController {
   /**
    * @description This constructor calls the constructor of the abstractController.
    * @constructor
-   * @param void
    * @returns void
    */
   constructor() {
@@ -62,7 +48,6 @@ export default class AuthenticationController extends AbstractController {
       .createUserWithEmailAndPassword(this.auth, req.body.email, req.body.password)
       .then(async (userCredentials) => {
         console.log('Successfully created new user:', userCredentials.user)
-        const uuid = userCredentials.user.uid
         await this.prisma.user.create({
           data: {
             user_name: req.body.userName,
@@ -107,13 +92,11 @@ export default class AuthenticationController extends AbstractController {
    * @description This function refreshes a user's token.
    * @param req Express request handler
    * @param res Express response handler
-   * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
   public async userRefreshToken(
     req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
+    res: express.Response
   ): Promise<void> {
     return this.auth
       .updateCurrentUser(this.auth.currentUser)
@@ -135,10 +118,9 @@ export default class AuthenticationController extends AbstractController {
    * @description This function logs a user out.
    * @param req Express request handler
    * @param res Express response handler
-   * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
-  public async userLogout(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
+  public async userLogout(req: express.Request, res: express.Response): Promise<void> {
     await firebaseAuth.signOut(this.auth).then(() => {
       res.status(200).json({
         message: 'Successfully logged out',

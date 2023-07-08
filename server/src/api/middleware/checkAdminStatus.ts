@@ -1,4 +1,3 @@
-import firebase = require('firebase-admin')
 import express = require('express')
 import AbstractMiddleware from './abstractMiddleware'
 
@@ -7,8 +6,7 @@ import AbstractMiddleware from './abstractMiddleware'
  * @description This class is used to check the admin status of a user.
  * @exports CheckAdminStatus
  * @version 1.0.0
- * @extends abstractMiddleware
- * @requires firebase-admin
+ * @extends AbstractMiddleware
  * @requires express
  */
 export default class CheckAdminStatus extends AbstractMiddleware {

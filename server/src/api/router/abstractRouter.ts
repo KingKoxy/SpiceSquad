@@ -4,9 +4,9 @@ import AbstractController from '../controller/abstractController'
 import SchemaValidator from '../middleware/schemaValidator'
 
 /**
- * @class abstractRouter
+ * @class AbstractRouter
  * @description This class is the abstract class for all routers.
- * @exports abstractRouter
+ * @exports AbstractRouter
  * @abstract
  * @version 1.0.0
  * @abstract
@@ -15,7 +15,7 @@ import SchemaValidator from '../middleware/schemaValidator'
  * @requires AbstractController
  * @requires SchemaValidator
  */
-export default abstract class abstractRouter {
+export default abstract class AbstractRouter {
   /**
    * @description This property contains the router for the recipe router.
    * @memberof abstractRouter
@@ -63,7 +63,7 @@ export default abstract class abstractRouter {
    * @instance
    * @returns {void}
    */
-  constructor() {
+  protected constructor() {
     this.router = express.Router()
     this.checkAuthorization = new CheckAuthorization()
     this.checkAuth = this.checkAuthorization.checkAuthorization.bind(this.checkAuthorization)

@@ -1,8 +1,7 @@
 import firebase = require('firebase-admin')
 import express = require('express')
-import { PrismaClient } from '@prisma/client'
 import AbstractMiddleware from './abstractMiddleware'
-import { AuthenticatedRequest } from './authenticatedRequest'
+import AuthenticatedRequest from './authenticatedRequest'
 
 /**
  * @class CheckAuthorization
@@ -12,7 +11,6 @@ import { AuthenticatedRequest } from './authenticatedRequest'
  * @extends AbstractMiddleware
  * @requires firebase
  * @requires express
- * @requires PrismaClient
  * @requires AbstractMiddleware
  */
 export default class CheckAuthorization extends AbstractMiddleware {

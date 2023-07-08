@@ -1,5 +1,5 @@
 import AuthenticationController from '../controller/authenticationController'
-import abstractRouter from './abstractRouter'
+import AbstractRouter from './abstractRouter'
 import {
   registerSchema,
   loginSchema,
@@ -11,12 +11,12 @@ import {
 /**
  * @description This class contains the routes for the authentication.
  * @class AuthenticationRouter
- * @extends abstractRouter
+ * @extends AbstractRouter
  * @exports AuthenticationRouter
  * @version 1.0.0
  * @requires AuthenticationController
  */
-export default class AuthenticationRouter extends abstractRouter {
+export default class AuthenticationRouter extends AbstractRouter {
   protected Controller: AuthenticationController
 
   /**

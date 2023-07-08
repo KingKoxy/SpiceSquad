@@ -3,18 +3,6 @@ import firebase = require('firebase/app')
 import firebaseAdmin = require('firebase-admin')
 import firebaseAuth = require('firebase/auth')
 
-/**
- * @description This class contains the router for the authentification router.
- * @class AuthentificationRouter
- * @extends abstractRouter
- * @exports AuthenticationRouter
- * @version 1.0.0
- * @requires AuthentificationController
- * @requires express
- * @requires firebase
- * @requires firebaseAdmin
- * @requires firebaseAuth
- */
 abstract class AbstractController {
   /**
    * @description This variable contains the firebase config.
@@ -60,10 +48,9 @@ abstract class AbstractController {
   /**
    * @description This constructor calls the constructor of the abstractController.
    * @constructor
-   * @param void
    * @returns void
    */
-  constructor() {
+  protected constructor() {
     this.prisma = new PrismaClient()
     firebase.initializeApp(this.firebaseConfig)
     this.auth = firebaseAuth.getAuth()

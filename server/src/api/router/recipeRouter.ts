@@ -1,5 +1,5 @@
 import RecipeController from '../controller/recipeController'
-import abstractRouter from './abstractRouter'
+import AbstractRouter from './abstractRouter'
 import {
   recipeCreateSchema,
   recipeDeleteSchema,
@@ -12,12 +12,12 @@ import {
 /**
  * @description This class contains the router for the recipe router.
  * @class RecipeRouter
- * @extends abstractRouter
+ * @extends AbstractRouter
  * @exports RecipeRouter
  * @version 1.0.0
  * @requires RecipeController
  */
-export default class RecipeRouter extends abstractRouter {
+export default class RecipeRouter extends AbstractRouter {
   /**
    * @description This property contains the controller for the recipe router.
    * @memberof RecipeRouter

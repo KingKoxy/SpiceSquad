@@ -2,22 +2,10 @@ import express = require('express')
 import AbstractController from './abstractController'
 import AuthenticatedRequest from '../middleware/authenticatedRequest'
 
-/**
- * @description This class contains the controller for the group router.
- * @class GroupRouter
- * @extends abstractRouter
- * @exports GroupRouter
- * @version 1.0.0
- * @requires GroupController
- * @requires express
- * @requires AbstractController
- *
- */
 export default class GroupController extends AbstractController {
   /**
    * @description This constructor calls the constructor of the abstractController.
    * @constructor
-   * @param void
    */
   constructor() {
     super()
@@ -43,7 +31,7 @@ export default class GroupController extends AbstractController {
     if (user.created_groups > 9) {
       next(new Error('User has already created maximum number of groups'))
     }
-    //TODO: Einheitliches bennenen von Prisma variablen
+    //TODO: Einheitliches benennen von Prisma variablen
     this.prisma.group
       .create({
         data: {
@@ -213,7 +201,6 @@ export default class GroupController extends AbstractController {
    * @description This function gets a group by id.
    * @param req Express request handler
    * @param res Express response handler
-   * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
   public async groupLeave(

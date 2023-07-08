@@ -1,21 +1,10 @@
 import express = require('express')
 import AbstractController from './abstractController'
 
-/**
- * @description This class contains the controller for the ingredient router.
- * @class IngredientRouter
- * @extends abstractRouter
- * @exports IngredientRouter
- * @version 1.0.0
- * @requires IngredientController
- * @requires express
- * @requires AbstractController
- */
 export default class IngredientController extends AbstractController {
   /**
    * @description This constructor calls the constructor of the abstractController.
    * @constructor
-   * @param void
    */
   constructor() {
     super()

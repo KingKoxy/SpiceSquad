@@ -1,17 +1,16 @@
 import AdminUserController from '../controller/adminUserController'
 import CheckAdminStatus from '../middleware/checkAdminStatus'
-import abstractRouter from './abstractRouter'
-import {} from '../../schemas/adminUserSchema'
+import AbstractRouter from './abstractRouter'
 
 /**
  * @class AdminUserRouter
  * @description This class is used to manage the routes for the admin user.
  * @exports AdminUserRouter
  * @version 1.0.0
- * @extends abstractRoute
+ * @extends AbstractRouter
  * @requires AdminUserController
  */
-export default class AdminUserRouter extends abstractRouter {
+export default class AdminUserRouter extends AbstractRouter {
   /**
    * @description This property contains the controller for the admin user router.
    * @memberof AdminUserRouter

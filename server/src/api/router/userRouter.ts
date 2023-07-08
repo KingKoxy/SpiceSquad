@@ -1,16 +1,16 @@
 import UserController from '../controller/userController'
-import abstractRouter from './abstractRouter'
+import AbstractRouter from './abstractRouter'
 import { userDeleteSchema, userGetSchema, userPatchSchema } from '../../schemas/userSchema'
 
 /**
  * @description This class contains the router for the user router.
  * @class UserRouter
- * @extends abstractRouter
+ * @extends AbstractRouter
  * @exports UserRouter
  * @version 1.0.0
  * @requires UserController
  */
-export default class UserRouter extends abstractRouter {
+export default class UserRouter extends AbstractRouter {
   /**
    * @description This property contains the controller for the user router.
    * @memberof UserRouter

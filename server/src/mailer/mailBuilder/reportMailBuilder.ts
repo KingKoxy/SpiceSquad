@@ -4,18 +4,17 @@ import nodemailer = require('nodemailer')
 
 /**
  * @class ReportMailBuilder
- * @description This class is used to build a report mail.
+ * @description This class is used to build report mail.
  * @exports ReportMailBuilder
  * @version 0.0.1
  * @extends AbstractMailBuilder
  * @requires fs
  * @requires AbstractMailBuilder
  * @requires nodemailer
- * @requires reportMail.html
  */
 export default class ReportMailBuilder extends abstractMailBuilder {
-  private htmlPath: string = './src/mailer/templates/reportMail.html'
-  private htmlText: string = fs.readFileSync(this.htmlPath, 'utf8')
+  private htmlPath = './src/mailer/templates/reportMail.html'
+  private htmlText = fs.readFileSync(this.htmlPath, 'utf8')
 
   /**
    * @constructor

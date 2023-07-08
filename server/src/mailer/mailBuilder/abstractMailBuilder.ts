@@ -1,8 +1,6 @@
-import nodemailer = require('nodemailer')
-
 /**
  * @class AbstractMailBuilder
- * @description This class is used to build a mail.
+ * @description This class is used to build mail.
  * @exports AbstractMailBuilder
  * @abstract
  * @version 0.1.1

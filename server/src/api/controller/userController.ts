@@ -2,15 +2,6 @@ import express = require('express')
 import AbstractController from './abstractController'
 import AuthenticatedRequest from '../middleware/authenticatedRequest'
 
-/**
- * @description This class contains the controller for the user router.
- * @class UserRouter
- * @extends abstractRouter
- * @exports UserRouter
- * @version 1.0.0
- * @requires UserController
- * @requires express
- */
 export default class UserController extends AbstractController {
   /**
    * @description This constructor calls the constructor of the abstractController.
@@ -71,7 +62,7 @@ export default class UserController extends AbstractController {
       {
         name: string
         email: string
-        profileImage: any
+        profileImage: Uint8Array
       }
     >,
     res: express.Response,
@@ -82,7 +73,11 @@ export default class UserController extends AbstractController {
         where: {
           id: req.userId,
         },
-        data: req.body,
+        data: {
+          user_name: req.body.name,
+          email: req.body.email,
+          profile_image: Buffer.from(req.body.profileImage),
+        },
       })
       .then(() => {
         res.status(200).json({

@@ -1,23 +1,11 @@
 import express = require('express')
 import AbstractController from './abstractController'
 
-/**
- * @description This class contains the router for the admin user router.
- * @class AdminUserRouter
- * @extends abstractRouter
- * @exports AdminUserRouter
- * @version 1.0.0
- * @requires AdminUserController
- * @requires express
- * @requires AbstractController
- */
 export default class AdminUserController extends AbstractController {
   /**
-     * @description This constructor calls the constructor of the abstractController.
-     * @constructor
-     * @param void
-
-     */
+   * @description This constructor calls the constructor of the abstractController.
+   * @constructor
+   */
   constructor() {
     super()
   }
@@ -38,7 +26,7 @@ export default class AdminUserController extends AbstractController {
           group_id: req.body.groupId,
         },
       })
-      .then((result) => {
+      .then(() => {
         res.status(200).json({
           message: 'Admin created successfully!',
         })
@@ -64,7 +52,7 @@ export default class AdminUserController extends AbstractController {
           group_id: req.body.groupId,
         },
       })
-      .then((result) => {
+      .then(() => {
         res.status(200).json({
           message: 'Admin removed successfully!',
         })
@@ -90,7 +78,7 @@ export default class AdminUserController extends AbstractController {
           group_id: req.body.groupId,
         },
       })
-      .then((result) => {
+      .then(() => {
         res.status(200).json({
           message: 'User kicked successfully!',
         })
@@ -109,14 +97,12 @@ export default class AdminUserController extends AbstractController {
    * @returns Promise<void>
    */
   public async banUser(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
-    this.prisma.groupMember
-      .deleteMany({
-        where: {
-          user_id: req.body.targetId,
-          group_id: req.body.groupId,
-        },
-      })
-      .then((result) => {})
+    this.prisma.groupMember.deleteMany({
+      where: {
+        user_id: req.body.targetId,
+        group_id: req.body.groupId,
+      },
+    })
 
     this.prisma.bannedUser
       .create({
@@ -125,7 +111,7 @@ export default class AdminUserController extends AbstractController {
           group_id: req.body.groupId,
         },
       })
-      .then((result) => {
+      .then(() => {
         res.status(200).json({
           message: 'User banned successfully!',
         })

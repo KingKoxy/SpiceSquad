@@ -1,5 +1,5 @@
 import GroupController from '../controller/groupController'
-import abstractRouter from './abstractRouter'
+import AbstractRouter from './abstractRouter'
 import {
   GroupCreateSchema,
   GroupDeleteSchema,
@@ -12,12 +12,12 @@ import {
 /**
  * @description This class contains the router for the group router.
  * @class GroupRouter
- * @extends abstractRouter
+ * @extends AbstractRouter
  * @exports GroupRouter
  * @version 1.0.0
  * @requires GroupController
  */
-export default class GroupRouter extends abstractRouter {
+export default class GroupRouter extends AbstractRouter {
   protected Controller: GroupController
 
   /**

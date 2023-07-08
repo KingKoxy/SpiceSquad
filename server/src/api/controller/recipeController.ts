@@ -1,35 +1,23 @@
 import express = require('express')
 import AbstractController from './abstractController'
-import mailSender from '../../mailer/mailSender'
-import reportMailBuilder from '../../mailer/mailBuilder/reportMailBuilder'
+import MailSender from '../../mailer/mailSender'
+import ReportMailBuilder from '../../mailer/mailBuilder/reportMailBuilder'
 import AuthenticatedRequest from '../middleware/authenticatedRequest'
 
-/**
- * @description This class contains the controller for the recipe router.
- * @class RecipeRouter
- * @extends abstractRouter
- * @exports RecipeRouter
- * @version 1.0.0
- * @requires RecipeController
- * @requires express
- * @requires AbstractController
- * @requires mailSender
- * @requires reportMailBuilder
- */
 export default class RecipeController extends AbstractController {
   /**
    * @description This variable contains the mailSender.
    * @private
    * @type {mailSender}
    */
-  private mailSender: mailSender
+  private mailSender: MailSender
 
   /**
    * @description This variable contains the reportMailBuilder.
    * @private
    * @type {reportMailBuilder}
    */
-  private reportMailBuilder: reportMailBuilder
+  private reportMailBuilder: ReportMailBuilder
 
   /**
    * @description This constructor calls the constructor of the abstractController.
@@ -37,8 +25,8 @@ export default class RecipeController extends AbstractController {
    */
   constructor() {
     super()
-    this.mailSender = new mailSender()
-    this.reportMailBuilder = new reportMailBuilder()
+    this.mailSender = new MailSender()
+    this.reportMailBuilder = new ReportMailBuilder()
   }
 
   /**
@@ -369,7 +357,7 @@ export default class RecipeController extends AbstractController {
     >,
     res: express.Response
   ): Promise<void> {
-    //get all admins where recipe is in group of admin
+    //get all admins where the recipe is in their group
     const recipeAuthorId = (
       await this.prisma.recipe.findUnique({
         where: {
@@ -407,6 +395,9 @@ export default class RecipeController extends AbstractController {
     ).map((user) => user.email)
 
     // TODO: Send notification to admins
+    for (const adminEmail of adminEmails) {
+      //this.mailSender.sendMail();
+    }
 
     res.status(200).json({
       message: 'Recipe reported successfully!',
@@ -414,7 +405,7 @@ export default class RecipeController extends AbstractController {
   }
 
   /**
-   * @description This function changes the favorite status of recipe.
+   * @description This function changes the favorite status of the recipe.
    * @param req Express request handler
    * @param res Express response handler
    * @returns Promise<void>
@@ -443,7 +434,7 @@ export default class RecipeController extends AbstractController {
         })
       } else {
         res.status(409).json({
-          message: 'Recipe already favourited',
+          message: 'Recipe already favored',
         })
       }
     } else {
@@ -455,7 +446,7 @@ export default class RecipeController extends AbstractController {
         })
       } else {
         res.status(409).json({
-          message: 'Recipe not favourited',
+          message: 'Recipe not favored',
         })
       }
     }

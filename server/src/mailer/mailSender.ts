@@ -7,7 +7,6 @@ import 'dotenv/config'
  * @exports MailSender
  * @version 0.0.1
  * @requires nodemailer
- * @requires dotenv
  * @requires .env
  */
 class MailSender {
@@ -34,13 +33,13 @@ class MailSender {
 
   /**
    * @function sendMail
-   * @description This function sends a mail.
+   * @description This function sends mail.
    * @memberof MailSender
    * @param {nodemailer.SendMailOptions} mailOptions - The mail options.
    * @returns {Promise<void>} A promise.
    * @protected
    * @async
-   * @throws {Error} The error which occured.
+   * @throws {Error} The error which occurred.
    */
   public async sendMail(mailOptions: nodemailer.SendMailOptions): Promise<void> {
     return new Promise((resolve, reject) => {

@@ -1,16 +1,16 @@
 import IngredientController from '../controller/ingredientController'
-import abstractRouter from './abstractRouter'
+import AbstractRouter from './abstractRouter'
 import { ingredientIconGetSchema, ingredientNameGetSchema } from '../../schemas/ingredientSchema'
 
 /**
  * @description This class contains the router for the ingredient router.
  * @class IngredientRouter
- * @extends abstractRouter
+ * @extends AbstractRouter
  * @exports IngredientRouter
  * @version 1.0.0
  * @requires IngredientController
  */
-class IngredientRouter extends abstractRouter {
+class IngredientRouter extends AbstractRouter {
   protected Controller: IngredientController
 
   /**
