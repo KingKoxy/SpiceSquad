@@ -55,7 +55,7 @@ export default class AdminUserController extends AbstractController {
   }
 
   /**
-   * @decscription This function removes an admin from a group.
+   * @description This function removes an admin from a group.
    * @param req Express request handler
    * @param res Express response handler
    * @param next Express next function (for error handling)

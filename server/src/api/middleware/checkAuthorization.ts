@@ -1,20 +1,21 @@
 import firebase = require("firebase-admin");
 import express = require("express");
 import { PrismaClient } from "@prisma/client";
-import abstractMiddleware from "./abstractMiddleware";
+import AbstractMiddleware from "./abstractMiddleware";
+import {AuthenticatedRequest} from "./authenticatedRequest";
 
 /**
  * @class CheckAuthorization
  * @description This class is used to check the authorization of a request.
  * @exports CheckAuthorization
  * @version 1.0.0
- * @extends abstractMiddleware
+ * @extends AbstractMiddleware
  * @requires firebase
  * @requires express
  * @requires PrismaClient
- * @requires abstractMiddleware
+ * @requires AbstractMiddleware
  */
-export default class CheckAuthorization extends abstractMiddleware {
+export default class CheckAuthorization extends AbstractMiddleware {
 
   /**
    * @constructor This constructor initializes the check authorization middleware.
@@ -28,7 +29,7 @@ export default class CheckAuthorization extends abstractMiddleware {
    * @function checkAuthorization
    * @description This function checks the authorization of a request.
    * @memberof CheckAuthorization
-   * @param {express.Request} req - The request.
+   * @param {AuthenticatedRequest} req - The request.
    * @param {express.Response} res - The response.
    * @param {express.NextFunction} next - The next function.
    * @returns {Promise<void>}
@@ -36,7 +37,7 @@ export default class CheckAuthorization extends abstractMiddleware {
    * @async
    */
   public async checkAuthorization(
-    req: express.Request,
+    req: AuthenticatedRequest,
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
@@ -61,7 +62,7 @@ export default class CheckAuthorization extends abstractMiddleware {
             })
             .then((user) => {
               console.log(user);
-              req.body.userId = user.id;
+              req.userId = user.id;
             });
           next();
         })

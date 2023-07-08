@@ -1,6 +1,6 @@
 import firebase = require("firebase-admin");
 import express = require("express");
-import abstractMiddleware from "./abstractMiddleware";
+import AbstractMiddleware from "./abstractMiddleware";
 
 /**
  * @class CheckAdminStatus
@@ -11,7 +11,7 @@ import abstractMiddleware from "./abstractMiddleware";
  * @requires firebase-admin
  * @requires express
  */
-export default class CheckAdminStatus extends abstractMiddleware{
+export default class CheckAdminStatus extends AbstractMiddleware{
 
   /**
    * @constructor This constructor initializes the check admin status middleware.

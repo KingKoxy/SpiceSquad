@@ -1,14 +1,14 @@
 import { PrismaClient } from "@prisma/client";
 
 /**
- * @class abstractMiddleware
+ * @class AbstractMiddleware
  * @description This class is used to create an instance of the PrismaClient.
  * @exports abstractMiddleware
  * @abstract
  * @version 1.0.0
  * @requires PrismaClient
  */
-export default class abstractMiddleware {
+export default class AbstractMiddleware {
     protected prisma: PrismaClient;
 
     /**

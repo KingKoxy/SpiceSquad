@@ -1,5 +1,5 @@
 import express = require("express");
-import abstractMiddleware from "./abstractMiddleware";
+import AbstractMiddleware from "./abstractMiddleware";
 import joi = require("joi");
 
 /**
@@ -7,9 +7,9 @@ import joi = require("joi");
  * @description This class is used to validate the schema of a request.
  * @exports SchemaValidator
  * @version 1.0.0
- * @extends abstractMiddleware
+ * @extends AbstractMiddleware
  */
-export default class SchemaValidator extends abstractMiddleware{
+export default class SchemaValidator extends AbstractMiddleware{
 
     /**
      * @constructor: This constructor initializes the schema validator.

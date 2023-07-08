@@ -1,4 +1,4 @@
-import AuthentificationController from "../controller/authentificationController";
+import AuthenticationController from "../controller/authenticationController";
 import abstractRouter from "./abstractRouter";
 import {registerSchema, loginSchema, resetPasswordSchema, getUserByTokenSchema, refreshTokenSchema, logoutSchema} from "../../schemas/authentificationSchema";
 
@@ -8,10 +8,10 @@ import {registerSchema, loginSchema, resetPasswordSchema, getUserByTokenSchema, 
  * @extends abstractRouter
  * @exports AuthentificationRouter
  * @version 1.0.0
- * @requires AuthentificationController
+ * @requires AuthenticationController
  */
 export default class AuthentificationRouter extends abstractRouter {
-  protected Controller: AuthentificationController;
+  protected Controller: AuthenticationController;
 
   /**
    * @constructor
@@ -22,7 +22,7 @@ export default class AuthentificationRouter extends abstractRouter {
    */
   constructor() {
     super();
-    this.Controller = new AuthentificationController();
+    this.Controller = new AuthenticationController();
     this.setupRoutes();
   }
 
