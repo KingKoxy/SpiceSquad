@@ -1,5 +1,5 @@
 import RecipeController from '../controller/recipeController'
-import AbstractRouter from './abstractRouter'
+import abstractRouter from './abstractRouter'
 import {
   recipeCreateSchema,
   recipeDeleteSchema,
@@ -17,7 +17,7 @@ import {
  * @version 1.0.0
  * @requires RecipeController
  */
-export default class RecipeRouter extends AbstractRouter {
+export default class RecipeRouter extends abstractRouter {
   /**
    * @description This property contains the controller for the recipe router.
    * @memberof RecipeRouter
@@ -56,31 +56,31 @@ export default class RecipeRouter extends AbstractRouter {
       this.Controller.recipePost.bind(this.Controller)
     )
     this.router.get(
-      '/:userId',
+      '/',
       this.checkAuth,
       this.schemaValidator.checkSchema(recipeGetAllSchema),
       this.Controller.recipesGetAllForUser.bind(this.Controller)
     )
     this.router.delete(
-      '/:productId',
+      '/:recipeId',
       this.checkAuth,
       this.schemaValidator.checkSchema(recipeDeleteSchema),
       this.Controller.recipeDelete.bind(this.Controller)
     )
     this.router.patch(
-      '/:productId',
+      '/:recipeId',
       this.checkAuth,
       this.schemaValidator.checkSchema(recipeUpdateSchema),
       this.Controller.recipePatch.bind(this.Controller)
     )
     this.router.patch(
-      '/setFavorite/:productId',
+      '/setFavorite/:recipeId',
       this.checkAuth,
       this.schemaValidator.checkSchema(recipeSetFavorite),
       this.Controller.recipeSetFavorite.bind(this.Controller)
     )
     this.router.post(
-      '/report/:productId',
+      '/report/:recipeId',
       this.checkAuth,
       this.schemaValidator.checkSchema(recipeReportSchema),
       this.Controller.recipeReport.bind(this.Controller)

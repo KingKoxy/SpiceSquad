@@ -1,14 +1,18 @@
 import Joi from 'joi'
+import { userName } from './generalSchema'
 
-const userName = Joi.string()
 const profileImage = Joi.string()
+const email = Joi.string().email()
 
 export const userDeleteSchema = Joi.object({})
 
 export const userPatchSchema = Joi.object().keys({
   userName: userName,
   profileImage: profileImage,
+  email: email,
 })
 
-//Specify the schema for userGet
-export const userGetSchema = Joi.object({})
+//Specify the schema for getUserByToken
+export const getUserByTokenSchema = Joi.object({
+  user: Joi.object({}).options({ allowUnknown: true }),
+})

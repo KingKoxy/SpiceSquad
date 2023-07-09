@@ -34,9 +34,8 @@ export default class UserController extends AbstractController {
           .auth()
           .deleteUser(user.firebase_user_id)
           .catch((error) => {
-            res.status(500).json({
-              error: error,
-            })
+            req.statusCode = 409
+            next(error)
           })
         res.status(200).json({
           message: 'User deleted successfully!',
@@ -68,26 +67,37 @@ export default class UserController extends AbstractController {
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
-    this.prisma.user
+    let bufferImage: Buffer
+    if (req.body.profileImage) {
+      bufferImage = Buffer.from(req.body.profileImage)
+    }
+    const user = await this.prisma.user
       .update({
         where: {
           id: req.userId,
         },
         data: {
-          user_name: req.body.name,
-          email: req.body.email,
-          profile_image: Buffer.from(req.body.profileImage),
+          user_name: req.body.name || undefined,
+          email: req.body.email || undefined,
+          profile_image: bufferImage || undefined,
         },
-      })
-      .then(() => {
-        res.status(200).json({
-          message: 'User updated successfully!',
-        })
       })
       .catch((error) => {
         req.statusCode = 409
         next(error)
       })
+    if (user && req.body.email !== undefined) {
+      this.firebaseAdmin
+        .auth()
+        .updateUser(user.firebase_user_id, { email: req.body.email })
+        .catch((error) => {
+          req.statusCode = 409
+          next(error)
+        })
+    }
+    res.status(200).json({
+      message: 'User updated successfully!',
+    })
   }
 
   /**
@@ -98,5 +108,26 @@ export default class UserController extends AbstractController {
    */
   public async userGet(req: AuthenticatedRequest, res: express.Response): Promise<void> {
     res.json(this.prisma.user.findUnique({ where: { id: req.userId } }))
+  }
+
+  /**
+   * @description This function gets a user by token.
+   * @param req Express request handler
+   * @param res Express response handler
+   * @param next Express next function (for error handling)
+   * @returns Promise<void>
+   */
+  public async getUserByToken(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
+    try {
+      console.log(req.body.user)
+      this.firebaseAuth.getAuth()
+      const token = await this.firebaseAuth.getIdToken(req.body.user)
+      res.status(200).json({
+        idToken: token,
+      })
+    } catch (error) {
+      req.statusCode = 409
+      next(error)
+    }
   }
 }

@@ -125,7 +125,7 @@ export default class GroupController extends AbstractController {
         where: {
           id: req.params.groupId,
         },
-        data: req.body,
+        data: req.body.name || undefined,
       })
       .then(() => {
         res.status(200).json({
@@ -211,17 +211,81 @@ export default class GroupController extends AbstractController {
       never,
       never
     >,
-    res: express.Response
+    res: express.Response,
+    next: express.NextFunction
   ): Promise<void> {
-    this.prisma.groupMember.deleteMany({
+    const result = await this.prisma.groupMember.findMany({
       where: {
         user_id: req.userId,
         group_id: req.params.groupId,
       },
     })
-    res.status(200).json({
-      message: 'Left group!',
+    if (result.length == 0) {
+      req.statusCode = 422
+      next(new Error('Could not left group. User is not in this group'))
+    } else if (result.length == 1) {
+      this.prisma.group
+        .delete({
+          where: {
+            id: req.params.groupId,
+          },
+        })
+        .then((result) => {
+          console.log('User was last member of group. Group deleted.')
+        })
+        .catch((error) => {
+          req.statusCode = 422
+          next((error.message = 'Group could not be left'))
+        })
+    }
+
+    const result2 = await this.prisma.admin.findMany({
+      where: {
+        user_id: req.userId,
+        group_id: req.params.groupId,
+      },
     })
+    if (result2.length == 1) {
+      const result3 = await this.prisma.groupMember.findMany({
+        where: {
+          group_id: req.params.groupId,
+        },
+        orderBy: {
+          joined_at: 'asc',
+        },
+      })
+      this.prisma.admin
+        .create({
+          data: {
+            user_id: result3[0].user_id,
+            group_id: req.params.groupId,
+          },
+        })
+        .then((result) => {
+          console.log('Longest group member is now admin.')
+        })
+        .catch((error) => {
+          req.statusCode = 422
+          next((error.message = 'Group could not be left'))
+        })
+    }
+
+    this.prisma.groupMember
+      .deleteMany({
+        where: {
+          user_id: req.userId,
+          group_id: req.params.groupId,
+        },
+      })
+      .then((result) => {
+        res.status(200).json({
+          message: 'Left group!',
+        })
+      })
+      .catch((error) => {
+        req.statusCode = 422
+        next((error.message = 'Group could not be left'))
+      })
   }
 
   /**
@@ -248,6 +312,29 @@ export default class GroupController extends AbstractController {
       })
       .then((result) => {
         console.log(result)
+        res.status(200).json(result)
+      })
+      .catch((error) => {
+        res.statusCode = 422
+        next(error)
+      })
+  }
+
+  /**
+   * @description This function gets a group by id.
+   * @param req Express request handler
+   * @param res Express response handler
+   * @param next Express next function (for error handling)
+   * @returns Promise<void>
+   */
+  public async groupGetById(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
+    this.prisma.group
+      .findMany({
+        where: {
+          id: req.params.groupId,
+        },
+      })
+      .then((result) => {
         res.status(200).json(result)
       })
       .catch((error) => {

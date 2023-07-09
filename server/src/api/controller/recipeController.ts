@@ -99,11 +99,6 @@ export default class RecipeController extends AbstractController {
           message: 'Recipe created successfully!',
         })
       })
-      .catch((error) => {
-        res.status(500).json({
-          error: error,
-        })
-      })
   }
 
   /**
@@ -120,7 +115,8 @@ export default class RecipeController extends AbstractController {
       never,
       never
     >,
-    res: express.Response
+    res: express.Response,
+    next: express.NextFunction
   ): Promise<void> {
     await this.prisma.recipe
       .findUnique({
@@ -148,9 +144,8 @@ export default class RecipeController extends AbstractController {
         }
       })
       .catch((error) => {
-        res.status(500).json({
-          error: error,
-        })
+        res.statusCode = 409
+        next(new Error('Recipe not found!'))
       })
   }
 
@@ -207,26 +202,26 @@ export default class RecipeController extends AbstractController {
           id: req.params.recipeId,
         },
         data: {
-          title: req.body.title,
+          title: req.body.title || undefined,
           image: Buffer.from(req.body.image),
-          duration: req.body.duration,
-          difficulty: req.body.difficulty,
-          instructions: req.body.instructions,
-          is_vegetarian: req.body.isVegetarian,
-          is_vegan: req.body.isVegan,
-          is_gluten_free: req.body.isGlutenFree,
-          is_kosher: req.body.isKosher,
-          is_halal: req.body.isHalal,
-          is_private: req.body.isPrivate,
-          default_portions: req.body.defaultPortionAmount,
+          duration: req.body.duration || undefined,
+          difficulty: req.body.difficulty || undefined,
+          instructions: req.body.instructions || undefined,
+          is_vegetarian: req.body.isVegetarian || undefined,
+          is_vegan: req.body.isVegan || undefined,
+          is_gluten_free: req.body.isGlutenFree || undefined,
+          is_kosher: req.body.isKosher || undefined,
+          is_halal: req.body.isHalal || undefined,
+          is_private: req.body.isPrivate || undefined,
+          default_portions: req.body.defaultPortionAmount || undefined,
           ingredient: {
             createMany: {
               data: req.body.ingredients.map((ingredient) => {
                 return {
-                  name: ingredient.name,
-                  icon: Buffer.from(ingredient.icon),
-                  amount: ingredient.amount,
-                  unit: ingredient.unit,
+                  name: ingredient.name || undefined,
+                  icon: Buffer.from(ingredient.icon) || undefined,
+                  amount: ingredient.amount || undefined,
+                  unit: ingredient.unit || undefined,
                 }
               }),
             },
@@ -267,73 +262,123 @@ export default class RecipeController extends AbstractController {
         })
       ).map((groupMember) => groupMember.group_id)
 
-      // Find all members of the groups
-      const memberIds = (
-        await this.prisma.groupMember.findMany({
+      if (groupIds.length === 0) {
+        const recipes = await this.prisma.recipe.findMany({
           where: {
-            group_id: {
-              in: groupIds,
-            },
+            author_id: req.userId,
           },
         })
-      ).map((groupMember) => groupMember.user_id)
 
-      // Find all censored recipes of the groups
-      const censoredRecipeIds = (
-        await this.prisma.censoredRecipe.findMany({
-          where: {
-            group_id: {
-              in: groupIds,
-            },
-          },
-        })
-      ).map((censoredRecipe) => censoredRecipe.recipe_id)
-
-      // Find all recipes of the members that are not censored or private (unless by the user)
-      const recipes = await this.prisma.recipe.findMany({
-        where: {
-          author_id: {
-            in: memberIds,
-          },
-          OR: [
-            { author_id: req.userId },
-            {
-              is_private: false,
-              id: {
-                notIn: censoredRecipeIds,
-              },
-            },
-          ],
-        },
-      })
-
-      // Find all favourites of the user
-      const favouriteIds = (
-        await this.prisma.favorite.findMany({
-          where: {
-            user_id: req.userId,
-          },
-        })
-      ).map((favourite) => favourite.recipe_id)
-
-      //Get all recipes with author from author_id
-      const recipesWithAuthorAndFavourite = await Promise.all(
-        recipes.map(async (recipe) => {
-          const author = await this.prisma.user.findUnique({
+        // Find all favourites of the user
+        const favouriteIds = (
+          await this.prisma.favorite.findMany({
             where: {
-              id: recipe.author_id,
+              user_id: req.userId,
             },
           })
-          return {
-            ...recipe,
-            author,
-            isFavourite: favouriteIds.includes(recipe.id),
-          }
-        })
-      )
+        ).map((favourite) => favourite.recipe_id)
 
-      // Return recipes with author and isFavourite
-      res.status(200).json(recipesWithAuthorAndFavourite)
+        //Get all recipes with author from author_id
+        const recipesWithAuthorAndFavourite = await Promise.all(
+          recipes.map(async (recipe) => {
+            const author = await this.prisma.user.findUnique({
+              where: {
+                id: recipe.author_id,
+              },
+              include: {},
+            })
+
+            const ingredients = await this.prisma.ingredient.findMany({
+              where: {
+                recipe_id: recipe.id,
+              },
+            })
+
+            return {
+              ...recipe,
+              ingredients,
+              isFavourite: favouriteIds.includes(recipe.id),
+            }
+          })
+        )
+
+        // Send the response with the user's recipes
+        res.status(200).json(recipesWithAuthorAndFavourite)
+      } else {
+        // Find all members of the groups
+        const memberIds = (
+          await this.prisma.groupMember.findMany({
+            where: {
+              group_id: {
+                in: groupIds,
+              },
+            },
+          })
+        ).map((groupMember) => groupMember.user_id)
+
+        // Find all censored recipes of the groups
+        const censoredRecipeIds = (
+          await this.prisma.censoredRecipe.findMany({
+            where: {
+              group_id: {
+                in: groupIds,
+              },
+            },
+          })
+        ).map((censoredRecipe) => censoredRecipe.recipe_id)
+
+        // Find all recipes of the members that are not censored or private (unless by the user)
+        const recipes = await this.prisma.recipe.findMany({
+          where: {
+            author_id: {
+              in: memberIds,
+            },
+            OR: [
+              { author_id: req.userId },
+              {
+                is_private: false,
+                id: {
+                  notIn: censoredRecipeIds,
+                },
+              },
+            ],
+          },
+        })
+
+        // Find all favourites of the user
+        const favouriteIds = (
+          await this.prisma.favorite.findMany({
+            where: {
+              user_id: req.userId,
+            },
+          })
+        ).map((favourite) => favourite.recipe_id)
+
+        //Get all recipes with author from author_id
+        const recipesWithAuthorAndFavourite = await Promise.all(
+          recipes.map(async (recipe) => {
+            const author = await this.prisma.user.findUnique({
+              where: {
+                id: recipe.author_id,
+              },
+            })
+            const ingredients = await this.prisma.ingredient.findMany({
+              where: {
+                recipe_id: recipe.id,
+              },
+            })
+
+            return {
+              ...recipe,
+              ingredients,
+              isFavourite: favouriteIds.includes(recipe.id),
+            }
+          })
+        )
+
+        // Return recipes with author and isFavourite
+        res.status(200).json(recipesWithAuthorAndFavourite)
+      }
     } catch (e) {
       res.status(500).json({
         error: e,

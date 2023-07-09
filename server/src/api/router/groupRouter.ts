@@ -7,7 +7,9 @@ import {
   GroupJoinSchema,
   GroupLeaveSchema,
   GroupUpdateSchema,
+  GroupGetIdSchema,
 } from '../../schemas/groupSchema'
+import CheckAdminStatus from '../middleware/checkAdminStatus'
 
 /**
  * @description This class contains the router for the group router.
@@ -19,6 +21,8 @@ import {
  */
 export default class GroupRouter extends AbstractRouter {
   protected Controller: GroupController
+  protected CheckAdminStatus: CheckAdminStatus
+  protected checkAdmin: any
 
   /**
    * @constructor
@@ -31,6 +35,8 @@ export default class GroupRouter extends AbstractRouter {
   constructor() {
     super()
     this.Controller = new GroupController()
+    this.CheckAdminStatus = new CheckAdminStatus()
+    this.checkAdmin = this.CheckAdminStatus.checkAdminStatus.bind(this.CheckAdminStatus)
     this.setupRoutes()
   }
 
@@ -53,13 +59,8 @@ export default class GroupRouter extends AbstractRouter {
       '/:groupId',
       this.checkAuth,
       this.schemaValidator.checkSchema(GroupDeleteSchema),
+      this.checkAdmin,
       this.Controller.groupDelete.bind(this.Controller)
-    )
-    this.router.patch(
-      '/',
-      this.checkAuth,
-      this.schemaValidator.checkSchema(GroupUpdateSchema),
-      this.Controller.groupPatch.bind(this.Controller)
     )
     this.router.patch(
       '/join',
@@ -68,7 +69,15 @@ export default class GroupRouter extends AbstractRouter {
       this.Controller.groupJoin.bind(this.Controller)
     )
     this.router.patch(
-      '/leave',
+      '/:groupId',
+      this.checkAuth,
+      this.schemaValidator.checkSchema(GroupUpdateSchema),
+      this.checkAdmin,
+      this.Controller.groupPatch.bind(this.Controller)
+    )
+
+    this.router.patch(
+      '/leave/:groupId',
       this.checkAuth,
       this.schemaValidator.checkSchema(GroupLeaveSchema),
       this.Controller.groupLeave.bind(this.Controller)
@@ -78,6 +87,13 @@ export default class GroupRouter extends AbstractRouter {
       this.checkAuth,
       this.schemaValidator.checkSchema(GroupGetAllSchema),
       this.Controller.groupGetAllForUser.bind(this.Controller)
+    )
+
+    this.router.get(
+      '/:groupId',
+      this.checkAuth,
+      this.schemaValidator.checkSchema(GroupGetIdSchema),
+      this.Controller.groupGetById.bind(this.Controller)
     )
   }
 }

@@ -1,26 +1,36 @@
 import Joi from 'joi'
+import { userId } from './generalSchema'
 
-const groupName = Joi.string()
-const userId = Joi.string()
+const groupName = Joi.string().max(32)
+const groupCode = Joi.string()
 
 export const GroupCreateSchema = Joi.object().keys({
   groupName: groupName.required(),
   userId: userId,
 })
 
-export const GroupDeleteSchema = Joi.object({
+export const GroupDeleteSchema = Joi.object().keys({
   userId: userId,
 })
 
-export const GroupUpdateSchema = Joi.object({
+export const GroupUpdateSchema = Joi.object().keys({
   groupName: groupName,
-})
-
-export const GroupJoinSchema = Joi.object({
   userId: userId,
-  groupId: Joi.string().required(),
 })
 
-export const GroupLeaveSchema = Joi.object({})
+export const GroupJoinSchema = Joi.object().keys({
+  groupCode: groupCode,
+  userId: userId,
+})
 
-export const GroupGetAllSchema = Joi.object({})
+export const GroupLeaveSchema = Joi.object().keys({
+  userId: userId,
+})
+
+export const GroupGetAllSchema = Joi.object().keys({
+  userId: userId,
+})
+
+export const GroupGetIdSchema = Joi.object().keys({
+  userId: userId,
+})

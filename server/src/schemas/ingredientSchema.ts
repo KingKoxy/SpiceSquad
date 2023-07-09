@@ -1,4 +1,6 @@
 import Joi from 'joi'
+import { userId } from './generalSchema'
 
-export const ingredientNameGetSchema = Joi.object({})
-export const ingredientIconGetSchema = Joi.object({})
+export const ingredientNameGetSchema = Joi.object().keys({})
+
+export const ingredientIconGetSchema = Joi.object().keys({})

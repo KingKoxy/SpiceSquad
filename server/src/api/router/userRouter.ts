@@ -1,6 +1,6 @@
 import UserController from '../controller/userController'
 import AbstractRouter from './abstractRouter'
-import { userDeleteSchema, userGetSchema, userPatchSchema } from '../../schemas/userSchema'
+import { userDeleteSchema, userPatchSchema, getUserByTokenSchema } from '../../schemas/userSchema'
 
 /**
  * @description This class contains the router for the user router.
@@ -49,11 +49,15 @@ export default class UserRouter extends AbstractRouter {
       this.Controller.userDelete.bind(this.Controller)
     )
     this.router.patch(
-      '/',
+      '/:userId',
       this.checkAuth,
       this.schemaValidator.checkSchema(userPatchSchema),
       this.Controller.userPatch.bind(this.Controller)
     )
-    this.router.get('/', this.schemaValidator.checkSchema(userGetSchema), this.Controller.userGet.bind(this.Controller))
+    this.router.get(
+      '/getUserByToken',
+      this.schemaValidator.checkSchema(getUserByTokenSchema),
+      this.Controller.getUserByToken.bind(this.Controller)
+    )
   }
 }

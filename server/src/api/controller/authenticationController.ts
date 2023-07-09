@@ -94,10 +94,7 @@ export default class AuthenticationController extends AbstractController {
    * @param res Express response handler
    * @returns Promise<void>
    */
-  public async userRefreshToken(
-    req: express.Request,
-    res: express.Response
-  ): Promise<void> {
+  public async userRefreshToken(req: express.Request, res: express.Response): Promise<void> {
     return this.auth
       .updateCurrentUser(this.auth.currentUser)
       .then(async (token) => {

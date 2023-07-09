@@ -1,6 +1,8 @@
 import AdminUserController from '../controller/adminUserController'
 import CheckAdminStatus from '../middleware/checkAdminStatus'
 import AbstractRouter from './abstractRouter'
+import {} from '../../schemas/adminUserSchema'
+import checkGroupMemberState from '../middleware/checkGroupMemberState'
 
 /**
  * @class AdminUserRouter
@@ -35,6 +37,9 @@ export default class AdminUserRouter extends AbstractRouter {
    */
   protected checkAdminStatus: CheckAdminStatus
 
+  protected checkGroupMemberState: checkGroupMemberState
+  protected checkMemberStateTarget: any
+
   /**
    * @constructor
    * @description This constructor initializes the admin user router.
@@ -46,6 +51,8 @@ export default class AdminUserRouter extends AbstractRouter {
     this.checkAdminStatus = new CheckAdminStatus()
     this.checkAdmin = this.checkAdminStatus.checkAdminStatus.bind(this.checkAdminStatus)
     this.Controller = new AdminUserController()
+    this.checkGroupMemberState = new checkGroupMemberState()
+    this.checkMemberStateTarget = this.checkGroupMemberState.checkMemberStateTarget.bind(this.checkGroupMemberState)
     this.setupRoutes()
   }
 
@@ -57,17 +64,38 @@ export default class AdminUserRouter extends AbstractRouter {
    * @protected
    */
   protected setupRoutes(): void {
-    this.router.patch('/makeAdmin', this.checkAuth, this.checkAdmin, this.Controller.makeAdmin.bind(this.Controller))
     this.router.patch(
-      '/removeAdmin',
+      '/makeAdmin/:groupId/:targetId',
       this.checkAuth,
       this.checkAdmin,
+      this.checkMemberStateTarget,
+      this.Controller.makeAdmin.bind(this.Controller)
+    )
+
+    this.router.patch(
+      '/removeAdmin/:groupId/:targetId',
+      this.checkAuth,
+      this.checkAdmin,
+      this.checkMemberStateTarget,
       this.Controller.removeAdmin.bind(this.Controller)
     )
-    this.router.patch('/kickUser', this.checkAuth, this.checkAdmin, this.Controller.kickUser.bind(this.Controller))
-    this.router.patch('/banUser', this.checkAuth, this.checkAdmin, this.Controller.banUser.bind(this.Controller))
+
     this.router.patch(
-      '/setCensored',
+      '/kickUser/:groupId/:targetId',
+      this.checkAuth,
+      this.checkAdmin,
+      this.checkMemberStateTarget,
+      this.Controller.kickUser.bind(this.Controller)
+    )
+    this.router.patch(
+      '/banUser/:groupId/:targetId',
+      this.checkAuth,
+      this.checkAdmin,
+      this.checkMemberStateTarget,
+      this.Controller.banUser.bind(this.Controller)
+    )
+    this.router.patch(
+      '/setCensored/:groupId/:recipeId',
       this.checkAuth,
       this.checkAdmin,
       this.Controller.setCensored.bind(this.Controller)

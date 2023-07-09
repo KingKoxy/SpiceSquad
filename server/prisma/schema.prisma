@@ -36,28 +36,28 @@ model IngredientName {
 }
 
 model IngredientIcon {
-  id         String       @id @unique(map: "IngredientIcon_code_key") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  icon       Bytes
-  Ingredient Ingredient[]
+  id   String  @id @unique(map: "IngredientIcon_code_key") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  icon Bytes
+  name String? @db.VarChar(32)
 }
 
 model Ingredient {
-  id             String         @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name           String         @db.VarChar(32)
-  icon           Bytes
-  amount         Float?
-  unit           String?        @db.VarChar(16)
-  recipe_id      String         @db.Uuid
-  IngredientIcon IngredientIcon @relation(fields: [icon_name], references: [id])
-  Recipe         Recipe         @relation(fields: [recipe_id], references: [id], onDelete: Cascade)
+  id        String  @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String  @db.VarChar(32)
+  amount    Float?
+  unit      String? @db.VarChar(16)
+  recipe_id String  @db.Uuid
+  icon      Bytes?  //Relation to IngredientIcon?
+  Recipe    Recipe  @relation(fields: [recipe_id], references: [id], onDelete: Cascade)
 }
 
 model GroupMember {
-  id       String @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  user_id  String @db.Uuid
-  group_id String @db.Uuid
-  Group    Group  @relation(fields: [group_id], references: [id], onDelete: Cascade)
-  User     User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  id        String    @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id   String    @db.Uuid
+  group_id  String    @db.Uuid
+  joined_at DateTime? @default(now()) @db.Timestamp(6)
+  Group     Group     @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  User      User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
 
 model Favorite {

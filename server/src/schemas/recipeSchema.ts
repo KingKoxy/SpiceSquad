@@ -1,7 +1,8 @@
 import Joi from 'joi'
+import { userId } from './generalSchema'
 
-const title = Joi.string()
-const image = Joi.string()
+const title = Joi.string().max(64)
+const image = Joi.array()
 const duration = Joi.number().positive()
 const difficulty = Joi.string()
 const instructions = Joi.string()
@@ -12,15 +13,14 @@ const isKosher = Joi.boolean()
 const isHalal = Joi.boolean()
 const isPrivate = Joi.boolean()
 const defaultPortions = Joi.number().positive()
-const userId = Joi.string()
 
 const ingredients = Joi.array().items(
   Joi.object({
-    name: Joi.string(),
-    iconName: Joi.string(),
+    id: Joi.string(),
+    name: Joi.string().max(32),
+    icon: Joi.array(),
     amount: Joi.number().positive(),
-    unit: Joi.string(),
-    recipeId: Joi.number().positive(),
+    unit: Joi.string().max(16),
   })
 )
 
@@ -38,16 +38,9 @@ export const recipeCreateSchema = Joi.object().keys({
   isKosher: isKosher.required(),
   isHalal: isHalal.required(),
   isPrivate: isPrivate.required(),
-  defaultPortions: defaultPortions.required(),
-  userId: userId.required(),
+  defaultPortionAmount: defaultPortions.required(),
   ingredients: ingredients,
 })
-
-export const recipeGetAllSchema = Joi.object({
-  userId: userId.required(),
-})
-
-export const recipeDeleteSchema = Joi.object({})
 
 export const recipeUpdateSchema = Joi.object({
   title: title,
@@ -61,12 +54,28 @@ export const recipeUpdateSchema = Joi.object({
   isKosher: isKosher,
   isHalal: isHalal,
   isPrivate: isPrivate,
-  defaultPortions: defaultPortions,
+  defaultPortionAmount: defaultPortions,
+  ingredients: Joi.array().items(
+    Joi.object({
+      id: Joi.string().required(),
+      name: Joi.string().max(32),
+      icon: Joi.string(),
+      amount: Joi.number().positive(),
+      unit: Joi.string().max(16),
+    })
+  ),
+})
+
+export const recipeGetAllSchema = Joi.object({
   userId: userId,
-  ingredients: ingredients,
+})
+
+export const recipeDeleteSchema = Joi.object({
+  userId: userId,
 })
 
 export const recipeSetFavorite = Joi.object().keys({
+  userId: userId,
   isFavorite: isFavorite.required(),
 })
 

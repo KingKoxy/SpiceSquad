@@ -1,8 +1,9 @@
 import Joi from 'joi'
+import { userName, userId } from './generalSchema'
 
-const userName = Joi.string()
 const email = Joi.string().email()
-const password = Joi.string()
+const password = Joi.string().min(8)
+const refreshToken = Joi.string().required()
 
 export const registerSchema = Joi.object().keys({
   userName: userName.required(),
@@ -20,7 +21,11 @@ export const resetPasswordSchema = Joi.object().keys({
 })
 
 //Specify the schema for the refreshToken route
-export const refreshTokenSchema = Joi.object({})
+export const refreshTokenSchema = Joi.object({
+  refreshToken: refreshToken.required(),
+})
 
 //Specify the schema for the logout route
-export const logoutSchema = Joi.object({})
+export const logoutSchema = Joi.object({
+  userId: userId.required(),
+})

@@ -32,11 +32,23 @@ export default class CheckAdminStatus extends AbstractMiddleware {
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
-    this.prisma.admin
+    await this.prisma.group
       .findMany({
         where: {
-          user_id: req.body.user_id,
-          group_id: req.body.group_id,
+          id: req.params.groupId,
+        },
+      })
+      .then((result) => {
+        if (result.length == 0) {
+          req.statusCode = 404
+          next(new Error('Group not found'))
+        }
+      })
+    await this.prisma.admin
+      .findMany({
+        where: {
+          user_id: req.body.userId,
+          group_id: req.params.groupId,
         },
       })
       .then((result) => {
@@ -44,7 +56,7 @@ export default class CheckAdminStatus extends AbstractMiddleware {
           next()
         } else {
           req.statusCode = 401
-          next(new Error('No valid admin'))
+          next(new Error('The user is not an admin of this group'))
         }
       })
   }
