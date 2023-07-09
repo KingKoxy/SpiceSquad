@@ -107,27 +107,8 @@ export default class UserController extends AbstractController {
    * @returns Promise<void>
    */
   public async userGet(req: AuthenticatedRequest, res: express.Response): Promise<void> {
-    res.json(this.prisma.user.findUnique({ where: { id: req.userId } }))
-  }
-
-  /**
-   * @description This function gets a user by token.
-   * @param req Express request handler
-   * @param res Express response handler
-   * @param next Express next function (for error handling)
-   * @returns Promise<void>
-   */
-  public async getUserByToken(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
-    try {
-      console.log(req.body.user)
-      this.firebaseAuth.getAuth()
-      const token = await this.firebaseAuth.getIdToken(req.body.user)
-      res.status(200).json({
-        idToken: token,
-      })
-    } catch (error) {
-      req.statusCode = 409
-      next(error)
-    }
+    const user = await this.prisma.user.findUnique({ where: { id: req.userId } })
+    console.log(user);
+    res.json(user)
   }
 }

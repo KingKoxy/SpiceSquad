@@ -2,14 +2,14 @@
 
 @contentType = application/json
 
-@idToken = eyJhbGciOiJSUzI1NiIsImtpZCI6ImE1MWJiNGJkMWQwYzYxNDc2ZWIxYjcwYzNhNDdjMzE2ZDVmODkzMmIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vc3BpY2VzcXVhZC1mZDMyYSIsImF1ZCI6InNwaWNlc3F1YWQtZmQzMmEiLCJhdXRoX3RpbWUiOjE2ODg4OTU4NzYsInVzZXJfaWQiOiJjWkZGSWpTT3A2VVF6bHFTMWZFTVVkUzJpRXMyIiwic3ViIjoiY1pGRklqU09wNlVRemxxUzFmRU1VZFMyaUVzMiIsImlhdCI6MTY4ODg5NTg3NiwiZXhwIjoxNjg4ODk5NDc2LCJlbWFpbCI6Imx1a2FzQG1haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImx1a2FzQG1haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.WskVFjTFTx-3QqcvhMnmgFBYXhTNQOHiwjrsUHxW0c8GdpK534PI576WNp5IFBJ_8LTpKeyGke1wZKIOd6q8D_J2CEjXZ9fEePjzDTYfHYw8_GXHIk-jsgHmSLQKuDAXQn5yGp0yAwnbFfyk47prI4b46aG-7QwGPS28i2j8VS8j12pdcZDs02fCnlpvF0ifGOumyxLk8UJ333LyQz4uEAZ2KWzbyUlMRdv51-lZL_fmfWRhyRc3B4Gq3Wvg53BkKHFGY8agz4le6ilyI7goPCrK2LszJuTof2WdCMpOThDyuc7uM3eSqly5xzJasKK0CZ8kljOAR2AMmvoztJxovQ
+@idToken = eyJhbGciOiJSUzI1NiIsImtpZCI6ImE1MWJiNGJkMWQwYzYxNDc2ZWIxYjcwYzNhNDdjMzE2ZDVmODkzMmIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vc3BpY2VzcXVhZC1mZDMyYSIsImF1ZCI6InNwaWNlc3F1YWQtZmQzMmEiLCJhdXRoX3RpbWUiOjE2ODg5MDI4MDQsInVzZXJfaWQiOiJjWkZGSWpTT3A2VVF6bHFTMWZFTVVkUzJpRXMyIiwic3ViIjoiY1pGRklqU09wNlVRemxxUzFmRU1VZFMyaUVzMiIsImlhdCI6MTY4ODkwMjgwNCwiZXhwIjoxNjg4OTA2NDA0LCJlbWFpbCI6Imx1a2FzQG1haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImx1a2FzQG1haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.Uvh3z6HZuNo2_4NkunfffU8-5wTCkPJ67XKGzl9mEK6J--RHRS5SI1JZrjPIU49wWXRZAHl9XK8Dzy3lamDPvKTIgOaZTGP_EmSa7gbWnAjp8FbYsSfe6YSidD7tEfhO-fgnL0RO1L7LYeTEECP6aF1g-NQlcUzXjksyf7_pBPgftEjPZMN1gz69WPx_ul4AOXvNtaOhKMKTu3IeEqCb_QU_-LD-4qm-II4-edbq06ANjkSLAqY3U3o_O6ET1lxoU4mRv65ap1z6w1ulrEQiUSWqGUEKL5bGtBWzN0PgX4J_vXVk0Gg9dRg1EvjnnFQby85uZqdQOsgocVvvdpx3dA
 @refreshToken = APZUo0SDbxrtKbrOhZF_3KKlBy2kwnE9-kHgTNDNstaXpJP91UDiEOKji84uNtuuYouY4l1E5Yb4Dzgr5Hs88G-QluXFMOvO0wjHzYJY0WSDu_e7LgyF3hT8NOIi2gv9ME5XJXxKqPdr2ZvQFsscQjn0KL2FVx8HodqB574CpDw0suisbj_ZGxoHvVMj5ToDBkLThKzqNROfD-y9ct9K4rIhva_TMcbHQg
 
 @userName = "Lukas"
 @email = "lukas@mail.com"
 @password = "12345678"
 
-@groupId = 014e4bf3-cd98-4e62-81c2-debd40699627
+@groupId = 5e6ee498-51e6-48bc-a897-9ecdaf295b14
 
 @userId = 8LnkOTK2uqavsL22CqvfywzyFlm2
 
@@ -169,12 +169,14 @@ Authorization: {{idToken}}
         "difficulty": "EASY",
         "ingredients": [
             {
+                "id": "1",
                 "name": "Tomato",
                 "icon": {{icon}},
                 "amount": 2,
                 "unit": "pieces"
             },
             {
+                "id": "2",
                 "name": "Salt",
                 "icon": {{icon}},
                 "amount": 1,
@@ -247,11 +249,12 @@ Authorization: {{idToken}}
 
 //Not woring yet
 ### Get user by token
-GET {{host}}/user/getUserByToken
+GET {{host}}/user
 Content-Type: {{contentType}}
+Authorization: {{idToken}}
     
     {
-        "user": {"test": "test"}
+        "token": "{{idToken}}"
     }
 
 

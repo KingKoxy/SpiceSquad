@@ -55,9 +55,10 @@ export default class UserRouter extends AbstractRouter {
       this.Controller.userPatch.bind(this.Controller)
     )
     this.router.get(
-      '/getUserByToken',
+      '/',
+      this.checkAuth,
       this.schemaValidator.checkSchema(getUserByTokenSchema),
-      this.Controller.getUserByToken.bind(this.Controller)
+      this.Controller.userGet.bind(this.Controller)
     )
   }
 }

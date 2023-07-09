@@ -3,6 +3,7 @@ import { userName } from './generalSchema'
 
 const profileImage = Joi.string()
 const email = Joi.string().email()
+const token = Joi.string().required()
 
 export const userDeleteSchema = Joi.object({})
 
@@ -14,5 +15,4 @@ export const userPatchSchema = Joi.object().keys({
 
 //Specify the schema for getUserByToken
 export const getUserByTokenSchema = Joi.object({
-  user: Joi.object({}).options({ allowUnknown: true }),
 })
