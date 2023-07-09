@@ -552,5 +552,13 @@
   "instructionsInputLabel": "Instructions",
   "@instructionsInputLabel": {
     "description": "The label for the instructions input"
+  },
+  "loginError": "Invalid username or password",
+  "@loginError": {
+    "description": "The error message if the login fails because of invalid credentials"
+  },
+  "emailExistsError": "This email address is already in use",
+  "@emailExistsError": {
+    "description": "The error message if the email address is already in use"
   }
 }

@@ -8,7 +8,7 @@ import "package:spice_squad/screens/register_screen.dart";
 import "package:spice_squad/services/user_service.dart";
 
 /// Screen for logging in
-class LoginScreen extends ConsumerWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   /// Route name for navigation
   static const routeName = "/login";
 
@@ -20,115 +20,126 @@ class LoginScreen extends ConsumerWidget {
   LoginScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends ConsumerState<LoginScreen> {
+  String? _emailError;
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Hero(
-                    tag: "logo",
-                    child: Image.asset(
-                      "assets/images/logo.png",
-                      width: 240,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              Text(
-                AppLocalizations.of(context)!.loginHeadline,
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Form(
-                key: _formKey,
-                child: Column(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(32),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      width: double.infinity,
-                      child: TextFormField(
-                        autofillHints: const [AutofillHints.email],
-                        validator: (value) => _validateEmail(context, value),
-                        keyboardType: TextInputType.emailAddress,
-                        controller: _emailController,
-                        decoration: InputDecoration(
-                          hintText: AppLocalizations.of(context)!.emailLabel,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: TextFormField(
-                        autofillHints: const [AutofillHints.password],
-                        keyboardType: TextInputType.visiblePassword,
-                        obscureText: true,
-                        controller: _passwordController,
-                        decoration: InputDecoration(
-                          hintText: AppLocalizations.of(context)!.passwordLabel,
-                        ),
+                    Hero(
+                      tag: "logo",
+                      child: Image.asset(
+                        "assets/images/logo.png",
+                        width: 240,
                       ),
                     ),
                   ],
                 ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.noAccountQuestion,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                  const SizedBox(
-                    width: 4,
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pushReplacementNamed(RegisterScreen.routeName);
-                    },
-                    child: Text(AppLocalizations.of(context)!.registerLink),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      _login(context, ref.read(userServiceProvider.notifier));
-                    }
-                  },
-                  child: Text(AppLocalizations.of(context)!.loginButton),
+                const SizedBox(
+                  height: 50,
                 ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed(PasswordResetScreen.routeName);
-                },
-                child: Text(AppLocalizations.of(context)!.forgotPasswordLink),
-              ),
-            ],
+                Text(
+                  AppLocalizations.of(context)!.loginHeadline,
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Form(
+                  key: widget._formKey,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        child: TextFormField(
+                          autofillHints: const [AutofillHints.email],
+                          validator: (value) => _validateEmail(context, value),
+                          keyboardType: TextInputType.emailAddress,
+                          controller: widget._emailController,
+                          decoration: InputDecoration(
+                            errorText: _emailError,
+                            hintText: AppLocalizations.of(context)!.emailLabel,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: TextFormField(
+                          validator: (value) => _validatePassword(context, value),
+                          autofillHints: const [AutofillHints.password],
+                          keyboardType: TextInputType.visiblePassword,
+                          obscureText: true,
+                          controller: widget._passwordController,
+                          decoration: InputDecoration(
+                            hintText: AppLocalizations.of(context)!.passwordLabel,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.noAccountQuestion,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushReplacementNamed(RegisterScreen.routeName);
+                      },
+                      child: Text(AppLocalizations.of(context)!.registerLink),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (widget._formKey.currentState!.validate()) {
+                        _login(context, ref.read(userServiceProvider.notifier));
+                      }
+                    },
+                    child: Text(AppLocalizations.of(context)!.loginButton),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(PasswordResetScreen.routeName);
+                  },
+                  child: Text(AppLocalizations.of(context)!.forgotPasswordLink),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -136,18 +147,35 @@ class LoginScreen extends ConsumerWidget {
   }
 
   _login(BuildContext context, UserService userService) {
-    userService.login(_emailController.text, _passwordController.text).then((value) {
+    userService.login(widget._emailController.text, widget._passwordController.text).then((value) {
       Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
+    }).catchError((error) {
+      if (error is ArgumentError && error.message == "INVALID_CREDENTIALS"){
+        setState(() {
+          _emailError = AppLocalizations.of(context)!.loginError;
+        });
+        return;
+      }
     });
   }
 
   String? _validateEmail(BuildContext context, String? email) {
+    setState(() {
+      _emailError = null;
+    });
     const emailRegex = r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
     if (email == null || email.isEmpty) {
       return AppLocalizations.of(context)!.emailEmptyError;
     }
     if (!RegExp(emailRegex).hasMatch(email)) {
       return AppLocalizations.of(context)!.emailInvalidError;
+    }
+    return null;
+  }
+
+  String? _validatePassword(BuildContext context, String? password) {
+    if (password == null || password.isEmpty) {
+      return AppLocalizations.of(context)!.passwordEmptyError;
     }
     return null;
   }

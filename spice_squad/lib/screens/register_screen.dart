@@ -7,7 +7,7 @@ import "package:spice_squad/screens/login_screen.dart";
 import "package:spice_squad/services/user_service.dart";
 
 /// Screen for registering a new user.
-class RegisterScreen extends ConsumerWidget {
+class RegisterScreen extends ConsumerStatefulWidget {
   /// Route name for navigation
   static const routeName = "/register";
 
@@ -21,139 +21,149 @@ class RegisterScreen extends ConsumerWidget {
   RegisterScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends ConsumerState<RegisterScreen> {
+  String? _emailError;
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Hero(
-                    tag: "logo",
-                    child: Image.asset(
-                      "assets/images/logo.png",
-                      width: 240,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              Text(
-                AppLocalizations.of(context)!.registerHeadline,
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Form(
-                key: _formKey,
-                child: Column(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(32),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      width: double.infinity,
-                      child: TextFormField(
-                        autofillHints: const [AutofillHints.newUsername],
-                        validator: (value) => _validateUserName(context, value),
-                        keyboardType: TextInputType.name,
-                        controller: _userNameController,
-                        decoration: InputDecoration(
-                          hintText: AppLocalizations.of(context)!.userNameLabel,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: TextFormField(
-                        autofillHints: const [AutofillHints.email],
-                        validator: (value) => _validateEmail(context, value),
-                        keyboardType: TextInputType.emailAddress,
-                        controller: _emailController,
-                        decoration: InputDecoration(
-                          hintText: AppLocalizations.of(context)!.emailLabel,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: TextFormField(
-                        autofillHints: const [AutofillHints.newPassword],
-                        validator: (value) => _validatePassword(context, value),
-                        keyboardType: TextInputType.visiblePassword,
-                        obscureText: true,
-                        controller: _passwordController,
-                        decoration: InputDecoration(
-                          hintText: AppLocalizations.of(context)!.passwordLabel,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: TextFormField(
-                        keyboardType: TextInputType.visiblePassword,
-                        obscureText: true,
-                        controller: _passwordRepeatController,
-                        decoration: InputDecoration(
-                          hintText: AppLocalizations.of(context)!.passwordRepeatLabel,
-                        ),
+                    Hero(
+                      tag: "logo",
+                      child: Image.asset(
+                        "assets/images/logo.png",
+                        width: 240,
                       ),
                     ),
                   ],
                 ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.hasAccountQuestion,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                  const SizedBox(
-                    width: 4,
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
-                    },
-                    child: Text(AppLocalizations.of(context)!.loginLink),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      _register(
-                        context,
-                        ref.read(userServiceProvider.notifier),
-                      );
-                    }
-                  },
-                  child: Text(AppLocalizations.of(context)!.registerButton),
+                const SizedBox(
+                  height: 50,
                 ),
-              ),
-            ],
+                Text(
+                  AppLocalizations.of(context)!.registerHeadline,
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Form(
+                  key: widget._formKey,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        child: TextFormField(
+                          autofillHints: const [AutofillHints.newUsername],
+                          validator: (value) => _validateUserName(context, value),
+                          keyboardType: TextInputType.name,
+                          controller: widget._userNameController,
+                          decoration: InputDecoration(
+                            hintText: AppLocalizations.of(context)!.userNameLabel,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: TextFormField(
+                          autofillHints: const [AutofillHints.email],
+                          validator: (value) => _validateEmail(context, value),
+                          keyboardType: TextInputType.emailAddress,
+                          controller: widget._emailController,
+                          decoration: InputDecoration(
+                            errorText: _emailError,
+                            hintText: AppLocalizations.of(context)!.emailLabel,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: TextFormField(
+                          autofillHints: const [AutofillHints.newPassword],
+                          validator: (value) => _validatePassword(context, value),
+                          keyboardType: TextInputType.visiblePassword,
+                          obscureText: true,
+                          controller: widget._passwordController,
+                          decoration: InputDecoration(
+                            hintText: AppLocalizations.of(context)!.passwordLabel,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: TextFormField(
+                          keyboardType: TextInputType.visiblePassword,
+                          obscureText: true,
+                          controller: widget._passwordRepeatController,
+                          decoration: InputDecoration(
+                            hintText: AppLocalizations.of(context)!.passwordRepeatLabel,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.hasAccountQuestion,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
+                      },
+                      child: Text(AppLocalizations.of(context)!.loginLink),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (widget._formKey.currentState!.validate()) {
+                        _register(
+                          context,
+                          ref.read(userServiceProvider.notifier),
+                        );
+                      }
+                    },
+                    child: Text(AppLocalizations.of(context)!.registerButton),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -163,20 +173,31 @@ class RegisterScreen extends ConsumerWidget {
   _register(BuildContext context, UserService userService) {
     userService
         .register(
-      _emailController.text,
-      _passwordController.text,
-      _userNameController.text,
+      widget._emailController.text,
+      widget._passwordController.text,
+      widget._userNameController.text,
     )
         .then((value) {
+      debugPrint("Registered user");
       Navigator.of(context).pushNamedAndRemoveUntil(
         GroupJoiningScreen.routeName,
         (route) => false,
         arguments: true,
       );
+    }).catchError((error) {
+      if (error is ArgumentError && error.message == "EMAIL_ALREADY_IN_USE") {
+        setState(() {
+          _emailError = AppLocalizations.of(context)!.emailExistsError;
+        });
+        return;
+      }
     });
   }
 
   String? _validateEmail(BuildContext context, String? email) {
+    setState(() {
+      _emailError = null;
+    });
     const emailRegex = r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
     if (email == null || email.isEmpty) {
       return AppLocalizations.of(context)!.emailEmptyError;
@@ -210,7 +231,7 @@ class RegisterScreen extends ConsumerWidget {
     if (!RegExp(r"\d").hasMatch(password)) {
       return AppLocalizations.of(context)!.passwordNeedsNumberError;
     }
-    if (password != _passwordRepeatController.text) {
+    if (password != widget._passwordRepeatController.text) {
       return AppLocalizations.of(context)!.passwordsDontMatchError;
     }
     return null;

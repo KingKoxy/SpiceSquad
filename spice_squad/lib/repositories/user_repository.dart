@@ -28,7 +28,9 @@ class UserRepository {
       },
     );
     if (response.statusCode == 200) {
-      return User.fromMap(jsonDecode(response.body));
+      final user = jsonDecode(response.body);
+      _userId = user["id"];
+      return User.fromMap(user);
     } else {
       throw Exception(response.body);
     }
@@ -98,10 +100,11 @@ class UserRepository {
       //Set tokens
       final Map<String, dynamic> body = jsonDecode(response.body);
       _idToken = body["idToken"];
-      _userId = body["userId"];
       debugPrint("User id: $_userId");
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString(_refreshTokenPath, body["refreshToken"]);
+    } else if (response.statusCode == 401) {
+      throw ArgumentError("INVALID_CREDENTIALS");
     } else {
       throw Exception(response.body);
     }
@@ -135,15 +138,18 @@ class UserRepository {
       body: jsonEncode(<String, String>{
         "email": email,
         "password": password,
-        "userName": userName,
+        "user_name": userName,
       }),
     );
+    debugPrint("Response: ${response.body}");
     if (response.statusCode == 200) {
       //Set tokens
       final Map<String, dynamic> body = jsonDecode(response.body);
       _idToken = body["idToken"];
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString(_refreshTokenPath, body["refreshToken"]);
+    } else if (response.statusCode == 409) {
+      throw ArgumentError("EMAIL_ALREADY_IN_USE");
     } else {
       throw Exception(response.body);
     }

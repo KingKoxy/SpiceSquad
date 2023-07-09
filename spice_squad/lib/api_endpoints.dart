@@ -58,8 +58,10 @@ abstract class ApiEndpoints {
   /// The base url for the ingredient endpoints
   static String get ingredients => "$_baseUrl/ingredient";
 
+  /// The url for the ingredient icons endpoint
   static String get ingredientIcons => "$ingredients/icons";
 
+  /// The url for the ingredient names endpoint
   static String get ingredientNames => "$ingredients/names";
 
   // Admin endpoints
