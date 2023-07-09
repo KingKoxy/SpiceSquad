@@ -59,7 +59,7 @@ export const recipeUpdateSchema = Joi.object({
     Joi.object({
       id: Joi.string().required(),
       name: Joi.string().max(32),
-      icon: Joi.string(),
+      icon: Joi.array(),
       amount: Joi.number().positive(),
       unit: Joi.string().max(16),
     })
