@@ -18,7 +18,7 @@ class AdminRepository {
       Uri.parse(ApiEndpoints.makeAdmin),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
-        HttpHeaders.authorizationHeader: "Bearer ${await _userRepository.getToken()}",
+        HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
       },
       body: {
         "userId": userId,
@@ -36,7 +36,7 @@ class AdminRepository {
       Uri.parse(ApiEndpoints.removeAdmin),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
-        HttpHeaders.authorizationHeader: "Bearer ${await _userRepository.getToken()}",
+        HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
       },
       body: {
         "userId": userId,
@@ -54,7 +54,7 @@ class AdminRepository {
       Uri.parse(ApiEndpoints.kickUser),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
-        HttpHeaders.authorizationHeader: "Bearer ${await _userRepository.getToken()}",
+        HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
       },
       body: {
         "userId": userId,
@@ -72,7 +72,7 @@ class AdminRepository {
       Uri.parse(ApiEndpoints.banUser),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
-        HttpHeaders.authorizationHeader: "Bearer ${await _userRepository.getToken()}",
+        HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
       },
       body: {
         "userId": userId,
@@ -90,7 +90,7 @@ class AdminRepository {
       Uri.parse(ApiEndpoints.setCensored),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
-        HttpHeaders.authorizationHeader: "Bearer ${await _userRepository.getToken()}",
+        HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
       },
       body: {
         "recipeId": recipeId,

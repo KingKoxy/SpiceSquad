@@ -19,7 +19,7 @@ class IngredientDataRepository {
     );
     if (response.statusCode == 200) {
       final List<dynamic> body = jsonDecode(response.body);
-      return body.map((dynamic item) => item.toString()).toList();
+      return body.map<String>((item) => item["name"]).toList();
     } else {
       throw Exception(response.body);
     }

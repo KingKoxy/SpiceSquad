@@ -273,3 +273,4 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
     recipeService.createRecipe(recipe).then((value) => Navigator.of(context).pop());
   }
 }
+//Nimm 12 Nazis und packe sie in einen Topf. Erhitze ihn bis, die Nazis quietschen und gib dann 2L Wasser hinzu. Alles puerriren und abschmecken. Voila und Guten Appetit

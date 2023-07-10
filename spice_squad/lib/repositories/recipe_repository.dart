@@ -1,5 +1,6 @@
 import "dart:convert";
 import "dart:io";
+import "package:flutter/cupertino.dart";
 import "package:http/http.dart" as http;
 import "package:spice_squad/api_endpoints.dart";
 import "package:spice_squad/models/recipe.dart";
@@ -21,12 +22,12 @@ class RecipeRepository {
       Uri.parse(ApiEndpoints.recipe),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
-        HttpHeaders.authorizationHeader: "Bearer ${await _userRepository.getToken()}",
+        HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
       },
     );
     if (response.statusCode == 200) {
-      final List<Map<String, dynamic>> body = jsonDecode(response.body);
-      return body.map<Recipe>(Recipe.fromMap).toList();
+      final List<dynamic> body = jsonDecode(response.body);
+      return body.map<Recipe>((recipe) => Recipe.fromMap(recipe as Map<String, dynamic>)).toList();
     } else {
       throw Exception(response.body);
     }
@@ -37,7 +38,7 @@ class RecipeRepository {
     final result = await http.post(
       Uri.parse(ApiEndpoints.recipe),
       headers: {
-        HttpHeaders.authorizationHeader: "Bearer ${await _userRepository.getToken()}",
+        HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
       },
       body: jsonEncode(recipe),
     );
@@ -51,7 +52,7 @@ class RecipeRepository {
     final result = await http.delete(
       Uri.parse("${ApiEndpoints.recipe}/$recipeId"),
       headers: {
-        HttpHeaders.authorizationHeader: "Bearer ${await _userRepository.getToken()}",
+        HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
       },
     );
     if (result.statusCode != 200) {
@@ -64,7 +65,7 @@ class RecipeRepository {
     final result = await http.patch(
       Uri.parse("${ApiEndpoints.recipe}/${recipe.id}"),
       headers: {
-        HttpHeaders.authorizationHeader: "Bearer ${await _userRepository.getToken()}",
+        HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
       },
       body: jsonEncode(recipe),
     );
@@ -78,7 +79,7 @@ class RecipeRepository {
     final result = await http.patch(
       Uri.parse("${ApiEndpoints.setFavourite}/$recipeId"),
       headers: {
-        HttpHeaders.authorizationHeader: "Bearer ${await _userRepository.getToken()}",
+        HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
       },
       body: jsonEncode(<String, String>{
         "favourite": value.toString(),
@@ -94,7 +95,7 @@ class RecipeRepository {
     final result = await http.post(
       Uri.parse("${ApiEndpoints.report}/$recipeId"),
       headers: {
-        HttpHeaders.authorizationHeader: "Bearer ${await _userRepository.getToken()}",
+        HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
       },
     );
     if (result.statusCode != 200) {

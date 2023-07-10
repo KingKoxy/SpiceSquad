@@ -122,7 +122,7 @@ class UserRepository {
       Uri.parse(ApiEndpoints.logout),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
-        HttpHeaders.authorizationHeader: "Bearer ${await getToken()}",
+        HttpHeaders.authorizationHeader: "${await getToken()}",
       },
     );
     if (response.statusCode == 200) {
@@ -163,7 +163,7 @@ class UserRepository {
       Uri.parse(ApiEndpoints.user),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
-        HttpHeaders.authorizationHeader: "Bearer ${await getToken()}",
+        HttpHeaders.authorizationHeader: "${await getToken()}",
       },
       body: jsonEncode(user),
     );
@@ -178,7 +178,7 @@ class UserRepository {
       Uri.parse(ApiEndpoints.user),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
-        HttpHeaders.authorizationHeader: "Bearer ${await getToken()}",
+        HttpHeaders.authorizationHeader: "${await getToken()}",
       },
     );
     if (response.statusCode != 200) {
@@ -191,8 +191,8 @@ class UserRepository {
     final response = await http.post(
       Uri.parse(ApiEndpoints.resetPassword),
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer ${await getToken()}",
+        HttpHeaders.contentTypeHeader: "application/json",
+        HttpHeaders.authorizationHeader: "${await getToken()}",
       },
     );
     if (response.statusCode != 200) {

@@ -1,3 +1,4 @@
+import "package:flutter/cupertino.dart";
 import "package:spice_squad/models/group_member.dart";
 import "package:spice_squad/models/group_recipe.dart";
 
@@ -23,12 +24,13 @@ class Group {
 
   /// Creates a new [Group] from the given [map] object by extracting the values
   factory Group.fromMap(Map<String, dynamic> map) {
+    debugPrint(map.toString());
     return Group(
       id: map["id"],
       name: map["name"],
-      groupCode: map["groupCode"],
-      members: map["members"],
-      recipes: map["recipes"],
+      groupCode: map["group_code"],
+      members: [],//map["members"],
+      recipes: []//map["recipes"],
     );
   }
 }

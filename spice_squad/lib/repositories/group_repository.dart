@@ -20,12 +20,12 @@ class GroupRepository {
       Uri.parse(ApiEndpoints.group),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
-        HttpHeaders.authorizationHeader: "Bearer ${await _userRepository.getToken()}",
+        HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
       },
     );
     if (result.statusCode == 200) {
-      final List<Map<String, dynamic>> body = jsonDecode(result.body);
-      return body.map<Group>(Group.fromMap).toList();
+      final List<dynamic> body = jsonDecode(result.body);
+      return body.map<Group>((group) => Group.fromMap(group as Map<String, dynamic>)).toList();
     } else {
       throw Exception(result.body);
     }
@@ -37,7 +37,7 @@ class GroupRepository {
       Uri.parse("${ApiEndpoints.group}/$id"),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
-        HttpHeaders.authorizationHeader: "Bearer ${await _userRepository.getToken()}",
+        HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
       },
     );
     if (result.statusCode == 200) {
@@ -54,7 +54,7 @@ class GroupRepository {
       Uri.parse(ApiEndpoints.joinGroup),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
-        HttpHeaders.authorizationHeader: "Bearer ${await _userRepository.getToken()}",
+        HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
       },
       body: {
         "groupCode": groupCode,
@@ -71,7 +71,7 @@ class GroupRepository {
       Uri.parse("${ApiEndpoints.leaveGroup}/$groupId"),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
-        HttpHeaders.authorizationHeader: "Bearer ${await _userRepository.getToken()}",
+        HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
       },
     );
     if (result.statusCode != 200) {
@@ -85,11 +85,11 @@ class GroupRepository {
       Uri.parse(ApiEndpoints.group),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
-        HttpHeaders.authorizationHeader: "Bearer ${await _userRepository.getToken()}",
+        HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
       },
-      body: {
+      body: jsonEncode(<String, String>{
         "groupName": name,
-      },
+      }),
     );
     if (result.statusCode != 200) {
       throw Exception(result.body);
@@ -102,7 +102,7 @@ class GroupRepository {
       Uri.parse("${ApiEndpoints.group}/${group.id}"),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
-        HttpHeaders.authorizationHeader: "Bearer ${await _userRepository.getToken()}",
+        HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
       },
       body: jsonEncode(group),
     );
@@ -117,7 +117,7 @@ class GroupRepository {
       Uri.parse("${ApiEndpoints.group}/$groupId"),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
-        HttpHeaders.authorizationHeader: "Bearer ${await _userRepository.getToken()}",
+        HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
       },
     );
     if (result.statusCode != 200) {
