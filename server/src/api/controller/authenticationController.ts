@@ -1,6 +1,7 @@
 import express = require('express')
 import AbstractController from './abstractController'
 import firebaseAuth = require('firebase/auth')
+import request = require('request')
 
 export default class AuthenticationController extends AbstractController {
   /**
@@ -25,8 +26,7 @@ export default class AuthenticationController extends AbstractController {
       .then(async (userCredentials) => {
         console.log('Successfully logged in:', userCredentials.user)
         res.status(200).json({
-          user: userCredentials.user,
-          //refreshToken: userCredentials.user.refreshToken,
+          refreshToken: userCredentials.user.refreshToken,
           idToken: await firebaseAuth.getIdToken(userCredentials.user),
         })
       })
@@ -95,20 +95,33 @@ export default class AuthenticationController extends AbstractController {
    * @returns Promise<void>
    */
   public async userRefreshToken(req: express.Request, res: express.Response): Promise<void> {
-    return this.auth
-      .updateCurrentUser(this.auth.currentUser)
-      .then(async (token) => {
-        console.log('Successfully logged in:', token)
-        res.status(200).json({
-          idToken: token,
-        })
-      })
-      .catch((error) => {
-        res.status(402).json({
-          error: 'An error occurred.',
-          'error message': error,
-        })
-      })
+    console.log('refresh token', req.body.refreshToken)
+    const url = process.env.FB_URL;
+    const formData = {
+      grant_type: 'refresh_token',
+      refresh_token: req.body.refreshToken
+    };
+  
+    request.post(
+      {
+        url: url,
+        form: formData,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      },
+      (error, response, body) => {
+        if (error) {
+          // Fehlerbehandlung
+          res.status(500).json({ error: 'Fehler beim updaten des ID-Tokens' });
+        } else {
+          const data = JSON.parse(body);
+          const idToken = data.id_token;
+          // Handle the refreshed ID token
+          res.json({ idToken: idToken });
+        }
+      }
+    );
   }
 
   /**
