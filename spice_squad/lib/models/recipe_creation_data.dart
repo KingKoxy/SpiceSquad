@@ -1,6 +1,6 @@
 import "dart:typed_data";
 import "package:spice_squad/models/difficulty.dart";
-import "ingredient.dart";
+import "package:spice_squad/models/ingredient.dart";
 
 /// Data for creating a new recipe
 class RecipeCreationData {

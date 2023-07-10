@@ -25,9 +25,8 @@ class RecipeRepository {
       },
     );
     if (response.statusCode == 200) {
-      final List<dynamic> body = jsonDecode(response.body);
-      // Don't use tear-off here because it throws an error for some reason
-      return body.map((dynamic item) => Recipe.fromMap(item)).toList();
+      final List<Map<String, dynamic>> body = jsonDecode(response.body);
+      return body.map<Recipe>(Recipe.fromMap).toList();
     } else {
       throw Exception(response.body);
     }

@@ -2,8 +2,8 @@ import "dart:convert";
 import "dart:io";
 import "dart:typed_data";
 
-import "../api_endpoints.dart";
 import "package:http/http.dart" as http;
+import "package:spice_squad/api_endpoints.dart";
 
 /// Repository for fetching ingredient names.
 ///

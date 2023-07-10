@@ -45,7 +45,7 @@ class IngredientCreationScreen extends StatelessWidget {
                           height: 52,
                           child: IconPickerWidget(
                             iconController: _iconController,
-                          )),
+                          ),),
                     ),
                     const SizedBox(width: 10),
                     Expanded(

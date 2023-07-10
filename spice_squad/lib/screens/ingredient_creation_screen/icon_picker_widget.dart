@@ -7,6 +7,7 @@ import "package:spice_squad/screens/ingredient_creation_screen/icon_picker_dialo
 
 /// Widget to pick an icon for an ingredient
 class IconPickerWidget extends ConsumerStatefulWidget {
+  /// Controller for icon data
   final TextEditingController iconController;
 
   /// Creates a new icon picker widget

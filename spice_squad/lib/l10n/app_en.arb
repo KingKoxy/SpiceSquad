@@ -560,5 +560,6 @@
   "emailExistsError": "This email address is already in use",
   "@emailExistsError": {
     "description": "The error message if the email address is already in use"
-  }
+  },
+  "connectionError": "We are having trouble connecting to the server."
 }

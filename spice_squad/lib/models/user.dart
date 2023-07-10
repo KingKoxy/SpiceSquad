@@ -18,8 +18,8 @@ class User {
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
       id: map["id"],
-      profileImage: map["profileImage"],
-      userName: map["userName"],
+      profileImage: map["profile_image"],
+      userName: map["user_name"],
     );
   }
 }

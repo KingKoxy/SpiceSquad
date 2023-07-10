@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:http/http.dart";
 import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/screens/main_screen/main_screen.dart";
 import "package:spice_squad/screens/password_reset_screen.dart";
@@ -25,6 +26,7 @@ class LoginScreen extends ConsumerStatefulWidget {
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
   String? _emailError;
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -122,11 +124,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      if (widget._formKey.currentState!.validate()) {
+                      if (!loading && widget._formKey.currentState!.validate()) {
                         _login(context, ref.read(userServiceProvider.notifier));
                       }
                     },
-                    child: Text(AppLocalizations.of(context)!.loginButton),
+                    child: loading
+                        ? const CircularProgressIndicator(
+                            color: Colors.white,
+                          )
+                        : Text(AppLocalizations.of(context)!.loginButton),
                   ),
                 ),
                 const SizedBox(
@@ -146,16 +152,24 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     );
   }
 
-  _login(BuildContext context, UserService userService) {
-    userService.login(widget._emailController.text, widget._passwordController.text).then((value) {
+  Future<void> _login(BuildContext context, UserService userService) async {
+    setState(() {
+      loading = true;
+    });
+    await userService.login(widget._emailController.text, widget._passwordController.text).then((value) {
       Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
     }).catchError((error) {
-      if (error is ArgumentError && error.message == "INVALID_CREDENTIALS"){
+      debugPrint(error.toString());
+      if (error is ArgumentError && error.message == "INVALID_CREDENTIALS") {
         setState(() {
           _emailError = AppLocalizations.of(context)!.loginError;
         });
-        return;
+      } else if (error is ClientException) {
+        //TODO: inform user about connectionError
       }
+    });
+    setState(() {
+      loading = false;
     });
   }
 

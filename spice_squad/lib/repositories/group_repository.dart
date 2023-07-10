@@ -24,8 +24,8 @@ class GroupRepository {
       },
     );
     if (result.statusCode == 200) {
-      final List<dynamic> body = jsonDecode(result.body);
-      return body.map((dynamic item) => Group.fromMap(item)).toList();
+      final List<Map<String, dynamic>> body = jsonDecode(result.body);
+      return body.map<Group>(Group.fromMap).toList();
     } else {
       throw Exception(result.body);
     }
