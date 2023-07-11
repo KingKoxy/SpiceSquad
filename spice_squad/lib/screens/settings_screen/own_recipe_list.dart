@@ -70,7 +70,7 @@ class OwnRecipeList extends ConsumerWidget {
                                     IconButton(
                                       splashRadius: 24,
                                       onPressed: () =>
-                                          Navigator.of(context).pushNamed(PdfRecipePage.routeName, arguments: recipe),//_exportRecipe(ref.read(recipeServiceProvider.notifier), recipe),
+                                          Navigator.of(context).pushNamed(PdfRecipeViewPage.routeName, arguments: recipe),//_exportRecipe(ref.read(recipeServiceProvider.notifier), recipe),
                                       icon: const ImageIcon(SpiceSquadIconImages.export),
                                     ),
                                     EyeButton(

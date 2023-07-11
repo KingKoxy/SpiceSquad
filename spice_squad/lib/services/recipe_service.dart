@@ -1,4 +1,5 @@
 import "dart:async";
+import "package:flutter/services.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/models/recipe_creation_data.dart";
@@ -98,7 +99,7 @@ class RecipeService extends AsyncNotifier<List<Recipe>> {
   }
 
   /// Exports the given [recipe] as a pdf.
-  Future<void> exportRecipe(Recipe recipe) {
+  Future<Uint8List> exportRecipe(Recipe recipe) {
     return PDFExporter.exportRecipe(recipe);
   }
 

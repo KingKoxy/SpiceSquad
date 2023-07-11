@@ -103,9 +103,9 @@ class SpiceSquad extends StatelessWidget {
                   recipe: settings.arguments as Recipe,
                 ),
               );
-            case PdfRecipePage.routeName:
+            case PdfRecipeViewPage.routeName:
               return MaterialPageRoute(
-                builder: (context) => PdfRecipePage(
+                builder: (context) => PdfRecipeViewPage(
                   recipe: settings.arguments as Recipe,
                 ),
               );

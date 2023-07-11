@@ -552,5 +552,21 @@
   "instructionsInputLabel": "Instructions",
   "@instructionsInputLabel": {
     "description": "The label for the instructions input"
+  },
+  "pdfRecipeViewHeadline": "PDF of {recipeTitle}",
+  "@pdfRecipeViewHeadline": {
+    "description": "The headline of the pdf preview for a recipe"
+  },
+  "pdfSaveSuccess": "Save successfully",
+  "@pdfSaveSuccess": {
+    "description": "The message that saving the PDF was successful"
+  },
+  "pdfShareSuccess": "Share successfully",
+  "@pdfShareSuccess": {
+    "description": "The message that sharing the PDF was successful"
+  },
+  "spiceSquad": "SpiceSquad",
+  "@spiceSquad": {
+    "description": "The name of the App"
   }
 }
