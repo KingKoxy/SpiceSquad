@@ -41,7 +41,7 @@ export default class RecipeController extends AbstractController {
       never,
       {
         title: string
-        image: Uint8Array
+        image: Uint8Array | null
         duration: number
         difficulty: 'EASY' | 'MEDIUM' | 'HARD'
         instructions: string
@@ -66,7 +66,7 @@ export default class RecipeController extends AbstractController {
         data: {
           title: req.body.title,
           author_id: req.userId,
-          image: Buffer.from(req.body.image),
+          image: req.body.image?Buffer.from(req.body.image):null,
           duration: req.body.duration,
           difficulty: req.body.difficulty,
           instructions: req.body.instructions,
