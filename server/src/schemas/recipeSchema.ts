@@ -2,7 +2,7 @@ import Joi from 'joi'
 import { userId } from './generalSchema'
 
 const title = Joi.string().max(64)
-const image = Joi.array()
+const image = Joi.array().allow(null)
 const duration = Joi.number().positive()
 const difficulty = Joi.string()
 const instructions = Joi.string()

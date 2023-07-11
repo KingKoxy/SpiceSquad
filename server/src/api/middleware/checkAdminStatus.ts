@@ -33,13 +33,13 @@ export default class CheckAdminStatus extends AbstractMiddleware {
     next: express.NextFunction
   ): Promise<void> {
     await this.prisma.group
-      .findMany({
+      .findFirst({
         where: {
           id: req.params.groupId,
         },
       })
       .then((result) => {
-        if (result.length == 0) {
+        if (!result) {
           req.statusCode = 404
           next(new Error('Group not found'))
         }

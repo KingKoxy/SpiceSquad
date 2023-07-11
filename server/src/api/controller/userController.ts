@@ -108,7 +108,7 @@ export default class UserController extends AbstractController {
    */
   public async userGet(req: AuthenticatedRequest, res: express.Response): Promise<void> {
     const user = await this.prisma.user.findUnique({ where: { id: req.userId } })
-    console.log(user);
+    console.log(user)
     res.json(user)
   }
 }

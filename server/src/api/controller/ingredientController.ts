@@ -28,7 +28,6 @@ export default class IngredientController extends AbstractController {
         res.status(200).json(result)
       })
       .catch((error) => {
-        req.statusCode = 409
         next(error)
       })
   }
@@ -51,7 +50,6 @@ export default class IngredientController extends AbstractController {
         res.status(200).json(result)
       })
       .catch((error) => {
-        req.statusCode = 409
         next(error)
       })
   }

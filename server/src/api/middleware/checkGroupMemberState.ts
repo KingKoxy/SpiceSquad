@@ -21,7 +21,7 @@ export default class checkGroupMemberState extends abstractMiddleware {
       })
       .then((result) => {
         if (!result) {
-          req.statusCode = 422
+          req.statusCode = 404
           next(Error('User is not a member!'))
         }
         next()

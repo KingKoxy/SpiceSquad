@@ -46,14 +46,12 @@ export default class ReportMailBuilder extends abstractMailBuilder {
     adminUsername: string,
     recipeTitle: string,
     reportedUsername: string,
-    groupName: string
   ): nodemailer.SendMailOptions {
     this.receiver = receiver
     this.html = this.htmlText
       .replace('{{adminUsername}}', adminUsername)
       .replace('{{recipeTitle}}', recipeTitle)
       .replace('{{reportedUsername}}', reportedUsername)
-      .replace('{{groupName}}', groupName)
 
     return {
       from: this.sender,

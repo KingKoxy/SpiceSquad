@@ -2,7 +2,7 @@ import Joi from 'joi'
 import { userName, userId } from './generalSchema'
 
 const email = Joi.string().email()
-const password = Joi.string().min(8)
+const password = Joi.string()
 const refreshToken = Joi.string().required()
 
 export const registerSchema = Joi.object().keys({

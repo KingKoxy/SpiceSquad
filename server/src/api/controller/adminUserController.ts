@@ -30,7 +30,7 @@ export default class AdminUserController extends AbstractController {
         })
         .then((result) => {
           if (result) {
-            req.statusCode = 422
+            req.statusCode = 409
             throw new Error('User is already an admin!')
           }
         })
@@ -49,7 +49,7 @@ export default class AdminUserController extends AbstractController {
           })
         })
         .catch((error) => {
-          req.statusCode = 422
+          req.statusCode = 500
           throw new Error(error)
         })
     } catch (error) {
@@ -76,8 +76,8 @@ export default class AdminUserController extends AbstractController {
         })
         .then((result) => {
           if (!result) {
-            req.statusCode = 422
-            throw new Error('User is not an admin!')
+            req.statusCode = 409
+            throw new Error('The user you are trying to remove is not an admin!')
           }
         })
 
@@ -95,7 +95,7 @@ export default class AdminUserController extends AbstractController {
           })
         })
         .catch((error) => {
-          req.statusCode = 422
+          req.statusCode = 500
           throw new Error(error)
         })
     } catch (error) {
@@ -129,7 +129,7 @@ export default class AdminUserController extends AbstractController {
             },
           })
           .catch((error) => {
-            req.statusCode = 422
+            req.statusCode = 500
             next(new Error(error))
           })
 
@@ -138,7 +138,7 @@ export default class AdminUserController extends AbstractController {
         })
       })
       .catch((error) => {
-        req.statusCode = 422
+        req.statusCode = 500
         next(new Error(error))
       })
   }
@@ -191,7 +191,7 @@ export default class AdminUserController extends AbstractController {
         message: 'User banned successfully!',
       })
     } catch (error) {
-      req.statusCode = 422
+      req.statusCode = 500
       next(error)
     }
   }
@@ -224,7 +224,7 @@ export default class AdminUserController extends AbstractController {
         })
         .then((result) => {
           if (!result) {
-            req.statusCode = 422
+            req.statusCode = 409
             throw new Error('Recipe author is not a member of the group!')
           }
         })
@@ -239,7 +239,7 @@ export default class AdminUserController extends AbstractController {
         })
         .then((result) => {
           if (result) {
-            req.statusCode = 422
+            req.statusCode = 409
             throw new Error('Recipe is already censored!')
           }
         })
@@ -259,7 +259,7 @@ export default class AdminUserController extends AbstractController {
           })
         })
         .catch((error) => {
-          req.statusCode = 422
+          req.statusCode = 500
           throw new Error(error)
         })
     } catch (error) {

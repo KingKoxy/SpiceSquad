@@ -402,6 +402,14 @@ export default class RecipeController extends AbstractController {
     >,
     res: express.Response
   ): Promise<void> {
+    //get recipe title
+    const recipe = await this.prisma.recipe.findUnique({
+      where: {
+        id: req.params.recipeId,
+      },
+    })
+    const recipeTitle = recipe.title;
+
     //get all admins where the recipe is in their group
     const recipeAuthorId = (
       await this.prisma.recipe.findUnique({
@@ -410,6 +418,14 @@ export default class RecipeController extends AbstractController {
         },
       })
     ).author_id
+
+    //get user from recipe author id
+    const recipeAuthor = ( await this.prisma.user.findUnique({
+      where: {
+        id: recipeAuthorId,
+      },
+    }))
+    const recipeAuthorName = recipeAuthor.user_name;
 
     const groupIds = (
       await this.prisma.groupMember.findMany({
@@ -437,11 +453,11 @@ export default class RecipeController extends AbstractController {
           },
         },
       })
-    ).map((user) => user.email)
+    )
 
     // TODO: Send notification to admins
     for (const adminEmail of adminEmails) {
-      //this.mailSender.sendMail();
+      this.mailSender.sendMail(this.reportMailBuilder.buildMail(adminEmail.email, adminEmail.user_name ,recipeTitle, recipeAuthorName))
     }
 
     res.status(200).json({

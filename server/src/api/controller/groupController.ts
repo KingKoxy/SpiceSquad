@@ -26,12 +26,10 @@ export default class GroupController extends AbstractController {
     const user = await this.prisma.user.findFirst({
       where: { id: req.userId },
     })
-
-    //TODO: Maximum user groups should be a variable
-    if (user.created_groups > 9) {
+    if (user.created_groups >= parseInt(process.env.MAXIMUM_USER_GROUPS)) {
+      req.statusCode = 409
       next(new Error('User has already created maximum number of groups'))
     }
-    //TODO: Einheitliches benennen von Prisma variablen
     this.prisma.group
       .create({
         data: {
@@ -61,7 +59,6 @@ export default class GroupController extends AbstractController {
             })
           })
           .catch((error) => {
-            req.statusCode = 422
             next(error)
           })
       })
@@ -97,7 +94,7 @@ export default class GroupController extends AbstractController {
         })
       })
       .catch((error) => {
-        req.statusCode = 422
+        req.statusCode = 500
         next(error)
       })
   }
@@ -133,7 +130,7 @@ export default class GroupController extends AbstractController {
         })
       })
       .catch((error) => {
-        req.statusCode = 422
+        req.statusCode = 500
         next(error)
       })
   }
@@ -173,10 +170,8 @@ export default class GroupController extends AbstractController {
         })
         .then((result) => {
           if (result) {
-            res.status(403).json({
-              error: 'User is banned from this group',
-            })
-            return
+            req.statusCode = 403
+            throw new Error('User is banned from this group')
           }
         })
       //TODO: check if group has places left
@@ -221,7 +216,7 @@ export default class GroupController extends AbstractController {
       },
     })
     if (result.length == 0) {
-      req.statusCode = 422
+      req.statusCode = 409
       next(new Error('Could not left group. User is not in this group'))
     } else if (result.length == 1) {
       this.prisma.group
@@ -231,10 +226,11 @@ export default class GroupController extends AbstractController {
           },
         })
         .then((result) => {
-          console.log('User was last member of group. Group deleted.')
+          res.status(200).json({
+            message: 'User was last member of group. Group deleted.',
+          })
         })
         .catch((error) => {
-          req.statusCode = 422
           next((error.message = 'Group could not be left'))
         })
     }
@@ -265,7 +261,7 @@ export default class GroupController extends AbstractController {
           console.log('Longest group member is now admin.')
         })
         .catch((error) => {
-          req.statusCode = 422
+          req.statusCode = 500
           next((error.message = 'Group could not be left'))
         })
     }
@@ -283,8 +279,7 @@ export default class GroupController extends AbstractController {
         })
       })
       .catch((error) => {
-        req.statusCode = 422
-        next((error.message = 'Group could not be left'))
+        next(error)
       })
   }
 
@@ -315,7 +310,6 @@ export default class GroupController extends AbstractController {
         res.status(200).json(result)
       })
       .catch((error) => {
-        res.statusCode = 422
         next(error)
       })
   }
@@ -338,7 +332,6 @@ export default class GroupController extends AbstractController {
         res.status(200).json(result)
       })
       .catch((error) => {
-        res.statusCode = 422
         next(error)
       })
   }

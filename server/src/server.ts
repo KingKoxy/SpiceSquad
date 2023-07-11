@@ -17,7 +17,7 @@ import Application from './application'
 import firebase = require('firebase-admin')
 import 'dotenv/config'
 
-class Server {
+export default class Server {
   /**
    * @description This property contains the port.
    * @memberof Server
