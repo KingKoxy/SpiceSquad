@@ -13,9 +13,7 @@ services:
             - /root/.docker/config.json:/config.json
 
   spicesquad-backend:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ghcr.io/kingkoxy/spicesquad:spicesquad-backend
     volumes:
       - ./src:/home/node/app/src
     container_name: spicesquad-backend
