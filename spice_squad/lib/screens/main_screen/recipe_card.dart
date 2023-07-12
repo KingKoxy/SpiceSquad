@@ -66,12 +66,8 @@ class RecipeCard extends ConsumerWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: recipe.image != null
-                              ? Image.asset(
-                                  "assets/images/exampleImage.jpeg",
-                                  fit: BoxFit.cover,
-                                )
-                              : //Image.memory(recipe.image!, fit: BoxFit.cover)
-                              const Center(
+                              ? Image.memory(recipe.image!, fit: BoxFit.cover)
+                              : const Center(
                                   child: ImageIcon(SpiceSquadIconImages.image, size: 32),
                                 ),
                         ),
@@ -95,7 +91,8 @@ class RecipeCard extends ConsumerWidget {
                               children: [
                                 const ImageIcon(
                                   SpiceSquadIconImages.timer,
-                                  size: 32,),
+                                  size: 32,
+                                ),
                                 const SizedBox(width: 8),
                                 Text(
                                   AppLocalizations.of(context)!.duration(recipe.duration),
@@ -114,10 +111,11 @@ class RecipeCard extends ConsumerWidget {
                               children: [
                                 const ImageIcon(
                                   SpiceSquadIconImages.flame,
-                                  size: 32,),
+                                  size: 32,
+                                ),
                                 const SizedBox(width: 8),
                                 Text(
-                                  recipe.difficulty.toString(),
+                                  recipe.difficulty.getName(context),
                                   style: Theme.of(context).textTheme.titleSmall,
                                 )
                               ],

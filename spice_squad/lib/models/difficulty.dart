@@ -26,4 +26,16 @@ enum Difficulty {
         return AppLocalizations.of(context)!.hardDifficulty;
     }
   }
+
+  static Difficulty fromString(String string) {
+    switch (string.toLowerCase()) {
+      case "easy":
+        return Difficulty.easy;
+      case "medium":
+        return Difficulty.medium;
+      case "hard":
+        return Difficulty.hard;
+    }
+    throw Exception("Invalid difficulty string");
+  }
 }

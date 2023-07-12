@@ -69,13 +69,21 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
               ),
             ),
             const SizedBox(height: 10),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.asset(
-                "assets/images/exampleImage.jpeg",
-                width: double.infinity,
-                height: 200,
-                fit: BoxFit.cover,
+            Card(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+              color: Theme.of(context).colorScheme.onSurface,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: widget.recipe.image != null
+                    ? Image.memory(
+                        widget.recipe.image!,
+                        width: double.infinity,
+                        height: 200,
+                        fit: BoxFit.cover,
+                      )
+                    : const Center(
+                        child: ImageIcon(SpiceSquadIconImages.image, size: 32),
+                      ),
               ),
             ),
             const SizedBox(height: 10),
@@ -96,20 +104,23 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                   ),
                 ),
                 const SizedBox(width: 10),
-                Consumer(builder: (context, ref, child) {
-                  return FavouriteButton(
-                    value: widget.recipe.isFavourite,
-                    onToggle: () {
-                      ref.read(recipeServiceProvider.notifier).toggleFavourite(widget.recipe);
-                    },
-                  );
-                },),
+                Consumer(
+                  builder: (context, ref, child) {
+                    return FavouriteButton(
+                      value: widget.recipe.isFavourite,
+                      onToggle: () {
+                        ref.read(recipeServiceProvider.notifier).toggleFavourite(widget.recipe);
+                      },
+                    );
+                  },
+                ),
               ],
             ),
             Text(
               AppLocalizations.of(context)!.ingredientListHeadline,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            const SizedBox(height: 10),
             IngredientList(
               ingredients: widget.recipe.ingredients,
               amountFactor: portionAmount / widget.recipe.defaultPortionAmount,

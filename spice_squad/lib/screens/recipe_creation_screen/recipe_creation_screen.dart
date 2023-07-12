@@ -271,7 +271,6 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
       image: _image,
       difficulty: _difficulty,
     );
-    debugPrint(recipe.toString());
     recipeService.createRecipe(recipe).then((value) => Navigator.of(context).pop());
   }
 }

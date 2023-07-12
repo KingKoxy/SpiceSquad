@@ -32,10 +32,10 @@ abstract class ApiEndpoints {
   static String get recipe => "$_baseUrl/recipe";
 
   /// The url for the recipe favourite setting endpoint
-  static String get setFavourite => "$_baseUrl/setFavorite";
+  static String get setFavourite => "$recipe/setFavorite";
 
   /// The url for the recipe reporting endpoint
-  static String get report => "$_baseUrl/report";
+  static String get report => "$recipe/report";
 
   // Group endpoints
 

@@ -41,7 +41,7 @@ class GroupRepository {
       },
     );
     if (result.statusCode == 200) {
-      final Map<String, dynamic> body = jsonDecode(result.body);
+      final Map<String, dynamic> body = jsonDecode(result.body)[0];
       return Group.fromMap(body);
     } else {
       throw Exception(result.body);
@@ -56,9 +56,9 @@ class GroupRepository {
         HttpHeaders.contentTypeHeader: "application/json",
         HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
       },
-      body: {
+      body: jsonEncode(<String, String>{
         "groupCode": groupCode,
-      },
+      }),
     );
     if (result.statusCode != 200) {
       throw Exception(result.body);

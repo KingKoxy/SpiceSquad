@@ -1,5 +1,10 @@
+import "dart:typed_data";
+
 import "package:spice_squad/models/recipe_creation_data.dart";
 import "package:spice_squad/models/user.dart";
+
+import "difficulty.dart";
+import "ingredient.dart";
 
 /// Model for a recipe
 class Recipe extends RecipeCreationData {
@@ -44,21 +49,23 @@ class Recipe extends RecipeCreationData {
     return Recipe(
       id: map["id"],
       title: map["title"],
-      author: map["author"],
-      uploadDate: map["uploadDate"],
+      author: User(id: "id", userName: "Placeholder User", profileImage: null),
+      //map["author"],
+      uploadDate: DateTime.now(),
+      //map["uploadDate"],
       duration: map["duration"],
-      difficulty: map["difficulty"],
-      image: map["image"],
-      isVegetarian: map["isVegetarian"],
-      isVegan: map["isVegan"],
-      isGlutenFree: map["isGlutenFree"],
-      isHalal: map["isHalal"],
-      isKosher: map["isKosher"],
-      ingredients: map["ingredients"],
+      difficulty: Difficulty.fromString(map["difficulty"]),
+      image: map["image"] != null ? Uint8List.fromList(map["image"]["data"].cast<int>()) : null,
+      isVegetarian: map["is_vegetarian"],
+      isVegan: map["is_vegan"],
+      isGlutenFree: map["is_gluten_free"],
+      isHalal: map["is_halal"],
+      isKosher: map["is_kosher"],
+      ingredients: map["ingredients"].cast<Ingredient>(),
       instructions: map["instructions"],
-      defaultPortionAmount: map["defaultPortionAmount"],
+      defaultPortionAmount: map["default_portions"],
       isFavourite: map["isFavourite"],
-      isPrivate: map["isPrivate"],
+      isPrivate: map["is_private"],
     );
   }
 }

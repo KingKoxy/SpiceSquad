@@ -81,9 +81,10 @@ class RecipeRepository {
       Uri.parse("${ApiEndpoints.setFavourite}/$recipeId"),
       headers: {
         HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
+        HttpHeaders.contentTypeHeader: "application/json",
       },
-      body: jsonEncode(<String, String>{
-        "favourite": value.toString(),
+      body: jsonEncode(<String, bool>{
+        "isFavorite": value,
       }),
     );
     if (result.statusCode != 200) {

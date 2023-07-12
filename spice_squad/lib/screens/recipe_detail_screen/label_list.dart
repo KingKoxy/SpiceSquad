@@ -23,7 +23,7 @@ class LabelList extends StatelessWidget {
             image: SpiceSquadIconImages.timer,
             name: AppLocalizations.of(context)!.duration(recipe.duration),
           ),
-          TagItem(image: SpiceSquadIconImages.flame, name: recipe.difficulty.toString()),
+          TagItem(image: SpiceSquadIconImages.flame, name: recipe.difficulty.getName(context)),
           if (recipe.isVegetarian)
             TagItem(
               image: SpiceSquadIconImages.cheese,
