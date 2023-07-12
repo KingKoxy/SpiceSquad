@@ -1,0 +1,13 @@
+# Change localhost to server domain name
+localhost {
+    handle_path /spicesquad/* {
+        uri strip_prefix /spicesquad
+        reverse_proxy spicesquad-backend:3000 {
+            header_down Strict-Transport-Security "max-age=31536000;"
+        }
+    }
+
+   handle {
+        file_server
+    }
+}
