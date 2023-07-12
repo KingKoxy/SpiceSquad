@@ -14,10 +14,10 @@ jobs:
           uses: actions/setup-node@v1
           with:
             node-version: 20
-        - name: yarn install
-          run: yarn install
-        - name: tsc
-          uses: icrawl/action-tsc@v1
+        - name: Install Dependencies
+          run: npm ci
+        - name: Build TypeScript
+          run: npm run build
 
         - name: Login to GitHub Container Registry
           uses: docker/login-action@v1
