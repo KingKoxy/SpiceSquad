@@ -2,7 +2,7 @@ name: Build and Deploy Docker Image
 on:
     push:
         branches:
-        - Server
+        - main
 
 jobs:
     build-and-deploy:
@@ -15,7 +15,9 @@ jobs:
           with:
             node-version: 20
         - name: Install Dependencies
-          run: npm install
+          run: |
+            cd server
+            npm install
         - name: Build TypeScript
           run: npm run build
 
