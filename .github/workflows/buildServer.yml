@@ -33,7 +33,6 @@ jobs:
           uses: docker/build-push-action@v4
           with:
             context: ./server
-            file: ./Dockerfile
             push: true
             tags: |
               ghcr.io/kingkoxy/spicesquad:spicesquad-backend
