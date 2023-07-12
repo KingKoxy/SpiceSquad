@@ -35,4 +35,4 @@ jobs:
             context: .
             push: true
             tags: |
-              ghcr.io/${{ github.repository_owner }}/SpiceSquad:latest-docker-image
+              ghcr.io/${{ github.repository_owner }}/spicesquad:latest-docker-image
