@@ -7,20 +7,20 @@ const recipeId = Joi.string().guid()
 
 export const makeAdminSchema = Joi.object().keys({
   userId: userId.required(),
-})
+}).unknown(true);
 
 export const removeAdminSchema = Joi.object().keys({
   userId: userId.required(),
-})
+}).unknown(true);
 
 export const kickUser = Joi.object().keys({
   userId: userId.required(),
-})
+}).unknown(true);
 
 export const banUser = Joi.object().keys({
   userId: userId.required(),
-})
+}).unknown(true);
 
 export const setCensored = Joi.object().keys({
   userId: userId.required(),
-})
+}).unknown(true);

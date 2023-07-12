@@ -16,12 +16,11 @@ const defaultPortions = Joi.number().positive()
 
 const ingredients = Joi.array().items(
   Joi.object({
-    id: Joi.string(),
     name: Joi.string().max(32),
     icon: Joi.array(),
     amount: Joi.number().positive(),
     unit: Joi.string().max(16),
-  })
+  }).unknown(true)
 )
 
 const isFavorite = Joi.boolean()
@@ -40,7 +39,7 @@ export const recipeCreateSchema = Joi.object().keys({
   isPrivate: isPrivate.required(),
   defaultPortionAmount: defaultPortions.required(),
   ingredients: ingredients,
-})
+}).unknown(true);
 
 export const recipeUpdateSchema = Joi.object({
   title: title,
@@ -64,19 +63,19 @@ export const recipeUpdateSchema = Joi.object({
       unit: Joi.string().max(16),
     })
   ),
-})
+}).unknown(true);
 
 export const recipeGetAllSchema = Joi.object({
   userId: userId,
-})
+}).unknown(true);
 
 export const recipeDeleteSchema = Joi.object({
   userId: userId,
-})
+}).unknown(true);
 
 export const recipeSetFavorite = Joi.object().keys({
   userId: userId,
   isFavorite: isFavorite.required(),
-})
+}).unknown(true);
 
-export const recipeReportSchema = Joi.object({})
+export const recipeReportSchema = Joi.object({}).unknown(true);
