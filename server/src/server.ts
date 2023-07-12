@@ -27,15 +27,6 @@ export default class Server {
   private port: number = parseInt(process.env.SV_PORT) || 3000
 
   /**
-   * @description This property contains the firebase credentials.
-   * @memberof Server
-   * @private
-   * @type {*}
-   * @requires firebase_credentials.json
-   */
-  private firebase_credentials: any = require('../firebase_credentials.json')
-
-  /**
    * @description This property contains the express application.
    * @memberof Server
    * @private
@@ -95,7 +86,12 @@ export default class Server {
   private connectToFirebase(): boolean {
     try {
       firebase.initializeApp({
-        credential: firebase.credential.cert(this.firebase_credentials),
+        credential: firebase.credential.cert({
+          projectId: process.env.FIREBASE_PROJECT_ID,
+          clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+          // replace `\` and `n` character pairs w/ single `\n` character
+          privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+        }),
       })
       console.log('Firebase connection established')
       return true
