@@ -1,0 +1,34 @@
+name: Build and Deploy Docker Image
+on:
+    push:
+        branches:
+        - Server
+
+jobs:
+    build-and-deploy:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Set up Git repository
+          uses: actions/checkout@v2
+        - name: Install node v20
+          uses: actions/setup-node@v1
+          with:
+            node-version: 20
+        - name: yarn install
+          run: yarn install
+        - name: tsc
+          uses: icrawl/action-tsc@v1
+
+        - name: Login to GitHub Container Registry
+          uses: docker/login-action@v1
+          with:
+            registry: ghcr.io
+            username: ${{ github.repository_owner }}
+            password: ${{ secrets.GITHUB_TOKEN }}
+        - name: Build and Push Docker Image
+          uses: docker/build-push-action@v2
+          with:
+            context: .
+            push: true
+            tags: |
+              ghcr.io/${{ github.repository_owner }}/SpiceSquad:latest-docker-image
