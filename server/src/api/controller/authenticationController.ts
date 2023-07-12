@@ -110,7 +110,7 @@ export default class AuthenticationController extends AbstractController {
     next: express.NextFunction
   ): Promise<void> {
     console.log('refresh token', req.body.refreshToken)
-    const url = process.env.FB_URL
+    const url = process.env.FIREBASE_URL
     const formData = {
       grant_type: 'refresh_token',
       refresh_token: req.body.refreshToken,

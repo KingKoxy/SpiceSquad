@@ -56,7 +56,7 @@ export default class AuthenticationRouter extends AbstractRouter {
       this.schemaValidator.checkSchema(resetPasswordSchema),
       this.Controller.userResetPassword.bind(this.Controller)
     )
-    this.router.get(
+    this.router.post(
       '/refreshToken',
       this.schemaValidator.checkSchema(refreshTokenSchema),
       this.Controller.userRefreshToken.bind(this.Controller)
