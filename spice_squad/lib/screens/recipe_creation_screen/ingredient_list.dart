@@ -1,3 +1,4 @@
+import "package:auto_size_text/auto_size_text.dart";
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:spice_squad/models/ingredient.dart";
@@ -25,8 +26,8 @@ class _IngredientListState extends State<IngredientList> {
 
   @override
   void initState() {
-    _ingredients = widget.initialList;
     super.initState();
+    _ingredients = widget.initialList;
   }
 
   @override
@@ -70,33 +71,39 @@ class _IngredientListState extends State<IngredientList> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: Image.memory(
-                              _ingredients[index].icon,
+                          Expanded(
+                              child: Row(children: [
+                            SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: Image.memory(
+                                _ingredients[index].icon,
+                                color: Colors.white,
+                              ),
                             ),
-                          ),
-                          Row(
-                            children: [
-                              Text(
+                            Flexible(
+                              child: AutoSizeText(
                                 _ingredients[index].name,
                                 style: Theme.of(context).textTheme.titleLarge,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              const Text("•"),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                "${_ingredients[index].amount.toStringAsFixed(2)} ${_ingredients[index].unit}",
-                                style: Theme.of(context).textTheme.titleMedium,
-                              ),
-                            ],
-                          ),
-                          const Expanded(child: SizedBox()),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const Text("•"),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "${_ingredients[index].amount.toStringAsFixed(2)} ${_ingredients[index].unit}",
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                          ])),
                           RemoveButton(
                             onPressed: () {
                               setState(() {

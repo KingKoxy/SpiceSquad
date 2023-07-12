@@ -36,7 +36,7 @@ class _DifficultyPickerWidgetState extends State<DifficultyPickerWidget> {
         child: TagItem(
           margin: EdgeInsets.zero,
           image: SpiceSquadIconImages.flame,
-          name: _difficulty.toString(),
+          name: _difficulty.getName(context),
         ),
         onTap: () => _showDifficultyPickerDialog(context),
       ),

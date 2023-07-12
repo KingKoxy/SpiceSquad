@@ -39,8 +39,9 @@ class RecipeRepository {
       Uri.parse(ApiEndpoints.recipe),
       headers: {
         HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
+        HttpHeaders.contentTypeHeader: "application/json",
       },
-      body: jsonEncode(recipe),
+      body: jsonEncode(recipe, toEncodable: (value) => RecipeCreationData.toMap(value as RecipeCreationData)),
     );
     if (result.statusCode != 200) {
       throw Exception(result.body);

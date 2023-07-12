@@ -19,14 +19,14 @@ class IconPickerDialog extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return AlertDialog(
       title: Text(AppLocalizations.of(context)!.iconPickerDialogTitle),
-      content: FutureBuilder(
-        future: ref.watch(ingredientDataRepository).fetchIngredientIcons(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final List<Uint8List> icons = snapshot.data as List<Uint8List>;
-            return SizedBox(
-              width: double.maxFinite,
-              child: GridView.builder(
+      content: SizedBox(
+        width: double.maxFinite,
+        child: FutureBuilder(
+          future: ref.watch(ingredientDataRepository).fetchIngredientIcons(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final List<Uint8List> icons = snapshot.data as List<Uint8List>;
+              return GridView.builder(
                 shrinkWrap: true,
                 itemCount: icons.length,
                 itemBuilder: (context, index) {
@@ -47,16 +47,14 @@ class IconPickerDialog extends ConsumerWidget {
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 6,
                 ),
-              ),
-            );
-          } else if (snapshot.hasError) {
-            return Text(snapshot.error.toString());
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
+              );
+            } else if (snapshot.hasError) {
+              return Text(snapshot.error.toString());
+            } else {
+              return const SizedBox( height: 50, width: 50, child: CircularProgressIndicator());
+            }
+          },
+        ),
       ),
       actions: <Widget>[
         TextButton(

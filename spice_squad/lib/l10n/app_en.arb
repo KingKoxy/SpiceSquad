@@ -561,5 +561,20 @@
   "@emailExistsError": {
     "description": "The error message if the email address is already in use"
   },
-  "connectionError": "We are having trouble connecting to the server."
+  "connectionError": "We are having trouble connecting to the server.",
+  "@connectionError": {
+    "description": "The error message if the connection to the server fails"
+  },
+  "easyDifficulty": "Easy",
+  "@easyDifficulty": {
+    "description": "The label for the easy difficulty"
+  },
+  "mediumDifficulty": "Medium",
+  "@mediumDifficulty": {
+    "description": "The label for the medium difficulty"
+  },
+  "hardDifficulty": "Hard",
+  "@hardDifficulty": {
+    "description": "The label for the hard difficulty"
+  }
 }

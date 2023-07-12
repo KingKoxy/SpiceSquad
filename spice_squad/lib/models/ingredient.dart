@@ -36,4 +36,16 @@ class Ingredient {
       unit: map["unit"],
     );
   }
+
+  static Map<String, dynamic> toMap(Ingredient ingredient) {
+    return {
+      "id": ingredient.id,
+      "name": ingredient.name,
+      "icon": ingredient.icon,
+      "amount": ingredient.amount,
+      "unit": ingredient.unit,
+    };
+  }
+
+
 }

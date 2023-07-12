@@ -9,10 +9,13 @@ import "package:spice_squad/icons.dart";
 class ImagePickerWidget extends StatefulWidget {
   /// Initial image to display
   final Uint8List? recipeImage;
+  final ValueChanged<Uint8List?> onChanged;
+
 
   /// Creates a new image picker
   const ImagePickerWidget({
     required this.recipeImage,
+    required this.onChanged,
     super.key,
   });
 
@@ -146,6 +149,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
   void _removeRecipeImage() {
     setState(() {
       _recipeImage = null;
+      widget.onChanged(_recipeImage);
     });
   }
 
@@ -154,6 +158,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
       if (image != null) {
         setState(() {
           _recipeImage = File(image.path).readAsBytesSync();
+          widget.onChanged(_recipeImage);
         });
       }
     });
@@ -164,6 +169,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
       if (image != null) {
         setState(() {
           _recipeImage = File(image.path).readAsBytesSync();
+          widget.onChanged(_recipeImage);
         });
       }
     });

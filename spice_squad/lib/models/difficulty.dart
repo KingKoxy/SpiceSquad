@@ -1,3 +1,6 @@
+import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
+
 /// Enum for the difficulty of a recipe.
 ///
 /// The difficulty is used to determine the difficulty of a recipe.
@@ -12,15 +15,15 @@ enum Difficulty {
   /// Hard difficulty
   hard;
 
-  @override
-  String toString() {
+  /// Returns the string representation of the difficulty.
+  String getName(BuildContext context) {
     switch (this) {
       case Difficulty.easy:
-        return "Einfach";
+        return AppLocalizations.of(context)!.easyDifficulty;
       case Difficulty.medium:
-        return "Mittel";
+        return AppLocalizations.of(context)!.mediumDifficulty;
       case Difficulty.hard:
-        return "Schwer";
+        return AppLocalizations.of(context)!.hardDifficulty;
     }
   }
 }

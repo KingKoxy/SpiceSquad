@@ -55,4 +55,22 @@ class RecipeCreationData {
     required this.defaultPortionAmount,
     this.image,
   });
+
+  static Map<String, dynamic> toMap(RecipeCreationData recipe) {
+    return {
+      'title': recipe.title,
+      'duration': recipe.duration,
+      'difficulty': recipe.difficulty.toString(),
+      'isVegetarian': recipe.isVegetarian,
+      'isVegan': recipe.isVegan,
+      'isGlutenFree': recipe.isGlutenFree,
+      'isHalal': recipe.isHalal,
+      'isKosher': recipe.isKosher,
+      'ingredients': recipe.ingredients.map<Map<String, dynamic>>(Ingredient.toMap).toList(),
+      'instructions': recipe.instructions,
+      'defaultPortionAmount': recipe.defaultPortionAmount,
+      'image': recipe.image,
+      'isPrivate': false,
+    };
+  }
 }

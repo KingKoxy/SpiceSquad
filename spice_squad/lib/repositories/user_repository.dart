@@ -32,8 +32,6 @@ class UserRepository {
       },
     );
     if (response.statusCode == 200) {
-      debugPrint("Request successful: ");
-      debugPrint(response.body);
       final user = jsonDecode(response.body);
       _userId = user["id"];
       return User.fromMap(user);
@@ -53,7 +51,8 @@ class UserRepository {
       return _idToken;
     }
     final String? refreshToken = await _getRefreshToken();
-    if (refreshToken != null && !_isExpired(refreshToken)) {
+    debugPrint("Refresh token: $refreshToken");
+    if (refreshToken != null) {
       final response = await http.post(
         Uri.parse(ApiEndpoints.refreshToken),
         headers: {
@@ -63,18 +62,17 @@ class UserRepository {
           "refreshToken": refreshToken,
         }),
       );
+      debugPrint("Response: ${response.body}");
       if (response.statusCode == 200) {
         final Map<String, dynamic> body = jsonDecode(response.body);
         _idToken = body["idToken"];
-        final SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString(_refreshTokenPath, body["user"]["stsTokenManager"]["refreshToken"]);
-      } else {
-        await deleteTokens();
+      } else if (response.statusCode != 401) {
         throw Exception(response.body);
       }
     }
+    // Wenn der Token nicht aktualisiert werden konnte, wird er gelöscht
     await deleteTokens();
-    throw Exception("User is not logged in");
+    return null;
   }
 
   /// Returns the refresh token of the current user by fetching it from the system storage or returns null if none is available
@@ -85,12 +83,12 @@ class UserRepository {
 
   /// Returns true if the given token is expired
   bool _isExpired(String token) {
+    debugPrint("Token: $token");
     return JwtDecoder.isExpired(token);
   }
 
   /// Tries to login the user and setting the id token and refresh token
   Future<void> login(String email, String password) async {
-    debugPrint("Login with $email and $password");
     final response = await http.post(
       Uri.parse(ApiEndpoints.login),
       headers: {
@@ -108,7 +106,7 @@ class UserRepository {
       _idToken = body["idToken"];
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       //TODO: send refresh token like idToken directly in body
-      await prefs.setString(_refreshTokenPath, body["user"]["stsTokenManager"]["refreshToken"]);
+      await prefs.setString(_refreshTokenPath, body["refreshToken"]);
     } else if (response.statusCode == 401) {
       throw ArgumentError("INVALID_CREDENTIALS");
     } else {
@@ -149,7 +147,7 @@ class UserRepository {
       final Map<String, dynamic> body = jsonDecode(response.body);
       _idToken = body["idToken"];
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString(_refreshTokenPath, body["user"]["stsTokenManager"]["refreshToken"]);
+      await prefs.setString(_refreshTokenPath, body["refreshToken"]);
     } else if (response.statusCode == 409) {
       throw ArgumentError("EMAIL_ALREADY_IN_USE");
     } else {

@@ -86,6 +86,7 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ImagePickerWidget(
+                onChanged: (value) => _image = value,
                 recipeImage: widget.recipe?.image,
               ),
               const SizedBox(
@@ -240,7 +241,7 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
                 child: Consumer(
                   builder: (context, ref, child) => ElevatedButton(
                     onPressed: () {
-                      if (widget._formKey.currentState?.validate() == null) {
+                      if (widget._formKey.currentState!.validate()) {
                         saveRecipe(ref.read(recipeServiceProvider.notifier));
                       }
                     },
@@ -270,6 +271,7 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
       image: _image,
       difficulty: _difficulty,
     );
+    debugPrint(recipe.toString());
     recipeService.createRecipe(recipe).then((value) => Navigator.of(context).pop());
   }
 }

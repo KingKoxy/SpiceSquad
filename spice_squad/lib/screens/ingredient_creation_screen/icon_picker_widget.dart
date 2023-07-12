@@ -7,11 +7,10 @@ import "package:spice_squad/screens/ingredient_creation_screen/icon_picker_dialo
 
 /// Widget to pick an icon for an ingredient
 class IconPickerWidget extends ConsumerStatefulWidget {
-  /// Controller for icon data
-  final TextEditingController iconController;
+  final ValueChanged<Uint8List> onChanged;
 
   /// Creates a new icon picker widget
-  const IconPickerWidget({required this.iconController, super.key});
+  const IconPickerWidget({required this.onChanged, super.key});
 
   @override
   ConsumerState<IconPickerWidget> createState() => _IconPickerWidgetState();
@@ -19,14 +18,18 @@ class IconPickerWidget extends ConsumerStatefulWidget {
 
 class _IconPickerWidgetState extends ConsumerState<IconPickerWidget> {
   /// The currently selected icon
-  late Uint8List _selectedIcon;
-  late List<Uint8List> _icons;
+  Uint8List? _selectedIcon;
+  List<Uint8List> _icons = [];
 
   @override
-  void initState() async {
-    _icons = await ref.read(ingredientDataRepository).fetchIngredientIcons();
-    _selectedIcon = _icons[0];
-    widget.iconController.text = _selectedIcon.toString();
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(ingredientDataRepository).fetchIngredientIcons().then((value) => setState(() {
+            _icons = value;
+            _selectedIcon = _icons[0];
+            widget.onChanged(_selectedIcon!);
+          }));
+    });
     super.initState();
   }
 
@@ -40,9 +43,11 @@ class _IconPickerWidgetState extends ConsumerState<IconPickerWidget> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ImageIcon(
-              MemoryImage(_selectedIcon),
-            ),
+            _selectedIcon != null
+                ? ImageIcon(
+                    MemoryImage(_selectedIcon!),
+                  )
+                : Container(),
             const Icon(
               Icons.arrow_drop_down,
               size: 32,
@@ -62,7 +67,7 @@ class _IconPickerWidgetState extends ConsumerState<IconPickerWidget> {
             setState(() {
               _selectedIcon = value;
             });
-            widget.iconController.text = value.toString();
+            widget.onChanged(_selectedIcon!);
           },
         );
       },

@@ -11,7 +11,6 @@ import "package:spice_squad/providers/repository_providers.dart";
 class UserService extends AsyncNotifier<User?> {
   @override
   FutureOr<User?> build() {
-    debugPrint("UserService.build()");
     return ref.watch(userRepositoryProvider).fetchCurrentUser();
   }
 
