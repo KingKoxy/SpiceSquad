@@ -30,9 +30,9 @@ jobs:
             username: ${{ github.repository_owner }}
             password: ${{ secrets.GITHUB_TOKEN }}
         - name: Build and Push Docker Image
-          uses: docker/build-push-action@v2
+          uses: docker/build-push-action@v4
           with:
             context: .
             push: true
             tags: |
-              ghcr.io/${{ github.repository_owner }}/spicesquad:latest-docker-image
+              ghcr.io/${{ github.repository_owner }}/spicesquad:spicesquad-backend
