@@ -1,4 +1,5 @@
 import "package:flutter/services.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:pdf/pdf.dart";
 import "package:pdf/widgets.dart" as pw;
 import "package:spice_squad/models/recipe.dart";
@@ -8,6 +9,7 @@ class PDFExporter {
   /// Exports the given [recipe] as a PDF and shares it.
   static Future<Uint8List> exportRecipe(
     final Recipe recipe,
+    final AppLocalizations appLocalizations,
   ) async {
     final recipeImage =
         (await rootBundle.load("assets/images/exampleImage.jpeg"))
@@ -21,6 +23,7 @@ class PDFExporter {
 
     pdf.addPage(
       pw.MultiPage(
+        pageFormat: PdfPageFormat.a4,
         header: (context) => pw.Container(
           alignment: pw.Alignment.topLeft,
           padding: const pw.EdgeInsets.only(bottom: 3.0),
@@ -68,8 +71,8 @@ class PDFExporter {
                 flex: 1,
                 child: pw.Column(
                   children: [
-                    _buildInstructions(context, recipe),
-                    _buildInfo(context, recipe),
+                    _buildInstructions(context, recipe, appLocalizations),
+                    _buildInfo(context, recipe, appLocalizations),
                   ],
                 ),
               ),
@@ -82,7 +85,12 @@ class PDFExporter {
                     mainAxisAlignment: pw.MainAxisAlignment.start,
                     crossAxisAlignment: pw.CrossAxisAlignment.center,
                     children: [
-                      _buildInfoSideCard(context, recipeImage, recipe),
+                      _buildInfoSideCard(
+                        context,
+                        recipeImage,
+                        recipe,
+                        appLocalizations,
+                      ),
                     ],
                   ),
                 ),
@@ -95,7 +103,11 @@ class PDFExporter {
     return pdf.save();
   }
 
-  static pw.Widget _buildTable(pw.Context context, Recipe recipe) {
+  static pw.Widget _buildTable(
+    pw.Context context,
+    Recipe recipe,
+    AppLocalizations appLocalizations,
+  ) {
     final ingredients = recipe.ingredients;
 
     final data = ingredients.map((ingredient) {
@@ -142,6 +154,7 @@ class PDFExporter {
     pw.Context context,
     Uint8List image,
     Recipe recipe,
+    AppLocalizations appLocalizations,
   ) {
     return pw.Container(
       alignment: pw.Alignment.topLeft,
@@ -154,15 +167,12 @@ class PDFExporter {
             pw.Container(
               width: 150,
               height: 100,
-              decoration: pw.BoxDecoration(
-                borderRadius: pw.BorderRadius.circular(16),
-              ),
               child: pw.FittedBox(
                 fit: pw.BoxFit.cover,
                 child: pw.Image(
-                  pw.MemoryImage(recipe.image!),
-                  width: 150,
-                  height: 100,
+                  pw.MemoryImage(
+                    image,
+                  ), //TODO durch das Richtige Rezept Bild austauschen
                 ),
               ),
             ),
@@ -173,13 +183,13 @@ class PDFExporter {
               mainAxisAlignment: pw.MainAxisAlignment.start,
               children: [
                 pw.Text(
-                  "Zutaten für ${recipe.defaultPortionAmount.toString()} Portionen:",
+                  appLocalizations.defaultPortions(recipe.defaultPortionAmount),
                   textAlign: pw.TextAlign.left,
                 ),
               ],
             ),
           ),
-          _buildTable(context, recipe),
+          _buildTable(context, recipe, appLocalizations),
           pw.Container(
             alignment: pw.Alignment.bottomRight,
             padding: const pw.EdgeInsets.symmetric(vertical: 8.0),
@@ -187,7 +197,7 @@ class PDFExporter {
               mainAxisAlignment: pw.MainAxisAlignment.start,
               children: [
                 pw.Text(
-                  "Rezept von: ${recipe.author.userName}",
+                  appLocalizations.recipeAuthor(recipe.author.userName),
                   textAlign: pw.TextAlign.left,
                 ),
               ],
@@ -198,7 +208,11 @@ class PDFExporter {
     );
   }
 
-  static pw.Widget _buildInstructions(pw.Context context, Recipe recipe) {
+  static pw.Widget _buildInstructions(
+    pw.Context context,
+    Recipe recipe,
+    AppLocalizations appLocalizations,
+  ) {
     return pw.Column(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
@@ -206,7 +220,6 @@ class PDFExporter {
           alignment: pw.Alignment.topLeft,
           padding: const pw.EdgeInsets.symmetric(vertical: 8.0),
           child: pw.Column(
-            //mainAxisAlignment: pw.MainAxisAlignment.start,
             children: [
               pw.Text(
                 recipe.title,
@@ -237,7 +250,11 @@ class PDFExporter {
     );
   }
 
-  static pw.Widget _buildInfo(pw.Context context, Recipe recipe) {
+  static pw.Widget _buildInfo(
+    pw.Context context,
+    Recipe recipe,
+    AppLocalizations appLocalizations,
+  ) {
     return pw.Container(
       padding: const pw.EdgeInsets.symmetric(vertical: 8.0),
       child: pw.Column(
@@ -247,13 +264,13 @@ class PDFExporter {
               pw.Container(
                 width: 130,
                 child: pw.Text(
-                  "Zubereitunszeit",
+                  appLocalizations.totalTime,
                   style: pw.TextStyle(
                     fontWeight: pw.FontWeight.bold,
                   ),
                 ),
               ),
-              pw.Text("${recipe.duration.toString()} min"),
+              pw.Text(appLocalizations.duration(recipe.duration)),
             ],
           ),
           pw.SizedBox(
@@ -264,7 +281,7 @@ class PDFExporter {
               pw.Container(
                 width: 130,
                 child: pw.Text(
-                  "Schwierigkeitsgrad",
+                  appLocalizations.difficulty,
                   style: pw.TextStyle(
                     fontWeight: pw.FontWeight.bold,
                   ),
@@ -277,18 +294,19 @@ class PDFExporter {
             height: 8,
           ),
           pw.Row(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
             children: [
               pw.Container(
                 width: 130,
                 child: pw.Text(
-                  "Labels",
+                  appLocalizations.labels,
                   style: pw.TextStyle(
                     fontWeight: pw.FontWeight.bold,
                   ),
                 ),
               ),
               pw.Text(
-                _createLabelsString(recipe),
+                _createLabelsString(recipe, appLocalizations),
               )
             ],
           ),
@@ -310,24 +328,27 @@ class PDFExporter {
     );
   }
 
-  static String _createLabelsString(Recipe recipe) {
-    const separator = ", ";
+  static String _createLabelsString(
+    Recipe recipe,
+    AppLocalizations appLocalizations,
+  ) {
+    const separator = "\n";
     final buffer = StringBuffer();
     final List<String> strings = [];
     if (recipe.isVegetarian) {
-      strings.add("Vegetarisch");
+      strings.add(appLocalizations.labelVegetarian);
     }
     if (recipe.isVegan) {
-      strings.add("Vegan");
+      strings.add(appLocalizations.labelVegan);
     }
     if (recipe.isKosher) {
-      strings.add("Koscher");
+      strings.add(appLocalizations.labelKosher);
     }
     if (recipe.isGlutenFree) {
-      strings.add("Gluten frei");
+      strings.add(appLocalizations.labelGlutenFree);
     }
     if (recipe.isHalal) {
-      strings.add("Halal");
+      strings.add(appLocalizations.labelHalal);
     }
     buffer.writeAll(strings, separator);
     return buffer.toString();

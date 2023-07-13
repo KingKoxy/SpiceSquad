@@ -91,6 +91,6 @@ class _PdfRecipeViewPageState extends ConsumerState<PdfRecipeViewPage> {
   }
 
   FutureOr<Uint8List> exportRecipe(final PdfPageFormat format) {
-    return ref.read(recipeServiceProvider.notifier).exportRecipe(widget.recipe);
+    return ref.read(recipeServiceProvider.notifier).exportRecipe(widget.recipe, AppLocalizations.of(context)!);
   }
 }
