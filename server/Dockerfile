@@ -6,7 +6,6 @@ COPY package*.json ./
 
 COPY prisma ./prisma/
 
-# COPY
 COPY ./build ./build
 
 COPY ./src/mailer/templates/reportMail.html ./src/mailer/templates/reportMail.html

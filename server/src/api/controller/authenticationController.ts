@@ -48,7 +48,7 @@ export default class AuthenticationController extends AbstractController {
     firebaseAuth
       .createUserWithEmailAndPassword(this.auth, req.body.email, req.body.password)
       .then(async (userCredentials) => {
-        if (process.env.NODE_ENV === 'development') console.log('Successfully created new user:', userCredentials.user)
+        if (process.env.NODE_ENV === 'development') console.log('Successfully created new user:', userCredentials.user.email)
 
         // Adds a new user to the database
         await this.prisma.user

@@ -47,7 +47,7 @@ model Ingredient {
   amount    Float?
   unit      String? @db.VarChar(16)
   recipe_id String  @db.Uuid
-  icon      Bytes?  //Relation to IngredientIcon?
+  icon      Bytes?
   Recipe    Recipe  @relation(fields: [recipe_id], references: [id], onDelete: Cascade)
 }
 
@@ -83,6 +83,7 @@ model Recipe {
   is_kosher        Boolean
   is_private       Boolean
   default_portions Int
+  upload_date      DateTime?        @default(dbgenerated("CURRENT_DATE")) @db.Date
   censoredRecipe   CensoredRecipe[]
   favorite         Favorite[]
   ingredient       Ingredient[]

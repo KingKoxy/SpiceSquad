@@ -285,17 +285,22 @@ export default class RecipeController extends AbstractController {
               where: {
                 id: recipe.author_id,
               },
-              include: {},
+              select: {
+                user_name: true,
+              }
             })
-
             const ingredients = await this.prisma.ingredient.findMany({
               where: {
                 recipe_id: recipe.id,
               },
             })
 
+            const recipeWithoutAuthorId = { ...recipe }
+            delete recipeWithoutAuthorId.author_id
+
             return {
-              ...recipe,
+              ...recipeWithoutAuthorId,
+              author: author.user_name,
               ingredients,
               isFavourite: favouriteIds.includes(recipe.id),
             }
@@ -361,6 +366,9 @@ export default class RecipeController extends AbstractController {
               where: {
                 id: recipe.author_id,
               },
+              select: {
+                user_name: true,
+              }
             })
             const ingredients = await this.prisma.ingredient.findMany({
               where: {
@@ -368,8 +376,14 @@ export default class RecipeController extends AbstractController {
               },
             })
 
-            return {
-              ...recipe,
+            const recipeWithoutAuthorId = { ...recipe }
+            delete recipeWithoutAuthorId.author_id
+            // Change date format so that that is only the date and not the time
+            const recipeWithDate = {...recipe, upload_date: recipeWithoutAuthorId.upload_date.toISOString().replace(/T.*/,'').split('-').reverse().join('.')}
+            
+           return {
+              ...recipeWithDate,
+              author: author.user_name,
               ingredients,
               isFavourite: favouriteIds.includes(recipe.id),
             }
@@ -472,9 +486,22 @@ export default class RecipeController extends AbstractController {
    * @returns Promise<void>
    */
   public async recipeSetFavorite(
-    req: AuthenticatedRequest<{ recipeId: string }, never, { value: boolean }>,
+    req: AuthenticatedRequest<{ recipeId: string }, never, { isFavorite: boolean }>,
     res: express.Response
   ): Promise<void> {
+    //check if recipe exists
+    const recipe = await this.prisma.recipe.findUnique({
+      where: {
+        id: req.params.recipeId,
+      },
+    })
+    if (!recipe) {
+      res.status(409).json({
+        message: 'Recipe not found',
+      })
+      return;
+    }
+
     const favouriteId = await this.prisma.favorite.findFirst({
       where: {
         recipe_id: {
@@ -485,7 +512,8 @@ export default class RecipeController extends AbstractController {
         },
       },
     })
-    if (req.body.value) {
+
+    if (req.body.isFavorite) {
       if (!favouriteId) {
         await this.prisma.favorite.create({
           data: {
@@ -493,10 +521,14 @@ export default class RecipeController extends AbstractController {
             user_id: req.userId,
           },
         })
+        res.status(200).json({
+          message: 'Recipe favourite set successfully!',
+        })
       } else {
         res.status(409).json({
           message: 'Recipe already favored',
         })
+        return;
       }
     } else {
       if (favouriteId) {
@@ -505,14 +537,16 @@ export default class RecipeController extends AbstractController {
             id: favouriteId.id,
           },
         })
+        res.status(200).json({
+          message: 'Recipe favourite removed successfully!',
+        })
       } else {
         res.status(409).json({
-          message: 'Recipe not favored',
+          message: 'Recipe not found in favorites',
         })
+        return;
       }
     }
-    res.status(200).json({
-      message: 'Recipe favourite set successfully!',
-    })
   }
+
 }

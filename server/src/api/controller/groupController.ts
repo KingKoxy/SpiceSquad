@@ -136,7 +136,7 @@ export default class GroupController extends AbstractController {
   }
 
   /**
-   * @description This function gets a group by id.
+   * @description This function allows to join a group by group code.
    * @param req Express request handler
    * @param res Express response handler
    * @param next Express next function (for error handling)
@@ -147,20 +147,28 @@ export default class GroupController extends AbstractController {
       never,
       never,
       {
-        groupCode: string
+        groupCode: string 
       }
     >,
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
     try {
-      const groupId = (
+
+      const groupId =
         await this.prisma.group.findFirst({
           where: {
             group_code: req.body.groupCode,
           },
-        })
-      ).id
+        }).then((result) => {
+        if (result) {
+          return result.id
+        } else {
+          req.statusCode = 404
+          throw new Error('Group not found')
+        }
+      })
+
       await this.prisma.bannedUser
         .findFirst({
           where: {
@@ -174,7 +182,21 @@ export default class GroupController extends AbstractController {
             throw new Error('User is banned from this group')
           }
         })
-      //TODO: check if group has places left
+      // Check if user is already in group
+      await this.prisma.groupMember
+        .findFirst({
+          where: {
+            user_id: req.userId,
+            group_id: groupId,
+          },
+        })
+        .then((result) => {
+          if (result) {
+            req.statusCode = 409
+            throw new Error('User is already in this group')
+          }
+        })
+
       this.prisma.groupMember
         .create({
           data: {
@@ -193,7 +215,7 @@ export default class GroupController extends AbstractController {
   }
 
   /**
-   * @description This function gets a group by id.
+   * @description This function allows to leave a group by group id.
    * @param req Express request handler
    * @param res Express response handler
    * @returns Promise<void>
@@ -284,7 +306,7 @@ export default class GroupController extends AbstractController {
   }
 
   /**
-   * @description This function gets a group by id.
+   * @description This function gets all groups for a user.
    * @param req Express request handler
    * @param res Express response handler
    * @param next Express next function (for error handling)
