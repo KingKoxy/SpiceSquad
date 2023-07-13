@@ -103,7 +103,7 @@ class _IngredientListState extends State<IngredientList> {
                             const SizedBox(
                               width: 10,
                             ),
-                          ])),
+                          ],),),
                           RemoveButton(
                             onPressed: () {
                               setState(() {

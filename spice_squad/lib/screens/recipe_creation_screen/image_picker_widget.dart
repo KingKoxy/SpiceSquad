@@ -9,8 +9,9 @@ import "package:spice_squad/icons.dart";
 class ImagePickerWidget extends StatefulWidget {
   /// Initial image to display
   final Uint8List? recipeImage;
-  final ValueChanged<Uint8List?> onChanged;
 
+  /// Callback that is called when the image is changed
+  final ValueChanged<Uint8List?> onChanged;
 
   /// Creates a new image picker
   const ImagePickerWidget({
@@ -100,7 +101,10 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),
                         shape: const CircleBorder(),
-                        child: const ImageIcon(SpiceSquadIconImages.trash, size: 32,),
+                        child: const ImageIcon(
+                          SpiceSquadIconImages.trash,
+                          size: 32,
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -112,7 +116,10 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),
                         shape: const CircleBorder(),
-                        child: const ImageIcon(SpiceSquadIconImages.image, size: 32,),
+                        child: const ImageIcon(
+                          SpiceSquadIconImages.image,
+                          size: 32,
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -124,7 +131,10 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),
                         shape: const CircleBorder(),
-                        child: const ImageIcon(SpiceSquadIconImages.camera, size: 32,),
+                        child: const ImageIcon(
+                          SpiceSquadIconImages.camera,
+                          size: 32,
+                        ),
                       ),
                     ),
                   ],

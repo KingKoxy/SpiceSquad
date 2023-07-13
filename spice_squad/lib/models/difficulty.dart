@@ -27,6 +27,7 @@ enum Difficulty {
     }
   }
 
+  /// Returns a difficulty from a string. The string can be lower or uppercase.
   static Difficulty fromString(String string) {
     switch (string.toLowerCase()) {
       case "easy":

@@ -7,6 +7,7 @@ import "package:spice_squad/screens/ingredient_creation_screen/icon_picker_dialo
 
 /// Widget to pick an icon for an ingredient
 class IconPickerWidget extends ConsumerStatefulWidget {
+  /// The callback that is called when the icon is changed
   final ValueChanged<Uint8List> onChanged;
 
   /// Creates a new icon picker widget
@@ -28,7 +29,7 @@ class _IconPickerWidgetState extends ConsumerState<IconPickerWidget> {
             _icons = value;
             _selectedIcon = _icons[0];
             widget.onChanged(_selectedIcon!);
-          }));
+          }),);
     });
     super.initState();
   }

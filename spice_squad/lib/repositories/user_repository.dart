@@ -105,7 +105,6 @@ class UserRepository {
       final Map<String, dynamic> body = jsonDecode(response.body);
       _idToken = body["idToken"];
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      //TODO: send refresh token like idToken directly in body
       await prefs.setString(_refreshTokenPath, body["refreshToken"]);
     } else if (response.statusCode == 401) {
       throw ArgumentError("INVALID_CREDENTIALS");

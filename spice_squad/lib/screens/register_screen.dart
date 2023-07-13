@@ -1,3 +1,4 @@
+import "dart:io";
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -27,6 +28,7 @@ class RegisterScreen extends ConsumerStatefulWidget {
 
 class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   String? _emailError;
+  String? _connectionError;
   bool loading = false;
 
   @override
@@ -74,6 +76,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                           keyboardType: TextInputType.name,
                           controller: widget._userNameController,
                           decoration: InputDecoration(
+                            errorText: _connectionError,
                             hintText: AppLocalizations.of(context)!.userNameLabel,
                           ),
                         ),
@@ -179,6 +182,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   Future<void> _register(BuildContext context, UserService userService) async {
     setState(() {
       loading = true;
+      _connectionError = null;
     });
     await userService
         .register(
@@ -199,8 +203,10 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
         setState(() {
           _emailError = AppLocalizations.of(context)!.emailExistsError;
         });
-      } else if (error is ClientException) {
-        //TODO: inform user about connectionError
+      } else if (error is ClientException || error is HandshakeException || error is SocketException) {
+        setState(() {
+          _connectionError = AppLocalizations.of(context)!.connectionError;
+        });
       }
     });
     setState(() {

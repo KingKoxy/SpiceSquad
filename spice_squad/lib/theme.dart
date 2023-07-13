@@ -27,6 +27,7 @@ abstract class SpiceSquadTheme {
           onSurfaceVariant: _secondaryVariant,
           onSurface: _secondary,
           tertiary: _tertiary,
+          error: _primary,
         ),
         cardColor: _secondary,
         dialogBackgroundColor: _secondary,

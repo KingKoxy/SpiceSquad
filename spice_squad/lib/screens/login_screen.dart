@@ -1,3 +1,5 @@
+import "dart:io";
+
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -164,8 +166,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         setState(() {
           _emailError = AppLocalizations.of(context)!.loginError;
         });
-      } else if (error is ClientException) {
-        //TODO: inform user about connectionError
+      } else if (error is ClientException || error is HandshakeException || error is SocketException) {
+        setState(() {
+          _emailError = AppLocalizations.of(context)!.connectionError;
+        });
       }
     });
     setState(() {

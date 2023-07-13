@@ -1,7 +1,7 @@
 /// This class contains all the endpoints for the API.
 abstract class ApiEndpoints {
   /// The base url
-  static String get _baseUrl => "http://ravtscheev.com/spicesquad";
+  static String get _baseUrl => "https://ravtscheev.com/spicesquad";
 
   // Authentication endpoints
 

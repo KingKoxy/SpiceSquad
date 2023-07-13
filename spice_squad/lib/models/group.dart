@@ -30,7 +30,7 @@ class Group {
       name: map["name"],
       groupCode: map["group_code"],
       members: [],//map["members"],
-      recipes: []//map["recipes"],
+      recipes: [],//map["recipes"],
     );
   }
 }

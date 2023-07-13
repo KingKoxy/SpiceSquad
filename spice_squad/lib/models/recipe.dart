@@ -1,10 +1,9 @@
 import "dart:typed_data";
 
+import "package:spice_squad/models/difficulty.dart";
+import "package:spice_squad/models/ingredient.dart";
 import "package:spice_squad/models/recipe_creation_data.dart";
 import "package:spice_squad/models/user.dart";
-
-import "difficulty.dart";
-import "ingredient.dart";
 
 /// Model for a recipe
 class Recipe extends RecipeCreationData {
