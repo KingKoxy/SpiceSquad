@@ -66,6 +66,7 @@ class UserRepository {
       if (response.statusCode == 200) {
         final Map<String, dynamic> body = jsonDecode(response.body);
         _idToken = body["idToken"];
+        return _idToken;
       } else if (response.statusCode != 401) {
         throw Exception(response.body);
       }
@@ -83,7 +84,6 @@ class UserRepository {
 
   /// Returns true if the given token is expired
   bool _isExpired(String token) {
-    debugPrint("Token: $token");
     return JwtDecoder.isExpired(token);
   }
 
@@ -137,7 +137,7 @@ class UserRepository {
       body: jsonEncode(<String, String>{
         "email": email,
         "password": password,
-        "user_name": userName,
+        "userName": userName,
       }),
     );
     debugPrint("Response: ${response.body}");

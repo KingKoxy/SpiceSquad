@@ -12,7 +12,7 @@ class Ingredient {
   final Uint8List icon;
 
   /// The amount of the ingredient
-  final double amount;
+  final int amount;
 
   /// The unit of the ingredient
   final String unit;
@@ -31,7 +31,7 @@ class Ingredient {
     return Ingredient(
       id: map["id"],
       name: map["name"],
-      icon: map["icon"],
+      icon: Uint8List.fromList(map["icon"]["data"].cast<int>()),
       amount: map["amount"],
       unit: map["unit"],
     );
@@ -40,7 +40,7 @@ class Ingredient {
   /// Converts this [Ingredient] to a [Map] object by inserting the values
   static Map<String, dynamic> toMap(Ingredient ingredient) {
     return {
-      "id": ingredient.id,
+      "id": "ingredient.id",
       "name": ingredient.name,
       "icon": ingredient.icon,
       "amount": ingredient.amount,

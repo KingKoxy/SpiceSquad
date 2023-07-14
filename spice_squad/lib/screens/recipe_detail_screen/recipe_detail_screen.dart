@@ -69,21 +69,24 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
               ),
             ),
             const SizedBox(height: 10),
-            Card(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-              color: Theme.of(context).colorScheme.onSurface,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: widget.recipe.image != null
-                    ? Image.memory(
-                        widget.recipe.image!,
-                        width: double.infinity,
-                        height: 200,
-                        fit: BoxFit.cover,
-                      )
-                    : const Center(
-                        child: ImageIcon(SpiceSquadIconImages.image, size: 32),
-                      ),
+            SizedBox(
+              height: 200,
+              child: Card(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                color: Theme.of(context).colorScheme.onSurface,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: widget.recipe.image != null
+                      ? Image.memory(
+                          widget.recipe.image!,
+                          width: double.infinity,
+                          height: 200,
+                          fit: BoxFit.cover,
+                        )
+                      : const Center(
+                          child: ImageIcon(SpiceSquadIconImages.image, size: 48),
+                        ),
+                ),
               ),
             ),
             const SizedBox(height: 10),
@@ -116,6 +119,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                 ),
               ],
             ),
+            const SizedBox(height: 10),
             Text(
               AppLocalizations.of(context)!.ingredientListHeadline,
               style: Theme.of(context).textTheme.headlineMedium,

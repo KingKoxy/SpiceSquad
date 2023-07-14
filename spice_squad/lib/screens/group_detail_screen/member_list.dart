@@ -80,8 +80,8 @@ class MemberList extends ConsumerWidget {
                           width: 50,
                           height: 50,
                           child: member.profileImage != null
-                              ? const CircleAvatar(
-                                  foregroundImage: AssetImage("assets/images/exampleImage.jpeg"),
+                              ? CircleAvatar(
+                                  foregroundImage: MemoryImage(member.profileImage!),
                                 )
                               : CircleAvatar(
                                   backgroundColor: Theme.of(context).colorScheme.onSurfaceVariant,

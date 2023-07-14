@@ -35,10 +35,10 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
   Widget build(BuildContext context) {
     return ClipRRect(
       child: Ink(
-        decoration: _profileImage == null
+        decoration: _profileImage != null
             ? BoxDecoration(
                 borderRadius: BorderRadius.circular(20000),
-                image: const DecorationImage(image: AssetImage("assets/images/exampleImage.jpeg")),
+                image: DecorationImage(image: MemoryImage(_profileImage!), fit: BoxFit.cover),
               )
             : BoxDecoration(borderRadius: BorderRadius.circular(20000), color: Theme.of(context).cardColor),
         child: CircleAvatar(

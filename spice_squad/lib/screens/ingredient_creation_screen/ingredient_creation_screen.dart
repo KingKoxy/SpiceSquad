@@ -108,7 +108,7 @@ class _IngredientCreationScreenState extends State<IngredientCreationScreen> {
                       final ingredient = Ingredient(
                         id: "",
                         name: widget._nameController.text,
-                        amount: double.parse(widget._amountController.text),
+                        amount: int.parse(widget._amountController.text),
                         unit: widget._unitController.text,
                         icon: _icon!,
                       );
