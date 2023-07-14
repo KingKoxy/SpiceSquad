@@ -243,7 +243,7 @@ export default class RecipeController extends AbstractController {
   }
 
   /**
-   * @description This function gets a recipe by id.
+   * @description This function gets all recipes for a user.
    * @param req Express request handler
    * @param res Express response handler
    * @returns Promise<void>
@@ -285,9 +285,6 @@ export default class RecipeController extends AbstractController {
               where: {
                 id: recipe.author_id,
               },
-              select: {
-                user_name: true,
-              }
             })
             const ingredients = await this.prisma.ingredient.findMany({
               where: {
@@ -295,12 +292,13 @@ export default class RecipeController extends AbstractController {
               },
             })
 
-            const recipeWithoutAuthorId = { ...recipe }
-            delete recipeWithoutAuthorId.author_id
+            // Change date format so that that is only the date and not the time
+            const recipeWithDate = {...recipe, upload_date: recipe.upload_date.toISOString()}
+            delete recipeWithDate.author_id
 
             return {
-              ...recipeWithoutAuthorId,
-              author: author.user_name,
+              ...recipeWithDate,
+              author: author,
               ingredients,
               isFavourite: favouriteIds.includes(recipe.id),
             }
@@ -366,9 +364,6 @@ export default class RecipeController extends AbstractController {
               where: {
                 id: recipe.author_id,
               },
-              select: {
-                user_name: true,
-              }
             })
             const ingredients = await this.prisma.ingredient.findMany({
               where: {
@@ -376,14 +371,12 @@ export default class RecipeController extends AbstractController {
               },
             })
 
-            const recipeWithoutAuthorId = { ...recipe }
-            delete recipeWithoutAuthorId.author_id
-            // Change date format so that that is only the date and not the time
-            const recipeWithDate = {...recipe, upload_date: recipeWithoutAuthorId.upload_date.toISOString().replace(/T.*/,'').split('-').reverse().join('.')}
+            const recipeWithDate = {...recipe, upload_date: recipe.upload_date.toISOString()}
+            delete recipeWithDate.author_id
             
            return {
               ...recipeWithDate,
-              author: author.user_name,
+              author: author,
               ingredients,
               isFavourite: favouriteIds.includes(recipe.id),
             }
