@@ -557,10 +557,12 @@
   "@pdfRecipeViewHeadline": {
     "description": "The headline of the pdf preview for a recipe",
     "placeholders": {
+      "recipeTitle": {
       "type": "String",
       "content": "{recipeTitle}",
       "example": "Pizza",
       "description": "The title of the recipe"
+    }
     }
   },
   "pdfSaveSuccess": "Save successfully",
@@ -586,11 +588,13 @@
   "recipeAuthor": "Recipe by: {author}",
   "@recipeAuthor": {
     "description": "The description of who created the recipe",
-    "author": {
-      "type": "String",
-      "content": "{author}",
-      "example": "Heinrich",
-      "description": "The name of the author"
+    "placeholders": {
+      "author": {
+        "type": "String",
+        "content": "{author}",
+        "example": "Heinrich",
+        "description": "The name of the author"
+      }
     }
   },
   "labels": "Labels",

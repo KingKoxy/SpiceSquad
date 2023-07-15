@@ -130,7 +130,7 @@
   "pdfSaveSuccess": "Speichern erfolgreich",
   "pdfShareSuccess": "Teilen erfolgreich",
   "defaultPortions": "Zutaten für {defaultPortionAmount} Portionen:",
-  "recipeAuthor": "Rezept von: {Autor}",
+  "recipeAuthor": "Rezept von: {author}",
   "labels": "Labels",
   "difficulty": "Schwierigkeitsgrad",
   "totalTime": "Zeitaufwand"
