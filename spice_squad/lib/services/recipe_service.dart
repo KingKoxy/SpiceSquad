@@ -39,24 +39,8 @@ class RecipeService extends AsyncNotifier<List<Recipe>> {
   Future<void> toggleFavourite(Recipe recipe) {
     _updateSingleRecipe(
       recipe.id,
-      (oldRecipe) => Recipe(
-        id: oldRecipe.id,
-        title: oldRecipe.title,
-        author: oldRecipe.author,
-        uploadDate: oldRecipe.uploadDate,
-        duration: oldRecipe.duration,
-        defaultPortionAmount: oldRecipe.defaultPortionAmount,
-        difficulty: oldRecipe.difficulty,
-        isVegetarian: oldRecipe.isVegetarian,
-        isVegan: oldRecipe.isVegan,
-        isGlutenFree: oldRecipe.isGlutenFree,
-        isHalal: oldRecipe.isHalal,
-        isKosher: oldRecipe.isKosher,
-        ingredients: oldRecipe.ingredients,
-        instructions: oldRecipe.instructions,
+      (oldRecipe) => oldRecipe.copyWith(
         isFavourite: !oldRecipe.isFavourite,
-        image: oldRecipe.image,
-        isPrivate: oldRecipe.isPrivate,
       ),
     );
     return ref.read(recipeRepositoryProvider).setFavourite(recipe.id, !recipe.isFavourite).whenComplete(_refetch);
@@ -66,25 +50,7 @@ class RecipeService extends AsyncNotifier<List<Recipe>> {
   Future<void> togglePrivate(Recipe recipe) {
     final Recipe updatedRecipe = _updateSingleRecipe(
       recipe.id,
-      (oldRecipe) => Recipe(
-        id: oldRecipe.id,
-        title: oldRecipe.title,
-        author: oldRecipe.author,
-        uploadDate: oldRecipe.uploadDate,
-        duration: oldRecipe.duration,
-        defaultPortionAmount: oldRecipe.defaultPortionAmount,
-        difficulty: oldRecipe.difficulty,
-        isVegetarian: oldRecipe.isVegetarian,
-        isVegan: oldRecipe.isVegan,
-        isGlutenFree: oldRecipe.isGlutenFree,
-        isHalal: oldRecipe.isHalal,
-        isKosher: oldRecipe.isKosher,
-        ingredients: oldRecipe.ingredients,
-        instructions: oldRecipe.instructions,
-        isFavourite: oldRecipe.isFavourite,
-        image: oldRecipe.image,
-        isPrivate: !oldRecipe.isPrivate,
-      ),
+      (oldRecipe) => oldRecipe.copyWith(isPrivate: !oldRecipe.isPrivate),
     );
     return ref.read(recipeRepositoryProvider).updateRecipe(updatedRecipe).whenComplete(_refetch);
   }

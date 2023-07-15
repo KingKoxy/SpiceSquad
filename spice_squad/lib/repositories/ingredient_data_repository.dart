@@ -1,7 +1,6 @@
 import "dart:convert";
 import "dart:io";
 import "dart:typed_data";
-import "package:flutter/cupertino.dart";
 import "package:http/http.dart" as http;
 import "package:shared_preferences/shared_preferences.dart";
 import "package:spice_squad/api_endpoints.dart";

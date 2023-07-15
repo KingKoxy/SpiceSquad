@@ -1,7 +1,5 @@
-import "package:flutter/cupertino.dart";
 import "package:spice_squad/models/group_member.dart";
 import "package:spice_squad/models/group_recipe.dart";
-import "package:spice_squad/models/user.dart";
 
 /// Model for a group
 class Group {
@@ -30,7 +28,7 @@ class Group {
       name: map["name"],
       groupCode: map["group_code"],
       members: [],//map["members"].map<GroupMember>(GroupMember.fromMap).toList(),
-      recipes: []//map["recipes"].map<GroupRecipe>(GroupRecipe.fromMap).toList(),
+      recipes: [],//map["recipes"].map<GroupRecipe>(GroupRecipe.fromMap).toList(),
     );
   }
 }

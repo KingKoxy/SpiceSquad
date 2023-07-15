@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:spice_squad/models/ingredient.dart";
-import "../../widgets/ingredient_list_item.dart";
+import "package:spice_squad/widgets/ingredient_list_item.dart";
 
 /// A list of ingredients.
 class IngredientList extends StatelessWidget {
@@ -29,6 +29,6 @@ class IngredientList extends StatelessWidget {
               amountFactor: amountFactor,
             );
           },
-        ));
+        ),);
   }
 }

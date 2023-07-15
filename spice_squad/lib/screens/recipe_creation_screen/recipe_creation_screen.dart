@@ -260,8 +260,7 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
   Future<void> saveRecipe(RecipeService recipeService) {
     // update recipe
     if (widget.recipe != null) {
-      final Recipe recipeUploadData = Recipe(
-        id: widget.recipe!.id,
+      final Recipe recipeUploadData = widget.recipe!.copyWith(
         title: _title,
         duration: _duration,
         instructions: _instructions,
@@ -274,10 +273,6 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
         isVegetarian: _isVegetarian,
         image: _image,
         difficulty: _difficulty,
-        author: widget.recipe!.author,
-        uploadDate: widget.recipe!.uploadDate,
-        isFavourite: widget.recipe!.isFavourite,
-        isPrivate: widget.recipe!.isPrivate,
       );
       return recipeService.updateRecipe(recipeUploadData);
     }

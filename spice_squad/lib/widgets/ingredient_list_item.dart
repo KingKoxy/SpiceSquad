@@ -1,17 +1,21 @@
 import "package:auto_size_text/auto_size_text.dart";
 import "package:flutter/material.dart";
+import "package:spice_squad/models/ingredient.dart";
 import "package:spice_squad/widgets/remove_button.dart";
 
-import "../models/ingredient.dart";
-
+/// A list item for displaying an ingredient.
 class IngredientListItem extends StatelessWidget {
+  /// The ingredient to display.
   final Ingredient ingredient;
 
+  /// Callback for when the ingredient is removed. If null, no remove button is displayed.
   final VoidCallback? onRemove;
 
+  /// The factor by which the amount of the ingredient is multiplied.
   final double amountFactor;
 
-  const IngredientListItem({super.key, required this.ingredient, this.onRemove, this.amountFactor = 1});
+  /// Creates a new ingredient list item.
+  const IngredientListItem({required this.ingredient, super.key, this.onRemove, this.amountFactor = 1});
 
   @override
   Widget build(BuildContext context) {

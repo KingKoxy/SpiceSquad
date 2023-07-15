@@ -66,6 +66,7 @@ class Recipe extends RecipeCreationData {
     );
   }
 
+  /// Creates a new [Recipe] by copying this one and replacing the given values
   Recipe copyWith({
     String? title,
     int? duration,
