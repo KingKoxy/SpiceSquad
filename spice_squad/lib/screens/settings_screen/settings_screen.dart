@@ -27,7 +27,10 @@ class SettingsScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Row(
           children: [
-            Expanded(child: Center(child: Text(AppLocalizations.of(context)!.settingsHeadline))),
+            Expanded(
+                child: Center(
+                    child:
+                        Text(AppLocalizations.of(context)!.settingsHeadline))),
             IconButton(
               onPressed: () {
                 _logout(context, ref.read(userServiceProvider.notifier));
@@ -55,14 +58,20 @@ class SettingsScreen extends ConsumerWidget {
                         ),
                         TextButton(
                           onPressed: () {
-                            _renameUser(context, ref.read(userServiceProvider.notifier), user.userName);
+                            _renameUser(
+                                context,
+                                ref.read(userServiceProvider.notifier),
+                                user.userName);
                           },
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
                                 user.userName,
-                                style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall!
+                                    .copyWith(color: Colors.white),
                               ),
                               const SizedBox(
                                 width: 8,
@@ -76,9 +85,11 @@ class SettingsScreen extends ConsumerWidget {
                         ),
                         TextButton(
                           onPressed: () {
-                            _deleteAccount(context, ref.read(userServiceProvider.notifier));
+                            _deleteAccount(context,
+                                ref.read(userServiceProvider.notifier));
                           },
-                          child: Text(AppLocalizations.of(context)!.deleteAccountButton),
+                          child: Text(AppLocalizations.of(context)!
+                              .deleteAccountButton),
                         )
                       ],
                     );
@@ -109,7 +120,8 @@ void _logout(BuildContext context, UserService userService) {
       .then((value) => userService.logout());
 }
 
-void _renameUser(BuildContext context, UserService userService, String oldName) {
+void _renameUser(
+    BuildContext context, UserService userService, String oldName) {
   showDialog(
     context: context,
     builder: (context) {
@@ -120,6 +132,9 @@ void _renameUser(BuildContext context, UserService userService, String oldName) 
         validator: (value) {
           if (value == null || value.isEmpty) {
             return AppLocalizations.of(context)!.renameDialogEmptyError;
+          }
+          if (value.length > 32) {
+            return AppLocalizations.of(context)!.userNameTooLongError;
           }
           return null;
         },
@@ -137,7 +152,8 @@ void _deleteAccount(BuildContext context, UserService userService) {
         message: AppLocalizations.of(context)!.deleteAccountDialogDescription,
         onApproval: () {
           userService.deleteAccount();
-          Navigator.of(context).pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
         },
       );
     },

@@ -125,5 +125,10 @@
   "durationUnit": "min",
   "instructionsHeadline": "Zubereitung",
   "instructionsEmptyError": "Bitte gib die Zubereitungsanweisungen ein",
-  "instructionsInputLabel": "Zubereitungsanweisungen"
+  "instructionsInputLabel": "Zubereitungsanweisungen",
+  "userNameTooLongError": "Der Nutzername darf nur 32 Zeichen lang sein",
+  "groupCodeTooLongError": "Das Squadkürzel darf nur 32 Zeichen lang sein",
+  "unitTooLongError": "Der Name der Einheit darf nur 16 Zeichen lang sein",
+  "ingredientTooLongError": "Der Name der Zutat darf nur 32 Zeichen lang sein",
+  "titleTooLongError": "Der Titel darf nur 64 Zeichen lang sein"
 }

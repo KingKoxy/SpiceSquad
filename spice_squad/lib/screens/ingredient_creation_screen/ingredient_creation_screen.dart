@@ -68,6 +68,9 @@ class IngredientCreationScreen extends StatelessWidget {
                           if (value == null || value.isEmpty) {
                             return AppLocalizations.of(context)!.unitEmptyError;
                           }
+                          if(value.length > 16){
+                            return AppLocalizations.of(context)!.unitTooLongError;
+                          }
                           return null;
                         },
                         controller: _unitController,

@@ -55,6 +55,10 @@
   "@userNameEmptyError": {
     "description": "The error message if the name field is empty"
   },
+  "userNameTooLongError": "The user name can be only 32 characters long",
+  "@userNameTooLongError": {
+    "description": "The error message if the user name is too long"
+  },
   "passwordEmptyError": "Please enter a password",
   "@passwordEmptyError": {
     "description": "The error message if the password field is empty"
@@ -311,6 +315,10 @@
   "@groupCodeEmptyError": {
     "description": "The error message if the squad code is empty"
   },
+  "groupCodeTooLongError": "The squad code can be only 32 characters long",
+  "@groupCodeTooLongError": {
+    "description": "The error message if the squad code is too long"
+  },
   "joiningSuccessFullTitle": "Joining successful",
   "@joiningSuccessFullTitle": {
     "description": "The title of the joining successful page"
@@ -437,6 +445,10 @@
   "@unitEmptyError": {
     "description": "The error message if the unit is empty"
   },
+  "unitTooLongError": "The unit name can be only 16 characters long",
+  "@unitTooLongError": {
+    "description": "The error message if the unit name is too long"
+  },
   "addButton": "Add",
   "@addButton": {
     "description": "The label for the add button"
@@ -444,6 +456,10 @@
   "ingredientNameEmptyError": "Please enter an ingredient name",
   "@ingredientNameEmptyError": {
     "description": "The error message if the ingredient name is empty"
+  },
+  "ingredientTooLongError": "The ingredient name can be only 32 characters long",
+  "@ingredientTooLongError": {
+    "description": "The error message if the ingredient name is too long"
   },
   "ingredientNameInputLabel": "Ingredient",
   "@ingredientNameInputLabel": {
@@ -504,6 +520,10 @@
   "titleEmptyError": "Please enter a title",
   "@titleEmptyError": {
     "description": "The error message if the title is empty"
+  },
+  "titleTooLongError": "The title can be only 64 characters long",
+  "@titleTooLongError": {
+    "description": "The error message if the title is too long"
   },
   "titleInputLabel": "Title",
   "@titleInputLabel": {

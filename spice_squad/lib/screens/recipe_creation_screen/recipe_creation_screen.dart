@@ -96,6 +96,9 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
                   if (value == null || value.isEmpty) {
                     return AppLocalizations.of(context)!.titleEmptyError;
                   }
+                  if(value.length > 64){
+                    return AppLocalizations.of(context)!.titleTooLongError;
+                  }
                   return null;
                 },
                 initialValue: _title,

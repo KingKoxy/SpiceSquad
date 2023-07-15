@@ -39,12 +39,18 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.recipe.title),
+        title: FittedBox(
+          fit: BoxFit.fitWidth,
+          child: Text(widget.recipe.title),
+        ),
         actions: <Widget>[
           IconButton(
             iconSize: 32,
             splashRadius: 24,
-            onPressed: () => Navigator.of(context).pushNamed(RecipeCreationScreen.routeName, arguments: widget.recipe),
+            onPressed: () => Navigator.of(context).pushNamed(
+              RecipeCreationScreen.routeName,
+              arguments: widget.recipe,
+            ),
             icon: const ImageIcon(SpiceSquadIconImages.edit),
           )
         ],
@@ -59,7 +65,10 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  TagItem(image: SpiceSquadIconImages.person, name: widget.recipe.author.userName),
+                  TagItem(
+                    image: SpiceSquadIconImages.person,
+                    name: widget.recipe.author.userName,
+                  ),
                   TagItem(
                     image: SpiceSquadIconImages.calendar,
                     name:
@@ -96,14 +105,18 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                   ),
                 ),
                 const SizedBox(width: 10),
-                Consumer(builder: (context, ref, child) {
-                  return FavouriteButton(
-                    value: widget.recipe.isFavourite,
-                    onToggle: () {
-                      ref.read(recipeServiceProvider.notifier).toggleFavourite(widget.recipe);
-                    },
-                  );
-                },),
+                Consumer(
+                  builder: (context, ref, child) {
+                    return FavouriteButton(
+                      value: widget.recipe.isFavourite,
+                      onToggle: () {
+                        ref
+                            .read(recipeServiceProvider.notifier)
+                            .toggleFavourite(widget.recipe);
+                      },
+                    );
+                  },
+                ),
               ],
             ),
             Text(

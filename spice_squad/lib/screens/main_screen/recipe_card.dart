@@ -19,7 +19,8 @@ class RecipeCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
-      onTap: () => Navigator.of(context).pushNamed(RecipeDetailScreen.routeName, arguments: recipe),
+      onTap: () => Navigator.of(context)
+          .pushNamed(RecipeDetailScreen.routeName, arguments: recipe),
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: Padding(
@@ -32,20 +33,29 @@ class RecipeCard extends ConsumerWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        recipe.title,
-                        style: Theme.of(context).textTheme.headlineSmall,
+                      FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: Text(
+                          "Ein sehr langer Text mit sehr vielen Zeichen, und auch noch eine",
+
+                          //recipe.title,
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ),
                       ),
                       Text(
                         recipe.author.userName,
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.grey),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.copyWith(color: Colors.grey),
                       ),
                     ],
                   ),
                   FavouriteButton(
                     value: recipe.isFavourite,
                     onToggle: () {
-                      _toggleFavourite(ref.read(recipeServiceProvider.notifier));
+                      _toggleFavourite(
+                          ref.read(recipeServiceProvider.notifier));
                     },
                   ),
                 ],
@@ -61,7 +71,8 @@ class RecipeCard extends ConsumerWidget {
                     child: SizedBox(
                       height: 130,
                       child: Card(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
                         color: Theme.of(context).colorScheme.onSurfaceVariant,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
@@ -72,7 +83,8 @@ class RecipeCard extends ConsumerWidget {
                                 )
                               : //Image.memory(recipe.image!, fit: BoxFit.cover)
                               const Center(
-                                  child: ImageIcon(SpiceSquadIconImages.image, size: 32),
+                                  child: ImageIcon(SpiceSquadIconImages.image,
+                                      size: 32),
                                 ),
                         ),
                       ),
@@ -95,10 +107,12 @@ class RecipeCard extends ConsumerWidget {
                               children: [
                                 const ImageIcon(
                                   SpiceSquadIconImages.timer,
-                                  size: 32,),
+                                  size: 32,
+                                ),
                                 const SizedBox(width: 8),
                                 Text(
-                                  AppLocalizations.of(context)!.duration(recipe.duration),
+                                  AppLocalizations.of(context)!
+                                      .duration(recipe.duration),
                                   style: Theme.of(context).textTheme.titleSmall,
                                 )
                               ],
@@ -114,7 +128,8 @@ class RecipeCard extends ConsumerWidget {
                               children: [
                                 const ImageIcon(
                                   SpiceSquadIconImages.flame,
-                                  size: 32,),
+                                  size: 32,
+                                ),
                                 const SizedBox(width: 8),
                                 Text(
                                   recipe.difficulty.toString(),
