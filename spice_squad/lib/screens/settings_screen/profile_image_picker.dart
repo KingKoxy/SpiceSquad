@@ -31,6 +31,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
     super.initState();
   }
 
+  // TODO: make whole widget clickable
   @override
   Widget build(BuildContext context) {
     return ClipRRect(

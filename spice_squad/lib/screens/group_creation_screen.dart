@@ -73,6 +73,7 @@ class GroupCreationScreen extends ConsumerWidget {
                               controller: _groupNameController,
                               maxLength: 32,
                               decoration: InputDecoration(
+                                counterText: "",
                                 hintText: AppLocalizations.of(context)!.squadNameInputLabel,
                               ),
                             ),

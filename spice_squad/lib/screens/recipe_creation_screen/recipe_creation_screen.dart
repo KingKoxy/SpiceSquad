@@ -102,7 +102,7 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
                 maxLength: 64,
                 initialValue: _title,
                 onChanged: (value) => _title = value,
-                decoration: InputDecoration(hintText: AppLocalizations.of(context)!.titleInputLabel),
+                decoration: InputDecoration(counterText: "", hintText: AppLocalizations.of(context)!.titleInputLabel),
               ),
               const SizedBox(
                 height: 16,

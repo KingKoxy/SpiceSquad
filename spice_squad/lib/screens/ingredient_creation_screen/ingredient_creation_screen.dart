@@ -90,7 +90,8 @@ class _IngredientCreationScreenState extends State<IngredientCreationScreen> {
                         },
                         maxLength: 16,
                         controller: widget._unitController,
-                        decoration: InputDecoration(hintText: AppLocalizations.of(context)!.unitInputLabel),
+                        decoration:
+                            InputDecoration(hintText: AppLocalizations.of(context)!.unitInputLabel, counterText: ""),
                       ),
                     ),
                   ],

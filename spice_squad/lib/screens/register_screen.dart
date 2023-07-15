@@ -78,6 +78,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                           controller: widget._userNameController,
                           decoration: InputDecoration(
                             errorText: _connectionError,
+                            counterText: "",
                             hintText: AppLocalizations.of(context)!.userNameLabel,
                           ),
                         ),
