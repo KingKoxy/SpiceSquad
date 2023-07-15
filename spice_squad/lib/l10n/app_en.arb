@@ -555,7 +555,13 @@
   },
   "pdfRecipeViewHeadline": "PDF of {recipeTitle}",
   "@pdfRecipeViewHeadline": {
-    "description": "The headline of the pdf preview for a recipe"
+    "description": "The headline of the pdf preview for a recipe",
+    "placeholders": {
+      "type": "String",
+      "content": "{recipeTitle}",
+      "example": "Pizza",
+      "description": "The title of the recipe"
+    }
   },
   "pdfSaveSuccess": "Save successfully",
   "@pdfSaveSuccess": {

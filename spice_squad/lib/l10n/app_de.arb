@@ -125,5 +125,13 @@
   "durationUnit": "min",
   "instructionsHeadline": "Zubereitung",
   "instructionsEmptyError": "Bitte gib die Zubereitungsanweisungen ein",
-  "instructionsInputLabel": "Zubereitungsanweisungen"
+  "instructionsInputLabel": "Zubereitungsanweisungen",
+  "pdfRecipeViewHeadline": "PDF von {recipeTitle}",
+  "pdfSaveSuccess": "Speichern erfolgreich",
+  "pdfShareSuccess": "Teilen erfolgreich",
+  "defaultPortions": "Zutaten für {defaultPortionAmount} Portionen:",
+  "recipeAuthor": "Rezept von: {Autor}",
+  "labels": "Labels",
+  "difficulty": "Schwierigkeitsgrad",
+  "totalTime": "Zeitaufwand"
 }
