@@ -29,23 +29,28 @@ class GroupJoiningScreen extends ConsumerWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            if (isAfterRegister)
-              Positioned(
-                top: 16,
-                right: 32,
-                child: Hero(
-                  tag: "skip-button",
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                        MainScreen.routeName,
-                        (route) => false,
-                      );
-                    },
-                    child: Text(AppLocalizations.of(context)!.skipButton),
-                  ),
+            isAfterRegister
+                ? Positioned(
+                    top: 16,
+                    right: 32,
+                    child: Hero(
+                      tag: "skip-button",
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                            MainScreen.routeName,
+                            (route) => false,
+                          );
+                        },
+                        child: Text(AppLocalizations.of(context)!.skipButton),
+                      ),
+                    ),
+                  )
+                : const Positioned(
+                  top: 16,
+                  left: 32,
+                  child: BackButton(),
                 ),
-              ),
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(32),
@@ -155,15 +160,14 @@ class GroupJoiningScreen extends ConsumerWidget {
     groupService
         .joinGroup(groupCode)
         .then(
-          (value) =>
-          showDialog(
+          (value) => showDialog(
             context: context,
             builder: (context) => SuccessDialog(
               title: AppLocalizations.of(context)!.joiningSuccessFullTitle,
               message: AppLocalizations.of(context)!.joiningSuccessFullDescription,
             ),
           ),
-    )
+        )
         .then(
           (value) => isAfterRegister
               ? Navigator.of(context).pushNamedAndRemoveUntil(

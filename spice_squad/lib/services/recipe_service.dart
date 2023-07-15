@@ -17,7 +17,7 @@ class RecipeService extends AsyncNotifier<List<Recipe>> {
   /// Creates a new recipe with the given [recipe].
   Future<void> createRecipe(RecipeCreationData recipe) {
     state = const AsyncLoading();
-    return ref.read(recipeRepositoryProvider).createRecipe(recipe).then((value) => _refetch());
+    return ref.read(recipeRepositoryProvider).createRecipe(recipe).whenComplete(_refetch);
   }
 
   /// Deletes the recipe with the given [recipeId].
@@ -26,13 +26,13 @@ class RecipeService extends AsyncNotifier<List<Recipe>> {
     final List<Recipe> list = state.value!;
     list.removeWhere((element) => element.id == recipeId);
     state = AsyncData(list);
-    return ref.read(recipeRepositoryProvider).deleteRecipe(recipeId).then((value) => _refetch());
+    return ref.read(recipeRepositoryProvider).deleteRecipe(recipeId).whenComplete(_refetch);
   }
 
   /// Updates the recipe with the same id with the given [recipe].
   Future<void> updateRecipe(Recipe recipe) {
     _updateSingleRecipe(recipe.id, (oldRecipe) => recipe);
-    return ref.read(recipeRepositoryProvider).updateRecipe(recipe).then((value) => _refetch());
+    return ref.read(recipeRepositoryProvider).updateRecipe(recipe).whenComplete(_refetch);
   }
 
   /// Toggles the favourite status of the given [recipe].
@@ -59,10 +59,7 @@ class RecipeService extends AsyncNotifier<List<Recipe>> {
         isPrivate: oldRecipe.isPrivate,
       ),
     );
-    return ref
-        .read(recipeRepositoryProvider)
-        .setFavourite(recipe.id, !recipe.isFavourite)
-        .then((value) => _refetch());
+    return ref.read(recipeRepositoryProvider).setFavourite(recipe.id, !recipe.isFavourite).whenComplete(_refetch);
   }
 
   /// Toggles the private status of the given [recipe].
@@ -89,7 +86,7 @@ class RecipeService extends AsyncNotifier<List<Recipe>> {
         isPrivate: !oldRecipe.isPrivate,
       ),
     );
-    return ref.read(recipeRepositoryProvider).updateRecipe(updatedRecipe).then((value) => _refetch());
+    return ref.read(recipeRepositoryProvider).updateRecipe(updatedRecipe).whenComplete(_refetch);
   }
 
   /// Reports the recipe with the given [recipeId].

@@ -99,6 +99,7 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
                   }
                   return null;
                 },
+                maxLength: 64,
                 initialValue: _title,
                 onChanged: (value) => _title = value,
                 decoration: InputDecoration(hintText: AppLocalizations.of(context)!.titleInputLabel),
@@ -256,8 +257,32 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
     );
   }
 
-  void saveRecipe(RecipeService recipeService) {
-    final RecipeCreationData recipe = RecipeCreationData(
+  Future<void> saveRecipe(RecipeService recipeService) {
+    // update recipe
+    if (widget.recipe != null) {
+      final Recipe recipeUploadData = Recipe(
+        id: widget.recipe!.id,
+        title: _title,
+        duration: _duration,
+        instructions: _instructions,
+        defaultPortionAmount: _defaultPortionAmount,
+        ingredients: _ingredients,
+        isGlutenFree: _isGlutenFree,
+        isHalal: _isHalal,
+        isKosher: _isKosher,
+        isVegan: _isVegan,
+        isVegetarian: _isVegetarian,
+        image: _image,
+        difficulty: _difficulty,
+        author: widget.recipe!.author,
+        uploadDate: widget.recipe!.uploadDate,
+        isFavourite: widget.recipe!.isFavourite,
+        isPrivate: widget.recipe!.isPrivate,
+      );
+      return recipeService.updateRecipe(recipeUploadData);
+    }
+    // create recipe
+    final RecipeCreationData recipeCreationData = RecipeCreationData(
       title: _title,
       duration: _duration,
       instructions: _instructions,
@@ -271,7 +296,6 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
       image: _image,
       difficulty: _difficulty,
     );
-    recipeService.createRecipe(recipe).then((value) => Navigator.of(context).pop());
+    return recipeService.createRecipe(recipeCreationData);
   }
 }
-//Nimm 12 Nazis und packe sie in einen Topf. Erhitze ihn bis, die Nazis quietschen und gib dann 2L Wasser hinzu. Alles puerriren und abschmecken. Voila und Guten Appetit

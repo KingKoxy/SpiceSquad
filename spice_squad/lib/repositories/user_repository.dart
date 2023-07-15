@@ -51,7 +51,6 @@ class UserRepository {
       return _idToken;
     }
     final String? refreshToken = await _getRefreshToken();
-    debugPrint("Refresh token: $refreshToken");
     if (refreshToken != null) {
       final response = await http.post(
         Uri.parse(ApiEndpoints.refreshToken),
@@ -62,7 +61,6 @@ class UserRepository {
           "refreshToken": refreshToken,
         }),
       );
-      debugPrint("Response: ${response.body}");
       if (response.statusCode == 200) {
         final Map<String, dynamic> body = jsonDecode(response.body);
         _idToken = body["idToken"];
@@ -99,7 +97,6 @@ class UserRepository {
         "password": password,
       }),
     );
-    debugPrint("Response: ${response.body}");
     if (response.statusCode == 200) {
       //Set tokens
       final Map<String, dynamic> body = jsonDecode(response.body);
@@ -140,7 +137,6 @@ class UserRepository {
         "userName": userName,
       }),
     );
-    debugPrint("Response: ${response.body}");
     if (response.statusCode == 200) {
       //Set tokens
       final Map<String, dynamic> body = jsonDecode(response.body);
@@ -157,12 +153,12 @@ class UserRepository {
   /// Updates the current user with the given user on the server
   Future<void> updateUser(User user) async {
     final response = await http.patch(
-      Uri.parse(ApiEndpoints.user),
+      Uri.parse("${ApiEndpoints.user}/${user.id}"),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
         HttpHeaders.authorizationHeader: "${await getToken()}",
       },
-      body: jsonEncode(user),
+      body: jsonEncode(user.toMap()),
     );
     if (response.statusCode != 200) {
       throw Exception(response.body);
@@ -191,6 +187,9 @@ class UserRepository {
         HttpHeaders.contentTypeHeader: "application/json",
         HttpHeaders.authorizationHeader: "${await getToken()}",
       },
+      body: jsonEncode(<String, String>{
+        "email": email,
+      }),
     );
     if (response.statusCode != 200) {
       throw Exception(response.body);

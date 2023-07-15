@@ -12,7 +12,7 @@ import "package:spice_squad/widgets/portion_amount_field.dart";
 import "package:spice_squad/widgets/tag_item.dart";
 
 /// A screen showing the details of a recipe.
-class RecipeDetailScreen extends StatefulWidget {
+class RecipeDetailScreen extends ConsumerStatefulWidget {
   /// The route name of this screen.
   static const routeName = "/recipe-detail";
 
@@ -23,15 +23,17 @@ class RecipeDetailScreen extends StatefulWidget {
   const RecipeDetailScreen({required this.recipe, super.key});
 
   @override
-  State<RecipeDetailScreen> createState() => _RecipeDetailScreenState();
+  ConsumerState<RecipeDetailScreen> createState() => _RecipeDetailScreenState();
 }
 
-class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
+class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
   late int portionAmount;
+  late bool isFavourite;
 
   @override
   void initState() {
     portionAmount = widget.recipe.defaultPortionAmount;
+    isFavourite = widget.recipe.isFavourite;
     super.initState();
   }
 
@@ -40,14 +42,17 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.recipe.title),
-        actions: <Widget>[
-          IconButton(
-            iconSize: 32,
-            splashRadius: 24,
-            onPressed: () => Navigator.of(context).pushNamed(RecipeCreationScreen.routeName, arguments: widget.recipe),
-            icon: const ImageIcon(SpiceSquadIconImages.edit),
-          )
-        ],
+        actions: widget.recipe.author.id == ref.read(userServiceProvider).value?.id
+            ? <Widget>[
+                IconButton(
+                  iconSize: 32,
+                  splashRadius: 24,
+                  onPressed: () =>
+                      Navigator.of(context).pushNamed(RecipeCreationScreen.routeName, arguments: widget.recipe),
+                  icon: const ImageIcon(SpiceSquadIconImages.edit),
+                )
+              ]
+            : null,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
@@ -110,16 +115,23 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                 Consumer(
                   builder: (context, ref, child) {
                     return FavouriteButton(
-                      value: widget.recipe.isFavourite,
+                      value: isFavourite,
                       onToggle: () {
-                        ref.read(recipeServiceProvider.notifier).toggleFavourite(widget.recipe);
+                        ref.read(recipeServiceProvider.notifier).toggleFavourite(
+                              widget.recipe.copyWith(
+                                isFavourite: isFavourite,
+                              ),
+                            );
+                        setState(() {
+                          isFavourite = !isFavourite;
+                        });
                       },
                     );
                   },
                 ),
               ],
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 16),
             Text(
               AppLocalizations.of(context)!.ingredientListHeadline,
               style: Theme.of(context).textTheme.headlineMedium,
@@ -129,14 +141,25 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
               ingredients: widget.recipe.ingredients,
               amountFactor: portionAmount / widget.recipe.defaultPortionAmount,
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 16),
             Text(
               AppLocalizations.of(context)!.instructionsHeadline,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            Text(
-              widget.recipe.instructions,
-              style: Theme.of(context).textTheme.bodyLarge,
+            const SizedBox(height: 10),
+            SizedBox(
+              width: double.infinity,
+              child: Card(
+                margin: const EdgeInsets.all(0),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Text(
+                    widget.recipe.instructions,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+              ),
             ),
           ],
         ),

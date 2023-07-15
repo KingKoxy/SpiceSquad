@@ -88,7 +88,7 @@ class _IngredientCreationScreenState extends State<IngredientCreationScreen> {
                           }
                           return null;
                         },
-                        maxLength: 4,
+                        maxLength: 16,
                         controller: widget._unitController,
                         decoration: InputDecoration(hintText: AppLocalizations.of(context)!.unitInputLabel),
                       ),

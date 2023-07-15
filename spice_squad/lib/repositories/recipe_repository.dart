@@ -34,16 +34,16 @@ class RecipeRepository {
 
   /// Creates a new recipe with the values from [recipe]
   Future<void> createRecipe(RecipeCreationData recipe) async {
-    final result = await http.post(
+    final response = await http.post(
       Uri.parse(ApiEndpoints.recipe),
       headers: {
         HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
         HttpHeaders.contentTypeHeader: "application/json",
       },
-      body: jsonEncode(recipe, toEncodable: (value) => RecipeCreationData.toMap(value as RecipeCreationData)),
+      body: jsonEncode(recipe.toMap()),
     );
-    if (result.statusCode != 200) {
-      throw Exception(result.body);
+    if (response.statusCode != 200) {
+      throw Exception(response.body);
     }
   }
 
@@ -66,8 +66,9 @@ class RecipeRepository {
       Uri.parse("${ApiEndpoints.recipe}/${recipe.id}"),
       headers: {
         HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
+        HttpHeaders.contentTypeHeader: "application/json",
       },
-      body: jsonEncode(recipe),
+      body: jsonEncode(recipe.toMap()),
     );
     if (result.statusCode != 200) {
       throw Exception(result.body);

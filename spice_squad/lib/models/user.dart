@@ -18,8 +18,17 @@ class User {
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
       id: map["id"],
-      profileImage: map["profile_image"],
+      profileImage: map["profile_image"] != null ? Uint8List.fromList(map["profile_image"]["data"].cast<int>()) : null,
       userName: map["user_name"],
     );
+  }
+
+  /// Converts this [User] to a [Map] object
+  Map<String, dynamic> toMap() {
+    return {
+      "id": id,
+      "profileImage": profileImage?.toList(),
+      "name": userName,
+    };
   }
 }

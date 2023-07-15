@@ -65,4 +65,41 @@ class Recipe extends RecipeCreationData {
       isPrivate: map["is_private"],
     );
   }
+
+  Recipe copyWith({
+    String? title,
+    int? duration,
+    Difficulty? difficulty,
+    bool? isVegetarian,
+    bool? isVegan,
+    bool? isGlutenFree,
+    bool? isHalal,
+    bool? isKosher,
+    List<Ingredient>? ingredients,
+    String? instructions,
+    int? defaultPortionAmount,
+    bool? isFavourite,
+    bool? isPrivate,
+    Uint8List? image,
+  }) {
+    return Recipe(
+      id: id,
+      title: title ?? this.title,
+      duration: duration ?? this.duration,
+      difficulty: difficulty ?? this.difficulty,
+      isVegetarian: isVegetarian ?? this.isVegetarian,
+      isVegan: isVegan ?? this.isVegan,
+      isGlutenFree: isGlutenFree ?? this.isGlutenFree,
+      isHalal: isHalal ?? this.isHalal,
+      isKosher: isKosher ?? this.isKosher,
+      ingredients: ingredients ?? this.ingredients,
+      instructions: instructions ?? this.instructions,
+      defaultPortionAmount: defaultPortionAmount ?? this.defaultPortionAmount,
+      isFavourite: isFavourite ?? this.isFavourite,
+      isPrivate: isPrivate ?? this.isPrivate,
+      image: image ?? this.image,
+      author: author,
+      uploadDate: uploadDate,
+    );
+  }
 }

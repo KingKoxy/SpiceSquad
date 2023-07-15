@@ -94,4 +94,7 @@ abstract class SpiceSquadIconImages {
 
   /// A calendar icon.
   static const ImageProvider calendar = AssetImage("assets/icons/calendar.png");
+
+  /// A clear filters icon.
+  static const ImageProvider clearFilters = AssetImage("assets/icons/clear_filters.png");
 }

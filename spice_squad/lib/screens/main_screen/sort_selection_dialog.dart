@@ -41,6 +41,9 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
           itemBuilder: (context, index) {
             if (index == 0) {
               return TextButton(
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
+                ),
                 onPressed: () {
                   setState(() {
                     selectedSort = Sort(category: selectedSort.category, ascending: !selectedSort.ascending);

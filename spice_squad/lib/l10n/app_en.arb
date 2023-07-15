@@ -155,9 +155,17 @@
   "@cancelButtonLabel": {
     "description": "The label for a cancel button"
   },
-  "filterSelectionHandle": "Filters",
+  "filterSelectionHandle": "{amount} Filters",
   "@filterSelectionHandle": {
-    "description": "The handle for the filter selection"
+    "description": "The handle for the filter selection",
+    "placeholders": {
+      "amount": {
+        "type": "int",
+        "content": "{amount}",
+        "example": "2",
+        "description": "How many filters are selected"
+      }
+    }
   },
   "searchInputPlaceholder": "Search...",
   "@searchInputPlaceholder": {
@@ -576,5 +584,9 @@
   "hardDifficulty": "Hard",
   "@hardDifficulty": {
     "description": "The label for the hard difficulty"
+  },
+  "clearFiltersButtonLabel": "Clear filters",
+  "@clearFiltersButtonLabel": {
+    "description": "The label for the clear filters button"
   }
 }

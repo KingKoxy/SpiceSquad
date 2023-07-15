@@ -38,15 +38,13 @@ class Ingredient {
   }
 
   /// Converts this [Ingredient] to a [Map] object by inserting the values
-  static Map<String, dynamic> toMap(Ingredient ingredient) {
+  Map<String, dynamic> toMap() {
     return {
       "id": "ingredient.id",
-      "name": ingredient.name,
-      "icon": ingredient.icon,
-      "amount": ingredient.amount,
-      "unit": ingredient.unit,
+      "name": name,
+      "icon": icon,
+      "amount": amount,
+      "unit": unit,
     };
   }
-
-
 }

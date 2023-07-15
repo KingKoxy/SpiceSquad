@@ -48,7 +48,6 @@ class IngredientDataRepository {
                 .difference(DateTime.fromMillisecondsSinceEpoch(sharedPreferences.getInt("ingredientIconsLastUpdate")!))
                 .inDays <
             2) {
-      debugPrint(sharedPreferences.getString("ingredientIcons"));
       final List<dynamic> body = jsonDecode(sharedPreferences.getString("ingredientIcons")!);
       return body.map<Uint8List>((e) => Uint8List.fromList(e["icon"]["data"].cast<int>())).toList();
     }

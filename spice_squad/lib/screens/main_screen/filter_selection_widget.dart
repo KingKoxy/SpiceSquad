@@ -27,7 +27,7 @@ class FilterSelectionWidget extends StatelessWidget {
           ),
           const SizedBox(width: 5),
           Text(
-            AppLocalizations.of(context)!.filterSelectionHandle,
+            AppLocalizations.of(context)!.filterSelectionHandle(selectedFilters.length),
             style: Theme.of(context).textTheme.titleLarge,
           )
         ],

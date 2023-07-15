@@ -71,6 +71,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       SizedBox(
                         width: double.infinity,
                         child: TextFormField(
+                          maxLength: 32,
                           autofillHints: const [AutofillHints.newUsername],
                           validator: (value) => _validateUserName(context, value),
                           keyboardType: TextInputType.name,
@@ -191,7 +192,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       widget._userNameController.text,
     )
         .then((value) {
-      debugPrint("Registered user");
       Navigator.of(context).pushNamedAndRemoveUntil(
         GroupJoiningScreen.routeName,
         (route) => false,

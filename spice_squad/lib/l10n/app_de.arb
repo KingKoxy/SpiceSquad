@@ -38,7 +38,7 @@
   "filterSelectionDialogTitle": "Filter auswählen",
   "saveButtonLabel": "Speichern",
   "cancelButtonLabel": "Abbrechen",
-  "filterSelectionHandle": "Filter",
+  "filterSelectionHandle": "{amount} Filter",
   "searchInputPlaceholder": "Suchen...",
   "duration": "{minutes} Min.",
   "noRecipesFound": "Keine Rezepte gefunden",

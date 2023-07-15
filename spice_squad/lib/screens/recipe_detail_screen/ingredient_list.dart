@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:spice_squad/models/ingredient.dart";
+import "../../widgets/ingredient_list_item.dart";
 
 /// A list of ingredients.
 class IngredientList extends StatelessWidget {
@@ -14,33 +15,20 @@ class IngredientList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Table(
-      columnWidths: const {
-        0: IntrinsicColumnWidth(),
-        1: FixedColumnWidth(10),
-        2: FlexColumnWidth(),
-      },
-      children: [
-        for (final Ingredient ingredient in ingredients)
-          TableRow(
-            children: [
-              TableCell(
-                child: Text(
-                  "${(ingredient.amount * amountFactor).toStringAsFixed(2)} ${ingredient.unit}",
-                  textAlign: TextAlign.right,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-              ),
-              const SizedBox(),
-              TableCell(
-                child: Text(
-                  ingredient.name,
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-              ),
-            ],
-          ),
-      ],
-    );
+    return Card(
+        margin: const EdgeInsets.all(0),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: ListView.builder(
+          padding: const EdgeInsets.all(0),
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: ingredients.length,
+          itemBuilder: (context, index) {
+            return IngredientListItem(
+              ingredient: ingredients[index],
+              amountFactor: amountFactor,
+            );
+          },
+        ));
   }
 }

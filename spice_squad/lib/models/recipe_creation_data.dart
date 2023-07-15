@@ -57,20 +57,20 @@ class RecipeCreationData {
   });
 
   /// Converts this [RecipeCreationData] to a [Map] object by inserting the values
-  static Map<String, dynamic> toMap(RecipeCreationData recipe) {
+  Map<String, dynamic> toMap() {
     return {
-      "title": recipe.title,
-      "duration": recipe.duration,
-      "difficulty": recipe.difficulty.toString(),
-      "isVegetarian": recipe.isVegetarian,
-      "isVegan": recipe.isVegan,
-      "isGlutenFree": recipe.isGlutenFree,
-      "isHalal": recipe.isHalal,
-      "isKosher": recipe.isKosher,
-      "ingredients": recipe.ingredients.map<Map<String, dynamic>>(Ingredient.toMap).toList(),
-      "instructions": recipe.instructions,
-      "defaultPortionAmount": recipe.defaultPortionAmount,
-      "image": recipe.image,
+      "title": title,
+      "duration": duration,
+      "difficulty": difficulty.toString(),
+      "isVegetarian": isVegetarian,
+      "isVegan": isVegan,
+      "isGlutenFree": isGlutenFree,
+      "isHalal": isHalal,
+      "isKosher": isKosher,
+      "ingredients": ingredients.map<Map<String, dynamic>>((i) => i.toMap()).toList(),
+      "instructions": instructions,
+      "defaultPortionAmount": defaultPortionAmount,
+      "image": image,
       "isPrivate": false,
     };
   }

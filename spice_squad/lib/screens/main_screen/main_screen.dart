@@ -44,10 +44,13 @@ class _MainScreenState extends ConsumerState<MainScreen> {
             child: TextField(
               controller: widget._searchController,
               decoration: InputDecoration(
-                iconColor: Colors.white,
-                icon: const ImageIcon(
-                  size: 32,
-                  SpiceSquadIconImages.search,
+                prefixIconColor: Colors.white,
+                prefixIcon: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
+                  child: ImageIcon(
+                    SpiceSquadIconImages.search,
+                    size: 28,
+                  ),
                 ),
                 suffixIconColor: Colors.white,
                 suffixIcon: widget._searchController.text != ""
@@ -61,8 +64,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                         icon: const Icon(Icons.highlight_remove_rounded),
                       )
                     : null,
-                filled: false,
-                border: const UnderlineInputBorder(),
+                fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                 hintText: AppLocalizations.of(context)!.searchInputPlaceholder,
               ),
               onChanged: (value) {

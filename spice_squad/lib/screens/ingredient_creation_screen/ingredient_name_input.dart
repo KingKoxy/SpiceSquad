@@ -29,6 +29,7 @@ class _IngredientNameInputState extends ConsumerState<IngredientNameInput> {
             if (value == null || value.isEmpty) return AppLocalizations.of(context)!.ingredientNameEmptyError;
             return null;
           },
+          maxLength: 32,
           controller: widget.controller,
           decoration: InputDecoration(hintText: AppLocalizations.of(context)!.ingredientNameInputLabel),
           onChanged: (value) {

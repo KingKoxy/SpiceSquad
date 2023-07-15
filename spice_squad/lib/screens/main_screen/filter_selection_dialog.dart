@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
+import "package:spice_squad/icons.dart";
 import "package:spice_squad/screens/main_screen/filter_category.dart";
 
 /// Dialog for selecting filters.
@@ -19,7 +20,7 @@ class FilterSelectionDialog extends StatefulWidget {
 
 class _FilterSelectionDialogState extends State<FilterSelectionDialog> {
   /// A Map of the filter categories to their selected state.
-  late final Map<FilterCategory, bool> filterMap;
+  late Map<FilterCategory, bool> filterMap;
 
   @override
   void initState() {
@@ -34,21 +35,52 @@ class _FilterSelectionDialogState extends State<FilterSelectionDialog> {
       title: Text(AppLocalizations.of(context)!.filterSelectionDialogTitle),
       content: SizedBox(
         width: double.maxFinite,
-        child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: filterMap.length,
-          itemBuilder: (context, index) {
-            final key = filterMap.keys.elementAt(index);
-            return CheckboxListTile(
-              title: Text(key.getName(context)),
-              value: filterMap[key],
-              onChanged: (value) {
-                setState(() {
-                  filterMap[key] = value!;
-                });
-              },
-            );
-          },
+        child: SingleChildScrollView(
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: filterMap.length + 1,
+            itemBuilder: (context, index) {
+              if (index == 0) {
+                return TextButton(
+                  style: ButtonStyle(
+                    padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      filterMap = {for (var item in FilterCategory.values) item: false};
+                    });
+                  },
+                  child: ListTile(
+                    title: Row(
+                      children: [
+                        const ImageIcon(
+                          SpiceSquadIconImages.clearFilters,
+                          color: Colors.white,
+                        ),
+                        const SizedBox(
+                          width: 24,
+                        ),
+                        Text(
+                          AppLocalizations.of(context)!.clearFiltersButtonLabel,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }
+              final key = filterMap.keys.elementAt(index - 1);
+              return CheckboxListTile(
+                title: Text(key.getName(context)),
+                value: filterMap[key],
+                onChanged: (value) {
+                  setState(() {
+                    filterMap[key] = value!;
+                  });
+                },
+              );
+            },
+          ),
         ),
       ),
       actions: <Widget>[
