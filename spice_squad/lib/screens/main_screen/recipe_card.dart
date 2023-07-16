@@ -33,13 +33,17 @@ class RecipeCard extends ConsumerWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      FittedBox(
-                        fit: BoxFit.fitWidth,
-                        child: Text(
-                          "Ein sehr langer Text mit sehr vielen Zeichen, und auch noch eine",
-
-                          //recipe.title,
-                          style: Theme.of(context).textTheme.headlineSmall,
+                      SizedBox(
+                        width: 290,
+                        height: 39,
+                        child: FittedBox(
+                          fit: BoxFit.contain,
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            recipe.title,
+                            style: Theme.of(context).textTheme.headlineSmall,
+                            textAlign: TextAlign.start,
+                          ),
                         ),
                       ),
                       Text(
@@ -55,7 +59,8 @@ class RecipeCard extends ConsumerWidget {
                     value: recipe.isFavourite,
                     onToggle: () {
                       _toggleFavourite(
-                          ref.read(recipeServiceProvider.notifier));
+                        ref.read(recipeServiceProvider.notifier),
+                      );
                     },
                   ),
                 ],
@@ -72,7 +77,8 @@ class RecipeCard extends ConsumerWidget {
                       height: 130,
                       child: Card(
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8)),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                         color: Theme.of(context).colorScheme.onSurfaceVariant,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
@@ -83,8 +89,10 @@ class RecipeCard extends ConsumerWidget {
                                 )
                               : //Image.memory(recipe.image!, fit: BoxFit.cover)
                               const Center(
-                                  child: ImageIcon(SpiceSquadIconImages.image,
-                                      size: 32),
+                                  child: ImageIcon(
+                                    SpiceSquadIconImages.image,
+                                    size: 32,
+                                  ),
                                 ),
                         ),
                       ),

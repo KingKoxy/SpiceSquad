@@ -28,9 +28,10 @@ class SettingsScreen extends ConsumerWidget {
         title: Row(
           children: [
             Expanded(
-                child: Center(
-                    child:
-                        Text(AppLocalizations.of(context)!.settingsHeadline))),
+              child: Center(
+                child: Text(AppLocalizations.of(context)!.settingsHeadline),
+              ),
+            ),
             IconButton(
               onPressed: () {
                 _logout(context, ref.read(userServiceProvider.notifier));
@@ -59,37 +60,42 @@ class SettingsScreen extends ConsumerWidget {
                         TextButton(
                           onPressed: () {
                             _renameUser(
-                                context,
-                                ref.read(userServiceProvider.notifier),
-                                user.userName);
+                              context,
+                              ref.read(userServiceProvider.notifier),
+                              user.userName,
+                            );
                           },
                           child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                user.userName,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineSmall!
-                                    .copyWith(color: Colors.white),
-                              ),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              const ImageIcon(
-                                SpiceSquadIconImages.edit,
-                                color: Colors.white,
-                              )
-                            ],
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                 Text(
+                                   user.userName,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall!
+                                        .copyWith(color: Colors.white),
+                                  ),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                const ImageIcon(
+                                  SpiceSquadIconImages.edit,
+                                  color: Colors.white,
+                                )
+                              ],
+                            ),
                           ),
-                        ),
+
                         TextButton(
                           onPressed: () {
-                            _deleteAccount(context,
-                                ref.read(userServiceProvider.notifier));
+                            _deleteAccount(
+                              context,
+                              ref.read(userServiceProvider.notifier),
+                            );
                           },
-                          child: Text(AppLocalizations.of(context)!
-                              .deleteAccountButton),
+                          child: Text(
+                            AppLocalizations.of(context)!.deleteAccountButton,
+                          ),
                         )
                       ],
                     );
@@ -121,7 +127,10 @@ void _logout(BuildContext context, UserService userService) {
 }
 
 void _renameUser(
-    BuildContext context, UserService userService, String oldName) {
+  BuildContext context,
+  UserService userService,
+  String oldName,
+) {
   showDialog(
     context: context,
     builder: (context) {

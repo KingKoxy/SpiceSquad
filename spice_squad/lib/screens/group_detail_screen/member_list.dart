@@ -48,7 +48,8 @@ class MemberList extends ConsumerWidget {
             AddButton(
               onPressed: () {
                 Share.share(
-                  AppLocalizations.of(context)!.groupCodeShareMessage(group.name, group.groupCode),
+                  AppLocalizations.of(context)!
+                      .groupCodeShareMessage(group.name, group.groupCode),
                   subject: AppLocalizations.of(context)!.groupCodeShareSubject,
                 );
               },
@@ -59,7 +60,8 @@ class MemberList extends ConsumerWidget {
           height: 10,
         ),
         Card(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           child: ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
@@ -68,7 +70,8 @@ class MemberList extends ConsumerWidget {
             itemBuilder: (context, index) {
               final member = members[index];
               return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -81,13 +84,19 @@ class MemberList extends ConsumerWidget {
                           height: 50,
                           child: member.profileImage != null
                               ? const CircleAvatar(
-                                  foregroundImage: AssetImage("assets/images/exampleImage.jpeg"),
+                                  foregroundImage: AssetImage(
+                                    "assets/images/exampleImage.jpeg",
+                                  ),
                                 )
                               : CircleAvatar(
-                                  backgroundColor: Theme.of(context).colorScheme.onSurfaceVariant,
+                                  backgroundColor: Theme.of(context)
+                                      .colorScheme
+                                      .onSurfaceVariant,
                                   child: Text(
                                     member.userName.substring(0, 1),
-                                    style: Theme.of(context).textTheme.headlineSmall,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall,
                                   ),
                                 ),
                         ),
@@ -98,14 +107,25 @@ class MemberList extends ConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(
-                              member.userName,
-                              style: Theme.of(context).textTheme.titleLarge,
+                            SizedBox(
+                              width: 210,
+                              height: 29,
+                              child: FittedBox(
+                                fit: BoxFit.contain,
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  member.userName,
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
+                              ),
                             ),
                             if (member.isAdmin)
                               Text(
                                 AppLocalizations.of(context)!.administrator,
-                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(color: Colors.grey),
                               ),
                           ],
                         ),
@@ -117,20 +137,42 @@ class MemberList extends ConsumerWidget {
                         return [
                           member.isAdmin
                               ? PopupMenuItem<VoidCallback>(
-                                  value: () => _removeAdminStatus(ref.read(groupServiceProvider.notifier), member),
-                                  child: Text(AppLocalizations.of(context)!.adminActionRemoveAdmin),
+                                  value: () => _removeAdminStatus(
+                                    ref.read(groupServiceProvider.notifier),
+                                    member,
+                                  ),
+                                  child: Text(
+                                    AppLocalizations.of(context)!
+                                        .adminActionRemoveAdmin,
+                                  ),
                                 )
                               : PopupMenuItem<VoidCallback>(
-                                  value: () => _makeAdmin(ref.read(groupServiceProvider.notifier), member),
-                                  child: Text(AppLocalizations.of(context)!.adminActionMakeAdmin),
+                                  value: () => _makeAdmin(
+                                    ref.read(groupServiceProvider.notifier),
+                                    member,
+                                  ),
+                                  child: Text(
+                                    AppLocalizations.of(context)!
+                                        .adminActionMakeAdmin,
+                                  ),
                                 ),
                           PopupMenuItem<VoidCallback>(
-                            value: () => _kickUser(ref.read(groupServiceProvider.notifier), member),
-                            child: Text(AppLocalizations.of(context)!.adminActionKick),
+                            value: () => _kickUser(
+                              ref.read(groupServiceProvider.notifier),
+                              member,
+                            ),
+                            child: Text(
+                              AppLocalizations.of(context)!.adminActionKick,
+                            ),
                           ),
                           PopupMenuItem<VoidCallback>(
-                            value: () => _banUser(ref.read(groupServiceProvider.notifier), member),
-                            child: Text(AppLocalizations.of(context)!.adminActionBan),
+                            value: () => _banUser(
+                              ref.read(groupServiceProvider.notifier),
+                              member,
+                            ),
+                            child: Text(
+                              AppLocalizations.of(context)!.adminActionBan,
+                            ),
                           ),
                         ];
                       },
