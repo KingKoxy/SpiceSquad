@@ -24,9 +24,9 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
 
   @override
   void initState() {
+    super.initState();
     // Initialize the selected sort with the initial value.
     selectedSort = widget.initialValue;
-    super.initState();
   }
 
   @override

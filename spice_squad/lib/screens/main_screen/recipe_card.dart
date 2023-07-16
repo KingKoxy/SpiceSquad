@@ -18,10 +18,11 @@ class RecipeCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return InkWell(
-      onTap: () => Navigator.of(context).pushNamed(RecipeDetailScreen.routeName, arguments: recipe),
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: () => Navigator.of(context).pushNamed(RecipeDetailScreen.routeName, arguments: recipe),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(

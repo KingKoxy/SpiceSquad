@@ -11,6 +11,7 @@ import "package:spice_squad/services/user_service.dart";
 import "package:spice_squad/widgets/approval_dialog.dart";
 import "package:spice_squad/widgets/input_dialog.dart";
 import "package:spice_squad/widgets/nav_bar.dart";
+import "package:spice_squad/widgets/success_dialog.dart";
 
 /// Screen for displaying user settings
 class SettingsScreen extends ConsumerWidget {
@@ -43,11 +44,14 @@ class SettingsScreen extends ConsumerWidget {
           children: [
             ref.watch(userServiceProvider).when(
                   data: (user) {
+                    if (user == null) {
+                      return Container();
+                    }
                     return Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         ProfileImagePicker(
-                          initialValue: user!.profileImage,
+                          initialValue: user.profileImage,
                           userService: ref.read(userServiceProvider.notifier),
                         ),
                         const SizedBox(
@@ -136,8 +140,15 @@ void _deleteAccount(BuildContext context, UserService userService) {
         title: AppLocalizations.of(context)!.deleteAccountDialogTitle,
         message: AppLocalizations.of(context)!.deleteAccountDialogDescription,
         onApproval: () {
-          userService.deleteAccount();
-          Navigator.of(context).pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
+          Navigator.of(context).pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false).then(
+                (value) => userService.deleteAccount().then((value) {
+                  showDialog(
+                    context: context,
+                    builder: (context) =>
+                        const SuccessDialog(title: "Konto gelöscht", message: "Dein Konto wurde gelöscht."),
+                  );
+                }),
+              );
         },
       );
     },

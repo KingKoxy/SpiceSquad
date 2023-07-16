@@ -8,6 +8,7 @@ import "package:spice_squad/models/ingredient.dart";
 import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/models/recipe_creation_data.dart";
 import "package:spice_squad/providers/service_providers.dart";
+import "package:spice_squad/screens/main_screen/main_screen.dart";
 import "package:spice_squad/screens/recipe_creation_screen/difficulty_picker_widget.dart";
 import "package:spice_squad/screens/recipe_creation_screen/image_picker_widget.dart";
 import "package:spice_squad/screens/recipe_creation_screen/ingredient_list.dart";
@@ -49,6 +50,7 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
 
   @override
   void initState() {
+    super.initState();
     _title = widget.recipe?.title ?? "";
     _duration = widget.recipe?.duration ?? 30;
     _difficulty = widget.recipe?.difficulty ?? Difficulty.easy;
@@ -61,8 +63,6 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
     _instructions = widget.recipe?.instructions ?? "";
     _defaultPortionAmount = widget.recipe?.defaultPortionAmount ?? 4;
     _image = widget.recipe?.image;
-
-    super.initState();
   }
 
   @override
@@ -243,7 +243,9 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
                   builder: (context, ref, child) => ElevatedButton(
                     onPressed: () {
                       if (widget._formKey.currentState!.validate()) {
-                        saveRecipe(ref.read(recipeServiceProvider.notifier));
+                        saveRecipe(ref.read(recipeServiceProvider.notifier)).then(
+                          (value) => Navigator.of(context).pushReplacementNamed(MainScreen.routeName),
+                        );
                       }
                     },
                     child: Text(AppLocalizations.of(context)!.saveButtonLabel),

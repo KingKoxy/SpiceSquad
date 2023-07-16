@@ -4,6 +4,7 @@ import "package:spice_squad/models/group.dart";
 import "package:spice_squad/models/group_member.dart";
 import "package:spice_squad/models/group_recipe.dart";
 import "package:spice_squad/providers/repository_providers.dart";
+import "package:spice_squad/providers/service_providers.dart";
 
 /// Service that handles all group related logic.
 ///
@@ -22,25 +23,37 @@ class GroupService extends AsyncNotifier<List<Group>> {
   /// Makes the user join the group with the given [groupCode].
   Future<void> joinGroup(String groupCode) {
     state = const AsyncLoading();
-    return ref.read(groupRepositoryProvider).joinGroup(groupCode).whenComplete(_refetch);
+    return ref.read(groupRepositoryProvider).joinGroup(groupCode).whenComplete(() {
+      refetch();
+      ref.read(recipeServiceProvider.notifier).refetch();
+    });
   }
 
   /// Creates a new group with the given [name].
   Future<void> createGroup(String name) {
     state = const AsyncLoading();
-    return ref.read(groupRepositoryProvider).createGroup(name).whenComplete(_refetch);
+    return ref.read(groupRepositoryProvider).createGroup(name).whenComplete(() {
+      refetch();
+      ref.read(recipeServiceProvider.notifier).refetch();
+    });
   }
 
   /// Deletes the group with the given [groupId].
   Future<void> deleteGroup(String groupId) {
     state = const AsyncLoading();
-    return ref.read(groupRepositoryProvider).deleteGroup(groupId).whenComplete(_refetch);
+    return ref.read(groupRepositoryProvider).deleteGroup(groupId).whenComplete((){
+      refetch();
+      ref.read(recipeServiceProvider.notifier).refetch();
+    });
   }
 
   /// Makes the user leave the group with the given [groupId].
   Future<void> leaveGroup(String groupId) {
     state = const AsyncLoading();
-    return ref.read(groupRepositoryProvider).leaveGroup(groupId).whenComplete(_refetch);
+    return ref.read(groupRepositoryProvider).leaveGroup(groupId).whenComplete(() {
+      refetch();
+      ref.read(recipeServiceProvider.notifier).refetch();
+    });
   }
 
   /// Updates the name of the group with the given [groupId] with the given [value].
@@ -55,7 +68,7 @@ class GroupService extends AsyncNotifier<List<Group>> {
         recipes: oldGroup.recipes,
       ),
     );
-    return ref.read(groupRepositoryProvider).updateGroup(updatedGroup).whenComplete(_refetch);
+    return ref.read(groupRepositoryProvider).updateGroup(updatedGroup).whenComplete(refetch);
   }
 
   /// Makes the user with the given [userId] admin of the group with the given [groupId]
@@ -74,7 +87,7 @@ class GroupService extends AsyncNotifier<List<Group>> {
         recipes: oldGroup.recipes,
       );
     });
-    return ref.read(adminRepositoryProvider).makeAdmin(userId, groupId).whenComplete(_refetch);
+    return ref.read(adminRepositoryProvider).makeAdmin(userId, groupId).whenComplete(refetch);
   }
 
   /// Removes the admin status of the user with the given [userId] in the group with the [groupId]
@@ -93,7 +106,7 @@ class GroupService extends AsyncNotifier<List<Group>> {
         recipes: oldGroup.recipes,
       );
     });
-    return ref.read(adminRepositoryProvider).removeAdminStatus(userId, groupId).whenComplete(_refetch);
+    return ref.read(adminRepositoryProvider).removeAdminStatus(userId, groupId).whenComplete(refetch);
   }
 
   /// Kicks the user with the given [userId] from the group with the given [groupId]
@@ -109,7 +122,7 @@ class GroupService extends AsyncNotifier<List<Group>> {
         recipes: oldGroup.recipes,
       );
     });
-    return ref.read(adminRepositoryProvider).kickUser(userId, groupId).whenComplete(_refetch);
+    return ref.read(adminRepositoryProvider).kickUser(userId, groupId).whenComplete(refetch);
   }
 
   /// Bans the user with the given [userId] from the group with the given [groupId]
@@ -125,7 +138,7 @@ class GroupService extends AsyncNotifier<List<Group>> {
         recipes: oldGroup.recipes,
       );
     });
-    return ref.read(adminRepositoryProvider).banUser(userId, groupId).whenComplete(_refetch);
+    return ref.read(adminRepositoryProvider).banUser(userId, groupId).whenComplete(refetch);
   }
 
   /// Toggles the censoring status of the [recipe] in the group with the given [groupId]
@@ -144,15 +157,16 @@ class GroupService extends AsyncNotifier<List<Group>> {
         recipes: updatedRecipeList,
       );
     });
-    return ref
-        .read(adminRepositoryProvider)
-        .setCensored(recipe.id, groupId, !recipe.isCensored)
-        .whenComplete(_refetch);
+    return ref.read(adminRepositoryProvider).setCensored(recipe.id, groupId, !recipe.isCensored).whenComplete(refetch);
   }
 
   /// Fetches all groups for the current user and sets the state to [AsyncData] with the fetched groups.
-  Future<void> _refetch() {
-    return ref.read(groupRepositoryProvider).fetchAllGroupsForUser().then((value) => state = AsyncData(value));
+  FutureOr<void> refetch() {
+    try {
+      return ref.read(groupRepositoryProvider).fetchAllGroupsForUser().then((value) => state = AsyncData(value));
+    } catch (e) {
+      state = AsyncError(e, StackTrace.current);
+    }
   }
 
   /// Updates the group with the given [groupId] with the given [updatingFunction] in the [state] and returns the updated group.

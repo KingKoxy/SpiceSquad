@@ -27,8 +27,8 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
 
   @override
   void initState() {
-    _profileImage = widget.initialValue;
     super.initState();
+    _profileImage = widget.initialValue;
   }
 
   // TODO: make whole widget clickable
@@ -42,13 +42,13 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                 image: DecorationImage(image: MemoryImage(_profileImage!), fit: BoxFit.cover),
               )
             : BoxDecoration(borderRadius: BorderRadius.circular(20000), color: Theme.of(context).cardColor),
-        child: CircleAvatar(
-          backgroundColor: Colors.transparent,
-          radius: 75,
-          child: InkWell(
-            borderRadius: BorderRadius.circular(20000),
-            onTap: () => _selectProfileImage(context),
-            child: const ImageIcon(
+        child: InkWell(
+          borderRadius: BorderRadius.circular(20000),
+          onTap: () => _selectProfileImage(context),
+          child: const CircleAvatar(
+            backgroundColor: Colors.transparent,
+            radius: 75,
+            child: ImageIcon(
               SpiceSquadIconImages.editUser,
               size: 64,
               color: Colors.white,

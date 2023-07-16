@@ -26,8 +26,8 @@ class _DifficultyPickerDialogState extends State<DifficultyPickerDialog> {
 
   @override
   void initState() {
-    _difficulty = widget.initialValue;
     super.initState();
+    _difficulty = widget.initialValue;
   }
 
   @override

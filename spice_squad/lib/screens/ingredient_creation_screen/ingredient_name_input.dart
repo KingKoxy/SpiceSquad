@@ -31,7 +31,8 @@ class _IngredientNameInputState extends ConsumerState<IngredientNameInput> {
           },
           maxLength: 32,
           controller: widget.controller,
-          decoration: InputDecoration(hintText: AppLocalizations.of(context)!.ingredientNameInputLabel),
+          decoration:
+              InputDecoration(counterText: "", hintText: AppLocalizations.of(context)!.ingredientNameInputLabel),
           onChanged: (value) {
             setState(() {
               _searchText = value;
@@ -49,6 +50,7 @@ class _IngredientNameInputState extends ConsumerState<IngredientNameInput> {
               // Search for matches and show in grid
               final List<String> filteredNames =
                   snapshot.data!.where((element) => element.toLowerCase().contains(_searchText.toLowerCase())).toList();
+              filteredNames.sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
               return GridView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 padding: EdgeInsets.zero,

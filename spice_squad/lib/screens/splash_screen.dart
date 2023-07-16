@@ -26,18 +26,18 @@ class SplashScreen extends ConsumerWidget {
             data: (value) {
               if (value == null) {
                 SchedulerBinding.instance.addPostFrameCallback((_) {
-                  Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
+                  Navigator.of(context).pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
                 });
               } else {
                 SchedulerBinding.instance.addPostFrameCallback((_) {
-                  Navigator.of(context).pushReplacementNamed(MainScreen.routeName);
+                  Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
                 });
               }
               return SizedBox(child: Image.asset("assets/images/logo.png"));
             },
             error: (error, stack) {
               SchedulerBinding.instance.addPostFrameCallback((_) {
-                Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
+                Navigator.of(context).pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
               });
               return SizedBox(child: Image.asset("assets/images/logo.png"));
             },

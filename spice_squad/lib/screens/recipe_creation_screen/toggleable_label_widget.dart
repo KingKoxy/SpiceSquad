@@ -33,8 +33,8 @@ class _ToggleableLabelWidgetState extends State<ToggleableLabelWidget> {
 
   @override
   void initState() {
-    active = widget.initialActive;
     super.initState();
+    active = widget.initialActive;
   }
 
   @override

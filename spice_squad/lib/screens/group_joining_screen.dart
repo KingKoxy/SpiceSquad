@@ -72,10 +72,12 @@ class GroupJoiningScreen extends ConsumerWidget {
                           SizedBox(
                             width: double.infinity,
                             child: TextFormField(
+                              maxLength: 8,
                               validator: (value) => _validateGroupCode(context, value),
                               keyboardType: TextInputType.text,
                               controller: _groupCodeController,
                               decoration: InputDecoration(
+                                counterText: "",
                                 hintText: AppLocalizations.of(context)!.groupCodeInputLabel,
                               ),
                             ),

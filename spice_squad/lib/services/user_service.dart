@@ -5,6 +5,8 @@ import "package:image/image.dart";
 import "package:spice_squad/models/user.dart";
 import "package:spice_squad/providers/repository_providers.dart";
 
+import "../providers/service_providers.dart";
+
 /// Service that handles all user related logic.
 ///
 /// Every method sets the [state] to update optimistically or indicate loading while executing
@@ -32,8 +34,11 @@ class UserService extends AsyncNotifier<User?> {
 
   /// Deletes the account of the currently logged in user and logs out.
   Future<void> deleteAccount() {
-    return logout().then((value) {
-      return ref.read(userRepositoryProvider).deleteAccount();
+    return ref.read(userRepositoryProvider).deleteAccount().then((value) {
+      return logout();
+    }).then((value) async {
+      await ref.read(recipeServiceProvider.notifier).refetch();
+      await ref.read(groupServiceProvider.notifier).refetch();
     });
   }
 
@@ -72,7 +77,11 @@ class UserService extends AsyncNotifier<User?> {
   }
 
   /// Refetches the current user.
-  Future<void> _refetch() {
-    return ref.read(userRepositoryProvider).fetchCurrentUser().then((value) => state = AsyncData(value));
+  FutureOr<void> _refetch() {
+    try {
+      return ref.read(userRepositoryProvider).fetchCurrentUser().then((value) => state = AsyncData(value));
+    } catch (e) {
+      state = AsyncError(e, StackTrace.current);
+    }
   }
 }

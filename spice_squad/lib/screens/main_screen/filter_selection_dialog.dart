@@ -24,9 +24,9 @@ class _FilterSelectionDialogState extends State<FilterSelectionDialog> {
 
   @override
   void initState() {
+    super.initState();
     // Initialize the filter map with the initial value.
     filterMap = {for (var item in FilterCategory.values) item: widget.initialValue.contains(item)};
-    super.initState();
   }
 
   @override

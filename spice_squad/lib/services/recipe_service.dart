@@ -17,7 +17,7 @@ class RecipeService extends AsyncNotifier<List<Recipe>> {
   /// Creates a new recipe with the given [recipe].
   Future<void> createRecipe(RecipeCreationData recipe) {
     state = const AsyncLoading();
-    return ref.read(recipeRepositoryProvider).createRecipe(recipe).whenComplete(_refetch);
+    return ref.read(recipeRepositoryProvider).createRecipe(recipe).whenComplete(refetch);
   }
 
   /// Deletes the recipe with the given [recipeId].
@@ -26,13 +26,13 @@ class RecipeService extends AsyncNotifier<List<Recipe>> {
     final List<Recipe> list = state.value!;
     list.removeWhere((element) => element.id == recipeId);
     state = AsyncData(list);
-    return ref.read(recipeRepositoryProvider).deleteRecipe(recipeId).whenComplete(_refetch);
+    return ref.read(recipeRepositoryProvider).deleteRecipe(recipeId).whenComplete(refetch);
   }
 
   /// Updates the recipe with the same id with the given [recipe].
   Future<void> updateRecipe(Recipe recipe) {
     _updateSingleRecipe(recipe.id, (oldRecipe) => recipe);
-    return ref.read(recipeRepositoryProvider).updateRecipe(recipe).whenComplete(_refetch);
+    return ref.read(recipeRepositoryProvider).updateRecipe(recipe).whenComplete(refetch);
   }
 
   /// Toggles the favourite status of the given [recipe].
@@ -43,7 +43,7 @@ class RecipeService extends AsyncNotifier<List<Recipe>> {
         isFavourite: !oldRecipe.isFavourite,
       ),
     );
-    return ref.read(recipeRepositoryProvider).setFavourite(recipe.id, !recipe.isFavourite).whenComplete(_refetch);
+    return ref.read(recipeRepositoryProvider).setFavourite(recipe.id, !recipe.isFavourite).whenComplete(refetch);
   }
 
   /// Toggles the private status of the given [recipe].
@@ -52,7 +52,7 @@ class RecipeService extends AsyncNotifier<List<Recipe>> {
       recipe.id,
       (oldRecipe) => oldRecipe.copyWith(isPrivate: !oldRecipe.isPrivate),
     );
-    return ref.read(recipeRepositoryProvider).updateRecipe(updatedRecipe).whenComplete(_refetch);
+    return ref.read(recipeRepositoryProvider).updateRecipe(updatedRecipe).whenComplete(refetch);
   }
 
   /// Reports the recipe with the given [recipeId].
@@ -66,8 +66,12 @@ class RecipeService extends AsyncNotifier<List<Recipe>> {
   }
 
   /// Refetches all recipes.
-  Future<void> _refetch() {
-    return ref.read(recipeRepositoryProvider).fetchAllRecipesForUser().then((value) => state = AsyncData(value));
+  FutureOr<void> refetch() {
+    try {
+      return ref.read(recipeRepositoryProvider).fetchAllRecipesForUser().then((value) => state = AsyncData(value));
+    } catch (e) {
+      state = AsyncError(e, StackTrace.current);
+    }
   }
 
   /// Updates the recipe with the given [recipeId] with the given [updatingFunction] in the [state] and returns the updated recipe.

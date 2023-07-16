@@ -32,9 +32,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
 
   @override
   void initState() {
+    super.initState();
     portionAmount = widget.recipe.defaultPortionAmount;
     isFavourite = widget.recipe.isFavourite;
-    super.initState();
   }
 
   @override

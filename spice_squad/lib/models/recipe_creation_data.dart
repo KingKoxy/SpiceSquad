@@ -61,7 +61,7 @@ class RecipeCreationData {
     return {
       "title": title,
       "duration": duration,
-      "difficulty": difficulty.toString(),
+      "difficulty": difficulty.name.toUpperCase(),
       "isVegetarian": isVegetarian,
       "isVegan": isVegan,
       "isGlutenFree": isGlutenFree,

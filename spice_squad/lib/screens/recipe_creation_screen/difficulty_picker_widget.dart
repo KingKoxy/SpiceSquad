@@ -24,8 +24,8 @@ class _DifficultyPickerWidgetState extends State<DifficultyPickerWidget> {
 
   @override
   void initState() {
-    _difficulty = widget.initialValue ?? Difficulty.medium;
     super.initState();
+    _difficulty = widget.initialValue ?? Difficulty.medium;
   }
 
   @override
