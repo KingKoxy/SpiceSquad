@@ -1,3 +1,4 @@
+import "package:auto_size_text/auto_size_text.dart";
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -58,9 +59,13 @@ class OwnRecipeList extends ConsumerWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  recipe.title,
-                                  style: Theme.of(context).textTheme.titleLarge,
+                                Expanded(
+                                  child: AutoSizeText(
+                                    recipe.title,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Theme.of(context).textTheme.titleLarge,
+                                  ),
                                 ),
                                 Row(
                                   mainAxisSize: MainAxisSize.min,
@@ -71,7 +76,7 @@ class OwnRecipeList extends ConsumerWidget {
                                       icon: const ImageIcon(SpiceSquadIconImages.export),
                                     ),
                                     EyeButton(
-                                      open: recipe.isPrivate,
+                                      open: !recipe.isPrivate,
                                       onToggle: () => _hideRecipe(ref.read(recipeServiceProvider.notifier), recipe),
                                     ),
                                     RemoveButton(

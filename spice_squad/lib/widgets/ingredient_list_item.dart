@@ -37,6 +37,7 @@ class IngredientListItem extends StatelessWidget {
                   ),
                 ),
                 Flexible(
+                  flex: 2,
                   child: AutoSizeText(
                     ingredient.name,
                     style: Theme.of(context).textTheme.titleLarge,
@@ -45,26 +46,32 @@ class IngredientListItem extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  width: 10,
+                  width: 8,
                 ),
                 const Text("•"),
                 const SizedBox(
-                  width: 10,
+                  width: 8,
                 ),
-                Text(
-                  "${(ingredient.amount * amountFactor).toStringAsFixed(2)} ${ingredient.unit}",
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                const SizedBox(
-                  width: 10,
+                Flexible(
+                  flex: 1,
+                  child: AutoSizeText(
+                    "${(ingredient.amount * amountFactor).toStringAsFixed(2)} ${ingredient.unit}",
+                    style: Theme.of(context).textTheme.titleMedium,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ],
             ),
           ),
-          if (onRemove != null)
+          if (onRemove != null) ...[
+            const SizedBox(
+              width: 10,
+            ),
             RemoveButton(
               onPressed: onRemove!,
-            ),
+            )
+          ],
         ],
       ),
     );

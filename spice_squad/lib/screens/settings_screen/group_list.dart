@@ -1,3 +1,4 @@
+import "package:auto_size_text/auto_size_text.dart";
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -57,9 +58,13 @@ class GroupList extends ConsumerWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  groups[index].name,
-                                  style: Theme.of(context).textTheme.titleLarge,
+                                Expanded(
+                                  child: AutoSizeText(
+                                    groups[index].name,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Theme.of(context).textTheme.titleLarge,
+                                  ),
                                 ),
                                 RemoveButton(
                                   onPressed: () {

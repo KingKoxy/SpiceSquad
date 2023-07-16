@@ -1,3 +1,4 @@
+import "package:auto_size_text/auto_size_text.dart";
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -30,19 +31,24 @@ class RecipeCard extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        recipe.title,
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                      Text(
-                        recipe.author.userName,
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.grey),
-                      ),
-                    ],
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          recipe.title,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ),
+                        Text(
+                          recipe.author.userName,
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.grey),
+                        ),
+                      ],
+                    ),
                   ),
+                  SizedBox(width: 8,),
                   FavouriteButton(
                     value: recipe.isFavourite,
                     onToggle: () {
