@@ -5,7 +5,7 @@ import "package:image/image.dart";
 import "package:spice_squad/models/user.dart";
 import "package:spice_squad/providers/repository_providers.dart";
 
-import "../providers/service_providers.dart";
+import "package:spice_squad/providers/service_providers.dart";
 
 /// Service that handles all user related logic.
 ///
