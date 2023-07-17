@@ -39,129 +39,132 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.recipe.title),
-        actions: widget.recipe.author.id == ref.read(userServiceProvider).value?.id
-            ? <Widget>[
-                IconButton(
-                  iconSize: 32,
-                  splashRadius: 24,
-                  onPressed: () =>
-                      Navigator.of(context).pushNamed(RecipeCreationScreen.routeName, arguments: widget.recipe),
-                  icon: const ImageIcon(SpiceSquadIconImages.edit),
-                )
-              ]
-            : null,
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(widget.recipe.title),
+          actions: widget.recipe.author.id == ref.read(userServiceProvider).value?.id
+              ? <Widget>[
+                  IconButton(
+                    iconSize: 32,
+                    splashRadius: 24,
+                    onPressed: () =>
+                        Navigator.of(context).pushNamed(RecipeCreationScreen.routeName, arguments: widget.recipe),
+                    icon: const ImageIcon(SpiceSquadIconImages.edit),
+                  )
+                ]
+              : null,
+        ),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    TagItem(image: SpiceSquadIconImages.person, name: widget.recipe.author.userName),
+                    TagItem(
+                      image: SpiceSquadIconImages.calendar,
+                      name:
+                          "${widget.recipe.uploadDate.day}.${widget.recipe.uploadDate.month}.${widget.recipe.uploadDate.year}",
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10),
+              SizedBox(
+                height: 200,
+                child: Card(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  color: Theme.of(context).colorScheme.onSurface,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: widget.recipe.image != null
+                        ? Image.memory(
+                            widget.recipe.image!,
+                            width: double.infinity,
+                            height: 200,
+                            fit: BoxFit.cover,
+                          )
+                        : const Center(
+                            child: ImageIcon(SpiceSquadIconImages.image, size: 48),
+                          ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              LabelList(recipe: widget.recipe),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TagItem(image: SpiceSquadIconImages.person, name: widget.recipe.author.userName),
-                  TagItem(
-                    image: SpiceSquadIconImages.calendar,
-                    name:
-                        "${widget.recipe.uploadDate.day}.${widget.recipe.uploadDate.month}.${widget.recipe.uploadDate.year}",
+                  Expanded(
+                    child: PortionAmountField(
+                      onChanged: (value) {
+                        setState(() {
+                          portionAmount = value;
+                        });
+                      },
+                      initialValue: widget.recipe.defaultPortionAmount,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Consumer(
+                    builder: (context, ref, child) {
+                      return FavouriteButton(
+                        value: isFavourite,
+                        onToggle: () {
+                          ref.read(recipeServiceProvider.notifier).toggleFavourite(
+                                widget.recipe.copyWith(
+                                  isFavourite: isFavourite,
+                                ),
+                              );
+                          setState(() {
+                            isFavourite = !isFavourite;
+                          });
+                        },
+                      );
+                    },
                   ),
                 ],
               ),
-            ),
-            const SizedBox(height: 10),
-            SizedBox(
-              height: 200,
-              child: Card(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                color: Theme.of(context).colorScheme.onSurface,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: widget.recipe.image != null
-                      ? Image.memory(
-                          widget.recipe.image!,
-                          width: double.infinity,
-                          height: 200,
-                          fit: BoxFit.cover,
-                        )
-                      : const Center(
-                          child: ImageIcon(SpiceSquadIconImages.image, size: 48),
-                        ),
-                ),
+              const SizedBox(height: 16),
+              Text(
+                AppLocalizations.of(context)!.ingredientListHeadline,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
-            ),
-            const SizedBox(height: 10),
-            LabelList(recipe: widget.recipe),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: PortionAmountField(
-                    onChanged: (value) {
-                      setState(() {
-                        portionAmount = value;
-                      });
-                    },
-                    initialValue: widget.recipe.defaultPortionAmount,
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Consumer(
-                  builder: (context, ref, child) {
-                    return FavouriteButton(
-                      value: isFavourite,
-                      onToggle: () {
-                        ref.read(recipeServiceProvider.notifier).toggleFavourite(
-                              widget.recipe.copyWith(
-                                isFavourite: isFavourite,
-                              ),
-                            );
-                        setState(() {
-                          isFavourite = !isFavourite;
-                        });
-                      },
-                    );
-                  },
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Text(
-              AppLocalizations.of(context)!.ingredientListHeadline,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const SizedBox(height: 10),
-            IngredientList(
-              ingredients: widget.recipe.ingredients,
-              amountFactor: portionAmount / widget.recipe.defaultPortionAmount,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              AppLocalizations.of(context)!.instructionsHeadline,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const SizedBox(height: 10),
-            SizedBox(
-              width: double.infinity,
-              child: Card(
-                margin: const EdgeInsets.all(0),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Text(
-                    widget.recipe.instructions,
-                    style: Theme.of(context).textTheme.titleMedium,
+              const SizedBox(height: 10),
+              IngredientList(
+                ingredients: widget.recipe.ingredients,
+                amountFactor: portionAmount / widget.recipe.defaultPortionAmount,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                AppLocalizations.of(context)!.instructionsHeadline,
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              const SizedBox(height: 10),
+              SizedBox(
+                width: double.infinity,
+                child: Card(
+                  margin: const EdgeInsets.all(0),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Text(
+                      widget.recipe.instructions,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

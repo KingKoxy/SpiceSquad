@@ -20,21 +20,20 @@ class IngredientListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8, right: 6),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
         children: [
           Expanded(
             child: Row(
               children: [
-                SizedBox(
-                  width: 50,
-                  height: 50,
-                  child: Image.memory(
+                ImageIcon(
+                  MemoryImage(
                     ingredient.icon,
-                    color: Colors.white,
                   ),
+                  size: 30,
+                ),
+                const SizedBox(
+                  width: 8,
                 ),
                 Flexible(
                   flex: 2,

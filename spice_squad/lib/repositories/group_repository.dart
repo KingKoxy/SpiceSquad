@@ -61,6 +61,9 @@ class GroupRepository {
       }),
     );
     if (result.statusCode != 200) {
+      if (result.statusCode == 404) {
+        throw ArgumentError("GROUP_DOES_NOT_EXIST");
+      }
       throw Exception(result.body);
     }
   }

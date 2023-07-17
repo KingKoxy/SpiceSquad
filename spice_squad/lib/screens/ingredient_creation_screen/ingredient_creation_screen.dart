@@ -1,5 +1,6 @@
 import "dart:typed_data";
 import "package:flutter/material.dart";
+import "package:flutter/services.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:spice_squad/models/ingredient.dart";
 import "package:spice_squad/screens/ingredient_creation_screen/icon_picker_widget.dart";
@@ -33,7 +34,7 @@ class _IngredientCreationScreenState extends State<IngredientCreationScreen> {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.ingredientCreationHeadline),
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(32),
           child: Form(
@@ -71,12 +72,17 @@ class _IngredientCreationScreenState extends State<IngredientCreationScreen> {
                         },
                         controller: widget._amountController,
                         onChanged: (value) {
-                          if (double.tryParse(value) == null) {
+                          if (int.tryParse(value) == null) {
                             widget._amountController.text = "";
                           }
                         },
-                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                        decoration: InputDecoration(hintText: AppLocalizations.of(context)!.amountInputLabel),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp(r"[1-9]\d*")),
+                        ],
+                        maxLength: 3,
+                        keyboardType: TextInputType.number,
+                        decoration:
+                            InputDecoration(counterText: "", hintText: AppLocalizations.of(context)!.amountInputLabel),
                       ),
                     ),
                     const SizedBox(width: 10),

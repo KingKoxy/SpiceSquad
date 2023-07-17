@@ -588,5 +588,9 @@
   "clearFiltersButtonLabel": "Clear filters",
   "@clearFiltersButtonLabel": {
     "description": "The label for the clear filters button"
+  },
+  "groupCodeNotExistingError": "This group code does not exist",
+  "@groupCodeNotExistingError": {
+    "description": "The error message if the group code does not exist"
   }
 }
