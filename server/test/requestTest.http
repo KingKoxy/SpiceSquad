@@ -1,0 +1,367 @@
+@host = http://localhost:3000
+
+@contentType = application/json
+
+@idToken = eyJhbGciOiJSUzI1NiIsImtpZCI6IjE0ZWI4YTNiNjgzN2Y2MTU4ZWViNjA3NmU2YThjNDI4YTVmNjJhN2IiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vc3BpY2VzcXVhZC1mZDMyYSIsImF1ZCI6InNwaWNlc3F1YWQtZmQzMmEiLCJhdXRoX3RpbWUiOjE2ODk1OTYzNzAsInVzZXJfaWQiOiJVakdjaXduVnBEYU1hODNyRExTdnZNdWczQkYyIiwic3ViIjoiVWpHY2l3blZwRGFNYTgzckRMU3Z2TXVnM0JGMiIsImlhdCI6MTY4OTU5NjM3MCwiZXhwIjoxNjg5NTk5OTcwLCJlbWFpbCI6ImVycm9yY29kZTQ5MjIwMDJAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImVycm9yY29kZTQ5MjIwMDJAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.buntlEdI93qgcC5utOWaHcjzbeCDZO_75wk7RG5Ja1sKlUKJXIVHf68prgLbSnhL_gIZS7cVwt6iaVSTRP6ITBguqN4Ao6ZZ-TDVTRV_c8DdblBizn-bliSMkKabutWbQe7iaFCpAivaKppXT-ihj6YdVVop7GlT5L_PTWUVQxfeNKQdQC08LVR8o_j8B_78JE-sVt-oW1Kt4R5cUUdgleKHX48smaQOPr1_HUFu-6WXUrQEV10zLunmakXzu2JHyb8pBTCpuUHiz2ft9KG_bSvranRum6ZbNgf7zSCq-PtmZwE65lp7Vvszv-UzAlqQjX9REhH24gMPZzUW5BXm1A
+@refreshToken = APZUo0SDbxrtKbrOhZF_3KKlBy2kwnE9-kHgTNDNstaXpJP91UDiEOKji84uNtuuYouY4l1E5Yb4Dzgr5Hs88G-QluXFMOvO0wjHzYJY0WSDu_e7LgyF3hT8NOIi2gv9ME5XJXxKqPdr2ZvQFsscQjn0KL2FVx8HodqB574CpDw0suisbj_ZGxoHvVMj5ToDBkLThKzqNROfD-y9ct9K4rIhva_TMcbHQg
+
+@user_name = "Lukas"
+@email = "errorcode4922002@gmail.com"
+@password = "arischeZuppe"
+
+@groupId = 513a9ef2-3479-46a0-bc22-e6790c3a6283
+
+
+##### API-Requests
+
+
+#### AuthentificationController
+
+### Test a not existing route
+GET {{host}}/unknown
+Content-Type: {{contentType}}
+
+### Register new user
+POST {{host}}/auth/register
+Content-Type: {{contentType}}
+
+{
+    "userName": {{user_name}},
+    "email": {{email}},
+    "password": {{password}}
+}
+
+### Login user
+POST {{host}}/auth/login
+Content-Type: {{contentType}}
+
+{
+    "email": {{email}},
+    "password": {{password}}
+}
+
+### Reset password
+POST {{host}}/auth/resetPassword
+Content-Type: {{contentType}}
+
+    {
+        "email": "lukasschwarz@mailbox.org"
+    }
+
+### Refresh token
+GET {{host}}/auth/refreshToken
+Content-Type: {{contentType}}
+
+    {
+        "refreshToken": "APZUo0SDbxrtKbrOhZF_3KKlBy2kwnE9-kHgTNDNstaXpJP91UDiEOKji84uNtuuYouY4l1E5Yb4Dzgr5Hs88G-QluXFMOvO0wjHzYJY0WSDu_e7LgyF3hT8NOIi2gv9ME5XJXxKqPdr2ZvQFsscQjn0KL2FVx8HodqB574CpDw0suisbj_ZGxoHvVMj5ToDBkLThKzqNROfD-y9ct9K4rIhva_TMcbHQg"
+    }
+
+### Get user by token
+GET {{host}}/auth/user
+Content-Type: {{contentType}}
+    
+    {
+        "idToken": {{idToken}}
+    }
+
+
+
+#### GroupController
+
+### Create Group
+POST {{host}}/group
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+
+    {
+        "groupName": "Nazis töten"
+    }
+
+### Delete Group
+DELETE {{host}}/group/{{groupId}}
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+
+### Patch Group
+PATCH {{host}}/group/{{groupId}}
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+
+{
+    "group_id": "4506dff6-f758-4606-8eb9-a7e3e4b7d0ba",
+    "name": "Almanküche"
+}
+
+### Join group
+PATCH {{host}}/group/join
+Content-Type: application/json
+Authorization: {{idToken}}
+
+{
+    "groupId": "c9c2e14a-1152-4579-9520-d1ac94803451"
+}
+
+### Get Groups
+GET {{host}}/group
+Content-Type: application/json
+Authorization: {{idToken}}
+
+### Create recipe
+POST {{host}}/recipe
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+
+    {
+        "title": "Lauchkuchen",
+        "image": "https://www.chefkoch.de/rezepte/1138101211229911/Lauchkuchen.html",
+        "duration": "30",
+        "difficulty": "easy",
+        "ingredients": [
+            {
+                "name": "Tomato",
+                "iconName": "08b685d4-f076-4636-ac85-50225468f38c",
+                "amount": "2",
+                "unit": "pieces"
+            },
+            {
+                "name": "Salt",
+                "iconName": "08b685d4-f076-4636-ac85-50225468f38c",
+                "amount": "1",
+                "unit": "teaspoon"
+            }
+        ],
+        "instructions": "Lorem impsum dolor sit amet",
+        "isVegetarian": true,
+        "isVegan": false,
+        "isGlutenFree": false,
+        "isKosher": false,
+        "isHalal": false,
+        "isPrivate": false,
+        "defaultPortionAmount": "2"
+
+    }
+
+### Delete recipe
+DELETE {{host}}/recipe/5ad5693e-430b-463a-976d-c3cde4c865ee
+Content-Type: application/json
+Authorization: {{idToken}}
+
+{
+    "recipe_id": "7256d142-e775-4297-bcaa-981ba1a0ff47"
+}
+
+### Get recipe
+GET {{host}}/recipe/
+Content-Type: application/json
+Authorization: {{idToken}}
+
+
+### Update recipe
+Patch {{host}}/recipe/5ad5693e-430b-463a-976d-c3cde4c865ee
+Content-Type: application/json
+Authorization: {{idToken}}
+
+{
+    "recipe_id": "51f5ce1c-a224-48ba-b643-bd72d965aac9",
+    "title": "A updated recipe",
+    "image": "21",
+    "duration": "40",
+    "difficulty": "medium",
+    "ingredients": [
+        {
+            "name": "Tomato",
+            "icon_name": "ds",
+            "amount": "2",
+            "unit": "pieces"
+        },
+        {
+            "name": "Salt",
+            "icon_name": "fe",
+            "amount": "1",
+            "unit": "teaspoon"
+        }
+    ],
+    "instructions": "Lorem impsum dolor sit amet",
+    "is_vegetarian": true,
+    "is_vegan": false,
+    "is_gluten_free": false,
+    "is_kosher": false,
+    "is_halal": false,
+    "is_private": false,
+    "default_portions": "2"
+
+}
+
+### Delete Recipe
+DELETE {{host}}/recipe/5ad5693e-430b-463a-976d-c3cde4c865ee
+Content-Type: application/json
+Authorization: {{idToken}}
+
+{
+    "recipe_id": "7256d142-e775-4297-bcaa-981ba1a0ff47"
+}
+### Set recipe as favorite
+PATCH {{host}}/recipe/setFavorite/51f5ce1c-a224-48ba-b643-bd72d965aac9
+Content-Type: application/json
+Authorization: {{idToken}}
+
+{
+    "is_favorite": false
+}
+
+
+
+### Get Recipes
+GET {{host}}/recipe/4f98abae-2d0a-4e6b-8799-39bd184d8de8
+Content-Type: application/json
+Authorization: {{idToken}}
+
+### Create recipe
+POST {{host}}/recipe
+Content-Type: application/json
+Authorization: {{idToken}}
+
+{
+    "title": "Fils de pute",
+    "image": "22",
+    "duration": "30",
+    "difficulty": "easy",
+    "ingredients": [
+        {
+            "name": "Tomato",
+            "icon_name": "08b685d4-f076-4636-ac85-50225468f38c",
+            "amount": "2",
+            "unit": "pieces"
+        },
+        {
+            "name": "Salt",
+            "icon_name": "08b685d4-f076-4636-ac85-50225468f38c",
+            "amount": "1",
+            "unit": "teaspoon"
+        }
+    ],
+    "instructions": "8==D",
+    "is_vegetarian": true,
+    "is_vegan": false,
+    "is_gluten_free": false,
+    "is_kosher": false,
+    "is_halal": false,
+    "is_private": false,
+    "default_portions": "2"
+
+}
+
+### Delete recipe
+DELETE {{host}}/recipe/a23ae456-8d9a-4748-b6fd-2acd621eaa89
+Content-Type: application/json
+Authorization: {{idToken}}
+
+{
+    "recipe_id": "7eda6c37-c963-40a9-81c2-72b1382972b8"
+}
+
+### Get recipe
+GET {{host}}/recipe/29026783-e796-49b8-98b6-d6f198b453f0
+Content-Type: application/json
+Authorization: {{idToken}}
+
+
+### Update recipe
+Patch {{host}}/recipe/5ad5693e-430b-463a-976d-c3cde4c865ee
+Content-Type: application/json
+Authorization: {{idToken}}
+
+{
+    "recipe_id": "51f5ce1c-a224-48ba-b643-bd72d965aac9",
+    "title": "A updated recipe",
+    "image": "21",
+    "duration": "40",
+    "difficulty": "medium",
+    "ingredients": [
+        {
+            "name": "Tomato",
+            "icon_name": "08b685d4-f076-4636-ac85-50225468f38c",
+            "amount": "2",
+            "unit": "pieces"
+        },
+        {
+            "name": "Salt",
+            "icon_name": "08b685d4-f076-4636-ac85-50225468f38c",
+            "amount": "1",
+            "unit": "teaspoon"
+        }
+    ],
+    "instructions": "Lorem impsum dolor sit amet",
+    "is_vegetarian": true,
+    "is_vegan": false,
+    "is_gluten_free": false,
+    "is_kosher": false,
+    "is_halal": false,
+    "is_private": false,
+    "default_portions": "2"
+
+}
+
+### Set recipe as favorite
+PATCH {{host}}/recipe/setFavorite/51f5ce1c-a224-48ba-b643-bd72d965aac9
+Content-Type: application/json
+Authorization: {{idToken}}
+
+{
+    "is_favorite": false
+}
+
+### Censor recipe
+PATCH {{host}}/admin/setCensored
+Content-Type: application/json
+Authorization: {{idToken}}
+
+{
+    "recipe_id": "d955d656-eed1-49f0-a5e9-9d1fb351023a",
+    "group_id": "0913092b-efda-493f-8351-74e06d4a28d3"
+}
+
+### Make Admin
+PATCH {{host}}/admin/makeAdmin
+Content-Type: application/json
+Authorization: {{idToken}}
+
+{
+    "target_id": "4f98abae-2d0a-4e6b-8799-39bd184d8de8",
+    "group_id": "8c7e55e4-7602-4a39-8ed1-6286d20bd6ff"
+}
+
+### Remove Admin
+PATCH {{host}}/admin/removeAdmin
+Content-Type: application/json
+Authorization: {{idToken}}
+
+{
+    "target_id": "4f98abae-2d0a-4e6b-8799-39bd184d8de8",
+    "group_id": "8c7e55e4-7602-4a39-8ed1-6286d20bd6ff"
+}
+
+### Kick user
+PATCH {{host}}/admin/kickUser
+Content-Type: application/json
+Authorization: {{idToken}}
+
+{
+    "user_id": "020496fe-a9cc-4b02-b02b-9502ff1c747b",
+    "group_id": "8c7e55e4-7602-4a39-8ed1-6286d20bd6ff"
+}
+
+### Ban user
+PATCH {{host}}/admin/banUser
+Content-Type: application/json
+Authorization: {{idToken}}
+
+{
+    "target_id": "4f98abae-2d0a-4e6b-8799-39bd184d8de8",
+    "group_id": "7783b2b1-3a83-4534-9954-79bed3147ddf"
+}
+
+### Refresh user
+GET {{host}}/auth/refreshToken
+Content-Type: application/json
+Authorization: {{idToken}}

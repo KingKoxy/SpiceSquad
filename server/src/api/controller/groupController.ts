@@ -344,17 +344,72 @@ export default class GroupController extends AbstractController {
    * @returns Promise<void>
    */
   public async groupGetById(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
-    this.prisma.group
-      .findMany({
+    const groupDetails =  (await this.prisma.group
+      .findUnique({
         where: {
           id: req.params.groupId,
         },
-      })
-      .then((result) => {
-        res.status(200).json(result)
-      })
-      .catch((error) => {
-        next(error)
+      }))
+
+      const members = (await this.prisma.groupMember.findMany({
+        where: {  
+          group_id: req.params.groupId
+        }
+      })).map((member) => member.user_id);
+
+      const admins = (await this.prisma.admin.findMany({
+        where: {
+          group_id: req.params.groupId
+        },
+      })).map((admin) => admin.user_id);
+
+      const users = (await this.prisma.user.findMany({
+        where: {
+          id: {
+            in: members
+          }
+        }
+      })).map((user) => {
+        return {
+          id: user.id,
+          username: user.user_name,
+          email: user.email,
+          isAdmin: admins.includes(user.id) 
+        }
+      }
+      )
+
+      const censoredRecipeIds = (await this.prisma.censoredRecipe.findMany({
+        where: {
+          group_id: req.params.groupId
+        }
+      })).map((censoredRecipe) => censoredRecipe.recipe_id);
+
+      const recipes = await Promise.all((await this.prisma.recipe.findMany({
+        where: {
+          author_id: {
+            in: members
+          }
+        }
+
+      })).map(async (recipe) => {
+        const ingredients = await this.prisma.ingredient.findMany({
+          where: {
+            recipe_id: recipe.id,
+          },
+        })
+
+        return {
+          ...recipe,
+          ingredients: ingredients,
+          isCensored: censoredRecipeIds.includes(recipe.id)
+        }
+      }))
+      res.status(200).json({
+        id: groupDetails.id,
+        name: groupDetails.name,
+        users: users,
+        recipes: recipes
       })
   }
 }
