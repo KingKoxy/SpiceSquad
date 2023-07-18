@@ -113,6 +113,9 @@ class GroupCreationScreen extends ConsumerWidget {
     if (groupCode == null || groupCode.isEmpty) {
       return AppLocalizations.of(context)!.squadNameEmptyError;
     }
+    if (groupCode.length > 32) {
+      return AppLocalizations.of(context)!.groupCodeTooLongError;
+    }
     return null;
   }
 

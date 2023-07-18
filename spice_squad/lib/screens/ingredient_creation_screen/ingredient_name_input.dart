@@ -14,7 +14,8 @@ class IngredientNameInput extends ConsumerStatefulWidget {
   const IngredientNameInput({required this.controller, super.key});
 
   @override
-  ConsumerState<IngredientNameInput> createState() => _IngredientNameInputState();
+  ConsumerState<IngredientNameInput> createState() =>
+      _IngredientNameInputState();
 }
 
 class _IngredientNameInputState extends ConsumerState<IngredientNameInput> {
@@ -26,11 +27,17 @@ class _IngredientNameInputState extends ConsumerState<IngredientNameInput> {
       children: [
         TextFormField(
           validator: (value) {
-            if (value == null || value.isEmpty) return AppLocalizations.of(context)!.ingredientNameEmptyError;
+            if (value == null || value.isEmpty) {
+              return AppLocalizations.of(context)!.ingredientNameEmptyError;
+            }
+            if (value.length > 32) {
+              return AppLocalizations.of(context)!.ingredientTooLongError;
+            }
             return null;
           },
           controller: widget.controller,
-          decoration: InputDecoration(hintText: AppLocalizations.of(context)!.ingredientNameInputLabel),
+          decoration: InputDecoration(
+              hintText: AppLocalizations.of(context)!.ingredientNameInputLabel),
           onChanged: (value) {
             setState(() {
               _searchText = value;
@@ -42,12 +49,16 @@ class _IngredientNameInputState extends ConsumerState<IngredientNameInput> {
         ),
         //Shows the suggestions
         FutureBuilder(
-          future: ref.watch(ingredientNameRepositoryProvider).fetchIngredientNames(),
+          future: ref
+              .watch(ingredientNameRepositoryProvider)
+              .fetchIngredientNames(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               // Search for matches and show in grid
-              final List<String> filteredNames =
-                  snapshot.data!.where((element) => element.toLowerCase().contains(_searchText.toLowerCase())).toList();
+              final List<String> filteredNames = snapshot.data!
+                  .where((element) =>
+                      element.toLowerCase().contains(_searchText.toLowerCase()))
+                  .toList();
               return GridView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 padding: EdgeInsets.zero,
@@ -71,8 +82,9 @@ class _IngredientNameInputState extends ConsumerState<IngredientNameInput> {
                       child: Container(
                         alignment: Alignment.center,
                         padding: const EdgeInsets.all(5),
-                        decoration:
-                            BoxDecoration(color: Theme.of(context).cardColor, borderRadius: BorderRadius.circular(5)),
+                        decoration: BoxDecoration(
+                            color: Theme.of(context).cardColor,
+                            borderRadius: BorderRadius.circular(5)),
                         child: AutoSizeText(
                           filteredNames[index],
                           minFontSize: 8,

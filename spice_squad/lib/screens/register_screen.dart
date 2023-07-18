@@ -191,6 +191,9 @@ class RegisterScreen extends ConsumerWidget {
     if (userName == null || userName.isEmpty) {
       return AppLocalizations.of(context)!.userNameEmptyError;
     }
+    if (userName.length > 32) {
+      return AppLocalizations.of(context)!.userNameTooLongError;
+    }
     return null;
   }
 
