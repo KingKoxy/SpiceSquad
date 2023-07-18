@@ -67,10 +67,6 @@ export default class Application {
   }
 
   private initializeRoutes(): void {
-    this.app.get('/', (req: express.Request, res: express.Response, next: express.NextFunction) => {
-      console.log(req.body);
-      next();
-    });
     this.app.use('/auth', this.authenticationRoutes.getRouter())
     this.app.use('/recipe', this.recipeRoutes.getRouter())
     this.app.use('/group', this.groupRoutes.getRouter())
@@ -92,6 +88,7 @@ export default class Application {
           message: error.message,
           stack: process.env.NODE_ENV === 'development' ? error.stack : undefined,
         },
+        requestBody: req.body
       })
     })
   }

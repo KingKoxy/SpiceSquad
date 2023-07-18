@@ -61,16 +61,12 @@ export default class UserController extends AbstractController {
       {
         name: string
         email: string
-        profileImage: Uint8Array
+        profileImage: Uint8Array | null
       }
     >,
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
-    let bufferImage: Buffer
-    if (req.body.profileImage) {
-      bufferImage = Buffer.from(req.body.profileImage)
-    }
     const user = await this.prisma.user
       .update({
         where: {
@@ -79,7 +75,7 @@ export default class UserController extends AbstractController {
         data: {
           user_name: req.body.name || undefined,
           email: req.body.email || undefined,
-          profile_image: bufferImage || undefined,
+          profile_image: req.body.profileImage?Buffer.from(req.body.profileImage):null || undefined,
         },
       })
       .catch((error) => {

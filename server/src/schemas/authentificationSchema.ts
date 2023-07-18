@@ -27,5 +27,4 @@ export const refreshTokenSchema = Joi.object({
 
 //Specify the schema for the logout route
 export const logoutSchema = Joi.object({
-  userId: userId.required(),
 }).unknown(true);

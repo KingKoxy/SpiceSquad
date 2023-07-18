@@ -30,7 +30,7 @@ export default class RecipeController extends AbstractController {
   }
 
   /**
-   * @description This function gets all recipes.
+   * @description This function posts a recipe.
    * @param req Express request handler
    * @param res Express response handler
    * @returns Promise<void>
@@ -59,14 +59,15 @@ export default class RecipeController extends AbstractController {
         }[]
       }
     >,
-    res: express.Response
+    res: express.Response,
+    next: express.NextFunction
   ): Promise<void> {
     await this.prisma.recipe
       .create({
         data: {
           title: req.body.title,
           author_id: req.userId,
-          image: req.body.image?Buffer.from(req.body.image):null,
+          image: req.body.image? Buffer.from(req.body.image):null,
           duration: req.body.duration,
           difficulty: req.body.difficulty,
           instructions: req.body.instructions,
@@ -98,6 +99,10 @@ export default class RecipeController extends AbstractController {
         res.status(200).json({
           message: 'Recipe created successfully!',
         })
+      })
+      .catch((error) => {
+        req.statusCode = 400 // TODO change
+        next(error)
       })
   }
 
@@ -162,7 +167,7 @@ export default class RecipeController extends AbstractController {
       never,
       {
         title: string
-        image: Uint8Array
+        image: Uint8Array | null
         duration: number
         difficulty: 'EASY' | 'MEDIUM' | 'HARD'
         instructions: string
@@ -202,26 +207,26 @@ export default class RecipeController extends AbstractController {
           id: req.params.recipeId,
         },
         data: {
-          title: req.body.title || undefined,
-          image: Buffer.from(req.body.image),
-          duration: req.body.duration || undefined,
-          difficulty: req.body.difficulty || undefined,
-          instructions: req.body.instructions || undefined,
-          is_vegetarian: req.body.isVegetarian || undefined,
-          is_vegan: req.body.isVegan || undefined,
-          is_gluten_free: req.body.isGlutenFree || undefined,
-          is_kosher: req.body.isKosher || undefined,
-          is_halal: req.body.isHalal || undefined,
-          is_private: req.body.isPrivate || undefined,
-          default_portions: req.body.defaultPortionAmount || undefined,
+          title: req.body.title,
+          image: req.body.image? Buffer.from(req.body.image):null,
+          duration: req.body.duration,
+          difficulty: req.body.difficulty,
+          instructions: req.body.instructions,
+          is_vegetarian: req.body.isVegetarian,
+          is_vegan: req.body.isVegan,
+          is_gluten_free: req.body.isGlutenFree,
+          is_kosher: req.body.isKosher,
+          is_halal: req.body.isHalal,
+          is_private: req.body.isPrivate,
+          default_portions: req.body.defaultPortionAmount,
           ingredient: {
             createMany: {
               data: req.body.ingredients.map((ingredient) => {
                 return {
-                  name: ingredient.name || undefined,
-                  icon: Buffer.from(ingredient.icon) || undefined,
-                  amount: ingredient.amount || undefined,
-                  unit: ingredient.unit || undefined,
+                  name: ingredient.name,
+                  icon: Buffer.from(ingredient.icon),
+                  amount: ingredient.amount,
+                  unit: ingredient.unit,
                 }
               }),
             },

@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import { userName } from './generalSchema'
 
-const profileImage = Joi.string().allow(null)
+const profileImage = Joi.array().allow(null)
 const email = Joi.string().email()
 const token = Joi.string().required()
 

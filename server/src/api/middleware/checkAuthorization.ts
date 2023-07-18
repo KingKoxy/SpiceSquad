@@ -50,7 +50,6 @@ export default class CheckAuthorization extends AbstractMiddleware {
       .verifyIdToken(token)
       .then(async (decodedToken) => {
         uid = decodedToken.uid
-        console.log(uid)
         await this.prisma.user
           .findUnique({
             where: {
@@ -58,7 +57,7 @@ export default class CheckAuthorization extends AbstractMiddleware {
             },
           })
           .then((user) => {
-            console.log(user)
+            process.env.NODE_ENV === 'development' ? console.log(user): null
             req.userId = user.id
           })
         next()

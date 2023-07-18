@@ -1,5 +1,6 @@
 import AuthenticationController from '../controller/authenticationController'
 import AbstractRouter from './abstractRouter'
+import CheckAdminStatus from '../middleware/checkAdminStatus'
 import {
   registerSchema,
   loginSchema,
@@ -18,6 +19,8 @@ import {
  */
 export default class AuthenticationRouter extends AbstractRouter {
   protected Controller: AuthenticationController
+  protected CheckAdminStatus: CheckAdminStatus
+  protected checkAdmin: any
 
   /**
    * @constructor
@@ -29,6 +32,8 @@ export default class AuthenticationRouter extends AbstractRouter {
   constructor() {
     super()
     this.Controller = new AuthenticationController()
+    this.CheckAdminStatus = new CheckAdminStatus()
+    this.checkAdmin = this.CheckAdminStatus.checkAdminStatus.bind(this.CheckAdminStatus)
     this.setupRoutes()
   }
 
@@ -61,8 +66,9 @@ export default class AuthenticationRouter extends AbstractRouter {
       this.schemaValidator.checkSchema(refreshTokenSchema),
       this.Controller.userRefreshToken.bind(this.Controller)
     )
-    this.router.get(
+    this.router.post(
       '/logout',
+      this.checkAuth,
       this.schemaValidator.checkSchema(logoutSchema),
       this.Controller.userLogout.bind(this.Controller)
     )
