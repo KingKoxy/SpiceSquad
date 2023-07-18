@@ -572,5 +572,61 @@
   "instructionsInputLabel": "Instructions",
   "@instructionsInputLabel": {
     "description": "The label for the instructions input"
+  },
+  "pdfRecipeViewHeadline": "PDF of {recipeTitle}",
+  "@pdfRecipeViewHeadline": {
+    "description": "The headline of the pdf preview for a recipe",
+    "placeholders": {
+      "recipeTitle": {
+      "type": "String",
+      "content": "{recipeTitle}",
+      "example": "Pizza",
+      "description": "The title of the recipe"
+    }
+    }
+  },
+  "pdfSaveSuccess": "Save successfully",
+  "@pdfSaveSuccess": {
+    "description": "The message that saving the PDF was successful"
+  },
+  "pdfShareSuccess": "Share successfully",
+  "@pdfShareSuccess": {
+    "description": "The message that sharing the PDF was successful"
+  },
+  "defaultPortions": "Ingredients for {defaultPortionAmount} servings:",
+  "@defaultPortions": {
+    "description": "The description for how many servings the ingredients have been calculated",
+    "placeholders": {
+    "defaultPortionAmount": {
+      "type": "int",
+      "content": "{defaultPortionAmount}",
+      "example": "4",
+      "description": "The amount of portions"
+    }
+  }
+  },
+  "recipeAuthor": "Recipe by: {author}",
+  "@recipeAuthor": {
+    "description": "The description of who created the recipe",
+    "placeholders": {
+      "author": {
+        "type": "String",
+        "content": "{author}",
+        "example": "Heinrich",
+        "description": "The name of the author"
+      }
+    }
+  },
+  "labels": "Labels",
+  "@labels": {
+    "description": "The Category for the Labels"
+  },
+  "difficulty": "Difficulty",
+  "@difficulty": {
+    "description": "The Category for the difficulty"
+  },
+  "totalTime": "Total Time",
+  "@totalTime": {
+    "description": "The Category for the preparation time"
   }
 }

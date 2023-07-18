@@ -131,4 +131,12 @@
   "unitTooLongError": "Der Name der Einheit darf nur 16 Zeichen lang sein",
   "ingredientTooLongError": "Der Name der Zutat darf nur 32 Zeichen lang sein",
   "titleTooLongError": "Der Titel darf nur 64 Zeichen lang sein"
+  "pdfRecipeViewHeadline": "PDF von {recipeTitle}",
+  "pdfSaveSuccess": "Speichern erfolgreich",
+  "pdfShareSuccess": "Teilen erfolgreich",
+  "defaultPortions": "Zutaten für {defaultPortionAmount} Portionen:",
+  "recipeAuthor": "Rezept von: {author}",
+  "labels": "Labels",
+  "difficulty": "Schwierigkeitsgrad",
+  "totalTime": "Zeitaufwand"
 }
