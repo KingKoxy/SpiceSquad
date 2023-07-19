@@ -34,7 +34,6 @@ class _DifficultyPickerWidgetState extends State<DifficultyPickerWidget> {
       height: double.infinity,
       child: InkWell(
         child: TagItem(
-          margin: EdgeInsets.zero,
           image: SpiceSquadIconImages.flame,
           name: _difficulty.getName(context),
         ),

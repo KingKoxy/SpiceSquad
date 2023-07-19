@@ -67,6 +67,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     TagItem(image: SpiceSquadIconImages.person, name: widget.recipe.author.userName),
+                    const SizedBox(width: 8),
                     TagItem(
                       image: SpiceSquadIconImages.calendar,
                       name:
@@ -75,10 +76,11 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                   ],
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 16),
               SizedBox(
                 height: 200,
                 child: Card(
+                  margin: EdgeInsets.zero,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                   color: Theme.of(context).colorScheme.onSurface,
                   child: ClipRRect(
@@ -96,9 +98,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 16),
               LabelList(recipe: widget.recipe),
-              const SizedBox(height: 10),
+              const SizedBox(height: 16),
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

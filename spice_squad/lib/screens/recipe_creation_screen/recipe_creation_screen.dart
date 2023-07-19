@@ -1,4 +1,3 @@
-import "dart:typed_data";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
@@ -120,11 +119,17 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
                         initialActive: _isVegetarian,
                         onChanged: (value) => _isVegetarian = value,
                       ),
+                      const SizedBox(
+                        width: 8,
+                      ),
                       ToggleableLabelWidget(
                         image: SpiceSquadIconImages.avocado,
                         name: AppLocalizations.of(context)!.labelVegan,
                         initialActive: _isVegan,
                         onChanged: (value) => _isVegan = value,
+                      ),
+                      const SizedBox(
+                        width: 8,
                       ),
                       ToggleableLabelWidget(
                         image: SpiceSquadIconImages.glutenFree,
@@ -132,11 +137,17 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
                         initialActive: _isGlutenFree,
                         onChanged: (value) => _isGlutenFree = value,
                       ),
+                      const SizedBox(
+                        width: 8,
+                      ),
                       ToggleableLabelWidget(
                         image: SpiceSquadIconImages.islam,
                         name: AppLocalizations.of(context)!.labelHalal,
                         initialActive: _isHalal,
                         onChanged: (value) => _isHalal = value,
+                      ),
+                      const SizedBox(
+                        width: 8,
                       ),
                       ToggleableLabelWidget(
                         image: SpiceSquadIconImages.judaism,
