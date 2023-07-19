@@ -60,7 +60,7 @@ export default class Application {
       this.app.use(morgan('dev'))
     }
     try {
-      this.app.use(express.json())
+      this.app.use(express.json({limit: '50mb'}));
     } catch (error) {
       console.log(error)
     }
