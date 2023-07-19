@@ -70,8 +70,7 @@ class RecipeCreationData {
       "ingredients": ingredients.map<Map<String, dynamic>>((i) => i.toMap()).toList(),
       "instructions": instructions,
       "defaultPortionAmount": defaultPortionAmount,
-      "image": image,
-      "isPrivate": false,
+      "image": image
     };
   }
 }

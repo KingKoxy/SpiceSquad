@@ -103,4 +103,17 @@ class Recipe extends RecipeCreationData {
       uploadDate: uploadDate,
     );
   }
+
+  /// Converts this [Recipe] to a [Map] object by inserting the values
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      ...super.toMap(),
+      "id": id,
+      "author": author.toMap(),
+      "uploadDate": uploadDate.toIso8601String(),
+      "isFavourite": isFavourite,
+      "isPrivate": isPrivate,
+    };
+  }
 }

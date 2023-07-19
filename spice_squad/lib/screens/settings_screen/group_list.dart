@@ -40,6 +40,7 @@ class GroupList extends ConsumerWidget {
         // Fetch groups from database
         ref.watch(groupServiceProvider).when(
           data: (groups) {
+            groups.sort((Group a, Group b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
             return Card(
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
               child: groups.isNotEmpty

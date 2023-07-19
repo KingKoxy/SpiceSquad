@@ -3,6 +3,8 @@ import "dart:typed_data";
 /// Model for an ingredient
 class Ingredient {
   /// The id of the ingredient
+  ///
+  /// If the ingredient is not yet saved in the database, the id is an empty string
   final String id;
 
   /// The name of the ingredient
@@ -40,7 +42,7 @@ class Ingredient {
   /// Converts this [Ingredient] to a [Map] object by inserting the values
   Map<String, dynamic> toMap() {
     return {
-      "id": "ingredient.id",
+      "id": id,
       "name": name,
       "icon": icon,
       "amount": amount,

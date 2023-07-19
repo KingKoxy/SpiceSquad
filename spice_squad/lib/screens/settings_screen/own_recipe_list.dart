@@ -40,6 +40,9 @@ class OwnRecipeList extends ConsumerWidget {
             // Filter for own recipes.
             final ownRecipes =
                 recipes.where((recipe) => recipe.author.id == ref.watch(userRepositoryProvider).getUserId()).toList();
+            ownRecipes.sort(
+              (Recipe a, Recipe b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()),
+            );
             return Card(
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
               child: ownRecipes.isNotEmpty
