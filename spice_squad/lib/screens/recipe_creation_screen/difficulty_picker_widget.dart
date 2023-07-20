@@ -32,11 +32,9 @@ class _DifficultyPickerWidgetState extends State<DifficultyPickerWidget> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: double.infinity,
-      child: InkWell(
         child: TagItem(
           image: SpiceSquadIconImages.flame,
           name: _difficulty.getName(context),
-        ),
         onTap: () => _showDifficultyPickerDialog(context),
       ),
     );

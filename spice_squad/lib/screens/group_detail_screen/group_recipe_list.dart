@@ -22,7 +22,7 @@ class GroupRecipeList extends ConsumerWidget {
       {required this.groupId,
       required this.recipes,
       required this.isAdmin,
-      super.key});
+      super.key,});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -58,7 +58,7 @@ class GroupRecipeList extends ConsumerWidget {
                     final recipe = recipes[index];
                     return Padding(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 8, horizontal: 16),
+                          vertical: 8, horizontal: 16,),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -93,7 +93,7 @@ class GroupRecipeList extends ConsumerWidget {
                             onToggle: () {
                               _toggleCensored(
                                   ref.read(groupServiceProvider.notifier),
-                                  recipe);
+                                  recipe,);
                             },
                           )
                         ],

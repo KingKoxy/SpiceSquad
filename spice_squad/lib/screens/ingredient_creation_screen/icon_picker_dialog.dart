@@ -31,6 +31,7 @@ class IconPickerDialog extends ConsumerWidget {
                 itemCount: icons.length,
                 itemBuilder: (context, index) {
                   return InkWell(
+                    borderRadius: BorderRadius.circular(10),
                     onTap: () {
                       Navigator.of(context).pop();
                       onChanged(icons[index]);

@@ -67,23 +67,28 @@ class _IngredientNameInputState extends ConsumerState<IngredientNameInput> {
                 itemCount: min(filteredNames.length, 12),
                 itemBuilder: (context, index) {
                   return GridTile(
-                    child: InkWell(
-                      onTap: () {
-                        widget.controller.text = filteredNames[index];
-                        setState(() {
-                          _searchText = filteredNames[index];
-                        });
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.all(5),
-                        decoration:
-                            BoxDecoration(color: Theme.of(context).cardColor, borderRadius: BorderRadius.circular(5)),
-                        child: AutoSizeText(
-                          filteredNames[index],
-                          minFontSize: 8,
-                          maxLines: 1,
-                          style: Theme.of(context).textTheme.titleSmall,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      margin: EdgeInsets.zero,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(10),
+                        onTap: () {
+                          widget.controller.text = filteredNames[index];
+                          setState(() {
+                            _searchText = filteredNames[index];
+                          });
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.all(5),
+                          child: AutoSizeText(
+                            filteredNames[index],
+                            minFontSize: 8,
+                            maxLines: 1,
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
                         ),
                       ),
                     ),

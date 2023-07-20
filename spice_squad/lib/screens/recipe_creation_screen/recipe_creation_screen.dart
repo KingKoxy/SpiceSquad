@@ -12,10 +12,10 @@ import "package:spice_squad/screens/main_screen/main_screen.dart";
 import "package:spice_squad/screens/recipe_creation_screen/difficulty_picker_widget.dart";
 import "package:spice_squad/screens/recipe_creation_screen/image_picker_widget.dart";
 import "package:spice_squad/screens/recipe_creation_screen/ingredient_list.dart";
-import "package:spice_squad/screens/recipe_creation_screen/toggleable_label_widget.dart";
 import "package:spice_squad/services/recipe_service.dart";
 import "package:spice_squad/widgets/nav_bar.dart";
 import "package:spice_squad/widgets/portion_amount_field.dart";
+import "package:spice_squad/widgets/tag_item.dart";
 
 /// Screen for creating a new recipe
 class RecipeCreationScreen extends StatefulWidget {
@@ -67,6 +67,11 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
   }
 
   @override
+  void setState(VoidCallback fn) {
+    if (mounted) super.setState(fn);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -100,7 +105,7 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
                     if (value == null || value.isEmpty) {
                       return AppLocalizations.of(context)!.titleEmptyError;
                     }
-                    if(value.length > 64){
+                    if (value.length > 64) {
                       return AppLocalizations.of(context)!.titleTooLongError;
                     }
                     return null;
@@ -116,47 +121,47 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      ToggleableLabelWidget(
+                      TagItem(
                         image: SpiceSquadIconImages.cheese,
                         name: AppLocalizations.of(context)!.labelVegetarian,
                         initialActive: _isVegetarian,
-                        onChanged: (value) => _isVegetarian = value,
+                        onToggle: (value) => _isVegetarian = value,
                       ),
                       const SizedBox(
                         width: 8,
                       ),
-                      ToggleableLabelWidget(
+                      TagItem(
                         image: SpiceSquadIconImages.avocado,
                         name: AppLocalizations.of(context)!.labelVegan,
                         initialActive: _isVegan,
-                        onChanged: (value) => _isVegan = value,
+                        onToggle: (value) => _isVegan = value,
                       ),
                       const SizedBox(
                         width: 8,
                       ),
-                      ToggleableLabelWidget(
+                      TagItem(
                         image: SpiceSquadIconImages.glutenFree,
                         name: AppLocalizations.of(context)!.labelGlutenFree,
                         initialActive: _isGlutenFree,
-                        onChanged: (value) => _isGlutenFree = value,
+                        onToggle: (value) => _isGlutenFree = value,
                       ),
                       const SizedBox(
                         width: 8,
                       ),
-                      ToggleableLabelWidget(
+                      TagItem(
                         image: SpiceSquadIconImages.islam,
                         name: AppLocalizations.of(context)!.labelHalal,
                         initialActive: _isHalal,
-                        onChanged: (value) => _isHalal = value,
+                        onToggle: (value) => _isHalal = value,
                       ),
                       const SizedBox(
                         width: 8,
                       ),
-                      ToggleableLabelWidget(
+                      TagItem(
                         image: SpiceSquadIconImages.judaism,
                         name: AppLocalizations.of(context)!.labelKosher,
                         initialActive: _isKosher,
-                        onChanged: (value) => _isKosher = value,
+                        onToggle: (value) => _isKosher = value,
                       ),
                     ],
                   ),
@@ -279,7 +284,9 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
                         }
                       },
                       child: _isLoading
-                          ? const CircularProgressIndicator(color: Colors.white,)
+                          ? const CircularProgressIndicator(
+                              color: Colors.white,
+                            )
                           : Text(AppLocalizations.of(context)!.saveButtonLabel),
                     ),
                   ),

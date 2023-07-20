@@ -6,13 +6,12 @@ import "package:spice_squad/icons.dart";
 import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/providers/repository_providers.dart";
 import "package:spice_squad/providers/service_providers.dart";
+import "package:spice_squad/screens/pdf_recipe_page.dart";
 import "package:spice_squad/screens/recipe_creation_screen/recipe_creation_screen.dart";
 import "package:spice_squad/services/recipe_service.dart";
 import "package:spice_squad/widgets/approval_dialog.dart";
 import "package:spice_squad/widgets/eye_button.dart";
 import "package:spice_squad/widgets/remove_button.dart";
-
-import "../pdf_recipe_page.dart";
 
 /// Widget for displaying a list of recipes the user has created
 class OwnRecipeList extends ConsumerWidget {
