@@ -105,5 +105,5 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.PLAYSTORE_ACCOUNT_KEY }}
           packageName: com.karlsruher_intellektuelle.spice_squad
           releaseFiles: app-release.aab
-          track: alpha
+          track: internal
           status: completed
