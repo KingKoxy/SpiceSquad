@@ -10,7 +10,7 @@
 @email = "lukasschwarz7@mail.com"
 @password = "12345678"
 
-@groupId = 44d529eb-909e-4a99-a479-a3e41b65d21a
+@groupId = c9c2e14a-1152-4579-9520-d1ac94803451
 
 @userId = 8LnkOTK2uqavsL22CqvfywzyFlm2
 
@@ -78,7 +78,7 @@ Content-Type: {{contentType}}
 Authorization: {{idToken}}
 
     {
-        "groupName": "Trap House Kitchen"
+        "groupName": "Koreanischer KochKlub"
     }
 
 ### Delete Group
@@ -101,7 +101,7 @@ Content-Type: {{contentType}}
 Authorization: {{idToken}}
 
     {
-        "groupCode": "12HL2GQP"
+        "groupCode": "UGPQMY2K"
     }
 
 
