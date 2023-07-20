@@ -10,6 +10,7 @@ import "package:spice_squad/screens/ingredient_creation_screen/ingredient_creati
 import "package:spice_squad/screens/login_screen.dart";
 import "package:spice_squad/screens/main_screen/main_screen.dart";
 import "package:spice_squad/screens/password_reset_screen.dart";
+import "package:spice_squad/screens/pdf_recipe_page.dart";
 import "package:spice_squad/screens/qr_code_screen.dart";
 import "package:spice_squad/screens/qr_scanner_screen.dart";
 import "package:spice_squad/screens/recipe_creation_screen/recipe_creation_screen.dart";
@@ -104,6 +105,12 @@ class SpiceSquad extends StatelessWidget {
             case RecipeDetailScreen.routeName:
               return MaterialPageRoute(
                 builder: (context) => RecipeDetailScreen(
+                  recipe: settings.arguments as Recipe,
+                ),
+              );
+            case PdfRecipeViewPage.routeName:
+              return MaterialPageRoute(
+                builder: (context) => PdfRecipeViewPage(
                   recipe: settings.arguments as Recipe,
                 ),
               );

@@ -21,8 +21,10 @@ dependencies:
   intl: any
   jwt_decoder: ^2.0.1
   mobile_scanner: ^3.3.0
+  open_file: ^3.3.2
   path_provider: ^2.0.15
   pdf: ^3.10.4
+  printing: ^5.11.0
   qr_flutter: ^4.1.0
   share_plus: ^7.0.2
   shared_preferences: ^2.2.0

@@ -100,12 +100,14 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
                     if (value == null || value.isEmpty) {
                       return AppLocalizations.of(context)!.titleEmptyError;
                     }
+                    if(value.length > 64){
+                      return AppLocalizations.of(context)!.titleTooLongError;
+                    }
                     return null;
                   },
-                  maxLength: 64,
                   initialValue: _title,
                   onChanged: (value) => _title = value,
-                  decoration: InputDecoration(counterText: "", hintText: AppLocalizations.of(context)!.titleInputLabel),
+                  decoration: InputDecoration(hintText: AppLocalizations.of(context)!.titleInputLabel),
                 ),
                 const SizedBox(
                   height: 16,

@@ -12,6 +12,8 @@ import "package:spice_squad/widgets/approval_dialog.dart";
 import "package:spice_squad/widgets/eye_button.dart";
 import "package:spice_squad/widgets/remove_button.dart";
 
+import "../pdf_recipe_page.dart";
+
 /// Widget for displaying a list of recipes the user has created
 class OwnRecipeList extends ConsumerWidget {
   /// Creates a new own recipe list
@@ -75,7 +77,8 @@ class OwnRecipeList extends ConsumerWidget {
                                   children: [
                                     IconButton(
                                       splashRadius: 24,
-                                      onPressed: () => _exportRecipe(ref.read(recipeServiceProvider.notifier), recipe),
+                                      onPressed: () =>
+                                          Navigator.of(context).pushNamed(PdfRecipeViewPage.routeName, arguments: recipe),
                                       icon: const ImageIcon(SpiceSquadIconImages.export),
                                     ),
                                     EyeButton(
@@ -116,10 +119,6 @@ class OwnRecipeList extends ConsumerWidget {
 
   void _hideRecipe(RecipeService recipeService, Recipe recipe) {
     recipeService.togglePrivate(recipe);
-  }
-
-  void _exportRecipe(RecipeService recipeService, Recipe recipe) {
-    recipeService.exportRecipe(recipe);
   }
 
   void _deleteRecipe(BuildContext context, RecipeService recipeService, Recipe recipe) {

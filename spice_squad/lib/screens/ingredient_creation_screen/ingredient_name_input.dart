@@ -26,13 +26,16 @@ class _IngredientNameInputState extends ConsumerState<IngredientNameInput> {
       children: [
         TextFormField(
           validator: (value) {
-            if (value == null || value.isEmpty) return AppLocalizations.of(context)!.ingredientNameEmptyError;
+            if (value == null || value.isEmpty) {
+              return AppLocalizations.of(context)!.ingredientNameEmptyError;
+            }
+            if (value.length > 32) {
+              return AppLocalizations.of(context)!.ingredientTooLongError;
+            }
             return null;
           },
-          maxLength: 32,
           controller: widget.controller,
-          decoration:
-              InputDecoration(counterText: "", hintText: AppLocalizations.of(context)!.ingredientNameInputLabel),
+          decoration: InputDecoration(hintText: AppLocalizations.of(context)!.ingredientNameInputLabel),
           onChanged: (value) {
             setState(() {
               _searchText = value;

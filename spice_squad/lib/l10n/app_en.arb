@@ -55,6 +55,10 @@
   "@userNameEmptyError": {
     "description": "The error message if the name field is empty"
   },
+  "userNameTooLongError": "The user name can be only 32 characters long",
+  "@userNameTooLongError": {
+    "description": "The error message if the user name is too long"
+  },
   "passwordEmptyError": "Please enter a password",
   "@passwordEmptyError": {
     "description": "The error message if the password field is empty"
@@ -319,6 +323,10 @@
   "@groupCodeEmptyError": {
     "description": "The error message if the squad code is empty"
   },
+  "groupCodeTooLongError": "The squad code can be only 32 characters long",
+  "@groupCodeTooLongError": {
+    "description": "The error message if the squad code is too long"
+  },
   "joiningSuccessFullTitle": "Joining successful",
   "@joiningSuccessFullTitle": {
     "description": "The title of the joining successful page"
@@ -445,6 +453,10 @@
   "@unitEmptyError": {
     "description": "The error message if the unit is empty"
   },
+  "unitTooLongError": "The unit name can be only 16 characters long",
+  "@unitTooLongError": {
+    "description": "The error message if the unit name is too long"
+  },
   "addButton": "Add",
   "@addButton": {
     "description": "The label for the add button"
@@ -452,6 +464,10 @@
   "ingredientNameEmptyError": "Please enter an ingredient name",
   "@ingredientNameEmptyError": {
     "description": "The error message if the ingredient name is empty"
+  },
+  "ingredientTooLongError": "The ingredient name can be only 32 characters long",
+  "@ingredientTooLongError": {
+    "description": "The error message if the ingredient name is too long"
   },
   "ingredientNameInputLabel": "Ingredient",
   "@ingredientNameInputLabel": {
@@ -512,6 +528,10 @@
   "titleEmptyError": "Please enter a title",
   "@titleEmptyError": {
     "description": "The error message if the title is empty"
+  },
+  "titleTooLongError": "The title can be only 64 characters long",
+  "@titleTooLongError": {
+    "description": "The error message if the title is too long"
   },
   "titleInputLabel": "Title",
   "@titleInputLabel": {
@@ -592,5 +612,61 @@
   "groupCodeNotExistingError": "This group code does not exist",
   "@groupCodeNotExistingError": {
     "description": "The error message if the group code does not exist"
+  },
+  "pdfRecipeViewHeadline": "PDF of {recipeTitle}",
+  "@pdfRecipeViewHeadline": {
+    "description": "The headline of the pdf preview for a recipe",
+    "placeholders": {
+      "recipeTitle": {
+        "type": "String",
+        "content": "{recipeTitle}",
+        "example": "Pizza",
+        "description": "The title of the recipe"
+      }
+    }
+  },
+  "pdfSaveSuccess": "Save successfully",
+  "@pdfSaveSuccess": {
+    "description": "The message that saving the PDF was successful"
+  },
+  "pdfShareSuccess": "Share successfully",
+  "@pdfShareSuccess": {
+    "description": "The message that sharing the PDF was successful"
+  },
+  "defaultPortions": "Ingredients for {defaultPortionAmount} servings:",
+  "@defaultPortions": {
+    "description": "The description for how many servings the ingredients have been calculated",
+    "placeholders": {
+      "defaultPortionAmount": {
+        "type": "int",
+        "content": "{defaultPortionAmount}",
+        "example": "4",
+        "description": "The amount of portions"
+      }
+    }
+  },
+  "recipeAuthor": "Recipe by: {author}",
+  "@recipeAuthor": {
+    "description": "The description of who created the recipe",
+    "placeholders": {
+      "author": {
+        "type": "String",
+        "content": "{author}",
+        "example": "Heinrich",
+        "description": "The name of the author"
+      }
+    }
+  },
+  "labels": "Labels",
+  "@labels": {
+    "description": "The Category for the Labels"
+  },
+  "difficulty": "Difficulty",
+  "@difficulty": {
+    "description": "The Category for the difficulty"
+  },
+  "totalTime": "Total Time",
+  "@totalTime": {
+    "description": "The Category for the preparation time"
   }
 }

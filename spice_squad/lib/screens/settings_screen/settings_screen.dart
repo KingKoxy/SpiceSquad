@@ -130,6 +130,9 @@ void _renameUser(BuildContext context, UserService userService, String oldName) 
           if (value == null || value.isEmpty) {
             return AppLocalizations.of(context)!.renameDialogEmptyError;
           }
+          if (value.length > 32) {
+            return AppLocalizations.of(context)!.userNameTooLongError;
+          }
           return null;
         },
       );
