@@ -18,7 +18,7 @@ class QRScannerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final groupCodeRegex = RegExp(r"\d{4}-\d{4}");
+    final groupCodeRegex = RegExp(r"[a-zA-Z\d]{8}");
     return Scaffold(
       appBar: AppBar(title: Text(AppLocalizations.of(context)!.qrScannerHeadline)),
       body: MobileScanner(

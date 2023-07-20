@@ -1,3 +1,4 @@
+import "package:auto_size_text/auto_size_text.dart";
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -11,6 +12,7 @@ import "package:spice_squad/services/user_service.dart";
 import "package:spice_squad/widgets/approval_dialog.dart";
 import "package:spice_squad/widgets/input_dialog.dart";
 import "package:spice_squad/widgets/nav_bar.dart";
+import "package:spice_squad/widgets/success_dialog.dart";
 
 /// Screen for displaying user settings
 class SettingsScreen extends ConsumerWidget {
@@ -27,11 +29,7 @@ class SettingsScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Row(
           children: [
-            Expanded(
-              child: Center(
-                child: Text(AppLocalizations.of(context)!.settingsHeadline),
-              ),
-            ),
+            Expanded(child: Center(child: Text(AppLocalizations.of(context)!.settingsHeadline))),
             IconButton(
               onPressed: () {
                 _logout(context, ref.read(userServiceProvider.notifier));
@@ -47,11 +45,14 @@ class SettingsScreen extends ConsumerWidget {
           children: [
             ref.watch(userServiceProvider).when(
                   data: (user) {
+                    if (user == null) {
+                      return Container();
+                    }
                     return Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         ProfileImagePicker(
-                          initialValue: user!.profileImage,
+                          initialValue: user.profileImage,
                           userService: ref.read(userServiceProvider.notifier),
                         ),
                         const SizedBox(
@@ -59,43 +60,34 @@ class SettingsScreen extends ConsumerWidget {
                         ),
                         TextButton(
                           onPressed: () {
-                            _renameUser(
-                              context,
-                              ref.read(userServiceProvider.notifier),
-                              user.userName,
-                            );
+                            _renameUser(context, ref.read(userServiceProvider.notifier), user.userName);
                           },
                           child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                 Text(
-                                   user.userName,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall!
-                                        .copyWith(color: Colors.white),
-                                  ),
-                                const SizedBox(
-                                  width: 8,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Flexible(
+                                child: AutoSizeText(
+                                  user.userName,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),
                                 ),
-                                const ImageIcon(
-                                  SpiceSquadIconImages.edit,
-                                  color: Colors.white,
-                                )
-                              ],
-                            ),
+                              ),
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              const ImageIcon(
+                                SpiceSquadIconImages.edit,
+                                color: Colors.white,
+                              )
+                            ],
                           ),
-
+                        ),
                         TextButton(
                           onPressed: () {
-                            _deleteAccount(
-                              context,
-                              ref.read(userServiceProvider.notifier),
-                            );
+                            _deleteAccount(context, ref.read(userServiceProvider.notifier));
                           },
-                          child: Text(
-                            AppLocalizations.of(context)!.deleteAccountButton,
-                          ),
+                          child: Text(AppLocalizations.of(context)!.deleteAccountButton),
                         )
                       ],
                     );
@@ -126,11 +118,7 @@ void _logout(BuildContext context, UserService userService) {
       .then((value) => userService.logout());
 }
 
-void _renameUser(
-  BuildContext context,
-  UserService userService,
-  String oldName,
-) {
+void _renameUser(BuildContext context, UserService userService, String oldName) {
   showDialog(
     context: context,
     builder: (context) {
@@ -160,9 +148,15 @@ void _deleteAccount(BuildContext context, UserService userService) {
         title: AppLocalizations.of(context)!.deleteAccountDialogTitle,
         message: AppLocalizations.of(context)!.deleteAccountDialogDescription,
         onApproval: () {
-          userService.deleteAccount();
-          Navigator.of(context)
-              .pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
+          Navigator.of(context).pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false).then(
+                (value) => userService.deleteAccount().then((value) {
+                  showDialog(
+                    context: context,
+                    builder: (context) =>
+                        const SuccessDialog(title: "Konto gelöscht", message: "Dein Konto wurde gelöscht."),
+                  );
+                }),
+              );
         },
       );
     },

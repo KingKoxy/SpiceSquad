@@ -1,22 +1,31 @@
 import "package:flutter/material.dart";
+import "package:flutter/services.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:spice_squad/models/ingredient.dart";
 import "package:spice_squad/screens/ingredient_creation_screen/icon_picker_widget.dart";
 import "package:spice_squad/screens/ingredient_creation_screen/ingredient_name_input.dart";
 
 /// Screen to create a new ingredient
-class IngredientCreationScreen extends StatelessWidget {
+class IngredientCreationScreen extends StatefulWidget {
   /// The route name of this screen
   static const routeName = "/ingredient-creation";
-
   final _formKey = GlobalKey<FormState>();
+
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _iconIdController = TextEditingController();
+
   final TextEditingController _amountController = TextEditingController();
+
   final TextEditingController _unitController = TextEditingController();
 
   /// Creates a new ingredient creation screen
   IngredientCreationScreen({super.key});
+
+  @override
+  State<IngredientCreationScreen> createState() => _IngredientCreationScreenState();
+}
+
+class _IngredientCreationScreenState extends State<IngredientCreationScreen> {
+  Uint8List? _icon;
 
   @override
   Widget build(BuildContext context) {
@@ -24,22 +33,31 @@ class IngredientCreationScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.ingredientCreationHeadline),
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(32),
           child: Form(
-            key: _formKey,
+            key: widget._formKey,
             child: Column(
               children: [
                 IngredientNameInput(
-                  controller: _nameController,
+                  controller: widget._nameController,
                 ),
                 const SizedBox(height: 16),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
-                      child: SizedBox(height: 52, child: IconPickerWidget(controller: _iconIdController)),
+                      child: SizedBox(
+                        height: 52,
+                        child: IconPickerWidget(
+                          onChanged: (icon) {
+                            setState(() {
+                              _icon = icon;
+                            });
+                          },
+                        ),
+                      ),
                     ),
                     const SizedBox(width: 10),
                     Expanded(
@@ -51,14 +69,19 @@ class IngredientCreationScreen extends StatelessWidget {
 
                           return null;
                         },
-                        controller: _amountController,
+                        controller: widget._amountController,
                         onChanged: (value) {
-                          if (double.tryParse(value) == null) {
-                            _amountController.text = "";
+                          if (int.tryParse(value) == null) {
+                            widget._amountController.text = "";
                           }
                         },
-                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                        decoration: InputDecoration(hintText: AppLocalizations.of(context)!.amountInputLabel),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp(r"[1-9]\d*")),
+                        ],
+                        maxLength: 3,
+                        keyboardType: TextInputType.number,
+                        decoration:
+                            InputDecoration(counterText: "", hintText: AppLocalizations.of(context)!.amountInputLabel),
                       ),
                     ),
                     const SizedBox(width: 10),
@@ -73,8 +96,10 @@ class IngredientCreationScreen extends StatelessWidget {
                           }
                           return null;
                         },
-                        controller: _unitController,
-                        decoration: InputDecoration(hintText: AppLocalizations.of(context)!.unitInputLabel),
+                        maxLength: 16,
+                        controller: widget._unitController,
+                        decoration:
+                            InputDecoration(hintText: AppLocalizations.of(context)!.unitInputLabel, counterText: ""),
                       ),
                     ),
                   ],
@@ -87,14 +112,14 @@ class IngredientCreationScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       // validates all fields
-                      if (!_formKey.currentState!.validate()) return;
+                      if (_icon != null && !widget._formKey.currentState!.validate()) return;
                       //creates new ingredient and returns it to the previous screen
                       final ingredient = Ingredient(
                         id: "",
-                        name: _nameController.text,
-                        iconId: _iconIdController.text,
-                        amount: double.parse(_amountController.text),
-                        unit: _unitController.text,
+                        name: widget._nameController.text,
+                        amount: int.parse(widget._amountController.text),
+                        unit: widget._unitController.text,
+                        icon: _icon!,
                       );
 
                       Navigator.of(context).pop(ingredient);

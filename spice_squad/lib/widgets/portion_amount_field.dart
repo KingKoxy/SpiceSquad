@@ -34,9 +34,13 @@ class PortionAmountField extends StatelessWidget {
                 },
                 style: Theme.of(context).textTheme.titleSmall,
                 initialValue: initialValue.toString(),
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r"[1-9]\d*")),
+                ],
                 textAlign: TextAlign.center,
+                maxLength: 2,
                 decoration: const InputDecoration(
+                  counterText: "",
                   filled: false,
                   border: InputBorder.none,
                 ),

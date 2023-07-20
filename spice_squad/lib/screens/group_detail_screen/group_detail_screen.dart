@@ -164,7 +164,11 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
       builder: (context) => ApprovalDialog(
         title: AppLocalizations.of(context)!.leaveSquadDialogTitle,
         message: AppLocalizations.of(context)!.leaveSquadDialogDescription(group.name),
-        onApproval: () => groupService.leaveGroup(group.id),
+        onApproval: () {
+          groupService.leaveGroup(group.id);
+          Navigator.of(context).pop();
+          Navigator.of(context).pop();
+        },
       ),
     );
   }
@@ -179,6 +183,7 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
           message: AppLocalizations.of(context)!.deleteSquadDialogDescription(group.name),
           onApproval: () {
             groupService.deleteGroup(group.id);
+            Navigator.of(context).pop();
             Navigator.of(context).pop();
           },
         );

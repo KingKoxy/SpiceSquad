@@ -27,27 +27,28 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
 
   @override
   void initState() {
-    _profileImage = widget.initialValue;
     super.initState();
+    _profileImage = widget.initialValue;
   }
 
+  // TODO: make whole widget clickable
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       child: Ink(
-        decoration: _profileImage == null
+        decoration: _profileImage != null
             ? BoxDecoration(
                 borderRadius: BorderRadius.circular(20000),
-                image: const DecorationImage(image: AssetImage("assets/images/exampleImage.jpeg")),
+                image: DecorationImage(image: MemoryImage(_profileImage!), fit: BoxFit.cover),
               )
             : BoxDecoration(borderRadius: BorderRadius.circular(20000), color: Theme.of(context).cardColor),
-        child: CircleAvatar(
-          backgroundColor: Colors.transparent,
-          radius: 75,
-          child: InkWell(
-            borderRadius: BorderRadius.circular(20000),
-            onTap: () => _selectProfileImage(context),
-            child: const ImageIcon(
+        child: InkWell(
+          borderRadius: BorderRadius.circular(20000),
+          onTap: () => _selectProfileImage(context),
+          child: const CircleAvatar(
+            backgroundColor: Colors.transparent,
+            radius: 75,
+            child: ImageIcon(
               SpiceSquadIconImages.editUser,
               size: 64,
               color: Colors.white,
@@ -177,6 +178,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
           _profileImage = file.readAsBytesSync();
           widget.userService.setProfileImage(file);
         });
+        Navigator.of(context).pop();
       }
     });
   }

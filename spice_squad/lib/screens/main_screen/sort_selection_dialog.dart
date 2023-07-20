@@ -24,9 +24,9 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
 
   @override
   void initState() {
+    super.initState();
     // Initialize the selected sort with the initial value.
     selectedSort = widget.initialValue;
-    super.initState();
   }
 
   @override
@@ -41,6 +41,9 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
           itemBuilder: (context, index) {
             if (index == 0) {
               return TextButton(
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
+                ),
                 onPressed: () {
                   setState(() {
                     selectedSort = Sort(category: selectedSort.category, ascending: !selectedSort.ascending);

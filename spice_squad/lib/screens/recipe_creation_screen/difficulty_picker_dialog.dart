@@ -26,8 +26,8 @@ class _DifficultyPickerDialogState extends State<DifficultyPickerDialog> {
 
   @override
   void initState() {
-    _difficulty = widget.initialValue;
     super.initState();
+    _difficulty = widget.initialValue;
   }
 
   @override
@@ -38,7 +38,7 @@ class _DifficultyPickerDialogState extends State<DifficultyPickerDialog> {
         child: Column(
           children: [
             RadioListTile(
-              title: Text(Difficulty.easy.toString()),
+              title: Text(Difficulty.easy.getName(context)),
               value: Difficulty.easy,
               groupValue: _difficulty,
               onChanged: (value) {
@@ -48,7 +48,7 @@ class _DifficultyPickerDialogState extends State<DifficultyPickerDialog> {
               },
             ),
             RadioListTile(
-              title: Text(Difficulty.medium.toString()),
+              title: Text(Difficulty.medium.getName(context)),
               value: Difficulty.medium,
               groupValue: _difficulty,
               onChanged: (value) {
@@ -58,7 +58,7 @@ class _DifficultyPickerDialogState extends State<DifficultyPickerDialog> {
               },
             ),
             RadioListTile(
-              title: Text(Difficulty.hard.toString()),
+              title: Text(Difficulty.hard.getName(context)),
               value: Difficulty.hard,
               groupValue: _difficulty,
               onChanged: (value) {

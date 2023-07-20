@@ -2,6 +2,7 @@ import "dart:io";
 import "dart:typed_data";
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
+import "package:image/image.dart" as img;
 import "package:image_picker/image_picker.dart";
 import "package:spice_squad/icons.dart";
 
@@ -10,9 +11,13 @@ class ImagePickerWidget extends StatefulWidget {
   /// Initial image to display
   final Uint8List? recipeImage;
 
+  /// Callback that is called when the image is changed
+  final ValueChanged<Uint8List?> onChanged;
+
   /// Creates a new image picker
   const ImagePickerWidget({
     required this.recipeImage,
+    required this.onChanged,
     super.key,
   });
 
@@ -25,8 +30,8 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
 
   @override
   void initState() {
-    _recipeImage = widget.recipeImage;
     super.initState();
+    _recipeImage = widget.recipeImage;
   }
 
   @override
@@ -97,31 +102,40 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),
                         shape: const CircleBorder(),
-                        child: const ImageIcon(SpiceSquadIconImages.trash, size: 32,),
+                        child: const ImageIcon(
+                          SpiceSquadIconImages.trash,
+                          size: 32,
+                        ),
                       ),
                     ),
                     SizedBox(
                       height: 86,
                       width: 86,
                       child: RawMaterialButton(
-                        onPressed: _setRecipeImageFromGallery,
+                        onPressed: () => _pickImage(ImageSource.gallery),
                         elevation: 2.0,
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),
                         shape: const CircleBorder(),
-                        child: const ImageIcon(SpiceSquadIconImages.image, size: 32,),
+                        child: const ImageIcon(
+                          SpiceSquadIconImages.image,
+                          size: 32,
+                        ),
                       ),
                     ),
                     SizedBox(
                       height: 86,
                       width: 86,
                       child: RawMaterialButton(
-                        onPressed: _setRecipeImageFromCamera,
+                        onPressed: () => _pickImage(ImageSource.camera),
                         elevation: 2.0,
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),
                         shape: const CircleBorder(),
-                        child: const ImageIcon(SpiceSquadIconImages.camera, size: 32,),
+                        child: const ImageIcon(
+                          SpiceSquadIconImages.camera,
+                          size: 32,
+                        ),
                       ),
                     ),
                   ],
@@ -146,26 +160,22 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
   void _removeRecipeImage() {
     setState(() {
       _recipeImage = null;
+      widget.onChanged(_recipeImage);
     });
+    Navigator.of(context).pop();
   }
 
-  void _setRecipeImageFromGallery() {
-    ImagePicker().pickImage(source: ImageSource.gallery).then((image) {
-      if (image != null) {
+  void _pickImage(ImageSource source) {
+    ImagePicker().pickImage(source: source).then((file) {
+      if (file != null) {
         setState(() {
-          _recipeImage = File(image.path).readAsBytesSync();
+          img.Image image = img.decodeImage(File(file.path).readAsBytesSync())!;
+          image = img.copyResizeCropSquare(image, size: 200);
+          _recipeImage = Uint8List.fromList(img.encodeJpg(image, quality: 100));
+          widget.onChanged(_recipeImage);
         });
       }
     });
-  }
-
-  void _setRecipeImageFromCamera() {
-    ImagePicker().pickImage(source: ImageSource.camera).then((image) {
-      if (image != null) {
-        setState(() {
-          _recipeImage = File(image.path).readAsBytesSync();
-        });
-      }
-    });
+    Navigator.of(context).pop();
   }
 }

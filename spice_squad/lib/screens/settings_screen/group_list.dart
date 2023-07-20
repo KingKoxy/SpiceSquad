@@ -1,3 +1,4 @@
+import "package:auto_size_text/auto_size_text.dart";
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -39,10 +40,9 @@ class GroupList extends ConsumerWidget {
         // Fetch groups from database
         ref.watch(groupServiceProvider).when(
           data: (groups) {
+            groups.sort((Group a, Group b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
             return Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
               child: groups.isNotEmpty
                   ? ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
@@ -52,40 +52,24 @@ class GroupList extends ConsumerWidget {
                         return InkWell(
                           borderRadius: BorderRadius.circular(16),
                           onTap: () {
-                            Navigator.of(context).pushNamed(
-                              GroupDetailScreen.routeName,
-                              arguments: groups[index].id,
-                            );
+                            Navigator.of(context).pushNamed(GroupDetailScreen.routeName, arguments: groups[index].id);
                           },
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 8,
-                              horizontal: 16,
-                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                SizedBox(
-                                  width: 270,
-                                  height: 29,
-                                  child: FittedBox(
-                                    fit: BoxFit.contain,
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      groups[index].name,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleLarge,
-                                    ),
+                                Expanded(
+                                  child: AutoSizeText(
+                                    groups[index].name,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Theme.of(context).textTheme.titleLarge,
                                   ),
                                 ),
                                 RemoveButton(
                                   onPressed: () {
-                                    _leaveGroup(
-                                      context,
-                                      ref.read(groupServiceProvider.notifier),
-                                      groups[index],
-                                    );
+                                    _leaveGroup(context, ref.read(groupServiceProvider.notifier), groups[index]);
                                   },
                                 )
                               ],
@@ -98,10 +82,7 @@ class GroupList extends ConsumerWidget {
                       padding: const EdgeInsets.all(16.0),
                       child: Text(
                         AppLocalizations.of(context)!.userNotInAnySquads,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyLarge!
-                            .copyWith(color: Colors.grey),
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.grey),
                       ),
                     ),
             );
@@ -117,18 +98,13 @@ class GroupList extends ConsumerWidget {
     );
   }
 
-  void _leaveGroup(
-    BuildContext context,
-    GroupService groupService,
-    Group group,
-  ) {
+  void _leaveGroup(BuildContext context, GroupService groupService, Group group) {
     showDialog(
       context: context,
       builder: (context) {
         return ApprovalDialog(
           title: AppLocalizations.of(context)!.leaveSquadDialogTitle,
-          message: AppLocalizations.of(context)!
-              .leaveSquadDialogDescription(group.name),
+          message: AppLocalizations.of(context)!.leaveSquadDialogDescription(group.name),
           onApproval: () {
             Navigator.of(context).pop();
             groupService.leaveGroup(group.id);

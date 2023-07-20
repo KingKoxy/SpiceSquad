@@ -23,29 +23,52 @@ class LabelList extends StatelessWidget {
             image: SpiceSquadIconImages.timer,
             name: AppLocalizations.of(context)!.duration(recipe.duration),
           ),
-          TagItem(image: SpiceSquadIconImages.flame, name: recipe.difficulty.toString()),
-          if (recipe.isVegetarian)
+          const SizedBox(
+            width: 8,
+          ),
+          TagItem(image: SpiceSquadIconImages.flame, name: recipe.difficulty.getName(context)),
+          if (recipe.isVegetarian) ...[
+            const SizedBox(
+              width: 8,
+            ),
             TagItem(
               image: SpiceSquadIconImages.cheese,
               name: AppLocalizations.of(context)!.labelVegetarian,
             ),
-          if (recipe.isVegan)
+          ],
+          if (recipe.isVegan) ...[
+            const SizedBox(
+              width: 8,
+            ),
             TagItem(
               image: SpiceSquadIconImages.avocado,
               name: AppLocalizations.of(context)!.labelVegan,
             ),
-          if (recipe.isGlutenFree)
+          ],
+          if (recipe.isGlutenFree) ...[
+            const SizedBox(
+              width: 8,
+            ),
             TagItem(
               image: SpiceSquadIconImages.glutenFree,
               name: AppLocalizations.of(context)!.labelGlutenFree,
             ),
-          if (recipe.isHalal)
+          ],
+          if (recipe.isHalal) ...[
+            const SizedBox(
+              width: 8,
+            ),
             TagItem(image: SpiceSquadIconImages.islam, name: AppLocalizations.of(context)!.labelHalal),
-          if (recipe.isHalal)
+          ],
+          if (recipe.isHalal) ...[
+            const SizedBox(
+              width: 8,
+            ),
             TagItem(
               image: SpiceSquadIconImages.judaism,
               name: AppLocalizations.of(context)!.labelKosher,
             ),
+          ],
         ],
       ),
     );

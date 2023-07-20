@@ -26,9 +26,9 @@ class Group {
     return Group(
       id: map["id"],
       name: map["name"],
-      groupCode: map["groupCode"],
-      members: map["members"],
-      recipes: map["recipes"],
+      groupCode: map["group_code"],
+      members: [],//map["users"].map<GroupMember>(GroupMember.fromMap).toList(),
+      recipes: [],//map["recipes"].map<GroupRecipe>(GroupRecipe.fromMap).toList(),
     );
   }
 }

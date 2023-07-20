@@ -1,29 +1,37 @@
+import "dart:typed_data";
+
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/providers/repository_providers.dart";
 import "package:spice_squad/screens/ingredient_creation_screen/icon_picker_dialog.dart";
 
 /// Widget to pick an icon for an ingredient
-class IconPickerWidget extends StatefulWidget {
-  /// A list of possible icon ids. An icon id is the name of the icon file
-  static const List<String> _iconIds = ["carrot", "milk", "bread"];
-
-  /// The controller that contains the currently selected icon id
-  final TextEditingController controller;
+class IconPickerWidget extends ConsumerStatefulWidget {
+  /// The callback that is called when the icon is changed
+  final ValueChanged<Uint8List> onChanged;
 
   /// Creates a new icon picker widget
-  const IconPickerWidget({required this.controller, super.key});
+  const IconPickerWidget({required this.onChanged, super.key});
 
   @override
-  State<IconPickerWidget> createState() => _IconPickerWidgetState();
+  ConsumerState<IconPickerWidget> createState() => _IconPickerWidgetState();
 }
 
-class _IconPickerWidgetState extends State<IconPickerWidget> {
-  /// The currently selected icon id
-  String _selectedIconId = "carrot";
+class _IconPickerWidgetState extends ConsumerState<IconPickerWidget> {
+  /// The currently selected icon
+  Uint8List? _selectedIcon;
+  List<Uint8List> _icons = [];
 
   @override
   void initState() {
-    widget.controller.text = _selectedIconId;
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(ingredientDataRepository).fetchIngredientIcons().then((value) => setState(() {
+            _icons = value;
+            _selectedIcon = _icons[0];
+            widget.onChanged(_selectedIcon!);
+          }),);
+    });
   }
 
   @override
@@ -36,9 +44,11 @@ class _IconPickerWidgetState extends State<IconPickerWidget> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ImageIcon(
-              AssetImage("assets/icons/ingredientIcons/$_selectedIconId.png"),
-            ),
+            _selectedIcon != null
+                ? ImageIcon(
+                    MemoryImage(_selectedIcon!),
+                  )
+                : Container(),
             const Icon(
               Icons.arrow_drop_down,
               size: 32,
@@ -54,12 +64,11 @@ class _IconPickerWidgetState extends State<IconPickerWidget> {
       context: context,
       builder: (context) {
         return IconPickerDialog(
-          iconIds: IconPickerWidget._iconIds,
-          onChanged: (String value) {
+          onChanged: (Uint8List value) {
             setState(() {
-              _selectedIconId = value;
+              _selectedIcon = value;
             });
-            widget.controller.text = value;
+            widget.onChanged(_selectedIcon!);
           },
         );
       },

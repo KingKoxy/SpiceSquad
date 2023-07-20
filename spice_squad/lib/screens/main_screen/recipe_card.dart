@@ -18,11 +18,11 @@ class RecipeCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return InkWell(
-      onTap: () => Navigator.of(context)
-          .pushNamed(RecipeDetailScreen.routeName, arguments: recipe),
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: () => Navigator.of(context).pushNamed(RecipeDetailScreen.routeName, arguments: recipe),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -30,37 +30,28 @@ class RecipeCard extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: 290,
-                        height: 39,
-                        child: FittedBox(
-                          fit: BoxFit.contain,
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            recipe.title,
-                            style: Theme.of(context).textTheme.headlineSmall,
-                            textAlign: TextAlign.start,
-                          ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          recipe.title,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.headlineSmall,
                         ),
-                      ),
-                      Text(
-                        recipe.author.userName,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyLarge
-                            ?.copyWith(color: Colors.grey),
-                      ),
-                    ],
+                        Text(
+                          recipe.author.userName,
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.grey),
+                        ),
+                      ],
+                    ),
                   ),
+                  const SizedBox(width: 8,),
                   FavouriteButton(
                     value: recipe.isFavourite,
                     onToggle: () {
-                      _toggleFavourite(
-                        ref.read(recipeServiceProvider.notifier),
-                      );
+                      _toggleFavourite(ref.read(recipeServiceProvider.notifier));
                     },
                   ),
                 ],
@@ -76,23 +67,14 @@ class RecipeCard extends ConsumerWidget {
                     child: SizedBox(
                       height: 130,
                       child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                         color: Theme.of(context).colorScheme.onSurfaceVariant,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: recipe.image != null
-                              ? Image.asset(
-                                  "assets/images/exampleImage.jpeg",
-                                  fit: BoxFit.cover,
-                                )
-                              : //Image.memory(recipe.image!, fit: BoxFit.cover)
-                              const Center(
-                                  child: ImageIcon(
-                                    SpiceSquadIconImages.image,
-                                    size: 32,
-                                  ),
+                              ? Image.memory(recipe.image!, fit: BoxFit.cover)
+                              : const Center(
+                                  child: ImageIcon(SpiceSquadIconImages.image, size: 32),
                                 ),
                         ),
                       ),
@@ -119,8 +101,7 @@ class RecipeCard extends ConsumerWidget {
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
-                                  AppLocalizations.of(context)!
-                                      .duration(recipe.duration),
+                                  AppLocalizations.of(context)!.duration(recipe.duration),
                                   style: Theme.of(context).textTheme.titleSmall,
                                 )
                               ],
@@ -140,7 +121,7 @@ class RecipeCard extends ConsumerWidget {
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
-                                  recipe.difficulty.toString(),
+                                  recipe.difficulty.getName(context),
                                   style: Theme.of(context).textTheme.titleSmall,
                                 )
                               ],

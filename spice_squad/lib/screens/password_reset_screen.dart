@@ -120,8 +120,8 @@ class PasswordResetScreen extends ConsumerWidget {
   }
 
   _resetPassword(BuildContext context, UserService userService) {
-    userService.resetPassword(_emailController.text).then(
-          (value) => showDialog<void>(
+    userService.resetPassword(_emailController.text).whenComplete(
+          () => showDialog<void>(
             context: context,
             barrierDismissible: true,
             builder: (BuildContext context) => SuccessDialog(

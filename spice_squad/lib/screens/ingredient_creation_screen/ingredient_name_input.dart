@@ -14,8 +14,7 @@ class IngredientNameInput extends ConsumerStatefulWidget {
   const IngredientNameInput({required this.controller, super.key});
 
   @override
-  ConsumerState<IngredientNameInput> createState() =>
-      _IngredientNameInputState();
+  ConsumerState<IngredientNameInput> createState() => _IngredientNameInputState();
 }
 
 class _IngredientNameInputState extends ConsumerState<IngredientNameInput> {
@@ -36,8 +35,7 @@ class _IngredientNameInputState extends ConsumerState<IngredientNameInput> {
             return null;
           },
           controller: widget.controller,
-          decoration: InputDecoration(
-              hintText: AppLocalizations.of(context)!.ingredientNameInputLabel),
+          decoration: InputDecoration(hintText: AppLocalizations.of(context)!.ingredientNameInputLabel),
           onChanged: (value) {
             setState(() {
               _searchText = value;
@@ -49,16 +47,13 @@ class _IngredientNameInputState extends ConsumerState<IngredientNameInput> {
         ),
         //Shows the suggestions
         FutureBuilder(
-          future: ref
-              .watch(ingredientNameRepositoryProvider)
-              .fetchIngredientNames(),
+          future: ref.watch(ingredientDataRepository).fetchIngredientNames(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               // Search for matches and show in grid
-              final List<String> filteredNames = snapshot.data!
-                  .where((element) =>
-                      element.toLowerCase().contains(_searchText.toLowerCase()))
-                  .toList();
+              final List<String> filteredNames =
+                  snapshot.data!.where((element) => element.toLowerCase().contains(_searchText.toLowerCase())).toList();
+              filteredNames.sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
               return GridView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 padding: EdgeInsets.zero,
@@ -82,9 +77,8 @@ class _IngredientNameInputState extends ConsumerState<IngredientNameInput> {
                       child: Container(
                         alignment: Alignment.center,
                         padding: const EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).cardColor,
-                            borderRadius: BorderRadius.circular(5)),
+                        decoration:
+                            BoxDecoration(color: Theme.of(context).cardColor, borderRadius: BorderRadius.circular(5)),
                         child: AutoSizeText(
                           filteredNames[index],
                           minFontSize: 8,

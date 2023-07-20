@@ -55,4 +55,23 @@ class RecipeCreationData {
     required this.defaultPortionAmount,
     this.image,
   });
+
+  /// Converts this [RecipeCreationData] to a [Map] object by inserting the values
+  Map<String, dynamic> toMap() {
+    return {
+      "title": title,
+      "duration": duration,
+      "difficulty": difficulty.name.toUpperCase(),
+      "isVegetarian": isVegetarian,
+      "isVegan": isVegan,
+      "isGlutenFree": isGlutenFree,
+      "isHalal": isHalal,
+      "isKosher": isKosher,
+      "ingredients": ingredients.map<Map<String, dynamic>>((i) => i.toMap()).toList(),
+      "instructions": instructions,
+      "defaultPortionAmount": defaultPortionAmount,
+      "image": image,
+      "isPrivate": false,
+    };
+  }
 }

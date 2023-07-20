@@ -159,9 +159,17 @@
   "@cancelButtonLabel": {
     "description": "The label for a cancel button"
   },
-  "filterSelectionHandle": "Filters",
+  "filterSelectionHandle": "{amount} Filters",
   "@filterSelectionHandle": {
-    "description": "The handle for the filter selection"
+    "description": "The handle for the filter selection",
+    "placeholders": {
+      "amount": {
+        "type": "int",
+        "content": "{amount}",
+        "example": "2",
+        "description": "How many filters are selected"
+      }
+    }
   },
   "searchInputPlaceholder": "Search...",
   "@searchInputPlaceholder": {
@@ -573,21 +581,53 @@
   "@instructionsInputLabel": {
     "description": "The label for the instructions input"
   },
+  "loginError": "Invalid username or password",
+  "@loginError": {
+    "description": "The error message if the login fails because of invalid credentials"
+  },
+  "emailExistsError": "This email address is already in use",
+  "@emailExistsError": {
+    "description": "The error message if the email address is already in use"
+  },
+  "connectionError": "We are having trouble connecting to the server.",
+  "@connectionError": {
+    "description": "The error message if the connection to the server fails"
+  },
+  "easyDifficulty": "Easy",
+  "@easyDifficulty": {
+    "description": "The label for the easy difficulty"
+  },
+  "mediumDifficulty": "Medium",
+  "@mediumDifficulty": {
+    "description": "The label for the medium difficulty"
+  },
+  "hardDifficulty": "Hard",
+  "@hardDifficulty": {
+    "description": "The label for the hard difficulty"
+  },
+  "clearFiltersButtonLabel": "Clear filters",
+  "@clearFiltersButtonLabel": {
+    "description": "The label for the clear filters button"
+  },
+  "groupCodeNotExistingError": "This group code does not exist",
+  "@groupCodeNotExistingError": {
+    "description": "The error message if the group code does not exist"
+  },
+  "pdfSaveSuccess": "Save successfully",
+  "@pdfSaveSuccess": {
+    "description": "The message that saving the PDF was successful"
+  },
   "pdfRecipeViewHeadline": "PDF of {recipeTitle}",
   "@pdfRecipeViewHeadline": {
     "description": "The headline of the pdf preview for a recipe",
     "placeholders": {
       "recipeTitle": {
-      "type": "String",
-      "content": "{recipeTitle}",
-      "example": "Pizza",
-      "description": "The title of the recipe"
+        "type": "String",
+        "content": "{recipeTitle}",
+        "example": "Pizza",
+        "description": "The title of the recipe"
+      }
     }
-    }
-  },
-  "pdfSaveSuccess": "Save successfully",
-  "@pdfSaveSuccess": {
-    "description": "The message that saving the PDF was successful"
   },
   "pdfShareSuccess": "Share successfully",
   "@pdfShareSuccess": {
@@ -597,13 +637,13 @@
   "@defaultPortions": {
     "description": "The description for how many servings the ingredients have been calculated",
     "placeholders": {
-    "defaultPortionAmount": {
-      "type": "int",
-      "content": "{defaultPortionAmount}",
-      "example": "4",
-      "description": "The amount of portions"
+      "defaultPortionAmount": {
+        "type": "int",
+        "content": "{defaultPortionAmount}",
+        "example": "4",
+        "description": "The amount of portions"
+      }
     }
-  }
   },
   "recipeAuthor": "Recipe by: {author}",
   "@recipeAuthor": {

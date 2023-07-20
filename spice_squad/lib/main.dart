@@ -17,6 +17,7 @@ import "package:spice_squad/screens/recipe_creation_screen/recipe_creation_scree
 import "package:spice_squad/screens/recipe_detail_screen/recipe_detail_screen.dart";
 import "package:spice_squad/screens/register_screen.dart";
 import "package:spice_squad/screens/settings_screen/settings_screen.dart";
+import "package:spice_squad/screens/splash_screen.dart";
 import "package:spice_squad/theme.dart";
 
 void main() {
@@ -34,9 +35,13 @@ class SpiceSquad extends StatelessWidget {
       child: MaterialApp(
         title: "SpiceSquad",
         theme: SpiceSquadTheme.themeData,
-        initialRoute: MainScreen.routeName,
+        initialRoute: SplashScreen.routeName,
         onGenerateRoute: (settings) {
           switch (settings.name) {
+            case SplashScreen.routeName:
+              return MaterialPageRoute(
+                builder: (context) => const SplashScreen(),
+              );
             case MainScreen.routeName:
               return MaterialPageRoute(
                 builder: (context) => MainScreen(),
