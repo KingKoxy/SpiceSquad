@@ -41,8 +41,10 @@ class QRCodeScreen extends StatelessWidget {
                       group.name,
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
-                    Text(AppLocalizations.of(context)!.qrCodeSquadLabel,
-                        style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Colors.grey),),
+                    Text(
+                      AppLocalizations.of(context)!.qrCodeSquadLabel,
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Colors.grey),
+                    ),
                     const SizedBox(
                       height: 16,
                     ),
