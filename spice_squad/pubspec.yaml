@@ -3,7 +3,7 @@ description: The Flutter App 'SpiceSquad'.
 
 publish_to: 'none'
 
-version: 0.1.0+2
+version: 99.99.99+99
 
 environment:
   sdk: '>=2.18.5 <3.0.0'
