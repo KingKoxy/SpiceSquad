@@ -31,7 +31,7 @@ class GroupRecipe extends Recipe {
   factory GroupRecipe.fromMap(Map<String, dynamic> map) {
     return GroupRecipe(
       recipe: Recipe.fromMap(map),
-      isCensored: map["isCensored"],
+      isCensored: map["is_censored"],
     );
   }
 }
