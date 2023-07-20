@@ -84,10 +84,9 @@ jobs:
 
       - name: Upload Android Release
         uses: actions/upload-artifact@v2
-        working-directory: ./spice_squad
         with:
           name: android-release
-          path: build/app/outputs/bundle/release/app-release.aab
+          path: spice_squad/build/app/outputs/bundle/release/app-release.aab
 
   deploy:
     name: Deploy Android Build
