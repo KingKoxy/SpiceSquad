@@ -3,7 +3,7 @@ import { userId } from './generalSchema'
 
 const title = Joi.string()
 const image = Joi.array().allow(null)
-const duration = Joi.number().positive()
+const duration = Joi.number().positive().max(999)
 const difficulty = Joi.string().valid('EASY', 'MEDIUM', 'HARD')
 const instructions = Joi.string()
 const isVegetarian = Joi.boolean()
@@ -12,7 +12,7 @@ const isGluten_free = Joi.boolean()
 const isKosher = Joi.boolean()
 const isHalal = Joi.boolean()
 const isPrivate = Joi.boolean()
-const defaultPortions = Joi.number().positive()
+const defaultPortions = Joi.number().max(99).positive()
 
 const ingredients = Joi.array().items(
   Joi.object({
@@ -20,7 +20,7 @@ const ingredients = Joi.array().items(
     icon: Joi.array(),
     amount: Joi.number().positive(),
     unit: Joi.string().max(16),
-  }).unknown(true)
+  }).max(999).unknown(true)
 )
 
 const isFavorite = Joi.boolean()
@@ -36,7 +36,6 @@ export const recipeCreateSchema = Joi.object().keys({
   isGlutenFree: isGluten_free.required(),
   isKosher: isKosher.required(),
   isHalal: isHalal.required(),
-  isPrivate: isPrivate.required(),
   defaultPortionAmount: defaultPortions.required(),
   ingredients: ingredients,
 }).unknown(true);
@@ -54,15 +53,7 @@ export const recipeUpdateSchema = Joi.object({
   isHalal: isHalal,
   isPrivate: isPrivate,
   defaultPortionAmount: defaultPortions,
-  ingredients: Joi.array().items(
-    Joi.object({
-      id: Joi.string().required(),
-      name: Joi.string().max(32),
-      icon: Joi.array(),
-      amount: Joi.number().positive(),
-      unit: Joi.string().max(16),
-    })
-  ),
+  ingredients: ingredients,
 }).unknown(true);
 
 export const recipeGetAllSchema = Joi.object({
