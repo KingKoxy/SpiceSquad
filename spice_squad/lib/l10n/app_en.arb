@@ -613,6 +613,10 @@
   "@groupCodeNotExistingError": {
     "description": "The error message if the group code does not exist"
   },
+  "pdfSaveSuccess": "Save successfully",
+  "@pdfSaveSuccess": {
+    "description": "The message that saving the PDF was successful"
+  },
   "pdfRecipeViewHeadline": "PDF of {recipeTitle}",
   "@pdfRecipeViewHeadline": {
     "description": "The headline of the pdf preview for a recipe",
@@ -624,10 +628,6 @@
         "description": "The title of the recipe"
       }
     }
-  },
-  "pdfSaveSuccess": "Save successfully",
-  "@pdfSaveSuccess": {
-    "description": "The message that saving the PDF was successful"
   },
   "pdfShareSuccess": "Share successfully",
   "@pdfShareSuccess": {

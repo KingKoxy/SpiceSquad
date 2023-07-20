@@ -130,7 +130,7 @@
   "groupCodeTooLongError": "Das Squadkürzel darf nur 32 Zeichen lang sein",
   "unitTooLongError": "Der Name der Einheit darf nur 16 Zeichen lang sein",
   "ingredientTooLongError": "Der Name der Zutat darf nur 32 Zeichen lang sein",
-  "titleTooLongError": "Der Titel darf nur 64 Zeichen lang sein"
+  "titleTooLongError": "Der Titel darf nur 64 Zeichen lang sein",
   "pdfRecipeViewHeadline": "PDF von {recipeTitle}",
   "pdfSaveSuccess": "Speichern erfolgreich",
   "pdfShareSuccess": "Teilen erfolgreich",
@@ -138,5 +138,13 @@
   "recipeAuthor": "Rezept von: {author}",
   "labels": "Labels",
   "difficulty": "Schwierigkeitsgrad",
-  "totalTime": "Zeitaufwand"
+  "totalTime": "Zeitaufwand",
+  "loginError": "Falsche E-Mail oder falsches Passwort",
+  "emailExistsError": "Diese E-Mail-Adresse ist bereits vergeben",
+  "connectionError": "Wir haben Probleme mit der Verbindung zum Server.",
+  "easyDifficulty": "Einfach",
+  "mediumDifficulty": "Mittel",
+  "hardDifficulty": "Schwer",
+  "clearFiltersButtonLabel": "Filter zurücksetzen",
+  "groupCodeNotExistingError": "Dieses Squadkürzel existiert nicht"
 }
