@@ -18,8 +18,14 @@ class TagItem extends StatefulWidget {
   final VoidCallback? onTap;
 
   /// Creates a new tag item.
-  const TagItem(
-      {required this.image, required this.name, super.key, this.onToggle, this.initialActive = false, this.onTap});
+  const TagItem({
+    required this.image,
+    required this.name,
+    super.key,
+    this.onToggle,
+    this.initialActive = false,
+    this.onTap,
+  });
 
   @override
   State<TagItem> createState() => _TagItemState();
