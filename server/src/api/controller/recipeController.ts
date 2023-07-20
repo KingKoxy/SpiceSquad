@@ -166,24 +166,25 @@ export default class RecipeController extends AbstractController {
       { recipeId },
       never,
       {
-        title: string
-        image: Uint8Array | null
-        duration: number
-        difficulty: 'EASY' | 'MEDIUM' | 'HARD'
-        instructions: string
-        isVegetarian: boolean
-        isVegan: boolean
-        isGlutenFree: boolean
-        isKosher: boolean
-        isHalal: boolean
-        isPrivate: boolean
-        defaultPortionAmount: number
+        title: string;
+        image: Uint8Array | null;
+        duration: number;
+        difficulty: 'EASY' | 'MEDIUM' | 'HARD';
+        instructions: string;
+        isVegetarian: boolean;
+        isVegan: boolean;
+        isGlutenFree: boolean;
+        isKosher: boolean;
+        isHalal: boolean;
+        isPrivate: boolean;
+        defaultPortionAmount: number;
         ingredients: {
-          name: string
-          icon: Uint8Array
-          amount: number
-          unit: string
-        }[]
+          id: string;
+          name: string;
+          icon: Uint8Array;
+          amount: number;
+          unit: string;
+        }[];
       }
     >,
     res: express.Response,
@@ -193,22 +194,33 @@ export default class RecipeController extends AbstractController {
       where: {
         id: req.params.recipeId,
       },
-    })
-    if (req.userId != recipe.author_id) {
+      include: {
+        ingredient: true,
+      },
+    });
+  
+    if (req.userId !== recipe.author_id) {
       res.status(401).json({
         error: 'You are not authorized to edit this recipe!',
-      })
-      return
+      });
+      return;
     }
 
-    this.prisma.recipe
-      .update({
+    req.body.ingredients.forEach((ingredient) => {
+      if (!ingredient.id || ingredient.id === "") {
+        ingredient.id = "00000000-0000-0000-0000-000000000000";
+      }
+    });
+  
+    try {
+      // Update recipe information
+      await this.prisma.recipe.update({
         where: {
           id: req.params.recipeId,
         },
         data: {
           title: req.body.title,
-          image: req.body.image? Buffer.from(req.body.image):null,
+          image: req.body.image ? Buffer.from(req.body.image) : null,
           duration: req.body.duration,
           difficulty: req.body.difficulty,
           instructions: req.body.instructions,
@@ -220,31 +232,36 @@ export default class RecipeController extends AbstractController {
           is_private: req.body.isPrivate,
           default_portions: req.body.defaultPortionAmount,
           ingredient: {
-            createMany: {
-              data: req.body.ingredients.map((ingredient) => {
-                return {
-                  name: ingredient.name,
-                  icon: Buffer.from(ingredient.icon),
-                  amount: ingredient.amount,
-                  unit: ingredient.unit,
-                }
-              }),
-            },
+            upsert: req.body.ingredients.map((ingredient) => ({
+              where: { id: ingredient.id },
+              update: {
+                name: ingredient.name,
+                icon: Buffer.from(ingredient.icon),
+                amount: ingredient.amount,
+                unit: ingredient.unit,
+              },
+              create: {
+                name: ingredient.name,
+                icon: Buffer.from(ingredient.icon),
+                amount: ingredient.amount,
+                unit: ingredient.unit,
+              },
+            })),
           },
         },
         include: {
           ingredient: true,
         },
-      })
-      .then(() => {
-        res.status(200).json({
-          message: 'Recipe updated successfully!',
-        })
-      })
-      .catch((error) => {
-        req.statusCode = 409
-        next(error)
-      })
+      });
+  
+      res.status(200).json({
+        message: 'Recipe updated successfully!',
+      });
+    } catch (error) {
+      req.statusCode = 409;
+      console.log(error);
+      next(error)
+    }
   }
 
   /**
