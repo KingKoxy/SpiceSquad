@@ -1,26 +1,19 @@
 name: Android Release
 
-# 1
 on:
-  # 2
   push:
-    branches: [ "main", "flutter_cicd" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "main", "flutter_cicd" ]
+    branches: [ "master" ]
 
-  # 3
   workflow_dispatch:
 
-# 4
 jobs:
   version:
     name: Create version number
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v3
-      # 2
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.7
         with:
@@ -28,49 +21,39 @@ jobs:
       - name: Use GitVersion
         id: gitversion
         uses: gittools/actions/gitversion/execute@v0.9.7
-      # 3
       - name: Create version.txt with nuGetVersion
         run: echo ${{ steps.gitversion.outputs.nuGetVersion  }} > version.txt
-      # 4
       - name: Upload version.txt
         uses: actions/upload-artifact@v2
         with:
           name: gitversion
           path: version.txt
 
-  # 5
   build:
     name: Create Android Build
-    # 1
     needs: version
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      # 2
       - name: Get version.txt
         uses: actions/download-artifact@v2
         with:
           name: gitversion
-      # 3
       - name: Create new file without newline char from version.txt
         run: tr -d '\n' < version.txt > version1.txt
-      # 4
       - name: Read version
         id: version
         uses: juliangruber/read-file-action@v1
         with:
           path: version1.txt
-      # 5
       - name: Update version in YAML
         run: sed -i 's/99.99.99+99/${{ steps.version.outputs.content }}+${{ github.run_number }}/g' pubspec.yaml
-      # 6
       - name: Download Android keystore
         id: android_keystore
         uses: timheuer/base64-to-file@v1.0.3
         with:
           fileName: upload-keystore.jks
           encodedString: ${{ secrets.KEYSTORE_BASE64 }}
-      # 7
       - name: Create key.properties
         run: |
           echo "storeFile=${{ steps.android_keystore.outputs.filePath }}" > android/key.properties
@@ -93,9 +76,28 @@ jobs:
 
       - name: Start Android Release Build
         run: flutter build appbundle
-      # 8
+
       - name: Upload Android Release
         uses: actions/upload-artifact@v2
         with:
           name: android-release
           path: build/app/outputs/bundle/release/app-release.aab
+
+  deploy:
+    name: Deploy Android Build
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Get Android Build from artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: android-release
+      - name: Release Build to internal track
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAYSTORE_ACCOUNT_KEY }}
+          packageName: com.karlsruher_intellektuelle.spice_squad
+          releaseFiles: app-release.aab
+          track: alpha
+          status: completed
