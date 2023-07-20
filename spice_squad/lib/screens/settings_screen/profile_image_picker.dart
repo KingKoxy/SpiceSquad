@@ -178,6 +178,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
           _profileImage = file.readAsBytesSync();
           widget.userService.setProfileImage(file);
         });
+        Navigator.of(context).pop();
       }
     });
   }

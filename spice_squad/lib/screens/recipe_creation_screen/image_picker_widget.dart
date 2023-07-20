@@ -162,6 +162,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
       _recipeImage = null;
       widget.onChanged(_recipeImage);
     });
+    Navigator.of(context).pop();
   }
 
   void _pickImage(ImageSource source) {
@@ -175,5 +176,6 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
         });
       }
     });
+    Navigator.of(context).pop();
   }
 }

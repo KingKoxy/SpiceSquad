@@ -47,10 +47,10 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
   late String _instructions;
   late int _defaultPortionAmount;
   late Uint8List? _image;
+  bool _isLoading = false;
 
   @override
   void initState() {
-    super.initState();
     _title = widget.recipe?.title ?? "";
     _duration = widget.recipe?.duration ?? 30;
     _difficulty = widget.recipe?.difficulty ?? Difficulty.easy;
@@ -63,6 +63,7 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
     _instructions = widget.recipe?.instructions ?? "";
     _defaultPortionAmount = widget.recipe?.defaultPortionAmount ?? 4;
     _image = widget.recipe?.image;
+    super.initState();
   }
 
   @override
@@ -177,7 +178,7 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
                         },
                         keyboardType: TextInputType.number,
                         inputFormatters: [
-                            FilteringTextInputFormatter.allow(RegExp(r"[1-9]\d*")),
+                          FilteringTextInputFormatter.allow(RegExp(r"[1-9]\d*")),
                         ],
                         initialValue: _duration.toString(),
                         textAlign: TextAlign.center,
@@ -262,14 +263,22 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
                   width: double.infinity,
                   child: Consumer(
                     builder: (context, ref, child) => ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if (widget._formKey.currentState!.validate()) {
-                          saveRecipe(ref.read(recipeServiceProvider.notifier)).then(
+                          setState(() {
+                            _isLoading = true;
+                          });
+                          await saveRecipe(ref.read(recipeServiceProvider.notifier)).then(
                             (value) => Navigator.of(context).pushReplacementNamed(MainScreen.routeName),
                           );
+                          setState(() {
+                            _isLoading = false;
+                          });
                         }
                       },
-                      child: Text(AppLocalizations.of(context)!.saveButtonLabel),
+                      child: _isLoading
+                          ? const CircularProgressIndicator(color: Colors.white,)
+                          : Text(AppLocalizations.of(context)!.saveButtonLabel),
                     ),
                   ),
                 )
