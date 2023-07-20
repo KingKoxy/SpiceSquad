@@ -106,4 +106,3 @@ jobs:
           packageName: com.karlsruher_intellektuelle.spice_squad
           releaseFiles: app-release.aab
           track: internal
-          status: draft #TODO: set status to completed once testing is done
