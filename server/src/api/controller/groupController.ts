@@ -355,8 +355,8 @@ export default class GroupController extends AbstractController {
             in: recipes,
           }
         },
-      })).map((recipe) => {
-        const ingredients = this.prisma.ingredient.findMany({
+      })).map(async (recipe) => {
+        const ingredients = await this.prisma.ingredient.findMany({
           where: {
             recipe_id: recipe.id
           }
@@ -422,8 +422,8 @@ export default class GroupController extends AbstractController {
           }
         },
 
-      })).map((recipe) => {
-        const ingredients = this.prisma.ingredient.findMany({
+      })).map(async (recipe) => {
+        const ingredients = await this.prisma.ingredient.findMany({
           where: {
             recipe_id: recipe.id
           }
