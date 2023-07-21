@@ -1,7 +1,8 @@
 import "package:flutter/material.dart";
 import "package:flutter/scheduler.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:spice_squad/providers/service_providers.dart";
+import "package:spice_squad/providers/repository_providers.dart";
+import "package:spice_squad/repositories/user_repository.dart";
 import "package:spice_squad/screens/login_screen.dart";
 import "package:spice_squad/screens/main_screen/main_screen.dart";
 
@@ -17,34 +18,33 @@ class SplashScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(userServiceProvider);
     return Scaffold(
       body: Center(
-        child: SizedBox(
-          width: 200,
-          child: user.when(
-            data: (value) {
-              if (value == null) {
-                SchedulerBinding.instance.addPostFrameCallback((_) {
-                  Navigator.of(context).pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
-                });
-              } else {
+        child: FutureBuilder(
+          future: _tryLogin(ref.read(userRepositoryProvider)),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data == true) {
                 SchedulerBinding.instance.addPostFrameCallback((_) {
                   Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
                 });
+              } else {
+                SchedulerBinding.instance.addPostFrameCallback((_) {
+                  Navigator.of(context).pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
+                });
               }
-              return SizedBox(child: Image.asset("assets/images/logo.png"));
-            },
-            error: (error, stack) {
-              SchedulerBinding.instance.addPostFrameCallback((_) {
-                Navigator.of(context).pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
-              });
-              return SizedBox(child: Image.asset("assets/images/logo.png"));
-            },
-            loading: () => SizedBox(child: Image.asset("assets/images/logo.png")),
-          ),
+            }
+            return SizedBox(
+              width: 200,
+              child: Image.asset("assets/images/logo.png"),
+            );
+          },
         ),
       ),
     );
+  }
+
+  Future<bool> _tryLogin(UserRepository userRepository) async {
+    return await userRepository.getToken() != null;
   }
 }

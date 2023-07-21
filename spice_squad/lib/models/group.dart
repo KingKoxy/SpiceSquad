@@ -27,7 +27,7 @@ class Group {
       id: map["id"],
       name: map["name"],
       groupCode: map["group_code"],
-      members: map["users"].map<GroupMember>((user) => GroupMember.fromMap(user as Map<String, dynamic>)).toList(),
+      members: map["members"].map<GroupMember>((user) => GroupMember.fromMap(user as Map<String, dynamic>)).toList(),
       recipes: map["recipes"].map<GroupRecipe>((recipe) => GroupRecipe.fromMap(recipe as Map<String, dynamic>)).toList(),
     );
   }

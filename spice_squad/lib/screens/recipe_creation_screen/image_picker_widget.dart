@@ -170,7 +170,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
       if (file != null) {
         setState(() {
           img.Image image = img.decodeImage(File(file.path).readAsBytesSync())!;
-          image = img.copyResizeCropSquare(image, size: 200);
+          image = img.copyResizeCropSquare(image, size: 480);
           _recipeImage = Uint8List.fromList(img.encodeJpg(image, quality: 100));
           widget.onChanged(_recipeImage);
         });
