@@ -422,7 +422,7 @@ export default class GroupController extends AbstractController {
           }
         },
 
-      })).map(async (recipe) => {
+      })).map(await (async (recipe) => {
         const ingredients = await this.prisma.ingredient.findMany({
           where: {
             recipe_id: recipe.id
@@ -434,7 +434,7 @@ export default class GroupController extends AbstractController {
           ingredients: ingredients},
           is_censored: censoredRecipes.includes(recipe.id)
         }
-      })
+      }))
       
       res.status(200).json({
         id: groupDetails.id,
