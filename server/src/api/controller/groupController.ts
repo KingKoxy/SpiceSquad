@@ -363,6 +363,7 @@ export default class GroupController extends AbstractController {
         })
         return {
           ...recipe,
+          author: users.find((user) => user.id === recipe.author_id),
           ingredients: ingredients,
           is_censored: censoredRecipes.includes(recipe.id)
         }
@@ -371,7 +372,7 @@ export default class GroupController extends AbstractController {
         id: groupDetails.id,
         name: groupDetails.name,
         group_code: groupDetails.group_code,
-        users: users,
+        members: users,
         recipes: recipesWithCensor
       }
     }))
@@ -429,6 +430,7 @@ export default class GroupController extends AbstractController {
         })
         return {
           recipe: {...recipe,
+          author: users.find((user) => user.user.id === recipe.author_id),
           ingredients: ingredients},
           is_censored: censoredRecipes.includes(recipe.id)
         }
@@ -438,7 +440,7 @@ export default class GroupController extends AbstractController {
         id: groupDetails.id,
         name: groupDetails.name,
         group_code: groupDetails.group_code,
-        users: users,
+        members: users,
         recipes: recipesWithCensor
       })
   }

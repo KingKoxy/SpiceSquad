@@ -30,10 +30,12 @@
     "firebase": "^9.23.0",
     "firebase-admin": "^11.9.0",
     "joi": "^17.9.2",
+    "mocha": "^10.2.0",
     "morgan": "^1.10.0",
     "nodemailer": "^6.9.3",
     "prisma": "^4.16.1",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "ts-mocha": "^10.0.0"
   },
   "devDependencies": {
     "@prisma/client": "^4.16.1",
