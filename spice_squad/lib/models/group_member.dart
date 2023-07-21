@@ -15,6 +15,6 @@ class GroupMember extends User {
 
   /// Creates a new [GroupMember] from the given [map] object by extracting the values
   factory GroupMember.fromMap(Map<String, dynamic> map) {
-    return GroupMember(user: User.fromMap(map["user"]), isAdmin: map["is_admin"]);
+    return GroupMember(user: User.fromMap(map), isAdmin: map["is_admin"]);
   }
 }

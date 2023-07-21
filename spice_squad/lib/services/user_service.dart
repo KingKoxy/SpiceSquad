@@ -78,12 +78,12 @@ class UserService extends AsyncNotifier<User?> {
 
   /// Refetches the current user.
   Future<void> _refetch() async {
-    try {
-      await ref.read(userRepositoryProvider).fetchCurrentUser().then((value) => state = AsyncData(value));
-    } catch (e) {
+    await ref.read(userRepositoryProvider).fetchCurrentUser().then((value) async {
+      state = AsyncData(value);
+      await ref.read(groupServiceProvider.notifier).refetch();
+      await ref.read(recipeServiceProvider.notifier).refetch();
+    }).catchError((e) {
       state = AsyncError(e, StackTrace.current);
-    }
-    await ref.read(groupServiceProvider.notifier).refetch();
-    await ref.read(recipeServiceProvider.notifier).refetch();
+    });
   }
 }

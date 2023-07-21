@@ -44,7 +44,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.recipe.title),
-          actions: widget.recipe.author.id == ref.read(userServiceProvider).value?.id
+          actions: widget.recipe.author.id == ref.watch(userServiceProvider).value?.id
               ? <Widget>[
                   IconButton(
                     iconSize: 32,

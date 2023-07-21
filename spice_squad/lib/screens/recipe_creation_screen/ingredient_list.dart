@@ -26,7 +26,7 @@ class _IngredientListState extends State<IngredientList> {
   @override
   void initState() {
     super.initState();
-    _ingredients = widget.initialList;
+    _ingredients = List.of(widget.initialList);
   }
 
   @override

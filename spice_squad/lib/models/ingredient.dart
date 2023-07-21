@@ -14,7 +14,7 @@ class Ingredient {
   final Uint8List icon;
 
   /// The amount of the ingredient
-  final int amount;
+  final double amount;
 
   /// The unit of the ingredient
   final String unit;
@@ -34,7 +34,7 @@ class Ingredient {
       id: map["id"],
       name: map["name"],
       icon: Uint8List.fromList(map["icon"]["data"].cast<int>()),
-      amount: map["amount"],
+      amount: map["amount"].toDouble(),
       unit: map["unit"],
     );
   }

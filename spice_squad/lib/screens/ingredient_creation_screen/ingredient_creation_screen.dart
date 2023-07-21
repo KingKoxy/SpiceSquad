@@ -70,36 +70,24 @@ class _IngredientCreationScreenState extends State<IngredientCreationScreen> {
                           return null;
                         },
                         controller: widget._amountController,
-                        onChanged: (value) {
-                          if (int.tryParse(value) == null) {
-                            widget._amountController.text = "";
-                          }
-                        },
                         inputFormatters: [
-                          FilteringTextInputFormatter.allow(RegExp(r"[1-9]\d*")),
+                          FilteringTextInputFormatter.allow(RegExp(r"^(0|([1-9]\d?\d?))(\.\d?[1-9]?)?")),
                         ],
-                        maxLength: 3,
-                        keyboardType: TextInputType.number,
-                        decoration:
-                            InputDecoration(counterText: "", hintText: AppLocalizations.of(context)!.amountInputLabel),
+                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                        decoration: InputDecoration(hintText: AppLocalizations.of(context)!.amountInputLabel),
                       ),
                     ),
                     const SizedBox(width: 10),
                     Expanded(
                       child: TextFormField(
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return AppLocalizations.of(context)!.unitEmptyError;
-                          }
-                          if(value.length > 16){
+                          if (value != null && value.length > 16) {
                             return AppLocalizations.of(context)!.unitTooLongError;
                           }
                           return null;
                         },
-                        maxLength: 16,
                         controller: widget._unitController,
-                        decoration:
-                            InputDecoration(hintText: AppLocalizations.of(context)!.unitInputLabel, counterText: ""),
+                        decoration: InputDecoration(hintText: AppLocalizations.of(context)!.unitInputLabel),
                       ),
                     ),
                   ],
@@ -117,7 +105,7 @@ class _IngredientCreationScreenState extends State<IngredientCreationScreen> {
                       final ingredient = Ingredient(
                         id: "",
                         name: widget._nameController.text,
-                        amount: int.parse(widget._amountController.text),
+                        amount: double.parse(widget._amountController.text),
                         unit: widget._unitController.text,
                         icon: _icon!,
                       );
