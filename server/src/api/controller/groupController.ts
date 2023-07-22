@@ -321,63 +321,11 @@ export default class GroupController extends AbstractController {
       where: {
         user_id: req.userId,
       },
-    })).map(async (currentgroup) => {
-      console.log(currentgroup)
-
-      var id = currentgroup.group_id
-      const groupDetails = (await this.prisma.group
-        .findUnique({
-          where: {
-            id: id,
-          },
-        }))
-
-      const members = await this.getGroupMembers(id)
-      const admins = await this.getGroupAdmins(id)
-      const users = (await this.prisma.user.findMany({
-        where: {
-          id: {
-            in: members,
-          },
-        },
-      })).map((user) => {
-        return {
-          ...user,
-          is_admin: admins.includes(user.id)
-        }
-      })
-
-      const recipes = await this.getGroupRecipes(members)
-      const censoredRecipes = await this.getGroupCensoredRecipes(id)
-      const recipesWithCensor = (await this.prisma.recipe.findMany({
-        where: {
-          id: {
-            in: recipes,
-          }
-        },
-      })).map(async (recipe) => {
-        const ingredients = await this.prisma.ingredient.findMany({
-          where: {
-            recipe_id: recipe.id
-          }
-        })
-        return {
-          ...recipe,
-          author: users.find((user) => user.id === recipe.author_id),
-          ingredients: ingredients,
-          is_censored: censoredRecipes.includes(recipe.id)
-        }
-      })
-      return {
-        id: groupDetails.id,
-        name: groupDetails.name,
-        group_code: groupDetails.group_code,
-        members: users,
-        recipes: recipesWithCensor
-      }
+    })).map(async (groupMember) => {
+      return await this.getGroup(groupMember.group_id)
     }))
     res.status(200).json({
-      groups: groups,
+      groups: groups
     })
   }
 
@@ -389,15 +337,27 @@ export default class GroupController extends AbstractController {
    * @returns Promise<void>
    */
   public async groupGetById(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
+      const group = await this.getGroup(req.params.groupId)
+      
+      res.status(200).json({
+        group
+      })
+  }
+  /**
+   * @description Gets all relevant information for a group by id
+   * @param groupId 
+   * @returns Promise<any>
+   */
+  private async getGroup(groupId: string) : Promise<any> {
     const groupDetails =  (await this.prisma.group
       .findUnique({
         where: {
-          id: req.params.groupId,
+          id: groupId
         },
       }))
 
-      const members = await this.getGroupMembers(req.params.groupId)
-      const admins = await this.getGroupAdmins(req.params.groupId)
+      const members = await this.getGroupMembers(groupId)
+      const admins = await this.getGroupAdmins(groupId)
       const users = (await this.prisma.user.findMany({
         where: {
           id: {
@@ -414,36 +374,37 @@ export default class GroupController extends AbstractController {
       })
 
       const recipes = await this.getGroupRecipes(members)
-      const censoredRecipes = await this.getGroupCensoredRecipes(req.params.groupId)
-      const recipesWithCensor = (await this.prisma.recipe.findMany({
+      const censoredRecipes = await this.getGroupCensoredRecipes(groupId)
+      const recipesWithCensor = await Promise.all((await this.prisma.recipe.findMany({
         where: {
           id: {
             in: recipes,
           }
         },
-
-      })).map(await (async (recipe) => {
-        const ingredients = await this.prisma.ingredient.findMany({
-          where: {
-            recipe_id: recipe.id
+      })).map((async (recipe) => {
+          const ingredients = await this.prisma.ingredient.findMany({
+            where: {
+              recipe_id: recipe.id
+            }
+          })
+          return {
+            recipe: {
+              ...recipe,
+              author: users.find((user) => user.user.id === recipe.author_id),
+              ingredients: ingredients
+            },
+            is_censored: censoredRecipes.includes(recipe.id)
           }
-        })
+        })))
+
         return {
-          recipe: {...recipe,
-          author: users.find((user) => user.user.id === recipe.author_id),
-          ingredients: ingredients},
-          is_censored: censoredRecipes.includes(recipe.id)
+          id: groupDetails.id,
+          name: groupDetails.name,
+          group_code: groupDetails.group_code,
+          members: users,
+          recipes: recipesWithCensor
         }
-      }))
-      
-      res.status(200).json({
-        id: groupDetails.id,
-        name: groupDetails.name,
-        group_code: groupDetails.group_code,
-        members: users,
-        recipes: recipesWithCensor
-      })
-  }
+  }  
 
   /**
  * @description This function gets all members of a group.
