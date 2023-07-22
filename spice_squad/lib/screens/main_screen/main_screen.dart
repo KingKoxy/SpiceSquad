@@ -14,7 +14,7 @@ import "package:spice_squad/widgets/nav_bar.dart";
 /// The main screen of the app showing a list of recipes for the user.
 class MainScreen extends ConsumerStatefulWidget {
   /// The route name of the main screen.
-  static const routeName = "/";
+  static const routeName = "/main";
 
   final _searchController = TextEditingController();
 
@@ -33,15 +33,17 @@ class _MainScreenState extends ConsumerState<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: const NavBar(currentIndex: 1),
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight + 16),
-        child: AppBar(
-          title: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            // The search field.
-            child: TextField(
+    return GestureDetector(
+      onTap: () {
+        // Remove focus from text field when tapping outside of it.
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        bottomNavigationBar: const NavBar(currentIndex: 1),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight + 16),
+          child: AppBar(
+            title: TextField(
               controller: widget._searchController,
               decoration: InputDecoration(
                 prefixIconColor: Colors.white,
@@ -75,42 +77,42 @@ class _MainScreenState extends ConsumerState<MainScreen> {
             ),
           ),
         ),
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            // The sort and filter option selectors.
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0, right: 16, top: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SortSelectionWidget(
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedSort = value;
-                      });
-                    },
-                    selectedSort: _selectedSort,
-                  ),
-                  FilterSelectionWidget(
-                    onChanged: (value) {
-                      setState(() {
-                        _filterCategories = value;
-                      });
-                    },
-                    selectedFilters: _filterCategories,
-                  )
-                ],
-              ),
-            ),
-            //The list of recipes.
-            ref.watch(recipeServiceProvider).when(
-                  data: (recipes) => RecipeList(recipes: _filterRecipes(recipes)),
-                  error: (error, stackTrace) => Text(error.toString()),
-                  loading: () => const SizedBox(height: 32, width: 32, child: CircularProgressIndicator()),
+        body: Center(
+          child: Column(
+            children: [
+              // The sort and filter option selectors.
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0, right: 16, top: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SortSelectionWidget(
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedSort = value;
+                        });
+                      },
+                      selectedSort: _selectedSort,
+                    ),
+                    FilterSelectionWidget(
+                      onChanged: (value) {
+                        setState(() {
+                          _filterCategories = value;
+                        });
+                      },
+                      selectedFilters: _filterCategories,
+                    )
+                  ],
                 ),
-          ],
+              ),
+              //The list of recipes.
+              ref.watch(recipeServiceProvider).when(
+                    data: (recipes) => RecipeList(recipes: _filterRecipes(recipes)),
+                    error: (error, stackTrace) => Text(error.toString()),
+                    loading: () => const SizedBox(height: 32, width: 32, child: CircularProgressIndicator()),
+                  ),
+            ],
+          ),
         ),
       ),
     );

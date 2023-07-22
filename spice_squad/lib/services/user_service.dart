@@ -18,7 +18,7 @@ class UserService extends AsyncNotifier<User?> {
 
   /// Tries to login with the given [email] and [password].
   Future<void> login(String email, String password) {
-    return ref.read(userRepositoryProvider).login(email, password).whenComplete(_refetch);
+    return ref.read(userRepositoryProvider).login(email, password).then((_) => _refetch);
   }
 
   /// Logs the user out.
@@ -29,7 +29,7 @@ class UserService extends AsyncNotifier<User?> {
 
   /// Tries to register with the given [email], [password] and [userName].
   Future<void> register(String email, String password, String userName) {
-    return ref.read(userRepositoryProvider).register(email, password, userName).whenComplete(_refetch);
+    return ref.read(userRepositoryProvider).register(email, password, userName).then((_) => _refetch);
   }
 
   /// Deletes the account of the currently logged in user and logs out.
