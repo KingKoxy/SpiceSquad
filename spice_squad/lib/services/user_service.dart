@@ -51,7 +51,7 @@ class UserService extends AsyncNotifier<User?> {
   Future<void> setProfileImage(File file) {
     if (state.valueOrNull == null) throw Exception("not logged in");
     Image image = decodeImage(file.readAsBytesSync())!;
-    image = copyResizeCropSquare(image, size: 100);
+    image = copyResizeCropSquare(image, size: 240);
     final User oldUser = state.value!;
     final User newUser = User(id: oldUser.id, userName: oldUser.userName, profileImage: encodeJpg(image));
     state = AsyncData(newUser);

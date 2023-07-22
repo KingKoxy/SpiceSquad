@@ -75,6 +75,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                           autofillHints: const [AutofillHints.newUsername],
                           validator: (value) => _validateUserName(context, value),
                           keyboardType: TextInputType.name,
+                          textInputAction: TextInputAction.next,
                           controller: widget._userNameController,
                           decoration: InputDecoration(
                             errorText: _connectionError,
@@ -90,6 +91,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                         width: double.infinity,
                         child: TextFormField(
                           autofillHints: const [AutofillHints.email],
+                          textInputAction: TextInputAction.next,
                           validator: (value) => _validateEmail(context, value),
                           keyboardType: TextInputType.emailAddress,
                           controller: widget._emailController,
@@ -105,6 +107,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       SizedBox(
                         width: double.infinity,
                         child: TextFormField(
+                          textInputAction: TextInputAction.next,
                           autofillHints: const [AutofillHints.newPassword],
                           validator: (value) => _validatePassword(context, value),
                           keyboardType: TextInputType.visiblePassword,
@@ -121,6 +124,16 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       SizedBox(
                         width: double.infinity,
                         child: TextFormField(
+                          autofillHints: const [AutofillHints.newPassword],
+                          textInputAction: TextInputAction.done,
+                          onFieldSubmitted: (value) {
+                            if (!loading && widget._formKey.currentState!.validate()) {
+                              _register(
+                                context,
+                                ref.read(userServiceProvider.notifier),
+                              );
+                            }
+                          },
                           keyboardType: TextInputType.visiblePassword,
                           obscureText: true,
                           controller: widget._passwordRepeatController,

@@ -77,47 +77,40 @@ class _MainScreenState extends ConsumerState<MainScreen> {
         ),
       ),
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 16.0, left: 16, right: 16),
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              return SizedBox(
-                height: constraints.maxHeight,
-                child: Column(
-                  children: [
-                    // The sort and filter option selectors.
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SortSelectionWidget(
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedSort = value;
-                            });
-                          },
-                          selectedSort: _selectedSort,
-                        ),
-                        FilterSelectionWidget(
-                          onChanged: (value) {
-                            setState(() {
-                              _filterCategories = value;
-                            });
-                          },
-                          selectedFilters: _filterCategories,
-                        )
-                      ],
-                    ),
-                    //The list of recipes.
-                    ref.watch(recipeServiceProvider).when(
-                          data: (recipes) => RecipeList(recipes: _filterRecipes(recipes)),
-                          error: (error, stackTrace) => Text(error.toString()),
-                          loading: () => const SizedBox(height: 32, width: 32, child: CircularProgressIndicator()),
-                        ),
-                  ],
+        child: Column(
+          children: [
+            // The sort and filter option selectors.
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0, right: 16, top: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SortSelectionWidget(
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedSort = value;
+                      });
+                    },
+                    selectedSort: _selectedSort,
+                  ),
+                  FilterSelectionWidget(
+                    onChanged: (value) {
+                      setState(() {
+                        _filterCategories = value;
+                      });
+                    },
+                    selectedFilters: _filterCategories,
+                  )
+                ],
+              ),
+            ),
+            //The list of recipes.
+            ref.watch(recipeServiceProvider).when(
+                  data: (recipes) => RecipeList(recipes: _filterRecipes(recipes)),
+                  error: (error, stackTrace) => Text(error.toString()),
+                  loading: () => const SizedBox(height: 32, width: 32, child: CircularProgressIndicator()),
                 ),
-              );
-            },
-          ),
+          ],
         ),
       ),
     );

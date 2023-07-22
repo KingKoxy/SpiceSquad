@@ -28,7 +28,7 @@ class LoginScreen extends ConsumerStatefulWidget {
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
   String? _emailError;
-  bool loading = false;
+  bool _loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +70,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       SizedBox(
                         width: double.infinity,
                         child: TextFormField(
+                          autocorrect: false,
+                          key: const Key("email"),
+                          textInputAction: TextInputAction.next,
                           autofillHints: const [AutofillHints.email],
                           validator: (value) => _validateEmail(context, value),
                           keyboardType: TextInputType.emailAddress,
@@ -86,11 +89,19 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       SizedBox(
                         width: double.infinity,
                         child: TextFormField(
+                          autocorrect: false,
+                          textInputAction: TextInputAction.done,
+                          key: const Key("password"),
                           validator: (value) => _validatePassword(context, value),
                           autofillHints: const [AutofillHints.password],
                           keyboardType: TextInputType.visiblePassword,
                           obscureText: true,
                           controller: widget._passwordController,
+                          onFieldSubmitted: (value) {
+                            if (!_loading && widget._formKey.currentState!.validate()) {
+                              _login(context, ref.read(userServiceProvider.notifier));
+                            }
+                          },
                           decoration: InputDecoration(
                             hintText: AppLocalizations.of(context)!.passwordLabel,
                           ),
@@ -126,11 +137,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      if (!loading && widget._formKey.currentState!.validate()) {
+                      if (!_loading && widget._formKey.currentState!.validate()) {
                         _login(context, ref.read(userServiceProvider.notifier));
                       }
                     },
-                    child: loading
+                    child: _loading
                         ? const CircularProgressIndicator(
                             color: Colors.white,
                           )
@@ -156,7 +167,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   Future<void> _login(BuildContext context, UserService userService) async {
     setState(() {
-      loading = true;
+      _loading = true;
     });
     await userService.login(widget._emailController.text, widget._passwordController.text).then((value) {
       Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
@@ -173,7 +184,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       }
     });
     setState(() {
-      loading = false;
+      _loading = false;
     });
   }
 

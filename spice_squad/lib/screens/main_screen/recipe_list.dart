@@ -16,6 +16,7 @@ class RecipeList extends StatelessWidget {
     return recipes.isNotEmpty
         ? Expanded(
       child: ListView.builder(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         itemCount: recipes.length,
         itemBuilder: (context, index) {
           return Padding(

@@ -30,7 +30,7 @@ class GroupRecipe extends Recipe {
   /// Creates a new [GroupRecipe] from the given [map] object by extracting the values
   factory GroupRecipe.fromMap(Map<String, dynamic> map) {
     return GroupRecipe(
-      recipe: Recipe.fromMap(map),
+      recipe: Recipe.fromMap(map["recipe"]),
       isCensored: map["is_censored"],
     );
   }
