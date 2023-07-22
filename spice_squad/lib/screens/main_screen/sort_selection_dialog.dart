@@ -54,7 +54,8 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
                     children: [
                       ImageIcon(
                         selectedSort.ascending
-                            ? SpiceSquadIconImages.sortAscending : SpiceSquadIconImages.sortDescending,
+                            ? SpiceSquadIconImages.sortAscending
+                            : SpiceSquadIconImages.sortDescending,
                         color: Colors.white,
                       ),
                       const SizedBox(

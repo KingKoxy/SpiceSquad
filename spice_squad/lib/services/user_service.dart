@@ -1,10 +1,10 @@
 import "dart:async";
 import "dart:io";
+
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:image/image.dart";
 import "package:spice_squad/models/user.dart";
 import "package:spice_squad/providers/repository_providers.dart";
-
 import "package:spice_squad/providers/service_providers.dart";
 
 /// Service that handles all user related logic.

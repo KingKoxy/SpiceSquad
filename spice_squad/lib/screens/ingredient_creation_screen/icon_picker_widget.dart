@@ -26,11 +26,13 @@ class _IconPickerWidgetState extends ConsumerState<IconPickerWidget> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(ingredientDataRepository).fetchIngredientIcons().then((value) => setState(() {
-            _icons = value;
-            _selectedIcon = _icons[0];
-            widget.onChanged(_selectedIcon!);
-          }),);
+      ref.read(ingredientDataRepository).fetchIngredientIcons().then(
+            (value) => setState(() {
+              _icons = value;
+              _selectedIcon = _icons[0];
+              widget.onChanged(_selectedIcon!);
+            }),
+          );
     });
   }
 

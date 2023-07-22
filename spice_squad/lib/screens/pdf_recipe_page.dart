@@ -24,8 +24,7 @@ class PdfRecipeViewPage extends ConsumerStatefulWidget {
   const PdfRecipeViewPage({required this.recipe, super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _PdfRecipeViewPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _PdfRecipeViewPageState();
 }
 
 class _PdfRecipeViewPageState extends ConsumerState<PdfRecipeViewPage> {
@@ -47,14 +46,11 @@ class _PdfRecipeViewPageState extends ConsumerState<PdfRecipeViewPage> {
   @override
   Widget build(BuildContext context) {
     pw.RichText.debug = true;
-    final actions = <PdfPreviewAction>[
-      PdfPreviewAction(icon: const Icon(Icons.save), onPressed: saveAsFile)
-    ];
+    final actions = <PdfPreviewAction>[PdfPreviewAction(icon: const Icon(Icons.save), onPressed: saveAsFile)];
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          AppLocalizations.of(context)!
-              .pdfRecipeViewHeadline(widget.recipe.title),
+          AppLocalizations.of(context)!.pdfRecipeViewHeadline(widget.recipe.title),
         ),
       ),
       body: PdfPreview(

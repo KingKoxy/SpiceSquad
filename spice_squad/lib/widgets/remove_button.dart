@@ -24,4 +24,3 @@ class RemoveButton extends StatelessWidget {
     );
   }
 }
-

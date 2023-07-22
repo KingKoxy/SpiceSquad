@@ -47,7 +47,9 @@ class RecipeCard extends ConsumerWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(width: 8,),
+                  const SizedBox(
+                    width: 8,
+                  ),
                   FavouriteButton(
                     value: recipe.isFavourite,
                     onToggle: () {

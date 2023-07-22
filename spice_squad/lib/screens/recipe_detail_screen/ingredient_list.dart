@@ -16,19 +16,20 @@ class IngredientList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        margin: const EdgeInsets.all(0),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        child: ListView.builder(
-          padding: const EdgeInsets.all(0),
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: ingredients.length,
-          itemBuilder: (context, index) {
-            return IngredientListItem(
-              ingredient: ingredients[index],
-              amountFactor: amountFactor,
-            );
-          },
-        ),);
+      margin: const EdgeInsets.all(0),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: ListView.builder(
+        padding: const EdgeInsets.all(0),
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: ingredients.length,
+        itemBuilder: (context, index) {
+          return IngredientListItem(
+            ingredient: ingredients[index],
+            amountFactor: amountFactor,
+          );
+        },
+      ),
+    );
   }
 }

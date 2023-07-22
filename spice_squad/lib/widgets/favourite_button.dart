@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-
 import "package:spice_squad/icons.dart";
 
 /// A button that is used to indicate toggling the favourite status of something.
