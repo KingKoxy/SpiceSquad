@@ -45,7 +45,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 24, right: 24, left:24 ),
+                  padding: const EdgeInsets.only(top: 24, right: 24, left: 24),
                   child: TextField(
                     controller: widget._searchController,
                     decoration: InputDecoration(
@@ -60,14 +60,14 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                       suffixIconColor: Colors.white,
                       suffixIcon: widget._searchController.text != ""
                           ? IconButton(
-                        onPressed: () {
-                          setState(() {
-                            _searchText = "";
-                            widget._searchController.text = "";
-                          });
-                        },
-                        icon: const Icon(Icons.highlight_remove_rounded),
-                      )
+                              onPressed: () {
+                                setState(() {
+                                  _searchText = "";
+                                  widget._searchController.text = "";
+                                });
+                              },
+                              icon: const Icon(Icons.highlight_remove_rounded),
+                            )
                           : null,
                       hintText: AppLocalizations.of(context)!.searchInputPlaceholder,
                     ),

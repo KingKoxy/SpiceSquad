@@ -36,6 +36,7 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
       content: SizedBox(
         width: double.maxFinite,
         child: ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: SortCategory.values.length + 1,
           itemBuilder: (context, index) {

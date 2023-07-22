@@ -34,6 +34,7 @@ class _IngredientCreationScreenState extends State<IngredientCreationScreen> {
         title: Text(AppLocalizations.of(context)!.ingredientCreationHeadline),
       ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.all(32),
           child: Form(

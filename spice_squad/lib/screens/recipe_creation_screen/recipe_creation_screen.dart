@@ -89,6 +89,7 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
           ),
         ),
         body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.all(24),
           child: Form(
             key: widget._formKey,
@@ -120,6 +121,7 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
                   height: 16,
                 ),
                 SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [

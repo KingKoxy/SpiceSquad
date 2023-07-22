@@ -42,6 +42,7 @@ class IconPickerDialog extends ConsumerWidget {
                         MemoryImage(
                           icons[index],
                         ),
+                        size: 30,
                       ),
                     ),
                   );

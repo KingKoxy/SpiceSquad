@@ -34,6 +34,7 @@ class _DifficultyPickerDialogState extends State<DifficultyPickerDialog> {
     return AlertDialog(
       title: const Text("Schwierigkeit auswählen"),
       content: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
         child: Column(
           children: [
             RadioListTile(

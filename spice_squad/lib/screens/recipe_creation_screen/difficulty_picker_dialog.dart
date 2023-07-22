@@ -35,6 +35,7 @@ class _DifficultyPickerDialogState extends State<DifficultyPickerDialog> {
     return AlertDialog(
       title: Text(AppLocalizations.of(context)!.selectDifficultyHeadline),
       content: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
         child: Column(
           children: [
             RadioListTile(

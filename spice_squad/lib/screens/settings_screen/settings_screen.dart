@@ -39,6 +39,7 @@ class SettingsScreen extends ConsumerWidget {
       ),
       body: Center(
         child: ListView(
+          physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.all(24),
           children: [
             ref.watch(userServiceProvider).when(
@@ -111,9 +112,8 @@ class SettingsScreen extends ConsumerWidget {
 }
 
 void _logout(BuildContext context, UserService userService) {
-  Navigator.of(context)
-      .pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
-      userService.logout();
+  Navigator.of(context).pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
+  userService.logout();
 }
 
 void _renameUser(BuildContext context, UserService userService, String oldName) {
