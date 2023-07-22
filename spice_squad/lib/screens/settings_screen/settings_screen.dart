@@ -27,17 +27,15 @@ class SettingsScreen extends ConsumerWidget {
     return Scaffold(
       bottomNavigationBar: const NavBar(currentIndex: 2),
       appBar: AppBar(
-        title: Row(
-          children: [
-            Expanded(child: Center(child: Text(AppLocalizations.of(context)!.settingsHeadline))),
-            IconButton(
-              onPressed: () {
-                _logout(context, ref.read(userServiceProvider.notifier));
-              },
-              icon: const ImageIcon(SpiceSquadIconImages.leave),
-            )
-          ],
-        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              _logout(context, ref.read(userServiceProvider.notifier));
+            },
+            icon: const ImageIcon(SpiceSquadIconImages.leave),
+          )
+        ],
+        title: Text(AppLocalizations.of(context)!.settingsHeadline),
       ),
       body: Center(
         child: ListView(
@@ -55,13 +53,13 @@ class SettingsScreen extends ConsumerWidget {
                           initialValue: user.profileImage,
                           userService: ref.read(userServiceProvider.notifier),
                         ),
-                        const SizedBox(
-                          height: 8,
-                        ),
                         TextButton(
                           onPressed: () {
                             _renameUser(context, ref.read(userServiceProvider.notifier), user.userName);
                           },
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+                          ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -88,7 +86,7 @@ class SettingsScreen extends ConsumerWidget {
                             _deleteAccount(context, ref.read(userServiceProvider.notifier));
                           },
                           child: Text(AppLocalizations.of(context)!.deleteAccountButton),
-                        )
+                        ),
                       ],
                     );
                   },
@@ -98,11 +96,11 @@ class SettingsScreen extends ConsumerWidget {
                   ),
                 ),
             const SizedBox(
-              height: 20,
+              height: 16,
             ),
             const GroupList(),
             const SizedBox(
-              height: 20,
+              height: 16,
             ),
             const OwnRecipeList(),
           ],
@@ -113,9 +111,9 @@ class SettingsScreen extends ConsumerWidget {
 }
 
 void _logout(BuildContext context, UserService userService) {
-  userService
-      .logout()
-      .then((value) => Navigator.of(context).pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false));
+  Navigator.of(context)
+      .pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
+      userService.logout();
 }
 
 void _renameUser(BuildContext context, UserService userService, String oldName) {
@@ -148,15 +146,13 @@ void _deleteAccount(BuildContext context, UserService userService) {
         title: AppLocalizations.of(context)!.deleteAccountDialogTitle,
         message: AppLocalizations.of(context)!.deleteAccountDialogDescription,
         onApproval: () {
-          Navigator.of(context).pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false).then(
-                (value) => userService.deleteAccount().then((value) {
-                  showDialog(
-                    context: context,
-                    builder: (context) =>
-                        const SuccessDialog(title: "Konto gelöscht", message: "Dein Konto wurde gelöscht."),
-                  );
-                }),
-              );
+          Navigator.of(context).pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
+          userService.deleteAccount().then((value) {
+            showDialog(
+              context: context,
+              builder: (context) => const SuccessDialog(title: "Konto gelöscht", message: "Dein Konto wurde gelöscht."),
+            );
+          });
         },
       );
     },

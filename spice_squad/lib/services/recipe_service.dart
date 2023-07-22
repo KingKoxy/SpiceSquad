@@ -70,11 +70,13 @@ class RecipeService extends AsyncNotifier<List<Recipe>> {
 
   /// Refetches all recipes.
   FutureOr<void> refetch() {
-    try {
-      return ref.read(recipeRepositoryProvider).fetchAllRecipesForUser().then((value) => state = AsyncData(value));
-    } catch (e) {
+    ref
+        .read(recipeRepositoryProvider)
+        .fetchAllRecipesForUser()
+        .then((value) => state = AsyncData(value))
+        .catchError((e) {
       state = AsyncError(e, StackTrace.current);
-    }
+    });
   }
 
   /// Updates the recipe with the given [recipeId] with the given [updatingFunction] in the [state] and returns the updated recipe.
