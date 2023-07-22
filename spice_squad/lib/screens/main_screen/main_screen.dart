@@ -38,25 +38,28 @@ class _MainScreenState extends ConsumerState<MainScreen> {
         // Remove focus from text field when tapping outside of it.
         FocusScope.of(context).unfocus();
       },
-      child: Scaffold(
-        bottomNavigationBar: const NavBar(currentIndex: 1),
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(kToolbarHeight + 16),
-          child: AppBar(
-            title: TextField(
-              controller: widget._searchController,
-              decoration: InputDecoration(
-                prefixIconColor: Colors.white,
-                prefixIcon: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
-                  child: ImageIcon(
-                    SpiceSquadIconImages.search,
-                    size: 28,
-                  ),
-                ),
-                suffixIconColor: Colors.white,
-                suffixIcon: widget._searchController.text != ""
-                    ? IconButton(
+      child: SafeArea(
+        child: Scaffold(
+          bottomNavigationBar: const NavBar(currentIndex: 1),
+          body: Center(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 24, right: 24, left:24 ),
+                  child: TextField(
+                    controller: widget._searchController,
+                    decoration: InputDecoration(
+                      prefixIconColor: Colors.white,
+                      prefixIcon: const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
+                        child: ImageIcon(
+                          SpiceSquadIconImages.search,
+                          size: 24,
+                        ),
+                      ),
+                      suffixIconColor: Colors.white,
+                      suffixIcon: widget._searchController.text != ""
+                          ? IconButton(
                         onPressed: () {
                           setState(() {
                             _searchText = "";
@@ -65,53 +68,49 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                         },
                         icon: const Icon(Icons.highlight_remove_rounded),
                       )
-                    : null,
-                fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
-                hintText: AppLocalizations.of(context)!.searchInputPlaceholder,
-              ),
-              onChanged: (value) {
-                setState(() {
-                  _searchText = value;
-                });
-              },
-            ),
-          ),
-        ),
-        body: Center(
-          child: Column(
-            children: [
-              // The sort and filter option selectors.
-              Padding(
-                padding: const EdgeInsets.only(left: 16.0, right: 16, top: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SortSelectionWidget(
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedSort = value;
-                        });
-                      },
-                      selectedSort: _selectedSort,
+                          : null,
+                      hintText: AppLocalizations.of(context)!.searchInputPlaceholder,
                     ),
-                    FilterSelectionWidget(
-                      onChanged: (value) {
-                        setState(() {
-                          _filterCategories = value;
-                        });
-                      },
-                      selectedFilters: _filterCategories,
-                    )
-                  ],
-                ),
-              ),
-              //The list of recipes.
-              ref.watch(recipeServiceProvider).when(
-                    data: (recipes) => RecipeList(recipes: _filterRecipes(recipes)),
-                    error: (error, stackTrace) => Text(error.toString()),
-                    loading: () => const SizedBox(height: 32, width: 32, child: CircularProgressIndicator()),
+                    onChanged: (value) {
+                      setState(() {
+                        _searchText = value;
+                      });
+                    },
                   ),
-            ],
+                ),
+                // The sort and filter option selectors.
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0, right: 16, top: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SortSelectionWidget(
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedSort = value;
+                          });
+                        },
+                        selectedSort: _selectedSort,
+                      ),
+                      FilterSelectionWidget(
+                        onChanged: (value) {
+                          setState(() {
+                            _filterCategories = value;
+                          });
+                        },
+                        selectedFilters: _filterCategories,
+                      )
+                    ],
+                  ),
+                ),
+                //The list of recipes.
+                ref.watch(recipeServiceProvider).when(
+                      data: (recipes) => RecipeList(recipes: _filterRecipes(recipes)),
+                      error: (error, stackTrace) => Text(error.toString()),
+                      loading: () => const SizedBox(height: 32, width: 32, child: CircularProgressIndicator()),
+                    ),
+              ],
+            ),
           ),
         ),
       ),

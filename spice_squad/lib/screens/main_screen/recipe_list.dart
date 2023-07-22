@@ -16,11 +16,12 @@ class RecipeList extends StatelessWidget {
     return recipes.isNotEmpty
         ? Expanded(
             child: ListView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
               itemCount: recipes.length,
               itemBuilder: (context, index) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  padding: const EdgeInsets.only(bottom: 16),
                   child: RecipeCard(recipe: recipes[index]),
                 );
               },
