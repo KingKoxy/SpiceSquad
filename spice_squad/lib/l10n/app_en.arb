@@ -668,5 +668,9 @@
   "totalTime": "Total Time",
   "@totalTime": {
     "description": "The Category for the preparation time"
+  },
+  "sortNameDuration": "Duration",
+  "@sortNameDuration": {
+    "description": "The name of the sort option for the duration"
   }
 }

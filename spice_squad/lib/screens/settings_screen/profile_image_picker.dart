@@ -90,26 +90,27 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    SizedBox(
-                      height: 86,
-                      width: 86,
-                      child: RawMaterialButton(
-                        onPressed: _removeProfileImage,
-                        elevation: 2.0,
-                        fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
-                        padding: const EdgeInsets.all(15.0),
-                        shape: const CircleBorder(),
-                        child: const ImageIcon(
-                          SpiceSquadIconImages.trash,
-                          size: 32,
+                    if (_profileImage != null)
+                      SizedBox(
+                        height: 86,
+                        width: 86,
+                        child: RawMaterialButton(
+                          onPressed: _removeProfileImage,
+                          elevation: 2.0,
+                          fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
+                          padding: const EdgeInsets.all(15.0),
+                          shape: const CircleBorder(),
+                          child: const ImageIcon(
+                            SpiceSquadIconImages.trash,
+                            size: 32,
+                          ),
                         ),
                       ),
-                    ),
                     SizedBox(
                       height: 86,
                       width: 86,
                       child: RawMaterialButton(
-                        onPressed: _setProfileImageFromGallery,
+                        onPressed: () => _setProfileImage(ImageSource.gallery),
                         elevation: 2.0,
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),
@@ -124,7 +125,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                       height: 86,
                       width: 86,
                       child: RawMaterialButton(
-                        onPressed: _setProfileImageFromCamera,
+                        onPressed: () => _setProfileImage(ImageSource.camera),
                         elevation: 2.0,
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),
@@ -156,22 +157,11 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
 
   void _removeProfileImage() {
     widget.userService.removeProfileImage();
+    Navigator.of(context).pop();
   }
 
-  void _setProfileImageFromGallery() {
-    ImagePicker().pickImage(source: ImageSource.gallery).then((image) {
-      if (image != null) {
-        setState(() {
-          final File file = File(image.path);
-          _profileImage = file.readAsBytesSync();
-          widget.userService.setProfileImage(file);
-        });
-      }
-    });
-  }
-
-  void _setProfileImageFromCamera() {
-    ImagePicker().pickImage(source: ImageSource.camera).then((image) {
+  void _setProfileImage(ImageSource source) {
+    ImagePicker().pickImage(source: source).then((image) {
       if (image != null) {
         setState(() {
           final File file = File(image.path);

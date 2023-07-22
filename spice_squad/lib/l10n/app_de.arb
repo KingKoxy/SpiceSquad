@@ -146,5 +146,6 @@
   "mediumDifficulty": "Mittel",
   "hardDifficulty": "Schwer",
   "clearFiltersButtonLabel": "Filter zurücksetzen",
-  "groupCodeNotExistingError": "Dieses Squadkürzel existiert nicht"
+  "groupCodeNotExistingError": "Dieses Squadkürzel existiert nicht",
+  "sortNameDuration": "Dauer"
 }

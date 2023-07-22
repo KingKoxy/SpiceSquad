@@ -10,6 +10,9 @@ enum SortCategory {
   /// Sort by difficulty.
   difficulty,
 
+  /// Sort by duration.
+  duration,
+
   /// Sort by creation date.
   creationDate;
 
@@ -20,6 +23,8 @@ enum SortCategory {
         return a.title.toLowerCase().compareTo(b.title.toLowerCase());
       case SortCategory.difficulty:
         return a.difficulty.index - b.difficulty.index;
+      case SortCategory.duration:
+        return a.duration - b.duration;
       case SortCategory.creationDate:
         return a.uploadDate.compareTo(b.uploadDate);
     }
@@ -32,6 +37,8 @@ enum SortCategory {
         return AppLocalizations.of(context)!.sortNameTitle;
       case SortCategory.difficulty:
         return AppLocalizations.of(context)!.sortNameDifficulty;
+      case SortCategory.duration:
+        return AppLocalizations.of(context)!.sortNameDuration;
       case SortCategory.creationDate:
         return AppLocalizations.of(context)!.sortNameDate;
     }
