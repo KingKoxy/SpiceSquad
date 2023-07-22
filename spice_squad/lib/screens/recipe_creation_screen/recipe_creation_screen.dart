@@ -76,9 +76,11 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        bottomNavigationBar: const NavBar(
-          currentIndex: 0,
-        ),
+        bottomNavigationBar: widget.recipe == null
+            ? const NavBar(
+                currentIndex: 0,
+              )
+            : null,
         appBar: AppBar(
           title: Text(
             widget.recipe == null

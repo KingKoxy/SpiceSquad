@@ -163,7 +163,9 @@ class GroupService extends AsyncNotifier<List<Group>> {
 
   /// Fetches all groups for the current user and sets the state to [AsyncData] with the fetched groups.
   FutureOr<void> refetch() {
-    ref.read(groupRepositoryProvider).fetchAllGroupsForUser().then((value) => state = AsyncData(value)).catchError((e) {
+    ref.read(groupRepositoryProvider).fetchAllGroupsForUser().then((value) {
+      state = AsyncData(value);
+    }).catchError((e) {
       state = AsyncError(e, StackTrace.current);
     });
   }
