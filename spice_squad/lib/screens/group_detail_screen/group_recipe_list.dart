@@ -18,11 +18,12 @@ class GroupRecipeList extends ConsumerWidget {
   final String groupId;
 
   /// Creates a [GroupRecipeList]
-  const GroupRecipeList(
-      {required this.groupId,
-      required this.recipes,
-      required this.isAdmin,
-      super.key,});
+  const GroupRecipeList({
+    required this.groupId,
+    required this.recipes,
+    required this.isAdmin,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -46,8 +47,7 @@ class GroupRecipeList extends ConsumerWidget {
           height: 10,
         ),
         Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           child: recipes.isNotEmpty
               ? ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
@@ -58,7 +58,9 @@ class GroupRecipeList extends ConsumerWidget {
                     final recipe = recipes[index];
                     return Padding(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 8, horizontal: 16,),
+                        vertical: 8,
+                        horizontal: 16,
+                      ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -74,17 +76,13 @@ class GroupRecipeList extends ConsumerWidget {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     recipe.title,
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge,
+                                    style: Theme.of(context).textTheme.titleLarge,
                                   ),
                                 ),
                               ),
                               Text(
                                 recipe.author.userName,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(color: Colors.grey),
+                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey),
                               ),
                             ],
                           ),
@@ -92,8 +90,9 @@ class GroupRecipeList extends ConsumerWidget {
                             open: recipe.isCensored,
                             onToggle: () {
                               _toggleCensored(
-                                  ref.read(groupServiceProvider.notifier),
-                                  recipe,);
+                                ref.read(groupServiceProvider.notifier),
+                                recipe,
+                              );
                             },
                           )
                         ],
@@ -105,10 +104,7 @@ class GroupRecipeList extends ConsumerWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
                     AppLocalizations.of(context)!.noRecipesFound,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(color: Colors.grey),
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.grey),
                   ),
                 ),
         ),

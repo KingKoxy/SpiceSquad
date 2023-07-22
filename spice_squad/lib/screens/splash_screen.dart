@@ -11,7 +11,7 @@ import "package:spice_squad/screens/main_screen/main_screen.dart";
 /// It loads the user and redirects to the login screen if the user is not logged in or to the main screen if the user is logged in.
 class SplashScreen extends ConsumerWidget {
   /// Route name for navigation
-  static const routeName = "/splash-screen";
+  static const routeName = "/";
 
   /// Creates a new splash screen
   const SplashScreen({super.key});

@@ -1,6 +1,7 @@
 import "dart:async";
 import "dart:convert";
 import "dart:io";
+
 import "package:http/http.dart" as http;
 import "package:jwt_decoder/jwt_decoder.dart";
 import "package:shared_preferences/shared_preferences.dart";
@@ -111,18 +112,17 @@ class UserRepository {
 
   /// Logs out the user and deletes the id token and refresh token
   Future<void> logout() async {
-    final response = await http.post(
+    await http.post(
       Uri.parse(ApiEndpoints.logout),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
         HttpHeaders.authorizationHeader: "${await getToken()}",
       },
     );
-    if (response.statusCode == 200) {
-      await deleteTokens();
-    } else {
+    await deleteTokens();
+    /*if (response.statusCode != 200) {
       throw Exception(response.body);
-    }
+    }*/
   }
 
   /// Registers a new user with the given email, password and username and logs the user in

@@ -76,9 +76,11 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        bottomNavigationBar: const NavBar(
-          currentIndex: 0,
-        ),
+        bottomNavigationBar: widget.recipe == null
+            ? const NavBar(
+                currentIndex: 0,
+              )
+            : null,
         appBar: AppBar(
           title: Text(
             widget.recipe == null
@@ -87,6 +89,7 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
           ),
         ),
         body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.all(24),
           child: Form(
             key: widget._formKey,
@@ -118,6 +121,7 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
                   height: 16,
                 ),
                 SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [

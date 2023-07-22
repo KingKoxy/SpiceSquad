@@ -15,28 +15,30 @@ class RecipeList extends StatelessWidget {
   Widget build(BuildContext context) {
     return recipes.isNotEmpty
         ? Expanded(
-      child: ListView.builder(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        itemCount: recipes.length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: RecipeCard(recipe: recipes[index]),
-          );
-        },
-      ),
-    )
+            child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+              itemCount: recipes.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 16),
+                  child: RecipeCard(recipe: recipes[index]),
+                );
+              },
+            ),
+          )
         : Padding(
-      padding: const EdgeInsets.only(top: 10.0),
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text(
-          AppLocalizations.of(context)!.noRecipesFound,
-          style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.grey),
-        ),
-      ),
-    ),);
+            padding: const EdgeInsets.only(top: 10.0),
+            child: Card(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  AppLocalizations.of(context)!.noRecipesFound,
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.grey),
+                ),
+              ),
+            ),
+          );
   }
 }

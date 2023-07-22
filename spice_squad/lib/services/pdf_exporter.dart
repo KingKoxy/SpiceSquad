@@ -11,12 +11,8 @@ class PDFExporter {
     final Recipe recipe,
     final AppLocalizations appLocalizations,
   ) async {
-    final recipeImage =
-        (await rootBundle.load("assets/images/exampleImage.jpeg"))
-            .buffer
-            .asUint8List();
-    final logo =
-        (await rootBundle.load("assets/images/logo.png")).buffer.asUint8List();
+    final recipeImage = (await rootBundle.load("assets/images/exampleImage.jpeg")).buffer.asUint8List();
+    final logo = (await rootBundle.load("assets/images/logo.png")).buffer.asUint8List();
     final pdf = pw.Document(
       title: "${recipe.title}_spice_squad",
     );

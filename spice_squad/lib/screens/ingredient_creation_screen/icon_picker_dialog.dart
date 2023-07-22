@@ -1,4 +1,5 @@
 import "dart:typed_data";
+
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -41,6 +42,7 @@ class IconPickerDialog extends ConsumerWidget {
                         MemoryImage(
                           icons[index],
                         ),
+                        size: 30,
                       ),
                     ),
                   );
@@ -52,7 +54,7 @@ class IconPickerDialog extends ConsumerWidget {
             } else if (snapshot.hasError) {
               return Text(snapshot.error.toString());
             } else {
-              return const SizedBox( height: 50, width: 50, child: CircularProgressIndicator());
+              return const SizedBox(height: 50, width: 50, child: CircularProgressIndicator());
             }
           },
         ),

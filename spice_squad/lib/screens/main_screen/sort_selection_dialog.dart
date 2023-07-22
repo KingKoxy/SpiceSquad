@@ -36,6 +36,7 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
       content: SizedBox(
         width: double.maxFinite,
         child: ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: SortCategory.values.length + 1,
           itemBuilder: (context, index) {
@@ -54,7 +55,8 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
                     children: [
                       ImageIcon(
                         selectedSort.ascending
-                            ? SpiceSquadIconImages.sortAscending : SpiceSquadIconImages.sortDescending,
+                            ? SpiceSquadIconImages.sortAscending
+                            : SpiceSquadIconImages.sortDescending,
                         color: Colors.white,
                       ),
                       const SizedBox(

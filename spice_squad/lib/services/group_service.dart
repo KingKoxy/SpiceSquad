@@ -1,4 +1,5 @@
 import "dart:async";
+
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:spice_squad/models/group.dart";
 import "package:spice_squad/models/group_member.dart";
@@ -41,7 +42,7 @@ class GroupService extends AsyncNotifier<List<Group>> {
   /// Deletes the group with the given [groupId].
   Future<void> deleteGroup(String groupId) {
     state = const AsyncLoading();
-    return ref.read(groupRepositoryProvider).deleteGroup(groupId).whenComplete((){
+    return ref.read(groupRepositoryProvider).deleteGroup(groupId).whenComplete(() {
       refetch();
       ref.read(recipeServiceProvider.notifier).refetch();
     });
@@ -162,11 +163,11 @@ class GroupService extends AsyncNotifier<List<Group>> {
 
   /// Fetches all groups for the current user and sets the state to [AsyncData] with the fetched groups.
   FutureOr<void> refetch() {
-    try {
-      return ref.read(groupRepositoryProvider).fetchAllGroupsForUser().then((value) => state = AsyncData(value));
-    } catch (e) {
+    ref.read(groupRepositoryProvider).fetchAllGroupsForUser().then((value) {
+      state = AsyncData(value);
+    }).catchError((e) {
       state = AsyncError(e, StackTrace.current);
-    }
+    });
   }
 
   /// Updates the group with the given [groupId] with the given [updatingFunction] in the [state] and returns the updated group.

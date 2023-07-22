@@ -1,10 +1,10 @@
 import "dart:async";
 import "dart:io";
+
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:image/image.dart";
 import "package:spice_squad/models/user.dart";
 import "package:spice_squad/providers/repository_providers.dart";
-
 import "package:spice_squad/providers/service_providers.dart";
 
 /// Service that handles all user related logic.
@@ -18,27 +18,23 @@ class UserService extends AsyncNotifier<User?> {
 
   /// Tries to login with the given [email] and [password].
   Future<void> login(String email, String password) {
-    return ref.read(userRepositoryProvider).login(email, password).whenComplete(_refetch);
+    return ref.read(userRepositoryProvider).login(email, password).then((_) => _refetch());
   }
 
   /// Logs the user out.
   Future<void> logout() {
-    state = const AsyncData(null);
-    return ref.read(userRepositoryProvider).logout();
+    return ref.read(userRepositoryProvider).logout().then((value) => state = const AsyncData(null));
   }
 
   /// Tries to register with the given [email], [password] and [userName].
   Future<void> register(String email, String password, String userName) {
-    return ref.read(userRepositoryProvider).register(email, password, userName).whenComplete(_refetch);
+    return ref.read(userRepositoryProvider).register(email, password, userName).then((_) => _refetch());
   }
 
   /// Deletes the account of the currently logged in user and logs out.
   Future<void> deleteAccount() {
     return ref.read(userRepositoryProvider).deleteAccount().then((value) {
       return logout();
-    }).then((value) async {
-      await ref.read(recipeServiceProvider.notifier).refetch();
-      await ref.read(groupServiceProvider.notifier).refetch();
     });
   }
 
@@ -80,11 +76,11 @@ class UserService extends AsyncNotifier<User?> {
   Future<void> _refetch() async {
     await ref.read(userRepositoryProvider).fetchCurrentUser().then((value) async {
       state = AsyncData(value);
+    }).whenComplete(() async {
+      await ref.read(recipeServiceProvider.notifier).refetch();
+      await ref.read(groupServiceProvider.notifier).refetch();
     }).catchError((e) {
       state = AsyncError(e, StackTrace.current);
-    }).whenComplete(() async {
-      await ref.read(groupServiceProvider.notifier).refetch();
-      await ref.read(recipeServiceProvider.notifier).refetch();
     });
   }
 }

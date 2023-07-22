@@ -47,6 +47,7 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
                   .any((element) => element.isAdmin && element.id == ref.read(userRepositoryProvider).getUserId());
 
               return ListView(
+                physics: const BouncingScrollPhysics(),
                 padding: const EdgeInsets.all(24),
                 children: [
                   Column(
