@@ -51,7 +51,7 @@ class SettingsScreen extends ConsumerWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         ProfileImagePicker(
-                          initialValue: user.profileImage,
+                          profileImage: user.profileImage,
                           userService: ref.read(userServiceProvider.notifier),
                         ),
                         TextButton(

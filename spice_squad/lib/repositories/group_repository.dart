@@ -43,7 +43,7 @@ class GroupRepository {
     );
     if (result.statusCode == 200) {
       final Map<String, dynamic> body = jsonDecode(result.body);
-      return Group.fromMap(body);
+      return Group.fromMap(body["group"] as Map<String, dynamic>);
     } else {
       throw Exception(result.body);
     }

@@ -1,3 +1,4 @@
+import "dart:convert";
 import "dart:io";
 
 import "package:http/http.dart" as http;
@@ -88,15 +89,15 @@ class AdminRepository {
   /// Sets the censor status of the recipe with the given [recipeId] in the group with the given [groupId] to the given [value]
   Future<void> setCensored(String recipeId, String groupId, bool value) async {
     final response = await http.patch(
-      Uri.parse(ApiEndpoints.setCensored),
+      Uri.parse("${ApiEndpoints.setCensored}/$groupId/$recipeId"),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
         HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
       },
-      body: {
+      body: jsonEncode(<String, dynamic>{
         "recipeId": recipeId,
         "groupId": groupId,
-      },
+      }),
     );
     if (response.statusCode != 200) {
       throw Exception(response.body);

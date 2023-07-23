@@ -8,38 +8,24 @@ import "package:spice_squad/icons.dart";
 import "package:spice_squad/services/user_service.dart";
 
 /// Widget for selecting a profile image
-class ProfileImagePicker extends StatefulWidget {
+class ProfileImagePicker extends StatelessWidget {
   /// Initial Profile image to display
-  final Uint8List? initialValue;
+  final Uint8List? profileImage;
 
   /// User service for updating the profile image
   final UserService userService;
 
   /// Creates a new profile image picker
-  const ProfileImagePicker({required this.initialValue, required this.userService, super.key});
+  const ProfileImagePicker({required this.profileImage, required this.userService, super.key});
 
-  @override
-  State<ProfileImagePicker> createState() => _ProfileImagePickerState();
-}
-
-class _ProfileImagePickerState extends State<ProfileImagePicker> {
-  Uint8List? _profileImage;
-
-  @override
-  void initState() {
-    super.initState();
-    _profileImage = widget.initialValue;
-  }
-
-  // TODO: make whole widget clickable
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       child: Ink(
-        decoration: _profileImage != null
+        decoration: profileImage != null
             ? BoxDecoration(
                 borderRadius: BorderRadius.circular(20000),
-                image: DecorationImage(image: MemoryImage(_profileImage!), fit: BoxFit.cover),
+                image: DecorationImage(image: MemoryImage(profileImage!), fit: BoxFit.cover),
               )
             : BoxDecoration(borderRadius: BorderRadius.circular(20000), color: Theme.of(context).cardColor),
         child: InkWell(
@@ -61,6 +47,21 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
 
   // Show dialog from bottom to remove or change profile image
   void _selectProfileImage(BuildContext context) {
+    void removeProfileImage() {
+      userService.removeProfileImage();
+      Navigator.of(context).pop();
+    }
+
+    void setProfileImage(ImageSource source) {
+      ImagePicker().pickImage(source: source).then((image) {
+        if (image != null) {
+          final File file = File(image.path);
+          userService.setProfileImage(file);
+          Navigator.of(context).pop();
+        }
+      });
+    }
+
     showGeneralDialog(
       barrierLabel: "showGeneralDialog",
       barrierDismissible: true,
@@ -90,12 +91,12 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    if (_profileImage != null)
+                    if (profileImage != null)
                       SizedBox(
                         height: 86,
                         width: 86,
                         child: RawMaterialButton(
-                          onPressed: _removeProfileImage,
+                          onPressed: removeProfileImage,
                           elevation: 2.0,
                           fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                           padding: const EdgeInsets.all(15.0),
@@ -110,7 +111,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                       height: 86,
                       width: 86,
                       child: RawMaterialButton(
-                        onPressed: () => _setProfileImage(ImageSource.gallery),
+                        onPressed: () => setProfileImage(ImageSource.gallery),
                         elevation: 2.0,
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),
@@ -125,7 +126,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                       height: 86,
                       width: 86,
                       child: RawMaterialButton(
-                        onPressed: () => _setProfileImage(ImageSource.camera),
+                        onPressed: () => setProfileImage(ImageSource.camera),
                         elevation: 2.0,
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),
@@ -153,23 +154,5 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
         );
       },
     );
-  }
-
-  void _removeProfileImage() {
-    widget.userService.removeProfileImage();
-    Navigator.of(context).pop();
-  }
-
-  void _setProfileImage(ImageSource source) {
-    ImagePicker().pickImage(source: source).then((image) {
-      if (image != null) {
-        setState(() {
-          final File file = File(image.path);
-          _profileImage = file.readAsBytesSync();
-          widget.userService.setProfileImage(file);
-        });
-        Navigator.of(context).pop();
-      }
-    });
   }
 }

@@ -61,8 +61,8 @@ class Recipe extends RecipeCreationData {
       ingredients: map["ingredients"].map<Ingredient>((v) => Ingredient.fromMap(v as Map<String, dynamic>)).toList(),
       instructions: map["instructions"],
       defaultPortionAmount: map["default_portions"],
-      isFavourite: map["isFavourite"],
-      isPrivate: map["is_private"],
+      isFavourite: map["isFavourite"] ?? false,
+      isPrivate: map["is_private"]??false,
     );
   }
 

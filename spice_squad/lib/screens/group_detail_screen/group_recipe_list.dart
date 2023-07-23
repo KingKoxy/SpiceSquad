@@ -87,7 +87,7 @@ class GroupRecipeList extends ConsumerWidget {
                             ],
                           ),
                           EyeButton(
-                            open: recipe.isCensored,
+                            open: !recipe.isCensored,
                             onToggle: () {
                               _toggleCensored(
                                 ref.read(groupServiceProvider.notifier),
