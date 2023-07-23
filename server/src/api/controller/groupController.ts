@@ -392,7 +392,7 @@ export default class GroupController extends AbstractController {
 
          const userAdmins = users.map((user) => {
           return{
-            ...users,
+            ...user,
             is_admin: admins.includes(user.id)
           }
         })
