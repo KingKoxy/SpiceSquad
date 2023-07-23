@@ -17,14 +17,10 @@ class AdminRepository {
   /// Makes the user with the given [userId] an admin of the group with the given [groupId]
   Future<void> makeAdmin(String userId, String groupId) async {
     final response = await http.patch(
-      Uri.parse(ApiEndpoints.makeAdmin),
+      Uri.parse("${ApiEndpoints.makeAdmin}/$groupId/$userId"),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
         HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
-      },
-      body: {
-        "userId": userId,
-        "groupId": groupId,
       },
     );
     if (response.statusCode != 200) {
@@ -35,14 +31,10 @@ class AdminRepository {
   /// Removes the admin status of the user with the given [userId] in the group with the given [groupId]
   Future<void> removeAdminStatus(String userId, String groupId) async {
     final response = await http.patch(
-      Uri.parse(ApiEndpoints.removeAdmin),
+      Uri.parse("${ApiEndpoints.removeAdmin}/$groupId/$userId"),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
         HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
-      },
-      body: {
-        "userId": userId,
-        "groupId": groupId,
       },
     );
     if (response.statusCode != 200) {
@@ -53,14 +45,10 @@ class AdminRepository {
   /// Kicks the user with the given [userId] from the group with the given [groupId]
   Future<void> kickUser(String userId, String groupId) async {
     final response = await http.patch(
-      Uri.parse(ApiEndpoints.kickUser),
+      Uri.parse("${ApiEndpoints.kickUser}/$groupId/$userId"),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
         HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
-      },
-      body: {
-        "userId": userId,
-        "groupId": groupId,
       },
     );
     if (response.statusCode != 200) {
@@ -71,14 +59,10 @@ class AdminRepository {
   /// Bans the user with the given [userId] from the group with the given [groupId]
   Future<void> banUser(String userId, String groupId) async {
     final response = await http.patch(
-      Uri.parse(ApiEndpoints.banUser),
+      Uri.parse("${ApiEndpoints.banUser}/$groupId/$userId"),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
         HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
-      },
-      body: {
-        "userId": userId,
-        "groupId": groupId,
       },
     );
     if (response.statusCode != 200) {
@@ -94,10 +78,7 @@ class AdminRepository {
         HttpHeaders.contentTypeHeader: "application/json",
         HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
       },
-      body: jsonEncode(<String, dynamic>{
-        "recipeId": recipeId,
-        "groupId": groupId,
-      }),
+      body: jsonEncode({"censored": value}),
     );
     if (response.statusCode != 200) {
       throw Exception(response.body);

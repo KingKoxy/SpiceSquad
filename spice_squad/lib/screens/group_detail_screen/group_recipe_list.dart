@@ -17,11 +17,15 @@ class GroupRecipeList extends ConsumerWidget {
   /// The id of the group the recipes belong to
   final String groupId;
 
+  /// A callback to refetch the recipes
+  final VoidCallback refetch;
+
   /// Creates a [GroupRecipeList]
   const GroupRecipeList({
     required this.groupId,
     required this.recipes,
     required this.isAdmin,
+    required this.refetch,
     super.key,
   });
 
@@ -86,6 +90,7 @@ class GroupRecipeList extends ConsumerWidget {
                               ),
                             ],
                           ),
+                          if (isAdmin)
                           EyeButton(
                             open: !recipe.isCensored,
                             onToggle: () {
@@ -113,6 +118,6 @@ class GroupRecipeList extends ConsumerWidget {
   }
 
   void _toggleCensored(GroupService groupService, GroupRecipe recipe) {
-    groupService.toggleCensoring(recipe, groupId);
+    groupService.toggleCensoring(recipe, groupId).then((value) => refetch());
   }
 }

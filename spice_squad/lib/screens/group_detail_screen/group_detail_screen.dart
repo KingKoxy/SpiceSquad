@@ -31,6 +31,14 @@ class GroupDetailScreen extends ConsumerStatefulWidget {
 }
 
 class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
+  late Future<Group> _getGroupFuture;
+
+  @override
+  void initState() {
+    _getGroupFuture = ref.read(groupServiceProvider.notifier).getGroupById(widget.groupId);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +47,7 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
       ),
       body: Center(
         child: FutureBuilder(
-          future: ref.watch(groupServiceProvider.notifier).getGroupById(widget.groupId),
+          future: _getGroupFuture,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final group = snapshot.data!;
@@ -53,33 +61,37 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      TextButton(
-                        onPressed: () {
-                          _renameGroup(context, ref.read(groupServiceProvider.notifier), group.name, group.id);
-                        },
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Flexible(
-                              child: AutoSizeText(
-                                group.name,
-                                maxLines: 1,
-                                style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.white),
+                      isAdmin
+                          ? TextButton(
+                              onPressed: () {
+                                _renameGroup(context, ref.read(groupServiceProvider.notifier), group.name, group.id);
+                              },
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Flexible(
+                                    child: AutoSizeText(
+                                      group.name,
+                                      maxLines: 1,
+                                      style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.white),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  const ImageIcon(
+                                    SpiceSquadIconImages.edit,
+                                    color: Colors.white,
+                                    size: 32,
+                                  )
+                                ],
                               ),
+                            )
+                          : AutoSizeText(
+                              group.name,
+                              maxLines: 1,
+                              style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.white),
                             ),
-                            if (isAdmin)
-                              const SizedBox(
-                                width: 5,
-                              ),
-                            if (isAdmin)
-                              const ImageIcon(
-                                SpiceSquadIconImages.edit,
-                                color: Colors.white,
-                                size: 32,
-                              )
-                          ],
-                        ),
-                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -105,10 +117,11 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
                           ),
                         ],
                       ),
-                      TextButton(
-                        onPressed: () => _deleteGroup(context, ref.read(groupServiceProvider.notifier), group),
-                        child: Text(AppLocalizations.of(context)!.deleteSquadButton),
-                      ),
+                      if (isAdmin)
+                        TextButton(
+                          onPressed: () => _deleteGroup(context, ref.read(groupServiceProvider.notifier), group),
+                          child: Text(AppLocalizations.of(context)!.deleteSquadButton),
+                        ),
                     ],
                   ),
                   const SizedBox(
@@ -117,6 +130,7 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
                   MemberList(
                     isAdmin: isAdmin,
                     group: group,
+                    refetch: _refetchGroup,
                   ),
                   const SizedBox(
                     height: 20,
@@ -125,6 +139,7 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
                     recipes: group.recipes,
                     isAdmin: isAdmin,
                     groupId: group.id,
+                    refetch: _refetchGroup,
                   )
                 ],
               );
@@ -190,5 +205,11 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
         );
       },
     );
+  }
+
+  void _refetchGroup() {
+    setState(() {
+      _getGroupFuture = ref.read(groupServiceProvider.notifier).getGroupById(widget.groupId);
+    });
   }
 }

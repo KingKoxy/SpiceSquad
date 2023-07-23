@@ -91,45 +91,49 @@ class RecipeCard extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
                           color: Theme.of(context).colorScheme.onSurfaceVariant,
                           child: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const ImageIcon(
-                                  SpiceSquadIconImages.timer,
-                                  size: 32,
-                                ),
-                                const SizedBox(width: 8),
-                                Text(
-                                  AppLocalizations.of(context)!.duration(recipe.duration),
-                                  style: Theme.of(context).textTheme.titleSmall,
-                                )
-                              ],
+                              padding: const EdgeInsets.all(10.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const ImageIcon(
+                                    SpiceSquadIconImages.timer,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    AppLocalizations.of(context)!.duration(recipe.duration),
+                                    style: Theme.of(context).textTheme.titleSmall,
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
                         ),
                         Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
                           color: Theme.of(context).colorScheme.onSurfaceVariant,
                           child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const ImageIcon(
-                                  SpiceSquadIconImages.flame,
-                                  size: 32,
-                                ),
-                                const SizedBox(width: 8),
-                                Text(
-                                  recipe.difficulty.getName(context),
-                                  style: Theme.of(context).textTheme.titleSmall,
-                                )
-                              ],
+                              padding: const EdgeInsets.all(10.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const ImageIcon(
+                                    SpiceSquadIconImages.flame,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    recipe.difficulty.getName(context),
+                                    style: Theme.of(context).textTheme.titleSmall,
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        )
+                        ),
                       ],
                     ),
                   ),

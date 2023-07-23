@@ -17,10 +17,14 @@ class MemberList extends ConsumerWidget {
   /// The group the members belong to
   final Group group;
 
+  /// A callback to refetch the members
+  final VoidCallback refetch;
+
   /// Creates a [MemberList]
   const MemberList({
     required this.group,
     required this.isAdmin,
+    required this.refetch,
     super.key,
   });
 
@@ -111,30 +115,31 @@ class MemberList extends ConsumerWidget {
                         ),
                       ],
                     ),
-                    PopupMenuButton(
-                      icon: const Icon(Icons.more_vert),
-                      itemBuilder: (context) {
-                        return [
-                          member.isAdmin
-                              ? PopupMenuItem<VoidCallback>(
-                                  value: () => _removeAdminStatus(ref.read(groupServiceProvider.notifier), member),
-                                  child: Text(AppLocalizations.of(context)!.adminActionRemoveAdmin),
-                                )
-                              : PopupMenuItem<VoidCallback>(
-                                  value: () => _makeAdmin(ref.read(groupServiceProvider.notifier), member),
-                                  child: Text(AppLocalizations.of(context)!.adminActionMakeAdmin),
-                                ),
-                          PopupMenuItem<VoidCallback>(
-                            value: () => _kickUser(ref.read(groupServiceProvider.notifier), member),
-                            child: Text(AppLocalizations.of(context)!.adminActionKick),
-                          ),
-                          PopupMenuItem<VoidCallback>(
-                            value: () => _banUser(ref.read(groupServiceProvider.notifier), member),
-                            child: Text(AppLocalizations.of(context)!.adminActionBan),
-                          ),
-                        ];
-                      },
-                    ),
+                    if (member.id != userId && isAdmin)
+                      PopupMenuButton(
+                        icon: const Icon(Icons.more_vert),
+                        itemBuilder: (context) {
+                          return [
+                            member.isAdmin
+                                ? PopupMenuItem<VoidCallback>(
+                                    onTap: () => _removeAdminStatus(ref.read(groupServiceProvider.notifier), member),
+                                    child: Text(AppLocalizations.of(context)!.adminActionRemoveAdmin),
+                                  )
+                                : PopupMenuItem<VoidCallback>(
+                                    onTap: () => _makeAdmin(ref.read(groupServiceProvider.notifier), member),
+                                    child: Text(AppLocalizations.of(context)!.adminActionMakeAdmin),
+                                  ),
+                            PopupMenuItem<VoidCallback>(
+                              onTap: () => _kickUser(ref.read(groupServiceProvider.notifier), member),
+                              child: Text(AppLocalizations.of(context)!.adminActionKick),
+                            ),
+                            PopupMenuItem<VoidCallback>(
+                              onTap: () => _banUser(ref.read(groupServiceProvider.notifier), member),
+                              child: Text(AppLocalizations.of(context)!.adminActionBan),
+                            ),
+                          ];
+                        },
+                      ),
                   ],
                 ),
               );
@@ -146,18 +151,18 @@ class MemberList extends ConsumerWidget {
   }
 
   _removeAdminStatus(GroupService groupService, GroupMember member) {
-    groupService.removeAdminStatus(member.id, group.id);
+    groupService.removeAdminStatus(member.id, group.id).then((value) => refetch());
   }
 
   _makeAdmin(GroupService groupService, GroupMember member) {
-    groupService.makeAdmin(member.id, group.id);
+    groupService.makeAdmin(member.id, group.id).then((value) => refetch());
   }
 
   _kickUser(GroupService groupService, GroupMember member) {
-    groupService.kickUser(member.id, group.id);
+    groupService.kickUser(member.id, group.id).then((value) => refetch());
   }
 
   _banUser(GroupService groupService, GroupMember member) {
-    groupService.banUser(member.id, group.id);
+    groupService.banUser(member.id, group.id).then((value) => refetch());
   }
 }
