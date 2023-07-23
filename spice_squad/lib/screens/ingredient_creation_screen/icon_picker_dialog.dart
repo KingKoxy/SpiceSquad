@@ -28,6 +28,7 @@ class IconPickerDialog extends ConsumerWidget {
             if (snapshot.hasData) {
               final List<Uint8List> icons = snapshot.data as List<Uint8List>;
               return GridView.builder(
+                physics: const BouncingScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: icons.length,
                 itemBuilder: (context, index) {
@@ -38,17 +39,20 @@ class IconPickerDialog extends ConsumerWidget {
                       onChanged(icons[index]);
                     },
                     child: GridTile(
-                      child: ImageIcon(
-                        MemoryImage(
-                          icons[index],
+                      child: Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: ImageIcon(
+                          MemoryImage(
+                            icons[index],
+                          ),
+                          size: 30,
                         ),
-                        size: 30,
                       ),
                     ),
                   );
                 },
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 6,
+                  crossAxisCount: 7,
                 ),
               );
             } else if (snapshot.hasError) {

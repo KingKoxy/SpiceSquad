@@ -59,7 +59,7 @@ class OwnRecipeList extends ConsumerWidget {
                             Navigator.of(context).pushNamed(RecipeCreationScreen.routeName, arguments: recipe);
                           },
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                            padding: const EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 8),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -75,10 +75,11 @@ class OwnRecipeList extends ConsumerWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     IconButton(
+                                      iconSize: 24,
                                       splashRadius: 24,
                                       onPressed: () => Navigator.of(context)
                                           .pushNamed(PdfRecipeViewPage.routeName, arguments: recipe),
-                                      icon: const ImageIcon(SpiceSquadIconImages.export),
+                                      icon: const ImageIcon(SpiceSquadIconImages.export, size: 24),
                                     ),
                                     EyeButton(
                                       open: !recipe.isPrivate,

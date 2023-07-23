@@ -55,7 +55,7 @@ class GroupList extends ConsumerWidget {
                             Navigator.of(context).pushNamed(GroupDetailScreen.routeName, arguments: groups[index].id);
                           },
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                            padding: const EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 8),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [

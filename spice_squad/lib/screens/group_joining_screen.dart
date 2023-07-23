@@ -79,6 +79,7 @@ class _GroupJoiningScreenState extends ConsumerState<GroupJoiningScreen> {
                           SizedBox(
                             width: double.infinity,
                             child: TextFormField(
+                              //TODO: autocapitalize every put in letter
                               maxLength: 8,
                               validator: (value) => _validateGroupCode(context, value),
                               keyboardType: TextInputType.text,

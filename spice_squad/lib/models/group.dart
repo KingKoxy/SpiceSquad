@@ -23,17 +23,11 @@ class Group {
 
   /// Creates a new [Group] from the given [map] object by extracting the values
   factory Group.fromMap(Map<String, dynamic> map) {
-    //TODO: Use list directly instead of this weird shit when raphael gets his code to work
-    final List<GroupMember> members = [];
-    for (int i = 0; i < map["members"].length; i++) {
-      members.add(GroupMember.fromMap({...map["members"][i][i.toString()], "is_admin": map["members"][i]["is_admin"]}));
-    }
     return Group(
       id: map["id"],
       name: map["name"],
       groupCode: map["group_code"],
-      //members: map["members"].map<GroupMember>((user) => GroupMember.fromMap(user as Map<String, dynamic>)).toList(),
-      members: members,
+      members: map["members"].map<GroupMember>((user) => GroupMember.fromMap(user as Map<String, dynamic>)).toList(),
       recipes:
           map["recipes"].map<GroupRecipe>((recipe) => GroupRecipe.fromMap(recipe as Map<String, dynamic>)).toList(),
     );

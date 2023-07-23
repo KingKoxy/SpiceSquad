@@ -97,8 +97,10 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ImagePickerWidget(
-                  onChanged: (value) => _image = value,
-                  recipeImage: widget.recipe?.image,
+                  onChanged: (value) => setState(() {
+                    _image = value;
+                  }),
+                  recipeImage: _image,
                 ),
                 const SizedBox(
                   height: 16,
@@ -319,6 +321,7 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
         isVegetarian: _isVegetarian,
         image: _image,
         difficulty: _difficulty,
+        setImageIfNull: true,
       );
       return recipeService.updateRecipe(recipeUploadData);
     }

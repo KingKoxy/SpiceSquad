@@ -158,7 +158,10 @@ class GroupService extends AsyncNotifier<List<Group>> {
         recipes: updatedRecipeList,
       );
     });
-    return ref.read(adminRepositoryProvider).setCensored(recipe.id, groupId, !recipe.isCensored).whenComplete(refetch);
+    return ref.read(adminRepositoryProvider).setCensored(recipe.id, groupId, !recipe.isCensored).whenComplete(() async {
+      await refetch();
+      await ref.read(recipeServiceProvider.notifier).refetch();
+    });
   }
 
   /// Fetches all groups for the current user and sets the state to [AsyncData] with the fetched groups.

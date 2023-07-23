@@ -96,21 +96,21 @@ class RecipeCard extends ConsumerWidget {
                           ),
                           color: Theme.of(context).colorScheme.onSurfaceVariant,
                           child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const ImageIcon(
-                                    SpiceSquadIconImages.timer,
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    AppLocalizations.of(context)!.duration(recipe.duration),
-                                    style: Theme.of(context).textTheme.titleSmall,
-                                  )
-                                ],
-                              ),
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const ImageIcon(
+                                  SpiceSquadIconImages.timer,
+                                ),
+                                const SizedBox(width: 8),
+                                Text(
+                                  AppLocalizations.of(context)!.duration(recipe.duration),
+                                  style: Theme.of(context).textTheme.titleSmall,
+                                )
+                              ],
                             ),
+                          ),
                         ),
                         Card(
                           shape: RoundedRectangleBorder(
@@ -118,21 +118,21 @@ class RecipeCard extends ConsumerWidget {
                           ),
                           color: Theme.of(context).colorScheme.onSurfaceVariant,
                           child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const ImageIcon(
-                                    SpiceSquadIconImages.flame,
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    recipe.difficulty.getName(context),
-                                    style: Theme.of(context).textTheme.titleSmall,
-                                  )
-                                ],
-                              ),
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const ImageIcon(
+                                  SpiceSquadIconImages.flame,
+                                ),
+                                const SizedBox(width: 8),
+                                Text(
+                                  recipe.difficulty.getName(context),
+                                  style: Theme.of(context).textTheme.titleSmall,
+                                )
+                              ],
                             ),
+                          ),
                         ),
                       ],
                     ),

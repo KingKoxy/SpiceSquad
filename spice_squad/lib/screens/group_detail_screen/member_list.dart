@@ -72,7 +72,7 @@ class MemberList extends ConsumerWidget {
             itemBuilder: (context, index) {
               final member = members[index];
               return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                padding: const EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -117,6 +117,8 @@ class MemberList extends ConsumerWidget {
                     ),
                     if (member.id != userId && isAdmin)
                       PopupMenuButton(
+                        tooltip: "",
+                        splashRadius: 24,
                         icon: const Icon(Icons.more_vert),
                         itemBuilder: (context) {
                           return [

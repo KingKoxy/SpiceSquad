@@ -61,10 +61,7 @@ class GroupRecipeList extends ConsumerWidget {
                   itemBuilder: (context, index) {
                     final recipe = recipes[index];
                     return Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 8,
-                        horizontal: 16,
-                      ),
+                      padding: const EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -72,17 +69,9 @@ class GroupRecipeList extends ConsumerWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              SizedBox(
-                                width: 260,
-                                height: 29,
-                                child: FittedBox(
-                                  fit: BoxFit.contain,
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    recipe.title,
-                                    style: Theme.of(context).textTheme.titleLarge,
-                                  ),
-                                ),
+                              Text(
+                                recipe.title,
+                                style: Theme.of(context).textTheme.titleLarge,
                               ),
                               Text(
                                 recipe.author.userName,
@@ -91,15 +80,15 @@ class GroupRecipeList extends ConsumerWidget {
                             ],
                           ),
                           if (isAdmin)
-                          EyeButton(
-                            open: !recipe.isCensored,
-                            onToggle: () {
-                              _toggleCensored(
-                                ref.read(groupServiceProvider.notifier),
-                                recipe,
-                              );
-                            },
-                          )
+                            EyeButton(
+                              open: !recipe.isCensored,
+                              onToggle: () {
+                                _toggleCensored(
+                                  ref.read(groupServiceProvider.notifier),
+                                  recipe,
+                                );
+                              },
+                            )
                         ],
                       ),
                     );

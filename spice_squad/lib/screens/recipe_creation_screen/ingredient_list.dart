@@ -30,6 +30,11 @@ class _IngredientListState extends State<IngredientList> {
   }
 
   @override
+  void setState(VoidCallback fn) {
+    if (mounted) super.setState(fn);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [

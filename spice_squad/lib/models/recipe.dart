@@ -62,7 +62,7 @@ class Recipe extends RecipeCreationData {
       instructions: map["instructions"],
       defaultPortionAmount: map["default_portions"],
       isFavourite: map["isFavourite"] ?? false,
-      isPrivate: map["is_private"]??false,
+      isPrivate: map["is_private"] ?? false,
     );
   }
 
@@ -82,6 +82,7 @@ class Recipe extends RecipeCreationData {
     bool? isFavourite,
     bool? isPrivate,
     Uint8List? image,
+    bool setImageIfNull = false,
   }) {
     return Recipe(
       id: id,
@@ -98,7 +99,7 @@ class Recipe extends RecipeCreationData {
       defaultPortionAmount: defaultPortionAmount ?? this.defaultPortionAmount,
       isFavourite: isFavourite ?? this.isFavourite,
       isPrivate: isPrivate ?? this.isPrivate,
-      image: image ?? this.image,
+      image: image ?? (setImageIfNull ? null : this.image),
       author: author,
       uploadDate: uploadDate,
     );
