@@ -67,25 +67,26 @@ export default class UserController extends AbstractController {
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
-    const user = await this.prisma.user
+    const oldUserData = await this.prisma.user.findUnique({ where: { id: req.userId } })
+    const newUserData = await this.prisma.user
       .update({
         where: {
           id: req.userId,
         },
         data: {
-          user_name: req.body.name || undefined,
-          email: req.body.email || undefined,
-          profile_image: req.body.profileImage?Buffer.from(req.body.profileImage):null || undefined,
+          user_name: req.body.name,
+          email: req.body.email,
+          profile_image: req.body.profileImage?Buffer.from(req.body.profileImage): null,
         },
       })
       .catch((error) => {
         req.statusCode = 409
         next(error)
       })
-    if (user && req.body.email !== undefined) {
+    if (newUserData && (oldUserData.email !== req.body.email)) {
       this.firebaseAdmin
         .auth()
-        .updateUser(user.firebase_user_id, { email: req.body.email })
+        .updateUser(newUserData.firebase_user_id, { email: req.body.email })
         .catch((error) => {
           req.statusCode = 409
           next(error)
