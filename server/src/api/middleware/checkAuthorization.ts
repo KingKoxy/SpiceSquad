@@ -23,7 +23,6 @@ export default class CheckAuthorization extends AbstractMiddleware {
   }
 
   /**
-   * @function checkAuthorization
    * @description This function checks the authorization of a request.
    * @memberof CheckAuthorization
    * @param {AuthenticatedRequest} req - The request.
@@ -38,11 +37,14 @@ export default class CheckAuthorization extends AbstractMiddleware {
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
+    // Check if authorization header is provided
     if (req.get('Authorization') === undefined) {
       req.statusCode = 401
       next(new Error('No Authorization header provided'))
       return
     }
+
+    // Check if authorization header is valid
     const token = req.get('Authorization')
     let uid: string
     firebase
@@ -57,12 +59,15 @@ export default class CheckAuthorization extends AbstractMiddleware {
             },
           })
           .then((user) => {
+            // Development only output
             process.env.NODE_ENV === 'development' ? console.log(user): null
             req.userId = user.id
           })
         next()
       })
       .catch((error) => {
+        error as Error
+        error.message = 'Invalid authorization please provide a valid token!'
         req.statusCode = 401
         next(error)
       })

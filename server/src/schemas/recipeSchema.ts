@@ -1,6 +1,5 @@
 import Joi from 'joi'
 import { userId } from './generalSchema'
-import { empty } from '@prisma/client/runtime'
 
 const title = Joi.string()
 const image = Joi.array().allow(null)

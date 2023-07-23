@@ -10,6 +10,7 @@ import {
   GroupGetIdSchema,
 } from '../../schemas/groupSchema'
 import CheckAdminStatus from '../middleware/checkAdminStatus'
+import checkGroupMemberState from '../middleware/checkGroupMemberState'
 
 /**
  * @description This class contains the router for the group router.
@@ -23,6 +24,8 @@ export default class GroupRouter extends AbstractRouter {
   protected Controller: GroupController
   protected CheckAdminStatus: CheckAdminStatus
   protected checkAdmin: any
+  protected checkGroupMemberState: checkGroupMemberState
+  protected checkMemberStateTarget: any
 
   /**
    * @constructor
@@ -37,6 +40,8 @@ export default class GroupRouter extends AbstractRouter {
     this.Controller = new GroupController()
     this.CheckAdminStatus = new CheckAdminStatus()
     this.checkAdmin = this.CheckAdminStatus.checkAdminStatus.bind(this.CheckAdminStatus)
+    this.checkGroupMemberState = new checkGroupMemberState()
+    this.checkMemberStateTarget = this.checkGroupMemberState.checkMemberStateTarget.bind(this.checkGroupMemberState)
     this.setupRoutes()
   }
 
@@ -79,6 +84,7 @@ export default class GroupRouter extends AbstractRouter {
     this.router.patch(
       '/leave/:groupId',
       this.checkAuth,
+      this.checkMemberStateTarget,
       this.schemaValidator.checkSchema(GroupLeaveSchema),
       this.Controller.groupLeave.bind(this.Controller)
     )

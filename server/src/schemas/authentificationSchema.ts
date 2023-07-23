@@ -1,5 +1,5 @@
 import Joi from 'joi'
-import { userName, userId } from './generalSchema'
+import {userName} from './generalSchema'
 
 const email = Joi.string().email()
 const password = Joi.string()

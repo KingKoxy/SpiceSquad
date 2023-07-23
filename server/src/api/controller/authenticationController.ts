@@ -2,6 +2,7 @@ import express = require('express')
 import AbstractController from './abstractController'
 import firebaseAuth = require('firebase/auth')
 import request = require('request')
+import AuthenticatedRequest from '../middleware/authenticatedRequest'
 
 export default class AuthenticationController extends AbstractController {
   /**
@@ -20,18 +21,21 @@ export default class AuthenticationController extends AbstractController {
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
-  public async userLogin(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
+  public async userLogin(req: express.Request< never, never, {email: string, password: string}>, res: express.Response, next: express.NextFunction): Promise<void> {
     firebaseAuth
       .signInWithEmailAndPassword(this.auth, req.body.email, req.body.password)
       .then(async (userCredentials) => {
+        // Development only output
         if (process.env.NODE_ENV === 'development') console.log('Successfully logged in:', userCredentials.user)
         res.status(200).json({
           refreshToken: userCredentials.user.refreshToken,
-          idToken: await firebaseAuth.getIdToken(userCredentials.user),
+          idToken: await userCredentials.user.getIdToken()
         })
       })
       .catch((error) => {
         req.statusCode = 401
+        error as Error
+        error.message = 'Error logging in user'
         next(error)
       })
   }
@@ -43,11 +47,12 @@ export default class AuthenticationController extends AbstractController {
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
-  public async userRegister(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
+  public async userRegister(req: express.Request< never, never, { email: string, password: string, userName: string}>, res: express.Response, next: express.NextFunction): Promise<void> {
     // Adds a new user to the firebase authentication
     firebaseAuth
       .createUserWithEmailAndPassword(this.auth, req.body.email, req.body.password)
       .then(async (userCredentials) => {
+        // Development only output
         if (process.env.NODE_ENV === 'development') console.log('Successfully created new user:', userCredentials.user.email)
         // Adds a new user to the database
         await this.prisma.user
@@ -60,8 +65,10 @@ export default class AuthenticationController extends AbstractController {
             },
           })
           .catch((error) => {
-            req.statusCode = 409
             firebaseAuth.deleteUser(userCredentials.user)
+            req.statusCode = 409
+            error as Error
+            error.message = 'Creating user in database failed'
             next(error)
           })
         res.status(200).json({
@@ -71,7 +78,8 @@ export default class AuthenticationController extends AbstractController {
         firebaseAuth.sendEmailVerification(userCredentials.user).catch((error) => { next(error) })
       })
       .catch((error) => {
-        req.statusCode = 409
+        error as Error
+        error.message = 'Error registering user'
         next(error)
       })
   }
@@ -83,7 +91,7 @@ export default class AuthenticationController extends AbstractController {
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
-  public userResetPassword(req: express.Request, res: express.Response, next: express.NextFunction): void {
+  public userResetPassword(req: express.Request< never, never, {email: string}>, res: express.Response, next: express.NextFunction): void {
     firebaseAuth
       .sendPasswordResetEmail(this.auth, req.body.email)
       .then(() => {
@@ -93,6 +101,8 @@ export default class AuthenticationController extends AbstractController {
       })
       .catch((error) => {
         req.statusCode = 401
+        error as Error
+        error.message = 'Error while sending reset email'
         next(error)
       })
   }
@@ -105,7 +115,7 @@ export default class AuthenticationController extends AbstractController {
    * @returns Promise<void>
    */
   public async userRefreshToken(
-    req: express.Request,
+    req: express.Request< never, never, {refreshToken: string}>,
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
@@ -116,6 +126,7 @@ export default class AuthenticationController extends AbstractController {
       refresh_token: req.body.refreshToken,
     }
 
+    // Send a POST request to the OAuth endpoint of the Firebase REST API (https://firebase.google.com/docs/reference/rest/auth#section-refresh-token)
     request.post(
       {
         url: url,
@@ -127,7 +138,7 @@ export default class AuthenticationController extends AbstractController {
       (error, response, body) => {
         if (error) {
           req.statusCode = 500
-          next(new Error('Fehler beim updaten des ID-Tokens'))
+          next(new Error('Error while refreshing token'))
         } else {
           const data = JSON.parse(body)
           const idToken = data.id_token
@@ -139,13 +150,13 @@ export default class AuthenticationController extends AbstractController {
   }
 
   /**
-   * @description This function logs a user out.
+   * @description This function logs out a user.
    * @param req Express request handler
    * @param res Express response handler
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
-  public async userLogout(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
+  public async userLogout(req: AuthenticatedRequest< never, never, never>, res: express.Response, next: express.NextFunction): Promise<void> {
     await firebaseAuth
       .signOut(this.auth)
       .then(() => {
@@ -155,7 +166,7 @@ export default class AuthenticationController extends AbstractController {
       })
       .catch((error) => {
         req.statusCode = 500
-        next(new Error('Error while logging out'))
+        next(error('Error while logging out'))
       })
   }
 }

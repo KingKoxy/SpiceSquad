@@ -231,40 +231,44 @@ export default class GroupController extends AbstractController {
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
-    const result = await this.prisma.groupMember.findMany({
+    const groupMembers = await this.prisma.groupMember.findMany({
       where: {
-        user_id: req.userId,
         group_id: req.params.groupId,
       },
     })
-    if (result.length == 0) {
+    console.log(groupMembers.length)
+    if (groupMembers.length == 0) {
       req.statusCode = 409
       next(new Error('Could not left group. User is not in this group'))
-    } else if (result.length == 1) {
+      
+      
+    } else if (groupMembers.length == 1) {
       this.prisma.group
         .delete({
           where: {
             id: req.params.groupId,
           },
         })
-        .then((result) => {
+        .then(() => {
           res.status(200).json({
-            message: 'User was last member of group. Group deleted.',
+            message: 'User was last member of group. User left group and group was deleted.',
           })
+          return
         })
         .catch((error) => {
           next((error.message = 'Group could not be left'))
         })
     }
 
-    const result2 = await this.prisma.admin.findMany({
+    // Check if user is admin
+    const usersInAdminTable = await this.prisma.admin.findMany({
       where: {
         user_id: req.userId,
         group_id: req.params.groupId,
       },
     })
-    if (result2.length == 1) {
-      const result3 = await this.prisma.groupMember.findMany({
+    if (usersInAdminTable.length == 1) {
+      const existingUsers = await this.prisma.groupMember.findMany({
         where: {
           group_id: req.params.groupId,
         },
@@ -275,11 +279,11 @@ export default class GroupController extends AbstractController {
       this.prisma.admin
         .create({
           data: {
-            user_id: result3[0].user_id,
+            user_id: existingUsers[0].user_id,
             group_id: req.params.groupId,
           },
         })
-        .then((result) => {
+        .then(() => {
           console.log('Longest group member is now admin.')
         })
         .catch((error) => {
@@ -295,7 +299,7 @@ export default class GroupController extends AbstractController {
           group_id: req.params.groupId,
         },
       })
-      .then((result) => {
+      .then(() => {
         res.status(200).json({
           message: 'Left group!',
         })

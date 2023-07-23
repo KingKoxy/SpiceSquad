@@ -12,7 +12,7 @@ export default class UserController extends AbstractController {
   }
 
   /**
-   * @description This function gets all users.
+   * @description This function deletes a user.
    * @param req Express request handler
    * @param res Express response handler
    * @param next Express next function (for error handling)
@@ -48,7 +48,7 @@ export default class UserController extends AbstractController {
   }
 
   /**
-   * @description This function gets all users.
+   * @description This function updates a user in the database.
    * @param req Express request handler
    * @param res Express response handler
    * @param next Express next function (for error handling)

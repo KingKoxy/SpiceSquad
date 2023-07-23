@@ -18,7 +18,7 @@ export default class IngredientController extends AbstractController {
    * @returns Promise<void>
    */
   public async ingredientNameGet(
-    req: express.Request,
+    req: express.Request< never, never, never>,
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
@@ -40,7 +40,7 @@ export default class IngredientController extends AbstractController {
    * @returns Promise<void>
    */
   public async ingredientIconGet(
-    req: express.Request,
+    req: express.Request< never, never, never>,
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {

@@ -150,7 +150,7 @@ export default class RecipeController extends AbstractController {
       })
       .catch((error) => {
         res.statusCode = 409
-        next(new Error('Recipe not found!'))
+        next(error)
       })
   }
 
@@ -291,7 +291,7 @@ export default class RecipeController extends AbstractController {
           },
         })
 
-        // Find all favourites of the user
+        // Find all favorites of the user
         const favouriteIds = (
           await this.prisma.favorite.findMany({
             where: {
@@ -370,7 +370,7 @@ export default class RecipeController extends AbstractController {
           },
         })
 
-        // Find all favourites of the user
+        // Find all favourite recipes for the user
         const favouriteIds = (
           await this.prisma.favorite.findMany({
             where: {
@@ -483,8 +483,6 @@ export default class RecipeController extends AbstractController {
         },
       })
     )
-
-    // TODO: Send notification to admins
     for (const adminEmail of adminEmails) {
       this.mailSender.sendMail(this.reportMailBuilder.buildMail(adminEmail.email, adminEmail.user_name ,recipeTitle, recipeAuthorName))
     }
