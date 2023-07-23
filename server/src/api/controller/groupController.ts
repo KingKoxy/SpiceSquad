@@ -364,14 +364,7 @@ export default class GroupController extends AbstractController {
             in: members,
           },
         },
-      })).map((user) => {
-        return {
-          user: {
-            ...user
-          },
-          is_admin: admins.includes(user.id)
-        }
-      })
+      }))
 
       const recipes = await this.getGroupRecipes(members)
       const censoredRecipes = await this.getGroupCensoredRecipes(groupId)
@@ -390,18 +383,25 @@ export default class GroupController extends AbstractController {
           return {
             recipe: {
               ...recipe,
-              author: users.find((user) => user.user.id === recipe.author_id),
+              author: users.find((user) => user.id === recipe.author_id),
               ingredients: ingredients
             },
             is_censored: censoredRecipes.includes(recipe.id)
           }
         })))
 
+         const userAdmins = users.map((user) => {
+          return{
+            ...users,
+            is_admin: admins.includes(user.id)
+          }
+        })
+
         return {
           id: groupDetails.id,
           name: groupDetails.name,
           group_code: groupDetails.group_code,
-          members: users,
+          members: userAdmins,
           recipes: recipesWithCensor
         }
   }  
