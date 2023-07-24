@@ -4,10 +4,13 @@ import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:http/http.dart";
+import "package:spice_squad/exceptions/email_already_in_use_error.dart";
 import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/screens/group_joining_screen.dart";
 import "package:spice_squad/screens/login_screen.dart";
 import "package:spice_squad/services/user_service.dart";
+
+import "../exceptions/http_status_exception.dart";
 
 /// Screen for registering a new user.
 class RegisterScreen extends ConsumerStatefulWidget {
@@ -215,11 +218,14 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       );
     }).catchError((error) {
       debugPrint(error.toString());
-      if (error is ArgumentError && error.message == "EMAIL_ALREADY_IN_USE") {
+      if (error is EmailAlreadyInUseError) {
         setState(() {
           _emailError = AppLocalizations.of(context)!.emailExistsError;
         });
-      } else if (error is ClientException || error is HandshakeException || error is SocketException) {
+      } else if (error is ClientException ||
+          error is HandshakeException ||
+          error is SocketException ||
+          (error is HttpStatusException && error.statusCode == 502)) {
         setState(() {
           _connectionError = AppLocalizations.of(context)!.connectionError;
         });

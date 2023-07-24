@@ -45,6 +45,11 @@ class SplashScreen extends ConsumerWidget {
   }
 
   Future<bool> _tryLogin(UserRepository userRepository) async {
-    return await userRepository.getToken() != null;
+    try {
+      return await userRepository.getToken() != null;
+    } catch (e) {
+      debugPrint(e.toString());
+      return false;
+    }
   }
 }

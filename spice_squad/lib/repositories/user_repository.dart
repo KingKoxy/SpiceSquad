@@ -1,11 +1,13 @@
 import "dart:async";
 import "dart:convert";
 import "dart:io";
-
 import "package:http/http.dart" as http;
 import "package:jwt_decoder/jwt_decoder.dart";
 import "package:shared_preferences/shared_preferences.dart";
 import "package:spice_squad/api_endpoints.dart";
+import "package:spice_squad/exceptions/email_already_in_use_error.dart";
+import "package:spice_squad/exceptions/http_status_exception.dart";
+import "package:spice_squad/exceptions/invalid_credentials_error.dart";
 import "package:spice_squad/models/user.dart";
 
 /// Repository for user actions
@@ -36,7 +38,7 @@ class UserRepository {
       _userId = user["id"];
       return User.fromMap(user);
     } else {
-      throw Exception(response.body);
+      throw HttpStatusException(response);
     }
   }
 
@@ -66,7 +68,7 @@ class UserRepository {
         _idToken = body["idToken"];
         return _idToken;
       } else if (response.statusCode != 401) {
-        throw Exception(response.body);
+        throw HttpStatusException(response);
       }
     }
     // Wenn der Token nicht aktualisiert werden konnte, wird er gelöscht
@@ -104,9 +106,9 @@ class UserRepository {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString(_refreshTokenPath, body["refreshToken"]);
     } else if (response.statusCode == 401) {
-      throw ArgumentError("INVALID_CREDENTIALS");
+      throw InvalidCredentialsError();
     } else {
-      throw Exception(response.body);
+      throw HttpStatusException(response);
     }
   }
 
@@ -121,7 +123,7 @@ class UserRepository {
     );
     await deleteTokens();
     /*if (response.statusCode != 200) {
-      throw Exception(response.body);
+      throw HttpStatusException(response);
     }*/
   }
 
@@ -143,9 +145,9 @@ class UserRepository {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString(_refreshTokenPath, body["refreshToken"]);
     } else if (response.statusCode == 409) {
-      throw ArgumentError("EMAIL_ALREADY_IN_USE");
+      throw EmailAlreadyInUseError(email);
     } else {
-      throw Exception(response.body);
+      throw HttpStatusException(response);
     }
   }
 
@@ -160,7 +162,7 @@ class UserRepository {
       body: jsonEncode(user.toMap()),
     );
     if (response.statusCode != 200) {
-      throw Exception(response.body);
+      throw HttpStatusException(response);
     }
   }
 
@@ -174,7 +176,7 @@ class UserRepository {
       },
     );
     if (response.statusCode != 200) {
-      throw Exception(response.body);
+      throw HttpStatusException(response);
     }
   }
 
@@ -191,7 +193,7 @@ class UserRepository {
       }),
     );
     if (response.statusCode != 200) {
-      throw Exception(response.body);
+      throw HttpStatusException(response);
     }
   }
 

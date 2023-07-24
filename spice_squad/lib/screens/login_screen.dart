@@ -4,11 +4,14 @@ import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:http/http.dart";
+import "package:spice_squad/exceptions/invalid_credentials_error.dart";
 import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/screens/main_screen/main_screen.dart";
 import "package:spice_squad/screens/password_reset_screen.dart";
 import "package:spice_squad/screens/register_screen.dart";
 import "package:spice_squad/services/user_service.dart";
+
+import "../exceptions/http_status_exception.dart";
 
 /// Screen for logging in
 class LoginScreen extends ConsumerStatefulWidget {
@@ -174,11 +177,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
     }).catchError((error) {
       debugPrint(error.toString());
-      if (error is ArgumentError && error.message == "INVALID_CREDENTIALS") {
+      if (error is InvalidCredentialsError) {
         setState(() {
           _emailError = AppLocalizations.of(context)!.loginError;
         });
-      } else if (error is ClientException || error is HandshakeException || error is SocketException) {
+      } else if (error is ClientException ||
+          error is HandshakeException ||
+          error is SocketException ||
+          (error is HttpStatusException && error.statusCode == 502)) {
         setState(() {
           _emailError = AppLocalizations.of(context)!.connectionError;
         });
