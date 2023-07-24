@@ -8,10 +8,11 @@
     "outDir": "build",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     }
   },
   "lib": ["es2015"],
-  "include": ["./src"],
+  "include": ["./src", "./test"],
   "exclude": ["node_modules"]
+  
 }
