@@ -10,6 +10,7 @@ class IngredientList extends StatefulWidget {
   /// The ingredients to display
   final List<Ingredient> initialList;
 
+  /// The callback that is called when the list changes
   final ValueChanged<List<Ingredient>> onChanged;
 
   /// Creates a new ingredient list
