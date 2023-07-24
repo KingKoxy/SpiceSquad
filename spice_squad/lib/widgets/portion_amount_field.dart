@@ -28,6 +28,7 @@ class PortionAmountField extends StatelessWidget {
           children: [
             Expanded(
               child: TextFormField(
+                key: const Key("portionAmountField"),
                 validator: (value) {
                   if (value == null || value.isEmpty) return AppLocalizations.of(context)!.valueNotANumberError;
                   return null;

@@ -9,6 +9,8 @@ import "package:flutter/material.dart";
 import "package:flutter_test/flutter_test.dart";
 
 import "package:spice_squad/main.dart";
+import "package:spice_squad/models/ingredient.dart";
+import "package:spice_squad/screens/recipe_detail_screen/ingredient_list.dart";
 
 void main() {
   testWidgets("Counter increments smoke test", (WidgetTester tester) async {
@@ -26,5 +28,39 @@ void main() {
     // Verify that our counter has incremented.
     expect(find.text("0"), findsNothing);
     expect(find.text("1"), findsOneWidget);
+  });
+
+  testWidgets("Increment portions IngredientList", (WidgetTester tester) async {
+    final List<Ingredient> ingredients = [
+      Ingredient(
+        id: "id",
+        name: "name",
+        iconId: "iconId",
+        amount: 10.0,
+        unit: "g",
+      )
+    ];
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: IngredientList(
+          ingredients: ingredients,
+          amountFactor: 1,
+        ),
+      ),
+    );
+
+    expect(find.text("10.00 g"), findsOneWidget);
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: IngredientList(
+          ingredients: ingredients,
+          amountFactor: 2,
+        ),
+      ),
+    );
+
+    expect(find.text("20.00 g"), findsOneWidget);
   });
 }
