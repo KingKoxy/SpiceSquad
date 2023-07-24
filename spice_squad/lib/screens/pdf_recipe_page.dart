@@ -1,11 +1,9 @@
 import "dart:async";
-import "dart:io";
 
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:open_file/open_file.dart";
 import "package:pdf/pdf.dart";
 import "package:pdf/widgets.dart" as pw;
 import "package:printing/printing.dart";
@@ -24,7 +22,8 @@ class PdfRecipeViewPage extends ConsumerStatefulWidget {
   const PdfRecipeViewPage({required this.recipe, super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _PdfRecipeViewPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _PdfRecipeViewPageState();
 }
 
 class _PdfRecipeViewPageState extends ConsumerState<PdfRecipeViewPage> {
@@ -46,32 +45,20 @@ class _PdfRecipeViewPageState extends ConsumerState<PdfRecipeViewPage> {
   @override
   Widget build(BuildContext context) {
     pw.RichText.debug = true;
-    final actions = <PdfPreviewAction>[PdfPreviewAction(icon: const Icon(Icons.save), onPressed: saveAsFile)];
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          AppLocalizations.of(context)!.pdfRecipeViewHeadline(widget.recipe.title),
+          AppLocalizations.of(context)!
+              .pdfRecipeViewHeadline(widget.recipe.title),
         ),
       ),
       body: PdfPreview(
         maxPageWidth: 700,
-        actions: actions,
         onPrinted: showPrintedToast,
         onShared: showSharedToast,
         build: exportRecipe,
       ),
     );
-  }
-
-  Future<void> saveAsFile(
-    final BuildContext context,
-    final LayoutCallback build,
-    final PdfPageFormat pageFormat,
-  ) async {
-    final bytes = await build(pageFormat);
-    final file = File("assets/tipps.pdf");
-    await file.writeAsBytes(bytes);
-    await OpenFile.open(file.path);
   }
 
   void showPrintedToast(final BuildContext context) {
@@ -87,6 +74,8 @@ class _PdfRecipeViewPageState extends ConsumerState<PdfRecipeViewPage> {
   }
 
   FutureOr<Uint8List> exportRecipe(final PdfPageFormat format) {
-    return ref.read(recipeServiceProvider.notifier).exportRecipe(widget.recipe, AppLocalizations.of(context)!);
+    return ref
+        .read(recipeServiceProvider.notifier)
+        .exportRecipe(widget.recipe, AppLocalizations.of(context)!);
   }
 }
