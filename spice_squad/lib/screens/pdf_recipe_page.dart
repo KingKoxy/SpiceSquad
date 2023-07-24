@@ -22,8 +22,7 @@ class PdfRecipeViewPage extends ConsumerStatefulWidget {
   const PdfRecipeViewPage({required this.recipe, super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _PdfRecipeViewPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _PdfRecipeViewPageState();
 }
 
 class _PdfRecipeViewPageState extends ConsumerState<PdfRecipeViewPage> {
@@ -48,8 +47,7 @@ class _PdfRecipeViewPageState extends ConsumerState<PdfRecipeViewPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          AppLocalizations.of(context)!
-              .pdfRecipeViewHeadline(widget.recipe.title),
+          AppLocalizations.of(context)!.pdfRecipeViewHeadline(widget.recipe.title),
         ),
       ),
       body: PdfPreview(
@@ -74,8 +72,6 @@ class _PdfRecipeViewPageState extends ConsumerState<PdfRecipeViewPage> {
   }
 
   FutureOr<Uint8List> exportRecipe(final PdfPageFormat format) {
-    return ref
-        .read(recipeServiceProvider.notifier)
-        .exportRecipe(widget.recipe, AppLocalizations.of(context)!);
+    return ref.read(recipeServiceProvider.notifier).exportRecipe(widget.recipe, AppLocalizations.of(context)!);
   }
 }

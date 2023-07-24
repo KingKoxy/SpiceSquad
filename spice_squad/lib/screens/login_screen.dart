@@ -4,14 +4,13 @@ import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:http/http.dart";
+import "package:spice_squad/exceptions/http_status_exception.dart";
 import "package:spice_squad/exceptions/invalid_credentials_error.dart";
 import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/screens/main_screen/main_screen.dart";
 import "package:spice_squad/screens/password_reset_screen.dart";
 import "package:spice_squad/screens/register_screen.dart";
 import "package:spice_squad/services/user_service.dart";
-
-import "../exceptions/http_status_exception.dart";
 
 /// Screen for logging in
 class LoginScreen extends ConsumerStatefulWidget {

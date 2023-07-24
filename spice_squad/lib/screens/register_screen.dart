@@ -5,12 +5,11 @@ import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:http/http.dart";
 import "package:spice_squad/exceptions/email_already_in_use_error.dart";
+import "package:spice_squad/exceptions/http_status_exception.dart";
 import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/screens/group_joining_screen.dart";
 import "package:spice_squad/screens/login_screen.dart";
 import "package:spice_squad/services/user_service.dart";
-
-import "../exceptions/http_status_exception.dart";
 
 /// Screen for registering a new user.
 class RegisterScreen extends ConsumerStatefulWidget {

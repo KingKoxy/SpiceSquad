@@ -5,6 +5,7 @@ import "dart:typed_data";
 import "package:http/http.dart" as http;
 import "package:shared_preferences/shared_preferences.dart";
 import "package:spice_squad/api_endpoints.dart";
+import "package:spice_squad/exceptions/http_status_exception.dart";
 
 /// Repository for fetching ingredient names.
 ///
@@ -34,7 +35,7 @@ class IngredientDataRepository {
       final List<dynamic> body = jsonDecode(response.body);
       return body.map<String>((item) => item["name"]).toList();
     } else {
-      throw Exception(response.body);
+      throw HttpStatusException(response);
     }
   }
 
@@ -64,7 +65,7 @@ class IngredientDataRepository {
       final List<dynamic> body = jsonDecode(response.body);
       return body.map<Uint8List>((e) => Uint8List.fromList(e["icon"]["data"].cast<int>())).toList();
     } else {
-      throw Exception(response.body);
+      throw HttpStatusException(response);
     }
   }
 }

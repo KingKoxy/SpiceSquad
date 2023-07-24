@@ -3,6 +3,7 @@ import "dart:io";
 
 import "package:http/http.dart" as http;
 import "package:spice_squad/api_endpoints.dart";
+import "package:spice_squad/exceptions/http_status_exception.dart";
 import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/models/recipe_creation_data.dart";
 import "package:spice_squad/repositories/user_repository.dart";
@@ -29,7 +30,7 @@ class RecipeRepository {
       final List<dynamic> body = jsonDecode(response.body);
       return body.map<Recipe>((recipe) => Recipe.fromMap(recipe as Map<String, dynamic>)).toList();
     } else {
-      throw Exception(response.body);
+      throw HttpStatusException(response);
     }
   }
 
@@ -44,26 +45,26 @@ class RecipeRepository {
       body: jsonEncode(recipe.toMap()),
     );
     if (response.statusCode != 200) {
-      throw Exception(response.body);
+      throw HttpStatusException(response);
     }
   }
 
   /// Deletes the recipe with the given [recipeId]
   Future<void> deleteRecipe(String recipeId) async {
-    final result = await http.delete(
+    final response = await http.delete(
       Uri.parse("${ApiEndpoints.recipe}/$recipeId"),
       headers: {
         HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
       },
     );
-    if (result.statusCode != 200) {
-      throw Exception(result.body);
+    if (response.statusCode != 200) {
+      throw HttpStatusException(response);
     }
   }
 
   /// Updates the recipe with the values from [recipe] by overwriting the recipe with the same id
   Future<void> updateRecipe(Recipe recipe) async {
-    final result = await http.patch(
+    final response = await http.patch(
       Uri.parse("${ApiEndpoints.recipe}/${recipe.id}"),
       headers: {
         HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
@@ -71,14 +72,14 @@ class RecipeRepository {
       },
       body: jsonEncode(recipe.toMap()),
     );
-    if (result.statusCode != 200) {
-      throw Exception(result.body);
+    if (response.statusCode != 200) {
+      throw HttpStatusException(response);
     }
   }
 
   /// Sets the favourite value of the recipe with the given [recipeId] to [value]
   Future<void> setFavourite(String recipeId, bool value) async {
-    final result = await http.patch(
+    final response = await http.patch(
       Uri.parse("${ApiEndpoints.setFavourite}/$recipeId"),
       headers: {
         HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
@@ -88,21 +89,21 @@ class RecipeRepository {
         "isFavorite": value,
       }),
     );
-    if (result.statusCode != 200) {
-      throw Exception(result.body);
+    if (response.statusCode != 200) {
+      throw HttpStatusException(response);
     }
   }
 
   /// Reports the recipe with the given [recipeId]
   Future<void> reportRecipe(String recipeId) async {
-    final result = await http.post(
+    final response = await http.post(
       Uri.parse("${ApiEndpoints.report}/$recipeId"),
       headers: {
         HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
       },
     );
-    if (result.statusCode != 200) {
-      throw Exception(result.body);
+    if (response.statusCode != 200) {
+      throw HttpStatusException(response);
     }
   }
 }

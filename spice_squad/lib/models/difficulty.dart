@@ -37,6 +37,6 @@ enum Difficulty {
       case "hard":
         return Difficulty.hard;
     }
-    throw Exception("Invalid difficulty string");
+    throw ArgumentError("Invalid difficulty string");
   }
 }

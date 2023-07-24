@@ -3,6 +3,7 @@ import "dart:io";
 
 import "package:http/http.dart" as http;
 import "package:spice_squad/api_endpoints.dart";
+import "package:spice_squad/exceptions/http_status_exception.dart";
 import "package:spice_squad/repositories/user_repository.dart";
 
 /// Repository for admin actions
@@ -24,7 +25,7 @@ class AdminRepository {
       },
     );
     if (response.statusCode != 200) {
-      throw Exception(response.body);
+      throw HttpStatusException(response);
     }
   }
 
@@ -38,7 +39,7 @@ class AdminRepository {
       },
     );
     if (response.statusCode != 200) {
-      throw Exception(response.body);
+      throw HttpStatusException(response);
     }
   }
 
@@ -52,7 +53,7 @@ class AdminRepository {
       },
     );
     if (response.statusCode != 200) {
-      throw Exception(response.body);
+      throw HttpStatusException(response);
     }
   }
 
@@ -66,7 +67,7 @@ class AdminRepository {
       },
     );
     if (response.statusCode != 200) {
-      throw Exception(response.body);
+      throw HttpStatusException(response);
     }
   }
 
@@ -81,7 +82,7 @@ class AdminRepository {
       body: jsonEncode({"censored": value}),
     );
     if (response.statusCode != 200) {
-      throw Exception(response.body);
+      throw HttpStatusException(response);
     }
   }
 }

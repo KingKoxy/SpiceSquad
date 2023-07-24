@@ -1,3 +1,4 @@
+/// Thrown when the credentials are invalid while logging in
 class InvalidCredentialsError extends ArgumentError {
   /// Creates a new [InvalidCredentialsError]
   InvalidCredentialsError();
