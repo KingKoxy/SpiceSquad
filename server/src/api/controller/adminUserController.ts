@@ -213,7 +213,7 @@ export default class AdminUserController extends AbstractController {
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
-  public async setCensored(req: AuthenticatedRequest< { groupId: string; recipeId: string }, never, {isCensored: boolean} >
+  public async setCensored(req: AuthenticatedRequest< { groupId: string; recipeId: string }, never, {censored: boolean} >
     , res: express.Response, next: express.NextFunction): Promise<void> {
     try {
       // Find the author of the recipe
@@ -251,7 +251,7 @@ export default class AdminUserController extends AbstractController {
           },
         })
 
-        if (req.body.isCensored) {
+        if (req.body.censored) {
           if (!censoredRecipeId) {
             await  this.prisma.censoredRecipe
             .create({

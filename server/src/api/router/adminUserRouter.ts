@@ -3,6 +3,7 @@ import CheckAdminStatus from '../middleware/checkAdminStatus'
 import AbstractRouter from './abstractRouter'
 import {} from '../../schemas/adminUserSchema'
 import checkGroupMemberState from '../middleware/checkGroupMemberState'
+import { setCensored } from '../../schemas/adminUserSchema'
 
 /**
  * @class AdminUserRouter
@@ -98,7 +99,8 @@ export default class AdminUserRouter extends AbstractRouter {
       '/setCensored/:groupId/:recipeId',
       this.checkAuth,
       this.checkAdmin,
-      this.Controller.setCensored.bind(this.Controller)
+      this.schemaValidator.checkSchema(setCensored),
+      this.Controller.setCensored.bind(this.Controller),
     )
   }
 }

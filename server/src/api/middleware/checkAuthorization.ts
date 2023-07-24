@@ -67,7 +67,7 @@ export default class CheckAuthorization extends AbstractMiddleware {
       })
       .catch((error) => {
         error as Error
-        error.message = 'Invalid authorization please provide a valid token!'
+        error.message = 'Invalid authorization please provide a valid token.'
         req.statusCode = 401
         next(error)
       })

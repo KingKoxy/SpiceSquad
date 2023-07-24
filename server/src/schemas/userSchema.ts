@@ -3,7 +3,6 @@ import { userName } from './generalSchema'
 
 const profileImage = Joi.array().allow(null)
 const email = Joi.string().email()
-const token = Joi.string().required()
 
 export const userDeleteSchema = Joi.object({}).unknown(true);
 

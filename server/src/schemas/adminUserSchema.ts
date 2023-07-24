@@ -4,6 +4,7 @@ import { userId } from './generalSchema'
 const targetId = Joi.string().guid()
 const groupId = Joi.string().guid()
 const recipeId = Joi.string().guid()
+const censored = Joi.boolean()
 
 export const makeAdminSchema = Joi.object().keys({
   userId: userId.required(),
@@ -22,5 +23,5 @@ export const banUser = Joi.object().keys({
 }).unknown(true);
 
 export const setCensored = Joi.object().keys({
-  userId: userId.required(),
+  censored: censored.required(),
 }).unknown(true);
