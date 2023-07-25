@@ -283,7 +283,7 @@ class PDFExporter {
                   ),
                 ),
               ),
-              pw.Text("${recipe.difficulty}"),
+              pw.Text(recipe.difficulty.name),
             ],
           ),
           pw.SizedBox(
