@@ -17,15 +17,29 @@ class IngredientCreationScreen extends StatefulWidget {
 
   final TextEditingController _unitController = TextEditingController();
 
+  final Ingredient? initialIngredient;
+
   /// Creates a new ingredient creation screen
-  IngredientCreationScreen({super.key});
+  IngredientCreationScreen({super.key, this.initialIngredient}) {
+    if (initialIngredient != null) {
+      _nameController.text = initialIngredient!.name;
+      _amountController.text = initialIngredient!.amount.toString();
+      _unitController.text = initialIngredient!.unit;
+    }
+  }
 
   @override
   State<IngredientCreationScreen> createState() => _IngredientCreationScreenState();
 }
 
 class _IngredientCreationScreenState extends State<IngredientCreationScreen> {
-  Uint8List? _icon;
+  late Uint8List? _icon;
+
+  @override
+  void initState() {
+    _icon = widget.initialIngredient?.icon;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +66,7 @@ class _IngredientCreationScreenState extends State<IngredientCreationScreen> {
                       child: SizedBox(
                         height: 52,
                         child: IconPickerWidget(
+                          initialIcon: widget.initialIngredient?.icon,
                           onChanged: (icon) {
                             setState(() {
                               _icon = icon;
@@ -104,7 +119,7 @@ class _IngredientCreationScreenState extends State<IngredientCreationScreen> {
                       if (_icon != null && !widget._formKey.currentState!.validate()) return;
                       //creates new ingredient and returns it to the previous screen
                       final ingredient = Ingredient(
-                        id: "",
+                        id: widget.initialIngredient?.id ?? "",
                         name: widget._nameController.text,
                         amount: double.parse(widget._amountController.text),
                         unit: widget._unitController.text,
@@ -113,7 +128,7 @@ class _IngredientCreationScreenState extends State<IngredientCreationScreen> {
 
                       Navigator.of(context).pop(ingredient);
                     },
-                    child: Text(AppLocalizations.of(context)!.addButton),
+                    child: Text(AppLocalizations.of(context)!.saveButtonLabel),
                   ),
                 )
               ],
