@@ -150,7 +150,7 @@ export default class AdminUserController extends AbstractController {
         req.statusCode = 500
         next(new Error(error))
       })
-  }
+  } 
 
   /**
    * @description This function bans a user from a group.

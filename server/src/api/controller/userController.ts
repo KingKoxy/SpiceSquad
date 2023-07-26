@@ -1,14 +1,18 @@
 import express = require('express')
 import AbstractController from './abstractController'
 import AuthenticatedRequest from '../middleware/authenticatedRequest'
+import GroupController from './groupController'
 
 export default class UserController extends AbstractController {
+  groupController: GroupController;
+
   /**
    * @description This constructor calls the constructor of the abstractController.
    * @constructor
    */
   constructor() {
     super()
+    this.groupController = new GroupController()
   }
 
   /**
@@ -23,6 +27,24 @@ export default class UserController extends AbstractController {
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
+    await this.prisma.groupMember.findMany({
+      where: {
+        user_id: req.userId,
+      }
+
+    }).then((groupMembers) => {
+      groupMembers.forEach((groupMember) => {
+        this.prisma.groupMember.delete({
+          where: {
+            id: groupMember.id,
+          },
+        }).then((group) => {
+          this.groupController.checkGroupEmpty(group.group_id)
+        }
+        )
+      })
+      })
+    
     this.prisma.user
       .delete({
         where: {
@@ -37,6 +59,8 @@ export default class UserController extends AbstractController {
             req.statusCode = 409
             next(error)
           })
+        
+
         res.status(200).json({
           message: 'User deleted successfully!',
         })

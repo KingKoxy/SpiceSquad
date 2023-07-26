@@ -234,6 +234,7 @@ export default class GroupController extends AbstractController {
     const groupMembers = await this.prisma.groupMember.findMany({
       where: {
         group_id: req.params.groupId,
+        user_id: req.userId
       },
     })
     console.log(groupMembers.length)
@@ -243,16 +244,22 @@ export default class GroupController extends AbstractController {
       
       
     } else if (groupMembers.length == 1) {
-      this.prisma.group
+      this.prisma.groupMember
         .delete({
           where: {
             id: req.params.groupId,
           },
         })
-        .then(() => {
+        .then(async () => {
+          if (await this.checkGroupEmpty(req.params.groupId)) {
           res.status(200).json({
             message: 'User was last member of group. User left group and group was deleted.',
           })
+          } else {
+            res.status(200).json({
+              message: 'User left group.',
+          })
+          }
           return
         })
         .catch((error) => {
@@ -326,7 +333,7 @@ export default class GroupController extends AbstractController {
         user_id: req.userId,
       },
     })).map(async (groupMember) => {
-      return await this.getGroup(groupMember.group_id)
+      return await this.getGroup(groupMember.group_id, req.userId)
     }))
     res.status(200).json({
       groups: groups
@@ -341,7 +348,7 @@ export default class GroupController extends AbstractController {
    * @returns Promise<void>
    */
   public async groupGetById(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
-      const group = await this.getGroup(req.params.groupId)
+      const group = await this.getGroup(req.params.groupId, req.body.userId)
       
       res.status(200).json({
         group
@@ -352,7 +359,7 @@ export default class GroupController extends AbstractController {
    * @param groupId 
    * @returns Promise<any>
    */
-  private async getGroup(groupId: string) : Promise<any> {
+  private async getGroup(groupId: string, callerId: string) : Promise<any> {
     const groupDetails =  (await this.prisma.group
       .findUnique({
         where: {
@@ -372,7 +379,7 @@ export default class GroupController extends AbstractController {
 
       const recipes = await this.getGroupRecipes(members)
       const censoredRecipes = await this.getGroupCensoredRecipes(groupId)
-      const recipesWithCensor = await Promise.all((await this.prisma.recipe.findMany({
+      var recipesWithCensor = await Promise.all((await this.prisma.recipe.findMany({
         where: {
           id: {
             in: recipes,
@@ -393,6 +400,16 @@ export default class GroupController extends AbstractController {
             is_censored: censoredRecipes.includes(recipe.id)
           }
         })))
+
+      if ((await this.prisma.admin.findMany({
+        where: {
+          user_id: callerId,
+          group_id: groupId
+          }
+          })).length == 0) {
+            recipesWithCensor = recipesWithCensor.filter((recipe) => !recipe.is_censored)
+          }
+
 
          const userAdmins = users.map((user) => {
           return{
@@ -466,6 +483,62 @@ export default class GroupController extends AbstractController {
       },
     })
     return groupCensoredRecipes.map((groupCensoredRecipe) => groupCensoredRecipe.recipe_id)
+  }
+
+  public async checkGroupEmpty(groupId : string) : Promise<boolean> {
+    const groupMembers = await this.prisma.groupMember.findMany({
+      where: {
+        group_id: groupId,
+      },
+    })
+    if (groupMembers.length == 0) {
+      this.prisma.group
+        .delete({
+          where: {
+            id: groupId,
+          },
+        })
+        .then(() => {
+          console.log('Group was empty and was deleted')
+          return true
+        })
+        .catch((error) => {
+          console.log('Group was empty but could not be deleted')
+        })
+    }
+
+    await this.prisma.admin.findMany({
+      where: {
+        group_id: groupId,
+      },
+    }).then((admins) => {
+      if (admins.length == 0) {
+        this.prisma.groupMember.findMany({
+          where: {
+            group_id: groupId,
+          },
+          orderBy: {
+            joined_at: 'asc',
+          },
+        }).then((groupMembers) => {
+          this.prisma.admin
+            .create({
+              data: {
+                user_id: groupMembers[0].user_id,
+                group_id: groupId,
+              },
+            })
+            .then(() => {
+              console.log('Longest group member is now admin.')
+            })
+            .catch((error) => {
+              console.log('Could not make longest group member admin.')
+            })
+        })
+      }
+    })
+
+    return false
   }
 }
 
