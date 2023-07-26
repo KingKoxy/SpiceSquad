@@ -685,12 +685,12 @@
   "@reportSuccessMessage": {
     "description": "The description of the report successful page"
   },
-  "abortEditApprovalTitle": "Abort edit",
+  "saveBeforeAbortEditTitle": "Abort edit",
   "@abortEditApprovalTitle": {
     "description": "The title of the abort edit approval dialog"
   },
-  "abortEditApprovalMessage": "Are you sure you want to abort editing? All changes will be lost.",
-  "@abortEditApprovalMessage": {
+  "saveBeforeAbortEditMessage": "Do you want to save your changes before leaving the edit mode?",
+  "@saveBeforeAbortEditMessage": {
     "description": "The description of the abort edit approval dialog"
   },
   "banningApprovalTitle": "Ban user",
@@ -724,5 +724,9 @@
         "description": "The name of the user"
       }
     }
+  },
+  "discardButtonLabel": "Discard",
+  "@discardButtonLabel": {
+    "description": "The label for the discard button"
   }
 }
