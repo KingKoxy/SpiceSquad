@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:spice_squad/models/group.dart";
+import "package:spice_squad/models/ingredient.dart";
 import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/screens/group_creation_screen.dart";
 import "package:spice_squad/screens/group_detail_screen/group_detail_screen.dart";
@@ -86,7 +87,9 @@ class SpiceSquad extends StatelessWidget {
               );
             case IngredientCreationScreen.routeName:
               return MaterialPageRoute(
-                builder: (context) => IngredientCreationScreen(),
+                builder: (context) => IngredientCreationScreen(
+                  initialIngredient: settings.arguments as Ingredient?,
+                ),
               );
             case RecipeCreationScreen.routeName:
               return MaterialPageRoute(

@@ -672,5 +672,61 @@
   "sortNameDuration": "Duration",
   "@sortNameDuration": {
     "description": "The name of the sort option for the duration"
+  },
+  "reportRecipeButton": "Report recipe",
+  "@reportRecipeButton": {
+    "description": "The label for the report recipe button"
+  },
+  "reportSuccessTitle": "Report successful",
+  "@reportSuccessTitle": {
+    "description": "The title of the report successful page"
+  },
+  "reportSuccessMessage": "You have successfully reported the recipe.",
+  "@reportSuccessMessage": {
+    "description": "The description of the report successful page"
+  },
+  "saveBeforeAbortEditTitle": "Abort edit",
+  "@abortEditApprovalTitle": {
+    "description": "The title of the abort edit approval dialog"
+  },
+  "saveBeforeAbortEditMessage": "Do you want to save your changes before leaving the edit mode?",
+  "@saveBeforeAbortEditMessage": {
+    "description": "The description of the abort edit approval dialog"
+  },
+  "banningApprovalTitle": "Ban user",
+  "@banningApprovalTitle": {
+    "description": "The title of the banning approval dialog"
+  },
+  "banningApprovalMessage": "Are you sure you want to ban the user \"{userName}\"?",
+  "@banningApprovalMessage": {
+    "description": "The description of the banning approval dialog",
+    "placeholders": {
+      "userName": {
+        "type": "String",
+        "content": "{userName}",
+        "example": "Heinrich",
+        "description": "The name of the user"
+      }
+    }
+  },
+  "kickingApprovalTitle": "Kick user",
+  "@kickingApprovalTitle": {
+    "description": "The title of the kicking approval dialog"
+  },
+  "kickingApprovalMessage": "Are you sure you want to kick the user \"{userName}\"?",
+  "@kickingApprovalMessage": {
+    "description": "The description of the kicking approval dialog",
+    "placeholders": {
+      "userName": {
+        "type": "String",
+        "content": "{userName}",
+        "example": "Heinrich",
+        "description": "The name of the user"
+      }
+    }
+  },
+  "discardButtonLabel": "Discard",
+  "@discardButtonLabel": {
+    "description": "The label for the discard button"
   }
 }
