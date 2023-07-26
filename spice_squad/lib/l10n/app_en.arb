@@ -692,5 +692,37 @@
   "abortEditApprovalMessage": "Are you sure you want to abort editing? All changes will be lost.",
   "@abortEditApprovalMessage": {
     "description": "The description of the abort edit approval dialog"
+  },
+  "banningApprovalTitle": "Ban user",
+  "@banningApprovalTitle": {
+    "description": "The title of the banning approval dialog"
+  },
+  "banningApprovalMessage": "Are you sure you want to ban the user \"{userName}\"?",
+  "@banningApprovalMessage": {
+    "description": "The description of the banning approval dialog",
+    "placeholders": {
+      "userName": {
+        "type": "String",
+        "content": "{userName}",
+        "example": "Heinrich",
+        "description": "The name of the user"
+      }
+    }
+  },
+  "kickingApprovalTitle": "Kick user",
+  "@kickingApprovalTitle": {
+    "description": "The title of the kicking approval dialog"
+  },
+  "kickingApprovalMessage": "Are you sure you want to kick the user \"{userName}\"?",
+  "@kickingApprovalMessage": {
+    "description": "The description of the kicking approval dialog",
+    "placeholders": {
+      "userName": {
+        "type": "String",
+        "content": "{userName}",
+        "example": "Heinrich",
+        "description": "The name of the user"
+      }
+    }
   }
 }
