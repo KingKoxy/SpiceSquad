@@ -1,3 +1,4 @@
+import "package:auto_size_text/auto_size_text.dart";
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -65,19 +66,22 @@ class GroupRecipeList extends ConsumerWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                recipe.title,
-                                style: Theme.of(context).textTheme.titleLarge,
-                              ),
-                              Text(
-                                recipe.author.userName,
-                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey),
-                              ),
-                            ],
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                AutoSizeText(
+                                  recipe.title,
+                                  maxLines: 1,
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
+                                Text(
+                                  recipe.author.userName,
+                                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey),
+                                ),
+                              ],
+                            ),
                           ),
                           if (isAdmin)
                             EyeButton(

@@ -13,6 +13,7 @@ import "package:spice_squad/screens/recipe_creation_screen/difficulty_picker_wid
 import "package:spice_squad/screens/recipe_creation_screen/image_picker_widget.dart";
 import "package:spice_squad/screens/recipe_creation_screen/ingredient_list.dart";
 import "package:spice_squad/services/recipe_service.dart";
+import "package:spice_squad/widgets/approval_dialog.dart";
 import "package:spice_squad/widgets/nav_bar.dart";
 import "package:spice_squad/widgets/portion_amount_field.dart";
 import "package:spice_squad/widgets/tag_item.dart";
@@ -87,6 +88,23 @@ class _RecipeCreationScreenState extends State<RecipeCreationScreen> {
                 ? AppLocalizations.of(context)!.createRecipeHeadline
                 : AppLocalizations.of(context)!.editRecipeHeadline,
           ),
+          leading: widget.recipe != null
+              ? BackButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => ApprovalDialog(
+                        title: AppLocalizations.of(context)!.abortEditApprovalTitle,
+                        message: AppLocalizations.of(context)!.abortEditApprovalMessage,
+                        onApproval: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    );
+                  },
+                )
+              : null,
         ),
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),

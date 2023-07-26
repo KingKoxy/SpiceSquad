@@ -1,14 +1,17 @@
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:marquee/marquee.dart";
 import "package:spice_squad/icons.dart";
 import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/screens/recipe_creation_screen/recipe_creation_screen.dart";
 import "package:spice_squad/screens/recipe_detail_screen/ingredient_list.dart";
 import "package:spice_squad/screens/recipe_detail_screen/label_list.dart";
+import "package:spice_squad/services/recipe_service.dart";
 import "package:spice_squad/widgets/favourite_button.dart";
 import "package:spice_squad/widgets/portion_amount_field.dart";
+import "package:spice_squad/widgets/success_dialog.dart";
 import "package:spice_squad/widgets/tag_item.dart";
 
 /// A screen showing the details of a recipe.
@@ -43,7 +46,21 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(widget.recipe.title),
+          title: LayoutBuilder(
+            builder: (context, constraints) =>
+                _willTextOverflow(text: widget.recipe.title, maxWidth: constraints.maxWidth)
+                    ? SizedBox(
+                        height: 32,
+                        child: Marquee(
+                          text: widget.recipe.title,
+                          blankSpace: 20.0,
+                          pauseAfterRound: const Duration(seconds: 2),
+                        ),
+                      )
+                    : Text(
+                        widget.recipe.title,
+                      ),
+          ),
           actions: widget.recipe.author.id == ref.watch(userServiceProvider).value?.id
               ? <Widget>[
                   IconButton(
@@ -167,10 +184,42 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                   ),
                 ),
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () => reportRecipe(ref.read(recipeServiceProvider.notifier)),
+                    child: Text(AppLocalizations.of(context)!.reportRecipeButton),
+                  ),
+                ],
+              )
             ],
           ),
         ),
       ),
     );
+  }
+
+  Future<void> reportRecipe(RecipeService recipeService) async {
+    //TODO: Prevent spamming
+    recipeService.reportRecipe(widget.recipe.id).then(
+          (value) => showDialog(
+            context: context,
+            builder: (context) => SuccessDialog(
+              title: AppLocalizations.of(context)!.reportSuccessTitle,
+              message: AppLocalizations.of(context)!.reportSuccessMessage,
+            ),
+          ),
+        );
+  }
+
+  bool _willTextOverflow({required String text, required double maxWidth}) {
+    final TextPainter textPainter = TextPainter(
+      text: TextSpan(text: text),
+      maxLines: 1,
+      textDirection: TextDirection.ltr,
+    )..layout(minWidth: 0, maxWidth: maxWidth);
+
+    return textPainter.didExceedMaxLines;
   }
 }
