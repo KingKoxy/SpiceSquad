@@ -17,6 +17,7 @@ class IngredientCreationScreen extends StatefulWidget {
 
   final TextEditingController _unitController = TextEditingController();
 
+  /// The initial ingredient to edit if this screen is used to edit an ingredient
   final Ingredient? initialIngredient;
 
   /// Creates a new ingredient creation screen
