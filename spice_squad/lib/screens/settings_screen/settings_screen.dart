@@ -38,16 +38,16 @@ class SettingsScreen extends ConsumerWidget {
         title: Text(AppLocalizations.of(context)!.settingsHeadline),
       ),
       body: Center(
-        child: ListView(
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.all(24),
-          children: [
-            ref.watch(userServiceProvider).when(
-                  data: (user) {
-                    if (user == null) {
-                      return Container();
-                    }
-                    return Column(
+        child: ref.watch(userServiceProvider).when(
+              data: (user) {
+                if (user == null) {
+                  return Container();
+                }
+                return ListView(
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.all(24),
+                  children: [
+                    Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         ProfileImagePicker(
@@ -89,23 +89,23 @@ class SettingsScreen extends ConsumerWidget {
                           child: Text(AppLocalizations.of(context)!.deleteAccountButton),
                         ),
                       ],
-                    );
-                  },
-                  error: (error, stackTrace) => Text(error.toString()),
-                  loading: () => const Column(
-                    children: [CircularProgressIndicator()],
-                  ),
-                ),
-            const SizedBox(
-              height: 16,
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    const GroupList(),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    OwnRecipeList(
+                      userId: user.id,
+                    ),
+                  ],
+                );
+              },
+              error: (error, stackTrace) => Text(error.toString()),
+              loading: () => const CircularProgressIndicator(),
             ),
-            const GroupList(),
-            const SizedBox(
-              height: 16,
-            ),
-            const OwnRecipeList(),
-          ],
-        ),
       ),
     );
   }

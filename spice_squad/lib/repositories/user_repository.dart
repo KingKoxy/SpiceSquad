@@ -18,7 +18,6 @@ import "package:spice_squad/models/user.dart";
 class UserRepository {
   static const _refreshTokenPath = "refreshToken";
 
-  String? _userId;
   String? _idToken;
 
   /// Fetches the current user
@@ -36,16 +35,10 @@ class UserRepository {
     );
     if (response.statusCode == 200) {
       final user = jsonDecode(response.body);
-      _userId = user["id"];
       return User.fromMap(user);
     } else {
       throw HttpStatusException(response);
     }
-  }
-
-  /// Gets the user id that has been obtained by the [fetchCurrentUser] method or returns null if the user is not logged in
-  String? getUserId() {
-    return _userId;
   }
 
   /// Fetches the id token of the current user or returns null if the user is not logged in or the token is expired
