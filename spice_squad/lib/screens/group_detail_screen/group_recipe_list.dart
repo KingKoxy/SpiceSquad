@@ -1,3 +1,4 @@
+import "package:auto_size_text/auto_size_text.dart";
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -62,6 +63,7 @@ class GroupRecipeList extends ConsumerWidget {
                   itemCount: recipes.length,
                   itemBuilder: (context, index) {
                     final recipe = recipes[index];
+
                     return InkWell(
                       borderRadius: BorderRadius.circular(16),
                       onTap: () {
@@ -80,12 +82,14 @@ class GroupRecipeList extends ConsumerWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Column(
+                             Expanded(
+                            child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Text(
+                                AutoSizeText(
                                   recipe.title,
+                                  maxLines: 1,
                                   style: Theme.of(context).textTheme.titleLarge,
                                 ),
                                 Text(

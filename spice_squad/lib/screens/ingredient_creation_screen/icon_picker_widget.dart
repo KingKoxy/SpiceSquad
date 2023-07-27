@@ -10,8 +10,11 @@ class IconPickerWidget extends ConsumerStatefulWidget {
   /// The callback that is called when the icon is changed
   final ValueChanged<Uint8List> onChanged;
 
+  /// The initial icon to display
+  final Uint8List? initialIcon;
+
   /// Creates a new icon picker widget
-  const IconPickerWidget({required this.onChanged, super.key});
+  const IconPickerWidget({required this.onChanged, this.initialIcon, super.key});
 
   @override
   ConsumerState<IconPickerWidget> createState() => _IconPickerWidgetState();
@@ -29,7 +32,7 @@ class _IconPickerWidgetState extends ConsumerState<IconPickerWidget> {
       ref.read(ingredientDataRepository).fetchIngredientIcons().then(
             (value) => setState(() {
               _icons = value;
-              _selectedIcon = _icons[0];
+              _selectedIcon = widget.initialIcon ?? _icons[0];
               widget.onChanged(_selectedIcon!);
             }),
           );

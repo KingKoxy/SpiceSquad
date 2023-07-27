@@ -62,18 +62,34 @@ class _IngredientListState extends State<IngredientList> {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           child: _ingredients.isNotEmpty
               ? ListView.builder(
+                  padding: const EdgeInsets.all(0),
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: _ingredients.length,
                   itemBuilder: (context, index) {
-                    return IngredientListItem(
-                      ingredient: _ingredients[index],
-                      onRemove: () {
+                    return InkWell(
+                      borderRadius: BorderRadius.circular(16),
+                      onTap: () async {
+                        final temp = await Navigator.pushNamed(
+                          context,
+                          IngredientCreationScreen.routeName,
+                          arguments: _ingredients[index],
+                        ) as Ingredient?;
+                        if (temp == null) return;
                         setState(() {
-                          _ingredients.removeAt(index);
+                          _ingredients[index] = temp;
                           widget.onChanged(_ingredients);
                         });
                       },
+                      child: IngredientListItem(
+                        ingredient: _ingredients[index],
+                        onRemove: () {
+                          setState(() {
+                            _ingredients.removeAt(index);
+                            widget.onChanged(_ingredients);
+                          });
+                        },
+                      ),
                     );
                   },
                 )

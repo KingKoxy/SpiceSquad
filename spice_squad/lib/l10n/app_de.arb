@@ -147,5 +147,15 @@
   "hardDifficulty": "Schwer",
   "clearFiltersButtonLabel": "Filter zurücksetzen",
   "groupCodeNotExistingError": "Dieses Squadkürzel existiert nicht",
-  "sortNameDuration": "Dauer"
+  "sortNameDuration": "Dauer",
+  "reportRecipeButton": "Rezept melden",
+  "reportSuccessTitle": "Meldung erfolgreich",
+  "reportSuccessMessage": "Die Meldung wurde an die Administratoren weitergeleitet und sie werden das Rezept gegebenenfalls entfernen.",
+  "saveBeforeAbortEditTitle": "Bearbeiten abbrechen",
+  "saveBeforeAbortEditMessage": "Willst du deine Änderungen speichern, bevor du den Bearbeitungsmodus verlässt?",
+  "banningApprovalTitle": "Benutzer bannen",
+  "banningApprovalMessage": "Bist du sicher, dass du den Benutzer \"{userName}\" bannen möchtest?",
+  "kickingApprovalTitle": "Benutzer entfernen",
+  "kickingApprovalMessage": "Bist du sicher, dass du den Benutzer \"{userName}\" entfernen möchtest?",
+  "discardButtonLabel": "Verwerfen"
 }
