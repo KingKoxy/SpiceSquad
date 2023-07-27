@@ -4,7 +4,6 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:share_plus/share_plus.dart";
 import "package:spice_squad/models/group.dart";
 import "package:spice_squad/models/group_member.dart";
-import "package:spice_squad/providers/repository_providers.dart";
 import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/services/group_service.dart";
 import "package:spice_squad/widgets/add_button.dart";
@@ -18,11 +17,15 @@ class MemberList extends ConsumerWidget {
   /// The group the members belong to
   final Group group;
 
+  /// The id of the current user
+  final String userId;
+
   /// A callback to refetch the members
   final VoidCallback refetch;
 
   /// Creates a [MemberList]
   const MemberList({
+    required this.userId,
     required this.group,
     required this.isAdmin,
     required this.refetch,
@@ -31,7 +34,6 @@ class MemberList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final String userId = ref.read(userRepositoryProvider).getUserId()!;
     final List<GroupMember> members = group.members;
     // Sorts the members alphabetically so that the current user is always at the top, followed by the admins, followed by the rest
     members.sort((a, b) {
