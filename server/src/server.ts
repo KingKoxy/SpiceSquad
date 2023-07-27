@@ -55,7 +55,7 @@ export default class Server {
    * server.start();
    */
   public start(): void {
-    if (this.connectToDatabase() && this.connectToFirebase()) {
+    if (this.connectToFirebase()) {
       if (this.createServer()) {
         console.log('Server started')
         console.log(`Listen on port ${this.port}`)
@@ -65,16 +65,6 @@ export default class Server {
     } else {
       console.log('Server failed to start')
     }
-  }
-
-  /**
-   * @description This function connects to the database.
-   * @memberof Server
-   * @private
-   * @returns {boolean} True if the connection to the database was successful, false otherwise.
-   */
-  private connectToDatabase(): boolean {
-    return true
   }
 
   /**
@@ -112,6 +102,8 @@ export default class Server {
       this.express = express()
       this.express.listen(this.port)
       this.application = new Application(this.express)
+      // Fügen Sie hier eine Zeile hinzu, um die Express-App zu exportieren:
+      module.exports.app = this.express
       return true
     } catch (error) {
       console.log('Server connection failed')
