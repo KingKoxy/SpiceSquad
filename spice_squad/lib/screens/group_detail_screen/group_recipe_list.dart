@@ -58,52 +58,53 @@ class GroupRecipeList extends ConsumerWidget {
               ? ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  padding: EdgeInsets.zero,
                   itemCount: recipes.length,
                   itemBuilder: (context, index) {
                     final recipe = recipes[index];
                     return InkWell(
-                        borderRadius: BorderRadius.circular(16),
-                    onTap: () {
-                    Navigator.of(context).pushNamed(
-                    RecipeCreationScreen.routeName,
-                    arguments: recipe,
-                    );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                AutoSizeText(
-                                  recipe.title,
-                                  maxLines: 1,
-                                  style: Theme.of(context).textTheme.titleLarge,
-                                ),
-                                Text(
-                                  recipe.author.userName,
-                                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey),
-                                ),
-                              ],
+                      borderRadius: BorderRadius.circular(16),
+                      onTap: () {
+                        Navigator.of(context).pushNamed(
+                          RecipeCreationScreen.routeName,
+                          arguments: recipe,
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 12, bottom: 12, left: 16, right: 8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  AutoSizeText(
+                                    recipe.title,
+                                    maxLines: 1,
+                                    style: Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                  Text(
+                                    recipe.author.userName,
+                                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          if (isAdmin)
-                            EyeButton(
-                              open: !recipe.isCensored,
-                              onToggle: () {
-                                _toggleCensored(
-                                  ref.read(groupServiceProvider.notifier),
-                                  recipe,
-                                );
-                              },
-                            )
-                        ],
-                      ),),
+                            if (isAdmin)
+                              EyeButton(
+                                open: !recipe.isCensored,
+                                onToggle: () {
+                                  _toggleCensored(
+                                    ref.read(groupServiceProvider.notifier),
+                                    recipe,
+                                  );
+                                },
+                              )
+                          ],
+                        ),
+                      ),
                     );
                   },
                 )
