@@ -3,6 +3,7 @@ import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:spice_squad/models/group_recipe.dart";
 import "package:spice_squad/providers/service_providers.dart";
+import "package:spice_squad/screens/recipe_creation_screen/recipe_creation_screen.dart";
 import "package:spice_squad/services/group_service.dart";
 import "package:spice_squad/widgets/eye_button.dart";
 
@@ -51,7 +52,8 @@ class GroupRecipeList extends ConsumerWidget {
           height: 10,
         ),
         Card(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           child: recipes.isNotEmpty
               ? ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
@@ -60,36 +62,53 @@ class GroupRecipeList extends ConsumerWidget {
                   itemCount: recipes.length,
                   itemBuilder: (context, index) {
                     final recipe = recipes[index];
-                    return Padding(
-                      padding: const EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                recipe.title,
-                                style: Theme.of(context).textTheme.titleLarge,
-                              ),
-                              Text(
-                                recipe.author.userName,
-                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey),
-                              ),
-                            ],
-                          ),
-                          if (isAdmin)
-                            EyeButton(
-                              open: !recipe.isCensored,
-                              onToggle: () {
-                                _toggleCensored(
-                                  ref.read(groupServiceProvider.notifier),
-                                  recipe,
-                                );
-                              },
-                            )
-                        ],
+                    return InkWell(
+                      borderRadius: BorderRadius.circular(16),
+                      onTap: () {
+                        Navigator.of(context).pushNamed(
+                          RecipeCreationScreen.routeName,
+                          arguments: recipe,
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          top: 8,
+                          bottom: 8,
+                          left: 16,
+                          right: 8,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  recipe.title,
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
+                                Text(
+                                  recipe.author.userName,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(color: Colors.grey),
+                                ),
+                              ],
+                            ),
+                            if (isAdmin)
+                              EyeButton(
+                                open: !recipe.isCensored,
+                                onToggle: () {
+                                  _toggleCensored(
+                                    ref.read(groupServiceProvider.notifier),
+                                    recipe,
+                                  );
+                                },
+                              )
+                          ],
+                        ),
                       ),
                     );
                   },
@@ -98,7 +117,10 @@ class GroupRecipeList extends ConsumerWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
                     AppLocalizations.of(context)!.noRecipesFound,
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.grey),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge!
+                        .copyWith(color: Colors.grey),
                   ),
                 ),
         ),
