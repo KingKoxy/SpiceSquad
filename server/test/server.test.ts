@@ -1,4 +1,3 @@
-// server.test.ts
 import Server from '../src/server';
 
 describe('Server', () => {
@@ -40,9 +39,6 @@ describe('Server', () => {
 
   it('should fail to start the server when the Firebase connection fails', () => {
     const server = new Server();
-
-    // Mocking connectToDatabase function to return true
-    server['connectToDatabase'] = () => true;
 
     // Mocking connectToFirebase function to return false
     server['connectToFirebase'] = () => false;

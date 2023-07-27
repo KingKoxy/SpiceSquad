@@ -53,6 +53,8 @@ export default class Application {
     this.initializeMiddleware()
     this.initializeRoutes()
     this.initializeErrorHandlers()
+    console.log(this.app._router.stack.length);
+    
   }
 
   private initializeMiddleware(): void {
@@ -92,4 +94,5 @@ export default class Application {
       })
     })
   }
+  
 }
