@@ -82,24 +82,26 @@ class GroupRecipeList extends ConsumerWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                             Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                AutoSizeText(
-                                  recipe.title,
-                                  maxLines: 1,
-                                  style: Theme.of(context).textTheme.titleLarge,
-                                ),
-                                Text(
-                                  recipe.author.userName,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(color: Colors.grey),
-                                ),
-                              ],
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  AutoSizeText(
+                                    recipe.title,
+                                    maxLines: 1,
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                  Text(
+                                    recipe.author.userName,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(color: Colors.grey),
+                                  ),
+                                ],
+                              ),
                             ),
                             if (isAdmin)
                               EyeButton(
