@@ -16,4 +16,5 @@ linter:
     unnecessary_lambdas: true
     unnecessary_parenthesis: true
     sort_pub_dependencies: true
+    only_throw_errors: true
 

@@ -11,12 +11,8 @@ class PDFExporter {
     final Recipe recipe,
     final AppLocalizations appLocalizations,
   ) async {
-    final recipeImage =
-        (await rootBundle.load("assets/images/exampleImage.jpeg"))
-            .buffer
-            .asUint8List();
-    final logo =
-        (await rootBundle.load("assets/images/logo.png")).buffer.asUint8List();
+    final recipeImage = recipe.image;
+    final logo = (await rootBundle.load("assets/images/logo.png")).buffer.asUint8List();
     final pdf = pw.Document(
       title: "${recipe.title}_spice_squad",
     );
@@ -152,7 +148,7 @@ class PDFExporter {
 
   static pw.Widget _buildInfoSideCard(
     pw.Context context,
-    Uint8List image,
+    Uint8List? image,
     Recipe recipe,
     AppLocalizations appLocalizations,
   ) {
@@ -163,7 +159,7 @@ class PDFExporter {
         mainAxisAlignment: pw.MainAxisAlignment.start,
         crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: [
-          if (recipe.image != null)
+          if (image != null)
             pw.Container(
               width: 150,
               height: 100,
@@ -172,7 +168,7 @@ class PDFExporter {
                 child: pw.Image(
                   pw.MemoryImage(
                     image,
-                  ), //TODO durch das Richtige Rezept Bild austauschen
+                  ),
                 ),
               ),
             ),
@@ -287,7 +283,7 @@ class PDFExporter {
                   ),
                 ),
               ),
-              pw.Text("${recipe.difficulty}"),
+              pw.Text(recipe.difficulty.name),
             ],
           ),
           pw.SizedBox(

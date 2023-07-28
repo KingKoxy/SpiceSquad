@@ -1,4 +1,5 @@
 import "dart:math";
+
 import "package:auto_size_text/auto_size_text.dart";
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
@@ -26,7 +27,12 @@ class _IngredientNameInputState extends ConsumerState<IngredientNameInput> {
       children: [
         TextFormField(
           validator: (value) {
-            if (value == null || value.isEmpty) return AppLocalizations.of(context)!.ingredientNameEmptyError;
+            if (value == null || value.isEmpty) {
+              return AppLocalizations.of(context)!.ingredientNameEmptyError;
+            }
+            if (value.length > 32) {
+              return AppLocalizations.of(context)!.ingredientTooLongError;
+            }
             return null;
           },
           controller: widget.controller,
@@ -42,12 +48,13 @@ class _IngredientNameInputState extends ConsumerState<IngredientNameInput> {
         ),
         //Shows the suggestions
         FutureBuilder(
-          future: ref.watch(ingredientNameRepositoryProvider).fetchIngredientNames(),
+          future: ref.watch(ingredientDataRepository).fetchIngredientNames(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               // Search for matches and show in grid
               final List<String> filteredNames =
                   snapshot.data!.where((element) => element.toLowerCase().contains(_searchText.toLowerCase())).toList();
+              filteredNames.sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
               return GridView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 padding: EdgeInsets.zero,
@@ -61,23 +68,28 @@ class _IngredientNameInputState extends ConsumerState<IngredientNameInput> {
                 itemCount: min(filteredNames.length, 12),
                 itemBuilder: (context, index) {
                   return GridTile(
-                    child: InkWell(
-                      onTap: () {
-                        widget.controller.text = filteredNames[index];
-                        setState(() {
-                          _searchText = filteredNames[index];
-                        });
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.all(5),
-                        decoration:
-                            BoxDecoration(color: Theme.of(context).cardColor, borderRadius: BorderRadius.circular(5)),
-                        child: AutoSizeText(
-                          filteredNames[index],
-                          minFontSize: 8,
-                          maxLines: 1,
-                          style: Theme.of(context).textTheme.titleSmall,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      margin: EdgeInsets.zero,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(10),
+                        onTap: () {
+                          widget.controller.text = filteredNames[index];
+                          setState(() {
+                            _searchText = filteredNames[index];
+                          });
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.all(5),
+                          child: AutoSizeText(
+                            filteredNames[index],
+                            minFontSize: 8,
+                            maxLines: 1,
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
                         ),
                       ),
                     ),

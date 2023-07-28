@@ -70,7 +70,14 @@ class PasswordResetScreen extends ConsumerWidget {
                           SizedBox(
                             width: double.infinity,
                             child: TextFormField(
+                              autocorrect: false,
+                              onFieldSubmitted: (_) {
+                                if (_formKey.currentState!.validate()) {
+                                  _resetPassword(context, ref.read(userServiceProvider.notifier));
+                                }
+                              },
                               autofillHints: const [AutofillHints.email],
+                              textInputAction: TextInputAction.done,
                               validator: (value) => _validateEmail(context, value),
                               keyboardType: TextInputType.emailAddress,
                               controller: _emailController,
@@ -120,8 +127,8 @@ class PasswordResetScreen extends ConsumerWidget {
   }
 
   _resetPassword(BuildContext context, UserService userService) {
-    userService.resetPassword(_emailController.text).then(
-          (value) => showDialog<void>(
+    userService.resetPassword(_emailController.text).whenComplete(
+          () => showDialog<void>(
             context: context,
             barrierDismissible: true,
             builder: (BuildContext context) => SuccessDialog(

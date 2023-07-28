@@ -9,6 +9,7 @@ class DifficultyPickerWidget extends StatefulWidget {
   /// The initial value of the picker
   final Difficulty? initialValue;
 
+  /// The callback for when the value changes
   final ValueChanged<Difficulty> onChanged;
 
   /// Creates a new difficulty picker widget
@@ -23,17 +24,17 @@ class _DifficultyPickerWidgetState extends State<DifficultyPickerWidget> {
 
   @override
   void initState() {
-    _difficulty = widget.initialValue ?? Difficulty.medium;
     super.initState();
+    _difficulty = widget.initialValue ?? Difficulty.medium;
   }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: double.infinity,
-      child: InkWell(
-        child: TagItem(
-            margin: EdgeInsets.zero, image: SpiceSquadIconImages.flame, name: _difficulty.toString(),),
+      child: TagItem(
+        image: SpiceSquadIconImages.flame,
+        name: _difficulty.getName(context),
         onTap: () => _showDifficultyPickerDialog(context),
       ),
     );

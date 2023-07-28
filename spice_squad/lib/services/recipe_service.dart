@@ -14,13 +14,13 @@ import "package:spice_squad/services/pdf_exporter.dart";
 class RecipeService extends AsyncNotifier<List<Recipe>> {
   @override
   FutureOr<List<Recipe>> build() {
-    return ref.watch(remoteRecipeRepositoryProvider).fetchAllRecipesForUser();
+    return ref.watch(recipeRepositoryProvider).fetchAllRecipesForUser();
   }
 
   /// Creates a new recipe with the given [recipe].
   Future<void> createRecipe(RecipeCreationData recipe) {
     state = const AsyncLoading();
-    return ref.read(remoteRecipeRepositoryProvider).createRecipe(recipe).then((value) => _refetch());
+    return ref.read(recipeRepositoryProvider).createRecipe(recipe).whenComplete(refetch);
   }
 
   /// Deletes the recipe with the given [recipeId].
@@ -29,75 +29,38 @@ class RecipeService extends AsyncNotifier<List<Recipe>> {
     final List<Recipe> list = state.value!;
     list.removeWhere((element) => element.id == recipeId);
     state = AsyncData(list);
-    return ref.read(remoteRecipeRepositoryProvider).deleteRecipe(recipeId).then((value) => _refetch());
+    return ref.read(recipeRepositoryProvider).deleteRecipe(recipeId).whenComplete(refetch);
   }
 
   /// Updates the recipe with the same id with the given [recipe].
   Future<void> updateRecipe(Recipe recipe) {
     _updateSingleRecipe(recipe.id, (oldRecipe) => recipe);
-    return ref.read(remoteRecipeRepositoryProvider).updateRecipe(recipe).then((value) => _refetch());
+    return ref.read(recipeRepositoryProvider).updateRecipe(recipe).whenComplete(refetch);
   }
 
   /// Toggles the favourite status of the given [recipe].
   Future<void> toggleFavourite(Recipe recipe) {
     _updateSingleRecipe(
       recipe.id,
-      (oldRecipe) => Recipe(
-        id: oldRecipe.id,
-        title: oldRecipe.title,
-        author: oldRecipe.author,
-        uploadDate: oldRecipe.uploadDate,
-        duration: oldRecipe.duration,
-        defaultPortionAmount: oldRecipe.defaultPortionAmount,
-        difficulty: oldRecipe.difficulty,
-        isVegetarian: oldRecipe.isVegetarian,
-        isVegan: oldRecipe.isVegan,
-        isGlutenFree: oldRecipe.isGlutenFree,
-        isHalal: oldRecipe.isHalal,
-        isKosher: oldRecipe.isKosher,
-        ingredients: oldRecipe.ingredients,
-        instructions: oldRecipe.instructions,
+      (oldRecipe) => oldRecipe.copyWith(
         isFavourite: !oldRecipe.isFavourite,
-        image: oldRecipe.image,
-        isPrivate: oldRecipe.isPrivate,
       ),
     );
-    return ref
-        .read(remoteRecipeRepositoryProvider)
-        .setFavourite(recipe.id, !recipe.isFavourite)
-        .then((value) => _refetch());
+    return ref.read(recipeRepositoryProvider).setFavourite(recipe.id, !recipe.isFavourite).whenComplete(refetch);
   }
 
   /// Toggles the private status of the given [recipe].
   Future<void> togglePrivate(Recipe recipe) {
     final Recipe updatedRecipe = _updateSingleRecipe(
       recipe.id,
-      (oldRecipe) => Recipe(
-        id: oldRecipe.id,
-        title: oldRecipe.title,
-        author: oldRecipe.author,
-        uploadDate: oldRecipe.uploadDate,
-        duration: oldRecipe.duration,
-        defaultPortionAmount: oldRecipe.defaultPortionAmount,
-        difficulty: oldRecipe.difficulty,
-        isVegetarian: oldRecipe.isVegetarian,
-        isVegan: oldRecipe.isVegan,
-        isGlutenFree: oldRecipe.isGlutenFree,
-        isHalal: oldRecipe.isHalal,
-        isKosher: oldRecipe.isKosher,
-        ingredients: oldRecipe.ingredients,
-        instructions: oldRecipe.instructions,
-        isFavourite: oldRecipe.isFavourite,
-        image: oldRecipe.image,
-        isPrivate: !oldRecipe.isPrivate,
-      ),
+      (oldRecipe) => oldRecipe.copyWith(isPrivate: !oldRecipe.isPrivate),
     );
-    return ref.read(remoteRecipeRepositoryProvider).updateRecipe(updatedRecipe).then((value) => _refetch());
+    return ref.read(recipeRepositoryProvider).updateRecipe(updatedRecipe).whenComplete(refetch);
   }
 
   /// Reports the recipe with the given [recipeId].
   Future<void> reportRecipe(String recipeId) {
-    return ref.read(remoteRecipeRepositoryProvider).reportRecipe(recipeId);
+    return ref.read(recipeRepositoryProvider).reportRecipe(recipeId);
   }
 
   /// Exports the given [recipe] as a pdf.
@@ -106,8 +69,12 @@ class RecipeService extends AsyncNotifier<List<Recipe>> {
   }
 
   /// Refetches all recipes.
-  Future<void> _refetch() {
-    return ref.read(remoteRecipeRepositoryProvider).fetchAllRecipesForUser().then((value) => state = AsyncData(value));
+  FutureOr<void> refetch() {
+    ref.read(recipeRepositoryProvider).fetchAllRecipesForUser().then((value) {
+      state = AsyncData(value);
+    }).catchError((e) {
+      state = AsyncError(e, StackTrace.current);
+    });
   }
 
   /// Updates the recipe with the given [recipeId] with the given [updatingFunction] in the [state] and returns the updated recipe.

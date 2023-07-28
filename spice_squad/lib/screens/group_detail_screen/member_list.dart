@@ -4,10 +4,10 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:share_plus/share_plus.dart";
 import "package:spice_squad/models/group.dart";
 import "package:spice_squad/models/group_member.dart";
-import "package:spice_squad/providers/repository_providers.dart";
 import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/services/group_service.dart";
 import "package:spice_squad/widgets/add_button.dart";
+import "package:spice_squad/widgets/approval_dialog.dart";
 
 /// Widget to display a list of [GroupMember]s
 class MemberList extends ConsumerWidget {
@@ -17,16 +17,23 @@ class MemberList extends ConsumerWidget {
   /// The group the members belong to
   final Group group;
 
+  /// The id of the current user
+  final String userId;
+
+  /// A callback to refetch the members
+  final VoidCallback refetch;
+
   /// Creates a [MemberList]
   const MemberList({
+    required this.userId,
     required this.group,
     required this.isAdmin,
+    required this.refetch,
     super.key,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final String userId = ref.read(userRepositoryProvider).getUserId()!;
     final List<GroupMember> members = group.members;
     // Sorts the members alphabetically so that the current user is always at the top, followed by the admins, followed by the rest
     members.sort((a, b) {
@@ -68,7 +75,7 @@ class MemberList extends ConsumerWidget {
             itemBuilder: (context, index) {
               final member = members[index];
               return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                padding: const EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -80,8 +87,8 @@ class MemberList extends ConsumerWidget {
                           width: 50,
                           height: 50,
                           child: member.profileImage != null
-                              ? const CircleAvatar(
-                                  foregroundImage: AssetImage("assets/images/exampleImage.jpeg"),
+                              ? CircleAvatar(
+                                  foregroundImage: MemoryImage(member.profileImage!),
                                 )
                               : CircleAvatar(
                                   backgroundColor: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -111,30 +118,33 @@ class MemberList extends ConsumerWidget {
                         ),
                       ],
                     ),
-                    PopupMenuButton(
-                      icon: const Icon(Icons.more_vert),
-                      itemBuilder: (context) {
-                        return [
-                          member.isAdmin
-                              ? PopupMenuItem<VoidCallback>(
-                                  value: () => _removeAdminStatus(ref.read(groupServiceProvider.notifier), member),
-                                  child: Text(AppLocalizations.of(context)!.adminActionRemoveAdmin),
-                                )
-                              : PopupMenuItem<VoidCallback>(
-                                  value: () => _makeAdmin(ref.read(groupServiceProvider.notifier), member),
-                                  child: Text(AppLocalizations.of(context)!.adminActionMakeAdmin),
-                                ),
-                          PopupMenuItem<VoidCallback>(
-                            value: () => _kickUser(ref.read(groupServiceProvider.notifier), member),
-                            child: Text(AppLocalizations.of(context)!.adminActionKick),
-                          ),
-                          PopupMenuItem<VoidCallback>(
-                            value: () => _banUser(ref.read(groupServiceProvider.notifier), member),
-                            child: Text(AppLocalizations.of(context)!.adminActionBan),
-                          ),
-                        ];
-                      },
-                    ),
+                    if (member.id != userId && isAdmin)
+                      PopupMenuButton(
+                        tooltip: "",
+                        splashRadius: 24,
+                        icon: const Icon(Icons.more_vert),
+                        itemBuilder: (context) {
+                          return [
+                            member.isAdmin
+                                ? PopupMenuItem(
+                                    onTap: () => _removeAdminStatus(ref.read(groupServiceProvider.notifier), member),
+                                    child: Text(AppLocalizations.of(context)!.adminActionRemoveAdmin),
+                                  )
+                                : PopupMenuItem(
+                                    onTap: () => _makeAdmin(ref.read(groupServiceProvider.notifier), member),
+                                    child: Text(AppLocalizations.of(context)!.adminActionMakeAdmin),
+                                  ),
+                            PopupMenuItem(
+                              onTap: () => _kickUser(context, ref.read(groupServiceProvider.notifier), member),
+                              child: Text(AppLocalizations.of(context)!.adminActionKick),
+                            ),
+                            PopupMenuItem<void>(
+                              onTap: () => _banUser(context, ref.read(groupServiceProvider.notifier), member),
+                              child: Text(AppLocalizations.of(context)!.adminActionBan),
+                            ),
+                          ];
+                        },
+                      ),
                   ],
                 ),
               );
@@ -146,18 +156,46 @@ class MemberList extends ConsumerWidget {
   }
 
   _removeAdminStatus(GroupService groupService, GroupMember member) {
-    groupService.removeAdminStatus(member.id, group.id);
+    groupService.removeAdminStatus(member.id, group.id).then((value) => refetch());
   }
 
   _makeAdmin(GroupService groupService, GroupMember member) {
-    groupService.makeAdmin(member.id, group.id);
+    groupService.makeAdmin(member.id, group.id).then((value) => refetch());
   }
 
-  _kickUser(GroupService groupService, GroupMember member) {
-    groupService.kickUser(member.id, group.id);
+  Future<void> _kickUser(BuildContext context, GroupService groupService, GroupMember member) {
+    return Future.delayed(
+      Duration.zero,
+      () => showDialog(
+        context: context,
+        builder: (context) => ApprovalDialog(
+          title: AppLocalizations.of(context)!.kickingApprovalTitle,
+          message: AppLocalizations.of(context)!.kickingApprovalMessage(member.userName),
+          onApproval: () {
+            Navigator.of(context).pop();
+            groupService.kickUser(member.id, group.id).then((value) => refetch());
+          },
+        ),
+      ),
+    );
   }
 
-  _banUser(GroupService groupService, GroupMember member) {
-    groupService.banUser(member.id, group.id);
+  Future<void> _banUser(BuildContext context, GroupService groupService, GroupMember member) async {
+    return Future.delayed(
+      Duration.zero,
+      () => showDialog(
+        context: context,
+        builder: (context) {
+          return ApprovalDialog(
+            title: AppLocalizations.of(context)!.banningApprovalTitle,
+            message: AppLocalizations.of(context)!.banningApprovalMessage(member.userName),
+            onApproval: () {
+              Navigator.of(context).pop();
+              groupService.banUser(member.id, group.id).then((value) => refetch());
+            },
+          );
+        },
+      ),
+    );
   }
 }

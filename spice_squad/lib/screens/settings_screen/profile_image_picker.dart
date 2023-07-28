@@ -8,46 +8,33 @@ import "package:spice_squad/icons.dart";
 import "package:spice_squad/services/user_service.dart";
 
 /// Widget for selecting a profile image
-class ProfileImagePicker extends StatefulWidget {
+class ProfileImagePicker extends StatelessWidget {
   /// Initial Profile image to display
-  final Uint8List? initialValue;
+  final Uint8List? profileImage;
 
   /// User service for updating the profile image
   final UserService userService;
 
   /// Creates a new profile image picker
-  const ProfileImagePicker({required this.initialValue, required this.userService, super.key});
-
-  @override
-  State<ProfileImagePicker> createState() => _ProfileImagePickerState();
-}
-
-class _ProfileImagePickerState extends State<ProfileImagePicker> {
-  Uint8List? _profileImage;
-
-  @override
-  void initState() {
-    _profileImage = widget.initialValue;
-    super.initState();
-  }
+  const ProfileImagePicker({required this.profileImage, required this.userService, super.key});
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       child: Ink(
-        decoration: _profileImage == null
+        decoration: profileImage != null
             ? BoxDecoration(
                 borderRadius: BorderRadius.circular(20000),
-                image: const DecorationImage(image: AssetImage("assets/images/exampleImage.jpeg")),
+                image: DecorationImage(image: MemoryImage(profileImage!), fit: BoxFit.cover),
               )
             : BoxDecoration(borderRadius: BorderRadius.circular(20000), color: Theme.of(context).cardColor),
-        child: CircleAvatar(
-          backgroundColor: Colors.transparent,
-          radius: 75,
-          child: InkWell(
-            borderRadius: BorderRadius.circular(20000),
-            onTap: () => _selectProfileImage(context),
-            child: const ImageIcon(
+        child: InkWell(
+          borderRadius: BorderRadius.circular(20000),
+          onTap: () => _selectProfileImage(context),
+          child: const CircleAvatar(
+            backgroundColor: Colors.transparent,
+            radius: 75,
+            child: ImageIcon(
               SpiceSquadIconImages.editUser,
               size: 64,
               color: Colors.white,
@@ -60,6 +47,21 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
 
   // Show dialog from bottom to remove or change profile image
   void _selectProfileImage(BuildContext context) {
+    void removeProfileImage() {
+      userService.removeProfileImage();
+      Navigator.of(context).pop();
+    }
+
+    void setProfileImage(ImageSource source) {
+      ImagePicker().pickImage(source: source).then((image) {
+        if (image != null) {
+          final File file = File(image.path);
+          userService.setProfileImage(file);
+          Navigator.of(context).pop();
+        }
+      });
+    }
+
     showGeneralDialog(
       barrierLabel: "showGeneralDialog",
       barrierDismissible: true,
@@ -89,26 +91,27 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    SizedBox(
-                      height: 86,
-                      width: 86,
-                      child: RawMaterialButton(
-                        onPressed: _removeProfileImage,
-                        elevation: 2.0,
-                        fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
-                        padding: const EdgeInsets.all(15.0),
-                        shape: const CircleBorder(),
-                        child: const ImageIcon(
-                          SpiceSquadIconImages.trash,
-                          size: 32,
+                    if (profileImage != null)
+                      SizedBox(
+                        height: 86,
+                        width: 86,
+                        child: RawMaterialButton(
+                          onPressed: removeProfileImage,
+                          elevation: 2.0,
+                          fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
+                          padding: const EdgeInsets.all(15.0),
+                          shape: const CircleBorder(),
+                          child: const ImageIcon(
+                            SpiceSquadIconImages.trash,
+                            size: 32,
+                          ),
                         ),
                       ),
-                    ),
                     SizedBox(
                       height: 86,
                       width: 86,
                       child: RawMaterialButton(
-                        onPressed: _setProfileImageFromGallery,
+                        onPressed: () => setProfileImage(ImageSource.gallery),
                         elevation: 2.0,
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),
@@ -123,7 +126,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                       height: 86,
                       width: 86,
                       child: RawMaterialButton(
-                        onPressed: _setProfileImageFromCamera,
+                        onPressed: () => setProfileImage(ImageSource.camera),
                         elevation: 2.0,
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),
@@ -151,33 +154,5 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
         );
       },
     );
-  }
-
-  void _removeProfileImage() {
-    widget.userService.removeProfileImage();
-  }
-
-  void _setProfileImageFromGallery() {
-    ImagePicker().pickImage(source: ImageSource.gallery).then((image) {
-      if (image != null) {
-        setState(() {
-          final File file = File(image.path);
-          _profileImage = file.readAsBytesSync();
-          widget.userService.setProfileImage(file);
-        });
-      }
-    });
-  }
-
-  void _setProfileImageFromCamera() {
-    ImagePicker().pickImage(source: ImageSource.camera).then((image) {
-      if (image != null) {
-        setState(() {
-          final File file = File(image.path);
-          _profileImage = file.readAsBytesSync();
-          widget.userService.setProfileImage(file);
-        });
-      }
-    });
   }
 }

@@ -10,7 +10,7 @@ import "package:spice_squad/widgets/or_widget.dart";
 import "package:spice_squad/widgets/success_dialog.dart";
 
 /// Screen for joining a group
-class GroupJoiningScreen extends ConsumerWidget {
+class GroupJoiningScreen extends ConsumerStatefulWidget {
   /// Route name for navigation
   static const routeName = "/group-joining";
 
@@ -24,28 +24,40 @@ class GroupJoiningScreen extends ConsumerWidget {
   GroupJoiningScreen({required this.isAfterRegister, super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<GroupJoiningScreen> createState() => _GroupJoiningScreenState();
+}
+
+class _GroupJoiningScreenState extends ConsumerState<GroupJoiningScreen> {
+  String? _groupCodeError;
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Stack(
           children: [
-            if (isAfterRegister)
-              Positioned(
-                top: 16,
-                right: 32,
-                child: Hero(
-                  tag: "skip-button",
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                        MainScreen.routeName,
-                        (route) => false,
-                      );
-                    },
-                    child: Text(AppLocalizations.of(context)!.skipButton),
+            widget.isAfterRegister
+                ? Positioned(
+                    top: 16,
+                    right: 32,
+                    child: Hero(
+                      tag: "skip-button",
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                            MainScreen.routeName,
+                            (route) => false,
+                          );
+                        },
+                        child: Text(AppLocalizations.of(context)!.skipButton),
+                      ),
+                    ),
+                  )
+                : const Positioned(
+                    top: 16,
+                    left: 32,
+                    child: BackButton(),
                   ),
-                ),
-              ),
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(32),
@@ -61,17 +73,21 @@ class GroupJoiningScreen extends ConsumerWidget {
                       height: 20,
                     ),
                     Form(
-                      key: _formKey,
+                      key: widget._formKey,
                       child: Column(
                         children: [
                           SizedBox(
                             width: double.infinity,
                             child: TextFormField(
+                              //TODO: autocapitalize every put in letter
+                              maxLength: 8,
                               validator: (value) => _validateGroupCode(context, value),
                               keyboardType: TextInputType.text,
-                              controller: _groupCodeController,
+                              controller: widget._groupCodeController,
                               decoration: InputDecoration(
+                                counterText: "",
                                 hintText: AppLocalizations.of(context)!.groupCodeInputLabel,
+                                errorText: _groupCodeError,
                               ),
                             ),
                           ),
@@ -85,12 +101,11 @@ class GroupJoiningScreen extends ConsumerWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          if (_formKey.currentState!.validate()) {
+                          if (widget._formKey.currentState!.validate()) {
                             _joinGroupByCode(
                               context,
                               ref.read(groupServiceProvider.notifier),
-                              _groupCodeController.text,
-                              isAfterRegister,
+                              widget._groupCodeController.text,
                             );
                           }
                         },
@@ -108,7 +123,6 @@ class GroupJoiningScreen extends ConsumerWidget {
                                 context,
                                 ref.read(groupServiceProvider.notifier),
                                 value as String,
-                                isAfterRegister,
                               );
                             }
                           });
@@ -123,7 +137,7 @@ class GroupJoiningScreen extends ConsumerWidget {
                         onPressed: () {
                           Navigator.of(context).pushReplacementNamed(
                             GroupCreationScreen.routeName,
-                            arguments: isAfterRegister,
+                            arguments: widget.isAfterRegister,
                           );
                         },
                         child: Text(AppLocalizations.of(context)!.createSquadButton),
@@ -146,31 +160,37 @@ class GroupJoiningScreen extends ConsumerWidget {
     return null;
   }
 
-  void _joinGroupByCode(
-    BuildContext context,
-    GroupService groupService,
-    String groupCode,
-    bool isAfterRegister,
-  ) {
+  void _joinGroupByCode(BuildContext context, GroupService groupService, String groupCode) {
+    setState(() {
+      _groupCodeError = null;
+    });
     groupService
         .joinGroup(groupCode)
         .then(
-          (value) =>
-          showDialog(
+          (value) => showDialog(
             context: context,
             builder: (context) => SuccessDialog(
               title: AppLocalizations.of(context)!.joiningSuccessFullTitle,
               message: AppLocalizations.of(context)!.joiningSuccessFullDescription,
             ),
           ),
-    )
+        )
         .then(
-          (value) => isAfterRegister
+          (value) => widget.isAfterRegister
               ? Navigator.of(context).pushNamedAndRemoveUntil(
                   MainScreen.routeName,
                   (route) => false,
                 )
               : Navigator.of(context).pop(),
+        )
+        .catchError(
+          (error) => setState(() {
+            if (error is ArgumentError && error.message == "GROUP_DOES_NOT_EXIST") {
+              setState(() {
+                _groupCodeError = AppLocalizations.of(context)!.groupCodeNotExistingError;
+              });
+            }
+          }),
         );
   }
 }

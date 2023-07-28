@@ -1,3 +1,4 @@
+import "package:auto_size_text/auto_size_text.dart";
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -11,6 +12,7 @@ import "package:spice_squad/services/user_service.dart";
 import "package:spice_squad/widgets/approval_dialog.dart";
 import "package:spice_squad/widgets/input_dialog.dart";
 import "package:spice_squad/widgets/nav_bar.dart";
+import "package:spice_squad/widgets/success_dialog.dart";
 
 /// Screen for displaying user settings
 class SettingsScreen extends ConsumerWidget {
@@ -25,44 +27,50 @@ class SettingsScreen extends ConsumerWidget {
     return Scaffold(
       bottomNavigationBar: const NavBar(currentIndex: 2),
       appBar: AppBar(
-        title: Row(
-          children: [
-            Expanded(child: Center(child: Text(AppLocalizations.of(context)!.settingsHeadline))),
-            IconButton(
-              onPressed: () {
-                _logout(context, ref.read(userServiceProvider.notifier));
-              },
-              icon: const ImageIcon(SpiceSquadIconImages.leave),
-            )
-          ],
-        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              _logout(context, ref.read(userServiceProvider.notifier));
+            },
+            icon: const ImageIcon(SpiceSquadIconImages.leave),
+          )
+        ],
+        title: Text(AppLocalizations.of(context)!.settingsHeadline),
       ),
       body: Center(
-        child: ListView(
-          padding: const EdgeInsets.all(24),
-          children: [
-            ref.watch(userServiceProvider).when(
-                  data: (user) {
-                    return Column(
+        child: ref.watch(userServiceProvider).when(
+              data: (user) {
+                if (user == null) {
+                  return Container();
+                }
+                return ListView(
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.all(24),
+                  children: [
+                    Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         ProfileImagePicker(
-                          initialValue: user!.profileImage,
+                          profileImage: user.profileImage,
                           userService: ref.read(userServiceProvider.notifier),
-                        ),
-                        const SizedBox(
-                          height: 8,
                         ),
                         TextButton(
                           onPressed: () {
                             _renameUser(context, ref.read(userServiceProvider.notifier), user.userName);
                           },
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+                          ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Text(
-                                user.userName,
-                                style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),
+                              Flexible(
+                                child: AutoSizeText(
+                                  user.userName,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),
+                                ),
                               ),
                               const SizedBox(
                                 width: 8,
@@ -79,34 +87,33 @@ class SettingsScreen extends ConsumerWidget {
                             _deleteAccount(context, ref.read(userServiceProvider.notifier));
                           },
                           child: Text(AppLocalizations.of(context)!.deleteAccountButton),
-                        )
+                        ),
                       ],
-                    );
-                  },
-                  error: (error, stackTrace) => Text(error.toString()),
-                  loading: () => const Column(
-                    children: [CircularProgressIndicator()],
-                  ),
-                ),
-            const SizedBox(
-              height: 20,
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    const GroupList(),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    OwnRecipeList(
+                      userId: user.id,
+                    ),
+                  ],
+                );
+              },
+              error: (error, stackTrace) => Text(error.toString()),
+              loading: () => const CircularProgressIndicator(),
             ),
-            const GroupList(),
-            const SizedBox(
-              height: 20,
-            ),
-            const OwnRecipeList(),
-          ],
-        ),
       ),
     );
   }
 }
 
 void _logout(BuildContext context, UserService userService) {
-  Navigator.of(context)
-      .pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false)
-      .then((value) => userService.logout());
+  Navigator.of(context).pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
+  userService.logout();
 }
 
 void _renameUser(BuildContext context, UserService userService, String oldName) {
@@ -120,6 +127,9 @@ void _renameUser(BuildContext context, UserService userService, String oldName) 
         validator: (value) {
           if (value == null || value.isEmpty) {
             return AppLocalizations.of(context)!.renameDialogEmptyError;
+          }
+          if (value.length > 32) {
+            return AppLocalizations.of(context)!.userNameTooLongError;
           }
           return null;
         },
@@ -136,8 +146,13 @@ void _deleteAccount(BuildContext context, UserService userService) {
         title: AppLocalizations.of(context)!.deleteAccountDialogTitle,
         message: AppLocalizations.of(context)!.deleteAccountDialogDescription,
         onApproval: () {
-          userService.deleteAccount();
           Navigator.of(context).pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
+          userService.deleteAccount().then((value) {
+            showDialog(
+              context: context,
+              builder: (context) => const SuccessDialog(title: "Konto gelöscht", message: "Dein Konto wurde gelöscht."),
+            );
+          });
         },
       );
     },

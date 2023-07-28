@@ -55,6 +55,10 @@
   "@userNameEmptyError": {
     "description": "The error message if the name field is empty"
   },
+  "userNameTooLongError": "The user name can be only 32 characters long",
+  "@userNameTooLongError": {
+    "description": "The error message if the user name is too long"
+  },
   "passwordEmptyError": "Please enter a password",
   "@passwordEmptyError": {
     "description": "The error message if the password field is empty"
@@ -155,9 +159,17 @@
   "@cancelButtonLabel": {
     "description": "The label for a cancel button"
   },
-  "filterSelectionHandle": "Filters",
+  "filterSelectionHandle": "{amount} Filters",
   "@filterSelectionHandle": {
-    "description": "The handle for the filter selection"
+    "description": "The handle for the filter selection",
+    "placeholders": {
+      "amount": {
+        "type": "int",
+        "content": "{amount}",
+        "example": "2",
+        "description": "How many filters are selected"
+      }
+    }
   },
   "searchInputPlaceholder": "Search...",
   "@searchInputPlaceholder": {
@@ -311,6 +323,10 @@
   "@groupCodeEmptyError": {
     "description": "The error message if the squad code is empty"
   },
+  "groupCodeTooLongError": "The squad code can be only 32 characters long",
+  "@groupCodeTooLongError": {
+    "description": "The error message if the squad code is too long"
+  },
   "joiningSuccessFullTitle": "Joining successful",
   "@joiningSuccessFullTitle": {
     "description": "The title of the joining successful page"
@@ -437,6 +453,10 @@
   "@unitEmptyError": {
     "description": "The error message if the unit is empty"
   },
+  "unitTooLongError": "The unit name can be only 16 characters long",
+  "@unitTooLongError": {
+    "description": "The error message if the unit name is too long"
+  },
   "addButton": "Add",
   "@addButton": {
     "description": "The label for the add button"
@@ -444,6 +464,10 @@
   "ingredientNameEmptyError": "Please enter an ingredient name",
   "@ingredientNameEmptyError": {
     "description": "The error message if the ingredient name is empty"
+  },
+  "ingredientTooLongError": "The ingredient name can be only 32 characters long",
+  "@ingredientTooLongError": {
+    "description": "The error message if the ingredient name is too long"
   },
   "ingredientNameInputLabel": "Ingredient",
   "@ingredientNameInputLabel": {
@@ -505,27 +529,31 @@
   "@titleEmptyError": {
     "description": "The error message if the title is empty"
   },
+  "titleTooLongError": "The title can be only 64 characters long",
+  "@titleTooLongError": {
+    "description": "The error message if the title is too long"
+  },
   "titleInputLabel": "Title",
   "@titleInputLabel": {
     "description": "The label for the title input"
   },
-  "labelVegetarian": "Vegetarisch",
+  "labelVegetarian": "vegetarian",
   "@labelVegetarian": {
     "description": "The label for the vegetarian checkbox"
   },
-  "labelVegan": "Vegan",
+  "labelVegan": "vegan",
   "@labelVegan": {
     "description": "The label for the vegan checkbox"
   },
-  "labelGlutenFree": "Glutenfrei",
+  "labelGlutenFree": "gluten free",
   "@labelGlutenFree": {
     "description": "The label for the gluten free checkbox"
   },
-  "labelHalal": "Halal",
+  "labelHalal": "halal",
   "@labelHalal": {
     "description": "The label for the halal checkbox"
   },
-  "labelKosher": "Koscher",
+  "labelKosher": "kosher",
   "@labelKosher": {
     "description": "The label for the kosher checkbox"
   },
@@ -553,21 +581,53 @@
   "@instructionsInputLabel": {
     "description": "The label for the instructions input"
   },
+  "loginError": "Invalid username or password",
+  "@loginError": {
+    "description": "The error message if the login fails because of invalid credentials"
+  },
+  "emailExistsError": "This email address is already in use",
+  "@emailExistsError": {
+    "description": "The error message if the email address is already in use"
+  },
+  "connectionError": "We are having trouble connecting to the server.",
+  "@connectionError": {
+    "description": "The error message if the connection to the server fails"
+  },
+  "easyDifficulty": "Easy",
+  "@easyDifficulty": {
+    "description": "The label for the easy difficulty"
+  },
+  "mediumDifficulty": "Medium",
+  "@mediumDifficulty": {
+    "description": "The label for the medium difficulty"
+  },
+  "hardDifficulty": "Hard",
+  "@hardDifficulty": {
+    "description": "The label for the hard difficulty"
+  },
+  "clearFiltersButtonLabel": "Clear filters",
+  "@clearFiltersButtonLabel": {
+    "description": "The label for the clear filters button"
+  },
+  "groupCodeNotExistingError": "This group code does not exist",
+  "@groupCodeNotExistingError": {
+    "description": "The error message if the group code does not exist"
+  },
+  "pdfSaveSuccess": "Save successfully",
+  "@pdfSaveSuccess": {
+    "description": "The message that saving the PDF was successful"
+  },
   "pdfRecipeViewHeadline": "PDF of {recipeTitle}",
   "@pdfRecipeViewHeadline": {
     "description": "The headline of the pdf preview for a recipe",
     "placeholders": {
       "recipeTitle": {
-      "type": "String",
-      "content": "{recipeTitle}",
-      "example": "Pizza",
-      "description": "The title of the recipe"
+        "type": "String",
+        "content": "{recipeTitle}",
+        "example": "Pizza",
+        "description": "The title of the recipe"
+      }
     }
-    }
-  },
-  "pdfSaveSuccess": "Save successfully",
-  "@pdfSaveSuccess": {
-    "description": "The message that saving the PDF was successful"
   },
   "pdfShareSuccess": "Share successfully",
   "@pdfShareSuccess": {
@@ -577,13 +637,13 @@
   "@defaultPortions": {
     "description": "The description for how many servings the ingredients have been calculated",
     "placeholders": {
-    "defaultPortionAmount": {
-      "type": "int",
-      "content": "{defaultPortionAmount}",
-      "example": "4",
-      "description": "The amount of portions"
+      "defaultPortionAmount": {
+        "type": "int",
+        "content": "{defaultPortionAmount}",
+        "example": "4",
+        "description": "The amount of portions"
+      }
     }
-  }
   },
   "recipeAuthor": "Recipe by: {author}",
   "@recipeAuthor": {
@@ -608,5 +668,65 @@
   "totalTime": "Total Time",
   "@totalTime": {
     "description": "The Category for the preparation time"
+  },
+  "sortNameDuration": "Duration",
+  "@sortNameDuration": {
+    "description": "The name of the sort option for the duration"
+  },
+  "reportRecipeButton": "Report recipe",
+  "@reportRecipeButton": {
+    "description": "The label for the report recipe button"
+  },
+  "reportSuccessTitle": "Report successful",
+  "@reportSuccessTitle": {
+    "description": "The title of the report successful page"
+  },
+  "reportSuccessMessage": "You have successfully reported the recipe.",
+  "@reportSuccessMessage": {
+    "description": "The description of the report successful page"
+  },
+  "saveBeforeAbortEditTitle": "Abort edit",
+  "@abortEditApprovalTitle": {
+    "description": "The title of the abort edit approval dialog"
+  },
+  "saveBeforeAbortEditMessage": "Do you want to save your changes before leaving the edit mode?",
+  "@saveBeforeAbortEditMessage": {
+    "description": "The description of the abort edit approval dialog"
+  },
+  "banningApprovalTitle": "Ban user",
+  "@banningApprovalTitle": {
+    "description": "The title of the banning approval dialog"
+  },
+  "banningApprovalMessage": "Are you sure you want to ban the user \"{userName}\"?",
+  "@banningApprovalMessage": {
+    "description": "The description of the banning approval dialog",
+    "placeholders": {
+      "userName": {
+        "type": "String",
+        "content": "{userName}",
+        "example": "Heinrich",
+        "description": "The name of the user"
+      }
+    }
+  },
+  "kickingApprovalTitle": "Kick user",
+  "@kickingApprovalTitle": {
+    "description": "The title of the kicking approval dialog"
+  },
+  "kickingApprovalMessage": "Are you sure you want to kick the user \"{userName}\"?",
+  "@kickingApprovalMessage": {
+    "description": "The description of the kicking approval dialog",
+    "placeholders": {
+      "userName": {
+        "type": "String",
+        "content": "{userName}",
+        "example": "Heinrich",
+        "description": "The name of the user"
+      }
+    }
+  },
+  "discardButtonLabel": "Discard",
+  "@discardButtonLabel": {
+    "description": "The label for the discard button"
   }
 }

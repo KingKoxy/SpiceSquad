@@ -28,20 +28,25 @@ class GroupCreationScreen extends ConsumerWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            if (isAfterRegister)
-              Positioned(
-                top: 16,
-                right: 32,
-                child: Hero(
-                  tag: "skip-button",
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
-                    },
-                    child: Text(AppLocalizations.of(context)!.skipButton),
+            isAfterRegister
+                ? Positioned(
+                    top: 16,
+                    right: 32,
+                    child: Hero(
+                      tag: "skip-button",
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
+                        },
+                        child: Text(AppLocalizations.of(context)!.skipButton),
+                      ),
+                    ),
+                  )
+                : const Positioned(
+                    top: 16,
+                    left: 32,
+                    child: BackButton(),
                   ),
-                ),
-              ),
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(32),
@@ -66,7 +71,9 @@ class GroupCreationScreen extends ConsumerWidget {
                               validator: (value) => _validateGroupName(context, value),
                               keyboardType: TextInputType.text,
                               controller: _groupNameController,
+                              maxLength: 32,
                               decoration: InputDecoration(
+                                counterText: "",
                                 hintText: AppLocalizations.of(context)!.squadNameInputLabel,
                               ),
                             ),
@@ -112,6 +119,9 @@ class GroupCreationScreen extends ConsumerWidget {
   String? _validateGroupName(BuildContext context, String? groupCode) {
     if (groupCode == null || groupCode.isEmpty) {
       return AppLocalizations.of(context)!.squadNameEmptyError;
+    }
+    if (groupCode.length > 32) {
+      return AppLocalizations.of(context)!.groupCodeTooLongError;
     }
     return null;
   }

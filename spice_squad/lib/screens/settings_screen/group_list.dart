@@ -1,3 +1,4 @@
+import "package:auto_size_text/auto_size_text.dart";
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -39,6 +40,7 @@ class GroupList extends ConsumerWidget {
         // Fetch groups from database
         ref.watch(groupServiceProvider).when(
           data: (groups) {
+            groups.sort((Group a, Group b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
             return Card(
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
               child: groups.isNotEmpty
@@ -53,13 +55,17 @@ class GroupList extends ConsumerWidget {
                             Navigator.of(context).pushNamed(GroupDetailScreen.routeName, arguments: groups[index].id);
                           },
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                            padding: const EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 8),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  groups[index].name,
-                                  style: Theme.of(context).textTheme.titleLarge,
+                                Expanded(
+                                  child: AutoSizeText(
+                                    groups[index].name,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Theme.of(context).textTheme.titleLarge,
+                                  ),
                                 ),
                                 RemoveButton(
                                   onPressed: () {

@@ -1,3 +1,7 @@
+import "dart:typed_data";
+
+import "package:spice_squad/models/difficulty.dart";
+import "package:spice_squad/models/ingredient.dart";
 import "package:spice_squad/models/recipe_creation_data.dart";
 import "package:spice_squad/models/user.dart";
 
@@ -44,21 +48,73 @@ class Recipe extends RecipeCreationData {
     return Recipe(
       id: map["id"],
       title: map["title"],
-      author: map["author"],
-      uploadDate: map["uploadDate"],
+      author: User.fromMap(map["author"]),
+      uploadDate: DateTime.parse(map["upload_date"]),
       duration: map["duration"],
-      difficulty: map["difficulty"],
-      image: map["image"],
-      isVegetarian: map["isVegetarian"],
-      isVegan: map["isVegan"],
-      isGlutenFree: map["isGlutenFree"],
-      isHalal: map["isHalal"],
-      isKosher: map["isKosher"],
-      ingredients: map["ingredients"],
+      difficulty: Difficulty.fromString(map["difficulty"]),
+      image: map["image"] != null ? Uint8List.fromList(map["image"]["data"].cast<int>()) : null,
+      isVegetarian: map["is_vegetarian"],
+      isVegan: map["is_vegan"],
+      isGlutenFree: map["is_gluten_free"],
+      isHalal: map["is_halal"],
+      isKosher: map["is_kosher"],
+      ingredients: map["ingredients"].map<Ingredient>((v) => Ingredient.fromMap(v as Map<String, dynamic>)).toList(),
       instructions: map["instructions"],
-      defaultPortionAmount: map["defaultPortionAmount"],
-      isFavourite: map["isFavourite"],
-      isPrivate: map["isPrivate"],
+      defaultPortionAmount: map["default_portions"],
+      isFavourite: map["isFavourite"] ?? false,
+      isPrivate: map["is_private"] ?? false,
     );
+  }
+
+  /// Creates a new [Recipe] by copying this one and replacing the given values
+  Recipe copyWith({
+    String? title,
+    int? duration,
+    Difficulty? difficulty,
+    bool? isVegetarian,
+    bool? isVegan,
+    bool? isGlutenFree,
+    bool? isHalal,
+    bool? isKosher,
+    List<Ingredient>? ingredients,
+    String? instructions,
+    int? defaultPortionAmount,
+    bool? isFavourite,
+    bool? isPrivate,
+    Uint8List? image,
+    bool setImageIfNull = false,
+  }) {
+    return Recipe(
+      id: id,
+      title: title ?? this.title,
+      duration: duration ?? this.duration,
+      difficulty: difficulty ?? this.difficulty,
+      isVegetarian: isVegetarian ?? this.isVegetarian,
+      isVegan: isVegan ?? this.isVegan,
+      isGlutenFree: isGlutenFree ?? this.isGlutenFree,
+      isHalal: isHalal ?? this.isHalal,
+      isKosher: isKosher ?? this.isKosher,
+      ingredients: ingredients ?? this.ingredients,
+      instructions: instructions ?? this.instructions,
+      defaultPortionAmount: defaultPortionAmount ?? this.defaultPortionAmount,
+      isFavourite: isFavourite ?? this.isFavourite,
+      isPrivate: isPrivate ?? this.isPrivate,
+      image: image ?? (setImageIfNull ? null : this.image),
+      author: author,
+      uploadDate: uploadDate,
+    );
+  }
+
+  /// Converts this [Recipe] to a [Map] object by inserting the values
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      ...super.toMap(),
+      "id": id,
+      "author": author.toMap(),
+      "uploadDate": uploadDate.toIso8601String(),
+      "isFavourite": isFavourite,
+      "isPrivate": isPrivate,
+    };
   }
 }

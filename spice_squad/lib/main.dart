@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:spice_squad/models/group.dart";
+import "package:spice_squad/models/ingredient.dart";
 import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/screens/group_creation_screen.dart";
 import "package:spice_squad/screens/group_detail_screen/group_detail_screen.dart";
@@ -17,6 +18,7 @@ import "package:spice_squad/screens/recipe_creation_screen/recipe_creation_scree
 import "package:spice_squad/screens/recipe_detail_screen/recipe_detail_screen.dart";
 import "package:spice_squad/screens/register_screen.dart";
 import "package:spice_squad/screens/settings_screen/settings_screen.dart";
+import "package:spice_squad/screens/splash_screen.dart";
 import "package:spice_squad/theme.dart";
 
 void main() {
@@ -34,9 +36,13 @@ class SpiceSquad extends StatelessWidget {
       child: MaterialApp(
         title: "SpiceSquad",
         theme: SpiceSquadTheme.themeData,
-        initialRoute: MainScreen.routeName,
+        initialRoute: SplashScreen.routeName,
         onGenerateRoute: (settings) {
           switch (settings.name) {
+            case SplashScreen.routeName:
+              return MaterialPageRoute(
+                builder: (context) => const SplashScreen(),
+              );
             case MainScreen.routeName:
               return MaterialPageRoute(
                 builder: (context) => MainScreen(),
@@ -81,7 +87,9 @@ class SpiceSquad extends StatelessWidget {
               );
             case IngredientCreationScreen.routeName:
               return MaterialPageRoute(
-                builder: (context) => IngredientCreationScreen(),
+                builder: (context) => IngredientCreationScreen(
+                  initialIngredient: settings.arguments as Ingredient?,
+                ),
               );
             case RecipeCreationScreen.routeName:
               return MaterialPageRoute(

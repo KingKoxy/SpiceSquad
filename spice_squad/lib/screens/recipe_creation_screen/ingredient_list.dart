@@ -3,14 +3,14 @@ import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:spice_squad/models/ingredient.dart";
 import "package:spice_squad/screens/ingredient_creation_screen/ingredient_creation_screen.dart";
 import "package:spice_squad/widgets/add_button.dart";
-import "package:spice_squad/widgets/remove_button.dart";
+import "package:spice_squad/widgets/ingredient_list_item.dart";
 
 /// Widget for displaying a list of ingredients
 class IngredientList extends StatefulWidget {
   /// The ingredients to display
   final List<Ingredient> initialList;
 
-  /// The callback that is called when the list changes
+  /// Callback for when the list changes
   final ValueChanged<List<Ingredient>> onChanged;
 
   /// Creates a new ingredient list
@@ -25,8 +25,13 @@ class _IngredientListState extends State<IngredientList> {
 
   @override
   void initState() {
-    _ingredients = widget.initialList;
     super.initState();
+    _ingredients = List.of(widget.initialList);
+  }
+
+  @override
+  void setState(VoidCallback fn) {
+    if (mounted) super.setState(fn);
   }
 
   @override
@@ -57,54 +62,33 @@ class _IngredientListState extends State<IngredientList> {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           child: _ingredients.isNotEmpty
               ? ListView.builder(
+                  padding: const EdgeInsets.all(0),
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: _ingredients.length,
                   itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 8,
-                        horizontal: 8,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: Image.asset(
-                              "assets/icons/ingredientIcons/${_ingredients[index].iconId}.png",
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                _ingredients[index].name,
-                                style: Theme.of(context).textTheme.titleLarge,
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              const Text("•"),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                "${_ingredients[index].amount.toStringAsFixed(2)} ${_ingredients[index].unit}",
-                                style: Theme.of(context).textTheme.titleMedium,
-                              ),
-                            ],
-                          ),
-                          const Expanded(child: SizedBox()),
-                          RemoveButton(
-                            onPressed: () {
-                              setState(() {
-                                _ingredients.removeAt(index);
-                              });
-                            },
-                          ),
-                        ],
+                    return InkWell(
+                      borderRadius: BorderRadius.circular(16),
+                      onTap: () async {
+                        final temp = await Navigator.pushNamed(
+                          context,
+                          IngredientCreationScreen.routeName,
+                          arguments: _ingredients[index],
+                        ) as Ingredient?;
+                        if (temp == null) return;
+                        setState(() {
+                          _ingredients[index] = temp;
+                          widget.onChanged(_ingredients);
+                        });
+                      },
+                      child: IngredientListItem(
+                        ingredient: _ingredients[index],
+                        onRemove: () {
+                          setState(() {
+                            _ingredients.removeAt(index);
+                            widget.onChanged(_ingredients);
+                          });
+                        },
                       ),
                     );
                   },
