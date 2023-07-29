@@ -26,7 +26,7 @@ In den folgenden UML-Diagrammen werden abgeänderte Methoden und Attribute blau 
 \subsection{Änderungen am Modellayer}
 \begin{figure}[htp]
     \centering
-    \includegraphics[width=0.95\textwidth]{images/uml/modellayer.pdf}
+    \includegraphics[width=\textwidth]{images/uml/modelLayer.pdf}
     \caption{Änderungen am Modellayer}
     \label{fig:modellayer}
 \end{figure}
@@ -43,7 +43,30 @@ Die statische Methode gibt die Schwierigkeit zurück, die den übergebenen Strin
 \paragraph{\texttt{RecipeCreationData.imageUrl} und \texttt{Ingredient.iconUrl}} Wir haben uns dazu entschieden statt dem Icon/Bild selbst nur die URL zu speichern. Damit können wir die Anfragengröße massiv verkleinern. Mehr dazu folgt im Kapitel \ref{sec:images}.
 \newpage
 \subsection{Änderungen am Datalayer}
-
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=\textwidth]{images/uml/dataLayer.pdf}
+    \caption{Änderungen am Datalayer}
+    \label{fig:dataLayer}
+\end{figure}
+\subsubsection{\texttt{RecipeRepository}}
+Das Konzept, ein lokales und ein entferntes Repository zu haben, wurde verworfen. Stattdessen gibt es nur noch ein Repository, das auf die Daten des Servers zugreift.
+\paragraph{\texttt{createRecipe(RecipeCreationData recipe)}} Die Methode nimmt statt einem \texttt{Recipe} ein Objekt der neuen Klasse \texttt{RecipeCreationData} entgegen, das wirklich nur die benötigten Daten enthält.
+\paragraph{\texttt{updateRecipe(Recipe recipe)}} Die Methode nimmt keine Id mehr als Parameter entgegen. Stattdessen wird die Id aus dem übergebenen \texttt{Recipe} gelesen.
+\paragraph{\texttt{reportRecipe(String recipeId)}} Die Methode nimmt nur noch die Id des zu meldenden Rezepts entgegen und nicht mehr das gesamte Rezept.
+\subsubsection{\texttt{AdminRepository}}
+\paragraph{\texttt{setCensored(String recipeId, String groupId, bool value)}} Im Entwurf wurde vergessen, die Id der Gruppe als Parameter hinzuzufügen. Das wurde nun nachgeholt.
+\subsubsection{\texttt{GroupRepository}}
+\paragraph*{\texttt{fetchGroupById()}} Die Methode wurde hinzugefügt, um eine Gruppe anhand ihrer Id zu laden. Dies ist vor allem für die Gurppen-Detail-Seite nötig.
+\paragraph*{\texttt{updateGroup(Group group)}} Die Methode nimmt keine Id mehr als Parameter entgegen. Stattdessen wird die Id aus der übergebenen \texttt{Group} gelesen.
+\subsubsection{\texttt{UserRepository}}
+\paragraph{\texttt{refreshToken}}
+Das Attribut wurde entfernt. Stattdessen wird das Token im Systemspeicher abgelegt, da es nur selten benötigt wird, aber über mehrere Sitzungen hinweg gültig ist.
+\paragraph{\texttt{getToken(): FutureOr<String?>}} Die Methode gibt ein \texttt{FutureOr<String?>} zurück, da das Token asynchron geladen werden kann, jedoch nicht muss.
+\subsubsection{\texttt{IngredientDataRepository}}
+Die Klasse wurde umbenannt, da sie nun nicht mehr nur die Namensvorschläge für Zutaten enthält, sondern auch die für Icon-Urls.
+\paragraph{\texttt{fetchIngredientIconUrls()}} Die Methode wurde hinzugefügt, um die Liste der möglichen Icons zu laden.
+\subsection{Änderungen am Domainlayer}
 \section{Glossar}
 \printglossary[style=altlist]
 \end{document}

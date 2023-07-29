@@ -39,7 +39,7 @@ class IngredientDataRepository {
     }
   }
 
-  /// Fetches all ingredient names
+  /// Fetches all ingredient icons
   Future<List<Uint8List>> fetchIngredientIcons() async {
     // If the ingredient icons were fetched in the last two days, return them from the shared preferences
     final sharedPreferences = await SharedPreferences.getInstance();
