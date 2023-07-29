@@ -18,11 +18,12 @@ Es wurden alle Muss-, Soll- und Kannkriterien umgesetzt. Die Applikation wurde u
 \begin{itemize}
     \item An sinnvollen Stellen wurden zusätzliche Pop-Up-Fenster eingefügt, die z.B. nach Bestätigung einer Aktion fragen.
     \item Es gibt eine weitere Ansicht, die die exportierten Rezepte als PDF-Vorschau anzeigt.
+    \item Die App ist je nach Systemsprache auf Deutsch oder Englisch übersetzt.
 \end{itemize}
 \newpage
 \section{Änderungen am Entwurf}
 In den folgenden UML-Diagrammen werden abgeänderte Methoden und Attribute blau markiert, entfernte rot und neue grün.
-\subsection{Änderungen an dem Modellayer}
+\subsection{Änderungen am Modellayer}
 \begin{figure}[htp]
     \centering
     \includegraphics[width=0.95\textwidth]{images/uml/modellayer.pdf}
@@ -31,8 +32,18 @@ In den folgenden UML-Diagrammen werden abgeänderte Methoden und Attribute blau 
 \end{figure}
 \paragraph*{\texttt{fromMap(Map<String, dynamic> map)}} Die Factory-Methoden \texttt{fromJson} wurden in \texttt{fromMap} umbenannt, da sie unabhängig von der Serialisierungsmethode sind.
 \paragraph*{\texttt{toMap()}} Die statische Methode \texttt{toMap} wurde bei einigen Klassen hinzugefügt, um die Serialisierung zu vereinfachen. Sie gibt ein \texttt{Map<String, dynamic>} zurück, das die Attribute der Klasse enthält.
+\paragraph{\texttt{Recipe} und \texttt{RecipeCreationData}}
+Die Klasse \texttt{Recipe} wurde in die beiden Klassen \texttt{Recipe} und \texttt{RecipeCreationData} aufgeteilt. Die Klasse \texttt{Recipe} enthält nur noch die Attribute, die ein Rezept nach der Erstellung haben kann, wie zum Beispiel den Author und die Id. Die Klasse erbt von \texttt{RecipeCreationData}, die die Attribute enthält, die ein Rezept bei der Erstellung haben muss, wie Namen oder Anweisungen.
 \paragraph{\texttt{Recipe.copyWith(...)}} Die Methode \texttt{copyWith} wurde hinzugefügt, um ein Rezept zu kopieren und dabei einzelne Attribute zu ändern. Die zuändernden Attribute werden als benannte Parameter übergeben.
+\paragraph{\texttt{Recipe.createEmpty()}} Die Methode wurde entfernt, da sie nicht mehr benötigt wird.
+\paragraph{\texttt{Difficulty.getName(BuildContext context): String}}
+Die Methode gibt einen String zurück, der den Namen der Schwierigkeit in der aktuellen Sprache enthält. Die Sprache wird aus dem \texttt{BuildContext} gelesen.
+\paragraph{\texttt{Difficulty.fromString(String string)}}
+Die statische Methode gibt die Schwierigkeit zurück, die den übergebenen String als Namen hat.
+\paragraph{\texttt{RecipeCreationData.imageUrl} und \texttt{Ingredient.iconUrl}} Wir haben uns dazu entschieden statt dem Icon/Bild selbst nur die URL zu speichern. Damit können wir die Anfragengröße massiv verkleinern. Mehr dazu folgt im Kapitel \ref{sec:images}.
 \newpage
+\subsection{Änderungen am Datalayer}
+
 \section{Glossar}
 \printglossary[style=altlist]
 \end{document}

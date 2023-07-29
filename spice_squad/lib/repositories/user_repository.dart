@@ -66,7 +66,7 @@ class UserRepository {
       }
     }
     // Wenn der Token nicht aktualisiert werden konnte, wird er gelöscht
-    await deleteTokens();
+    await _deleteTokens();
     return null;
   }
 
@@ -115,7 +115,7 @@ class UserRepository {
         HttpHeaders.authorizationHeader: "${await getToken()}",
       },
     );
-    await deleteTokens();
+    await _deleteTokens();
     /*if (response.statusCode != 200) {
       throw HttpStatusException(response);
     }*/
@@ -192,7 +192,7 @@ class UserRepository {
   }
 
   /// Deletes the id token and refresh token
-  Future<void> deleteTokens() async {
+  Future<void> _deleteTokens() async {
     _idToken = null;
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove(_refreshTokenPath);
