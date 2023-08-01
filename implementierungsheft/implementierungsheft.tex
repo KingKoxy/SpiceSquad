@@ -95,10 +95,21 @@ Die Methode war fälschlicherweise noch im Entwurf vorhanden. Sie wurde aber dur
 Es wird die neue Klasse \texttt{RecipeCreationData} verwendet, die nur die benötigten Daten enthält.
 \paragraph{\texttt{exportRecipe(String recipeId)}}
 Die Klasse gibt nun ein \texttt{Future<Uint8List>} zurück, das die Daten des PDFs enthält. Dies ermöglicht es die Daten anschließend in einer Preview anzuzeigen.
-\subsection{PDFExporter}
+\subsubsection{PDFExporter}
 \paragraph{\texttt{exportRecipe(Recipe recipe, AppLocalizations appLocalizations)}}
 Es wird nun auch ein \texttt{AppLocalizations} Objekt entgegengenommen, um die Übersetzungen zu laden. Zudem gibt sie auch ein \texttt{Future<Uint8List>} zurück, das die Daten des PDFs enthält. Dies ermöglicht es die Daten anschließend in einer Preview anzuzeigen.
 \newpage
+\subsection{Änderungen am Presentationlayer}
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=\textwidth]{images/uml/domainLayer.pdf}
+    \caption{Änderungen am Presentationlayer}
+    \label{fig:presentationLayer}
+\end{figure}
+Alle Attribute der Klassen werden in einem Konstruktor gesetzt, der der Übersichtlichkeit halber nicht dargestellt wird. Die Ausnahme bilden die Attribute, die als Zustand der \texttt{StatefulWidgets} gehalten werden. Sie sind daran zu erkennen, das sie \textit{kursiv} geschrieben sind.
+\paragraph{Vererbungen}
+Google selbst empfiehlt für Flutter-Widgets keine Vererbung von anderen Widgets zu verwenden. Stattdessen soll die \texttt{build}-Methode des Widgets alle nötigen Anpassungen vornehmen. Dieses Prinzip nennt sich "Composition over Inheritence". Daher wurden die Vererbungen zu Klassen wie \texttt{IconButton} entfernt.
+\paragraph{\texttt{ConsumerWidget} und \texttt{ConsumerStatefulWidget}} Die beiden Klassen aus dem \texttt{Riverpod}-Paket wurden an sinnvollen Stellen verwendet, um die Daten aus den Providern laden zu können.
 \section{Glossar}
 \printglossary[style=altlist]
 \end{document}
