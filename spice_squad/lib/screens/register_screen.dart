@@ -75,9 +75,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       SizedBox(
                         width: double.infinity,
                         child: TextFormField(
-                          maxLength: 32,
                           autofillHints: const [AutofillHints.newUsername],
-                          validator: (value) => _validateUserName(context, value),
+                          validator: (value) => _validateUserName(AppLocalizations.of(context)!, value),
                           keyboardType: TextInputType.name,
                           textInputAction: TextInputAction.next,
                           controller: widget._userNameController,
@@ -96,7 +95,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                         child: TextFormField(
                           autofillHints: const [AutofillHints.email],
                           textInputAction: TextInputAction.next,
-                          validator: (value) => _validateEmail(context, value),
+                          validator: (value) => _validateEmail(AppLocalizations.of(context)!, value),
                           keyboardType: TextInputType.emailAddress,
                           controller: widget._emailController,
                           decoration: InputDecoration(
@@ -113,7 +112,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                         child: TextFormField(
                           textInputAction: TextInputAction.next,
                           autofillHints: const [AutofillHints.newPassword],
-                          validator: (value) => _validatePassword(context, value),
+                          validator: (value) => _validatePassword(AppLocalizations.of(context)!, value),
                           keyboardType: TextInputType.visiblePassword,
                           obscureText: true,
                           controller: widget._passwordController,
@@ -133,7 +132,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                           onFieldSubmitted: (value) {
                             if (!loading && widget._formKey.currentState!.validate()) {
                               _register(
-                                context,
+                                AppLocalizations.of(context)!,
                                 ref.read(userServiceProvider.notifier),
                               );
                             }
@@ -178,7 +177,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     onPressed: () {
                       if (!loading && widget._formKey.currentState!.validate()) {
                         _register(
-                          context,
+                          AppLocalizations.of(context)!,
                           ref.read(userServiceProvider.notifier),
                         );
                       }
@@ -198,7 +197,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     );
   }
 
-  Future<void> _register(BuildContext context, UserService userService) async {
+  Future<void> _register(AppLocalizations appLocalizations, UserService userService) async {
     setState(() {
       loading = true;
       _connectionError = null;
@@ -219,14 +218,14 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       debugPrint(error.toString());
       if (error is EmailAlreadyInUseError) {
         setState(() {
-          _emailError = AppLocalizations.of(context)!.emailExistsError;
+          _emailError = appLocalizations.emailExistsError;
         });
       } else if (error is ClientException ||
           error is HandshakeException ||
           error is SocketException ||
           (error is HttpStatusException && error.statusCode == 502)) {
         setState(() {
-          _connectionError = AppLocalizations.of(context)!.connectionError;
+          _connectionError = appLocalizations.connectionError;
         });
       }
     });
@@ -235,48 +234,48 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     });
   }
 
-  String? _validateEmail(BuildContext context, String? email) {
+  String? _validateEmail(AppLocalizations appLocalizations, String? email) {
     setState(() {
       _emailError = null;
     });
     const emailRegex = r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
     if (email == null || email.isEmpty) {
-      return AppLocalizations.of(context)!.emailEmptyError;
+      return appLocalizations.emailEmptyError;
     }
     if (!RegExp(emailRegex).hasMatch(email)) {
-      return AppLocalizations.of(context)!.emailInvalidError;
+      return appLocalizations.emailInvalidError;
     }
     return null;
   }
 
-  String? _validateUserName(BuildContext context, String? userName) {
+  String? _validateUserName(AppLocalizations appLocalizations, String? userName) {
     if (userName == null || userName.isEmpty) {
-      return AppLocalizations.of(context)!.userNameEmptyError;
+      return appLocalizations.userNameEmptyError;
     }
     if (userName.length > 32) {
-      return AppLocalizations.of(context)!.userNameTooLongError;
+      return appLocalizations.userNameTooLongError;
     }
     return null;
   }
 
-  String? _validatePassword(BuildContext context, String? password) {
+  String? _validatePassword(AppLocalizations appLocalizations, String? password) {
     if (password == null || password.isEmpty) {
-      return AppLocalizations.of(context)!.passwordEmptyError;
+      return appLocalizations.passwordEmptyError;
     }
     if (password.length < 8) {
-      return AppLocalizations.of(context)!.passwordTooShortError;
+      return appLocalizations.passwordTooShortError;
     }
     if (!RegExp(r"[A-Z]").hasMatch(password)) {
-      return AppLocalizations.of(context)!.passwordNeedsUppercaseError;
+      return appLocalizations.passwordNeedsUppercaseError;
     }
     if (!RegExp(r"[a-z]").hasMatch(password)) {
-      return AppLocalizations.of(context)!.passwordNeedsLowercaseError;
+      return appLocalizations.passwordNeedsLowercaseError;
     }
     if (!RegExp(r"\d").hasMatch(password)) {
-      return AppLocalizations.of(context)!.passwordNeedsNumberError;
+      return appLocalizations.passwordNeedsNumberError;
     }
     if (password != widget._passwordRepeatController.text) {
-      return AppLocalizations.of(context)!.passwordsDontMatchError;
+      return appLocalizations.passwordsDontMatchError;
     }
     return null;
   }

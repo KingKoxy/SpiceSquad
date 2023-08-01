@@ -68,7 +68,7 @@ class GroupCreationScreen extends ConsumerWidget {
                           SizedBox(
                             width: double.infinity,
                             child: TextFormField(
-                              validator: (value) => _validateGroupName(context, value),
+                              validator: (value) => _validateGroupName(AppLocalizations.of(context)!, value),
                               keyboardType: TextInputType.text,
                               controller: _groupNameController,
                               maxLength: 32,
@@ -116,12 +116,12 @@ class GroupCreationScreen extends ConsumerWidget {
     );
   }
 
-  String? _validateGroupName(BuildContext context, String? groupCode) {
-    if (groupCode == null || groupCode.isEmpty) {
-      return AppLocalizations.of(context)!.squadNameEmptyError;
+  String? _validateGroupName(AppLocalizations appLocalizations, String? groupName) {
+    if (groupName == null || groupName.isEmpty) {
+      return appLocalizations.squadNameEmptyError;
     }
-    if (groupCode.length > 32) {
-      return AppLocalizations.of(context)!.groupCodeTooLongError;
+    if (groupName.length > 32) {
+      return appLocalizations.groupCodeTooLongError;
     }
     return null;
   }

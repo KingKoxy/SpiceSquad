@@ -16,14 +16,14 @@ enum Difficulty {
   hard;
 
   /// Returns the string representation of the difficulty.
-  String getName(BuildContext context) {
+  String getName(AppLocalizations appLocalizations) {
     switch (this) {
       case Difficulty.easy:
-        return AppLocalizations.of(context)!.easyDifficulty;
+        return appLocalizations.easyDifficulty;
       case Difficulty.medium:
-        return AppLocalizations.of(context)!.mediumDifficulty;
+        return appLocalizations.mediumDifficulty;
       case Difficulty.hard:
-        return AppLocalizations.of(context)!.hardDifficulty;
+        return appLocalizations.hardDifficulty;
     }
   }
 

@@ -127,7 +127,7 @@ class RecipeCard extends ConsumerWidget {
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
-                                  recipe.difficulty.getName(context),
+                                  recipe.difficulty.getName(AppLocalizations.of(context)!),
                                   style: Theme.of(context).textTheme.titleSmall,
                                 )
                               ],

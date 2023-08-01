@@ -3,6 +3,7 @@ import "package:spice_squad/icons.dart";
 import "package:spice_squad/models/difficulty.dart";
 import "package:spice_squad/screens/recipe_creation_screen/difficulty_picker_dialog.dart";
 import "package:spice_squad/widgets/tag_item.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 
 /// Widget for picking a difficulty
 class DifficultyPickerWidget extends StatefulWidget {
@@ -34,7 +35,7 @@ class _DifficultyPickerWidgetState extends State<DifficultyPickerWidget> {
       height: double.infinity,
       child: TagItem(
         image: SpiceSquadIconImages.flame,
-        name: _difficulty.getName(context),
+        name: _difficulty.getName(AppLocalizations.of(context)!),
         onTap: () => _showDifficultyPickerDialog(context),
       ),
     );

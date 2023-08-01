@@ -39,7 +39,7 @@ class _DifficultyPickerDialogState extends State<DifficultyPickerDialog> {
         child: Column(
           children: [
             RadioListTile(
-              title: Text(Difficulty.easy.getName(context)),
+              title: Text(Difficulty.easy.getName(AppLocalizations.of(context)!)),
               value: Difficulty.easy,
               groupValue: _difficulty,
               onChanged: (value) {
@@ -49,7 +49,7 @@ class _DifficultyPickerDialogState extends State<DifficultyPickerDialog> {
               },
             ),
             RadioListTile(
-              title: Text(Difficulty.medium.getName(context)),
+              title: Text(Difficulty.medium.getName(AppLocalizations.of(context)!)),
               value: Difficulty.medium,
               groupValue: _difficulty,
               onChanged: (value) {
@@ -59,7 +59,7 @@ class _DifficultyPickerDialogState extends State<DifficultyPickerDialog> {
               },
             ),
             RadioListTile(
-              title: Text(Difficulty.hard.getName(context)),
+              title: Text(Difficulty.hard.getName(AppLocalizations.of(context)!)),
               value: Difficulty.hard,
               groupValue: _difficulty,
               onChanged: (value) {

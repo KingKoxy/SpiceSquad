@@ -27,7 +27,7 @@ class LabelList extends StatelessWidget {
           const SizedBox(
             width: 8,
           ),
-          TagItem(image: SpiceSquadIconImages.flame, name: recipe.difficulty.getName(context)),
+          TagItem(image: SpiceSquadIconImages.flame, name: recipe.difficulty.getName(AppLocalizations.of(context)!)),
           if (recipe.isVegetarian) ...[
             const SizedBox(
               width: 8,

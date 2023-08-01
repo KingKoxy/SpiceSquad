@@ -81,7 +81,7 @@ class _GroupJoiningScreenState extends ConsumerState<GroupJoiningScreen> {
                             child: TextFormField(
                               //TODO: autocapitalize every put in letter
                               maxLength: 8,
-                              validator: (value) => _validateGroupCode(context, value),
+                              validator: (value) => _validateGroupCode(AppLocalizations.of(context)!, value),
                               keyboardType: TextInputType.text,
                               controller: widget._groupCodeController,
                               decoration: InputDecoration(
@@ -153,9 +153,9 @@ class _GroupJoiningScreenState extends ConsumerState<GroupJoiningScreen> {
     );
   }
 
-  String? _validateGroupCode(BuildContext context, String? groupCode) {
+  String? _validateGroupCode(AppLocalizations appLocalizations, String? groupCode) {
     if (groupCode == null || groupCode.isEmpty) {
-      return AppLocalizations.of(context)!.groupCodeEmptyError;
+      return appLocalizations.groupCodeEmptyError;
     }
     return null;
   }

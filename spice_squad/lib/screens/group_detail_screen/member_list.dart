@@ -155,12 +155,12 @@ class MemberList extends ConsumerWidget {
     );
   }
 
-  _removeAdminStatus(GroupService groupService, GroupMember member) {
-    groupService.removeAdminStatus(member.id, group.id).then((value) => refetch());
+  Future<void> _removeAdminStatus(GroupService groupService, GroupMember member) {
+    return groupService.removeAdminStatus(member.id, group.id).then((value) => refetch());
   }
 
-  _makeAdmin(GroupService groupService, GroupMember member) {
-    groupService.makeAdmin(member.id, group.id).then((value) => refetch());
+  Future<void> _makeAdmin(GroupService groupService, GroupMember member) {
+    return groupService.makeAdmin(member.id, group.id).then((value) => refetch());
   }
 
   Future<void> _kickUser(BuildContext context, GroupService groupService, GroupMember member) {
