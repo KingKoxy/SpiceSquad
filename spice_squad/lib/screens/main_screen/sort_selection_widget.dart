@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:spice_squad/icons.dart";
 import "package:spice_squad/screens/main_screen/sort.dart";
 import "package:spice_squad/screens/main_screen/sort_selection_dialog.dart";
@@ -26,7 +27,7 @@ class SortSelectionWidget extends StatelessWidget {
           ),
           const SizedBox(width: 5),
           Text(
-            selectedSort.category.getName(context),
+            selectedSort.category.getName(AppLocalizations.of(context)!),
             style: Theme.of(context).textTheme.titleLarge,
           )
         ],

@@ -74,7 +74,7 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
             }
             final key = SortCategory.values.elementAt(index - 1);
             return RadioListTile(
-              title: Text(key.getName(context)),
+              title: Text(key.getName(AppLocalizations.of(context)!)),
               value: key,
               onChanged: (value) {
                 setState(() {

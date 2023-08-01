@@ -4,6 +4,7 @@ import "dart:io";
 import "package:http/http.dart" as http;
 import "package:spice_squad/api_endpoints.dart";
 import "package:spice_squad/exceptions/http_status_exception.dart";
+import "package:spice_squad/exceptions/invalid_group_code_error.dart";
 import "package:spice_squad/models/group.dart";
 import "package:spice_squad/repositories/user_repository.dart";
 
@@ -64,7 +65,7 @@ class GroupRepository {
     );
     if (response.statusCode != 200) {
       if (response.statusCode == 404) {
-        throw ArgumentError("GROUP_DOES_NOT_EXIST");
+        throw InvalidGroupCodeError(groupCode);
       }
       throw HttpStatusException(response);
     }

@@ -71,7 +71,7 @@ class _FilterSelectionDialogState extends State<FilterSelectionDialog> {
             }
             final key = filterMap.keys.elementAt(index - 1);
             return CheckboxListTile(
-              title: Text(key.getName(context)),
+              title: Text(key.getName(AppLocalizations.of(context)!)),
               value: filterMap[key],
               onChanged: (value) {
                 setState(() {

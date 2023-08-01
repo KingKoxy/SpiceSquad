@@ -201,7 +201,6 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
   }
 
   Future<void> reportRecipe(RecipeService recipeService) async {
-    //TODO: Prevent spamming
     recipeService.reportRecipe(widget.recipe.id).then(
           (value) => showDialog(
             context: context,

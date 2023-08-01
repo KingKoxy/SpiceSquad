@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/exceptions/invalid_group_code_error.dart";
 import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/screens/group_creation_screen.dart";
 import "package:spice_squad/screens/main_screen/main_screen.dart";
@@ -185,7 +186,7 @@ class _GroupJoiningScreenState extends ConsumerState<GroupJoiningScreen> {
         )
         .catchError(
           (error) => setState(() {
-            if (error is ArgumentError && error.message == "GROUP_DOES_NOT_EXIST") {
+            if (error is InvalidGroupCodeError) {
               setState(() {
                 _groupCodeError = AppLocalizations.of(context)!.groupCodeNotExistingError;
               });
