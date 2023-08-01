@@ -40,8 +40,7 @@ class OwnRecipeList extends ConsumerWidget {
         ref.watch(recipeServiceProvider).when(
           data: (recipes) {
             // Filter for own recipes.
-            final ownRecipes =
-                recipes.where((recipe) => recipe.author.id == userId).toList();
+            final ownRecipes = recipes.where((recipe) => recipe.author.id == userId).toList();
             ownRecipes.sort(
               (Recipe a, Recipe b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()),
             );

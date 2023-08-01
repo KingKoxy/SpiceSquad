@@ -1,4 +1,3 @@
-import "package:flutter/cupertino.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:spice_squad/models/difficulty.dart";
 import "package:spice_squad/models/recipe.dart";

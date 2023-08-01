@@ -78,8 +78,8 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
       child: Scaffold(
         bottomNavigationBar: widget.recipe == null
             ? const NavBar(
-          currentIndex: 0,
-        )
+                currentIndex: 0,
+              )
             : null,
         appBar: AppBar(
           title: Text(
@@ -89,27 +89,38 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
           ),
           leading: widget.recipe != null
               ? BackButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) =>
-                    AlertDialog(
-                      title: Text(AppLocalizations.of(context)!.saveBeforeAbortEditTitle),
-                      content: Text(AppLocalizations.of(context)!.saveBeforeAbortEditMessage),
-                      actions: [
-                        TextButton(onPressed: () => Navigator.of(context).pop(), child: Text(AppLocalizations.of(
-                            context,)!.cancelButtonLabel,),),
-                        TextButton(onPressed: () {
-                          Navigator.of(context).pop();
-                          Navigator.of(context).pop();
-                        }, child: Text(AppLocalizations.of(context)!.discardButtonLabel),),
-                        TextButton(onPressed: () => saveRecipe(ref.read(recipeServiceProvider.notifier)),
-                            child: Text(AppLocalizations.of(context)!.saveButtonLabel),),
-                      ],
-                    ),
-              );
-            },
-          )
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text(AppLocalizations.of(context)!.saveBeforeAbortEditTitle),
+                        content: Text(AppLocalizations.of(context)!.saveBeforeAbortEditMessage),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: Text(
+                              AppLocalizations.of(
+                                context,
+                              )!
+                                  .cancelButtonLabel,
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(AppLocalizations.of(context)!.discardButtonLabel),
+                          ),
+                          TextButton(
+                            onPressed: () => saveRecipe(ref.read(recipeServiceProvider.notifier)),
+                            child: Text(AppLocalizations.of(context)!.saveButtonLabel),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                )
               : null,
         ),
         body: SingleChildScrollView(
@@ -121,10 +132,9 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ImagePickerWidget(
-                  onChanged: (value) =>
-                      setState(() {
-                        _image = value;
-                      }),
+                  onChanged: (value) => setState(() {
+                    _image = value;
+                  }),
                   recipeImage: _image,
                 ),
                 const SizedBox(
@@ -227,7 +237,7 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                           hintText: AppLocalizations.of(context)!.durationInputLabel,
                           suffixText: AppLocalizations.of(context)!.durationUnit,
                           prefixIcon:
-                          const Padding(padding: EdgeInsets.all(10), child: ImageIcon(SpiceSquadIconImages.timer)),
+                              const Padding(padding: EdgeInsets.all(10), child: ImageIcon(SpiceSquadIconImages.timer)),
                           prefixIconColor: Colors.white,
                         ),
                       ),
@@ -274,10 +284,7 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                 ),
                 Text(
                   AppLocalizations.of(context)!.instructionsHeadline,
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .headlineMedium,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 const SizedBox(
                   height: 10,
@@ -309,7 +316,7 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                           _isLoading = true;
                         });
                         await saveRecipe(ref.read(recipeServiceProvider.notifier)).then(
-                              (value) => Navigator.of(context).pushReplacementNamed(MainScreen.routeName),
+                          (value) => Navigator.of(context).pushReplacementNamed(MainScreen.routeName),
                         );
                         setState(() {
                           _isLoading = false;
@@ -318,8 +325,8 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                     },
                     child: _isLoading
                         ? const CircularProgressIndicator(
-                      color: Colors.white,
-                    )
+                            color: Colors.white,
+                          )
                         : Text(AppLocalizations.of(context)!.saveButtonLabel),
                   ),
                 )

@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:spice_squad/icons.dart";
 import "package:spice_squad/models/difficulty.dart";
 import "package:spice_squad/screens/recipe_creation_screen/difficulty_picker_dialog.dart";
 import "package:spice_squad/widgets/tag_item.dart";
-import "package:flutter_gen/gen_l10n/app_localizations.dart";
 
 /// Widget for picking a difficulty
 class DifficultyPickerWidget extends StatefulWidget {
