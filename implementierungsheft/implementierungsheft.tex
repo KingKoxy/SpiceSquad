@@ -66,7 +66,39 @@ Das Attribut wurde entfernt. Stattdessen wird das Token im Systemspeicher abgele
 \subsubsection{\texttt{IngredientDataRepository}}
 Die Klasse wurde umbenannt, da sie nun nicht mehr nur die Namensvorschläge für Zutaten enthält, sondern auch die für Icon-Urls.
 \paragraph{\texttt{fetchIngredientIconUrls()}} Die Methode wurde hinzugefügt, um die Liste der möglichen Icons zu laden.
+\newpage
 \subsection{Änderungen am Domainlayer}
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=\textwidth]{images/uml/domainLayer.pdf}
+    \caption{Änderungen am Domainlayer}
+    \label{fig:domainLayer}
+\end{figure}
+\paragraph{Repository-Objekte und Konstruktoren}
+Da alle von \texttt{AsyncNotifier} erbenden Klassen Zugriff auf ein \texttt{ref} Objekt haben, benötigen sie keine Referenz auf die einzelnen Repositories mehr. Stattdessen können sie über dieses Objekt auf die Repositories zugreifen. Somit sind auch die Konstruktoren nicht mehr nötig und wurden entfernt.
+\paragraph{\texttt{refetch()}}
+Alle Services besitzen eine Methode \texttt{refetch()}, die die gehaltenen Daten neu lädt. Sie ist öffentlich, damit die Daten auch von außen neu geladen werden können. Die einzige Ausnahme bildet dabei der \texttt{UserService}, da dieser nur sich selbst neu laden können muss.
+\subsubsection{\texttt{UserService}}
+\paragraph*{\texttt{setProfileImage(File file)}}
+Der Name des Parameters wurde von \texttt{image} zu \texttt{file} geändert, um zu verdeutlichen, dass es sich um eine Datei handelt. Ansonsten wurde die Methode nicht geändert.
+\subsubsection{\texttt{GroupService}}
+\paragraph*{\texttt{getGroupById(String groupId)}}
+Die Methode wurde hinzugefügt, um eine Gruppe anhand ihrer Id zu laden. Dies ist vor allem für die Gurppen-Detail-Seite nötig.
+\paragraph{\texttt{createGroup(String name)}}
+Der Parameter wurde von \texttt{title} zu \texttt{name} geändert, um Konsistenz zum Repository zu haben.
+\paragraph{\texttt{toggleCensoring(GroupRecipe recipe, String groupId)}}
+Der Typ des \texttt{recipe} Parameters wurde von \texttt{Recipe} zu \texttt{GroupRecipe} geändert. Dies ist nötig um Zugriff auf das \texttt{isCensored} Attribut zu haben und entsprechend die richtige Anfrage zu stellen.
+\subsubsection{\texttt{RecipeService}}
+\paragraph{\texttt{getAllRecipesForUser()}}
+Die Methode war fälschlicherweise noch im Entwurf vorhanden. Sie wurde aber durch die \texttt{build()} Methode ersetzt.
+\paragraph{\texttt{createRecipe(RecipeCreationData recipe)}}
+Es wird die neue Klasse \texttt{RecipeCreationData} verwendet, die nur die benötigten Daten enthält.
+\paragraph{\texttt{exportRecipe(String recipeId)}}
+Die Klasse gibt nun ein \texttt{Future<Uint8List>} zurück, das die Daten des PDFs enthält. Dies ermöglicht es die Daten anschließend in einer Preview anzuzeigen.
+\subsection{PDFExporter}
+\paragraph{\texttt{exportRecipe(Recipe recipe, AppLocalizations appLocalizations)}}
+Es wird nun auch ein \texttt{AppLocalizations} Objekt entgegengenommen, um die Übersetzungen zu laden. Zudem gibt sie auch ein \texttt{Future<Uint8List>} zurück, das die Daten des PDFs enthält. Dies ermöglicht es die Daten anschließend in einer Preview anzuzeigen.
+\newpage
 \section{Glossar}
 \printglossary[style=altlist]
 \end{document}
