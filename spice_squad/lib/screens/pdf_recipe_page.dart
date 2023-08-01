@@ -9,9 +9,10 @@ import "package:pdf/widgets.dart" as pw;
 import "package:printing/printing.dart";
 import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/providers/service_providers.dart";
+import "package:spice_squad/services/recipe_service.dart";
 
 ///Screen to display the pdf of an Recipe
-class PdfRecipeViewPage extends ConsumerStatefulWidget {
+class PdfRecipeViewPage extends StatelessWidget {
   /// The route name of this screen.
   static const routeName = "/pdf-recipe-page";
 
@@ -22,56 +23,43 @@ class PdfRecipeViewPage extends ConsumerStatefulWidget {
   const PdfRecipeViewPage({required this.recipe, super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _PdfRecipeViewPageState();
-}
-
-class _PdfRecipeViewPageState extends ConsumerState<PdfRecipeViewPage> {
-  PrintingInfo? printingInfo;
-
-  @override
-  void initState() {
-    _init();
-    super.initState();
-  }
-
-  Future<void> _init() async {
-    final info = await Printing.info();
-    setState(() {
-      printingInfo = info;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     pw.RichText.debug = true;
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          AppLocalizations.of(context)!.pdfRecipeViewHeadline(widget.recipe.title),
+          AppLocalizations.of(context)!.pdfRecipeViewHeadline(recipe.title),
         ),
       ),
-      body: PdfPreview(
-        maxPageWidth: 700,
-        onPrinted: showPrintedToast,
-        onShared: showSharedToast,
-        build: exportRecipe,
+      body: Consumer(
+        builder: (context, ref, _) => PdfPreview(
+          maxPageWidth: 700,
+          onPrinted: _showPrintedToast,
+          onShared: _showSharedToast,
+          build: (format) =>
+              _exportRecipe(ref.read(recipeServiceProvider.notifier), AppLocalizations.of(context)!, format),
+        ),
       ),
     );
   }
 
-  void showPrintedToast(final BuildContext context) {
+  void _showPrintedToast(final BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(AppLocalizations.of(context)!.pdfSaveSuccess)),
     );
   }
 
-  void showSharedToast(final BuildContext context) {
+  void _showSharedToast(final BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(AppLocalizations.of(context)!.pdfShareSuccess)),
     );
   }
 
-  FutureOr<Uint8List> exportRecipe(final PdfPageFormat format) {
-    return ref.read(recipeServiceProvider.notifier).exportRecipe(widget.recipe, AppLocalizations.of(context)!);
+  FutureOr<Uint8List> _exportRecipe(
+    RecipeService recipeService,
+    AppLocalizations appLocalizations,
+    final PdfPageFormat format,
+  ) {
+    return recipeService.exportRecipe(recipe, appLocalizations);
   }
 }
