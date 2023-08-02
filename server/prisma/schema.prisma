@@ -35,20 +35,15 @@ model IngredientName {
   name String @id @db.VarChar(32)
 }
 
-model IngredientIcon {
-  id   String  @id @unique(map: "IngredientIcon_code_key") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  icon Bytes
-  name String? @db.VarChar(32)
-}
-
 model Ingredient {
-  id        String  @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name      String  @db.VarChar(32)
-  amount    Float?
-  unit      String? @db.VarChar(16)
-  recipe_id String  @db.Uuid
-  icon      Bytes?
-  Recipe    Recipe  @relation(fields: [recipe_id], references: [id], onDelete: Cascade)
+  id             String         @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name           String         @db.VarChar(32)
+  icon           String         @db.Uuid
+  amount         Float?
+  unit           String?        @db.VarChar(16)
+  recipe_id      String         @db.Uuid
+  IngredientIcon IngredientIcon @relation(fields: [icon], references: [id], map: "Ingredient_icon_name_fkey")
+  Recipe         Recipe         @relation(fields: [recipe_id], references: [id], onDelete: Cascade)
 }
 
 model GroupMember {
@@ -72,7 +67,6 @@ model Recipe {
   id               String           @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   title            String           @db.VarChar(64)
   author_id        String           @db.Uuid
-  image            Bytes?
   duration         Int
   difficulty       Difficulty
   instructions     String
@@ -84,6 +78,7 @@ model Recipe {
   is_private       Boolean
   default_portions Int
   upload_date      DateTime?        @default(dbgenerated("CURRENT_DATE")) @db.Date
+  image            String?          @db.Uuid
   censoredRecipe   CensoredRecipe[]
   favorite         Favorite[]
   ingredient       Ingredient[]
@@ -94,9 +89,9 @@ model User {
   id               String        @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   user_name        String        @db.VarChar(32)
   email            String        @db.VarChar(64)
-  profile_image    Bytes?
   firebase_user_id String        @unique @db.VarChar
   created_groups   Int
+  profile_image    String?       @db.Uuid
   Admin            Admin[]
   bannedUser       BannedUser[]
   favorites        Favorite[]
@@ -112,6 +107,18 @@ model Group {
   bannedUser     BannedUser[]
   censoredRecipe CensoredRecipe[]
   groupMember    GroupMember[]
+}
+
+model Image {
+  id    String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  image Bytes
+}
+
+model IngredientIcon {
+  id         String       @id @unique(map: "IngredientIcon_code_key") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  icon       Bytes
+  name       String?      @db.VarChar(32)
+  Ingredient Ingredient[]
 }
 
 enum Difficulty {

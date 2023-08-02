@@ -379,7 +379,7 @@ export default class GroupController extends AbstractController {
 
       const recipes = await this.getGroupRecipes(members)
       const censoredRecipes = await this.getGroupCensoredRecipes(groupId)
-      var recipesWithCensor = await Promise.all((await this.prisma.recipe.findMany({
+      let recipesWithCensor = await Promise.all((await this.prisma.recipe.findMany({
         where: {
           id: {
             in: recipes,

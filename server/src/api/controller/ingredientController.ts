@@ -47,10 +47,35 @@ export default class IngredientController extends AbstractController {
     this.prisma.ingredientIcon
       .findMany()
       .then((result) => {
-        res.status(200).json(result)
+        result.forEach((icon) => {
+          icon.id = process.env.ICON_URL + icon.id
       })
+      res.status(200).json(result)
+   })
+  }
+  
+
+  public async ingredientIconGetById(
+    req: express.Request< { id }, never, never>,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<void> {
+    this.prisma.ingredientIcon
+      .findUnique({
+        where: {
+          id: req.params.id,
+        },
+      })
+      .then((result) => {
+        res.status(200).json(result)
+      }
+      )
       .catch((error) => {
         next(error)
-      })
-  }
+      }
+      )
+    }
+  
+
+
 }

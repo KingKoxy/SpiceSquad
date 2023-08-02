@@ -7,6 +7,7 @@ import UserRouter from './api/router/userRouter'
 import IngredientRouter from './api/router/ingredientRouter'
 import AdminUserRouter from './api/router/adminUserRouter'
 import AuthenticationRouter from './api/router/authenticationRouter'
+import ImageRouter from './api/router/imageRouter'
 
 /**
  * @class Application
@@ -32,6 +33,7 @@ export default class Application {
   private userRoutes: UserRouter
   private ingredientRoutes: IngredientRouter
   private adminUserRoutes: AdminUserRouter
+  private imageRoutes: ImageRouter
 
   /**
    * @constructor
@@ -49,6 +51,7 @@ export default class Application {
     this.userRoutes = new UserRouter()
     this.ingredientRoutes = new IngredientRouter()
     this.adminUserRoutes = new AdminUserRouter()
+    this.imageRoutes = new ImageRouter()
 
     this.initializeMiddleware()
     this.initializeRoutes()
@@ -75,6 +78,7 @@ export default class Application {
     this.app.use('/user', this.userRoutes.getRouter())
     this.app.use('/ingredient', this.ingredientRoutes.getRouter())
     this.app.use('/admin', this.adminUserRoutes.getRouter())
+    this.app.use('/image', this.imageRoutes.getRouter())
   }
 
   private initializeErrorHandlers(): void {
