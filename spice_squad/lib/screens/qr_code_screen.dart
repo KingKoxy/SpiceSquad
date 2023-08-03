@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:qr_flutter/qr_flutter.dart";
 import "package:spice_squad/models/group.dart";
+import "package:spice_squad/widgets/nav_bar.dart";
 
 /// Screen for displaying a QR-Code for joining a group
 ///
@@ -26,6 +27,7 @@ class QRCodeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.qrCodeHeadline),
       ),
+      bottomNavigationBar: const NavBar(currentIndex: 2),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,

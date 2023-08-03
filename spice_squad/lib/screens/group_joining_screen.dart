@@ -79,11 +79,16 @@ class _GroupJoiningScreenState extends ConsumerState<GroupJoiningScreen> {
                           SizedBox(
                             width: double.infinity,
                             child: TextFormField(
-                              //TODO: autocapitalize every put in letter
                               maxLength: 8,
                               validator: (value) => _validateGroupCode(context, value),
                               keyboardType: TextInputType.text,
                               controller: widget._groupCodeController,
+                              onChanged: (text) {
+                                widget._groupCodeController.value = widget._groupCodeController.value.copyWith(
+                                  text: text.toUpperCase(),
+                                  selection: TextSelection.collapsed(offset: text.length),
+                                );
+                              },
                               decoration: InputDecoration(
                                 counterText: "",
                                 hintText: AppLocalizations.of(context)!.groupCodeInputLabel,
