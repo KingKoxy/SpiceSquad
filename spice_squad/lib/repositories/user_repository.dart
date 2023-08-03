@@ -73,7 +73,7 @@ class UserRepository {
       }
     }
     // If the token could not be updated, it will be deleted
-    await deleteTokens();
+    await _deleteTokens();
     return null;
   }
 

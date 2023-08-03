@@ -117,7 +117,7 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                                 .discardButtonLabel,),
                           ),
                           TextButton(
-                            onPressed: () => saveRecipe(
+                            onPressed: () => _saveRecipe(
                                 ref.read(recipeServiceProvider.notifier),),
                             child: Text(
                                 AppLocalizations.of(context)!.saveButtonLabel,),
@@ -330,7 +330,7 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                         setState(() {
                           _isLoading = true;
                         });
-                        await saveRecipe(
+                        await _saveRecipe(
                                 ref.read(recipeServiceProvider.notifier),)
                             .then(
                           (value) => Navigator.of(context)
