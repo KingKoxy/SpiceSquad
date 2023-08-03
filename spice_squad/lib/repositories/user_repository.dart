@@ -21,6 +21,8 @@ class UserRepository {
   String? _idToken;
 
   /// Fetches the current user
+  ///
+  /// Throws [HttpStatusException] if the request fails
   Future<User?> fetchCurrentUser() async {
     final token = await getToken();
     if (token == null) {
@@ -41,7 +43,12 @@ class UserRepository {
     }
   }
 
-  /// Fetches the id token of the current user or returns null if the user is not logged in or the token is expired
+  /// Fetches the id token of the current user
+  ///
+  /// If the token is expired, tries to refresh it
+  /// If the token could not be refreshed, deletes the tokens and returns null
+  ///
+  /// Throws [HttpStatusException] if the request fails for any other reason than an expired token
   FutureOr<String?> getToken() async {
     if (_idToken != null && !_isExpired(_idToken!)) {
       return _idToken;
@@ -70,18 +77,24 @@ class UserRepository {
     return null;
   }
 
-  /// Returns the refresh token of the current user by fetching it from the system storage or returns null if none is available
+  /// Returns the refresh token of the current user by fetching it from the system storage
+  ///
+  /// Returns null if none is available
   Future<String?> _getRefreshToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(_refreshTokenPath);
   }
 
-  /// Returns true if the given token is expired
+  /// Returns whether the given [token] is expired
   bool _isExpired(String token) {
     return JwtDecoder.isExpired(token);
   }
 
-  /// Tries to login the user and setting the id token and refresh token
+  /// Sends request to login the user with the given credentials and sets the id token and refresh token
+  ///
+  /// Throws [InvalidCredentialsError] if the credentials are invalid.
+  ///
+  /// Throws [HttpStatusException] if the request fails for any other reason.
   Future<void> login(String email, String password) async {
     final response = await http.post(
       Uri.parse(ApiEndpoints.login),
@@ -106,7 +119,7 @@ class UserRepository {
     }
   }
 
-  /// Logs out the user and deletes the id token and refresh token
+  /// Sends request to log out the user and deletes the id token and refresh token
   Future<void> logout() async {
     await http.post(
       Uri.parse(ApiEndpoints.logout),
@@ -121,7 +134,11 @@ class UserRepository {
     }*/
   }
 
-  /// Registers a new user with the given email, password and username and logs the user in
+  /// Sends request to register a new user with the given [email], [password] and [username] and logs the user in
+  ///
+  /// Throws [EmailAlreadyInUseError] if the email is already in use.
+  ///
+  /// Throws [HttpStatusException] if the request fails for any other reason.
   Future<void> register(String email, String password, String userName) async {
     final response = await http.post(
       Uri.parse(ApiEndpoints.register),
@@ -145,7 +162,9 @@ class UserRepository {
     }
   }
 
-  /// Updates the current user with the given user on the server
+  /// Sends request to update the current user with the given user on the server
+  ///
+  /// Throws [HttpStatusException] if the request fails
   Future<void> updateUser(User user) async {
     final response = await http.patch(
       Uri.parse("${ApiEndpoints.user}/${user.id}"),
@@ -160,7 +179,9 @@ class UserRepository {
     }
   }
 
-  /// Deletes the current users account from the server
+  /// Sends request to delete the current users account from the server
+  ///
+  /// Throws [HttpStatusException] if the request fails
   Future<void> deleteAccount() async {
     final response = await http.delete(
       Uri.parse(ApiEndpoints.user),
@@ -175,6 +196,8 @@ class UserRepository {
   }
 
   /// Requests a password reset for the given email
+  ///
+  /// Throws [HttpStatusException] if the request fails
   Future<void> resetPassword(String email) async {
     final response = await http.post(
       Uri.parse(ApiEndpoints.resetPassword),
@@ -191,7 +214,7 @@ class UserRepository {
     }
   }
 
-  /// Deletes the id token and refresh token
+  /// Deletes the refresh token from the system storage and sets the id token to null
   Future<void> _deleteTokens() async {
     _idToken = null;
     final SharedPreferences prefs = await SharedPreferences.getInstance();
