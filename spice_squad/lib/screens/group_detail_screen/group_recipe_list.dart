@@ -4,7 +4,6 @@ import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:spice_squad/models/group_recipe.dart";
 import "package:spice_squad/providers/service_providers.dart";
-import "package:spice_squad/screens/recipe_creation_screen/recipe_creation_screen.dart";
 import "package:spice_squad/screens/recipe_detail_screen/recipe_detail_screen.dart";
 import "package:spice_squad/services/group_service.dart";
 import "package:spice_squad/widgets/eye_button.dart";

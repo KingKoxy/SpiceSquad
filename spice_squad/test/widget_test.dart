@@ -5,8 +5,11 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import "dart:convert";
+
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:flutter_test/flutter_test.dart";
 import "package:spice_squad/models/difficulty.dart";
 import "package:spice_squad/models/ingredient.dart";
@@ -32,7 +35,9 @@ final Recipe recipeOne = Recipe(
     Ingredient(
       id: "id",
       name: "name",
-      iconId: "iconId",
+      icon: base64Decode(
+        "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAACklEQVR4nGNiAAAABgADNjd8qAAAAABJRU5ErkJggg==",
+      ),
       amount: 10.0,
       unit: "g",
     )
@@ -88,12 +93,17 @@ void main() {
     final portionAmountFieldFinder =
         find.byKey(const ValueKey("portionAmountField"));
 
+    final container = ProviderContainer();
+
     await tester.pumpWidget(
-      MaterialApp(
-        locale: const Locale("de", "DE"),
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        home: RecipeDetailScreen(
-          recipe: recipeOne,
+      UncontrolledProviderScope(
+        container: container,
+        child: MaterialApp(
+          locale: const Locale("de", "DE"),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          home: RecipeDetailScreen(
+            recipe: recipeOne,
+          ),
         ),
       ),
     );
