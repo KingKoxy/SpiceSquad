@@ -9,6 +9,7 @@ import "package:spice_squad/screens/ingredient_creation_screen/ingredient_name_i
 class IngredientCreationScreen extends StatefulWidget {
   /// The route name of this screen
   static const routeName = "/ingredient-creation";
+
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _nameController = TextEditingController();
@@ -18,14 +19,14 @@ class IngredientCreationScreen extends StatefulWidget {
   final TextEditingController _unitController = TextEditingController();
 
   /// The initial ingredient to edit if this screen is used to edit an ingredient
-  final Ingredient? initialIngredient;
+  final Ingredient? _initialIngredient;
 
   /// Creates a new ingredient creation screen
-  IngredientCreationScreen({super.key, this.initialIngredient}) {
-    if (initialIngredient != null) {
-      _nameController.text = initialIngredient!.name;
-      _amountController.text = initialIngredient!.amount.toString();
-      _unitController.text = initialIngredient!.unit;
+  IngredientCreationScreen({super.key, Ingredient? initialIngredient}) : _initialIngredient = initialIngredient {
+    if (_initialIngredient != null) {
+      _nameController.text = _initialIngredient!.name;
+      _amountController.text = _initialIngredient!.amount.toString();
+      _unitController.text = _initialIngredient!.unit;
     }
   }
 
@@ -38,7 +39,7 @@ class _IngredientCreationScreenState extends State<IngredientCreationScreen> {
 
   @override
   void initState() {
-    _icon = widget.initialIngredient?.icon;
+    _icon = widget._initialIngredient?.icon;
     super.initState();
   }
 
@@ -67,7 +68,7 @@ class _IngredientCreationScreenState extends State<IngredientCreationScreen> {
                       child: SizedBox(
                         height: 52,
                         child: IconPickerWidget(
-                          initialIcon: widget.initialIngredient?.icon,
+                          initialIcon: widget._initialIngredient?.icon,
                           onChanged: (icon) {
                             setState(() {
                               _icon = icon;
@@ -120,7 +121,7 @@ class _IngredientCreationScreenState extends State<IngredientCreationScreen> {
                       if (_icon != null && !widget._formKey.currentState!.validate()) return;
                       //creates new ingredient and returns it to the previous screen
                       final ingredient = Ingredient(
-                        id: widget.initialIngredient?.id ?? "",
+                        id: widget._initialIngredient?.id ?? "",
                         name: widget._nameController.text,
                         amount: double.parse(widget._amountController.text),
                         unit: widget._unitController.text,

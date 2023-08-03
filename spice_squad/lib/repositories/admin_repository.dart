@@ -12,10 +12,14 @@ import "package:spice_squad/repositories/user_repository.dart";
 class AdminRepository {
   final UserRepository _userRepository;
 
-  /// Creates a new [AdminRepository] with the given [UserRepository]
-  AdminRepository(this._userRepository);
+  /// Creates a new [AdminRepository]
+  ///
+  /// The [userRepository] is used to get the token for the authorization header.
+  AdminRepository({required UserRepository userRepository}) : _userRepository = userRepository;
 
-  /// Makes the user with the given [userId] an admin of the group with the given [groupId]
+  /// Sends request to make the user with the given [userId] an admin of the group with the given [groupId]
+  ///
+  /// Throws [HttpStatusException] if the request fails
   Future<void> makeAdmin(String userId, String groupId) async {
     final response = await http.patch(
       Uri.parse("${ApiEndpoints.makeAdmin}/$groupId/$userId"),
@@ -29,7 +33,9 @@ class AdminRepository {
     }
   }
 
-  /// Removes the admin status of the user with the given [userId] in the group with the given [groupId]
+  /// Sends request to remove the admin status of the user with the given [userId] in the group with the given [groupId]
+  ///
+  /// Throws [HttpStatusException] if the request fails
   Future<void> removeAdminStatus(String userId, String groupId) async {
     final response = await http.patch(
       Uri.parse("${ApiEndpoints.removeAdmin}/$groupId/$userId"),
@@ -43,7 +49,9 @@ class AdminRepository {
     }
   }
 
-  /// Kicks the user with the given [userId] from the group with the given [groupId]
+  /// Sends request to kick the user with the given [userId] from the group with the given [groupId]
+  ///
+  /// Throws [HttpStatusException] if the request fails
   Future<void> kickUser(String userId, String groupId) async {
     final response = await http.patch(
       Uri.parse("${ApiEndpoints.kickUser}/$groupId/$userId"),
@@ -57,7 +65,9 @@ class AdminRepository {
     }
   }
 
-  /// Bans the user with the given [userId] from the group with the given [groupId]
+  /// Sends request to ban the user with the given [userId] from the group with the given [groupId]
+  ///
+  /// Throws [HttpStatusException] if the request fails
   Future<void> banUser(String userId, String groupId) async {
     final response = await http.patch(
       Uri.parse("${ApiEndpoints.banUser}/$groupId/$userId"),
@@ -71,7 +81,9 @@ class AdminRepository {
     }
   }
 
-  /// Sets the censor status of the recipe with the given [recipeId] in the group with the given [groupId] to the given [value]
+  /// Sends request to set the censor status of the recipe with the given [recipeId] in the group with the given [groupId] to the given [value]
+  ///
+  /// Throws [HttpStatusException] if the request fails
   Future<void> setCensored(String recipeId, String groupId, bool value) async {
     final response = await http.patch(
       Uri.parse("${ApiEndpoints.setCensored}/$groupId/$recipeId"),

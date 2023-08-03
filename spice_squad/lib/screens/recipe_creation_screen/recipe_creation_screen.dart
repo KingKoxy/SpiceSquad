@@ -25,10 +25,10 @@ class RecipeCreationScreen extends ConsumerStatefulWidget {
   final _formKey = GlobalKey<FormState>();
 
   /// The recipe to edit if this screen is used for editing
-  final Recipe? recipe;
+  final Recipe? _recipe;
 
   /// Creates a new recipe creation screen
-  RecipeCreationScreen({required this.recipe, super.key});
+  RecipeCreationScreen({required Recipe? recipe, super.key}) : _recipe = recipe;
 
   @override
   ConsumerState<RecipeCreationScreen> createState() =>
@@ -52,18 +52,18 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
 
   @override
   void initState() {
-    _title = widget.recipe?.title ?? "";
-    _duration = widget.recipe?.duration ?? 30;
-    _difficulty = widget.recipe?.difficulty ?? Difficulty.easy;
-    _isVegetarian = widget.recipe?.isVegetarian ?? false;
-    _isVegan = widget.recipe?.isVegan ?? false;
-    _isGlutenFree = widget.recipe?.isGlutenFree ?? false;
-    _isHalal = widget.recipe?.isHalal ?? false;
-    _isKosher = widget.recipe?.isKosher ?? false;
-    _ingredients = widget.recipe?.ingredients ?? [];
-    _instructions = widget.recipe?.instructions ?? "";
-    _defaultPortionAmount = widget.recipe?.defaultPortionAmount ?? 4;
-    _image = widget.recipe?.image;
+    _title = widget._recipe?.title ?? "";
+    _duration = widget._recipe?.duration ?? 30;
+    _difficulty = widget._recipe?.difficulty ?? Difficulty.easy;
+    _isVegetarian = widget._recipe?.isVegetarian ?? false;
+    _isVegan = widget._recipe?.isVegan ?? false;
+    _isGlutenFree = widget._recipe?.isGlutenFree ?? false;
+    _isHalal = widget._recipe?.isHalal ?? false;
+    _isKosher = widget._recipe?.isKosher ?? false;
+    _ingredients = widget._recipe?.ingredients ?? [];
+    _instructions = widget._recipe?.instructions ?? "";
+    _defaultPortionAmount = widget._recipe?.defaultPortionAmount ?? 4;
+    _image = widget._recipe?.image;
     super.initState();
   }
 
@@ -77,18 +77,18 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        bottomNavigationBar: widget.recipe == null
+        bottomNavigationBar: widget._recipe == null
             ? const NavBar(
                 currentIndex: 0,
               )
             : null,
         appBar: AppBar(
           title: Text(
-            widget.recipe == null
+            widget._recipe == null
                 ? AppLocalizations.of(context)!.createRecipeHeadline
                 : AppLocalizations.of(context)!.editRecipeHeadline,
           ),
-          leading: widget.recipe != null
+          leading: widget._recipe != null
               ? BackButton(
                   onPressed: () {
                     showDialog(
@@ -279,13 +279,13 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                       _defaultPortionAmount = value;
                     });
                   },
-                  initialValue: widget.recipe?.defaultPortionAmount ?? 4,
+                  initialValue: widget._recipe?.defaultPortionAmount ?? 4,
                 ),
                 const SizedBox(
                   height: 16,
                 ),
                 IngredientList(
-                  initialList: widget.recipe?.ingredients ?? [],
+                  initialList: widget._recipe?.ingredients ?? [],
                   onChanged: (List<Ingredient> value) {
                     setState(() {
                       _ingredients = value;
@@ -356,10 +356,10 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
     );
   }
 
-  Future<void> saveRecipe(RecipeService recipeService) {
+  Future<void> _saveRecipe(RecipeService recipeService) {
     // update recipe
-    if (widget.recipe != null) {
-      final Recipe recipeUploadData = widget.recipe!.copyWith(
+    if (widget._recipe != null) {
+      final Recipe recipeUploadData = widget._recipe!.copyWith(
         title: _title,
         duration: _duration,
         instructions: _instructions,

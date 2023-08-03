@@ -7,7 +7,7 @@ import "package:spice_squad/screens/settings_screen/settings_screen.dart";
 /// A navigation bar that is used to navigate between the 3 main screens of the app.
 class NavBar extends StatelessWidget {
   /// The index of the currently selected screen.
-  final int currentIndex;
+  final int _currentIndex;
 
   static const _routes = [
     RecipeCreationScreen.routeName,
@@ -16,7 +16,7 @@ class NavBar extends StatelessWidget {
   ];
 
   /// Creates a new navigation bar.
-  const NavBar({required this.currentIndex, super.key});
+  const NavBar({required int currentIndex, super.key}) : _currentIndex = currentIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +34,8 @@ class NavBar extends StatelessWidget {
           ],
         ),
         child: BottomNavigationBar(
-          currentIndex: currentIndex,
-          onTap: (index) => {if (index != currentIndex) Navigator.of(context).pushReplacementNamed(_routes[index])},
+          currentIndex: _currentIndex,
+          onTap: (index) => {if (index != _currentIndex) Navigator.of(context).pushReplacementNamed(_routes[index])},
           items: const [
             BottomNavigationBarItem(
               icon: ImageIcon(SpiceSquadIconImages.createDocument),

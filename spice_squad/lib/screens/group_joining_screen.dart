@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:spice_squad/exceptions/invalid_group_code_error.dart";
 import "package:spice_squad/providers/service_providers.dart";
 import "package:spice_squad/screens/group_creation_screen.dart";
 import "package:spice_squad/screens/main_screen/main_screen.dart";
@@ -15,13 +16,13 @@ class GroupJoiningScreen extends ConsumerStatefulWidget {
   static const routeName = "/group-joining";
 
   /// Whether this screen is shown after the user registered
-  final bool isAfterRegister;
+  final bool _isAfterRegister;
 
   final TextEditingController _groupCodeController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   /// Creates a new group joining screen
-  GroupJoiningScreen({required this.isAfterRegister, super.key});
+  GroupJoiningScreen({required bool isAfterRegister, super.key}) : _isAfterRegister = isAfterRegister;
 
   @override
   ConsumerState<GroupJoiningScreen> createState() => _GroupJoiningScreenState();
@@ -36,7 +37,7 @@ class _GroupJoiningScreenState extends ConsumerState<GroupJoiningScreen> {
       body: SafeArea(
         child: Stack(
           children: [
-            widget.isAfterRegister
+            widget._isAfterRegister
                 ? Positioned(
                     top: 16,
                     right: 32,
@@ -80,7 +81,7 @@ class _GroupJoiningScreenState extends ConsumerState<GroupJoiningScreen> {
                             width: double.infinity,
                             child: TextFormField(
                               maxLength: 8,
-                              validator: (value) => _validateGroupCode(context, value),
+                              validator: (value) => _validateGroupCode(AppLocalizations.of(context)!, value),
                               keyboardType: TextInputType.text,
                               controller: widget._groupCodeController,
                               onChanged: (text) {
@@ -142,7 +143,7 @@ class _GroupJoiningScreenState extends ConsumerState<GroupJoiningScreen> {
                         onPressed: () {
                           Navigator.of(context).pushReplacementNamed(
                             GroupCreationScreen.routeName,
-                            arguments: widget.isAfterRegister,
+                            arguments: widget._isAfterRegister,
                           );
                         },
                         child: Text(AppLocalizations.of(context)!.createSquadButton),
@@ -158,9 +159,9 @@ class _GroupJoiningScreenState extends ConsumerState<GroupJoiningScreen> {
     );
   }
 
-  String? _validateGroupCode(BuildContext context, String? groupCode) {
+  String? _validateGroupCode(AppLocalizations appLocalizations, String? groupCode) {
     if (groupCode == null || groupCode.isEmpty) {
-      return AppLocalizations.of(context)!.groupCodeEmptyError;
+      return appLocalizations.groupCodeEmptyError;
     }
     return null;
   }
@@ -181,7 +182,7 @@ class _GroupJoiningScreenState extends ConsumerState<GroupJoiningScreen> {
           ),
         )
         .then(
-          (value) => widget.isAfterRegister
+          (value) => widget._isAfterRegister
               ? Navigator.of(context).pushNamedAndRemoveUntil(
                   MainScreen.routeName,
                   (route) => false,
@@ -190,7 +191,7 @@ class _GroupJoiningScreenState extends ConsumerState<GroupJoiningScreen> {
         )
         .catchError(
           (error) => setState(() {
-            if (error is ArgumentError && error.message == "GROUP_DOES_NOT_EXIST") {
+            if (error is InvalidGroupCodeError) {
               setState(() {
                 _groupCodeError = AppLocalizations.of(context)!.groupCodeNotExistingError;
               });
