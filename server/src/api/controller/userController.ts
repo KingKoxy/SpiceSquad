@@ -88,19 +88,20 @@ export default class UserController extends AbstractController {
       {
         name: string
         email: string
-        profileImage: Uint8Array | ''
+        profileImage: string
       }
     >,
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
     const oldUserData = await this.prisma.user.findUnique({ where: { id: req.userId } })
-    const imageId = await this.ImageController.checkImageParamType(req.body.profileImage);
-    if (oldUserData.profile_image != null && imageId != oldUserData.profile_image) {
-      console.log(oldUserData.profile_image)
+    
+    if (req.body.profileImage == '' && oldUserData.profile_image != null) {
       this.ImageController.deleteImage(oldUserData.profile_image);
     }
+    const imageId = req.body.profileImage?this.ImageController.fromURLtoId(req.body.profileImage):null
 
+    
 
     const newUserData = await this.prisma.user
       .update({

@@ -4,6 +4,7 @@ import MailSender from '../../mailer/mailSender'
 import ReportMailBuilder from '../../mailer/mailBuilder/reportMailBuilder'
 import AuthenticatedRequest from '../middleware/authenticatedRequest'
 import ImageController from './imageController'
+import IngredientController from './ingredientController'
 
 export default class RecipeController extends AbstractController {
   /**
@@ -13,6 +14,7 @@ export default class RecipeController extends AbstractController {
    */
   private mailSender: MailSender
 
+  private ingredientController: IngredientController
   /**
    * @description This variable contains the reportMailBuilder.
    * @private
@@ -37,6 +39,7 @@ export default class RecipeController extends AbstractController {
     this.ImageController = new ImageController()
     this.mailSender = new MailSender()
     this.reportMailBuilder = new ReportMailBuilder()
+    this.ingredientController = new IngredientController()
   }
 
   /**
@@ -51,7 +54,7 @@ export default class RecipeController extends AbstractController {
       never,
       {
         title: string
-        image: Uint8Array | ''
+        image: string
         duration: number
         difficulty: 'EASY' | 'MEDIUM' | 'HARD'
         instructions: string
@@ -94,7 +97,7 @@ export default class RecipeController extends AbstractController {
               data: req.body.ingredients.map((ingredient) => {
                 return {
                   name: ingredient.name,
-                  icon: ingredient.icon.split('/').pop() || '',
+                  icon: this.ingredientController.fromURLtoId(ingredient.icon),
                   amount: ingredient.amount,
                   unit: ingredient.unit,
                 }
@@ -186,7 +189,7 @@ export default class RecipeController extends AbstractController {
       never,
       {
         title: string;
-        image: Uint8Array | string;
+        image: string;
         duration: number;
         difficulty: 'EASY' | 'MEDIUM' | 'HARD';
         instructions: string;
@@ -225,7 +228,11 @@ export default class RecipeController extends AbstractController {
       return;
     }
 
-    const imageId = await this.ImageController.checkImageParamType(req.body.image);
+    if (req.body.image == '' && recipe.image != null) {
+      this.ImageController.deleteImage(recipe.image);
+    }
+    const imageId = req.body.image?this.ImageController.fromURLtoId(req.body.image):null
+
     req.body.ingredients.forEach((ingredient) => {
       if (!ingredient.id || ingredient.id === "") {
         ingredient.id = "00000000-0000-0000-0000-000000000000";
@@ -256,13 +263,13 @@ export default class RecipeController extends AbstractController {
               where: { id: ingredient.id },
               update: {
                 name: ingredient.name,
-                icon: ingredient.icon.split('/').pop() || '',
+                icon: this.ingredientController.fromURLtoId(ingredient.icon),
                 amount: ingredient.amount,
                 unit: ingredient.unit,
               },
               create: {
                 name: ingredient.name,
-                icon: ingredient.icon.split('/').pop() || '',
+                icon: this.ingredientController.fromURLtoId(ingredient.icon),
                 amount: ingredient.amount,
                 unit: ingredient.unit,
               },
@@ -273,9 +280,6 @@ export default class RecipeController extends AbstractController {
           ingredient: true,
         },
       });
-      if (imageId != recipe.image && recipe.image != null) {
-        this.ImageController.deleteImage(recipe.image.split('/').pop());
-      }
 
       res.status(200).json({
         message: 'Recipe updated successfully!',
@@ -338,11 +342,11 @@ export default class RecipeController extends AbstractController {
             })
 
             ingredients.forEach((ingredient) => {
-              ingredient.icon = process.env.ICON_URL + ingredient.icon
+              ingredient.icon = this.ingredientController.fromIdtoURL(ingredient.icon)
             })
 
             // Change date format so that that is only the date and not the time
-            const recipeWithDate = {...recipe, upload_date: recipe.upload_date.toISOString(), image: recipe.image?process.env.IMAGE_URL + recipe.image:""}
+            const recipeWithDate = {...recipe, upload_date: recipe.upload_date.toISOString(), image: recipe.image?this.ImageController.fromIdtoURL(recipe.image):""}
             delete recipeWithDate.author_id
 
             return {
@@ -420,7 +424,7 @@ export default class RecipeController extends AbstractController {
               },
             })
 
-            const recipeWithDate = {...recipe, upload_date: recipe.upload_date.toISOString(), image: recipe.image?process.env.IMAGE_URL + recipe.image:""}
+            const recipeWithDate = {...recipe, upload_date: recipe.upload_date.toISOString(), image: recipe.image?this.ImageController.fromIdtoURL(recipe.image):""}
             delete recipeWithDate.author_id
             
            return {

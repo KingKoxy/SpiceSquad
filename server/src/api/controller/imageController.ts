@@ -1,11 +1,17 @@
 import express = require('express')
 import AbstractController from "./abstractController";
+import AuthenticatedRequest from '../middleware/authenticatedRequest'
 
 export default class ImageController extends AbstractController {
     constructor() {
         super();
     }
 
+    /**
+     * @description 
+     * @param image 
+     * @returns 
+     */
     public async createImage(image: Uint8Array): Promise<string> {
         const newImage = await this.prisma.image.create({
             data: {
@@ -15,19 +21,13 @@ export default class ImageController extends AbstractController {
         return newImage.id
     }
 
-    public async checkImageParamType(image: Uint8Array | string): Promise<string> {
-        if (typeof image === 'string' && image.length === 0){
-            console.log('No image provided')
-            return null
-        } else if (typeof image === 'string') {
-            console.log('Image is a string')
-          return image.split('/').pop() || '';
-        } else if (typeof image === 'object') {
-            console.log('Image is a Uint8Array')
-            const newImage = await this.createImage(image)
-            return newImage
-        }
+    public fromIdtoURL(imageId: string): string {
+        return process.env.URL + '/image/' + imageId
       }
+
+    public fromURLtoId(imageURL: string): string {
+        return imageURL.split('/').pop()
+    }
 
     public async deleteImage(imageId: string): Promise<void> {
         await this.prisma.image.delete({
@@ -53,6 +53,36 @@ export default class ImageController extends AbstractController {
                     message: 'Image not found'
                 })
             }
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    public async imagePost(req: AuthenticatedRequest<never , never, {image: Uint8Array}>, res: express.Response, next: express.NextFunction): Promise<void> {
+        try {
+            const imageURL = this.fromIdtoURL(await this.createImage(req.body.image))
+            res.status(201).json({
+                id: imageURL
+            })
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    public async imagePatch(req: AuthenticatedRequest<{id}, never, {image: Uint8Array}>, res: express.Response, next: express.NextFunction): Promise<void> {
+        try {
+            const imageId = this.fromURLtoId(req.params.id)
+            await this.prisma.image.update({
+                where: {
+                    id: imageId
+                },
+                data: {
+                    image: Buffer.from(req.body.image)
+                }
+            })
+            res.status(200).json({
+                message: 'Image updated successfully!'
+            })
         } catch (error) {
             next(error)
         }

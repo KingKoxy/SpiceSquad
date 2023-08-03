@@ -15,5 +15,13 @@ export default class ImageRouter extends AbstractRouter {
         '/:id',
         this.Controller.imageGet.bind(this.Controller)
         )
+        this.router.post(
+        '/',
+        this.Controller.imagePost.bind(this.Controller)
+        )
+        this.router.patch(
+        '/:id',
+        this.Controller.imagePatch.bind(this.Controller)
+        )
     }
 }

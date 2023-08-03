@@ -56,7 +56,6 @@ export default class Application {
     this.initializeMiddleware()
     this.initializeRoutes()
     this.initializeErrorHandlers()
-    console.log(this.app._router.stack.length);
     
   }
 
