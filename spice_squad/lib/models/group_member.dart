@@ -14,6 +14,18 @@ class GroupMember extends User {
         );
 
   /// Creates a new [GroupMember] from the given [map] object by extracting the values
+  ///
+  /// The [map] should have the following structure
+  /// ```dart
+  /// {
+  ///   "id": String,
+  ///   "profile_image": null | {
+  ///     "data": Uint8List
+  ///   },
+  ///   "user_name": String,
+  ///   "is_admin": bool
+  /// }
+  /// ```
   factory GroupMember.fromMap(Map<String, dynamic> map) {
     return GroupMember(user: User.fromMap(map), isAdmin: map["is_admin"]);
   }

@@ -5,7 +5,7 @@ import "package:spice_squad/repositories/ingredient_data_repository.dart";
 import "package:spice_squad/repositories/recipe_repository.dart";
 import "package:spice_squad/repositories/user_repository.dart";
 
-/// Provider for the [IngredientNameRepository]
+/// Provider for the [IngredientDataRepository]
 final ingredientDataRepository = Provider<IngredientDataRepository>((ref) => IngredientDataRepository());
 
 /// Provider for the [UserRepository]
