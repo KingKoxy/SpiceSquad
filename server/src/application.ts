@@ -53,10 +53,14 @@ export default class Application {
     this.initializeMiddleware()
     this.initializeRoutes()
     this.initializeErrorHandlers()
-    console.log(this.app._router.stack.length);
     
   }
 
+  /**
+   * @description This function initializes the middleware.
+   * @memberof Application
+   * @returns {void}
+   */
   private initializeMiddleware(): void {
     if (process.env.NODE_ENV === 'development') {
       this.app.use(morgan('dev'))
@@ -68,6 +72,11 @@ export default class Application {
     }
   }
 
+  /**
+   * @description This function initializes the routes.
+   * @memberof Application
+   * @returns {void}
+   */
   private initializeRoutes(): void {
     this.app.use('/auth', this.authenticationRoutes.getRouter())
     this.app.use('/recipe', this.recipeRoutes.getRouter())
@@ -77,6 +86,11 @@ export default class Application {
     this.app.use('/admin', this.adminUserRoutes.getRouter())
   }
 
+  /**
+   * @description This function initializes the error handlers.
+   * @memberof Application
+   * @returns {void}
+   */
   private initializeErrorHandlers(): void {
     this.app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
       const error = new Error('The URL you are trying to reach does not exist.')

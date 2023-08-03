@@ -42,7 +42,7 @@ export default class RecipeRouter extends abstractRouter {
 
   /**
    * @function setupRoutes
-   * @description This function sets up the routes for the admin user.
+   * @description This function sets up the routes for the router.
    * @memberof RecipeRouter
    * @instance
    * @returns {void}

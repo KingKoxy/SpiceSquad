@@ -24,7 +24,7 @@ export default class AuthenticationRouter extends AbstractRouter {
 
   /**
    * @constructor
-   * @description This constructor initializes the admin user router.
+   * @description This constructor initializes the authentification router.
    * @memberof AuthenticationRouter
    * @returns {void}
    * @protected
@@ -39,7 +39,7 @@ export default class AuthenticationRouter extends AbstractRouter {
 
   /**
    * @function setupRoutes
-   * @description This function sets up the routes for the admin user.
+   * @description This function sets up the routes for the router.
    * @memberof AuthenticationRouter
    * @instance
    * @returns {void}

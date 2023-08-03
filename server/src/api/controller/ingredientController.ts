@@ -12,8 +12,8 @@ export default class IngredientController extends AbstractController {
 
   /**
    * @description This function gets all ingredient names.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @param req Express Request<never,never,never>
+   * @param res Express responsecontaining all ingredient names as array
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
@@ -34,8 +34,8 @@ export default class IngredientController extends AbstractController {
 
   /**
    * @description This function gets all ingredient icons.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @param req Express Request<never,never,never>
+   * @param res Express response containing all ingredient icons as array
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */

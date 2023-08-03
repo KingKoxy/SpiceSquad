@@ -15,7 +15,7 @@ class IngredientRouter extends AbstractRouter {
 
   /**
    * @constructor
-   * @description This constructor initializes the admin user router.
+   * @description This constructor initializes the ingredient router.
    * @memberof IngredientRouter
    * @instance
    * @returns {void}
@@ -29,7 +29,7 @@ class IngredientRouter extends AbstractRouter {
 
   /**
    * @function setupRoutes
-   * @description This function sets up the routes for the admin user.
+   * @description This function sets up the routes for the router.
    * @memberof IngredientRouter
    * @instance
    * @returns {void}

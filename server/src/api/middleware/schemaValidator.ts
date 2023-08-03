@@ -20,7 +20,7 @@ export default class SchemaValidator extends AbstractMiddleware {
 
   /**
    * @function checkSchema
-   * @description This function checks the schema of a request.
+   * @description This function checks whether the request conforms to the required schema.
    * @memberof SchemaValidator
    * @param {joi.ObjectSchema<any>} schema - The schema to check.
    * @returns {express.RequestHandler}

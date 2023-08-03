@@ -7,6 +7,12 @@ export default class checkGroupMemberState extends abstractMiddleware {
     super()
   }
 
+  /**
+   * @description This function checks wether the target user is a member of the group.
+   * @param {AuthenticatedRequest} req - The request.
+   * @param {express.Response} res - The response.
+   * @param {express.NextFunction} next - The next function.
+   */
   public async checkMemberStateTarget(
     req: express.Request,
     res: express.Response,

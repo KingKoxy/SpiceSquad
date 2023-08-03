@@ -1,6 +1,6 @@
 /**
  * @class AbstractMailBuilder
- * @description This class is used to build mail.
+ * @description This class is used to build mails.
  * @exports AbstractMailBuilder
  * @abstract
  * @version 0.1.1

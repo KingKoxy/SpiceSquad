@@ -24,8 +24,11 @@ export default class CheckAdminStatus extends AbstractMiddleware {
 
   /**
    * @function checkAdminStatus
-   * @description This function checks the admin status of a user.
+   * @description This function checks the admin status of a user. Throws an error if the user is not an admin.
    * @memberof CheckAdminStatus
+   * @param req - The request object.
+   * @param res - The response object.
+   * @param next - The next function.
    * @async
    */
   public async checkAdminStatus(

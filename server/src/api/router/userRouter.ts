@@ -21,7 +21,7 @@ export default class UserRouter extends AbstractRouter {
 
   /**
    * @constructor
-   * @description This constructor initializes the admin user router.
+   * @description This constructor initializes the user router.
    * @memberof UserRouter
    * @instance
    * @returns {void}
@@ -35,7 +35,7 @@ export default class UserRouter extends AbstractRouter {
 
   /**
    * @function setupRoutes
-   * @description This function sets up the routes for the admin user.
+   * @description This function sets up the routes for the router.
    * @memberof UserRouter
    * @instance
    * @returns {void}

@@ -12,9 +12,9 @@ export default class GroupController extends AbstractController {
   }
 
   /**
-   * @description This function creates a new group.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @description This function creates a new group with the creator as its only admin and member.
+   * @param req AuthenticatedRequest<never,never,{groupName:string}> handler with the body containing the name of the group
+   * @param res Express response containing message
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
@@ -66,8 +66,8 @@ export default class GroupController extends AbstractController {
 
   /**
    * @description This function deletes a group by id.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @param req AuthenticatedRequest<{groupId:string},never,never> handler with the head containing the id of the group to be deleted
+   * @param res Express response containg message
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
@@ -101,8 +101,8 @@ export default class GroupController extends AbstractController {
 
   /**
    * @description This function updates a group by id.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @param req AuthenticatedRequest<{groupId:string},never,{name:string}> with the head containing the id of the group to be updated and the body containing the new name of the group
+   * @param res Express response containing message
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
@@ -136,9 +136,9 @@ export default class GroupController extends AbstractController {
   }
 
   /**
-   * @description This function allows to join a group by group code.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @description This function allows to join a group by group code. Throws error if user is banned from group or already in group.
+   * @param req Express Request<never,never,{groupCode:string}> handler with the body containing the group code
+   * @param res Express response containing message
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
@@ -218,8 +218,8 @@ export default class GroupController extends AbstractController {
 
   /**
    * @description This function allows to leave a group by group id.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @param req Express Request<{groupId:string},never,never> handler with the head containing the group id
+   * @param res Express response containing message
    * @returns Promise<void>
    */
   public async groupLeave(
@@ -282,8 +282,8 @@ export default class GroupController extends AbstractController {
 
   /**
    * @description This function gets all groups for a user.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @param req AuthenticatedRequest<never,never,never>
+   * @param res Express response containing all groups the user is in, including all members. Includes all recipes if user is admin, otherwise only recipes that are not censored
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
@@ -307,7 +307,7 @@ export default class GroupController extends AbstractController {
   /**
    * @description This function gets a group by id.
    * @param req Express request handler
-   * @param res Express response handler
+   * @param res Express response containing group including all members. Includes all recipes if user is admin, otherwise only recipes that are not censored
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
@@ -331,7 +331,6 @@ export default class GroupController extends AbstractController {
         },
       }))
 
-      console.log("Diese Line wird erreicht")
       const members = await this.getGroupMembers(groupId)
       const admins = await this.getGroupAdmins(groupId)
       const users = (await this.prisma.user.findMany({
@@ -450,6 +449,11 @@ export default class GroupController extends AbstractController {
     return groupCensoredRecipes.map((groupCensoredRecipe) => groupCensoredRecipe.recipe_id)
   }
 
+  /**
+   * @description Checks if a group is empty and deletes it if it is. Otherwise checks if group has admins, if not makes the oldest member admin.
+   * @param groupId The id of the group
+   * @returns Promise<boolean>
+   */
   public async checkGroupEmpty(groupId : string) : Promise<boolean> {
     const groupMembers = await this.prisma.groupMember.findMany({
       where: {

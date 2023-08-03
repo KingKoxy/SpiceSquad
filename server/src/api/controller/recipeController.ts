@@ -31,8 +31,8 @@ export default class RecipeController extends AbstractController {
 
   /**
    * @description This function posts a recipe.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @param req AuthenticatedRequest<never,never,{title: string, image: Uint8Array | null, duration: number, difficulty: 'EASY' | 'MEDIUM' | 'HARD', instructions: string, isVegetarian: boolean, isVegan: boolean, isGlutenFree: boolean, isKosher: boolean, isHalal: boolean, defaultPortionAmount: number, ingredients: {name: string, icon: Uint8Array, amount: number, unit: string}[]}
+   * @param res Express response containing message
    * @returns Promise<void>
    */
   public async recipePost(
@@ -108,8 +108,8 @@ export default class RecipeController extends AbstractController {
 
   /**
    * @description This function gets a recipe by id.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @param req AuthenticatedRequest<{recipeId: string},never,never> containing recipeId in head
+   * @param res Express response containing message
    * @returns Promise<void>
    */
   public async recipeDelete(
@@ -156,8 +156,8 @@ export default class RecipeController extends AbstractController {
 
   /**
    * @description This function changes a recipe by id.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @param req AuthenticatedRequest<{recipeId: string},never,{title: string, image: Uint8Array | null, duration: number, difficulty: 'EASY' | 'MEDIUM' | 'HARD', instructions: string, isVegetarian: boolean, isVegan: boolean, isGlutenFree: boolean, isKosher: boolean, isHalal: boolean, isPrivate: boolean, defaultPortionAmount: number, ingredients: {id: string, name: string, icon: Uint8Array, amount: number, unit: string}[]}> containing recipeId in head
+   * @param res Express response containing message
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
@@ -266,8 +266,8 @@ export default class RecipeController extends AbstractController {
 
   /**
    * @description This function gets all recipes for a user.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @param req AuthenticatedRequest<never,never,never>
+   * @param res Express response containing all non-censored, non-private recipes for groups the user is in as well as all of his own recipes
    * @returns Promise<void>
    */
   public async recipesGetAllForUser(
@@ -416,9 +416,9 @@ export default class RecipeController extends AbstractController {
   }
 
   /**
-   * @description This function gets a recipe by id.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @description This function sends a report mail to all admins that are in a group containing this recipe
+   * @param req AuthenticatedRequest<{recipeId: string}, never, never>
+   * @param res Express response containing message
    * @returns Promise<void>
    */
   public async recipeReport(
@@ -494,8 +494,8 @@ export default class RecipeController extends AbstractController {
 
   /**
    * @description This function changes the favorite status of the recipe.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @param req AuthenticatedRequest<{recipeId: string}, never, {isFavorite: boolean}> 
+   * @param res Express response containing message
    * @returns Promise<void>
    */
   public async recipeSetFavorite(
