@@ -10,7 +10,7 @@ class GroupMember extends User {
       : super(
           id: user.id,
           userName: user.userName,
-          profileImage: user.profileImage,
+          profileImageUrl: user.profileImageUrl,
         );
 
   /// Creates a new [GroupMember] from the given [map] object by extracting the values

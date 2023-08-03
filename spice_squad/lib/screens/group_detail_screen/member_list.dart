@@ -89,9 +89,9 @@ class MemberList extends ConsumerWidget {
                         SizedBox(
                           width: 50,
                           height: 50,
-                          child: member.profileImage != null
+                          child: member.profileImageUrl.isNotEmpty
                               ? CircleAvatar(
-                                  foregroundImage: MemoryImage(member.profileImage!),
+                                  foregroundImage: NetworkImage(member.profileImageUrl),
                                 )
                               : CircleAvatar(
                                   backgroundColor: Theme.of(context).colorScheme.onSurfaceVariant,

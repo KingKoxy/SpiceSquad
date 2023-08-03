@@ -10,13 +10,13 @@ import "package:spice_squad/services/user_service.dart";
 /// Widget for selecting a profile image
 class ProfileImagePicker extends StatelessWidget {
   /// Initial Profile image to display
-  final Uint8List? _profileImage;
+  final String _profileImage;
 
   /// User service for updating the profile image
   final UserService _userService;
 
   /// Creates a new profile image picker
-  const ProfileImagePicker({required Uint8List? profileImage, required UserService userService, super.key})
+  const ProfileImagePicker({required String profileImage, required UserService userService, super.key})
       : _userService = userService,
         _profileImage = profileImage;
 
@@ -24,10 +24,10 @@ class ProfileImagePicker extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       child: Ink(
-        decoration: _profileImage != null
+        decoration: _profileImage.isNotEmpty
             ? BoxDecoration(
                 borderRadius: BorderRadius.circular(20000),
-                image: DecorationImage(image: MemoryImage(_profileImage!), fit: BoxFit.cover),
+                image: DecorationImage(image: NetworkImage(_profileImage), fit: BoxFit.cover),
               )
             : BoxDecoration(borderRadius: BorderRadius.circular(20000), color: Theme.of(context).cardColor),
         child: InkWell(
@@ -78,7 +78,7 @@ class ProfileImagePicker extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    if (_profileImage != null)
+                    if (_profileImage.isNotEmpty)
                       SizedBox(
                         height: 86,
                         width: 86,
