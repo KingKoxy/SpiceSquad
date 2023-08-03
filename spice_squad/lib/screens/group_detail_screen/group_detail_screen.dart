@@ -11,6 +11,7 @@ import "package:spice_squad/screens/qr_code_screen.dart";
 import "package:spice_squad/services/group_service.dart";
 import "package:spice_squad/widgets/approval_dialog.dart";
 import "package:spice_squad/widgets/input_dialog.dart";
+import "package:spice_squad/widgets/nav_bar.dart";
 
 /// Screen to display the details of a group
 ///
@@ -44,6 +45,7 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.groupDetailHeadline),
       ),
+      bottomNavigationBar: const NavBar(currentIndex: 2),
       body: Center(
         child: ref.watch(userServiceProvider).when(
               data: (user) => FutureBuilder(

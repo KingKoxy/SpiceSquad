@@ -31,7 +31,8 @@ class RecipeCreationScreen extends ConsumerStatefulWidget {
   RecipeCreationScreen({required Recipe? recipe, super.key}) : _recipe = recipe;
 
   @override
-  ConsumerState<RecipeCreationScreen> createState() => _RecipeCreationScreenState();
+  ConsumerState<RecipeCreationScreen> createState() =>
+      _RecipeCreationScreenState();
 }
 
 class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
@@ -93,8 +94,10 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
-                        title: Text(AppLocalizations.of(context)!.saveBeforeAbortEditTitle),
-                        content: Text(AppLocalizations.of(context)!.saveBeforeAbortEditMessage),
+                        title: Text(AppLocalizations.of(context)!
+                            .saveBeforeAbortEditTitle,),
+                        content: Text(AppLocalizations.of(context)!
+                            .saveBeforeAbortEditMessage,),
                         actions: [
                           TextButton(
                             onPressed: () => Navigator.of(context).pop(),
@@ -110,11 +113,14 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                               Navigator.of(context).pop();
                               Navigator.of(context).pop();
                             },
-                            child: Text(AppLocalizations.of(context)!.discardButtonLabel),
+                            child: Text(AppLocalizations.of(context)!
+                                .discardButtonLabel,),
                           ),
                           TextButton(
-                            onPressed: () => _saveRecipe(ref.read(recipeServiceProvider.notifier)),
-                            child: Text(AppLocalizations.of(context)!.saveButtonLabel),
+                            onPressed: () => saveRecipe(
+                                ref.read(recipeServiceProvider.notifier),),
+                            child: Text(
+                                AppLocalizations.of(context)!.saveButtonLabel,),
                           ),
                         ],
                       ),
@@ -152,7 +158,8 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                   },
                   initialValue: _title,
                   onChanged: (value) => _title = value,
-                  decoration: InputDecoration(hintText: AppLocalizations.of(context)!.titleInputLabel),
+                  decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context)!.titleInputLabel,),
                 ),
                 const SizedBox(
                   height: 16,
@@ -220,24 +227,30 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                       child: TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return AppLocalizations.of(context)!.durationEmptyError;
+                            return AppLocalizations.of(context)!
+                                .durationEmptyError;
                           }
                           return null;
                         },
                         keyboardType: TextInputType.number,
                         inputFormatters: [
-                          FilteringTextInputFormatter.allow(RegExp(r"[1-9]\d*")),
+                          FilteringTextInputFormatter.allow(
+                              RegExp(r"[1-9]\d*"),),
                         ],
                         initialValue: _duration.toString(),
                         textAlign: TextAlign.center,
-                        onChanged: (value) => {if (value != "") _duration = int.parse(value)},
+                        onChanged: (value) =>
+                            {if (value != "") _duration = int.parse(value)},
                         maxLength: 3,
                         decoration: InputDecoration(
                           counterText: "",
-                          hintText: AppLocalizations.of(context)!.durationInputLabel,
-                          suffixText: AppLocalizations.of(context)!.durationUnit,
-                          prefixIcon:
-                              const Padding(padding: EdgeInsets.all(10), child: ImageIcon(SpiceSquadIconImages.timer)),
+                          hintText:
+                              AppLocalizations.of(context)!.durationInputLabel,
+                          suffixText:
+                              AppLocalizations.of(context)!.durationUnit,
+                          prefixIcon: const Padding(
+                              padding: EdgeInsets.all(10),
+                              child: ImageIcon(SpiceSquadIconImages.timer),),
                           prefixIconColor: Colors.white,
                         ),
                       ),
@@ -292,7 +305,8 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                 TextFormField(
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!.instructionsEmptyError;
+                      return AppLocalizations.of(context)!
+                          .instructionsEmptyError;
                     }
                     return null;
                   },
@@ -301,7 +315,8 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                   initialValue: _instructions,
                   maxLines: null,
                   decoration: InputDecoration(
-                    hintText: AppLocalizations.of(context)!.instructionsInputLabel,
+                    hintText:
+                        AppLocalizations.of(context)!.instructionsInputLabel,
                   ),
                 ),
                 const SizedBox(
@@ -315,8 +330,11 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                         setState(() {
                           _isLoading = true;
                         });
-                        await _saveRecipe(ref.read(recipeServiceProvider.notifier)).then(
-                          (value) => Navigator.of(context).pushReplacementNamed(MainScreen.routeName),
+                        await saveRecipe(
+                                ref.read(recipeServiceProvider.notifier),)
+                            .then(
+                          (value) => Navigator.of(context)
+                              .pushReplacementNamed(MainScreen.routeName),
                         );
                         setState(() {
                           _isLoading = false;
