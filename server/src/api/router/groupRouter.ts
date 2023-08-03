@@ -63,8 +63,8 @@ export default class GroupRouter extends AbstractRouter {
     this.router.delete(
       '/:groupId',
       this.checkAuth,
-      this.schemaValidator.checkSchema(GroupDeleteSchema),
       this.checkAdmin,
+      this.schemaValidator.checkSchema(GroupDeleteSchema),
       this.Controller.groupDelete.bind(this.Controller)
     )
     this.router.patch(

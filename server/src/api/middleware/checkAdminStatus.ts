@@ -1,5 +1,6 @@
 import express = require('express')
 import AbstractMiddleware from './abstractMiddleware'
+import AuthenticatedRequest from './authenticatedRequest'
 
 /**
  * @class CheckAdminStatus
@@ -28,7 +29,7 @@ export default class CheckAdminStatus extends AbstractMiddleware {
    * @async
    */
   public async checkAdminStatus(
-    req: express.Request,
+    req: AuthenticatedRequest,
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
@@ -39,6 +40,8 @@ export default class CheckAdminStatus extends AbstractMiddleware {
         },
       })
       .then((result) => {
+        console.log(req.userId)
+
         if (!result) {
           req.statusCode = 404
           next(new Error('Group not found'))
@@ -47,11 +50,13 @@ export default class CheckAdminStatus extends AbstractMiddleware {
     await this.prisma.admin
       .findMany({
         where: {
-          user_id: req.body.userId,
+          user_id: req.userId,
           group_id: req.params.groupId,
         },
       })
       .then((result) => {
+        console.log(result[0])
+
         if (result.length > 0) {
           next()
         } else {

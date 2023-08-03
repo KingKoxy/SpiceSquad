@@ -86,7 +86,7 @@ export default class AuthenticationController extends AbstractController {
 
   /**
    * @description This function resets a user's password.
-   * @param req Express request handler
+   * @param req Express request handler, with the body containing an email as a string
    * @param res Express response handler
    * @param next Express next function (for error handling)
    * @returns Promise<void>
@@ -119,7 +119,7 @@ export default class AuthenticationController extends AbstractController {
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
-    console.log('refresh token', req.body.refreshToken)
+
     const url = process.env.FIREBASE_URL
     const formData = {
       grant_type: 'refresh_token',
