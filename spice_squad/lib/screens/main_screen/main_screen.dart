@@ -61,7 +61,8 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                     decoration: InputDecoration(
                       prefixIconColor: Colors.white,
                       prefixIcon: const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
                         child: ImageIcon(
                           SpiceSquadIconImages.search,
                           size: 24,
@@ -79,7 +80,8 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                               icon: const Icon(Icons.highlight_remove_rounded),
                             )
                           : null,
-                      hintText: AppLocalizations.of(context)!.searchInputPlaceholder,
+                      hintText:
+                          AppLocalizations.of(context)!.searchInputPlaceholder,
                     ),
                     onChanged: (value) {
                       setState(() {
@@ -115,9 +117,14 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                 ),
                 //The list of recipes.
                 ref.watch(recipeServiceProvider).when(
-                      data: (recipes) => RecipeList(recipes: _filterRecipes(recipes)),
+                      data: (recipes) =>
+                          RecipeList(recipes: _filterRecipes(recipes)),
                       error: (error, stackTrace) => Text(error.toString()),
-                      loading: () => const SizedBox(height: 32, width: 32, child: CircularProgressIndicator()),
+                      loading: () => const SizedBox(
+                        height: 32,
+                        width: 32,
+                        child: CircularProgressIndicator(),
+                      ),
                     ),
               ],
             ),
@@ -130,17 +137,21 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   /// Filters and sorts the given list of recipes according to the current filter and sort options.
   List<Recipe> _filterRecipes(List<Recipe> recipes) {
     recipes = recipes
-        .where((element) =>
-            element.title.toLowerCase().contains(_searchText.toLowerCase()))
+        .where(
+          (element) =>
+              element.title.toLowerCase().contains(_searchText.toLowerCase()),
+        )
         .toList(growable: false);
 
     for (final filter in _filterCategories) {
       recipes = recipes.where(filter.matches).toList(growable: false);
     }
 
-    recipes.sort((a, b) =>
-        (_selectedSort.ascending ? 1 : -1) *
-        _selectedSort.category.compare(a, b));
+    recipes.sort(
+      (a, b) =>
+          (_selectedSort.ascending ? 1 : -1) *
+          _selectedSort.category.compare(a, b),
+    );
     return recipes;
   }
 }
