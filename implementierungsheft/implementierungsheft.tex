@@ -93,6 +93,42 @@ Prisma bietet zudem integrierte Funktionen zum Schutz vor SQL-Injections und and
 Dank des leistungsstarken Query Builders von Prisma können wir komplexe Datenbankabfragen effizient und ressourcenschonend erstellen. Prisma generiert optimierten SQL-Code, der die Datenbanklast minimiert und gleichzeitig eine hohe Performance gewährleistet. Dies ist besonders wichtig, da unsere Anwendung mit zunehmender Benutzerzahl und Datenmenge skaliert.
 Die Entscheidung, Prisma als ORM in unserer Anwendung einzusetzen, hat sich als äußerst vorteilhaft erwiesen. Die leistungsfähige Datenmodellierung, Sicherheitsfunktionen, Performance-Optimierungen und die Unterstützung für verschiedene Datenbanken bieten uns eine robuste und skalierbare Grundlage für unsere Entwicklungsstrategie. Prisma ermöglicht es uns, uns auf die Entwicklung von Funktionen und die Verbesserung der Benutzererfahrung zu konzentrieren, während es gleichzeitig die Datenbankverwaltung und Abfragen effizient bewältigt.
 
+
+\subsection{Änderungen an der Server- und Applicationklasse}
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{example-image-a}
+    \caption{Änderungen an der Server- und Applicationklasse}
+    \label{fig:server}
+\end{figure}
+\paragraph{\texttt{connectToDatabase()}} Die Methode wurde entfernt, da sie nicht mehr benötigt wird.
+
+\paragraph{\texttt{imageRouter: ImageRouter}} Die Attribute wurde hinzugefügt um die ImageRouter-Klasse zu initialisieren.
+
+\subsection{Änderungen an den Routern}
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{example-image-a}
+    \caption{Änderungen an den Routern}
+    \label{fig:routers}
+\end{figure}
+
+Es wurden sowohl bei dem \texttt{GroupRouter} als auch beim \texttt{AdminUserRouter} folgende Attribute hinzugefügt.
+
+\paragraph{\texttt{checkGroupMemberState: CheckGroupMemberState}} Die Attribute wurde hinzugefügt um die CheckGroupMemberState-Klasse zu initialisieren.
+\paragraph{\texttt{checkMemberStateTarget: any}} 
+
+\section{Validierung von Eingaben}
+Bei der Entwicklung von TypeScript-Anwendungen ist die Dateneingabevalidierung von entscheidender Bedeutung, um die Integrität und Sicherheit unserer Anwendung zu gewährleisten. Die Bibliothek Joi hat sich als eine der beliebtesten und effektivsten Lösungen für die Validierung von Daten in JavaScript erwiesen. Wir haben uns deshalb für diese leistungsstarke Validierungs-Bibliothek entschieden haben.
+Alle Request, die gestellt werden können werden dabei mit Joi validiert. Dabei wird überprüft, ob alle benötigten Felder vorhanden sind und ob die Felder den richtigen Datentyp haben.
+
+Dafür hat jeder Controller ein Joi-Schema, das die Validierung beschreibt. Dieses Schema wird dann in der \texttt{validateRequest}-Middleware verwendet, um die Request zu validieren.
+
+In der Abbildung \ref{fig:validation} sind die Schemas als UML-Diagramm dargestellt.
+
+
+
 \section{Grafische Benutzeroberfläche}
 Das Design der grafischen Benutzeroberfläche änderte sich nicht wesentlich von dem, was wir uns im Pflichtenheft überlegt hatten.
 Es kam nur zu kleinen Änderungen, wie sie im Kapitel \ref{sec:changes} beschrieben sind.
