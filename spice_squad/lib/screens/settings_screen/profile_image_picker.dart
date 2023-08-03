@@ -10,22 +10,24 @@ import "package:spice_squad/services/user_service.dart";
 /// Widget for selecting a profile image
 class ProfileImagePicker extends StatelessWidget {
   /// Initial Profile image to display
-  final Uint8List? profileImage;
+  final Uint8List? _profileImage;
 
   /// User service for updating the profile image
-  final UserService userService;
+  final UserService _userService;
 
   /// Creates a new profile image picker
-  const ProfileImagePicker({required this.profileImage, required this.userService, super.key});
+  const ProfileImagePicker({required Uint8List? profileImage, required UserService userService, super.key})
+      : _userService = userService,
+        _profileImage = profileImage;
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       child: Ink(
-        decoration: profileImage != null
+        decoration: _profileImage != null
             ? BoxDecoration(
                 borderRadius: BorderRadius.circular(20000),
-                image: DecorationImage(image: MemoryImage(profileImage!), fit: BoxFit.cover),
+                image: DecorationImage(image: MemoryImage(_profileImage!), fit: BoxFit.cover),
               )
             : BoxDecoration(borderRadius: BorderRadius.circular(20000), color: Theme.of(context).cardColor),
         child: InkWell(
@@ -76,7 +78,7 @@ class ProfileImagePicker extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    if (profileImage != null)
+                    if (_profileImage != null)
                       SizedBox(
                         height: 86,
                         width: 86,
@@ -144,14 +146,14 @@ class ProfileImagePicker extends StatelessWidget {
   }
 
   Future<void> _removeProfileImage() {
-    return userService.removeProfileImage();
+    return _userService.removeProfileImage();
   }
 
   Future<void> _setProfileImage(ImageSource source) {
     return ImagePicker().pickImage(source: source).then((image) {
       if (image != null) {
         final File file = File(image.path);
-        userService.setProfileImage(file);
+        _userService.setProfileImage(file);
       }
     });
   }

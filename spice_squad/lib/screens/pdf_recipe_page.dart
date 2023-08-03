@@ -17,10 +17,10 @@ class PdfRecipeViewPage extends StatelessWidget {
   static const routeName = "/pdf-recipe-page";
 
   /// The recipe to display.
-  final Recipe recipe;
+  final Recipe _recipe;
 
   /// Constructs a new pdf recipe page.
-  const PdfRecipeViewPage({required this.recipe, super.key});
+  const PdfRecipeViewPage({required Recipe recipe, super.key}) : _recipe = recipe;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class PdfRecipeViewPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          AppLocalizations.of(context)!.pdfRecipeViewHeadline(recipe.title),
+          AppLocalizations.of(context)!.pdfRecipeViewHeadline(_recipe.title),
         ),
       ),
       body: Consumer(
@@ -60,6 +60,6 @@ class PdfRecipeViewPage extends StatelessWidget {
     AppLocalizations appLocalizations,
     final PdfPageFormat format,
   ) {
-    return recipeService.exportRecipe(recipe, appLocalizations);
+    return recipeService.exportRecipe(_recipe, appLocalizations);
   }
 }

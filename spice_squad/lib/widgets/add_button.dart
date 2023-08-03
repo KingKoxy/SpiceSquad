@@ -4,16 +4,16 @@ import "package:spice_squad/icons.dart";
 /// A button that is used to indicate adding something.
 class AddButton extends StatelessWidget {
   /// The callback that is called when the button is pressed.
-  final VoidCallback onPressed;
+  final VoidCallback _onPressed;
 
   /// Creates a new add button.
-  const AddButton({required this.onPressed, super.key});
+  const AddButton({required void Function() onPressed, super.key}) : _onPressed = onPressed;
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
       iconSize: 24,
-      onPressed: onPressed,
+      onPressed: _onPressed,
       icon: const ImageIcon(
         SpiceSquadIconImages.add,
         size: 24,

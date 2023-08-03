@@ -5,17 +5,18 @@ import "package:flutter_gen/gen_l10n/app_localizations.dart";
 /// A field that is used to select an amount of portions.
 class PortionAmountField extends StatelessWidget {
   /// The callback that is called when the amount of portions is changed.
-  final ValueChanged<int> onChanged;
+  final ValueChanged<int> _onChanged;
 
   /// The initial amount of portions.
-  final int initialValue;
+  final int _initialValue;
 
   /// Creates a new portion amount field.
   const PortionAmountField({
-    required this.onChanged,
-    required this.initialValue,
+    required void Function(int) onChanged,
+    required int initialValue,
     super.key,
-  });
+  })  : _initialValue = initialValue,
+        _onChanged = onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class PortionAmountField extends StatelessWidget {
                   return null;
                 },
                 style: Theme.of(context).textTheme.titleSmall,
-                initialValue: initialValue.toString(),
+                initialValue: _initialValue.toString(),
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp(r"[1-9]\d*")),
                 ],
@@ -47,7 +48,7 @@ class PortionAmountField extends StatelessWidget {
                 ),
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
-                  if (value.isNotEmpty) onChanged(int.parse(value));
+                  if (value.isNotEmpty) _onChanged(int.parse(value));
                 },
               ),
             ),

@@ -24,7 +24,7 @@ class MainScreen extends ConsumerStatefulWidget {
   @override
   ConsumerState<MainScreen> createState() => _MainScreenState();
 
-  /// Methode for testing the filtering of recipes.
+  /// Method for testing the filtering of recipes.
   @visibleForTesting
   List<Recipe> filteredRecipesMethode(
     List<Recipe> recipes,

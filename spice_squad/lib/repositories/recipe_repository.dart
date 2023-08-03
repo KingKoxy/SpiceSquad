@@ -16,8 +16,8 @@ class RecipeRepository {
 
   /// Creates a new [RecipeRepository]
   ///
-  /// The [_userRepository] is used to get the token for the authorization header.
-  RecipeRepository(this._userRepository);
+  /// The [userRepository] is used to get the token for the authorization header.
+  RecipeRepository({required UserRepository userRepository}) : _userRepository = userRepository;
 
   /// Fetches all recipes the current user should be allowed to see and returns them as a list
   ///

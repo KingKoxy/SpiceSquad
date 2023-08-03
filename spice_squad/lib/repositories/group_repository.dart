@@ -16,8 +16,8 @@ class GroupRepository {
 
   /// Creates a new [GroupRepository]
   ///
-  /// The [_userRepository] is used to get the token for the authorization header.
-  GroupRepository(this._userRepository);
+  /// The [userRepository] is used to get the token for the authorization header.
+  GroupRepository({required UserRepository userRepository}) : _userRepository = userRepository;
 
   /// Fetches all groups for the current user and returns them as a list
   ///
@@ -73,7 +73,7 @@ class GroupRepository {
     );
     if (response.statusCode != 200) {
       if (response.statusCode == 404) {
-        throw InvalidGroupCodeError(groupCode);
+        throw InvalidGroupCodeError(groupCode: groupCode);
       }
       throw HttpStatusException(response);
     }

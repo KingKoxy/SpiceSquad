@@ -6,23 +6,23 @@ import "package:spice_squad/screens/main_screen/recipe_card.dart";
 /// A list of recipe cards.
 class RecipeList extends StatelessWidget {
   /// The recipes to show.
-  final List<Recipe> recipes;
+  final List<Recipe> _recipes;
 
   /// Creates a new recipe list.
-  const RecipeList({required this.recipes, super.key});
+  const RecipeList({required List<Recipe> recipes, super.key}) : _recipes = recipes;
 
   @override
   Widget build(BuildContext context) {
-    return recipes.isNotEmpty
+    return _recipes.isNotEmpty
         ? Expanded(
             child: ListView.builder(
               physics: const BouncingScrollPhysics(),
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-              itemCount: recipes.length,
+              itemCount: _recipes.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 16),
-                  child: RecipeCard(recipe: recipes[index]),
+                  child: RecipeCard(recipe: _recipes[index]),
                 );
               },
             ),

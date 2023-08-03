@@ -156,7 +156,7 @@ class UserRepository {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString(_refreshTokenPath, body["refreshToken"]);
     } else if (response.statusCode == 409) {
-      throw EmailAlreadyInUseError(email);
+      throw EmailAlreadyInUseError(usedEmail: email);
     } else {
       throw HttpStatusException(response);
     }

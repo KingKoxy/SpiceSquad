@@ -3,29 +3,33 @@ import "package:flutter/material.dart";
 /// A widget that contains a tag.
 class TagItem extends StatefulWidget {
   /// The image that is displayed as an icon in the tag.
-  final ImageProvider image;
+  final ImageProvider _image;
 
   /// The name of the tag.
-  final String name;
+  final String _name;
 
   /// Whether the tag is initially active.
-  final bool initialActive;
+  final bool _initialActive;
 
   /// The callback that is called when the tag is toggled.
-  final ValueChanged<bool>? onToggle;
+  final ValueChanged<bool>? _onToggle;
 
   /// The callback that is called when the tag is tapped.
-  final VoidCallback? onTap;
+  final VoidCallback? _onTap;
 
   /// Creates a new tag item.
   const TagItem({
-    required this.image,
-    required this.name,
+    required ImageProvider<Object> image,
+    required String name,
     super.key,
-    this.onToggle,
-    this.initialActive = false,
-    this.onTap,
-  });
+    void Function(bool)? onToggle,
+    bool initialActive = false,
+    void Function()? onTap,
+  })  : _onTap = onTap,
+        _onToggle = onToggle,
+        _initialActive = initialActive,
+        _name = name,
+        _image = image;
 
   @override
   State<TagItem> createState() => _TagItemState();
@@ -36,7 +40,7 @@ class _TagItemState extends State<TagItem> {
 
   @override
   void initState() {
-    _active = widget.initialActive;
+    _active = widget._initialActive;
     super.initState();
   }
 
@@ -50,17 +54,17 @@ class _TagItemState extends State<TagItem> {
       color: _active ? Theme.of(context).colorScheme.tertiary : Theme.of(context).colorScheme.onSurface,
       child: InkWell(
         borderRadius: BorderRadius.circular(10.0),
-        onTap: widget.onToggle != null || widget.onTap != null
+        onTap: widget._onToggle != null || widget._onTap != null
             ? () {
-                if (widget.onToggle != null) {
+                if (widget._onToggle != null) {
                   setState(() {
                     _active = !_active;
                   });
-                  widget.onToggle!(_active);
+                  widget._onToggle!(_active);
                 }
 
-                if (widget.onTap != null) {
-                  widget.onTap!();
+                if (widget._onTap != null) {
+                  widget._onTap!();
                 }
               }
             : null,
@@ -70,12 +74,12 @@ class _TagItemState extends State<TagItem> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ImageIcon(
-                widget.image,
+                widget._image,
                 color: _active ? Colors.black : Colors.white,
               ),
               const SizedBox(width: 8),
               Text(
-                widget.name,
+                widget._name,
                 style: Theme.of(context).textTheme.titleSmall!.copyWith(color: _active ? Colors.black : Colors.white),
               ),
             ],

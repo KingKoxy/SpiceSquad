@@ -8,13 +8,15 @@ import "package:spice_squad/widgets/tag_item.dart";
 /// Widget for picking a difficulty
 class DifficultyPickerWidget extends StatefulWidget {
   /// The initial value of the picker
-  final Difficulty? initialValue;
+  final Difficulty? _initialValue;
 
   /// The callback for when the value changes
-  final ValueChanged<Difficulty> onChanged;
+  final ValueChanged<Difficulty> _onChanged;
 
   /// Creates a new difficulty picker widget
-  const DifficultyPickerWidget({required this.onChanged, super.key, this.initialValue});
+  const DifficultyPickerWidget({required void Function(Difficulty) onChanged, super.key, Difficulty? initialValue})
+      : _onChanged = onChanged,
+        _initialValue = initialValue;
 
   @override
   State<DifficultyPickerWidget> createState() => _DifficultyPickerWidgetState();
@@ -26,7 +28,7 @@ class _DifficultyPickerWidgetState extends State<DifficultyPickerWidget> {
   @override
   void initState() {
     super.initState();
-    _difficulty = widget.initialValue ?? Difficulty.medium;
+    _difficulty = widget._initialValue ?? Difficulty.medium;
   }
 
   @override
@@ -50,7 +52,7 @@ class _DifficultyPickerWidgetState extends State<DifficultyPickerWidget> {
             setState(() {
               _difficulty = value;
             });
-            widget.onChanged(value);
+            widget._onChanged(value);
           },
           initialValue: _difficulty,
         );

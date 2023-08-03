@@ -8,13 +8,16 @@ import "package:spice_squad/widgets/ingredient_list_item.dart";
 /// Widget for displaying a list of ingredients
 class IngredientList extends StatefulWidget {
   /// The ingredients to display
-  final List<Ingredient> initialList;
+  final List<Ingredient> _initialList;
 
   /// Callback for when the list changes
-  final ValueChanged<List<Ingredient>> onChanged;
+  final ValueChanged<List<Ingredient>> _onChanged;
 
   /// Creates a new ingredient list
-  const IngredientList({required this.initialList, required this.onChanged, super.key});
+  const IngredientList(
+      {required List<Ingredient> initialList, required void Function(List<Ingredient>) onChanged, super.key,})
+      : _onChanged = onChanged,
+        _initialList = initialList;
 
   @override
   State<IngredientList> createState() => _IngredientListState();
@@ -26,7 +29,7 @@ class _IngredientListState extends State<IngredientList> {
   @override
   void initState() {
     super.initState();
-    _ingredients = List.of(widget.initialList);
+    _ingredients = List.of(widget._initialList);
   }
 
   @override
@@ -50,7 +53,7 @@ class _IngredientListState extends State<IngredientList> {
                   (value) => setState(() {
                     if (value != null) {
                       _ingredients.add(value as Ingredient);
-                      widget.onChanged(_ingredients);
+                      widget._onChanged(_ingredients);
                     }
                   }),
                 );
@@ -78,7 +81,7 @@ class _IngredientListState extends State<IngredientList> {
                         if (temp == null) return;
                         setState(() {
                           _ingredients[index] = temp;
-                          widget.onChanged(_ingredients);
+                          widget._onChanged(_ingredients);
                         });
                       },
                       child: IngredientListItem(
@@ -86,7 +89,7 @@ class _IngredientListState extends State<IngredientList> {
                         onRemove: () {
                           setState(() {
                             _ingredients.removeAt(index);
-                            widget.onChanged(_ingredients);
+                            widget._onChanged(_ingredients);
                           });
                         },
                       ),

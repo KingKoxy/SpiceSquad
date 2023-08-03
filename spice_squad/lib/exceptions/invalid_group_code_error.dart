@@ -4,8 +4,8 @@ class InvalidGroupCodeError implements ArgumentError {
 
   /// Creates a new [InvalidGroupCodeError]
   ///
-  /// The [_groupCode] is the group code that is invalid
-  InvalidGroupCodeError(this._groupCode);
+  /// The [groupCode] is the group code that is invalid
+  InvalidGroupCodeError({required String groupCode}) : _groupCode = groupCode;
 
   @override
   get invalidValue => _groupCode;

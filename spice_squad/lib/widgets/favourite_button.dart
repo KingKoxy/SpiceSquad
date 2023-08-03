@@ -4,17 +4,18 @@ import "package:spice_squad/icons.dart";
 /// A button that is used to indicate toggling the favourite status of something.
 class FavouriteButton extends StatelessWidget {
   /// Whether the item is a favourite or not.
-  final bool value;
+  final bool _value;
 
   /// The callback that is called when the button is pressed.
-  final VoidCallback onToggle;
+  final VoidCallback _onToggle;
 
   /// Creates a new favourite button.
   const FavouriteButton({
-    required this.value,
-    required this.onToggle,
+    required bool value,
+    required void Function() onToggle,
     super.key,
-  });
+  })  : _onToggle = onToggle,
+        _value = value;
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +23,9 @@ class FavouriteButton extends StatelessWidget {
       padding: EdgeInsets.zero,
       iconSize: 40,
       splashRadius: 32,
-      onPressed: onToggle,
+      onPressed: _onToggle,
       icon: ImageIcon(
-        value ? SpiceSquadIconImages.heartFilled : SpiceSquadIconImages.heartEmpty,
+        _value ? SpiceSquadIconImages.heartFilled : SpiceSquadIconImages.heartEmpty,
         color: Theme.of(context).colorScheme.primary,
       ),
     );

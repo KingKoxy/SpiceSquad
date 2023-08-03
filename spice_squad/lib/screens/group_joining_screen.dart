@@ -16,13 +16,13 @@ class GroupJoiningScreen extends ConsumerStatefulWidget {
   static const routeName = "/group-joining";
 
   /// Whether this screen is shown after the user registered
-  final bool isAfterRegister;
+  final bool _isAfterRegister;
 
   final TextEditingController _groupCodeController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   /// Creates a new group joining screen
-  GroupJoiningScreen({required this.isAfterRegister, super.key});
+  GroupJoiningScreen({required bool isAfterRegister, super.key}) : _isAfterRegister = isAfterRegister;
 
   @override
   ConsumerState<GroupJoiningScreen> createState() => _GroupJoiningScreenState();
@@ -37,7 +37,7 @@ class _GroupJoiningScreenState extends ConsumerState<GroupJoiningScreen> {
       body: SafeArea(
         child: Stack(
           children: [
-            widget.isAfterRegister
+            widget._isAfterRegister
                 ? Positioned(
                     top: 16,
                     right: 32,
@@ -138,7 +138,7 @@ class _GroupJoiningScreenState extends ConsumerState<GroupJoiningScreen> {
                         onPressed: () {
                           Navigator.of(context).pushReplacementNamed(
                             GroupCreationScreen.routeName,
-                            arguments: widget.isAfterRegister,
+                            arguments: widget._isAfterRegister,
                           );
                         },
                         child: Text(AppLocalizations.of(context)!.createSquadButton),
@@ -177,7 +177,7 @@ class _GroupJoiningScreenState extends ConsumerState<GroupJoiningScreen> {
           ),
         )
         .then(
-          (value) => widget.isAfterRegister
+          (value) => widget._isAfterRegister
               ? Navigator.of(context).pushNamedAndRemoveUntil(
                   MainScreen.routeName,
                   (route) => false,

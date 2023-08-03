@@ -14,8 +14,8 @@ class AdminRepository {
 
   /// Creates a new [AdminRepository]
   ///
-  /// The [_userRepository] is used to get the token for the authorization header.
-  AdminRepository(this._userRepository);
+  /// The [userRepository] is used to get the token for the authorization header.
+  AdminRepository({required UserRepository userRepository}) : _userRepository = userRepository;
 
   /// Sends request to make the user with the given [userId] an admin of the group with the given [groupId]
   ///

@@ -12,33 +12,36 @@ import "package:spice_squad/widgets/approval_dialog.dart";
 /// Widget to display a list of [GroupMember]s
 class MemberList extends ConsumerWidget {
   /// Whether or not the user is admin and can access admin actions
-  final bool isAdmin;
+  final bool _isAdmin;
 
   /// The group the members belong to
-  final Group group;
+  final Group _group;
 
   /// The id of the current user
-  final String userId;
+  final String _userId;
 
   /// A callback to refetch the members
-  final VoidCallback refetch;
+  final VoidCallback _refetch;
 
   /// Creates a [MemberList]
   const MemberList({
-    required this.userId,
-    required this.group,
-    required this.isAdmin,
-    required this.refetch,
+    required String userId,
+    required Group group,
+    required bool isAdmin,
+    required void Function() refetch,
     super.key,
-  });
+  })  : _refetch = refetch,
+        _userId = userId,
+        _group = group,
+        _isAdmin = isAdmin;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<GroupMember> members = group.members;
+    final List<GroupMember> members = _group.members;
     // Sorts the members alphabetically so that the current user is always at the top, followed by the admins, followed by the rest
     members.sort((a, b) {
-      if (a.id == userId && b.id != userId) return -1;
-      if (a.id != userId && b.id == userId) return 1;
+      if (a.id == _userId && b.id != _userId) return -1;
+      if (a.id != _userId && b.id == _userId) return 1;
       if (a.isAdmin && !b.isAdmin) return -1;
       if (!a.isAdmin && b.isAdmin) return 1;
       return a.userName.toLowerCase().compareTo(b.userName.toLowerCase());
@@ -55,7 +58,7 @@ class MemberList extends ConsumerWidget {
             AddButton(
               onPressed: () {
                 Share.share(
-                  AppLocalizations.of(context)!.groupCodeShareMessage(group.name, group.groupCode),
+                  AppLocalizations.of(context)!.groupCodeShareMessage(_group.name, _group.groupCode),
                   subject: AppLocalizations.of(context)!.groupCodeShareSubject,
                 );
               },
@@ -118,7 +121,7 @@ class MemberList extends ConsumerWidget {
                         ),
                       ],
                     ),
-                    if (member.id != userId && isAdmin)
+                    if (member.id != _userId && _isAdmin)
                       PopupMenuButton(
                         tooltip: "",
                         splashRadius: 24,
@@ -156,11 +159,11 @@ class MemberList extends ConsumerWidget {
   }
 
   Future<void> _removeAdminStatus(GroupService groupService, GroupMember member) {
-    return groupService.removeAdminStatus(member.id, group.id).then((value) => refetch());
+    return groupService.removeAdminStatus(member.id, _group.id).then((value) => _refetch());
   }
 
   Future<void> _makeAdmin(GroupService groupService, GroupMember member) {
-    return groupService.makeAdmin(member.id, group.id).then((value) => refetch());
+    return groupService.makeAdmin(member.id, _group.id).then((value) => _refetch());
   }
 
   Future<void> _kickUser(BuildContext context, GroupService groupService, GroupMember member) {
@@ -173,7 +176,7 @@ class MemberList extends ConsumerWidget {
           message: AppLocalizations.of(context)!.kickingApprovalMessage(member.userName),
           onApproval: () {
             Navigator.of(context).pop();
-            groupService.kickUser(member.id, group.id).then((value) => refetch());
+            groupService.kickUser(member.id, _group.id).then((value) => _refetch());
           },
         ),
       ),
@@ -191,7 +194,7 @@ class MemberList extends ConsumerWidget {
             message: AppLocalizations.of(context)!.banningApprovalMessage(member.userName),
             onApproval: () {
               Navigator.of(context).pop();
-              groupService.banUser(member.id, group.id).then((value) => refetch());
+              groupService.banUser(member.id, _group.id).then((value) => _refetch());
             },
           );
         },

@@ -8,13 +8,15 @@ import "package:spice_squad/screens/ingredient_creation_screen/icon_picker_dialo
 /// Widget to pick an icon for an ingredient
 class IconPickerWidget extends ConsumerStatefulWidget {
   /// The callback that is called when the icon is changed
-  final ValueChanged<Uint8List> onChanged;
+  final ValueChanged<Uint8List> _onChanged;
 
   /// The initial icon to display
-  final Uint8List? initialIcon;
+  final Uint8List? _initialIcon;
 
   /// Creates a new icon picker widget
-  const IconPickerWidget({required this.onChanged, this.initialIcon, super.key});
+  const IconPickerWidget({required void Function(Uint8List) onChanged, Uint8List? initialIcon, super.key})
+      : _initialIcon = initialIcon,
+        _onChanged = onChanged;
 
   @override
   ConsumerState<IconPickerWidget> createState() => _IconPickerWidgetState();
@@ -32,8 +34,8 @@ class _IconPickerWidgetState extends ConsumerState<IconPickerWidget> {
       ref.read(ingredientDataRepository).fetchIngredientIcons().then(
             (value) => setState(() {
               _icons = value;
-              _selectedIcon = widget.initialIcon ?? _icons[0];
-              widget.onChanged(_selectedIcon!);
+              _selectedIcon = widget._initialIcon ?? _icons[0];
+              widget._onChanged(_selectedIcon!);
             }),
           );
     });
@@ -74,7 +76,7 @@ class _IconPickerWidgetState extends ConsumerState<IconPickerWidget> {
             setState(() {
               _selectedIcon = value;
             });
-            widget.onChanged(_selectedIcon!);
+            widget._onChanged(_selectedIcon!);
           },
         );
       },

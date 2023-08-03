@@ -6,13 +6,16 @@ import "package:spice_squad/screens/main_screen/filter_category.dart";
 /// Dialog for selecting filters.
 class FilterSelectionDialog extends StatefulWidget {
   /// The initially selected filters.
-  final List<FilterCategory> initialValue;
+  final List<FilterCategory> _initialValue;
 
   /// Callback for when the filters are saved.
-  final ValueChanged<List<FilterCategory>> onSave;
+  final ValueChanged<List<FilterCategory>> _onSave;
 
   /// Creates a new filter selection dialog.
-  const FilterSelectionDialog({required this.initialValue, required this.onSave, super.key});
+  const FilterSelectionDialog(
+      {required List<FilterCategory> initialValue, required void Function(List<FilterCategory>) onSave, super.key,})
+      : _onSave = onSave,
+        _initialValue = initialValue;
 
   @override
   State<FilterSelectionDialog> createState() => _FilterSelectionDialogState();
@@ -20,13 +23,13 @@ class FilterSelectionDialog extends StatefulWidget {
 
 class _FilterSelectionDialogState extends State<FilterSelectionDialog> {
   /// A Map of the filter categories to their selected state.
-  late Map<FilterCategory, bool> filterMap;
+  late Map<FilterCategory, bool> _filterMap;
 
   @override
   void initState() {
     super.initState();
     // Initialize the filter map with the initial value.
-    filterMap = {for (var item in FilterCategory.values) item: widget.initialValue.contains(item)};
+    _filterMap = {for (var item in FilterCategory.values) item: widget._initialValue.contains(item)};
   }
 
   @override
@@ -38,7 +41,7 @@ class _FilterSelectionDialogState extends State<FilterSelectionDialog> {
         child: ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: filterMap.length + 1,
+          itemCount: _filterMap.length + 1,
           itemBuilder: (context, index) {
             if (index == 0) {
               return TextButton(
@@ -47,7 +50,7 @@ class _FilterSelectionDialogState extends State<FilterSelectionDialog> {
                 ),
                 onPressed: () {
                   setState(() {
-                    filterMap = {for (var item in FilterCategory.values) item: false};
+                    _filterMap = {for (var item in FilterCategory.values) item: false};
                   });
                 },
                 child: ListTile(
@@ -69,13 +72,13 @@ class _FilterSelectionDialogState extends State<FilterSelectionDialog> {
                 ),
               );
             }
-            final key = filterMap.keys.elementAt(index - 1);
+            final key = _filterMap.keys.elementAt(index - 1);
             return CheckboxListTile(
               title: Text(key.getName(AppLocalizations.of(context)!)),
-              value: filterMap[key],
+              value: _filterMap[key],
               onChanged: (value) {
                 setState(() {
-                  filterMap[key] = value!;
+                  _filterMap[key] = value!;
                 });
               },
             );
@@ -96,9 +99,9 @@ class _FilterSelectionDialogState extends State<FilterSelectionDialog> {
 
             // Get the selected filters as list.
             final List<FilterCategory> selectedFilters =
-                filterMap.entries.where((entry) => entry.value).map((entry) => entry.key).toList();
+                _filterMap.entries.where((entry) => entry.value).map((entry) => entry.key).toList();
 
-            widget.onSave(selectedFilters);
+            widget._onSave(selectedFilters);
           },
         ),
       ],

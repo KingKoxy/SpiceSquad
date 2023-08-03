@@ -32,7 +32,7 @@ class RegisterScreen extends ConsumerStatefulWidget {
 class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   String? _emailError;
   String? _connectionError;
-  bool loading = false;
+  bool _loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +130,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                           autofillHints: const [AutofillHints.newPassword],
                           textInputAction: TextInputAction.done,
                           onFieldSubmitted: (value) {
-                            if (!loading && widget._formKey.currentState!.validate()) {
+                            if (!_loading && widget._formKey.currentState!.validate()) {
                               _register(
                                 AppLocalizations.of(context)!,
                                 ref.read(userServiceProvider.notifier),
@@ -175,14 +175,14 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      if (!loading && widget._formKey.currentState!.validate()) {
+                      if (!_loading && widget._formKey.currentState!.validate()) {
                         _register(
                           AppLocalizations.of(context)!,
                           ref.read(userServiceProvider.notifier),
                         );
                       }
                     },
-                    child: loading
+                    child: _loading
                         ? const CircularProgressIndicator(
                             color: Colors.white,
                           )
@@ -199,7 +199,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
   Future<void> _register(AppLocalizations appLocalizations, UserService userService) async {
     setState(() {
-      loading = true;
+      _loading = true;
       _connectionError = null;
     });
     await userService
@@ -230,7 +230,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       }
     });
     setState(() {
-      loading = false;
+      _loading = false;
     });
   }
 

@@ -4,8 +4,8 @@ class EmailAlreadyInUseError implements ArgumentError {
 
   /// Creates a new [EmailAlreadyInUseException]
   ///
-  /// The [_usedEmail] is the email that is already in use
-  EmailAlreadyInUseError(this._usedEmail);
+  /// The [usedEmail] is the email that is already in use
+  EmailAlreadyInUseError({required String usedEmail}) : _usedEmail = usedEmail;
 
   @override
   get invalidValue => _usedEmail;

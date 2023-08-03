@@ -10,17 +10,18 @@ import "package:spice_squad/icons.dart";
 /// Widget for selecting an image
 class ImagePickerWidget extends StatelessWidget {
   /// Initial image to display
-  final Uint8List? recipeImage;
+  final Uint8List? _recipeImage;
 
   /// Callback that is called when the image is changed
-  final ValueChanged<Uint8List?> onChanged;
+  final ValueChanged<Uint8List?> _onChanged;
 
   /// Creates a new image picker
   const ImagePickerWidget({
-    required this.recipeImage,
-    required this.onChanged,
+    required Uint8List? recipeImage,
+    required void Function(Uint8List?) onChanged,
     super.key,
-  });
+  })  : _onChanged = onChanged,
+        _recipeImage = recipeImage;
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +37,13 @@ class ImagePickerWidget extends StatelessWidget {
               child: SizedBox(
                 height: 200,
                 width: double.infinity,
-                child: recipeImage == null
+                child: _recipeImage == null
                     ? const ImageIcon(
                         size: 64,
                         SpiceSquadIconImages.image,
                         color: Colors.white,
                       )
-                    : Image.memory(recipeImage!, fit: BoxFit.cover),
+                    : Image.memory(_recipeImage!, fit: BoxFit.cover),
               ),
             ),
           ),
@@ -51,23 +52,23 @@ class ImagePickerWidget extends StatelessWidget {
     );
   }
 
+  void _removeRecipeImage(BuildContext context) {
+    _onChanged(null);
+    Navigator.of(context).pop();
+  }
+
+  void _pickImage(BuildContext context, ImageSource source) {
+    ImagePicker().pickImage(source: source).then((file) {
+      if (file != null) {
+        img.Image image = img.decodeImage(File(file.path).readAsBytesSync())!;
+        image = img.copyResizeCropSquare(image, size: 480);
+        _onChanged(Uint8List.fromList(img.encodeJpg(image, quality: 100)));
+      }
+    });
+    Navigator.of(context).pop();
+  }
+
   void _selectRecipeImage(BuildContext context) {
-    void removeRecipeImage() {
-      onChanged(null);
-      Navigator.of(context).pop();
-    }
-
-    void pickImage(ImageSource source) {
-      ImagePicker().pickImage(source: source).then((file) {
-        if (file != null) {
-          img.Image image = img.decodeImage(File(file.path).readAsBytesSync())!;
-          image = img.copyResizeCropSquare(image, size: 480);
-          onChanged(Uint8List.fromList(img.encodeJpg(image, quality: 100)));
-        }
-      });
-      Navigator.of(context).pop();
-    }
-
     showGeneralDialog(
       barrierLabel: "showGeneralDialog",
       barrierDismissible: true,
@@ -97,12 +98,12 @@ class ImagePickerWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    if (recipeImage != null)
+                    if (_recipeImage != null)
                       SizedBox(
                         height: 86,
                         width: 86,
                         child: RawMaterialButton(
-                          onPressed: removeRecipeImage,
+                          onPressed: () => _removeRecipeImage(context),
                           elevation: 2.0,
                           fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                           padding: const EdgeInsets.all(15.0),
@@ -117,7 +118,7 @@ class ImagePickerWidget extends StatelessWidget {
                       height: 86,
                       width: 86,
                       child: RawMaterialButton(
-                        onPressed: () => pickImage(ImageSource.gallery),
+                        onPressed: () => _pickImage(context, ImageSource.gallery),
                         elevation: 2.0,
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),
@@ -132,7 +133,7 @@ class ImagePickerWidget extends StatelessWidget {
                       height: 86,
                       width: 86,
                       child: RawMaterialButton(
-                        onPressed: () => pickImage(ImageSource.camera),
+                        onPressed: () => _pickImage(context, ImageSource.camera),
                         elevation: 2.0,
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),

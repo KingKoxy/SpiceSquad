@@ -7,13 +7,15 @@ import "package:spice_squad/screens/main_screen/sort_selection_dialog.dart";
 /// Widget that allows the user to select a sort.
 class SortSelectionWidget extends StatelessWidget {
   /// Callback for when the sort is changed.
-  final ValueChanged<Sort> onChanged;
+  final ValueChanged<Sort> _onChanged;
 
   /// The selected sort.
-  final Sort selectedSort;
+  final Sort _selectedSort;
 
   /// Creates a new sort selection widget.
-  const SortSelectionWidget({required this.onChanged, required this.selectedSort, super.key});
+  const SortSelectionWidget({required void Function(Sort) onChanged, required Sort selectedSort, super.key})
+      : _selectedSort = selectedSort,
+        _onChanged = onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +24,12 @@ class SortSelectionWidget extends StatelessWidget {
       child: Row(
         children: [
           ImageIcon(
-            selectedSort.ascending ? SpiceSquadIconImages.sortAscending : SpiceSquadIconImages.sortDescending,
+            _selectedSort.ascending ? SpiceSquadIconImages.sortAscending : SpiceSquadIconImages.sortDescending,
             color: Colors.white,
           ),
           const SizedBox(width: 5),
           Text(
-            selectedSort.category.getName(AppLocalizations.of(context)!),
+            _selectedSort.category.getName(AppLocalizations.of(context)!),
             style: Theme.of(context).textTheme.titleLarge,
           )
         ],
@@ -41,8 +43,8 @@ class SortSelectionWidget extends StatelessWidget {
       barrierDismissible: true,
       builder: (BuildContext context) {
         return SortSelectionDialog(
-          onSaved: onChanged,
-          initialValue: selectedSort,
+          onSaved: _onChanged,
+          initialValue: _selectedSort,
         );
       },
     );

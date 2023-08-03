@@ -7,10 +7,10 @@ import "package:spice_squad/widgets/tag_item.dart";
 /// A widget that displays a list of labels.
 class LabelList extends StatelessWidget {
   /// The recipe whose labels are displayed.
-  final Recipe recipe;
+  final Recipe _recipe;
 
   /// Creates a new [LabelList].
-  const LabelList({required this.recipe, super.key});
+  const LabelList({required Recipe recipe, super.key}) : _recipe = recipe;
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +22,13 @@ class LabelList extends StatelessWidget {
         children: [
           TagItem(
             image: SpiceSquadIconImages.timer,
-            name: AppLocalizations.of(context)!.duration(recipe.duration),
+            name: AppLocalizations.of(context)!.duration(_recipe.duration),
           ),
           const SizedBox(
             width: 8,
           ),
-          TagItem(image: SpiceSquadIconImages.flame, name: recipe.difficulty.getName(AppLocalizations.of(context)!)),
-          if (recipe.isVegetarian) ...[
+          TagItem(image: SpiceSquadIconImages.flame, name: _recipe.difficulty.getName(AppLocalizations.of(context)!)),
+          if (_recipe.isVegetarian) ...[
             const SizedBox(
               width: 8,
             ),
@@ -37,7 +37,7 @@ class LabelList extends StatelessWidget {
               name: AppLocalizations.of(context)!.labelVegetarian,
             ),
           ],
-          if (recipe.isVegan) ...[
+          if (_recipe.isVegan) ...[
             const SizedBox(
               width: 8,
             ),
@@ -46,7 +46,7 @@ class LabelList extends StatelessWidget {
               name: AppLocalizations.of(context)!.labelVegan,
             ),
           ],
-          if (recipe.isGlutenFree) ...[
+          if (_recipe.isGlutenFree) ...[
             const SizedBox(
               width: 8,
             ),
@@ -55,13 +55,13 @@ class LabelList extends StatelessWidget {
               name: AppLocalizations.of(context)!.labelGlutenFree,
             ),
           ],
-          if (recipe.isHalal) ...[
+          if (_recipe.isHalal) ...[
             const SizedBox(
               width: 8,
             ),
             TagItem(image: SpiceSquadIconImages.islam, name: AppLocalizations.of(context)!.labelHalal),
           ],
-          if (recipe.isHalal) ...[
+          if (_recipe.isHalal) ...[
             const SizedBox(
               width: 8,
             ),
