@@ -47,7 +47,8 @@ export default class ImageController extends AbstractController {
                 }
             })
             if (image) {
-                res.status(200).json(image)
+                // send file
+                res.status(200).send(image.image)
             } else {
                 res.status(404).json({
                     message: 'Image not found'
