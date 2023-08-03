@@ -1,7 +1,7 @@
 /// This class contains all the endpoints for the API.
 abstract class ApiEndpoints {
   /// The base url
-  static String get _baseUrl => "https://ravtscheev.com/spicesquad";
+  static String get _baseUrl => "http://ravtscheev.com:3080";
 
   // Authentication endpoints
 
@@ -83,4 +83,9 @@ abstract class ApiEndpoints {
 
   /// The url for recipe censoring endpoint
   static String get setCensored => "$admin/setCensored";
+
+  // Image endpoints
+
+  /// The base url for the image endpoints
+  static String get image => "$_baseUrl/image";
 }

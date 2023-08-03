@@ -104,9 +104,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                   color: Theme.of(context).colorScheme.onSurface,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: widget._recipe.image != null
-                        ? Image.memory(
-                            widget._recipe.image!,
+                    child: widget._recipe.imageUrl.isNotEmpty
+                        ? Image.network(
+                            widget._recipe.imageUrl,
                             width: double.infinity,
                             height: 200,
                             fit: BoxFit.cover,

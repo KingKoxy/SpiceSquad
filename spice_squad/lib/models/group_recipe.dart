@@ -14,7 +14,7 @@ class GroupRecipe extends Recipe {
           uploadDate: recipe.uploadDate,
           duration: recipe.duration,
           difficulty: recipe.difficulty,
-          image: recipe.image,
+          imageUrl: recipe.imageUrl,
           isVegetarian: recipe.isVegetarian,
           isVegan: recipe.isVegan,
           isGlutenFree: recipe.isGlutenFree,

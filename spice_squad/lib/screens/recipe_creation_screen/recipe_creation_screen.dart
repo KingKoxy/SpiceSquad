@@ -2,12 +2,15 @@ import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import 'package:http/http.dart' as http;
 import "package:spice_squad/icons.dart";
 import "package:spice_squad/models/difficulty.dart";
 import "package:spice_squad/models/ingredient.dart";
 import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/models/recipe_creation_data.dart";
+import "package:spice_squad/providers/repository_providers.dart";
 import "package:spice_squad/providers/service_providers.dart";
+import "package:spice_squad/repositories/image_repository.dart";
 import "package:spice_squad/screens/main_screen/main_screen.dart";
 import "package:spice_squad/screens/recipe_creation_screen/difficulty_picker_widget.dart";
 import "package:spice_squad/screens/recipe_creation_screen/image_picker_widget.dart";
@@ -46,7 +49,7 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
   late List<Ingredient> _ingredients;
   late String _instructions;
   late int _defaultPortionAmount;
-  late Uint8List? _image;
+  late Future<Uint8List?>? _imageFuture;
   bool _isLoading = false;
 
   @override
@@ -62,7 +65,9 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
     _ingredients = widget._recipe?.ingredients ?? [];
     _instructions = widget._recipe?.instructions ?? "";
     _defaultPortionAmount = widget._recipe?.defaultPortionAmount ?? 4;
-    _image = widget._recipe?.image;
+    _imageFuture = widget._recipe?.imageUrl.isEmpty ?? true
+        ? null
+        : http.get(Uri.parse(widget._recipe!.imageUrl)).then((value) => value.bodyBytes);
     super.initState();
   }
 
@@ -113,7 +118,8 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                             child: Text(AppLocalizations.of(context)!.discardButtonLabel),
                           ),
                           TextButton(
-                            onPressed: () => _saveRecipe(ref.read(recipeServiceProvider.notifier)),
+                            onPressed: () => _saveRecipe(
+                                ref.read(recipeServiceProvider.notifier), ref.read(imageRepositoryProvider)),
                             child: Text(AppLocalizations.of(context)!.saveButtonLabel),
                           ),
                         ],
@@ -131,11 +137,16 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ImagePickerWidget(
-                  onChanged: (value) => setState(() {
-                    _image = value;
-                  }),
-                  recipeImage: _image,
+                FutureBuilder(
+                  future: _imageFuture,
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    return ImagePickerWidget(
+                      onChanged: (value) => setState(() {
+                        _imageFuture = Future.delayed(Duration.zero, () => value);
+                      }),
+                      recipeImage: snapshot.data,
+                    );
+                  },
                 ),
                 const SizedBox(
                   height: 16,
@@ -315,7 +326,8 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                         setState(() {
                           _isLoading = true;
                         });
-                        await _saveRecipe(ref.read(recipeServiceProvider.notifier)).then(
+                        await _saveRecipe(ref.read(recipeServiceProvider.notifier), ref.read(imageRepositoryProvider))
+                            .then(
                           (value) => Navigator.of(context).pushReplacementNamed(MainScreen.routeName),
                         );
                         setState(() {
@@ -338,7 +350,15 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
     );
   }
 
-  Future<void> _saveRecipe(RecipeService recipeService) {
+  Future<void> _saveRecipe(RecipeService recipeService, ImageRepository imageRepository) async {
+    String imageUrl;
+    Uint8List? image = await _imageFuture;
+    if (widget._recipe?.imageUrl.isNotEmpty ?? false) {
+      imageUrl = await imageRepository.updateImage(widget._recipe!.imageUrl, image);
+    } else {
+      imageUrl = await imageRepository.uploadImage(image);
+    }
+
     // update recipe
     if (widget._recipe != null) {
       final Recipe recipeUploadData = widget._recipe!.copyWith(
@@ -352,12 +372,12 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
         isKosher: _isKosher,
         isVegan: _isVegan,
         isVegetarian: _isVegetarian,
-        image: _image,
         difficulty: _difficulty,
-        setImageIfNull: true,
+        imageUrl: imageUrl,
       );
       return recipeService.updateRecipe(recipeUploadData);
     }
+
     // create recipe
     final RecipeCreationData recipeCreationData = RecipeCreationData(
       title: _title,
@@ -370,7 +390,7 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
       isKosher: _isKosher,
       isVegan: _isVegan,
       isVegetarian: _isVegetarian,
-      image: _image,
+      imageUrl: imageUrl,
       difficulty: _difficulty,
     );
     return recipeService.createRecipe(recipeCreationData);

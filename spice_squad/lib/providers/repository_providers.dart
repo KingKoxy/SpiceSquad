@@ -1,6 +1,7 @@
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:spice_squad/repositories/admin_repository.dart";
 import "package:spice_squad/repositories/group_repository.dart";
+import "package:spice_squad/repositories/image_repository.dart";
 import "package:spice_squad/repositories/ingredient_data_repository.dart";
 import "package:spice_squad/repositories/recipe_repository.dart";
 import "package:spice_squad/repositories/user_repository.dart";
@@ -22,3 +23,7 @@ final groupRepositoryProvider =
 /// Provider for the [AdminRepository]
 final adminRepositoryProvider =
     Provider<AdminRepository>((ref) => AdminRepository(userRepository: ref.watch(userRepositoryProvider)));
+
+/// Provider for the [ImageRepository]
+final imageRepositoryProvider =
+    Provider<ImageRepository>((ref) => ImageRepository(userRepository: ref.watch(userRepositoryProvider)));
