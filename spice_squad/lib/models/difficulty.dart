@@ -1,10 +1,8 @@
-import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 
 /// Enum for the difficulty of a recipe.
 ///
 /// The difficulty is used to determine the difficulty of a recipe.
-///
 enum Difficulty {
   /// Easy difficulty
   easy,
@@ -16,18 +14,22 @@ enum Difficulty {
   hard;
 
   /// Returns the string representation of the difficulty.
-  String getName(BuildContext context) {
+  ///
+  /// The appLocalizations are used to get the string representation of the difficulty in different languages.
+  String getName(AppLocalizations appLocalizations) {
     switch (this) {
       case Difficulty.easy:
-        return AppLocalizations.of(context)!.easyDifficulty;
+        return appLocalizations.easyDifficulty;
       case Difficulty.medium:
-        return AppLocalizations.of(context)!.mediumDifficulty;
+        return appLocalizations.mediumDifficulty;
       case Difficulty.hard:
-        return AppLocalizations.of(context)!.hardDifficulty;
+        return appLocalizations.hardDifficulty;
     }
   }
 
-  /// Returns a difficulty from a string. The string can be lower or uppercase.
+  /// Returns a difficulty from a [string]. The [string] can be lowercase or uppercase.
+  ///
+  /// Throws an [ArgumentError] if the [string] is not a valid difficulty.
   static Difficulty fromString(String string) {
     switch (string.toLowerCase()) {
       case "easy":

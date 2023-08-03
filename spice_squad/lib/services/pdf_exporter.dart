@@ -7,6 +7,8 @@ import "package:spice_squad/models/recipe.dart";
 /// Service that handles all PDF export related logic.
 class PDFExporter {
   /// Exports the given [recipe] as a PDF and shares it.
+  ///
+  /// The [appLocalizations] are used to get the localized strings.
   static Future<Uint8List> exportRecipe(
     final Recipe recipe,
     final AppLocalizations appLocalizations,

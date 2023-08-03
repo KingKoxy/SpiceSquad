@@ -24,14 +24,13 @@ class MainScreen extends ConsumerStatefulWidget {
   @override
   ConsumerState<MainScreen> createState() => _MainScreenState();
 
-  /// Methode for testing the filtering of recipes.
+  /// Method for testing the filtering of recipes.
   @visibleForTesting
   List<Recipe> filteredRecipesMethode(
     List<Recipe> recipes,
     List<FilterCategory> filterCategories,
   ) {
-    return (_MainScreenState().._filterCategories = filterCategories)
-        ._filterRecipes(recipes);
+    return (_MainScreenState().._filterCategories = filterCategories)._filterRecipes(recipes);
   }
 }
 
@@ -137,21 +136,14 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   /// Filters and sorts the given list of recipes according to the current filter and sort options.
   List<Recipe> _filterRecipes(List<Recipe> recipes) {
     recipes = recipes
-        .where(
-          (element) =>
-              element.title.toLowerCase().contains(_searchText.toLowerCase()),
-        )
+        .where((element) => element.title.toLowerCase().contains(_searchText.toLowerCase()))
         .toList(growable: false);
 
     for (final filter in _filterCategories) {
       recipes = recipes.where(filter.matches).toList(growable: false);
     }
 
-    recipes.sort(
-      (a, b) =>
-          (_selectedSort.ascending ? 1 : -1) *
-          _selectedSort.category.compare(a, b),
-    );
+    recipes.sort((a, b) => (_selectedSort.ascending ? 1 : -1) * _selectedSort.category.compare(a, b));
     return recipes;
   }
 }

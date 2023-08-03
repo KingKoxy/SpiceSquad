@@ -5,17 +5,18 @@ import "package:spice_squad/models/difficulty.dart";
 /// A dialog that lets the user pick a [Difficulty].
 class DifficultyPickerDialog extends StatefulWidget {
   /// The initial value of the dialog.
-  final Difficulty initialValue;
+  final Difficulty _initialValue;
 
   /// The callback that is called when the user selects a value.
-  final ValueChanged<Difficulty> onChanged;
+  final ValueChanged<Difficulty> _onChanged;
 
   /// Creates a new [DifficultyPickerDialog].
   const DifficultyPickerDialog({
-    required this.initialValue,
-    required this.onChanged,
+    required Difficulty initialValue,
+    required void Function(Difficulty) onChanged,
     super.key,
-  });
+  })  : _onChanged = onChanged,
+        _initialValue = initialValue;
 
   @override
   State<DifficultyPickerDialog> createState() => _DifficultyPickerDialogState();
@@ -27,7 +28,7 @@ class _DifficultyPickerDialogState extends State<DifficultyPickerDialog> {
   @override
   void initState() {
     super.initState();
-    _difficulty = widget.initialValue;
+    _difficulty = widget._initialValue;
   }
 
   @override
@@ -39,7 +40,7 @@ class _DifficultyPickerDialogState extends State<DifficultyPickerDialog> {
         child: Column(
           children: [
             RadioListTile(
-              title: Text(Difficulty.easy.getName(context)),
+              title: Text(Difficulty.easy.getName(AppLocalizations.of(context)!)),
               value: Difficulty.easy,
               groupValue: _difficulty,
               onChanged: (value) {
@@ -49,7 +50,7 @@ class _DifficultyPickerDialogState extends State<DifficultyPickerDialog> {
               },
             ),
             RadioListTile(
-              title: Text(Difficulty.medium.getName(context)),
+              title: Text(Difficulty.medium.getName(AppLocalizations.of(context)!)),
               value: Difficulty.medium,
               groupValue: _difficulty,
               onChanged: (value) {
@@ -59,7 +60,7 @@ class _DifficultyPickerDialogState extends State<DifficultyPickerDialog> {
               },
             ),
             RadioListTile(
-              title: Text(Difficulty.hard.getName(context)),
+              title: Text(Difficulty.hard.getName(AppLocalizations.of(context)!)),
               value: Difficulty.hard,
               groupValue: _difficulty,
               onChanged: (value) {
@@ -80,7 +81,7 @@ class _DifficultyPickerDialogState extends State<DifficultyPickerDialog> {
         ),
         TextButton(
           onPressed: () {
-            widget.onChanged(_difficulty);
+            widget._onChanged(_difficulty);
             Navigator.of(context).pop();
           },
           child: Text(AppLocalizations.of(context)!.saveButtonLabel),

@@ -8,13 +8,13 @@ import "package:spice_squad/providers/repository_providers.dart";
 /// Dialog to pick an icon for an ingredient
 class IconPickerDialog extends ConsumerWidget {
   /// Callback when an icon is picked
-  final ValueChanged<Uint8List> onChanged;
+  final ValueChanged<Uint8List> _onChanged;
 
   /// Creates a new icon picker dialog
   const IconPickerDialog({
-    required this.onChanged,
+    required void Function(Uint8List) onChanged,
     super.key,
-  });
+  }) : _onChanged = onChanged;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -36,7 +36,7 @@ class IconPickerDialog extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(10),
                     onTap: () {
                       Navigator.of(context).pop();
-                      onChanged(icons[index]);
+                      _onChanged(icons[index]);
                     },
                     child: GridTile(
                       child: Padding(

@@ -78,7 +78,7 @@ class PasswordResetScreen extends ConsumerWidget {
                               },
                               autofillHints: const [AutofillHints.email],
                               textInputAction: TextInputAction.done,
-                              validator: (value) => _validateEmail(context, value),
+                              validator: (value) => _validateEmail(AppLocalizations.of(context)!, value),
                               keyboardType: TextInputType.emailAddress,
                               controller: _emailController,
                               decoration: InputDecoration(
@@ -115,19 +115,19 @@ class PasswordResetScreen extends ConsumerWidget {
     );
   }
 
-  String? _validateEmail(BuildContext context, String? email) {
+  String? _validateEmail(AppLocalizations appLocalizations, String? email) {
     const emailRegex = r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
     if (email == null || email.isEmpty) {
-      return AppLocalizations.of(context)!.emailEmptyError;
+      return appLocalizations.emailEmptyError;
     }
     if (!RegExp(emailRegex).hasMatch(email)) {
-      return AppLocalizations.of(context)!.emailInvalidError;
+      return appLocalizations.emailInvalidError;
     }
     return null;
   }
 
-  _resetPassword(BuildContext context, UserService userService) {
-    userService.resetPassword(_emailController.text).whenComplete(
+  Future<void> _resetPassword(BuildContext context, UserService userService) {
+    return userService.resetPassword(_emailController.text).whenComplete(
           () => showDialog<void>(
             context: context,
             barrierDismissible: true,

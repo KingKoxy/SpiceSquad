@@ -5,13 +5,15 @@ import "package:spice_squad/widgets/ingredient_list_item.dart";
 /// A list of ingredients.
 class IngredientList extends StatelessWidget {
   /// The ingredients to display.
-  final List<Ingredient> ingredients;
+  final List<Ingredient> _ingredients;
 
   /// The factor by which the amount of the ingredients is multiplied.
-  final double amountFactor;
+  final double _amountFactor;
 
   /// Creates a new ingredient list.
-  const IngredientList({required this.ingredients, required this.amountFactor, super.key});
+  const IngredientList({required List<Ingredient> ingredients, required double amountFactor, super.key})
+      : _amountFactor = amountFactor,
+        _ingredients = ingredients;
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +24,11 @@ class IngredientList extends StatelessWidget {
         padding: const EdgeInsets.all(0),
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
-        itemCount: ingredients.length,
+        itemCount: _ingredients.length,
         itemBuilder: (context, index) {
           return IngredientListItem(
-            ingredient: ingredients[index],
-            amountFactor: amountFactor,
+            ingredient: _ingredients[index],
+            amountFactor: _amountFactor,
           );
         },
       ),

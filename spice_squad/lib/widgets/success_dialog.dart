@@ -4,19 +4,21 @@ import "package:flutter_gen/gen_l10n/app_localizations.dart";
 /// A dialog that displays a success message.
 class SuccessDialog extends StatelessWidget {
   /// The title of the dialog.
-  final String title;
+  final String _title;
 
   /// The message to display.
-  final String message;
+  final String _message;
 
   /// Creates a [SuccessDialog].
-  const SuccessDialog({required this.title, required this.message, super.key});
+  const SuccessDialog({required String title, required String message, super.key})
+      : _message = message,
+        _title = title;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(title),
-      content: Text(message),
+      title: Text(_title),
+      content: Text(_message),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),

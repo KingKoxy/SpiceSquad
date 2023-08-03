@@ -15,10 +15,10 @@ class QRCodeScreen extends StatelessWidget {
   static const routeName = "/qr-code";
 
   /// The group to display the QR-Code for
-  final Group group;
+  final Group _group;
 
   /// Creates a new QR-Code screen
-  const QRCodeScreen({required this.group, super.key});
+  const QRCodeScreen({required Group group, super.key}) : _group = group;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class QRCodeScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      group.name,
+                      _group.name,
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                     Text(
@@ -52,7 +52,7 @@ class QRCodeScreen extends StatelessWidget {
                       width: 200,
                       height: 200,
                       child: QrImageView(
-                        data: group.groupCode,
+                        data: _group.groupCode,
                         backgroundColor: Colors.white,
                         eyeStyle: const QrEyeStyle(eyeShape: QrEyeShape.square, color: Colors.black),
                         dataModuleStyle:
