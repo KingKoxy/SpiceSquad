@@ -3,24 +3,27 @@
 
 @contentType = application/json
 
-@idToken = eyJhbGciOiJSUzI1NiIsImtpZCI6IjE0ZWI4YTNiNjgzN2Y2MTU4ZWViNjA3NmU2YThjNDI4YTVmNjJhN2IiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vc3BpY2VzcXVhZC1mZDMyYSIsImF1ZCI6InNwaWNlc3F1YWQtZmQzMmEiLCJhdXRoX3RpbWUiOjE2ODk4NjMwNTMsInVzZXJfaWQiOiJVakdjaXduVnBEYU1hODNyRExTdnZNdWczQkYyIiwic3ViIjoiVWpHY2l3blZwRGFNYTgzckRMU3Z2TXVnM0JGMiIsImlhdCI6MTY4OTg2MzA1MywiZXhwIjoxNjg5ODY2NjUzLCJlbWFpbCI6ImVycm9yY29kZTQ5MjIwMDJAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImVycm9yY29kZTQ5MjIwMDJAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.FSKGvrnD28NUuP5WsDBkfoMG4XlWO6zCTbp3dFX8WGwC1DfVENWx-cnjJM0pdt50MtqgYQXvEV2tBVUhr9TDz8tBpskoj6AnYLR6z4avxCCmlWwSSyh09P_q2WhZuXaCTaVCpSPmqzWATIJwFZA73iP4tG9dEzuG9G-eurEIi_10EP94hRaZQc6hK3hTmNKMh0D77biQMIExJ3sSGRgzEdjC7rS0_EgoyO08LdBxsUDt4eU4TbyEo-lm-fgCuG2CSdo5wmqghm1UMfuEt3qIsUX4q3LvbVdwUVhe0AwkljI-lLwCjfR-1QucOCBGLMKERiixb1UborgV6k0yKu89UQ
+@idToken = eyJhbGciOiJSUzI1NiIsImtpZCI6IjYyM2YzNmM4MTZlZTNkZWQ2YzU0NTkyZTM4ZGFlZjcyZjE1YTBmMTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vc3BpY2VzcXVhZC1mZDMyYSIsImF1ZCI6InNwaWNlc3F1YWQtZmQzMmEiLCJhdXRoX3RpbWUiOjE2OTA5ODIxMjIsInVzZXJfaWQiOiJVakdjaXduVnBEYU1hODNyRExTdnZNdWczQkYyIiwic3ViIjoiVWpHY2l3blZwRGFNYTgzckRMU3Z2TXVnM0JGMiIsImlhdCI6MTY5MDk4MjEyMiwiZXhwIjoxNjkwOTg1NzIyLCJlbWFpbCI6Imx1a2FzQG1haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImx1a2FzQG1haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.iGFpGZmKjt-cpAjTuCnUgNosr7IhcFAIt_H8fq3KSan9s4ogqElKJ8aquE-ROaqHS_0U6dXlx3W8FcqabZifQ8uANBVR3LkNGHEPdXmWXUNRpCESkeecrCUpWJHZJpgCqP-Qe4FIubQWNTIUX3gzmeVNfHoWhB9WOUNewdTIajr0xU_ziy6LNRKx6KC5u_ZC42sYTjMYtuArg-bcfVZYb4Mm4j-f7aOyWL_9vWTujNR9ScP-6ekmNkGUBa6Z-UBMSzRnO44tpHUG0Xh4NSi35G2RipsjR-4sjuUP9qzRSDY8226IhXWWesvFQimXibDXTuwcje9VngXhGfE6xeeQAQ
 @refreshToken = APZUo0T6Dg4KQ9EVKoaWMurkqEXGJUKQjxELr6ic5YXBYAYCJersIB9ELHXua5gYk7VLwMKk2xGS5vzqIt_towp6l6dh2rmb_fa57hvcoQ4hHHO7kWwiHJpPXgOWXb54GVDd4BV1ngblKjncP9K1qrb23V5vabDCrHbfPyGP_07iyOT_P8kM7Az0eT7iyhv_wTLhPY3x7oKUNzXthiHKob1V4i4ePycjPw
 
 @userName = "Lukas"
-@email = "errorcode4922002@gmail.com"
+@email = "lukas@mail.com"
 @password = "arischeZuppe"
 
 @groupId = c9c2e14a-1152-4579-9520-d1ac94803451
 
 @userId = 8LnkOTK2uqavsL22CqvfywzyFlm2
 
-@recipeId = 634f186a-ef4e-4553-8b22-38acf250d543
+@recipeId = e2a1eef9-8786-4e30-921b-3906cd3a32dc
 
-@icon = [137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82, 0, 0, 0, 30, 0, 0, 0, 30, 8, 6, 0, 0, 0, 59, 48, 174, 162, 0, 0, 0, 9, 112, 72, 89, 115, 0, 0, 11, 19, 0, 0, 11, 19, 1, 0, 154, 156, 24, 0, 0, 1, 229, 73, 68, 65, 84, 120, 156, 237, 150, 59, 72, 92, 65, 20, 134, 191, 136, 68, 68, 86, 124, 16, 193, 222, 77, 74, 43, 87, 144, 88, 137, 16, 8, 104, 103, 147, 222, 194, 66, 83, 37, 16, 136, 141, 79, 216, 42, 4, 21, 172, 4, 13, 219, 164, 16, 27, 11, 65, 212, 77, 162, 176, 154, 4, 177, 88, 176, 72, 17, 92, 52, 209, 4, 65, 87, 13, 187, 174, 140, 156, 133, 97, 185, 119, 103, 230, 114, 37, 141, 63, 76, 113, 231, 252, 103, 62, 102, 230, 220, 153, 129, 123, 133, 167, 42, 96, 11, 88, 15, 113, 204, 91, 213, 2, 51, 64, 6, 72, 122, 196, 95, 1, 5, 96, 39, 108, 240, 178, 12, 172, 218, 134, 71, 124, 91, 98, 61, 65, 6, 95, 5, 190, 3, 177, 146, 254, 46, 25, 244, 20, 104, 209, 250, 31, 1, 239, 129, 31, 192, 181, 120, 166, 129, 38, 87, 112, 86, 146, 115, 192, 60, 208, 9, 68, 100, 105, 85, 255, 176, 230, 173, 3, 246, 181, 85, 208, 91, 26, 104, 116, 1, 31, 248, 12, 164, 218, 47, 160, 94, 243, 78, 150, 241, 22, 128, 113, 23, 240, 39, 109, 102, 113, 153, 209, 165, 236, 95, 107, 137, 247, 171, 1, 156, 118, 1, 199, 37, 105, 206, 194, 251, 215, 0, 206, 186, 128, 219, 37, 233, 204, 176, 71, 17, 3, 180, 0, 156, 227, 168, 207, 146, 56, 81, 198, 19, 181, 0, 31, 186, 130, 99, 82, 213, 255, 60, 246, 181, 168, 110, 11, 112, 138, 0, 122, 39, 201, 31, 125, 226, 47, 45, 192, 31, 130, 128, 155, 37, 249, 216, 39, 190, 96, 1, 30, 48, 65, 170, 229, 128, 80, 167, 214, 3, 233, 107, 144, 228, 63, 30, 254, 10, 224, 200, 2, 28, 53, 129, 223, 104, 230, 33, 169, 216, 81, 249, 94, 241, 240, 63, 181, 128, 110, 218, 92, 101, 197, 255, 49, 95, 146, 156, 151, 51, 186, 84, 9, 11, 240, 11, 19, 248, 185, 86, 129, 207, 128, 61, 224, 2, 248, 6, 244, 122, 248, 159, 72, 181, 151, 131, 238, 202, 118, 148, 213, 172, 152, 213, 114, 155, 164, 246, 127, 205, 0, 205, 201, 33, 100, 84, 74, 18, 58, 204, 86, 222, 90, 44, 241, 107, 44, 245, 91, 18, 76, 247, 103, 191, 5, 116, 10, 7, 93, 73, 210, 67, 159, 120, 165, 92, 28, 197, 75, 222, 171, 169, 216, 152, 246, 43, 90, 41, 233, 243, 140, 81, 106, 3, 190, 24, 102, 153, 9, 250, 212, 241, 210, 99, 96]
+@icon = "http://localhost:3000/ingredient/icons/57497797-e16b-42f3-895b-2ef4d02ee6bc"
 
 @targetId = bfaeb2e4-97e3-407b-a843-c92e4bdd2e2d
 
 @user = { "uid": "cZFFIjSOp6UQzlqS1fEMUdS2iEs2", "email": "test@mail.com", "emailVerified": false, "isAnonymous": false, "providerData": [{ "providerId": "password", "uid": "test@mail.com", "displayName": null, "email": "test@mail.com", "phoneNumber": null, "photoURL": null }], "stsTokenManager": { "refreshToken": "AMf-vBwzX217Dn7TRF4PbV8gTE1-jNDgPCVyfX8kI-1kWkbiMvl2lHokGYOKiuZFPncE_5zktJYUzzLAVHLJKDu7R-Zagc2vWbGMXqFAv0uYu7Q_hHMcvYOxjJ4zBe3OcUEcI7yLGKn9EcoGD5OpF10mZl796y4UO-W35-QlYQjWnGKiHI8xOgPORJx4luBexhMKgJLzPOmJ_Q5Y6Y_xHfu7s-MMQPHjjg", "accessToken": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImE1MWJiNGJkMWQwYzYxNDc2ZWIxYjcwYzNhNDdjMzE2ZDVmODkzMmIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vc3BpY2VzcXVhZC1mZDMyYSIsImF1ZCI6InNwaWNlc3F1YWQtZmQzMmEiLCJhdXRoX3RpbWUiOjE2ODg4ODg3MTcsInVzZXJfaWQiOiJjWkZGSWpTT3A2VVF6bHFTMWZFTVVkUzJpRXMyIiwic3ViIjoiY1pGRklqU09wNlVRemxxUzFmRU1VZFMyaUVzMiIsImlhdCI6MTY4ODg4ODcxNywiZXhwIjoxNjg4ODkyMzE3LCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidGVzdEBtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.WBvQQR2sZPRNfmZRofyE1FN-pQ3G5rJs6gvqrFjEN5RDSZ6kmTWZ0Gv7CocHyQ4fPBWQHRbIu0hJEhWPtsJupTrbPDw5LgAIKiOT2PRKoKbYh7xa1M85WCbfw73r_pGlWQH1kNir4Qkk8y2c69YeuhZRNEncCaL7hLPVIDnXwSegXcpUkKrBBTFisQmL8DN3hfhv7JsheGJ_7R2feCheIJsZGFiaZW_hYfQr49snr5XJrURGG-9cOVQiDksiGqQfSsQI-mg5LGpQbTDbensIrt2tLuJpJ8D2L3aA6CLIaBDvplD-WtrGiRiCUNuDkLuoDAiX-dKTPh7SGD8plPRXug", "expirationTime": 1688892317215 }, "createdAt": "1688742793416", "lastLoginAt": "1688888717186", "apiKey": "AIzaSyACtGR4SgCI8V3iFv2Kc4iUJWhciE4mkgg", "appName": "[DEFAULT]" }
+
+@image = [137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,0,30,0,0,0,30,8,6,0,0,0,59,48,174,162,0,0,0,9,112,72,89,115,0,0,11,19,0,0,11,19,1,0,154,156,24,0,0,1,192,73,68,65,84,120,156,237,215,77,136,78,81,28,199,241,15,106,26,175,133,97,74,44,200,198,194,206,98,178,165,89,136,44,200,218,66,73,217,80,51,108,173,173,101,35,154,36,165,200,74,148,145,119,73,179,20,25,25,98,74,72,228,165,89,161,83,127,117,123,122,238,203,115,159,123,203,194,183,206,230,127,126,247,124,59,231,57,247,60,231,210,28,243,177,7,119,240,70,195,220,198,20,214,118,212,23,224,50,126,71,187,217,180,248,65,12,252,28,43,50,245,195,25,105,106,187,155,22,47,197,195,24,252,76,166,62,149,145,94,192,60,45,176,14,95,241,11,91,162,54,139,39,56,216,150,244,47,39,98,118,167,181,196,46,92,194,59,204,97,6,87,48,30,226,167,24,141,218,171,200,188,141,103,118,214,17,174,198,173,142,13,83,167,165,221,189,170,170,52,5,95,246,48,248,51,236,199,26,12,96,3,142,224,125,244,79,99,168,138,248,70,15,210,115,24,44,152,192,227,200,93,43,147,142,246,184,148,101,12,227,99,100,183,23,5,207,55,44,78,28,143,236,68,81,104,166,5,241,166,200,166,93,159,203,92,11,226,193,200,166,177,115,249,94,83,60,30,75,218,141,161,200,166,177,115,121,81,83,252,26,31,114,198,220,28,217,148,201,229,98,31,226,244,222,118,99,111,100,175,23,137,247,213,20,143,197,114,119,99,34,178,71,139,196,75,240,163,193,205,181,16,159,34,187,177,44,124,178,65,241,88,228,30,85,200,90,137,47,13,136,135,51,179,221,166,34,7,250,20,167,59,216,100,213,115,186,206,14,207,147,158,141,254,217,152,121,79,44,198,189,18,241,162,142,103,150,227,106,244,125,195,86,53,89,134,251,37,255,197,59,226,116,58,20,55,149,84,255,140,17,125,50,128,83,113,185,171,242,187,223,197,122,13,50,18,167,207,207,184,85,28,139,243,121,58,222,130,201,248,146,72,95,20,255,249,119,248,3,207,121,44,182,221,7,154,231,0,0,0,0,73,69,78,68,174,66,96,130]
+
 
 // API-Requests
 
@@ -129,8 +132,8 @@ Content-Type: {{contentType}}
 Authorization: {{idToken}}
 
     {
-        "title": "Recipe from lr.",
-        "image": null,
+        "title": "Recipe from lr. 2",
+        "image": {{image}},
         "duration": 30,
         "difficulty": "EASY",
         "ingredients": [
@@ -175,19 +178,19 @@ Authorization: {{idToken}}
 
     {
         "title": "Updated recipe from lr.",
-        "image": null,
+        "image": {{image}},
         "duration": 30,
         "difficulty": "EASY",
         "ingredients": [
             {
-                "id": "04455220-3105-4fb5-9302-2f35952fe464",
+                "id": "b733b82a-b1f7-4011-9179-bcab1a6959b9",
                 "name": "Tee",
                 "icon": {{icon}},
                 "amount": 2,
                 "unit": "pieces"
             },
             {
-                "id": "fc75aa8b-0995-4694-a815-986fa2f69872",
+                "id": "d83da118-79ab-4df8-a124-70e1a46400c4",
                 "name": "Tee 2",
                 "icon": {{icon}},
                 "amount": 1,
@@ -248,6 +251,7 @@ PATCH {{host}}/admin/banUser/{{groupId}}/{{targetId}}
 Content-Type: {{contentType}}
 Authorization: {{idToken}}
 
+
 // UserController
 ### Delete user
 DELETE {{host}}/user
@@ -262,10 +266,9 @@ Authorization: {{idToken}}
     {
         "userName": "Lukas",
         "email": "lukas@mail.com",
-        "profileImage": "d"
+        "profileImage": {{image}}
     }
 
-//Not woring yet
 ### Get user by token
 GET {{host}}/user
 Content-Type: {{contentType}}
@@ -280,5 +283,10 @@ Authorization: {{idToken}}
 
 ### Get ingredient icons
 GET {{host}}/ingredient/icons
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+
+### Get ingredient icon by id
+GET {{host}}/ingredient/icons/57497797-e16b-42f3-895b-2ef4d02ee6bc
 Content-Type: {{contentType}}
 Authorization: {{idToken}}
