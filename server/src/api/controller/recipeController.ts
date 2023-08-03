@@ -439,6 +439,35 @@ export default class RecipeController extends AbstractController {
     })
     const recipeTitle = recipe.title;
 
+    //check if entry is older than 24 hours
+    const reportedRecipe = await this.prisma.reportedRecipe.findFirst({
+      where: {
+        recipe_id: req.params.recipeId,
+        user_id: req.userId,
+      },
+    })
+    if (reportedRecipe && reportedRecipe.reported_at > new Date(Date.now() - 24 * 60 * 60 * 1000)) {
+      res.status(429).json({
+        message: 'Recipe already reported within the last 24 hours',
+      })
+      return;
+    } else if (reportedRecipe) {
+      await this.prisma.reportedRecipe.delete({
+        where: {
+          id: reportedRecipe.id,
+        },
+      })
+    }
+
+    //create entry in reported recipe table
+    await this.prisma.reportedRecipe.create({
+      data: {
+        recipe_id: req.params.recipeId,
+        user_id: req.userId,
+      },
+    })
+
+
     //get all admins where the recipe is in their group
     const recipeAuthorId = (
       await this.prisma.recipe.findUnique({

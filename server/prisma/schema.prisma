@@ -88,20 +88,22 @@ model Recipe {
   favorite         Favorite[]
   ingredient       Ingredient[]
   Author           User             @relation(fields: [author_id], references: [id], onDelete: Cascade)
+  ReportedRecipe   ReportedRecipe[]
 }
 
 model User {
-  id               String        @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  user_name        String        @db.VarChar(32)
-  email            String        @db.VarChar(64)
+  id               String           @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_name        String           @db.VarChar(32)
+  email            String           @db.VarChar(64)
   profile_image    Bytes?
-  firebase_user_id String        @unique @db.VarChar
+  firebase_user_id String           @unique @db.VarChar
   created_groups   Int
   Admin            Admin[]
   bannedUser       BannedUser[]
   favorites        Favorite[]
   groupMember      GroupMember[]
   recipes          Recipe[]
+  ReportedRecipe   ReportedRecipe[]
 }
 
 model Group {
@@ -112,6 +114,15 @@ model Group {
   bannedUser     BannedUser[]
   censoredRecipe CensoredRecipe[]
   groupMember    GroupMember[]
+}
+
+model ReportedRecipe {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id     String    @db.Uuid
+  recipe_id   String    @db.Uuid
+  reported_at DateTime? @default(now()) @db.Timestamp(6)
+  Recipe      Recipe    @relation(fields: [recipe_id], references: [id], onDelete: Cascade)
+  User        User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
 
 enum Difficulty {
