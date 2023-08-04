@@ -1,6 +1,8 @@
 import express = require('express')
 import AbstractController from './abstractController'
 import AuthenticatedRequest from '../middleware/authenticatedRequest'
+import ImageController from './imageController'
+import IngredientController from './ingredientController'
 
 export default class GroupController extends AbstractController {
   /**
@@ -10,8 +12,13 @@ export default class GroupController extends AbstractController {
 
   private maximumUserGroups = 64
 
+  imageController: ImageController
+  ingredientController: IngredientController
+
   constructor() {
     super()
+    this.imageController = new ImageController()
+    this.ingredientController = new IngredientController()
   }
 
   /**
@@ -347,6 +354,10 @@ export default class GroupController extends AbstractController {
       },
     })
 
+    users.forEach((user) => {
+      user.profile_image = user.profile_image?this.imageController.fromIdtoURL(user.profile_image):""
+    })
+
     const recipes = await this.getGroupRecipes(members)
     const censoredRecipes = await this.getGroupCensoredRecipes(groupId)
     let recipesWithCensor = await Promise.all(
@@ -364,9 +375,15 @@ export default class GroupController extends AbstractController {
             recipe_id: recipe.id,
           },
         })
+
+        ingredients.forEach((ingredient) => {
+          ingredient.icon = this.ingredientController.fromIdtoURL(ingredient.icon)
+        })
+
         return {
           recipe: {
             ...recipe,
+            image: recipe.image?this.imageController.fromIdtoURL(recipe.image):"",
             author: users.find((user) => user.id === recipe.author_id),
             ingredients: ingredients,
           },
