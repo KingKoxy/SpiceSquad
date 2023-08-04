@@ -72,7 +72,7 @@ export default class ImageController extends AbstractController {
    * @throws Error if the image id is invalid
    */
   public async imageGet(
-    req: AuthenticatedRequest<{ imageId: string }, never, never>,
+    req: express.Request<{ imageId: string }, never, never>,
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {

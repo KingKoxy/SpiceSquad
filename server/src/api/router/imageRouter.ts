@@ -14,7 +14,6 @@ export default class ImageRouter extends AbstractRouter {
   protected setupRoutes(): void {
     this.router.get(
       '/:imageId',
-      this.checkAuth,
       this.schemaValidator.checkSchema(imageGetSchema),
       this.Controller.imageGet.bind(this.Controller)
     )
