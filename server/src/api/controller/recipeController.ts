@@ -349,6 +349,8 @@ export default class RecipeController extends AbstractController {
             }
             delete recipeWithDate.author_id
 
+            author.profile_image = author.profile_image? this.ImageController.fromIdtoURL(author.profile_image) : ''
+
             return {
               ...recipeWithDate,
               author: author,
@@ -434,6 +436,8 @@ export default class RecipeController extends AbstractController {
               image: recipe.image ? this.ImageController.fromIdtoURL(recipe.image) : '',
             }
             delete recipeWithDate.author_id
+
+            author.profile_image = author.profile_image? this.ImageController.fromIdtoURL(author.profile_image) : ''
 
             return {
               ...recipeWithDate,
