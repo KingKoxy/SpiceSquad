@@ -3,14 +3,19 @@ import AbstractController from './abstractController'
 import AuthenticatedRequest from '../middleware/authenticatedRequest'
 
 export default class ImageController extends AbstractController {
+  
+   /**
+   * @description This constructor calls the constructor of the abstractController.
+   * @constructor
+   */
   constructor() {
     super()
   }
 
   /**
-   * @description
-   * @param image
-   * @returns
+   * @description This function creates a new image.
+   * @param image Uint8Array containing the image
+   * @returns Promise<void>
    */
   public async createImage(image: Uint8Array): Promise<string> {
     const newImage = await this.prisma.image.create({
@@ -21,14 +26,31 @@ export default class ImageController extends AbstractController {
     return newImage.id
   }
 
+  /**
+   * @description This function converts an image id to an image url.
+   * @param imageId string containing the image id
+   * @returns string containing the image url
+   */
   public fromIdtoURL(imageId: string): string {
     return process.env.URL + '/image/' + imageId
   }
 
+  /**
+   * @description This function converts an image url to an image id.
+   * @param imageURL string containing the image url
+   * @returns string containing the image
+   * @throws Error if the image url is invalid
+   */
   public fromURLtoId(imageURL: string): string {
     return imageURL.split('/').pop()
   }
 
+  /**
+   * @description This function deletes an image.
+   * @param imageId string containing the image id
+   * @returns Promise<void>
+   * @throws Error if the image id is invalid
+   */
   public async deleteImage(imageId: string): Promise<void> {
     await this.prisma.image
       .delete({
@@ -41,6 +63,14 @@ export default class ImageController extends AbstractController {
       })
   }
 
+  /**
+   * @description This function gets an image.
+   * @param req: AuthenticatedRequest<{ imageId: string }, never, never> containing the image id
+   * @param res: express.Response containing the image
+   * @param next: express.NextFunction (for error handling)
+   * @returns Promise<void>
+   * @throws Error if the image id is invalid
+   */
   public async imageGet(
     req: AuthenticatedRequest<{ imageId: string }, never, never>,
     res: express.Response,
@@ -65,6 +95,14 @@ export default class ImageController extends AbstractController {
     }
   }
 
+  /**
+   * @description This function creates a new image.
+   * @param req: AuthenticatedRequest<never, never, { image: Uint8Array }> containing the image
+   * @param res: express.Response containing the image id
+   * @param next: express.NextFunction (for error handling)
+   * @returns Promise<void>
+   * @throws Error if the image id is invalid
+   */
   public async imagePost(
     req: AuthenticatedRequest<never, never, { image: Uint8Array }>,
     res: express.Response,
@@ -80,6 +118,14 @@ export default class ImageController extends AbstractController {
     }
   }
 
+  /**
+   * @description This function updates an image.
+   * @param req: AuthenticatedRequest<{ imageId: string }, never, { image: Uint8Array }> containing the image id and the image
+   * @param res: express.Response containing the image id
+   * @param next: express.NextFunction (for error handling)
+   * @returns Promise<void>
+   * @throws Error if the image id is invalid
+   */
   public async imagePatch(
     req: AuthenticatedRequest<{ imageId: string }, never, { image: Uint8Array }>,
     res: express.Response,

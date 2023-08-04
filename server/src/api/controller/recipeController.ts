@@ -424,6 +424,10 @@ export default class RecipeController extends AbstractController {
               },
             })
 
+            ingredients.forEach((ingredient) => {
+              ingredient.icon = this.ingredientController.fromIdtoURL(ingredient.icon)
+            })
+
             const recipeWithDate = {
               ...recipe,
               upload_date: recipe.upload_date.toISOString(),
