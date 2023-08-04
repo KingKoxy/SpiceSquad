@@ -27,7 +27,7 @@ class ProfileImagePicker extends StatelessWidget {
         decoration: _profileImageUrl.isNotEmpty
             ? BoxDecoration(
                 borderRadius: BorderRadius.circular(20000),
-                image: DecorationImage(image: CachedNetworkImageProvider(_profileImageUrl), fit: BoxFit.cover),
+                image: DecorationImage(image: NetworkImage(_profileImageUrl), fit: BoxFit.cover),
               )
             : BoxDecoration(borderRadius: BorderRadius.circular(20000), color: Theme.of(context).cardColor),
         child: InkWell(

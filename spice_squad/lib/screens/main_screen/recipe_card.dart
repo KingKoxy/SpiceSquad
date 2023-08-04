@@ -75,7 +75,7 @@ class RecipeCard extends ConsumerWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: _recipe.imageUrl.isNotEmpty
-                              ? CachedNetworkImage(imageUrl: _recipe.imageUrl, fit: BoxFit.cover)
+                              ? Image.network(_recipe.imageUrl, fit: BoxFit.cover)
                               : const Center(
                                   child: ImageIcon(SpiceSquadIconImages.image, size: 32),
                                 ),

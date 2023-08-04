@@ -92,7 +92,7 @@ class MemberList extends ConsumerWidget {
                           height: 50,
                           child: member.profileImageUrl.isNotEmpty
                               ? CircleAvatar(
-                                  foregroundImage: CachedNetworkImageProvider(member.profileImageUrl),
+                                  foregroundImage: NetworkImage(member.profileImageUrl),
                                 )
                               : CircleAvatar(
                                   backgroundColor: Theme.of(context).colorScheme.onSurfaceVariant,
