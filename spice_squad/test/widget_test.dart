@@ -51,7 +51,7 @@ final Recipe recipeOne = Recipe(
 final Recipe recipeTwo = Recipe(
   id: "2",
   title: "vegan halal kosher medium",
-  author: User(id: "id", userName: "userName"),
+  author: User(id: "id", userName: "user"),
   uploadDate: DateTime.now(),
   duration: 2,
   difficulty: Difficulty.medium,
