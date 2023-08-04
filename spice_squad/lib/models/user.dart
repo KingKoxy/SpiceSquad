@@ -10,7 +10,7 @@ class User {
   final String userName;
 
   /// Creates a new [User] with the given [id], [userName], and [profileImageUrl]
-  User({required this.id, required this.userName, required this.profileImageUrl});
+  User({required this.id, required this.userName, this.profileImageUrl = ""});
 
   /// Creates a new [User] from the given [map] object by extracting the values
   ///
@@ -18,9 +18,7 @@ class User {
   /// ```dart
   /// {
   ///   "id": String,
-  ///   "profile_image": null | {
-  ///     "data": Uint8List
-  ///   },
+  ///   "profile_image": String,
   ///   "user_name": String
   /// }
   /// ```

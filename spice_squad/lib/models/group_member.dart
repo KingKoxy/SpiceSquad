@@ -19,9 +19,7 @@ class GroupMember extends User {
   /// ```dart
   /// {
   ///   "id": String,
-  ///   "profile_image": null | {
-  ///     "data": Uint8List
-  ///   },
+  ///   "profile_image": String,
   ///   "user_name": String,
   ///   "is_admin": bool
   /// }

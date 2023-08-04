@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import 'package:http/http.dart' as http;
+import "package:http/http.dart" as http;
 import "package:spice_squad/icons.dart";
 import "package:spice_squad/models/difficulty.dart";
 import "package:spice_squad/models/ingredient.dart";
@@ -119,7 +119,7 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                           ),
                           TextButton(
                             onPressed: () => _saveRecipe(
-                                ref.read(recipeServiceProvider.notifier), ref.read(imageRepositoryProvider)),
+                                ref.read(recipeServiceProvider.notifier), ref.read(imageRepositoryProvider),),
                             child: Text(AppLocalizations.of(context)!.saveButtonLabel),
                           ),
                         ],

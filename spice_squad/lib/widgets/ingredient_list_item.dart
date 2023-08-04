@@ -1,4 +1,5 @@
 import "package:auto_size_text/auto_size_text.dart";
+import "package:cached_network_image/cached_network_image.dart";
 import "package:flutter/material.dart";
 import "package:spice_squad/models/ingredient.dart";
 import "package:spice_squad/widgets/remove_button.dart";
@@ -31,8 +32,8 @@ class IngredientListItem extends StatelessWidget {
             child: Row(
               children: [
                 ImageIcon(
-                  MemoryImage(
-                    _ingredient.icon,
+                  CachedNetworkImageProvider(
+                    _ingredient.iconUrl,
                   ),
                   size: 30,
                 ),

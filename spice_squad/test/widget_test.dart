@@ -32,7 +32,7 @@ final Recipe recipeOne = Recipe(
     Ingredient(
       id: "id",
       name: "name",
-      iconId: "iconId",
+      iconUrl: "iconId",
       amount: 10.0,
       unit: "g",
     )

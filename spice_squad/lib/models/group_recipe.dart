@@ -38,17 +38,13 @@ class GroupRecipe extends Recipe {
   ///     "title": String,
   ///     "author": {
   ///       "id": String,
-  ///       "profile_image": null | {
-  ///           "data": Uint8List
-  ///       },
+  ///       "profile_image": String,
   ///       "user_name": String
   ///     },
   ///     "upload_date": DateTime,
   ///     "duration": int,
   ///     "difficulty": String,
-  ///     "image": null | {
-  ///       "data": Uint8List
-  ///     },
+  ///     "image": String,
   ///     "is_vegetarian": bool,
   ///     "is_vegan": bool,
   ///     "is_gluten_free": bool,
@@ -58,9 +54,7 @@ class GroupRecipe extends Recipe {
   ///       {
   ///         "id": String,
   ///         "name": String,
-  ///         "icon": {
-  ///           "data": Uint8List
-  ///         },
+  ///         "icon": String,
   ///         "amount": double,
   ///         "unit": String
   ///       }

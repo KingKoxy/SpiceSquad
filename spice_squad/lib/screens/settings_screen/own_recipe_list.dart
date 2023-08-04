@@ -84,7 +84,7 @@ class OwnRecipeList extends ConsumerWidget {
                                     ),
                                     EyeButton(
                                       open: !recipe.isPrivate,
-                                      onToggle: () => _hideRecipe(ref.read(recipeServiceProvider.notifier), recipe),
+                                      onToggle: () => _togglePrivate(ref.read(recipeServiceProvider.notifier), recipe),
                                     ),
                                     RemoveButton(
                                       onPressed: () =>
@@ -118,7 +118,7 @@ class OwnRecipeList extends ConsumerWidget {
     );
   }
 
-  void _hideRecipe(RecipeService recipeService, Recipe recipe) {
+  void _togglePrivate(RecipeService recipeService, Recipe recipe) {
     recipeService.togglePrivate(recipe);
   }
 

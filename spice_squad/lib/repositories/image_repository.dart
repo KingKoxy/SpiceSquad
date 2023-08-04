@@ -20,6 +20,8 @@ class ImageRepository {
 
   /// Sends request to upload the given [image] and returns the url of the uploaded image
   ///
+  /// Returns the imageUrl or an empty string if the image is null.
+  ///
   /// Throws [HttpStatusException] if the request fails
   Future<String> uploadImage(Uint8List? image) async {
     if (image == null) return "";
@@ -38,6 +40,8 @@ class ImageRepository {
   }
 
   /// Sends request to update the image with the given [imageUrl] to the given [image]
+  ///
+  /// Returns the imageUrl or an empty string if the image is null.
   ///
   /// Throws [HttpStatusException] if the request fails
   Future<String> updateImage(String imageUrl, Uint8List? image) async {

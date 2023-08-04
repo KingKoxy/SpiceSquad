@@ -1,3 +1,4 @@
+import "package:cached_network_image/cached_network_image.dart";
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -91,7 +92,7 @@ class MemberList extends ConsumerWidget {
                           height: 50,
                           child: member.profileImageUrl.isNotEmpty
                               ? CircleAvatar(
-                                  foregroundImage: NetworkImage(member.profileImageUrl),
+                                  foregroundImage: CachedNetworkImageProvider(member.profileImageUrl),
                                 )
                               : CircleAvatar(
                                   backgroundColor: Theme.of(context).colorScheme.onSurfaceVariant,

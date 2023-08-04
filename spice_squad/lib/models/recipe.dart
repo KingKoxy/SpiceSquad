@@ -38,7 +38,7 @@ class Recipe extends RecipeCreationData {
     required super.defaultPortionAmount,
     required this.isFavourite,
     required this.isPrivate,
-    required super.imageUrl,
+    super.imageUrl = "",
   });
 
   /// Creates a new [Recipe] from the given [map] object by extracting the values
@@ -50,17 +50,13 @@ class Recipe extends RecipeCreationData {
   ///   "title": String,
   ///   "author": {
   ///     "id": String,
-  ///     "profile_image": null | {
-  ///       "data": Uint8List
-  ///     },
+  ///     "profile_image": String
   ///     "user_name": String
   ///   },
   ///   "upload_date": DateTime,
   ///   "duration": int,
   ///   "difficulty": String,
-  ///   "image": null | {
-  ///     "data": Uint8List
-  ///   },
+  ///   "image": String,
   ///   "is_vegetarian": bool,
   ///   "is_vegan": bool,
   ///   "is_gluten_free": bool,
@@ -70,9 +66,7 @@ class Recipe extends RecipeCreationData {
   ///     {
   ///       "id": String,
   ///       "name": String,
-  ///       "icon": {
-  ///         "data": Uint8List
-  ///       },
+  ///       "icon": String,
   ///       "amount": double,
   ///       "unit": String
   ///     }
@@ -91,7 +85,7 @@ class Recipe extends RecipeCreationData {
       uploadDate: DateTime.parse(map["upload_date"]),
       duration: map["duration"],
       difficulty: Difficulty.fromString(map["difficulty"]),
-      imageUrl: map["image"],
+      imageUrl: map["image"]??"",
       isVegetarian: map["is_vegetarian"],
       isVegan: map["is_vegan"],
       isGlutenFree: map["is_gluten_free"],
