@@ -74,7 +74,7 @@ export default class RecipeController extends AbstractController {
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
-    const imageId = req.body.image ? await this.ImageController.createImage(req.body.image) : null
+    const imageId = req.body.image ? await this.ImageController.fromURLtoId(req.body.image) : null
     await this.prisma.recipe
       .create({
         data: {
