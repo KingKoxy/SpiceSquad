@@ -7,6 +7,9 @@ export default class GroupController extends AbstractController {
    * @description This constructor calls the constructor of the abstractController.
    * @constructor
    */
+
+  private maximumUserGroups = 64
+
   constructor() {
     super()
   }
@@ -26,7 +29,7 @@ export default class GroupController extends AbstractController {
     const user = await this.prisma.user.findFirst({
       where: { id: req.userId },
     })
-    if (user.created_groups >= parseInt(process.env.MAXIMUM_USER_GROUPS)) {
+    if (user.created_groups >= this.maximumUserGroups) {
       req.statusCode = 409
       next(new Error('User has already created maximum number of groups'))
     }

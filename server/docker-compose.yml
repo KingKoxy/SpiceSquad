@@ -8,14 +8,14 @@ services:
         environment:
             - WATCHTOWER_POLL_INTERVAL=1800
             - WATCHTOWER_CLEANUP=true
+            - WATCHTOWER_INCLUDE_RESTARTING_true
+            - WATCHTOWER_INCLUDE_STOPPED=true
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
-            - /root/.docker/config.json:/config.json
+            - ./watchtower.json:/config.json
 
   spicesquad-backend:
     image: ghcr.io/kingkoxy/spicesquad:spicesquad-backend
-    volumes:
-      - ./src:/home/node/app/src
     container_name: spicesquad-backend
     restart: unless-stopped
     env_file: .env
@@ -23,7 +23,6 @@ services:
       NODE_ENV: $NODE_ENV
       SV_PORT: $SV_PORT
       DATABASE_URL: $DATABASE_URL
-      MAXIMUM_USER_GROUPS: $MAXIMUM_USER_GROUPS
       FIREBASE_API_KEY: $FIREBASE_API_KEY
       FIREBASE_AUTH_DOMAIN: $FIREBASE_AUTH_DOMAIN
       FIREBASE_PROJECT_ID: $FIREBASE_PROJECT_ID
@@ -67,7 +66,6 @@ services:
       - "443:443"
     volumes:
       - $PWD/Caddyfile:/etc/caddy/Caddyfile
-      - $PWD/site:/srv
       - caddy_data:/data
       - caddy_config:/config
 
