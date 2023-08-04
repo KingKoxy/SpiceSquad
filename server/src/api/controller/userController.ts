@@ -19,9 +19,9 @@ export default class UserController extends AbstractController {
   }
 
   /**
-   * @description This function deletes a user.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @description This function deletes the user making the request.
+   * @param req AuthenticatedRequest<never,never,never> 
+   * @param res Express response containing message
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
@@ -76,8 +76,8 @@ export default class UserController extends AbstractController {
 
   /**
    * @description This function updates a user in the database.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @param req AuthenticatedRequest<never,never,{name:string,email:string,profileImage:Uint8Array|null}>
+   * @param res Express response containing message
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
@@ -134,8 +134,8 @@ export default class UserController extends AbstractController {
 
   /**
    * @description This function gets the current user by their token.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @param req AuthenticatedRequest<never,never,never>
+   * @param res Express response containing the user
    * @returns Promise<void>
    */
   public async userGet(req: AuthenticatedRequest, res: express.Response): Promise<void> {

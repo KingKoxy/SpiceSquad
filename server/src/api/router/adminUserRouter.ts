@@ -59,7 +59,7 @@ export default class AdminUserRouter extends AbstractRouter {
 
   /**
    * @function setupRoutes
-   * @description This function sets up the routes for the admin user.
+   * @description This function sets up the routes for the router.
    * @memberof AdminUserRouter
    * @returns {void}
    * @protected

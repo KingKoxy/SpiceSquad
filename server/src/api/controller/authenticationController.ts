@@ -15,9 +15,9 @@ export default class AuthenticationController extends AbstractController {
   }
 
   /**
-   * @description This function logs a user in.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @description This function logs a user in via firebase. Throws error if credentials are invalid.
+   * @param req Express Request<never,never,{email:string,password:string}> with the body containing the email and password of the user
+   * @param res Express response containing the refresh token and id token
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
@@ -41,9 +41,9 @@ export default class AuthenticationController extends AbstractController {
   }
 
   /**
-   * @description This function registers a user.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @description This function registers a user. Throws error if email is already in use.
+   * @param req Express Request<never,never,{email:string,password:string,userName:string}> with the body containing the email, password and username of the user
+   * @param res Express response containing the refresh token and id token
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
@@ -86,8 +86,8 @@ export default class AuthenticationController extends AbstractController {
 
   /**
    * @description This function resets a user's password.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @param req Express request handler, with the body containing an email as a string
+   * @param res Express response containing message
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
@@ -108,9 +108,9 @@ export default class AuthenticationController extends AbstractController {
   }
 
   /**
-   * @description This function refreshes a user's token.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @description This function refreshes a user's token. Throws error if refresh token is invalid.
+   * @param req Express Request<never,never,{refreshToken:string}> with the body containing the refresh token of the user
+   * @param res Express response containing the id token
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
@@ -119,7 +119,7 @@ export default class AuthenticationController extends AbstractController {
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
-    console.log('refresh token', req.body.refreshToken)
+
     const url = process.env.FIREBASE_URL
     const formData = {
       grant_type: 'refresh_token',
@@ -151,8 +151,8 @@ export default class AuthenticationController extends AbstractController {
 
   /**
    * @description This function logs out a user.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @param req AuthenticatedRequest<never,never,never>
+   * @param res Express response containing message
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */

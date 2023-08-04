@@ -83,6 +83,7 @@ model Recipe {
   favorite         Favorite[]
   ingredient       Ingredient[]
   Author           User             @relation(fields: [author_id], references: [id], onDelete: Cascade)
+  ReportedRecipe   ReportedRecipe[]
 }
 
 model User {
@@ -97,6 +98,7 @@ model User {
   favorites        Favorite[]
   groupMember      GroupMember[]
   recipes          Recipe[]
+  ReportedRecipe   ReportedRecipe[]
 }
 
 model Group {
@@ -109,16 +111,13 @@ model Group {
   groupMember    GroupMember[]
 }
 
-model Image {
-  id    String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  image Bytes
-}
-
-model IngredientIcon {
-  id         String       @id @unique(map: "IngredientIcon_code_key") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  icon       Bytes
-  name       String?      @db.VarChar(32)
-  Ingredient Ingredient[]
+model ReportedRecipe {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id     String    @db.Uuid
+  recipe_id   String    @db.Uuid
+  reported_at DateTime? @default(now()) @db.Timestamp(6)
+  Recipe      Recipe    @relation(fields: [recipe_id], references: [id], onDelete: Cascade)
+  User        User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
 
 enum Difficulty {

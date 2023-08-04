@@ -7,14 +7,17 @@ export default class GroupController extends AbstractController {
    * @description This constructor calls the constructor of the abstractController.
    * @constructor
    */
+
+  private maximumUserGroups = 64
+
   constructor() {
     super()
   }
 
   /**
-   * @description This function creates a new group.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @description This function creates a new group with the creator as its only admin and member.
+   * @param req AuthenticatedRequest<never,never,{groupName:string}> handler with the body containing the name of the group
+   * @param res Express response containing message
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
@@ -26,7 +29,7 @@ export default class GroupController extends AbstractController {
     const user = await this.prisma.user.findFirst({
       where: { id: req.userId },
     })
-    if (user.created_groups >= parseInt(process.env.MAXIMUM_USER_GROUPS)) {
+    if (user.created_groups >= this.maximumUserGroups) {
       req.statusCode = 409
       next(new Error('User has already created maximum number of groups'))
     }
@@ -66,8 +69,8 @@ export default class GroupController extends AbstractController {
 
   /**
    * @description This function deletes a group by id.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @param req AuthenticatedRequest<{groupId:string},never,never> handler with the head containing the id of the group to be deleted
+   * @param res Express response containg message
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
@@ -101,8 +104,8 @@ export default class GroupController extends AbstractController {
 
   /**
    * @description This function updates a group by id.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @param req AuthenticatedRequest<{groupId:string},never,{name:string}> with the head containing the id of the group to be updated and the body containing the new name of the group
+   * @param res Express response containing message
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
@@ -136,9 +139,9 @@ export default class GroupController extends AbstractController {
   }
 
   /**
-   * @description This function allows to join a group by group code.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @description This function allows to join a group by group code. Throws error if user is banned from group or already in group.
+   * @param req Express Request<never,never,{groupCode:string}> handler with the body containing the group code
+   * @param res Express response containing message
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
@@ -154,6 +157,8 @@ export default class GroupController extends AbstractController {
     next: express.NextFunction
   ): Promise<void> {
     try {
+
+      console.log(req.body.groupCode)
 
       const groupId =
         await this.prisma.group.findFirst({
@@ -216,8 +221,8 @@ export default class GroupController extends AbstractController {
 
   /**
    * @description This function allows to leave a group by group id.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @param req Express Request<{groupId:string},never,never> handler with the head containing the group id
+   * @param res Express response containing message
    * @returns Promise<void>
    */
   public async groupLeave(
@@ -237,17 +242,26 @@ export default class GroupController extends AbstractController {
         user_id: req.userId
       },
     })
-    console.log(groupMembers.length)
+
     if (groupMembers.length == 0) {
       req.statusCode = 409
       next(new Error('Could not left group. User is not in this group'))
       
       
-    } else if (groupMembers.length == 1) {
-      this.prisma.groupMember
-        .delete({
+    } else if (groupMembers.length > 0) {
+      await this.prisma.admin
+        .deleteMany({
           where: {
-            id: req.params.groupId,
+            group_id: req.params.groupId,
+            user_id: req.userId
+          },
+        })
+
+      await (this.prisma.groupMember
+        .deleteMany({
+          where: {
+            group_id: req.params.groupId,
+            user_id: req.userId
           },
         })
         .then(async () => {
@@ -260,66 +274,19 @@ export default class GroupController extends AbstractController {
               message: 'User left group.',
           })
           }
-          return
+          
         })
         .catch((error) => {
           next((error.message = 'Group could not be left'))
-        })
+        }))
     }
-
-    // Check if user is admin
-    const usersInAdminTable = await this.prisma.admin.findMany({
-      where: {
-        user_id: req.userId,
-        group_id: req.params.groupId,
-      },
-    })
-    if (usersInAdminTable.length == 1) {
-      const existingUsers = await this.prisma.groupMember.findMany({
-        where: {
-          group_id: req.params.groupId,
-        },
-        orderBy: {
-          joined_at: 'asc',
-        },
-      })
-      this.prisma.admin
-        .create({
-          data: {
-            user_id: existingUsers[0].user_id,
-            group_id: req.params.groupId,
-          },
-        })
-        .then(() => {
-          console.log('Longest group member is now admin.')
-        })
-        .catch((error) => {
-          req.statusCode = 500
-          next((error.message = 'Group could not be left'))
-        })
-    }
-
-    this.prisma.groupMember
-      .deleteMany({
-        where: {
-          user_id: req.userId,
-          group_id: req.params.groupId,
-        },
-      })
-      .then(() => {
-        res.status(200).json({
-          message: 'Left group!',
-        })
-      })
-      .catch((error) => {
-        next(error)
-      })
+  
   }
 
   /**
    * @description This function gets all groups for a user.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @param req AuthenticatedRequest<never,never,never>
+   * @param res Express response containing all groups the user is in, including all members. Includes all recipes if user is admin, otherwise only recipes that are not censored
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
@@ -343,7 +310,7 @@ export default class GroupController extends AbstractController {
   /**
    * @description This function gets a group by id.
    * @param req Express request handler
-   * @param res Express response handler
+   * @param res Express response containing group including all members. Includes all recipes if user is admin, otherwise only recipes that are not censored
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
@@ -485,12 +452,18 @@ export default class GroupController extends AbstractController {
     return groupCensoredRecipes.map((groupCensoredRecipe) => groupCensoredRecipe.recipe_id)
   }
 
+  /**
+   * @description Checks if a group is empty and deletes it if it is. Otherwise checks if group has admins, if not makes the oldest member admin.
+   * @param groupId The id of the group
+   * @returns Promise<boolean>
+   */
   public async checkGroupEmpty(groupId : string) : Promise<boolean> {
     const groupMembers = await this.prisma.groupMember.findMany({
       where: {
         group_id: groupId,
       },
     })
+
     if (groupMembers.length == 0) {
       this.prisma.group
         .delete({
@@ -507,11 +480,12 @@ export default class GroupController extends AbstractController {
         })
     }
 
-    await this.prisma.admin.findMany({
+    await (this.prisma.admin.findMany({
       where: {
         group_id: groupId,
       },
     }).then((admins) => {
+      console.log(admins)
       if (admins.length == 0) {
         this.prisma.groupMember.findMany({
           where: {
@@ -536,7 +510,7 @@ export default class GroupController extends AbstractController {
             })
         })
       }
-    })
+    }))
 
     return false
   }

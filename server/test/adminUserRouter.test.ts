@@ -1,89 +1,110 @@
-import chai, { expect } from 'chai';
-import express from 'express';
-import sinon from 'sinon';
+import chai, { expect, use } from 'chai';
+import Server from '../src/server';
 import chaiHttp from 'chai-http'; // Import chai-http module
-import AdminUserRouter from '../src/api/router/adminUserRouter';
-import AdminUserController from '../src/api/controller/adminUserController';
-import CheckAdminStatus from '../src/api/middleware/checkAdminStatus';
-import checkGroupMemberState from '../src/api/middleware/checkGroupMemberState';
+
 
 chai.use(chaiHttp); // Extend chai with chai-http plugin
 
+require('./groupRouter.test')
+
 describe('AdminUserRouter', () => {
-  let app;
-  let adminUserRouter;
+    let server = new Server()	;
 
-  beforeEach(() => {
-    app = express();
-    adminUserRouter = new AdminUserRouter();
-  });
+    var idTokenAd : string;
+    var idTokenUser : string;
+    var idTokenUser2 : string;
+    var admingroupId : string;
 
-  it('should setup routes with correct middleware and controller methods', () => {
-    // Mock the middleware functions
-    const checkAuthMock = (req, res, next) => next();
-    const checkAdminMock = (req, res, next) => next();
-    const checkMemberStateTargetMock = (req, res, next) => next();
+    var userId  : string;
 
-    // Replace the actual middleware with the mock functions
-    adminUserRouter.checkAuth = checkAuthMock;
-    adminUserRouter.checkAdminStatus = new CheckAdminStatus();
-    adminUserRouter.checkAdmin = checkAdminMock;
-    adminUserRouter.checkGroupMemberState = new checkGroupMemberState();
-    adminUserRouter.checkMemberStateTarget = checkMemberStateTargetMock;
+    var res;
 
-    // Use the routes
-    adminUserRouter.setupRoutes();
+    it('should successfully kick user', async () => {
+        res = await chai.request('http://localhost:3000')
+            .post('/auth/login')
+            .set('content-type', 'application/json')
+            .send({
+                email: 'indila@mailbox.org',
+                password: '12345678'
+            })
+        
+        idTokenAd = res.body.idToken;
 
-    // Mock the controller methods
-    const adminUserController = new AdminUserController();
-    const makeAdminSpy = sinon.spy(adminUserController, 'makeAdmin');
-    const removeAdminSpy = sinon.spy(adminUserController, 'removeAdmin');
-    const kickUserSpy = sinon.spy(adminUserController, 'kickUser');
-    const banUserSpy = sinon.spy(adminUserController, 'banUser');
-    const setCensoredSpy = sinon.spy(adminUserController, 'setCensored');
+        expect(res).status(200);
 
-    // Replace the actual controller with the mock controller
-    adminUserRouter.Controller = adminUserController;
+        res = await chai.request('http://localhost:3000')
+            .post('/auth/login')
+            .set('content-type', 'application/json')
+            .send({
+                email: 'heinrich.holdensack@mailbox.org',
+                password: '12345678'
+            })
 
-    // Test the routes
-    app.use('/admin', adminUserRouter.getRouter());
+        idTokenUser = res.body.idToken;
 
-    return Promise.all([
-      chai
-        .request(app)
-        .patch('/admin/makeAdmin/groupId/targetId')
-        .then((res) => {
-          expect(res).to.have.status(200);
-          expect(makeAdminSpy.calledOnce).to.be.true;
-        }),
-      chai
-        .request(app)
-        .patch('/admin/removeAdmin/groupId/targetId')
-        .then((res) => {
-          expect(res).to.have.status(200);
-          expect(removeAdminSpy.calledOnce).to.be.true;
-        }),
-      chai
-        .request(app)
-        .patch('/admin/kickUser/groupId/targetId')
-        .then((res) => {
-          expect(res).to.have.status(200);
-          expect(kickUserSpy.calledOnce).to.be.true;
-        }),
-      chai
-        .request(app)
-        .patch('/admin/banUser/groupId/targetId')
-        .then((res) => {
-          expect(res).to.have.status(200);
-          expect(banUserSpy.calledOnce).to.be.true;
-        }),
-      chai
-        .request(app)
-        .patch('/admin/setCensored/groupId/recipeId')
-        .then((res) => {
-          expect(res).to.have.status(200);
-          expect(setCensoredSpy.calledOnce).to.be.true;
-        }),
-    ]);
-  });
+        expect(res).status(200);
+
+        res = await chai.request('http://localhost:3000')
+            .post('/auth/login')
+            .set('content-type', 'application/json')
+            .send({
+                email: 'blubberbernd@mailbox.org',
+                password: '12345678'
+            })
+                
+        idTokenUser2 = res.body.idToken;
+        
+        expect(res).status(200);
+
+        res = await chai.request('http://localhost:3000')
+            .get('/group')
+            .set('content-type', 'application/json')
+            .set("Authorization", idTokenUser2)
+
+        expect(res).status(200);
+        admingroupId = res.body.groups[0].id;
+        var code = res.body.groups[0].group_code;
+
+        console.log("code: " + code);
+        console.log("idTokenUser: " + idTokenUser);
+
+        res = await chai.request('http://localhost:3000')
+            .patch('group/join')
+            .set('content-type', 'application/json')
+            .set("Authorization", idTokenUser)
+            .send({
+                groupCode: code
+            })
+
+        expect(res).status(200);
+
+        console.log("1")
+        var res = await chai.request('http://localhost:3000')
+            .get('/user')
+            .set('content-type', 'application/json')
+            .set("Authorization", idTokenUser)
+        
+        expect(res).status(200);
+
+        userId = res.body.id;
+
+        console.log("2")
+        res = await chai.request('http://localhost:3000')
+            .patch('admin/kickUser/' + admingroupId + '/' + userId)
+            .set('content-type', 'application/json')
+            .set("Authorization", idTokenAd)
+
+        expect(res).status(200);
+
+        res = await chai.request('http://localhost:3000')
+            .get('/group/' + admingroupId)
+            .set('content-type', 'application/json')
+            .set("Authorization", idTokenAd)
+
+        expect(res).status(200);
+
+        expect(res.body.group.members.length).to.equal(2);
+
+    });
+
 });

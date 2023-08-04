@@ -10,11 +10,12 @@
 @email = "lukas@mail.com"
 @password = "arischeZuppe"
 
-@groupId = c9c2e14a-1152-4579-9520-d1ac94803451
+@groupId = 7fefcaf6-7505-4da9-aa72-17ad77378a4d
 
 @userId = 8LnkOTK2uqavsL22CqvfywzyFlm2
 
 @recipeId = f7b1bdcf-affc-490c-a5d6-74791096b82f
+
 
 @icon = "http://localhost:3000/ingredient/icons/57497797-e16b-42f3-895b-2ef4d02ee6bc"
 
@@ -81,7 +82,7 @@ Content-Type: {{contentType}}
 Authorization: {{idToken}}
 
     {
-        "groupName": "THC Backstube"
+        "groupName": "Gruppenkuscheln"
     }
 
 ### Delete Group
@@ -104,7 +105,7 @@ Content-Type: {{contentType}}
 Authorization: {{idToken}}
 
     {
-        "groupCode": "UGPQMY2K"
+        "groupCode": "DITSKQ1H"
     }
 
 
@@ -132,25 +133,25 @@ Content-Type: {{contentType}}
 Authorization: {{idToken}}
 
     {
-        "title": "Nice Recipe",
-        "image": "",
+        "title": "Yo-gurt",
+        "image": null,
         "duration": 30,
         "difficulty": "EASY",
         "ingredients": [
             {
-                "name": "Tomato Recipe from lr.",
+                "name": "Ingwer",
                 "icon": {{icon}},
                 "amount": 2,
-                "unit": "pieces"
+                "unit": "kg"
             },
             {
-                "name": "Salt Recipe from lr.",
+                "name": "Knoblauch",
                 "icon": {{icon}},
                 "amount": 1,
                 "unit": "teaspoon"
             }
         ],
-        "instructions": "Lorem impsum dolor sit amet",
+        "instructions": ".",
         "isVegetarian": true,
         "isVegan": false,
         "isGlutenFree": false,
@@ -224,6 +225,10 @@ Authorization: {{idToken}}
     "isFavorite": true
 }
 
+### Report recipe
+POST {{host}}/recipe/report/{{recipeId}}
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
 
 // AdminController
 ### Make Admin
@@ -240,6 +245,10 @@ Authorization: {{idToken}}
 PATCH {{host}}/admin/setCensored/{{groupId}}/{{recipeId}}
 Content-Type: application/json
 Authorization: {{idToken}}
+
+    {
+        "censored": true
+    }
 
 ### Kick user
 PATCH {{host}}/admin/kickUser/{{groupId}}/{{targetId}}

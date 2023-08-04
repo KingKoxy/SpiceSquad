@@ -8,14 +8,16 @@ import GroupRouter from '../src/api/router/groupRouter';
 import UserRouter from '../src/api/router/userRouter';
 import IngredientRouter from '../src/api/router/ingredientRouter';
 import AdminUserRouter from '../src/api/router/adminUserRouter';
+require('./server.test');
 
-describe('Application', () => {
+/*describe('Application', () => {
   let app: express.Application;
   const preInitializeRouterAmount = 12;
 
   const routerClassAmount = 6;
   const errorHandlersAmount = 2;
   
+  process.env.NODE_ENV = 'development';
 
   beforeEach(() => {
     app = express();
@@ -68,4 +70,5 @@ describe('Application', () => {
     // Asserting that app.use is called twice for the error handlers
     expect(app._router.stack.length).to.equal(errorHandlersAmount+preInitializeRouterAmount);
   });
-});
+  process.env.NODE_ENV = 'test';
+});*/

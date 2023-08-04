@@ -18,7 +18,7 @@ export default class ReportMailBuilder extends abstractMailBuilder {
 
   /**
    * @constructor
-   * @description This constructor initializes the report mail.
+   * @description This constructor initializes the report mail builder.
    * @memberof ReportMailBuilder
    * @instance
    * @returns {void}

@@ -12,9 +12,9 @@ export default class AdminUserController extends AbstractController {
   }
 
   /**
-   * @description This function adds a user to a group.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @description This function adds a user to a group, unless the user is already in the group or banned.
+   * @param req Express Request<{string,string},never,never> handler with the head containing id of the user to be made admin and the id of the group
+   * @param res Express response containing message
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
@@ -65,9 +65,9 @@ export default class AdminUserController extends AbstractController {
   }
 
   /**
-   * @description This function removes an admin from a group.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @description This function removes an admin from a group. If the user is not an admin, it throws an error.
+   * @param req AuthenticatedRequest<{string,string},never,never> handler with the head containing id of the user to be removed as admin and the id of the group
+   * @param res Express response containing message
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
@@ -112,9 +112,9 @@ export default class AdminUserController extends AbstractController {
   }
 
   /**
-   * @description This function kicks a user from a group.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @description This function kicks a user from a group and removes their admin entry if existing. 
+   * @param req AuthenticatedRequest<{string,string},never,never> handler with the head containing id of the user to be kicked and the id of the group
+   * @param res Express response containing message
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
@@ -153,9 +153,9 @@ export default class AdminUserController extends AbstractController {
   } 
 
   /**
-   * @description This function bans a user from a group.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @description This function bans a user from a group. If the user is already banned, it throws an error.
+   * @param req Request<{string,string},never,never> handler with the head containing id of the user to be banned and the id of the group
+   * @param res Express response containing message
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
@@ -207,9 +207,9 @@ export default class AdminUserController extends AbstractController {
   }
 
   /**
-   * @description This function sets a recipe to censored.
-   * @param req Express request handler
-   * @param res Express response handler
+   * @description This function sets the censored flag of a recipe.
+   * @param req AuthenticatedRequest<{string,string},never,{censored:boolean}> handler with the head containing id of the recipe and the id of the group and the body containing the censored flag
+   * @param res Express response containing message
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */

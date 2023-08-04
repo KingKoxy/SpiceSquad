@@ -23,7 +23,7 @@ export default class CheckAuthorization extends AbstractMiddleware {
   }
 
   /**
-   * @description This function checks the authorization of a request.
+   * @description This function checks the authorization of a request and adds the user's id to the request's body.
    * @memberof CheckAuthorization
    * @param {AuthenticatedRequest} req - The request.
    * @param {express.Response} res - The response.

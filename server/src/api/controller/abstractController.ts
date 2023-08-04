@@ -5,7 +5,7 @@ import firebaseAuth = require('firebase/auth')
 
 abstract class AbstractController {
   /**
-   * @description This variable contains the firebase config.
+   * @description This variable contains the firebase configuration.
    * @private
    */
   private firebaseConfig = {
@@ -18,20 +18,20 @@ abstract class AbstractController {
   }
 
   /**
-   * @description This variable contains the firebase admin config.
+   * @description This variable contains the firebase admin configuration.
    * @protected
    */
   protected firebaseAdmin = firebaseAdmin
 
   /**
-   * @description This variable contains the firebase auth config.
+   * @description This variable contains the firebase auth configuration.
    * @protected
    * @type {firebaseAuth.Auth}
    */
   protected firebaseAuth = firebaseAuth
 
   /**
-   * @description This variable contains the firebase auth instance.
+   * @description This variable contains the firebase auth instance, which is needed for firebase user management.
    * @protected
    * @type {firebaseAuth.Auth}
    */

@@ -29,7 +29,7 @@ export default class GroupRouter extends AbstractRouter {
 
   /**
    * @constructor
-   * @description This constructor initializes the admin user router.
+   * @description This constructor initializes the group router.
    * @memberof GroupRouter
    * @instance
    * @returns {void}
@@ -47,7 +47,7 @@ export default class GroupRouter extends AbstractRouter {
 
   /**
    * @function setupRoutes
-   * @description This function sets up the routes for the admin user.
+   * @description This function sets up the routes for the routerr.
    * @memberof GroupRouter
    * @instance
    * @returns {void}
@@ -63,8 +63,8 @@ export default class GroupRouter extends AbstractRouter {
     this.router.delete(
       '/:groupId',
       this.checkAuth,
-      this.schemaValidator.checkSchema(GroupDeleteSchema),
       this.checkAdmin,
+      this.schemaValidator.checkSchema(GroupDeleteSchema),
       this.Controller.groupDelete.bind(this.Controller)
     )
     this.router.patch(
