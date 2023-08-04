@@ -71,6 +71,7 @@ class _IconPickerWidgetState extends ConsumerState<IconPickerWidget> {
       context: context,
       builder: (context) {
         return IconPickerDialog(
+          iconUrls: _iconUrls,
           onChanged: (value) {
             setState(() {
               _selectedIcon = value;

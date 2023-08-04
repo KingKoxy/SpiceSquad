@@ -85,7 +85,7 @@ class Recipe extends RecipeCreationData {
       uploadDate: DateTime.parse(map["upload_date"]),
       duration: map["duration"],
       difficulty: Difficulty.fromString(map["difficulty"]),
-      imageUrl: map["image"]??"",
+      imageUrl: map["image"] ?? "",
       isVegetarian: map["is_vegetarian"],
       isVegan: map["is_vegan"],
       isGlutenFree: map["is_gluten_free"],
