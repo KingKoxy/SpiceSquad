@@ -14,7 +14,7 @@ import "package:spice_squad/widgets/remove_button.dart";
 
 /// Widget for displaying a list of recipes the user has created
 class OwnRecipeList extends ConsumerWidget {
-
+  
   /// User id of the current user
   final String _userId;
 
