@@ -3,6 +3,8 @@ import AbstractController from './abstractController'
 import MailSender from '../../mailer/mailSender'
 import ReportMailBuilder from '../../mailer/mailBuilder/reportMailBuilder'
 import AuthenticatedRequest from '../middleware/authenticatedRequest'
+import ImageController from './imageController'
+import IngredientController from './ingredientController'
 
 export default class RecipeController extends AbstractController {
   /**
@@ -12,6 +14,7 @@ export default class RecipeController extends AbstractController {
    */
   private mailSender: MailSender
 
+  private ingredientController: IngredientController
   /**
    * @description This variable contains the reportMailBuilder.
    * @private
@@ -19,14 +22,24 @@ export default class RecipeController extends AbstractController {
    */
   private reportMailBuilder: ReportMailBuilder
 
+
+  /**
+   * @description This variable contains the imageController.
+   * @private
+   * @type {imageController}
+   */
+  private ImageController;
+
   /**
    * @description This constructor calls the constructor of the abstractController.
    * @constructor
    */
   constructor() {
     super()
+    this.ImageController = new ImageController()
     this.mailSender = new MailSender()
     this.reportMailBuilder = new ReportMailBuilder()
+    this.ingredientController = new IngredientController()
   }
 
   /**
@@ -41,7 +54,7 @@ export default class RecipeController extends AbstractController {
       never,
       {
         title: string
-        image: Uint8Array | null
+        image: string
         duration: number
         difficulty: 'EASY' | 'MEDIUM' | 'HARD'
         instructions: string
@@ -53,7 +66,7 @@ export default class RecipeController extends AbstractController {
         defaultPortionAmount: number
         ingredients: {
           name: string
-          icon: Uint8Array
+          icon: string
           amount: number
           unit: string
         }[]
@@ -62,12 +75,13 @@ export default class RecipeController extends AbstractController {
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
+    const imageId = req.body.image? await this.ImageController.createImage(req.body.image):null;
     await this.prisma.recipe
       .create({
         data: {
           title: req.body.title,
           author_id: req.userId,
-          image: req.body.image? Buffer.from(req.body.image):null,
+          image: imageId,
           duration: req.body.duration,
           difficulty: req.body.difficulty,
           instructions: req.body.instructions,
@@ -83,7 +97,7 @@ export default class RecipeController extends AbstractController {
               data: req.body.ingredients.map((ingredient) => {
                 return {
                   name: ingredient.name,
-                  icon: Buffer.from(ingredient.icon),
+                  icon: this.ingredientController.fromURLtoId(ingredient.icon),
                   amount: ingredient.amount,
                   unit: ingredient.unit,
                 }
@@ -123,35 +137,43 @@ export default class RecipeController extends AbstractController {
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
-    await this.prisma.recipe
+    const recipe = await this.prisma.recipe
       .findUnique({
         where: {
           id: req.params.recipeId,
         },
       })
-      .then((result) => {
-        if (result.author_id !== req.userId) {
-          res.status(401).json({
-            message: 'Not your recipe',
+      if (!recipe) {
+          res.status(409).json({
+            message: 'Recipe not found',
           })
-        } else {
-          this.prisma.recipe
-            .delete({
-              where: {
-                id: req.params.recipeId,
-              },
-            })
-            .then(() => {
-              res.status(200).json({
-                message: 'Recipe deleted successfully!',
-              })
-            })
         }
-      })
-      .catch((error) => {
-        res.statusCode = 409
-        next(error)
-      })
+      else if (recipe.author_id !== req.userId) {
+        res.status(401).json({
+          message: 'Not your recipe',
+        })
+      } else {
+        const deletedRecipe = await this.prisma.recipe
+          .delete({
+            where: {
+               id: req.params.recipeId,
+            },
+          })
+        console.log(deletedRecipe.image)
+          this.prisma.image.delete({
+            where: {
+              id: deletedRecipe.image,
+            },
+          }).then(() => {
+            res.status(200).json({
+               message: 'Recipe deleted successfully!',
+            })
+          })
+          .catch((error) => {
+          res.statusCode = 409
+           next(error)
+       })
+      }
   }
 
   /**
@@ -167,7 +189,7 @@ export default class RecipeController extends AbstractController {
       never,
       {
         title: string;
-        image: Uint8Array | null;
+        image: string;
         duration: number;
         difficulty: 'EASY' | 'MEDIUM' | 'HARD';
         instructions: string;
@@ -181,7 +203,7 @@ export default class RecipeController extends AbstractController {
         ingredients: {
           id: string;
           name: string;
-          icon: Uint8Array;
+          icon: string;
           amount: number;
           unit: string;
         }[];
@@ -206,12 +228,17 @@ export default class RecipeController extends AbstractController {
       return;
     }
 
+    if (req.body.image == '' && recipe.image != null) {
+      this.ImageController.deleteImage(recipe.image);
+    }
+    const imageId = req.body.image?this.ImageController.fromURLtoId(req.body.image):null
+
     req.body.ingredients.forEach((ingredient) => {
       if (!ingredient.id || ingredient.id === "") {
         ingredient.id = "00000000-0000-0000-0000-000000000000";
       }
     });
-  
+
     try {
       // Update recipe information
       await this.prisma.recipe.update({
@@ -220,7 +247,7 @@ export default class RecipeController extends AbstractController {
         },
         data: {
           title: req.body.title,
-          image: req.body.image ? Buffer.from(req.body.image) : null,
+          image: imageId,
           duration: req.body.duration,
           difficulty: req.body.difficulty,
           instructions: req.body.instructions,
@@ -236,13 +263,13 @@ export default class RecipeController extends AbstractController {
               where: { id: ingredient.id },
               update: {
                 name: ingredient.name,
-                icon: Buffer.from(ingredient.icon),
+                icon: this.ingredientController.fromURLtoId(ingredient.icon),
                 amount: ingredient.amount,
                 unit: ingredient.unit,
               },
               create: {
                 name: ingredient.name,
-                icon: Buffer.from(ingredient.icon),
+                icon: this.ingredientController.fromURLtoId(ingredient.icon),
                 amount: ingredient.amount,
                 unit: ingredient.unit,
               },
@@ -253,7 +280,7 @@ export default class RecipeController extends AbstractController {
           ingredient: true,
         },
       });
-  
+
       res.status(200).json({
         message: 'Recipe updated successfully!',
       });
@@ -314,8 +341,12 @@ export default class RecipeController extends AbstractController {
               },
             })
 
+            ingredients.forEach((ingredient) => {
+              ingredient.icon = this.ingredientController.fromIdtoURL(ingredient.icon)
+            })
+
             // Change date format so that that is only the date and not the time
-            const recipeWithDate = {...recipe, upload_date: recipe.upload_date.toISOString()}
+            const recipeWithDate = {...recipe, upload_date: recipe.upload_date.toISOString(), image: recipe.image?this.ImageController.fromIdtoURL(recipe.image):""}
             delete recipeWithDate.author_id
 
             return {
@@ -393,7 +424,7 @@ export default class RecipeController extends AbstractController {
               },
             })
 
-            const recipeWithDate = {...recipe, upload_date: recipe.upload_date.toISOString()}
+            const recipeWithDate = {...recipe, upload_date: recipe.upload_date.toISOString(), image: recipe.image?this.ImageController.fromIdtoURL(recipe.image):""}
             delete recipeWithDate.author_id
             
            return {

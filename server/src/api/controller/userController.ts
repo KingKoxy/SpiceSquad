@@ -2,9 +2,11 @@ import express = require('express')
 import AbstractController from './abstractController'
 import AuthenticatedRequest from '../middleware/authenticatedRequest'
 import GroupController from './groupController'
+import ImageController from './imageController'
 
 export default class UserController extends AbstractController {
   groupController: GroupController;
+  ImageController: ImageController;
 
   /**
    * @description This constructor calls the constructor of the abstractController.
@@ -12,6 +14,7 @@ export default class UserController extends AbstractController {
    */
   constructor() {
     super()
+    this.ImageController = new ImageController()
     this.groupController = new GroupController()
   }
 
@@ -85,13 +88,21 @@ export default class UserController extends AbstractController {
       {
         name: string
         email: string
-        profileImage: Uint8Array | null
+        profileImage: string
       }
     >,
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
     const oldUserData = await this.prisma.user.findUnique({ where: { id: req.userId } })
+    
+    if (req.body.profileImage == '' && oldUserData.profile_image != null) {
+      this.ImageController.deleteImage(oldUserData.profile_image);
+    }
+    const imageId = req.body.profileImage?this.ImageController.fromURLtoId(req.body.profileImage):null
+
+    
+
     const newUserData = await this.prisma.user
       .update({
         where: {
@@ -100,7 +111,7 @@ export default class UserController extends AbstractController {
         data: {
           user_name: req.body.name,
           email: req.body.email,
-          profile_image: req.body.profileImage?Buffer.from(req.body.profileImage): null,
+          profile_image: imageId,
         },
       })
       .catch((error) => {
@@ -129,6 +140,9 @@ export default class UserController extends AbstractController {
    */
   public async userGet(req: AuthenticatedRequest, res: express.Response): Promise<void> {
     const user = await this.prisma.user.findUnique({ where: { id: req.userId } })
-    res.json(user)
+    console.log(user)
+    const userWithImageLink = { ...user, profile_image: this.ImageController.fromIdtoURL(user.profile_image)}
+    
+    res.status(200).json(userWithImageLink)
   }
 }

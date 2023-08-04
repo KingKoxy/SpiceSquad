@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import { userName } from './generalSchema'
 
-const profileImage = Joi.array().allow(null)
+const profileImage = Joi.alternatives(Joi.array().allow(null), Joi.string().allow(""))
 const email = Joi.string().email()
 
 export const userDeleteSchema = Joi.object({}).unknown(true);

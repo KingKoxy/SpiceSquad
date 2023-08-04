@@ -2,7 +2,7 @@ import Joi from 'joi'
 import { userId } from './generalSchema'
 
 const title = Joi.string()
-const image = Joi.array().allow(null)
+const image = Joi.alternatives(Joi.array(), Joi.string().allow(""))
 const duration = Joi.number().positive().max(999)
 const difficulty = Joi.string().valid('EASY', 'MEDIUM', 'HARD')
 const instructions = Joi.string()
@@ -17,7 +17,7 @@ const defaultPortions = Joi.number().max(99).positive()
 const ingredients = Joi.array().items(
   Joi.object({
     name: Joi.string(),
-    icon: Joi.array(),
+    icon: Joi.string().allow(""),
     amount: Joi.number().positive(),
     unit: Joi.string().allow("").max(16),
   }).max(999).unknown(true)
