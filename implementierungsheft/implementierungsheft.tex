@@ -136,7 +136,7 @@ Im Konstruktor kann außerdem ein initialer Text übergeben werden.
 \subsubsection*{\texttt{OrWidget}}
 Das Widget wurde hinzugefügt, um die häufig verwendete Trennlinie, in deren Mitte "oder" steht zu vereinfachen.
 \subsubsection*{\texttt{TagItem}}
-Das Tag Item ist nun ein StatefulWidget, da es die Möglichkeit bieten soll, die Farbe des Tags zu ändern, wenn es aktiviert wurde. 
+Das Tag Item ist nun ein StatefulWidget, da es die Möglichkeit bieten soll, die Farbe des Tags zu ändern, wenn es aktiviert wurde.
 \paragraph*{\texttt{imageData}}
 Dasehemalige Attribut \texttt{icon} wurde so abgeändert, dass es nun einen \texttt{imageProvider} entgegennimmt, der der ein Bild enthält, das als Icon angezeigt wird.
 \paragraph*{\texttt{initialActive}}
@@ -200,7 +200,7 @@ Das Attribut wurde hinzugefügt, um zu speichern, ob die Seite nach der Registri
 Das Attribut wurde hinzugefügt, um die Fehlermeldung für den Gruppencode zu speichern und dynamisch anzuzeigen.
 \paragraph*{\texttt{validateGroupCode(AppLocalizations appLocalizations, String? groupCode)}}
 Die Methode dient dazu, einen Gruppencode zu validieren und gibt eine Fehlermeldung zurück, wenn der Gruppencode ungültig ist. Sie nimmt ein \texttt{AppLocalizations} Objekt entgegen, um die Übersetzungen zu laden, sowie den Gruppencode, der validiert werden soll.
-\paragraph{\texttt{joinGroup(AppLocalizations appLocalizations, GroupService groupService, String groupCode)}}
+\paragraph{\texttt{joinGroup(AppLocalizations appLocalizations, GroupService groupService,\\ String      groupCode)}}
 Es wird nun ein \texttt{AppLocalizations} Objekt übergeben, um die Übersetzungen zu laden. Zudem wird ein \texttt{GroupService} Objekt entgegengenommen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen.
 \subsubsection{PDFRecipeViewPage}
 Die Klasse wurde hinzugefügt, um ein Rezept als PDF anzuzeigen und verschiedene Optionen zum Drucken, etc. zur Verfügung zu stellen. Es wird ein Rezept übergeben, das angezeigt werden soll.
@@ -211,7 +211,7 @@ Die Klasse ist nun ein ConsumerStatefulWidget, da sie auf die Methoden des \text
 Es wird nur noch die Id der Gruppe übergeben statt der gesamten Gruppe. Die Gruppe wird nun im Widget selbst geladen. Dadurch kann die Gruppe auch neu geladen werden, wenn sich die Daten ändern.
 \paragraph{\texttt{getGroupFuture}}
 Das Attribut wurde hinzugefügt, um die Gruppe zu laden. Wird es neu gesetzt, wird die Gruppe neu geladen. Es fungiert als Zustand des Widgets.
-\paragraph{\texttt{renameGroup(BuildContext context, GroupService groupService, String oldName, String groupId)}}
+\paragraph{\texttt{renameGroup(BuildContext context, GroupService groupService, String oldName,\\ String groupId)}}
 Die Methode nimmt nun den \texttt{BuildContext} entgegen, um die Übersetzungen zu laden und ein Pop-Up-Fenster zu öffnen, in dem der neue Name eingegebe wird. Den Initialwert dieses Dialogs bildet der alte Name. Zudem wird ein \texttt{GroupService} Objekt entgegengenommen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen. Die Id der Gruppe wird ebenfalls übergeben.
 \paragraph{\texttt{leaveGroup(BuildContext context, GroupService groupService, String groupId)}}
 Die Methode nimmt nun den \texttt{BuildContext} entgegen, um die Übersetzungen zu laden und ein Pop-Up-Fenster zu öffnen, in dem der Nutzer bestätigen muss, dass er die Gruppe verlassen möchte. Zudem wird ein \texttt{GroupService} Objekt entgegengenommen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen. Die Id der Gruppe wird ebenfalls übergeben.
@@ -244,7 +244,7 @@ Der Callback der nach dem Durchführen einer Aktion ausgeführt wird, um die Dat
 \paragraph{\texttt{makeAdmin(GroupService groupService, GroupMember member)}}
 Die Methode nimmt nun ein \texttt{GroupService} Objekt entgegen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen. Zudem wird ein \texttt{GroupMember} Objekt übergeben, das die Daten des Mitglieds enthält, das zum Administrator ernannt werden soll.
 \paragraph{\texttt{removeAdminStatus(GroupService groupService, GroupMember member)}}
-Die Methode nimmt nun ein \texttt{GroupService} Objekt entgegen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen. Zudem wird ein \texttt{GroupMember} Objekt übergeben, das die Daten des Mitglieds enthält, das der Administratorstatus entzogen werden soll.
+Die Methode bekommt nun ein \texttt{GroupService} Objekt mitgegeben, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen. Zudem wird ein \texttt{GroupMember} Objekt übergeben, das die Daten des Mitglieds enthält, das der Administratorstatus entzogen werden soll.
 \paragraph{\texttt{kickUser(GroupService groupService, GroupMember member)}}
 Die Methode nimmt nun ein \texttt{GroupService} Objekt entgegen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen. Zudem wird ein \texttt{GroupMember} Objekt übergeben, das die Daten des Mitglieds enthält, das gekickt werden soll.
 \paragraph{\texttt{banUser(GroupService groupService, GroupMember member)}}
@@ -275,21 +275,153 @@ Die Methode lädt ein Bild hoch und setzt es als Profilbild des Nutzers. Dazu wi
 \subsubsection*{GroupList}
 Die Klasse ist nun ein ConsumerWidget, da sie auf die Methoden des \texttt{GroupService} zugreift.
 \paragraph{\texttt{groups}}
-Das Attribut wurde entfernt, stattdessen wird die Liste der Gruppen aus dem \texttt{GroupService} geladen.
+Das Attribut wurde entfernt, stattdessen wird die Liste der Gruppen aus dem \texttt{GroupSer\-vice} geladen.
 \paragraph{\texttt{leaveGroup(BuildContext context, GroupService groupService, Group group)}}
 Die Methode nimmt nun den \texttt{BuildContext} entgegen, um die Übersetzungen zu laden und ein Pop-Up-Fenster zu öffnen, in dem der Nutzer bestätigen muss, dass er die Gruppe verlassen möchte. Zudem wird ein \texttt{GroupService} Objekt entgegengenommen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen. Die Gruppe wird ebenfalls übergeben, um zu wissen, welche Gruppe verlassen werden soll.
 \subsubsection*{OwnRecipeList}
 Die Klasse ist nun ein ConsumerWidget, da sie keinen eigenen Zustand mehr verwaltet, aber auf die Methoden des \texttt{RecipeService} zugreift.
 \paragraph{\texttt{recipes}}
-Das Attribut wurde entfernt, stattdessen wird die Liste der Rezepte aus dem \texttt{RecipeService} geladen.
+Das Attribut wurde entfernt, stattdessen wird die Liste der Rezepte aus dem \texttt{RecipeSer\-vice} geladen.
 \paragraph{\texttt{userId}}
 Die Id des Nutzers wird gespeichert, um die Rezeptliste nach denen des Nutzers zu filtern.
 \paragraph{\texttt{togglePrivate(RecipeService recipeService, Recipe recipe)}}
 Die Methode nimmt nun ein \texttt{RecipeService} Objekt entgegen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen. Das Rezept wird ebenfalls übergeben, um zu wissen, welches Rezept ausgeblendet werden soll.
 \paragraph{\texttt{exportRecipe(Recipe recipe)}}
-Die Methode wurde gelöscht, da diese Logik nun im \texttt{PDFRecipeViewPage} enthalten ist.
-\paragraph{\texttt{deleteRecipe(BuildContext context, RecipeService recipeService, Recipe recipe)}}
+Die Methode wurde gelöscht, da diese Logik nun im \texttt{PDFRecipe\-ViewPage} enthalten ist.
+\paragraph{\texttt{deleteRecipe(BuildContext context, RecipeService recipeService, Recipe recipe)}\\}
 Die Methode nimmt nun den \texttt{BuildContext} entgegen, um die Übersetzungen zu laden und ein Pop-Up-Fenster zu öffnen, in dem der Nutzer bestätigen muss, dass er das Rezept löschen möchte. Zudem wird ein \texttt{RecipeService} Objekt entgegengenommen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen. Das Rezept wird ebenfalls übergeben, um zu wissen, welches Rezept gelöscht werden soll.
-\section{Glossar}
-\printglossary[style=altlist]
+\subsubsection{\texttt{recipe\_detail\_screen}}
+Es wurde ein weiteres Paket angelegt, das die Widgets für die Rezept-Detail-Ansicht enthält.
+\subsubsection*{RecipeDetailScreen}
+Das Widget ist nun ein ConsumerStatefulWidget, da es auf die Methoden des \texttt{UserService} zugreift, um zu wissen, ob es sich um ein Rezept des Nutzers handelt und somit bearbeitbar ist.
+\subsubsection*{LabelList}
+Die Klasse wurde hinzugefügt, um die aktiven Labels des Rezept anzuzeigen. Es wird das Rezept übergeben, dessen Labels angezeigt werden sollen.
+\subsubsection*{IngredientList}
+Die Klasse wurde hinzugefügt, um die Zutaten des Rezepts anzuzeigen. Es wird die Liste der Zutaten übergeben, die angezeigt werden sollen und der Faktor, mit dem die Zutatenmengen multipliziert werden sollen.
+\subsubsection{\texttt{main\_screen}}
+\subsubsection*{MainScreen}
+Die Klasse ist nun ein ConsumerStatefulWidget, da sie auf die Methoden des \texttt{RecipeService} zugreift.
+\paragraph*{\texttt{searchController}}
+Der Controller wurde hinzugefügt, um den Suchtext zu verwalten. Er wird zum Beispiel verwendet um die Suche zurückzusetzen.
+\paragraph{\texttt{filteredRecipes}}
+Das Attribut wurde entfernt, stattdessen wird die Liste der Rezepte aus dem \texttt{RecipeService} geladen und in der \texttt{build}-Methode gefiltert.
+\paragraph{\texttt{sortCategory}, \texttt{sortAscending} und \texttt{selectedSort}} Die Kategorie und Richtung der Sortierung wurden in einem \texttt{Sort}-Objekt zusammengefasst.
+\paragraph{\texttt{filterRecipes(List<Recipe> recipes)}}
+Die Methode wurde umbenannt und nimmt nun eine Liste von Rezepten entgegen, die gefiltert werden soll. Sie gibt die gefilterte Liste zurück.
+\subsubsection*{\texttt{RecipeList}}
+Die Klasse stellt eine Liste der Rezeptkarten dar. Dazu nimmt sie eine Liste der Rezepte entgegen.
+\paragraph{\texttt{RecipeCard}}
+Die Klasse ist nun ein ConsumerWidget, da sie auf die Methoden des \texttt{RecipeService} zugreift.
+\paragraph{\texttt{toggleFavourite(RecipeService recipeService, Recipe recipe)}}
+Die Methode dient dazu den Favoritenstatus des Rezeptes zu ändern. Sie nimmt ein \texttt{RecipeService} Objekt entgegen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen. Das Rezept wird ebenfalls übergeben, um zu wissen, welches Rezept favorisiert werden soll.
+\subsubsection*{\texttt{SearchFieldWidget}}
+Das Widget wurde verworfen, und wird jetzt im \texttt{MainScreen} direkt implementiert.
+\subsubsection*{\texttt{FilterSelectionWidget}}
+Das Widget ist jetzt ein StatelessWidget, da es keinen eigenen Zustand mehr verwaltet, sondern diesen von außen übergeben bekommt.
+\paragraph{\texttt{showFilterSelectionDialog(BuildContext context)}}
+Die Methode wurde hinzugefügt, um ein Pop-Up-Fenster anzuzeigen, in dem der Nutzer die Filtereinstellungen ändern kann. Zu diesem Zweck wird der \texttt{BuildContext} übergeben.
+\subsubsection*{\texttt{FilterSelectionDialog}}
+Das Widget wurde hinzugefügt, um ein Pop-Up-Fenster anzuzeigen, in dem der Nutzer die Filtereinstellungen ändern kann. Es wird eine Liste and Filterkategorien übergeben, das die initialen Filtereinstellungen enthält. Zudem wird ein Callback übergeben, das ausgeführt wird, wenn der Nutzer die Filtereinstellungen speichert. Die aktuell ausgewählten Filter werden in einer Map gespeichert, die dann beim Ausführen des Callbacks umgewandelt wird.
+\subsubsection*{\texttt{SortSelectionWidget}}
+Das Widget ist jetzt ein StatelessWidget, da es keinen eigenen Zustand mehr verwaltet, sondern diesen von außen übergeben bekommt.
+\paragraph{\texttt{sortCategory}, \texttt{ascending} und \texttt{selectedSort}} Die Kategorie und Richtung der Sortierung wurden in einem \texttt{Sort}-Objekt zusammengefasst.
+\paragraph{\texttt{onChanged}}
+Der Callback gibt nun ein \texttt{Sort}-Objekt zurück, das die neuen Sortiereinstellungen enthält.
+\paragraph{\texttt{showSortSelectionDialog(BuildContext context)}}
+Die Methode wurde hinzugefügt, um ein Pop-Up-Fenster anzuzeigen, in dem der Nutzer die Sortiereinstellungen ändern kann. Zu diesem Zweck wird der \texttt{BuildContext} übergeben.
+\subsubsection*{\texttt{SortSelectionDialog}}
+Das Widget wurde hinzugefügt, um ein Pop-Up-Fenster anzuzeigen, in dem der Nutzer die Sortiereinstellungen ändern kann. Es wird ein \texttt{Sort}-Objekt übergeben, das die initialen Sortiereinstellungen enthält. Zudem wird ein Callback übergeben, das ausgeführt wird, wenn der Nutzer die Sortiereinstellungen speichert. Die aktuell ausgewählten Sortiereinstellungen werden in einem \texttt{Sort}-Objekt gespeichert, das dann beim Ausführen des Callbacks übergeben wird.
+\subsubsection*{\texttt{FilterCategory}}
+\paragraph*{\texttt{getName(AppLocalizations appLocalizations)}}
+Die Methode wurde hinzugefügt, um den Namen der Kategorie zu laden. Dazu wird ein \texttt{AppLocalizations} Objekt übergeben, um die Übersetzungen zu laden.
+\subsubsection*{\texttt{SortCategory}}
+\paragraph*{\texttt{duration}}
+Es ist nun auch möglich nach der Dauer eines Rezeptes zu sortieren. Dazu wurde das Attribut hinzugefügt.
+\paragraph*{\texttt{getName(AppLocalizations appLocalizations)}}
+Die Methode wurde hinzugefügt, um den Namen der Kategorie zu laden. Dazu wird ein \texttt{AppLocalizations} Objekt übergeben, um die Übersetzungen zu laden.
+\subsubsection*{\texttt{Sort}}
+Die Klasse wurde hinzugefügt, um die Sortiereinstellungen zu speichern. Sie enthält die Kategorie und die Richtung der Sortierung.
+\subsubsection{\texttt{recipe\_creation\_screen}}
+\subsubsection*{RecipeCreationScreen}
+Die Klasse ist nun ein ConsumerStatefulWidget, da sie auf die Methoden des \texttt{RecipeService} zugreift und die eingegebenen Werte verwalten muss.
+\paragraph{\texttt{recipe}}
+Das Attribut dient nun dazu, ein Rezept übergeben zu können, das bearbeitet werden soll. Ist es \texttt{null}, so wird ein neues Rezept erstellt.
+\paragraph{\texttt{title}}
+Das Attribut wurde hinzugefügt, um den Titel des Rezepts zu speichern.
+\paragraph{\texttt{duration}}
+Das Attribut wurde hinzugefügt, um die Dauer des Rezepts zu speichern.
+\paragraph{\texttt{difficulty}}
+Das Attribut wurde hinzugefügt, um die Schwierigkeit des Rezepts zu speichern.
+\paragraph{\texttt{isVegetarian}}
+Das Attribut wurde hinzugefügt, um zu speichern, ob das Rezept vegetarisch ist.
+\paragraph{\texttt{isVegan}}
+Das Attribut wurde hinzugefügt, um zu speichern, ob das Rezept vegan ist.
+\paragraph{\texttt{isGlutenFree}}
+Das Attribut wurde hinzugefügt, um zu speichern, ob das Rezept glutenfrei ist.
+\paragraph{\texttt{isHalal}}
+Das Attribut wurde hinzugefügt, um zu speichern, ob das Rezept halal ist.
+\paragraph{\texttt{isKosher}}
+Das Attribut wurde hinzugefügt, um zu speichern, ob das Rezept koscher ist.
+\paragraph{\texttt{ingreidents}}
+Das Attribut wurde hinzugefügt, um die Zutaten des Rezepts zu speichern.
+\paragraph{\texttt{instructions}}
+Das Attribut wurde hinzugefügt, um die Zubereitungsschritte des Rezepts zu speichern.
+\paragraph{\texttt{defaultPortionAmount}}
+Das Attribut wurde hinzugefügt, um die Standardportionenanzahl des Rezepts zu speichern.
+\paragraph{\texttt{imageFuture}}
+Das Attribut enthält einen Future, der das geladene Bild enthält. Es wird benötigt, um das Bild anzuzeigen, das entweder von einer URL kommt oder von der Kamera/Galerie geladen wird.
+\paragraph{\texttt{isLoading}}
+Das Attribut wurde hinzugefügt, um den Ladezustand zu speichern und dynamisch anzuzeigen.
+\paragraph{\texttt{saveRecipe(RecipeService recipeService)}}
+Die Methode nimmt nun ein \texttt{RecipeService} Objekt entgegen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen.
+\subsubsection*{\texttt{IngredeintList}}
+\paragraph*{\texttt{initialList}}
+Das Attribut wurde hinzugefügt, um die initialen Zutaten zu speichern, falls ein Rezept bearbeitet wird.
+\paragraph*{\texttt{ingredients}}
+Das Attribut wurde hinzugefügt, um die aktuellen Zutaten zu speichern.
+\subsubsection*{\texttt{ToggleableLabelWidget}}
+Das Widget wurde verworfen, da das \texttt{TagItem} seine Aufgaben übernimmt.
+\subsubsection*{\texttt{ImagePickerWidget}}
+Das Widget ist nun ein StatelessWidget, da es keinen eigenen Zustand mehr verwaltet, sondern diesen von außen übergeben bekommt.
+\paragraph{\texttt{recipeImage}}
+Das Attribut wurde umbenannt.
+\paragraph{\texttt{removeRecipeImage(BuildContext context)}}
+Die Methode dient dazu, das Bild des Rezepts zu löschen. Dazu wird der \texttt{BuildContext} übergeben, um die Übersetzungen zu laden und ein Pop-Up-Fenster anzuzeigen.
+\paragraph*{\texttt{pickImage(BuildContext context, ImageSource source)}}
+Die Methode dient dazu, ein Bild hochzuladen. Dazu wird der \texttt{BuildContext} übergeben, um die Übersetzungen zu laden und ein Pop-Up-Fenster anzuzeigen. Die Quelle des Bildes wird ebenfalls übergeben, die entweder die Kamera oder die Galerie ist.
+\paragraph{\texttt{selectRecipeImage(BuildContext context)}}
+Die Methode dient dazu, ein Pop-Up-Fenster anzuzeigen, in dem der Nutzer verschiedene Auswahlmöglichkeiten hat, um ein Bild auszuwählen. Dazu wird der \texttt{BuildContext} übergeben, um die Übersetzungen zu laden und das Pop-Up-Fenster anzuzeigen.
+\subsubsection*{\texttt{DifficultyPickerWidget}}
+\paragraph*{\texttt{initialValue}}
+Das Attribut wurde umbenannt.
+\paragraph*{\texttt{difficulty}}
+Speichert die aktuell ausgewählte Schwierigkeit.
+\paragraph*{\texttt{showDifficultyPickerDialog(BuildContext context)}}
+Die Methode dient dazu, ein Pop-Up-Fenster anzuzeigen, in dem der Nutzer die Schwierigkeit auswählen kann. Dazu wird der \texttt{BuildContext} übergeben, um die Übersetzungen zu laden und das Pop-Up-Fenster anzuzeigen.
+\subsubsection*{\texttt{DifficultyPickerDialog}}
+Das Widget dient dazu eine Schwierigkeit auszuwählen. Dazu erhält es die initial ausgewählte Schwierigkeit und einen Callback, der ausgeführt wird, wenn der Nutzer die Schwierigkeit speichert.
+\subsubsection{\texttt{ingredient\_creation\_screen}}
+\subsubsection*{IngredientCreationScreen}
+Die Klasse ist nun ein StatefulWidget, da sie das ausgewählte Icon verwalten muss.
+\paragraph{\texttt{iconName}}
+Das Attribut wurde entfernt und stattdessen wird die Icon-URL im Zustand gespeichert.
+\paragraph*{\texttt{initialIngredient}}
+Falls eine Zutat bearbeitet werden soll, kann sie über dieses Attribut übergeben werden.
+\paragraph{\texttt{iconUrl}}
+Das Attribut wurde hinzugefügt, um die URL des Icons zu speichern.
+\paragraph{\texttt{createIngredient()}}
+Die Methode wurde verworfen. Stattdessen wird nun die Zutat direkt in der \texttt{build}-Methode erstellt und übergeben.
+\subsubsection*{\texttt{IconPickerWidget}}
+Das Widget ist nun ein ConsumerStatefulWidget, da es auf die Methoden des \texttt{IngredientData\-Repository} zugreift und das ausgewählte Icon verwaltet.
+\paragraph{\texttt{initialIconUrl}} Das Attribut wurde so abgeändert, das es jetzt die URL des zuvor ausgewählten Icons enthält.
+\paragraph{\texttt{onChanged}} Die Methode wurde so geändert, das sie die Icondaten als Uint8List zurückgibt.
+\paragraph{\texttt{selectedIcon}} Das Attribut wurde hinzugefügt, um die URL des ausgewählten Icons zu speichern.
+\paragraph{\texttt{iconUrls}} Das Attribut wurde hinzugefügt, um die URLs der möglichen Icons zu speichern.
+\paragraph{\texttt{showDialog(BuildContext context)}} Die Methode wurde hinzugefügt, um ein Pop-Up-Fenster anzuzeigen, in dem der Nutzer ein Icon auswählen kann. Dazu wird der \texttt{BuildContext} übergeben, um das Pop-Up-Fenster anzuzeigen.
+\subsubsection*{\texttt{IconPickerDialog}}
+Das Widget wurde hinzugefügt, um ein Pop-Up-Fenster anzuzeigen, in dem der Nutzer ein Icon auswählen kann. Es wird eine Liste von Icon-Urls übergeben, die angezeigt werden sollen. Zudem wird ein Callback übergeben, das ausgeführt wird, wenn der Nutzer ein Icon auswählt. Die Id des ausgewählte Icons wird als String übergeben.
+\subsubsection*{\texttt{IngredientNameInput}}
+Die Klasse ist nun ein fConsumerStatefulWidget, da sie auf die Methoden des \texttt{IngredientDataRe\-pository} zugreift.
+\paragraph{\texttt{name}} Das Attribut wurde entfernt.
+\paragraph{\texttt{searchText}} Das Attribut wurde hinzugefügt, um den Suchtext zu verwalten.
 \end{document}
