@@ -72,7 +72,7 @@ class UserRepository {
         throw HttpStatusException(response);
       }
     }
-    // Wenn der Token nicht aktualisiert werden konnte, wird er gelöscht
+    // If the token could not be updated, it will be deleted
     await _deleteTokens();
     return null;
   }

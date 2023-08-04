@@ -9,7 +9,7 @@ import "package:spice_squad/services/user_service.dart";
 
 /// Widget for selecting a profile image
 class ProfileImagePicker extends StatelessWidget {
-  /// Initial Profile image to display
+  /// Initial profile image to display
   final String _profileImageUrl;
 
   /// User service for updating the profile image

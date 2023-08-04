@@ -34,7 +34,8 @@ class RecipeCreationScreen extends ConsumerStatefulWidget {
   RecipeCreationScreen({required Recipe? recipe, super.key}) : _recipe = recipe;
 
   @override
-  ConsumerState<RecipeCreationScreen> createState() => _RecipeCreationScreenState();
+  ConsumerState<RecipeCreationScreen> createState() =>
+      _RecipeCreationScreenState();
 }
 
 class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
@@ -163,7 +164,8 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                   },
                   initialValue: _title,
                   onChanged: (value) => _title = value,
-                  decoration: InputDecoration(hintText: AppLocalizations.of(context)!.titleInputLabel),
+                  decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context)!.titleInputLabel,),
                 ),
                 const SizedBox(
                   height: 16,
@@ -231,17 +233,20 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                       child: TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return AppLocalizations.of(context)!.durationEmptyError;
+                            return AppLocalizations.of(context)!
+                                .durationEmptyError;
                           }
                           return null;
                         },
                         keyboardType: TextInputType.number,
                         inputFormatters: [
-                          FilteringTextInputFormatter.allow(RegExp(r"[1-9]\d*")),
+                          FilteringTextInputFormatter.allow(
+                              RegExp(r"[1-9]\d*"),),
                         ],
                         initialValue: _duration.toString(),
                         textAlign: TextAlign.center,
-                        onChanged: (value) => {if (value != "") _duration = int.parse(value)},
+                        onChanged: (value) =>
+                            {if (value != "") _duration = int.parse(value)},
                         maxLength: 3,
                         decoration: InputDecoration(
                           counterText: "",
@@ -303,7 +308,8 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                 TextFormField(
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!.instructionsEmptyError;
+                      return AppLocalizations.of(context)!
+                          .instructionsEmptyError;
                     }
                     return null;
                   },
@@ -312,7 +318,8 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                   initialValue: _instructions,
                   maxLines: null,
                   decoration: InputDecoration(
-                    hintText: AppLocalizations.of(context)!.instructionsInputLabel,
+                    hintText:
+                        AppLocalizations.of(context)!.instructionsInputLabel,
                   ),
                 ),
                 const SizedBox(
@@ -358,7 +365,6 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
     } else {
       imageUrl = await imageRepository.uploadImage(image);
     }
-
     // update recipe
     if (widget._recipe != null) {
       final Recipe recipeUploadData = widget._recipe!.copyWith(
