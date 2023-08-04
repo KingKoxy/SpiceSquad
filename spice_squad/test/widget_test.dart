@@ -1,12 +1,3 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import "dart:convert";
-
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -35,9 +26,7 @@ final Recipe recipeOne = Recipe(
     Ingredient(
       id: "id",
       name: "name",
-      icon: base64Decode(
-        "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAACklEQVR4nGNiAAAABgADNjd8qAAAAABJRU5ErkJggg==",
-      ),
+      iconUrl: "https://img.icons8.com/?size=64&id=95280&format=png",
       amount: 10.0,
       unit: "g",
     )

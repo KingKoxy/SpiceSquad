@@ -359,7 +359,7 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
 
   Future<void> _saveRecipe(RecipeService recipeService, ImageRepository imageRepository) async {
     String imageUrl;
-    Uint8List? image = await _imageFuture;
+    final Uint8List? image = await _imageFuture;
     if (widget._recipe?.imageUrl.isNotEmpty ?? false) {
       imageUrl = await imageRepository.updateImage(widget._recipe!.imageUrl, image);
     } else {
