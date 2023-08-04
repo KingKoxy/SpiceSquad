@@ -16,13 +16,13 @@ class InputDialog extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
 
   /// Creates an [InputDialog].
-  InputDialog(
-      {required String title,
-      required void Function(String) onSave,
-      super.key,
-      String? Function(String?)? validator,
-      initialValue,})
-      : _validator = validator,
+  InputDialog({
+    required String title,
+    required void Function(String) onSave,
+    super.key,
+    String? Function(String?)? validator,
+    initialValue,
+  })  : _validator = validator,
         _onSave = onSave,
         _title = title {
     _controller.text = initialValue ?? "";

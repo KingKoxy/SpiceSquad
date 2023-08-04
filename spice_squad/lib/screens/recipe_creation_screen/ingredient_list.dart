@@ -14,9 +14,11 @@ class IngredientList extends StatefulWidget {
   final ValueChanged<List<Ingredient>> _onChanged;
 
   /// Creates a new ingredient list
-  const IngredientList(
-      {required List<Ingredient> initialList, required void Function(List<Ingredient>) onChanged, super.key,})
-      : _onChanged = onChanged,
+  const IngredientList({
+    required List<Ingredient> initialList,
+    required void Function(List<Ingredient>) onChanged,
+    super.key,
+  })  : _onChanged = onChanged,
         _initialList = initialList;
 
   @override

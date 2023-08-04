@@ -12,9 +12,11 @@ class FilterSelectionDialog extends StatefulWidget {
   final ValueChanged<List<FilterCategory>> _onSave;
 
   /// Creates a new filter selection dialog.
-  const FilterSelectionDialog(
-      {required List<FilterCategory> initialValue, required void Function(List<FilterCategory>) onSave, super.key,})
-      : _onSave = onSave,
+  const FilterSelectionDialog({
+    required List<FilterCategory> initialValue,
+    required void Function(List<FilterCategory>) onSave,
+    super.key,
+  })  : _onSave = onSave,
         _initialValue = initialValue;
 
   @override

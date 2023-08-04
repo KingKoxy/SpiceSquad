@@ -34,8 +34,7 @@ class RecipeCreationScreen extends ConsumerStatefulWidget {
   RecipeCreationScreen({required Recipe? recipe, super.key}) : _recipe = recipe;
 
   @override
-  ConsumerState<RecipeCreationScreen> createState() =>
-      _RecipeCreationScreenState();
+  ConsumerState<RecipeCreationScreen> createState() => _RecipeCreationScreenState();
 }
 
 class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
@@ -120,7 +119,9 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                           ),
                           TextButton(
                             onPressed: () => _saveRecipe(
-                                ref.read(recipeServiceProvider.notifier), ref.read(imageRepositoryProvider),),
+                              ref.read(recipeServiceProvider.notifier),
+                              ref.read(imageRepositoryProvider),
+                            ).then((value) => Navigator.of(context).pop()),
                             child: Text(AppLocalizations.of(context)!.saveButtonLabel),
                           ),
                         ],
@@ -165,7 +166,8 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                   initialValue: _title,
                   onChanged: (value) => _title = value,
                   decoration: InputDecoration(
-                      hintText: AppLocalizations.of(context)!.titleInputLabel,),
+                    hintText: AppLocalizations.of(context)!.titleInputLabel,
+                  ),
                 ),
                 const SizedBox(
                   height: 16,
@@ -233,20 +235,19 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                       child: TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return AppLocalizations.of(context)!
-                                .durationEmptyError;
+                            return AppLocalizations.of(context)!.durationEmptyError;
                           }
                           return null;
                         },
                         keyboardType: TextInputType.number,
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(
-                              RegExp(r"[1-9]\d*"),),
+                            RegExp(r"[1-9]\d*"),
+                          ),
                         ],
                         initialValue: _duration.toString(),
                         textAlign: TextAlign.center,
-                        onChanged: (value) =>
-                            {if (value != "") _duration = int.parse(value)},
+                        onChanged: (value) => {if (value != "") _duration = int.parse(value)},
                         maxLength: 3,
                         decoration: InputDecoration(
                           counterText: "",
@@ -308,8 +309,7 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                 TextFormField(
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!
-                          .instructionsEmptyError;
+                      return AppLocalizations.of(context)!.instructionsEmptyError;
                     }
                     return null;
                   },
@@ -318,8 +318,7 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                   initialValue: _instructions,
                   maxLines: null,
                   decoration: InputDecoration(
-                    hintText:
-                        AppLocalizations.of(context)!.instructionsInputLabel,
+                    hintText: AppLocalizations.of(context)!.instructionsInputLabel,
                   ),
                 ),
                 const SizedBox(

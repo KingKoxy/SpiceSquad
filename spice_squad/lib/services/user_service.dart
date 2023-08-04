@@ -50,7 +50,7 @@ class UserService extends AsyncNotifier<User?> {
     image = copyResizeCropSquare(image, size: 240);
     final User oldUser = state.value!;
     String imageUrl;
-    if(oldUser.profileImageUrl.isNotEmpty){
+    if (oldUser.profileImageUrl.isNotEmpty) {
       imageUrl = await ref.read(imageRepositoryProvider).updateImage(oldUser.profileImageUrl, encodeJpg(image));
     } else {
       imageUrl = await ref.read(imageRepositoryProvider).uploadImage(encodeJpg(image));

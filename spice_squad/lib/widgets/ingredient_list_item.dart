@@ -16,9 +16,12 @@ class IngredientListItem extends StatelessWidget {
   final double _amountFactor;
 
   /// Creates a new ingredient list item.
-  const IngredientListItem(
-      {required Ingredient ingredient, super.key, void Function()? onRemove, double amountFactor = 1,})
-      : _amountFactor = amountFactor,
+  const IngredientListItem({
+    required Ingredient ingredient,
+    super.key,
+    void Function()? onRemove,
+    double amountFactor = 1,
+  })  : _amountFactor = amountFactor,
         _onRemove = onRemove,
         _ingredient = ingredient;
 

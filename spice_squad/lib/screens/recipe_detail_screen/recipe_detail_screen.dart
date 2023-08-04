@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:marquee/marquee.dart";
+import "package:spice_squad/exceptions/too_many_reports_exception.dart";
 import "package:spice_squad/icons.dart";
 import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/providers/service_providers.dart";
@@ -202,7 +203,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
   }
 
   Future<void> reportRecipe(RecipeService recipeService) async {
-    recipeService.reportRecipe(widget._recipe.id).then(
+    recipeService
+        .reportRecipe(widget._recipe.id)
+        .then(
           (value) => showDialog(
             context: context,
             builder: (context) => SuccessDialog(
@@ -210,7 +213,24 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
               message: AppLocalizations.of(context)!.reportSuccessMessage,
             ),
           ),
+        )
+        .catchError((error, stackTrace) {
+      if (error is TooManyReportsException) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(AppLocalizations.of(context)!.tooManyReportsErrorTitle),
+            content: Text(AppLocalizations.of(context)!.tooManyReportsErrorMessage),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text(AppLocalizations.of(context)!.okActionButton),
+              )
+            ],
+          ),
         );
+      }
+    });
   }
 
   bool _willTextOverflow({required String text, required double maxWidth}) {

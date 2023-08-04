@@ -13,11 +13,11 @@ class FilterSelectionWidget extends StatelessWidget {
   final List<FilterCategory> _selectedFilters;
 
   /// Creates a new filter selection widget.
-  const FilterSelectionWidget(
-      {required void Function(List<FilterCategory>) onChanged,
-      required List<FilterCategory> selectedFilters,
-      super.key,})
-      : _selectedFilters = selectedFilters,
+  const FilterSelectionWidget({
+    required void Function(List<FilterCategory>) onChanged,
+    required List<FilterCategory> selectedFilters,
+    super.key,
+  })  : _selectedFilters = selectedFilters,
         _onChanged = onChanged;
 
   @override

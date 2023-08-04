@@ -8,6 +8,8 @@ import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/models/recipe_creation_data.dart";
 import "package:spice_squad/repositories/user_repository.dart";
 
+import "../exceptions/too_many_reports_exception.dart";
+
 /// Repository for recipe actions
 ///
 /// This class is used to perform recipe actions like fetching all recipes of a user or creating a new recipe.
@@ -108,7 +110,9 @@ class RecipeRepository {
 
   /// Sends request to report the recipe with the given [recipeId]
   ///
-  /// Throws [HttpStatusException] if the request fails
+  /// Throws [TooManyReportsException] if the recipe has already been reported in the last 24 hours.
+  ///
+  /// Throws [HttpStatusException] if the request fails.
   Future<void> reportRecipe(String recipeId) async {
     final response = await http.post(
       Uri.parse("${ApiEndpoints.report}/$recipeId"),
@@ -116,6 +120,8 @@ class RecipeRepository {
         HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
       },
     );
+    if (response.statusCode == 200) return;
+    if (response.statusCode == 429) throw TooManyReportsException(recipeId);
     if (response.statusCode != 200) {
       throw HttpStatusException(response);
     }
