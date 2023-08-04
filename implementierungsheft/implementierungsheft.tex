@@ -14,11 +14,13 @@ Die in diesem Heft verwendeten Personenbezeichnungen beziehen sich - sofern nich
 \newpage
 
 \section{Umsetzung der Zielbestimmungen des Pflichtenhefts}
-Es wurden alle Muss-, Soll- und Kannkriterien umgesetzt. Die Applikation wurde um die Folgenden Features erweitert:
+Es wurden alle Muss-, Soll- und Kannkriterien umgesetzt. Die Applikation wurde um die folgenden Features erweitert:
 \begin{itemize}
     \item An sinnvollen Stellen wurden zusätzliche Pop-Up-Fenster eingefügt, die z.B. nach Bestätigung einer Aktion fragen.
     \item Es gibt eine weitere Ansicht, die die exportierten Rezepte als PDF-Vorschau anzeigt.
     \item Die App ist je nach Systemsprache auf Deutsch oder Englisch übersetzt.
+    \item Es ist auch möglich Zutaten nachträglich zu bearbeiten.
+    \item Es wurden zahlreiche Fehlermeldungen eingefügt, die angezeigt werden, wenn verschiedene Aktionen fehlschlagen.
 \end{itemize}
 \newpage
 \section{Änderungen am Entwurf}
@@ -37,10 +39,10 @@ Die Klasse \texttt{Recipe} wurde in die beiden Klassen \texttt{Recipe} und \text
 \paragraph{\texttt{Recipe.copyWith(...)}} Die Methode \texttt{copyWith} wurde hinzugefügt, um ein Rezept zu kopieren und dabei einzelne Attribute zu ändern. Die zuändernden Attribute werden als benannte Parameter übergeben.
 \paragraph{\texttt{Recipe.createEmpty()}} Die Methode wurde entfernt, da sie nicht mehr benötigt wird.
 \paragraph{\texttt{Difficulty.getName(AppLocalizations appLocalizations): String}}
-Die Methode gibt einen String zurück, der den Namen der Schwierigkeit in der aktuellen Sprache enthält. Die Sprache wird aus den \texttt{AppLocalizations} gelesen.
+Es handelt sich um eine Methode zum Zurückgeben des Namens der Schwierigkeit in der aktuellen Sprache. Die Sprache wird aus den \texttt{AppLocaliza\-tions} gelesen.
 \paragraph{\texttt{Difficulty.fromString(String string)}}
 Die statische Methode gibt die Schwierigkeit zurück, die den übergebenen String als Namen hat.
-\paragraph{\texttt{RecipeCreationData.imageUrl} und \texttt{Ingredient.iconUrl}} Wir haben uns dazu entschieden statt dem Icon/Bild selbst nur die URL zu speichern. Damit können wir die Anfragengröße massiv verkleinern. Mehr dazu folgt im Kapitel \ref{sec:images}.
+\paragraph{\texttt{User.profileImageUrl}, \texttt{RecipeCreationData.imageUrl} und \texttt{Ingredient.iconUrl}} Wir haben uns dazu entschieden statt den Icons/Bildern nur die URL zu speichern. Damit können wir die Anfragengröße massiv verkleinern. Die Bilder werden erst dann geladen, wenn sie benötigt werden. Ein leerer String bedeutet immer, dass kein Bild gesetzt ist.
 \newpage
 \subsection{Änderungen am Datalayer}
 \begin{figure}[htp]
@@ -65,7 +67,11 @@ Das Attribut wurde entfernt. Stattdessen wird das Token im Systemspeicher abgele
 \paragraph{\texttt{getToken(): FutureOr<String?>}} Die Methode gibt ein \texttt{FutureOr<String?>} zurück, da das Token asynchron geladen werden kann, jedoch nicht muss.
 \subsubsection{\texttt{IngredientDataRepository}}
 Die Klasse wurde umbenannt, da sie nun nicht mehr nur die Namensvorschläge für Zutaten enthält, sondern auch die für Icon-Urls.
-\paragraph{\texttt{fetchIngredientIconUrls()}} Die Methode wurde hinzugefügt, um die Liste der möglichen Icons zu laden.
+\paragraph{\texttt{fetchIngredientIcons()}} Die Methode wurde hinzugefügt, um die Liste der möglichen Iconpfade zu laden.
+\subsubsection{\texttt{ImageRepository}}
+Die Klasse wurde hinzugefügt, um es zu ermöglichen, Bilder getrennt vom Rest der Daten hochzuladen oder abzuändern. Die Klasse wird, wie die anderen Repositories, über einen Provider verfügbar gemacht.
+\paragraph{\texttt{uploadImage(Uint8List? image)}} Die Methode lädt ein Bild hoch und gibt die URL zurück, unter der es erreichbar ist. Ist das Bild \texttt{null}, ein leerer String zurückgegeben, um diesen im Anschluss für andere Methodenaufrufe zu verwenden.
+\paragraph{\texttt{updateImage(String imageUrl, Uint8List? image)}} Die Methode ändert das Bild unter der übergebenen URL ab und gibt den Pfad zurück, unter dem es erreichbar ist. Ist das Bild \texttt{null}, wird ein leerer String zurückgegeben, um diesen im Anschluss für andere Methodenaufrufe zu verwenden.
 \newpage
 \subsection{Änderungen am Domainlayer}
 \begin{figure}[htp]
@@ -102,14 +108,188 @@ Es wird nun auch ein \texttt{AppLocalizations} Objekt entgegengenommen, um die �
 \subsection{Änderungen am Presentationlayer}
 \begin{figure}[htp]
     \centering
-    \includegraphics[width=\textwidth]{images/uml/domainLayer.pdf}
+    \includegraphics[width=\textwidth]{images/uml/presentationLayer.pdf}
     \caption{Änderungen am Presentationlayer}
     \label{fig:presentationLayer}
 \end{figure}
-Alle Attribute der Klassen werden in einem Konstruktor gesetzt, der der Übersichtlichkeit halber nicht dargestellt wird. Die Ausnahme bilden die Attribute, die als Zustand der \texttt{StatefulWidgets} gehalten werden. Sie sind daran zu erkennen, das sie \textit{kursiv} geschrieben sind.
+Alle Attribute der Klassen werden in einem Konstruktor gesetzt, der der Übersichtlichkeit halber nicht dargestellt wird. Die Ausnahme bilden die Attribute, die als Zustand der \texttt{StatefulWidgets} oder \texttt{ConsumerStatefulWidgets} gehalten werden. Sie sind daran zu erkennen, dass sie \textit{kursiv} geschrieben sind.
 \paragraph{Vererbungen}
 Google selbst empfiehlt für Flutter-Widgets keine Vererbung von anderen Widgets zu verwenden. Stattdessen soll die \texttt{build}-Methode des Widgets alle nötigen Anpassungen vornehmen. Dieses Prinzip nennt sich "Composition over Inheritence". Daher wurden die Vererbungen zu Klassen wie \texttt{IconButton} entfernt.
-\paragraph{\texttt{ConsumerWidget} und \texttt{ConsumerStatefulWidget}} Die beiden Klassen aus dem \texttt{Riverpod}-Paket wurden an sinnvollen Stellen verwendet, um die Daten aus den Providern laden zu können.
+\paragraph{\texttt{ConsumerWidget} und \texttt{ConsumerStatefulWidget}} Die beiden Klassen aus dem \texttt{Riverpod}-Paket wurden an sinnvollen Stellen verwendet, um die Daten aus den Providern laden zu können. \texttt{ConsumerWidget} wird für \texttt{StatelessWidgets} und \texttt{ConsumerStatefulWidget} für \texttt{StatefulWid\-gets} verwendet.
+\paragraph{\texttt{routeName}}
+Das Attribut wurde jedem Screen hinzugefügt, um die Navigation zu vereinfachen. Es ist öffentlich, damit andere Screens auf den Namen zugreifen können und dem Navigator mitteilen können, welcher Screen als nächstes angezeigt werden soll.
+\subsubsection{\texttt{widgets}}
+Das zuvor \texttt{ui\_elements} genannte Paket wurde in \texttt{widgets} umbenannt, da dies eine bessere Bezeichnung ist.
+\subsubsection*{\texttt{ApprovalDialog}}
+Die Klasse stellt ein Pop-Up-Fenster dar, das nach Bestätigung eine Aktion ausführt. Es wird ein Titel und eine Nachricht übergeben. Der Callback wird ausgeführt, wenn der Nutzer die Aktion bestätigt.
+\subsubsection*{\texttt{EyeButton}}
+\paragraph{\texttt{onToggle}}
+Der Callback heißt nicht mehr \texttt{onPressed}, da dieser Bezeichner genauer ist.
+\subsubsection*{\texttt{FavouriteButton}}
+\paragraph{\texttt{onToggle}}
+Der Callback heißt nicht mehr \texttt{onPressed}, da dieser Bezeichner genauer ist.
+\subsubsection*{\texttt{IngredientListItem}}
+Die Klasse wurde hinzugefügt, um eine Zutat in einer Liste anzuzeigen. Es wird ein \texttt{Ingredient} Objekt übergeben, das die anzuzeigenden Daten enthält. Zudem wird ein Callback übergeben, der ausgeführt wird, wenn der Nutzer auf ein X-Symbol klickt. Ist der Callback \texttt{null}, wird kein X-Symbol angezeigt. Das Attribut \texttt{amountFactor} wird benötigt, um die Zutatenmenge zu skalieren.
+\subsubsection*{\texttt{InputDialog}}
+Das Widget wird verwendet, um ein Pop-Up-Fenster anzuzeigen, in dem der Nutzer einen Text eingeben kann. Es wird ein Titel übergeben. Der Callback wird ausgeführt, wenn der Nutzer den Text bestätigt. Es kann zudem eine Funktion übergeben werden, die prüft, ob der eingegebene Text gültig ist. Ist dies nicht der Fall, wird der zurückgegebene String als Fehlermeldung angezeigt.
+Im Konstruktor kann außerdem ein initialer Text übergeben werden.
+\subsubsection*{\texttt{OrWidget}}
+Das Widget wurde hinzugefügt, um die häufig verwendete Trennlinie, in deren Mitte "oder" steht zu vereinfachen.
+\subsubsection*{\texttt{TagItem}}
+Das Tag Item ist nun ein StatefulWidget, da es die Möglichkeit bieten soll, die Farbe des Tags zu ändern, wenn es aktiviert wurde. 
+\paragraph*{\texttt{imageData}}
+Dasehemalige Attribut \texttt{icon} wurde so abgeändert, dass es nun einen \texttt{imageProvider} entgegennimmt, der der ein Bild enthält, das als Icon angezeigt wird.
+\paragraph*{\texttt{initialActive}}
+Das Attribut \texttt{isActive} wurde umbenannt, da es nun nur noch den initialen Zustand des Tags enthält.
+\paragraph*{\texttt{onToggle}}
+Der Callback wird ausgeführt, wenn der Nutzer auf das Tag klickt. Er gibt den neuen Zustand des Tags zurück. Ist der Callback \texttt{null}, kann der Zustand des Tags nicht geändert werden.
+\paragraph*{\texttt{onTap}}
+Der Callback wird ausgeführt, wenn der Nutzer auf das Tag klickt. Ist der Callback \texttt{null}, kann keine eigene Aktion beim Antippen ausgeführt werden.
+\paragraph*{\texttt{active}}
+Der Zustand des Widgets. Ist er wahr, so wird das Widget mit grünem Hintergrund angezeigt. Ist er falsch, wird es mit grauem Hintergrund angezeigt.
+\subsubsection*{BackButton}
+Das Widget wurde entfernt, da Flutter bereits ein \texttt{BackButton} Widget bereitstellt.
+\subsubsection*{SuccessDialog}
+Das Widget dient dazu, eine Erfolgsmeldung anzuzeigen. Es wird ein Titel und eine Nachricht übergeben.
+\subsubsection{\texttt{LoginScreen}}
+Das Widget ist nun ein \texttt{ConsumerStatefulWidget}, da es nun Fehlermeldung und Ladezustand verwaltet und auf die Methoden des \texttt{UserService} zugreift.
+\paragraph{\texttt{emailError}}
+Das Attribut wurde hinzugefügt, um die Fehlermeldung für die E-Mail-Adresse zu speichern und dynamisch anzuzeigen.
+\paragraph{\texttt{loading}}
+Das Attribut wurde hinzugefügt, um den Ladezustand zu speichern und dynamisch anzuzeigen.
+\paragraph{\texttt{login(AppLocalizations appLocalizations, UserService userService)}}
+Es wird nun ein \texttt{AppLocalizations} Objekt übergeben, um die Übersetzungen zu laden. Zudem wird ein \texttt{UserSer\-vice} Objekt entgegengenommen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen.
+\paragraph{\texttt{validateEmail(AppLocalizations appLocalizations, String? email)}}
+Die Methode dient dazu, eine E-Mail-Adresse zu validieren und gibt eine Fehlermeldung zurück, wenn die E-Mail-Adresse ungültig ist. Sie nimmt ein \texttt{AppLocalizations} Objekt entgegen, um die Übersetzungen zu laden, sowie die E-Mail-Adresse, die validiert werden soll.
+\paragraph{\texttt{validatePassword(AppLocalizations appLocalizations, String? password)}}
+Die Methode dient dazu, ein Passwort zu validieren und gibt eine Fehlermeldung zurück, wenn das Passwort ungültig ist. Sie nimmt ein \texttt{AppLocalizations} Objekt entgegen, um die Übersetzungen zu laden, sowie das Passwort, das validiert werden soll.
+\subsubsection{\texttt{RegisterScreen}}
+Die Klasse ist nun ein \texttt{ConsumerStatefulWidget}, da sie Fehlermeldungen und Ladezustand verwaltet und auf die Methoden des \texttt{UserService} zugreift.
+\paragraph{\texttt{emailError}}
+Das Attribut wurde hinzugefügt, um die Fehlermeldung für die E-Mail-Adresse zu speichern und dynamisch anzuzeigen.
+\paragraph{\texttt{connectionError}}
+Das Attribut wurde hinzugefügt, um die Fehlermeldung für die Verbindungsprobleme zu speichern und dynamisch anzuzeigen.
+\paragraph{\texttt{loading}}
+Das Attribut wurde hinzugefügt, um den Ladezustand zu speichern und dynamisch anzuzeigen.
+\paragraph{\texttt{register(AppLocalizations appLocalizations, UserService userService)}}
+Es wird nun ein \texttt{AppLocalizations} Objekt übergeben, um die Übersetzungen zu laden. Zudem wird ein \texttt{UserSer\-vice} Objekt entgegengenommen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen.
+\paragraph{\texttt{validateEmail(AppLocalizations appLocalizations, String? email)}}
+Die Methode dient dazu, eine E-Mail-Adresse zu validieren und gibt eine Fehlermeldung zurück, wenn die E-Mail-Adresse ungültig ist. Sie nimmt ein \texttt{AppLocalizations} Objekt entgegen, um die Übersetzungen zu laden, sowie die E-Mail-Adresse, die validiert werden soll.
+\paragraph*{\texttt{validateUserName(AppLocalizations appLocalizations, String? userName)}}
+Die Methode dient dazu, einen Benutzernamen zu validieren und gibt eine Fehlermeldung zurück, wenn der Benutzername ungültig ist. Sie nimmt ein \texttt{AppLocalizations} Objekt entgegen, um die Übersetzungen zu laden, sowie den Benutzernamen, der validiert werden soll.
+\paragraph{\texttt{validatePassword(AppLocalizations appLocalizations, String? password)}}
+Die Methode dient dazu, ein Passwort zu validieren und gibt eine Fehlermeldung zurück, wenn das Passwort ungültig ist. Sie nimmt ein \texttt{AppLocalizations} Objekt entgegen, um die Übersetzungen zu laden, sowie das Passwort, das validiert werden soll.
+\subsubsection{\texttt{PasswordResetScreen}}
+\paragraph*{\texttt{resetPassword(AppLocalizations appLocalizations, UserService userService)}}
+Es wird nun ein \texttt{AppLocalizations} Objekt übergeben, um die Übersetzungen zu laden. Zudem wird ein \texttt{UserSer\-vice} Objekt entgegengenommen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen.
+\paragraph{\texttt{validateEmail(AppLocalizations appLocalizations, String? email)}}
+Die Methode dient dazu, eine E-Mail-Adresse zu validieren und gibt eine Fehlermeldung zurück, wenn die E-Mail-Adresse ungültig ist. Sie nimmt ein \texttt{AppLocalizations} Objekt entgegen, um die Übersetzungen zu laden, sowie die E-Mail-Adresse, die validiert werden soll.
+\subsubsection{\texttt{GroupCreationScreen}}
+Die Klasse ist nun ein ConsumerWidget, da sie auf die Methoden des \texttt{GroupService} zugreift.
+\paragraph*{\texttt{isAfterRegister}}
+Das Attribut wurde hinzugefügt, um zu speichern, ob die Seite nach der Registrierung angezeigt wird. Davon hängt ab, ob ein Überspringen-Button angezeigt wird und wohin nach Abschluss der Gruppenerstellung navigiert wird.
+\paragraph*{\texttt{validateGroupName(AppLocalizations appLocalizations, String? groupName)}}
+Die Methode dient dazu, einen Gruppennamen zu validieren und gibt eine Fehlermeldung zurück, wenn der Gruppenname ungültig ist. Sie nimmt ein \texttt{AppLocalizations} Objekt entgegen, um die Übersetzungen zu laden, sowie den Gruppennamen, der validiert werden soll.
+\paragraph{\texttt{createGroup(AppLocalizations appLocalizations, GroupService groupService)}}
+Es wird nun ein \texttt{AppLocalizations} Objekt übergeben, um die Übersetzungen zu laden. Zudem wird ein \texttt{GroupService} Objekt entgegengenommen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen.
+\subsubsection{\texttt{GroupJoiningScreen}}
+Die Klasse ist nun ein ConsumerStatefulWidget, da sie auf die Methoden des \texttt{GroupService} zugreift und eine Fehlermeldung dynamisch verwaltet und anzeigt.
+\paragraph{\texttt{isAfterRegister}}
+Das Attribut wurde hinzugefügt, um zu speichern, ob die Seite nach der Registrierung angezeigt wird. Davon hängt ab, ob ein Überspringen-Button angezeigt wird und wohin nach Abschluss der Gruppenerstellung navigiert wird.
+\paragraph{\texttt{groupCodeError}}
+Das Attribut wurde hinzugefügt, um die Fehlermeldung für den Gruppencode zu speichern und dynamisch anzuzeigen.
+\paragraph*{\texttt{validateGroupCode(AppLocalizations appLocalizations, String? groupCode)}}
+Die Methode dient dazu, einen Gruppencode zu validieren und gibt eine Fehlermeldung zurück, wenn der Gruppencode ungültig ist. Sie nimmt ein \texttt{AppLocalizations} Objekt entgegen, um die Übersetzungen zu laden, sowie den Gruppencode, der validiert werden soll.
+\paragraph{\texttt{joinGroup(AppLocalizations appLocalizations, GroupService groupService, String groupCode)}}
+Es wird nun ein \texttt{AppLocalizations} Objekt übergeben, um die Übersetzungen zu laden. Zudem wird ein \texttt{GroupService} Objekt entgegengenommen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen.
+\subsubsection{PDFRecipeViewPage}
+Die Klasse wurde hinzugefügt, um ein Rezept als PDF anzuzeigen und verschiedene Optionen zum Drucken, etc. zur Verfügung zu stellen. Es wird ein Rezept übergeben, das angezeigt werden soll.
+\subsubsection{\texttt{group\_detail\_screen}}
+\subsubsection*{GroupDetailScreen}
+Die Klasse ist nun ein ConsumerStatefulWidget, da sie auf die Methoden des \texttt{GroupService} zugreift und einen Zustand enthält, von dem abhängt, was angezeigt wird.
+\paragraph{\texttt{groupId}}
+Es wird nur noch die Id der Gruppe übergeben statt der gesamten Gruppe. Die Gruppe wird nun im Widget selbst geladen. Dadurch kann die Gruppe auch neu geladen werden, wenn sich die Daten ändern.
+\paragraph{\texttt{getGroupFuture}}
+Das Attribut wurde hinzugefügt, um die Gruppe zu laden. Wird es neu gesetzt, wird die Gruppe neu geladen. Es fungiert als Zustand des Widgets.
+\paragraph{\texttt{renameGroup(BuildContext context, GroupService groupService, String oldName, String groupId)}}
+Die Methode nimmt nun den \texttt{BuildContext} entgegen, um die Übersetzungen zu laden und ein Pop-Up-Fenster zu öffnen, in dem der neue Name eingegebe wird. Den Initialwert dieses Dialogs bildet der alte Name. Zudem wird ein \texttt{GroupService} Objekt entgegengenommen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen. Die Id der Gruppe wird ebenfalls übergeben.
+\paragraph{\texttt{leaveGroup(BuildContext context, GroupService groupService, String groupId)}}
+Die Methode nimmt nun den \texttt{BuildContext} entgegen, um die Übersetzungen zu laden und ein Pop-Up-Fenster zu öffnen, in dem der Nutzer bestätigen muss, dass er die Gruppe verlassen möchte. Zudem wird ein \texttt{GroupService} Objekt entgegengenommen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen. Die Id der Gruppe wird ebenfalls übergeben.
+\paragraph{\texttt{deleteGroup(BuildContext context, GroupService groupService, Group group)}}
+Die Methode nimmt nun den \texttt{BuildContext} entgegen, um die Übersetzungen zu laden und ein Pop-Up-Fenster zu öffnen, in dem der Nutzer bestätigen muss, dass er die Gruppe löschen möchte. Zudem wird ein \texttt{GroupService} Objekt entgegengenommen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen. Die Gruppe wird ebenfalls übergeben.
+\paragraph{\texttt{refetchGroup()}}
+Die Methode lädt die Gruppe neu. Dies wird nach jeder Änderung der Gruppe ausgeführt.
+\subsubsection*{GroupRecipeList}
+Die Klasse ist nun ein ConsumerWidget, da sie auf die Methoden des \texttt{GroupService} zugreift.
+\paragraph{\texttt{isAdmin}}
+Die Klasse hat nun ein Attribut, das bestimmt, ob die Administratoraktionen angezeigt werden sollen.
+\paragraph{\texttt{groupId}}
+Es wird die Id der Gruppe gespeichert, um später Methoden mit dieser Id auszuführen.
+\paragraph{\texttt{refetch}}
+Der Callback der nach dem Durchführen einer Aktion ausgeführt wird, um die Daten neu zu laden.
+\paragraph{\texttt{toggleCensoring(GroupService groupService, GroupRecipe recipe)}}
+Die Methode nimmt nun ein \texttt{GroupService} Objekt entgegen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen. Zudem wird ein \texttt{GroupRecipe} Objekt übergeben, das die Daten des Rezepts enthält, dessen Sichtbarkeit geändert werden soll.
+\subsubsection*{MemberList}
+Die Klasse ist nun ein ConsumerWidget, da sie auf die Methoden des \texttt{GroupService} zugreift.
+\paragraph{\texttt{members}}
+Das Attribut wurde entfernt, da das Widget die Mitglieder aus dem \texttt{group}-Objekt lädt.
+\paragraph{\texttt{isAdmin}}
+Die Klasse hat nun ein Attribut, das bestimmt, ob die Administratoraktionen angezeigt werden sollen.
+\paragraph{\texttt{group}}
+Es wird die Gruppe gespeichert, um später Methoden mit dieser Gruppe auszuführen und die Mitglieder zu laden.
+\paragraph{\texttt{userId}}
+Die Id des Nutzers wird gespeichert, um den aktuellen Nutzer in der Liste speziell hervorzuheben.
+\paragraph{\texttt{refetch}}
+Der Callback der nach dem Durchführen einer Aktion ausgeführt wird, um die Daten neu zu laden.
+\paragraph{\texttt{makeAdmin(GroupService groupService, GroupMember member)}}
+Die Methode nimmt nun ein \texttt{GroupService} Objekt entgegen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen. Zudem wird ein \texttt{GroupMember} Objekt übergeben, das die Daten des Mitglieds enthält, das zum Administrator ernannt werden soll.
+\paragraph{\texttt{removeAdminStatus(GroupService groupService, GroupMember member)}}
+Die Methode nimmt nun ein \texttt{GroupService} Objekt entgegen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen. Zudem wird ein \texttt{GroupMember} Objekt übergeben, das die Daten des Mitglieds enthält, das der Administratorstatus entzogen werden soll.
+\paragraph{\texttt{kickUser(GroupService groupService, GroupMember member)}}
+Die Methode nimmt nun ein \texttt{GroupService} Objekt entgegen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen. Zudem wird ein \texttt{GroupMember} Objekt übergeben, das die Daten des Mitglieds enthält, das gekickt werden soll.
+\paragraph{\texttt{banUser(GroupService groupService, GroupMember member)}}
+Die Methode nimmt nun ein \texttt{GroupService} Objekt entgegen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen. Zudem wird ein \texttt{GroupMember} Objekt übergeben, das die Daten des Mitglieds enthält, das gebannt werden soll.
+\subsubsection{\texttt{settings\_screen}}
+\subsubsection*{SettingsScreen}
+Die Klasse ist nun ein ConsumerWidget, da sie auf die Methoden des \texttt{UserService} zugreift.
+\paragraph{\texttt{logout(BuildContext context, UserService userService)}}
+Die Methode nimmt nun ein \texttt{UserService} Objekt entgegen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen. Zudem wird der \texttt{BuildContext} übergeben, um die Übersetzungen zu laden, ein Pop-Up-Fenster anzuzeigen und die Navigation zu ermöglichen.
+\paragraph{\texttt{deleteAccount(BuildContext context, UserService userService)}}
+Die Methode nimmt nun ein \texttt{UserService} Objekt entgegen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen. Zudem wird der \texttt{BuildContext} übergeben, um die Übersetzungen zu laden, ein Pop-Up-Fenster anzuzeigen und die Navigation zu ermöglichen.
+\paragraph{\texttt{renameUser(BuildContext context, UserService userService, String oldName)}}
+Die Methode nimmt nun ein \texttt{UserService} Objekt entgegen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen. Zudem wird der \texttt{BuildContext} übergeben, um die Übersetzungen zu laden und ein Pop-Up-Fenster anzuzeigen. Der alte Name wird ebenfalls übergeben, um den Initialwert der Texteingabe zu setzen.
+\subsubsection*{ProfileImagePicker}
+Die Klasse ist nun ein StatelessWidget, da sie keinen Zustand mehr verwaltet.
+\paragraph{\texttt{profileImageUrl}}
+Das Widget bekommt nur noch die URL übergeben und nicht mehr das gesamte Bild. Außerdem ändert sie diese nicht selbst, sondern bekommt sie vom Parentwidget übergeben.
+\paragraph{\texttt{userService}}
+Das Widget bekommt nun ein \texttt{UserService} Objekt übergeben, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor vom Parentwidget aus dem Provider geladen.
+\paragraph{\texttt{onChange(Uint8List? value)}}
+Der Callback wird nicht mehr verwendet. Die Zustandsverwaltung erfolgt nun nämlich über das Parentwidget, welches wiederum seinen Zustand aus dem UserService liest.
+\paragraph{selectProfileImage(BuildContext context)}
+Die Methode wurde hinzugefügt, um ein Pop-Up-Fenster anzuzeigen, in dem der Nutzer verschiedene Auswahlmöglichkeiten hat, um ein Bild auszuwählen oder zu löschen. Zu diesem Zweck wird der \texttt{BuildContext} übergeben, um die Übersetzungen zu laden und das Pop-Up-Fenster anzuzeigen.
+\paragraph*{removeProfileImage()}
+Die Methode löscht das Profilbild des Nutzers.
+\paragraph*{setProfileImage(ImageSource source)}
+Die Methode lädt ein Bild hoch und setzt es als Profilbild des Nutzers. Dazu wird die Quelle des Bildes übergeben, die entweder die Kamera oder die Galerie ist.
+\subsubsection*{GroupList}
+Die Klasse ist nun ein ConsumerWidget, da sie auf die Methoden des \texttt{GroupService} zugreift.
+\paragraph{\texttt{groups}}
+Das Attribut wurde entfernt, stattdessen wird die Liste der Gruppen aus dem \texttt{GroupService} geladen.
+\paragraph{\texttt{leaveGroup(BuildContext context, GroupService groupService, Group group)}}
+Die Methode nimmt nun den \texttt{BuildContext} entgegen, um die Übersetzungen zu laden und ein Pop-Up-Fenster zu öffnen, in dem der Nutzer bestätigen muss, dass er die Gruppe verlassen möchte. Zudem wird ein \texttt{GroupService} Objekt entgegengenommen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen. Die Gruppe wird ebenfalls übergeben, um zu wissen, welche Gruppe verlassen werden soll.
+\subsubsection*{OwnRecipeList}
+Die Klasse ist nun ein ConsumerWidget, da sie keinen eigenen Zustand mehr verwaltet, aber auf die Methoden des \texttt{RecipeService} zugreift.
+\paragraph{\texttt{recipes}}
+Das Attribut wurde entfernt, stattdessen wird die Liste der Rezepte aus dem \texttt{RecipeService} geladen.
+\paragraph{\texttt{userId}}
+Die Id des Nutzers wird gespeichert, um die Rezeptliste nach denen des Nutzers zu filtern.
+\paragraph{\texttt{togglePrivate(RecipeService recipeService, Recipe recipe)}}
+Die Methode nimmt nun ein \texttt{RecipeService} Objekt entgegen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen. Das Rezept wird ebenfalls übergeben, um zu wissen, welches Rezept ausgeblendet werden soll.
+\paragraph{\texttt{exportRecipe(Recipe recipe)}}
+Die Methode wurde gelöscht, da diese Logik nun im \texttt{PDFRecipeViewPage} enthalten ist.
+\paragraph{\texttt{deleteRecipe(BuildContext context, RecipeService recipeService, Recipe recipe)}}
+Die Methode nimmt nun den \texttt{BuildContext} entgegen, um die Übersetzungen zu laden und ein Pop-Up-Fenster zu öffnen, in dem der Nutzer bestätigen muss, dass er das Rezept löschen möchte. Zudem wird ein \texttt{RecipeService} Objekt entgegengenommen, um auf die Methoden des Services zugreifen zu können. Dieses wurde zuvor aus dem Provider geladen. Das Rezept wird ebenfalls übergeben, um zu wissen, welches Rezept gelöscht werden soll.
 \section{Glossar}
 \printglossary[style=altlist]
 \end{document}
