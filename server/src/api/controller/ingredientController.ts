@@ -45,14 +45,10 @@ export default class IngredientController extends AbstractController {
     next: express.NextFunction
   ): Promise<void> {
     try{ 
-      this.prisma.ingredientIcon
+      const icons = (await this.prisma.ingredientIcon
         .findMany()
-        .then((result) => {
-          result.forEach((icon) => {
-            icon.id = this.fromIdtoURL(icon.id)
-        })
-        res.status(200).json(result)
-      })
+        ).map((result) => {return {icon: this.fromIdtoURL(result.id)}})
+        res.status(200).json(icons)
     } catch (error) {
       next(error)
     }
@@ -71,7 +67,7 @@ export default class IngredientController extends AbstractController {
         },
       })
       .then((result) => {
-        res.status(200).json(result)
+        res.status(200).send(result.icon)
       }
       )
       .catch((error) => {
