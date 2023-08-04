@@ -74,7 +74,7 @@ export default class IngredientController extends AbstractController {
   }
 
   public fromIdtoURL(imageId: string): string {
-    return process.env.URL + '/icon/' + imageId
+    return process.env.URL + '/ingredient/icons/' + imageId
   }
 
   public fromURLtoId(imageURL: string): string {
