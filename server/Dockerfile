@@ -8,7 +8,7 @@ COPY prisma ./prisma/
 
 COPY ./build ./build
 
-COPY ./src/mailer/templates/reportMail.html ./build/src/mailer/templates/reportMail.html
+COPY ./src/mailer/templates/reportMail.html ./src/mailer/templates/reportMail.html
 
 RUN npm i --production
 
