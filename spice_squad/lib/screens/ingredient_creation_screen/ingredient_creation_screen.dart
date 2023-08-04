@@ -35,11 +35,11 @@ class IngredientCreationScreen extends StatefulWidget {
 }
 
 class _IngredientCreationScreenState extends State<IngredientCreationScreen> {
-  late Uint8List? _icon;
+  late String _iconUrl;
 
   @override
   void initState() {
-    _icon = widget._initialIngredient?.icon;
+    _iconUrl = widget._initialIngredient?.iconUrl ?? "";
     super.initState();
   }
 
@@ -68,10 +68,10 @@ class _IngredientCreationScreenState extends State<IngredientCreationScreen> {
                       child: SizedBox(
                         height: 52,
                         child: IconPickerWidget(
-                          initialIcon: widget._initialIngredient?.icon,
-                          onChanged: (icon) {
+                          initialIconUrl: widget._initialIngredient?.iconUrl ?? "",
+                          onChanged: (value) {
                             setState(() {
-                              _icon = icon;
+                              _iconUrl = value;
                             });
                           },
                         ),
@@ -118,14 +118,14 @@ class _IngredientCreationScreenState extends State<IngredientCreationScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       // validates all fields
-                      if (_icon != null && !widget._formKey.currentState!.validate()) return;
+                      if (_iconUrl.isNotEmpty && !widget._formKey.currentState!.validate()) return;
                       //creates new ingredient and returns it to the previous screen
                       final ingredient = Ingredient(
                         id: widget._initialIngredient?.id ?? "",
                         name: widget._nameController.text,
                         amount: double.parse(widget._amountController.text),
                         unit: widget._unitController.text,
-                        icon: _icon!,
+                        iconUrl: _iconUrl,
                       );
 
                       Navigator.of(context).pop(ingredient);

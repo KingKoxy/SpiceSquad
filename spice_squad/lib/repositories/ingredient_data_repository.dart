@@ -1,6 +1,5 @@
 import "dart:convert";
 import "dart:io";
-import "dart:typed_data";
 
 import "package:http/http.dart" as http;
 import "package:shared_preferences/shared_preferences.dart";
@@ -50,7 +49,7 @@ class IngredientDataRepository {
   /// Otherwise fetch them from the backend and save them in the shared preferences
   ///
   /// Throws [HttpStatusException] if the request fails
-  Future<List<Uint8List>> fetchIngredientIcons() async {
+  Future<List<String>> fetchIngredientIcons() async {
     // If the ingredient icons were fetched in the last two days, return them from the shared preferences
     final sharedPreferences = await SharedPreferences.getInstance();
     if (sharedPreferences.containsKey("ingredientIcons") &&
@@ -60,7 +59,7 @@ class IngredientDataRepository {
                 .inDays <
             2) {
       final List<dynamic> body = jsonDecode(sharedPreferences.getString("ingredientIcons")!);
-      return body.map<Uint8List>((e) => Uint8List.fromList(e["icon"]["data"].cast<int>())).toList();
+      return body.map((e) => e["icon"] as String).toList();
     }
     // Otherwise fetch them from the backend
     final response = await http.get(
@@ -73,7 +72,7 @@ class IngredientDataRepository {
       sharedPreferences.setString("ingredientIcons", response.body);
       sharedPreferences.setInt("ingredientIconsLastUpdate", DateTime.now().millisecondsSinceEpoch);
       final List<dynamic> body = jsonDecode(response.body);
-      return body.map<Uint8List>((e) => Uint8List.fromList(e["icon"]["data"].cast<int>())).toList();
+      return body.map((e) => e["icon"] as String).toList();
     } else {
       throw HttpStatusException(response);
     }

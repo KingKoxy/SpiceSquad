@@ -1,6 +1,6 @@
 import "dart:io";
-import "dart:typed_data";
 
+import "package:cached_network_image/cached_network_image.dart";
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:image_picker/image_picker.dart";
@@ -9,25 +9,25 @@ import "package:spice_squad/services/user_service.dart";
 
 /// Widget for selecting a profile image
 class ProfileImagePicker extends StatelessWidget {
-  /// Initial Profile image to display
-  final Uint8List? _profileImage;
+  /// Initial profile image to display
+  final String _profileImageUrl;
 
   /// User service for updating the profile image
   final UserService _userService;
 
   /// Creates a new profile image picker
-  const ProfileImagePicker({required Uint8List? profileImage, required UserService userService, super.key})
+  const ProfileImagePicker({required String profileImage, required UserService userService, super.key})
       : _userService = userService,
-        _profileImage = profileImage;
+        _profileImageUrl = profileImage;
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       child: Ink(
-        decoration: _profileImage != null
+        decoration: _profileImageUrl.isNotEmpty
             ? BoxDecoration(
                 borderRadius: BorderRadius.circular(20000),
-                image: DecorationImage(image: MemoryImage(_profileImage!), fit: BoxFit.cover),
+                image: DecorationImage(image: CachedNetworkImageProvider(_profileImageUrl), fit: BoxFit.cover),
               )
             : BoxDecoration(borderRadius: BorderRadius.circular(20000), color: Theme.of(context).cardColor),
         child: InkWell(
@@ -78,7 +78,7 @@ class ProfileImagePicker extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    if (_profileImage != null)
+                    if (_profileImageUrl.isNotEmpty)
                       SizedBox(
                         height: 86,
                         width: 86,

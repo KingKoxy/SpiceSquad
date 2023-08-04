@@ -83,4 +83,9 @@ abstract class ApiEndpoints {
 
   /// The url for recipe censoring endpoint
   static String get setCensored => "$admin/setCensored";
+
+  // Image endpoints
+
+  /// The base url for the image endpoints
+  static String get image => "$_baseUrl/image";
 }

@@ -14,7 +14,6 @@ import "package:spice_squad/widgets/remove_button.dart";
 
 /// Widget for displaying a list of recipes the user has created
 class OwnRecipeList extends ConsumerWidget {
-  
   /// User id of the current user
   final String _userId;
 
@@ -85,7 +84,7 @@ class OwnRecipeList extends ConsumerWidget {
                                     ),
                                     EyeButton(
                                       open: !recipe.isPrivate,
-                                      onToggle: () => _hideRecipe(ref.read(recipeServiceProvider.notifier), recipe),
+                                      onToggle: () => _togglePrivate(ref.read(recipeServiceProvider.notifier), recipe),
                                     ),
                                     RemoveButton(
                                       onPressed: () =>
@@ -119,7 +118,7 @@ class OwnRecipeList extends ConsumerWidget {
     );
   }
 
-  void _hideRecipe(RecipeService recipeService, Recipe recipe) {
+  void _togglePrivate(RecipeService recipeService, Recipe recipe) {
     recipeService.togglePrivate(recipe);
   }
 

@@ -1,3 +1,4 @@
+import "package:cached_network_image/cached_network_image.dart";
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -73,8 +74,8 @@ class RecipeCard extends ConsumerWidget {
                         color: Theme.of(context).colorScheme.onSurfaceVariant,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
-                          child: _recipe.image != null
-                              ? Image.memory(_recipe.image!, fit: BoxFit.cover)
+                          child: _recipe.imageUrl.isNotEmpty
+                              ? CachedNetworkImage(imageUrl: _recipe.imageUrl, fit: BoxFit.cover)
                               : const Center(
                                   child: ImageIcon(SpiceSquadIconImages.image, size: 32),
                                 ),

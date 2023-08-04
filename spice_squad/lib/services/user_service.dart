@@ -44,12 +44,18 @@ class UserService extends AsyncNotifier<User?> {
   }
 
   /// Sets the profile image of the currently logged in user to the given [file].
-  Future<void> setProfileImage(File file) {
+  Future<void> setProfileImage(File file) async {
     if (state.valueOrNull == null) throw Exception("not logged in");
     Image image = decodeImage(file.readAsBytesSync())!;
     image = copyResizeCropSquare(image, size: 240);
     final User oldUser = state.value!;
-    final User newUser = User(id: oldUser.id, userName: oldUser.userName, profileImage: encodeJpg(image));
+    String imageUrl;
+    if(oldUser.profileImageUrl.isNotEmpty){
+      imageUrl = await ref.read(imageRepositoryProvider).updateImage(oldUser.profileImageUrl, encodeJpg(image));
+    } else {
+      imageUrl = await ref.read(imageRepositoryProvider).uploadImage(encodeJpg(image));
+    }
+    final User newUser = User(id: oldUser.id, userName: oldUser.userName, profileImageUrl: imageUrl);
     state = AsyncData(newUser);
     return ref.read(userRepositoryProvider).updateUser(newUser).whenComplete(_refetch);
   }
@@ -58,7 +64,7 @@ class UserService extends AsyncNotifier<User?> {
   Future<void> removeProfileImage() {
     if (state.valueOrNull == null) throw Exception("not logged in");
     final User oldUser = state.value!;
-    final User newUser = User(id: oldUser.id, userName: oldUser.userName, profileImage: null);
+    final User newUser = User(id: oldUser.id, userName: oldUser.userName, profileImageUrl: "");
     state = AsyncData(newUser);
     return ref.read(userRepositoryProvider).updateUser(newUser).whenComplete(_refetch);
   }
@@ -67,7 +73,7 @@ class UserService extends AsyncNotifier<User?> {
   Future<void> setUserName(String value) {
     if (state.valueOrNull == null) throw Exception("not logged in");
     final User oldUser = state.value!;
-    final User newUser = User(id: oldUser.id, userName: value, profileImage: oldUser.profileImage);
+    final User newUser = User(id: oldUser.id, userName: value, profileImageUrl: oldUser.profileImageUrl);
     state = AsyncData(newUser);
     return ref.read(userRepositoryProvider).updateUser(newUser).whenComplete(_refetch);
   }

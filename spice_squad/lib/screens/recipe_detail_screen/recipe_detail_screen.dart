@@ -1,3 +1,4 @@
+import "package:cached_network_image/cached_network_image.dart";
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -104,9 +105,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                   color: Theme.of(context).colorScheme.onSurface,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: widget._recipe.image != null
-                        ? Image.memory(
-                            widget._recipe.image!,
+                    child: widget._recipe.imageUrl.isNotEmpty
+                        ? CachedNetworkImage(
+                            imageUrl: widget._recipe.imageUrl,
                             width: double.infinity,
                             height: 200,
                             fit: BoxFit.cover,
