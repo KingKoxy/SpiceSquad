@@ -29,6 +29,19 @@ class Ingredient {
   });
 
   /// Creates a new [Ingredient] from the given [map] object by extracting the values
+  ///
+  /// The [map] should have the following structure
+  /// ```dart
+  /// {
+  ///   "id": String,
+  ///   "name": String,
+  ///   "icon": {
+  ///     "data": Uint8List
+  ///   },
+  ///   "amount": double,
+  ///   "unit": String
+  /// }
+  /// ```
   factory Ingredient.fromMap(Map<String, dynamic> map) {
     return Ingredient(
       id: map["id"],

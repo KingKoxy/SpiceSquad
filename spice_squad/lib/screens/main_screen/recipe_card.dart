@@ -11,10 +11,10 @@ import "package:spice_squad/widgets/favourite_button.dart";
 /// A card showing a recipe.
 class RecipeCard extends ConsumerWidget {
   /// The recipe to show.
-  final Recipe recipe;
+  final Recipe _recipe;
 
   /// Creates a new recipe card.
-  const RecipeCard({required this.recipe, super.key});
+  const RecipeCard({required Recipe recipe, super.key}) : _recipe = recipe;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,7 +22,7 @@ class RecipeCard extends ConsumerWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
-        onTap: () => Navigator.of(context).pushNamed(RecipeDetailScreen.routeName, arguments: recipe),
+        onTap: () => Navigator.of(context).pushNamed(RecipeDetailScreen.routeName, arguments: _recipe),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -35,13 +35,13 @@ class RecipeCard extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          recipe.title,
+                          _recipe.title,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         Text(
-                          recipe.author.userName,
+                          _recipe.author.userName,
                           style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.grey),
                         ),
                       ],
@@ -51,7 +51,7 @@ class RecipeCard extends ConsumerWidget {
                     width: 8,
                   ),
                   FavouriteButton(
-                    value: recipe.isFavourite,
+                    value: _recipe.isFavourite,
                     onToggle: () {
                       _toggleFavourite(ref.read(recipeServiceProvider.notifier));
                     },
@@ -73,8 +73,8 @@ class RecipeCard extends ConsumerWidget {
                         color: Theme.of(context).colorScheme.onSurfaceVariant,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
-                          child: recipe.image != null
-                              ? Image.memory(recipe.image!, fit: BoxFit.cover)
+                          child: _recipe.image != null
+                              ? Image.memory(_recipe.image!, fit: BoxFit.cover)
                               : const Center(
                                   child: ImageIcon(SpiceSquadIconImages.image, size: 32),
                                 ),
@@ -105,7 +105,7 @@ class RecipeCard extends ConsumerWidget {
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
-                                  AppLocalizations.of(context)!.duration(recipe.duration),
+                                  AppLocalizations.of(context)!.duration(_recipe.duration),
                                   style: Theme.of(context).textTheme.titleSmall,
                                 )
                               ],
@@ -127,7 +127,7 @@ class RecipeCard extends ConsumerWidget {
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
-                                  recipe.difficulty.getName(context),
+                                  _recipe.difficulty.getName(AppLocalizations.of(context)!),
                                   style: Theme.of(context).textTheme.titleSmall,
                                 )
                               ],
@@ -147,6 +147,6 @@ class RecipeCard extends ConsumerWidget {
   }
 
   void _toggleFavourite(RecipeService recipeService) {
-    recipeService.toggleFavourite(recipe);
+    recipeService.toggleFavourite(_recipe);
   }
 }

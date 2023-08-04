@@ -4,10 +4,10 @@ import "package:http/http.dart";
 
 /// Exception that is thrown when a http request fails
 class HttpStatusException implements HttpException {
-  /// The status code of the response
+  /// The failed response
   final Response response;
 
-  /// Creates a new [HttpStatusException] from the given [response]
+  /// Creates a new [HttpStatusException] from the given failed [response]
   HttpStatusException(this.response);
 
   @override

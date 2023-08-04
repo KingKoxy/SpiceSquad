@@ -4,6 +4,7 @@ import "dart:io";
 import "package:http/http.dart" as http;
 import "package:spice_squad/api_endpoints.dart";
 import "package:spice_squad/exceptions/http_status_exception.dart";
+import "package:spice_squad/exceptions/invalid_group_code_error.dart";
 import "package:spice_squad/models/group.dart";
 import "package:spice_squad/repositories/user_repository.dart";
 
@@ -13,10 +14,14 @@ import "package:spice_squad/repositories/user_repository.dart";
 class GroupRepository {
   final UserRepository _userRepository;
 
-  /// Creates a new [GroupRepository] with the given [UserRepository]
-  GroupRepository(this._userRepository);
+  /// Creates a new [GroupRepository]
+  ///
+  /// The [userRepository] is used to get the token for the authorization header.
+  GroupRepository({required UserRepository userRepository}) : _userRepository = userRepository;
 
-  /// Fetches all groups for the current user
+  /// Fetches all groups for the current user and returns them as a list
+  ///
+  /// Throws [HttpStatusException] if the request fails
   Future<List<Group>> fetchAllGroupsForUser() async {
     final response = await http.get(
       Uri.parse(ApiEndpoints.group),
@@ -33,7 +38,9 @@ class GroupRepository {
     }
   }
 
-  /// Fetches the group with the given [id]
+  /// Fetches the group with the given [id] and returns it
+  ///
+  /// Throws [HttpStatusException] if the request fails
   Future<Group> fetchGroupById(String id) async {
     final response = await http.get(
       Uri.parse("${ApiEndpoints.group}/$id"),
@@ -50,7 +57,9 @@ class GroupRepository {
     }
   }
 
-  /// Makes the current user join the group with the given [groupCode]
+  /// Sends request to make the current user join the group with the given [groupCode]
+  ///
+  /// Throws [InvalidGroupCodeError] if the group code is invalid or [HttpStatusException] if the request fails for other reasons
   Future<void> joinGroup(String groupCode) async {
     final response = await http.patch(
       Uri.parse(ApiEndpoints.joinGroup),
@@ -64,13 +73,15 @@ class GroupRepository {
     );
     if (response.statusCode != 200) {
       if (response.statusCode == 404) {
-        throw ArgumentError("GROUP_DOES_NOT_EXIST");
+        throw InvalidGroupCodeError(groupCode: groupCode);
       }
       throw HttpStatusException(response);
     }
   }
 
-  /// Makes the current user leave the group with the given [groupId]
+  /// Sends request to make the current user leave the group with the given [groupId]
+  ///
+  /// Throws [HttpStatusException] if the request fails
   Future<void> leaveGroup(String groupId) async {
     final response = await http.patch(
       Uri.parse("${ApiEndpoints.leaveGroup}/$groupId"),
@@ -84,7 +95,9 @@ class GroupRepository {
     }
   }
 
-  /// Creates a new group with the given [name]
+  /// Sends request to create a new group with the given [name]
+  ///
+  /// Throws [HttpStatusException] if the request fails
   Future<void> createGroup(String name) async {
     final response = await http.post(
       Uri.parse(ApiEndpoints.group),
@@ -101,7 +114,9 @@ class GroupRepository {
     }
   }
 
-  /// Updates the given [group] by overwriting the group on the server with the same id
+  /// Sends request to update the given [group] by overwriting the group on the server with the same id
+  ///
+  /// Throws [HttpStatusException] if the request fails
   Future<void> updateGroup(Group group) async {
     final response = await http.patch(
       Uri.parse("${ApiEndpoints.group}/${group.id}"),
@@ -116,7 +131,9 @@ class GroupRepository {
     }
   }
 
-  /// Deletes the group with the given [groupId]
+  /// Sends request to delete the group with the given [groupId]
+  ///
+  /// Throws [HttpStatusException] if the request fails
   Future<void> deleteGroup(String groupId) async {
     final response = await http.delete(
       Uri.parse("${ApiEndpoints.group}/$groupId"),

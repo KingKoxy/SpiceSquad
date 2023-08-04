@@ -14,11 +14,12 @@ import "package:spice_squad/widgets/remove_button.dart";
 
 /// Widget for displaying a list of recipes the user has created
 class OwnRecipeList extends ConsumerWidget {
-  /// The id of the user
-  final String userId;
+  
+  /// User id of the current user
+  final String _userId;
 
   /// Creates a new own recipe list
-  const OwnRecipeList({required this.userId, super.key});
+  const OwnRecipeList({required String userId, super.key}) : _userId = userId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -41,8 +42,7 @@ class OwnRecipeList extends ConsumerWidget {
         ref.watch(recipeServiceProvider).when(
           data: (recipes) {
             // Filter for own recipes.
-            final ownRecipes =
-                recipes.where((recipe) => recipe.author.id == userId).toList();
+            final ownRecipes = recipes.where((recipe) => recipe.author.id == _userId).toList();
             ownRecipes.sort(
               (Recipe a, Recipe b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()),
             );

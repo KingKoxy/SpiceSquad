@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:qr_flutter/qr_flutter.dart";
 import "package:spice_squad/models/group.dart";
+import "package:spice_squad/widgets/nav_bar.dart";
 
 /// Screen for displaying a QR-Code for joining a group
 ///
@@ -15,10 +16,10 @@ class QRCodeScreen extends StatelessWidget {
   static const routeName = "/qr-code";
 
   /// The group to display the QR-Code for
-  final Group group;
+  final Group _group;
 
   /// Creates a new QR-Code screen
-  const QRCodeScreen({required this.group, super.key});
+  const QRCodeScreen({required Group group, super.key}) : _group = group;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +27,7 @@ class QRCodeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.qrCodeHeadline),
       ),
+      bottomNavigationBar: const NavBar(currentIndex: 2),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -38,7 +40,7 @@ class QRCodeScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      group.name,
+                      _group.name,
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                     Text(
@@ -52,7 +54,7 @@ class QRCodeScreen extends StatelessWidget {
                       width: 200,
                       height: 200,
                       child: QrImageView(
-                        data: group.groupCode,
+                        data: _group.groupCode,
                         backgroundColor: Colors.white,
                         eyeStyle: const QrEyeStyle(eyeShape: QrEyeShape.square, color: Colors.black),
                         dataModuleStyle:
