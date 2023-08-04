@@ -21,7 +21,11 @@ export default class AuthenticationController extends AbstractController {
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
-  public async userLogin(req: express.Request< never, never, {email: string, password: string}>, res: express.Response, next: express.NextFunction): Promise<void> {
+  public async userLogin(
+    req: express.Request<never, never, { email: string; password: string }>,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<void> {
     firebaseAuth
       .signInWithEmailAndPassword(this.auth, req.body.email, req.body.password)
       .then(async (userCredentials) => {
@@ -29,7 +33,7 @@ export default class AuthenticationController extends AbstractController {
         if (process.env.NODE_ENV === 'development') console.log('Successfully logged in:', userCredentials.user)
         res.status(200).json({
           refreshToken: userCredentials.user.refreshToken,
-          idToken: await userCredentials.user.getIdToken()
+          idToken: await userCredentials.user.getIdToken(),
         })
       })
       .catch((error) => {
@@ -47,13 +51,18 @@ export default class AuthenticationController extends AbstractController {
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
-  public async userRegister(req: express.Request< never, never, { email: string, password: string, userName: string}>, res: express.Response, next: express.NextFunction): Promise<void> {
+  public async userRegister(
+    req: express.Request<never, never, { email: string; password: string; userName: string }>,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<void> {
     // Adds a new user to the firebase authentication
     firebaseAuth
       .createUserWithEmailAndPassword(this.auth, req.body.email, req.body.password)
       .then(async (userCredentials) => {
         // Development only output
-        if (process.env.NODE_ENV === 'development') console.log('Successfully created new user:', userCredentials.user.email)
+        if (process.env.NODE_ENV === 'development')
+          console.log('Successfully created new user:', userCredentials.user.email)
         // Adds a new user to the database
         await this.prisma.user
           .create({
@@ -75,7 +84,9 @@ export default class AuthenticationController extends AbstractController {
           refreshToken: userCredentials.user.refreshToken,
           idToken: await firebaseAuth.getIdToken(userCredentials.user),
         })
-        firebaseAuth.sendEmailVerification(userCredentials.user).catch((error) => { next(error) })
+        firebaseAuth.sendEmailVerification(userCredentials.user).catch((error) => {
+          next(error)
+        })
       })
       .catch((error) => {
         error as Error
@@ -91,7 +102,11 @@ export default class AuthenticationController extends AbstractController {
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
-  public userResetPassword(req: express.Request< never, never, {email: string}>, res: express.Response, next: express.NextFunction): void {
+  public userResetPassword(
+    req: express.Request<never, never, { email: string }>,
+    res: express.Response,
+    next: express.NextFunction
+  ): void {
     firebaseAuth
       .sendPasswordResetEmail(this.auth, req.body.email)
       .then(() => {
@@ -115,11 +130,10 @@ export default class AuthenticationController extends AbstractController {
    * @returns Promise<void>
    */
   public async userRefreshToken(
-    req: express.Request< never, never, {refreshToken: string}>,
+    req: express.Request<never, never, { refreshToken: string }>,
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
-
     const url = process.env.FIREBASE_URL
     const formData = {
       grant_type: 'refresh_token',
@@ -156,7 +170,11 @@ export default class AuthenticationController extends AbstractController {
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
-  public async userLogout(req: AuthenticatedRequest< never, never, never>, res: express.Response, next: express.NextFunction): Promise<void> {
+  public async userLogout(
+    req: AuthenticatedRequest<never, never, never>,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<void> {
     await firebaseAuth
       .signOut(this.auth)
       .then(() => {

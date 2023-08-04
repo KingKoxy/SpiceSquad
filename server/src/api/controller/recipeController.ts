@@ -22,13 +22,12 @@ export default class RecipeController extends AbstractController {
    */
   private reportMailBuilder: ReportMailBuilder
 
-
   /**
    * @description This variable contains the imageController.
    * @private
    * @type {imageController}
    */
-  private ImageController;
+  private ImageController
 
   /**
    * @description This constructor calls the constructor of the abstractController.
@@ -75,7 +74,7 @@ export default class RecipeController extends AbstractController {
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
-    const imageId = req.body.image? await this.ImageController.createImage(req.body.image):null;
+    const imageId = req.body.image ? await this.ImageController.createImage(req.body.image) : null
     await this.prisma.recipe
       .create({
         data: {
@@ -137,43 +136,41 @@ export default class RecipeController extends AbstractController {
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
-    const recipe = await this.prisma.recipe
-      .findUnique({
+    const recipe = await this.prisma.recipe.findUnique({
+      where: {
+        id: req.params.recipeId,
+      },
+    })
+    if (!recipe) {
+      res.status(409).json({
+        message: 'Recipe not found',
+      })
+    } else if (recipe.author_id !== req.userId) {
+      res.status(401).json({
+        message: 'Not your recipe',
+      })
+    } else {
+      const deletedRecipe = await this.prisma.recipe.delete({
         where: {
           id: req.params.recipeId,
         },
       })
-      if (!recipe) {
-          res.status(409).json({
-            message: 'Recipe not found',
-          })
-        }
-      else if (recipe.author_id !== req.userId) {
-        res.status(401).json({
-          message: 'Not your recipe',
+      this.prisma.image
+        .delete({
+          where: {
+            id: deletedRecipe.image,
+          },
         })
-      } else {
-        const deletedRecipe = await this.prisma.recipe
-          .delete({
-            where: {
-               id: req.params.recipeId,
-            },
+        .then(() => {
+          res.status(200).json({
+            message: 'Recipe deleted successfully!',
           })
-        console.log(deletedRecipe.image)
-          this.prisma.image.delete({
-            where: {
-              id: deletedRecipe.image,
-            },
-          }).then(() => {
-            res.status(200).json({
-               message: 'Recipe deleted successfully!',
-            })
-          })
-          .catch((error) => {
+        })
+        .catch((error) => {
           res.statusCode = 409
-           next(error)
-       })
-      }
+          next(error)
+        })
+    }
   }
 
   /**
@@ -188,25 +185,25 @@ export default class RecipeController extends AbstractController {
       { recipeId },
       never,
       {
-        title: string;
-        image: string;
-        duration: number;
-        difficulty: 'EASY' | 'MEDIUM' | 'HARD';
-        instructions: string;
-        isVegetarian: boolean;
-        isVegan: boolean;
-        isGlutenFree: boolean;
-        isKosher: boolean;
-        isHalal: boolean;
-        isPrivate: boolean;
-        defaultPortionAmount: number;
+        title: string
+        image: string
+        duration: number
+        difficulty: 'EASY' | 'MEDIUM' | 'HARD'
+        instructions: string
+        isVegetarian: boolean
+        isVegan: boolean
+        isGlutenFree: boolean
+        isKosher: boolean
+        isHalal: boolean
+        isPrivate: boolean
+        defaultPortionAmount: number
         ingredients: {
-          id: string;
-          name: string;
-          icon: string;
-          amount: number;
-          unit: string;
-        }[];
+          id: string
+          name: string
+          icon: string
+          amount: number
+          unit: string
+        }[]
       }
     >,
     res: express.Response,
@@ -219,25 +216,25 @@ export default class RecipeController extends AbstractController {
       include: {
         ingredient: true,
       },
-    });
-  
+    })
+
     if (req.userId !== recipe.author_id) {
       res.status(401).json({
         error: 'You are not authorized to edit this recipe!',
-      });
-      return;
+      })
+      return
     }
 
     if (req.body.image == '' && recipe.image != null) {
-      this.ImageController.deleteImage(recipe.image);
+      this.ImageController.deleteImage(recipe.image)
     }
-    const imageId = req.body.image?this.ImageController.fromURLtoId(req.body.image):null
+    const imageId = req.body.image ? this.ImageController.fromURLtoId(req.body.image) : null
 
     req.body.ingredients.forEach((ingredient) => {
-      if (!ingredient.id || ingredient.id === "") {
-        ingredient.id = "00000000-0000-0000-0000-000000000000";
+      if (!ingredient.id || ingredient.id === '') {
+        ingredient.id = '00000000-0000-0000-0000-000000000000'
       }
-    });
+    })
 
     try {
       // Update recipe information
@@ -279,14 +276,13 @@ export default class RecipeController extends AbstractController {
         include: {
           ingredient: true,
         },
-      });
+      })
 
       res.status(200).json({
         message: 'Recipe updated successfully!',
-      });
+      })
     } catch (error) {
-      req.statusCode = 409;
-      console.log(error);
+      req.statusCode = 409
       next(error)
     }
   }
@@ -346,7 +342,11 @@ export default class RecipeController extends AbstractController {
             })
 
             // Change date format so that that is only the date and not the time
-            const recipeWithDate = {...recipe, upload_date: recipe.upload_date.toISOString(), image: recipe.image?this.ImageController.fromIdtoURL(recipe.image):""}
+            const recipeWithDate = {
+              ...recipe,
+              upload_date: recipe.upload_date.toISOString(),
+              image: recipe.image ? this.ImageController.fromIdtoURL(recipe.image) : '',
+            }
             delete recipeWithDate.author_id
 
             return {
@@ -424,10 +424,14 @@ export default class RecipeController extends AbstractController {
               },
             })
 
-            const recipeWithDate = {...recipe, upload_date: recipe.upload_date.toISOString(), image: recipe.image?this.ImageController.fromIdtoURL(recipe.image):""}
+            const recipeWithDate = {
+              ...recipe,
+              upload_date: recipe.upload_date.toISOString(),
+              image: recipe.image ? this.ImageController.fromIdtoURL(recipe.image) : '',
+            }
             delete recipeWithDate.author_id
-            
-           return {
+
+            return {
               ...recipeWithDate,
               author: author,
               ingredients,
@@ -468,7 +472,7 @@ export default class RecipeController extends AbstractController {
         id: req.params.recipeId,
       },
     })
-    const recipeTitle = recipe.title;
+    const recipeTitle = recipe.title
 
     //check if entry is older than 24 hours
     const reportedRecipe = await this.prisma.reportedRecipe.findFirst({
@@ -481,7 +485,7 @@ export default class RecipeController extends AbstractController {
       res.status(429).json({
         message: 'Recipe already reported within the last 24 hours',
       })
-      return;
+      return
     } else if (reportedRecipe) {
       await this.prisma.reportedRecipe.delete({
         where: {
@@ -498,7 +502,6 @@ export default class RecipeController extends AbstractController {
       },
     })
 
-
     //get all admins where the recipe is in their group
     const recipeAuthorId = (
       await this.prisma.recipe.findUnique({
@@ -509,12 +512,12 @@ export default class RecipeController extends AbstractController {
     ).author_id
 
     //get user from recipe author id
-    const recipeAuthor = ( await this.prisma.user.findUnique({
+    const recipeAuthor = await this.prisma.user.findUnique({
       where: {
         id: recipeAuthorId,
       },
-    }))
-    const recipeAuthorName = recipeAuthor.user_name;
+    })
+    const recipeAuthorName = recipeAuthor.user_name
 
     const groupIds = (
       await this.prisma.groupMember.findMany({
@@ -534,17 +537,17 @@ export default class RecipeController extends AbstractController {
       })
     ).map((admin) => admin.user_id)
 
-    const adminEmails = (
-      await this.prisma.user.findMany({
-        where: {
-          id: {
-            in: adminIds,
-          },
+    const adminEmails = await this.prisma.user.findMany({
+      where: {
+        id: {
+          in: adminIds,
         },
-      })
-    )
+      },
+    })
     for (const adminEmail of adminEmails) {
-      this.mailSender.sendMail(this.reportMailBuilder.buildMail(adminEmail.email, adminEmail.user_name ,recipeTitle, recipeAuthorName))
+      this.mailSender.sendMail(
+        this.reportMailBuilder.buildMail(adminEmail.email, adminEmail.user_name, recipeTitle, recipeAuthorName)
+      )
     }
 
     res.status(200).json({
@@ -554,7 +557,7 @@ export default class RecipeController extends AbstractController {
 
   /**
    * @description This function changes the favorite status of the recipe.
-   * @param req AuthenticatedRequest<{recipeId: string}, never, {isFavorite: boolean}> 
+   * @param req AuthenticatedRequest<{recipeId: string}, never, {isFavorite: boolean}>
    * @param res Express response containing message
    * @returns Promise<void>
    */
@@ -572,7 +575,7 @@ export default class RecipeController extends AbstractController {
       res.status(409).json({
         message: 'Recipe not found',
       })
-      return;
+      return
     }
 
     const favouriteId = await this.prisma.favorite.findFirst({
@@ -601,7 +604,7 @@ export default class RecipeController extends AbstractController {
         res.status(409).json({
           message: 'Recipe already favored',
         })
-        return;
+        return
       }
     } else {
       if (favouriteId) {
@@ -617,9 +620,8 @@ export default class RecipeController extends AbstractController {
         res.status(409).json({
           message: 'Recipe not found in favorites',
         })
-        return;
+        return
       }
     }
   }
-
 }

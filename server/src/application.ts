@@ -56,7 +56,6 @@ export default class Application {
     this.initializeMiddleware()
     this.initializeRoutes()
     this.initializeErrorHandlers()
-    
   }
 
   /**
@@ -69,7 +68,7 @@ export default class Application {
       this.app.use(morgan('dev'))
     }
     try {
-      this.app.use(express.json({limit: '50mb'}));
+      this.app.use(express.json({ limit: '50mb' }))
     } catch (error) {
       console.log(error)
     }
@@ -102,15 +101,14 @@ export default class Application {
       next(error)
     })
 
-    this.app.use((error: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    this.app.use((error: Error, req: express.Request, res: express.Response) => {
       res.status(req.statusCode || 500).json({
         error: {
           message: error.message,
           stack: process.env.NODE_ENV === 'development' ? error.stack : undefined,
         },
-        requestBody: req.body
+        requestBody: req.body,
       })
     })
   }
-  
 }

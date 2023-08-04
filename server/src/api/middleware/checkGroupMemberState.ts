@@ -1,4 +1,3 @@
-import firebase = require('firebase-admin')
 import express = require('express')
 import abstractMiddleware from './abstractMiddleware'
 

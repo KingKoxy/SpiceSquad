@@ -1,6 +1,10 @@
 import IngredientController from '../controller/ingredientController'
 import AbstractRouter from './abstractRouter'
-import { ingredientIconGetSchema, ingredientNameGetSchema, ingredientIconGetByIdSchema } from '../../schemas/ingredientSchema'
+import {
+  ingredientIconGetSchema,
+  ingredientNameGetSchema,
+  ingredientIconGetByIdSchema,
+} from '../../schemas/ingredientSchema'
 
 /**
  * @description This class contains the router for the ingredient router.
@@ -48,7 +52,7 @@ class IngredientRouter extends AbstractRouter {
     )
 
     this.router.get(
-      '/icons/:id',
+      '/icons/:iconId',
       this.schemaValidator.checkSchema(ingredientIconGetByIdSchema),
       this.Controller.ingredientIconGetById.bind(this.Controller)
     )

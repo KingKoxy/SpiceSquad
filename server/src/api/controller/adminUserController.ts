@@ -18,14 +18,18 @@ export default class AdminUserController extends AbstractController {
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
-  public async makeAdmin(req: AuthenticatedRequest<
-    {
-      targetId: string
-      groupId: string
-    },
-    never,
-    never
-  >, res: express.Response, next: express.NextFunction): Promise<void> {
+  public async makeAdmin(
+    req: AuthenticatedRequest<
+      {
+        targetId: string
+        groupId: string
+      },
+      never,
+      never
+    >,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<void> {
     try {
       // Check if user is already an admin
       await this.prisma.admin
@@ -71,8 +75,11 @@ export default class AdminUserController extends AbstractController {
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
-  public async removeAdmin(req: AuthenticatedRequest< { targetId: string; groupId: string }, never, never >
-    , res: express.Response, next: express.NextFunction): Promise<void> {
+  public async removeAdmin(
+    req: AuthenticatedRequest<{ targetId: string; groupId: string }, never, never>,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<void> {
     try {
       // Check if user is admin
       await this.prisma.admin
@@ -112,14 +119,17 @@ export default class AdminUserController extends AbstractController {
   }
 
   /**
-   * @description This function kicks a user from a group and removes their admin entry if existing. 
+   * @description This function kicks a user from a group and removes their admin entry if existing.
    * @param req AuthenticatedRequest<{string,string},never,never> handler with the head containing id of the user to be kicked and the id of the group
    * @param res Express response containing message
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
-  public async kickUser(req: AuthenticatedRequest< { targetId: string; groupId: string }, never, never >
-    , res: express.Response, next: express.NextFunction): Promise<void> {
+  public async kickUser(
+    req: AuthenticatedRequest<{ targetId: string; groupId: string }, never, never>,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<void> {
     // Deletes the user from the groupMember table
     this.prisma.groupMember
       .deleteMany({
@@ -150,7 +160,7 @@ export default class AdminUserController extends AbstractController {
         req.statusCode = 500
         next(new Error(error))
       })
-  } 
+  }
 
   /**
    * @description This function bans a user from a group. If the user is already banned, it throws an error.
@@ -213,8 +223,11 @@ export default class AdminUserController extends AbstractController {
    * @param next Express next function (for error handling)
    * @returns Promise<void>
    */
-  public async setCensored(req: AuthenticatedRequest< { groupId: string; recipeId: string }, never, {censored: boolean} >
-    , res: express.Response, next: express.NextFunction): Promise<void> {
+  public async setCensored(
+    req: AuthenticatedRequest<{ groupId: string; recipeId: string }, never, { censored: boolean }>,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<void> {
     try {
       // Find the author of the recipe
       const authorOfRecipe = await this.prisma.recipe.findFirst({
@@ -243,49 +256,47 @@ export default class AdminUserController extends AbstractController {
           }
         })
 
-        const censoredRecipeId = await this.prisma.censoredRecipe
-        .findFirst({
-          where: {
-            recipe_id: req.params.recipeId,
-            group_id: req.params.groupId,
-          },
-        })
+      const censoredRecipeId = await this.prisma.censoredRecipe.findFirst({
+        where: {
+          recipe_id: req.params.recipeId,
+          group_id: req.params.groupId,
+        },
+      })
 
-        if (req.body.censored) {
-          if (!censoredRecipeId) {
-            await  this.prisma.censoredRecipe
-            .create({
-              data: {
-                recipe_id: req.params.recipeId,
-                group_id: req.params.groupId,
-              },
-            })
-            res.status(200).json({
-              message: 'Recipe censored successfully!',
-            })
-          } else {
-            res.status(409).json({
-              message: 'Recipe already censored',
-            })
-            return;
-          }
+      if (req.body.censored) {
+        if (!censoredRecipeId) {
+          await this.prisma.censoredRecipe.create({
+            data: {
+              recipe_id: req.params.recipeId,
+              group_id: req.params.groupId,
+            },
+          })
+          res.status(200).json({
+            message: 'Recipe censored successfully!',
+          })
         } else {
-          if (censoredRecipeId) {
-            await this.prisma.censoredRecipe.delete({
-              where: {
-                id: censoredRecipeId.id,
-              },
-            })
-            res.status(200).json({
-              message: 'Recipe uncensored successfully!',
-            })
-          } else {
-            res.status(409).json({
-              message: 'Recipe already uncensored',
-            })
-            return;
-          }
+          res.status(409).json({
+            message: 'Recipe already censored',
+          })
+          return
         }
+      } else {
+        if (censoredRecipeId) {
+          await this.prisma.censoredRecipe.delete({
+            where: {
+              id: censoredRecipeId.id,
+            },
+          })
+          res.status(200).json({
+            message: 'Recipe uncensored successfully!',
+          })
+        } else {
+          res.status(409).json({
+            message: 'Recipe already uncensored',
+          })
+          return
+        }
+      }
     } catch (error) {
       next(error)
     }

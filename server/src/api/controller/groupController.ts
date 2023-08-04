@@ -150,29 +150,27 @@ export default class GroupController extends AbstractController {
       never,
       never,
       {
-        groupCode: string 
+        groupCode: string
       }
     >,
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
     try {
-
-      console.log(req.body.groupCode)
-
-      const groupId =
-        await this.prisma.group.findFirst({
+      const groupId = await this.prisma.group
+        .findFirst({
           where: {
             group_code: req.body.groupCode,
           },
-        }).then((result) => {
-        if (result) {
-          return result.id
-        } else {
-          req.statusCode = 404
-          throw new Error('Group not found')
-        }
-      })
+        })
+        .then((result) => {
+          if (result) {
+            return result.id
+          } else {
+            req.statusCode = 404
+            throw new Error('Group not found')
+          }
+        })
 
       await this.prisma.bannedUser
         .findFirst({
@@ -239,48 +237,46 @@ export default class GroupController extends AbstractController {
     const groupMembers = await this.prisma.groupMember.findMany({
       where: {
         group_id: req.params.groupId,
-        user_id: req.userId
+        user_id: req.userId,
       },
     })
 
     if (groupMembers.length == 0) {
       req.statusCode = 409
       next(new Error('Could not left group. User is not in this group'))
-      
-      
     } else if (groupMembers.length > 0) {
-      await this.prisma.admin
-        .deleteMany({
-          where: {
-            group_id: req.params.groupId,
-            user_id: req.userId
-          },
-        })
-
-      await (this.prisma.groupMember
-        .deleteMany({
-          where: {
-            group_id: req.params.groupId,
-            user_id: req.userId
-          },
-        })
-        .then(async () => {
-          if (await this.checkGroupEmpty(req.params.groupId)) {
-          res.status(200).json({
-            message: 'User was last member of group. User left group and group was deleted.',
+      await this.prisma.admin.deleteMany({
+        where: {
+          group_id: req.params.groupId,
+          user_id: req.userId,
+        },
+      })
+      try {
+        await this.prisma.groupMember
+          .deleteMany({
+            where: {
+              group_id: req.params.groupId,
+              user_id: req.userId,
+            },
           })
-          } else {
-            res.status(200).json({
-              message: 'User left group.',
+          .then(async () => {
+            if (await this.checkGroupEmpty(req.params.groupId)) {
+              res.status(200).json({
+                message: 'User was last member of group. User left group and group was deleted.',
+              })
+            } else {
+              res.status(200).json({
+                message: 'User left group.',
+              })
+            }
           })
-          }
-          
-        })
-        .catch((error) => {
-          next((error.message = 'Group could not be left'))
-        }))
+          .catch((error) => {
+            next((error.message = 'Group could not be left'))
+          })
+      } catch (error) {
+        next(error)
+      }
     }
-  
   }
 
   /**
@@ -295,16 +291,24 @@ export default class GroupController extends AbstractController {
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
-    const groups = await Promise.all((await this.prisma.groupMember.findMany({
-      where: {
-        user_id: req.userId,
-      },
-    })).map(async (groupMember) => {
-      return await this.getGroup(groupMember.group_id, req.userId)
-    }))
-    res.status(200).json({
-      groups: groups
-    })
+    try {
+      const groups = await Promise.all(
+        (
+          await this.prisma.groupMember.findMany({
+            where: {
+              user_id: req.userId,
+            },
+          })
+        ).map(async (groupMember) => {
+          return await this.getGroup(groupMember.group_id, req.userId)
+        })
+      )
+      res.status(200).json({
+        groups: groups,
+      })
+    } catch (error) {
+      next(error)
+    }
   }
 
   /**
@@ -315,90 +319,96 @@ export default class GroupController extends AbstractController {
    * @returns Promise<void>
    */
   public async groupGetById(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
-      const group = await this.getGroup(req.params.groupId, req.body.userId)
-      
-      res.status(200).json({
-        group
-      })
+    const group = await this.getGroup(req.params.groupId, req.body.userId)
+
+    res.status(200).json({
+      group,
+    })
   }
   /**
    * @description Gets all relevant information for a group by id
-   * @param groupId 
+   * @param groupId
    * @returns Promise<any>
    */
-  private async getGroup(groupId: string, callerId: string) : Promise<any> {
-    const groupDetails =  (await this.prisma.group
-      .findUnique({
-        where: {
-          id: groupId
-        },
-      }))
+  private async getGroup(groupId: string, callerId: string): Promise<any> {
+    const groupDetails = await this.prisma.group.findUnique({
+      where: {
+        id: groupId,
+      },
+    })
 
-      const members = await this.getGroupMembers(groupId)
-      const admins = await this.getGroupAdmins(groupId)
-      const users = (await this.prisma.user.findMany({
-        where: {
-          id: {
-            in: members,
-          },
+    const members = await this.getGroupMembers(groupId)
+    const admins = await this.getGroupAdmins(groupId)
+    const users = await this.prisma.user.findMany({
+      where: {
+        id: {
+          in: members,
         },
-      }))
+      },
+    })
 
-      const recipes = await this.getGroupRecipes(members)
-      const censoredRecipes = await this.getGroupCensoredRecipes(groupId)
-      let recipesWithCensor = await Promise.all((await this.prisma.recipe.findMany({
-        where: {
-          id: {
-            in: recipes,
-          }
-        },
-      })).map((async (recipe) => {
-          const ingredients = await this.prisma.ingredient.findMany({
-            where: {
-              recipe_id: recipe.id
-            }
-          })
-          return {
-            recipe: {
-              ...recipe,
-              author: users.find((user) => user.id === recipe.author_id),
-              ingredients: ingredients
+    const recipes = await this.getGroupRecipes(members)
+    const censoredRecipes = await this.getGroupCensoredRecipes(groupId)
+    let recipesWithCensor = await Promise.all(
+      (
+        await this.prisma.recipe.findMany({
+          where: {
+            id: {
+              in: recipes,
             },
-            is_censored: censoredRecipes.includes(recipe.id)
-          }
-        })))
-
-      if ((await this.prisma.admin.findMany({
-        where: {
-          user_id: callerId,
-          group_id: groupId
-          }
-          })).length == 0) {
-            recipesWithCensor = recipesWithCensor.filter((recipe) => !recipe.is_censored)
-          }
-
-
-         const userAdmins = users.map((user) => {
-          return{
-            ...user,
-            is_admin: admins.includes(user.id)
-          }
+          },
         })
-
+      ).map(async (recipe) => {
+        const ingredients = await this.prisma.ingredient.findMany({
+          where: {
+            recipe_id: recipe.id,
+          },
+        })
         return {
-          id: groupDetails.id,
-          name: groupDetails.name,
-          group_code: groupDetails.group_code,
-          members: userAdmins,
-          recipes: recipesWithCensor
+          recipe: {
+            ...recipe,
+            author: users.find((user) => user.id === recipe.author_id),
+            ingredients: ingredients,
+          },
+          is_censored: censoredRecipes.includes(recipe.id),
         }
-  }  
+      })
+    )
+
+    if (
+      (
+        await this.prisma.admin.findMany({
+          where: {
+            user_id: callerId,
+            group_id: groupId,
+          },
+        })
+      ).length == 0
+    ) {
+      recipesWithCensor = recipesWithCensor.filter((recipe) => !recipe.is_censored)
+    }
+
+    const userAdmins = users.map((user) => {
+      return {
+        ...user,
+        is_admin: admins.includes(user.id),
+      }
+    })
+
+    return {
+      id: groupDetails.id,
+      name: groupDetails.name,
+      group_code: groupDetails.group_code,
+      members: userAdmins,
+      recipes: recipesWithCensor,
+    }
+  }
 
   /**
- * @description This function gets all members of a group.
- * @param groupId The id of the group
- * @returns Promise<string[]>
- */
+   * @description This function gets all members of a group.
+   * @param groupId The id of the group
+   * @returns Promise<string[]>
+   */
   private async getGroupMembers(groupId: string): Promise<string[]> {
     const groupMembers = await this.prisma.groupMember.findMany({
       where: {
@@ -427,12 +437,12 @@ export default class GroupController extends AbstractController {
    * @param groupId The id of the group
    * @returns Promise<string[]>
    * */
-  private async getGroupRecipes(userIds : string[]): Promise<string[]> {
+  private async getGroupRecipes(userIds: string[]): Promise<string[]> {
     const groupRecipes = await this.prisma.recipe.findMany({
       where: {
         author_id: {
           in: userIds,
-        }
+        },
       },
     })
     return groupRecipes.map((groupRecipe) => groupRecipe.id)
@@ -453,11 +463,11 @@ export default class GroupController extends AbstractController {
   }
 
   /**
-   * @description Checks if a group is empty and deletes it if it is. Otherwise checks if group has admins, if not makes the oldest member admin.
+   * @description Checks if a group is empty and deletes if it is. Otherwise checks if group has admins, if not makes the oldest member admin.
    * @param groupId The id of the group
    * @returns Promise<boolean>
    */
-  public async checkGroupEmpty(groupId : string) : Promise<boolean> {
+  public async checkGroupEmpty(groupId: string): Promise<boolean> {
     const groupMembers = await this.prisma.groupMember.findMany({
       where: {
         group_id: groupId,
@@ -472,48 +482,45 @@ export default class GroupController extends AbstractController {
           },
         })
         .then(() => {
-          console.log('Group was empty and was deleted')
           return true
         })
         .catch((error) => {
-          console.log('Group was empty but could not be deleted')
+          throw error
         })
     }
 
-    await (this.prisma.admin.findMany({
-      where: {
-        group_id: groupId,
-      },
-    }).then((admins) => {
-      console.log(admins)
-      if (admins.length == 0) {
-        this.prisma.groupMember.findMany({
-          where: {
-            group_id: groupId,
-          },
-          orderBy: {
-            joined_at: 'asc',
-          },
-        }).then((groupMembers) => {
-          this.prisma.admin
-            .create({
-              data: {
-                user_id: groupMembers[0].user_id,
+    await this.prisma.admin
+      .findMany({
+        where: {
+          group_id: groupId,
+        },
+      })
+      .then((admins) => {
+        if (admins.length == 0) {
+          this.prisma.groupMember
+            .findMany({
+              where: {
                 group_id: groupId,
               },
+              orderBy: {
+                joined_at: 'asc',
+              },
             })
-            .then(() => {
-              console.log('Longest group member is now admin.')
+            .then((groupMembers) => {
+              this.prisma.admin
+                .create({
+                  data: {
+                    user_id: groupMembers[0].user_id,
+                    group_id: groupId,
+                  },
+                })
+                .catch((error) => {
+                  throw error
+                })
             })
-            .catch((error) => {
-              console.log('Could not make longest group member admin.')
-            })
-        })
-      }
-    }))
+        }
+      })
 
     return false
   }
 }
-
-

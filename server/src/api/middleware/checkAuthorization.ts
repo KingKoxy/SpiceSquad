@@ -60,7 +60,7 @@ export default class CheckAuthorization extends AbstractMiddleware {
           })
           .then((user) => {
             // Development only output
-            process.env.NODE_ENV === 'development' ? console.log(user): null
+            process.env.NODE_ENV === 'development' ? console.log(user) : null
             req.userId = user.id
           })
         next()

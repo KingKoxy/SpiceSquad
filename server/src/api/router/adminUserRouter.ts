@@ -100,7 +100,7 @@ export default class AdminUserRouter extends AbstractRouter {
       this.checkAuth,
       this.checkAdmin,
       this.schemaValidator.checkSchema(setCensored),
-      this.Controller.setCensored.bind(this.Controller),
+      this.Controller.setCensored.bind(this.Controller)
     )
   }
 }

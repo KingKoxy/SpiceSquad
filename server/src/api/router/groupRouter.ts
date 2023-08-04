@@ -76,8 +76,8 @@ export default class GroupRouter extends AbstractRouter {
     this.router.patch(
       '/:groupId',
       this.checkAuth,
-      this.schemaValidator.checkSchema(GroupUpdateSchema),
       this.checkAdmin,
+      this.schemaValidator.checkSchema(GroupUpdateSchema),
       this.Controller.groupPatch.bind(this.Controller)
     )
 

@@ -5,8 +5,8 @@ import GroupController from './groupController'
 import ImageController from './imageController'
 
 export default class UserController extends AbstractController {
-  groupController: GroupController;
-  ImageController: ImageController;
+  groupController: GroupController
+  ImageController: ImageController
 
   /**
    * @description This constructor calls the constructor of the abstractController.
@@ -20,7 +20,7 @@ export default class UserController extends AbstractController {
 
   /**
    * @description This function deletes the user making the request.
-   * @param req AuthenticatedRequest<never,never,never> 
+   * @param req AuthenticatedRequest<never,never,never>
    * @param res Express response containing message
    * @param next Express next function (for error handling)
    * @returns Promise<void>
@@ -30,24 +30,26 @@ export default class UserController extends AbstractController {
     res: express.Response,
     next: express.NextFunction
   ): Promise<void> {
-    await this.prisma.groupMember.findMany({
-      where: {
-        user_id: req.userId,
-      }
+    await this.prisma.groupMember
+      .findMany({
+        where: {
+          user_id: req.userId,
+        },
+      })
+      .then((groupMembers) => {
+        groupMembers.forEach((groupMember) => {
+          this.prisma.groupMember
+            .delete({
+              where: {
+                id: groupMember.id,
+              },
+            })
+            .then((group) => {
+              this.groupController.checkGroupEmpty(group.group_id)
+            })
+        })
+      })
 
-    }).then((groupMembers) => {
-      groupMembers.forEach((groupMember) => {
-        this.prisma.groupMember.delete({
-          where: {
-            id: groupMember.id,
-          },
-        }).then((group) => {
-          this.groupController.checkGroupEmpty(group.group_id)
-        }
-        )
-      })
-      })
-    
     this.prisma.user
       .delete({
         where: {
@@ -62,7 +64,6 @@ export default class UserController extends AbstractController {
             req.statusCode = 409
             next(error)
           })
-        
 
         res.status(200).json({
           message: 'User deleted successfully!',
@@ -95,13 +96,11 @@ export default class UserController extends AbstractController {
     next: express.NextFunction
   ): Promise<void> {
     const oldUserData = await this.prisma.user.findUnique({ where: { id: req.userId } })
-    
-    if (req.body.profileImage == '' && oldUserData.profile_image != null) {
-      this.ImageController.deleteImage(oldUserData.profile_image);
-    }
-    const imageId = req.body.profileImage?this.ImageController.fromURLtoId(req.body.profileImage):null
 
-    
+    if (req.body.profileImage == '' && oldUserData.profile_image != null) {
+      this.ImageController.deleteImage(oldUserData.profile_image)
+    }
+    const imageId = req.body.profileImage ? this.ImageController.fromURLtoId(req.body.profileImage) : null
 
     const newUserData = await this.prisma.user
       .update({
@@ -118,7 +117,7 @@ export default class UserController extends AbstractController {
         req.statusCode = 409
         next(error)
       })
-    if (newUserData && (oldUserData.email !== req.body.email)) {
+    if (newUserData && oldUserData.email !== req.body.email) {
       this.firebaseAdmin
         .auth()
         .updateUser(newUserData.firebase_user_id, { email: req.body.email })
@@ -140,9 +139,8 @@ export default class UserController extends AbstractController {
    */
   public async userGet(req: AuthenticatedRequest, res: express.Response): Promise<void> {
     const user = await this.prisma.user.findUnique({ where: { id: req.userId } })
-    console.log(user)
-    const userWithImageLink = { ...user, profile_image: this.ImageController.fromIdtoURL(user.profile_image)}
-    
+    const userWithImageLink = { ...user, profile_image: this.ImageController.fromIdtoURL(user.profile_image) }
+
     res.status(200).json(userWithImageLink)
   }
 }

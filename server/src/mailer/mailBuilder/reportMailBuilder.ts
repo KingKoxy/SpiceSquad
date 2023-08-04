@@ -45,7 +45,7 @@ export default class ReportMailBuilder extends abstractMailBuilder {
     receiver: string,
     adminUsername: string,
     recipeTitle: string,
-    reportedUsername: string,
+    reportedUsername: string
   ): nodemailer.SendMailOptions {
     this.receiver = receiver
     this.html = this.htmlText
