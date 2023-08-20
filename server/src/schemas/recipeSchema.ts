@@ -1,5 +1,4 @@
 import Joi from 'joi'
-import { userId } from './generalSchema'
 
 const title = Joi.string()
 const image = Joi.alternatives(Joi.array(), Joi.string().allow(''))
@@ -61,16 +60,13 @@ export const recipeUpdateSchema = Joi.object({
 }).unknown(true)
 
 export const recipeGetAllSchema = Joi.object({
-  userId: userId,
 }).unknown(true)
 
 export const recipeDeleteSchema = Joi.object({
-  userId: userId,
 }).unknown(true)
 
 export const recipeSetFavorite = Joi.object()
   .keys({
-    userId: userId,
     isFavorite: isFavorite.required(),
   })
   .unknown(true)
