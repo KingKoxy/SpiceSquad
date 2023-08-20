@@ -121,7 +121,7 @@ export default class GroupController extends AbstractController {
       { groupId: string },
       never,
       {
-        name: string
+        groupName: string
       }
     >,
     res: express.Response,
@@ -132,7 +132,9 @@ export default class GroupController extends AbstractController {
         where: {
           id: req.params.groupId,
         },
-        data: req.body.name || undefined,
+        data: {
+          name: req.body.groupName,
+        },
       })
       .then(() => {
         res.status(200).json({
