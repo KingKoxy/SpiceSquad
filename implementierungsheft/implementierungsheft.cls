@@ -30,7 +30,7 @@
 
 % set the hyperlink style in the document
 \hypersetup{
-    pdftitle={PSE: Entwurfsheft},
+    pdftitle={PSE: Implementierungsheft},
     pdfborderstyle={/S/U/W 1},
     colorlinks,
     linkcolor={black!50!black},
