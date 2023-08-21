@@ -60,6 +60,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   height: 50,
                 ),
                 Text(
+                  key: const Key("loginHeadline"),
                   AppLocalizations.of(context)!.loginHeadline,
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
@@ -77,7 +78,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           key: const Key("email"),
                           textInputAction: TextInputAction.next,
                           autofillHints: const [AutofillHints.email],
-                          validator: (value) => _validateEmail(AppLocalizations.of(context)!, value),
+                          validator: (value) => _validateEmail(
+                              AppLocalizations.of(context)!, value),
                           keyboardType: TextInputType.emailAddress,
                           controller: widget._emailController,
                           decoration: InputDecoration(
@@ -95,18 +97,22 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           autocorrect: false,
                           textInputAction: TextInputAction.done,
                           key: const Key("password"),
-                          validator: (value) => _validatePassword(AppLocalizations.of(context)!, value),
+                          validator: (value) => _validatePassword(
+                              AppLocalizations.of(context)!, value),
                           autofillHints: const [AutofillHints.password],
                           keyboardType: TextInputType.visiblePassword,
                           obscureText: true,
                           controller: widget._passwordController,
                           onFieldSubmitted: (value) {
-                            if (!_loading && widget._formKey.currentState!.validate()) {
-                              _login(AppLocalizations.of(context)!, ref.read(userServiceProvider.notifier));
+                            if (!_loading &&
+                                widget._formKey.currentState!.validate()) {
+                              _login(AppLocalizations.of(context)!,
+                                  ref.read(userServiceProvider.notifier));
                             }
                           },
                           decoration: InputDecoration(
-                            hintText: AppLocalizations.of(context)!.passwordLabel,
+                            hintText:
+                                AppLocalizations.of(context)!.passwordLabel,
                           ),
                         ),
                       ),
@@ -126,8 +132,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       width: 4,
                     ),
                     TextButton(
+                      key: const Key("registerButton"),
                       onPressed: () {
-                        Navigator.of(context).pushReplacementNamed(RegisterScreen.routeName);
+                        Navigator.of(context)
+                            .pushReplacementNamed(RegisterScreen.routeName);
                       },
                       child: Text(AppLocalizations.of(context)!.registerLink),
                     ),
@@ -139,24 +147,32 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
+                    key: const Key("loginButton"),
                     onPressed: () {
-                      if (!_loading && widget._formKey.currentState!.validate()) {
-                        _login(AppLocalizations.of(context)!, ref.read(userServiceProvider.notifier));
+                      if (!_loading &&
+                          widget._formKey.currentState!.validate()) {
+                        _login(AppLocalizations.of(context)!,
+                            ref.read(userServiceProvider.notifier),);
                       }
                     },
                     child: _loading
                         ? const CircularProgressIndicator(
                             color: Colors.white,
                           )
-                        : Text(AppLocalizations.of(context)!.loginButton),
+                        : Text(
+                            AppLocalizations.of(context)!.loginButton,
+
+                          ),
                   ),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 TextButton(
+                  key: const Key("forgotPasswordButton"),
                   onPressed: () {
-                    Navigator.of(context).pushNamed(PasswordResetScreen.routeName);
+                    Navigator.of(context)
+                        .pushNamed(PasswordResetScreen.routeName);
                   },
                   child: Text(AppLocalizations.of(context)!.forgotPasswordLink),
                 ),
@@ -168,12 +184,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     );
   }
 
-  Future<void> _login(AppLocalizations appLocalizations, UserService userService) async {
+  Future<void> _login(
+      AppLocalizations appLocalizations, UserService userService) async {
     setState(() {
       _loading = true;
     });
-    await userService.login(widget._emailController.text, widget._passwordController.text).then((value) {
-      Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
+    await userService
+        .login(widget._emailController.text, widget._passwordController.text)
+        .then((value) {
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
     }).catchError((error) {
       debugPrint(error.toString());
       if (error is InvalidCredentialsError) {
@@ -208,7 +228,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     return null;
   }
 
-  String? _validatePassword(AppLocalizations appLocalizations, String? password) {
+  String? _validatePassword(
+      AppLocalizations appLocalizations, String? password) {
     if (password == null || password.isEmpty) {
       return appLocalizations.passwordEmptyError;
     }

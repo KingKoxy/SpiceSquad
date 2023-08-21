@@ -12,6 +12,7 @@ class AddButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      key: const Key("addButton"),
       iconSize: 24,
       onPressed: _onPressed,
       icon: const ImageIcon(

@@ -59,6 +59,7 @@ class GroupService extends AsyncNotifier<List<Group>> {
 
   /// Updates the name of the group with the given [groupId] with the given [value].
   Future<void> setGroupName(String groupId, String value) {
+    print("rename group");
     final Group updatedGroup = _updateSingleGroup(
       groupId,
       (oldGroup) => Group(

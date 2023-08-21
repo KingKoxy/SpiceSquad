@@ -1,8 +1,11 @@
+import "dart:convert";
+
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:flutter_test/flutter_test.dart";
 import "package:spice_squad/models/difficulty.dart";
+import "package:spice_squad/models/group.dart";
 import "package:spice_squad/models/ingredient.dart";
 import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/models/user.dart";
@@ -116,5 +119,18 @@ void main() {
         MainScreen().filteredRecipesMethode(recipes, filterCategories);
 
     expect(filteredRecipes, [recipeThree]);
+  });
+
+  test("Json encode Objekt", () {
+    final Group groupal = Group(
+      id: "id",
+      name: "name",
+      groupCode: "description",
+      members: [],
+      recipes: [],
+    );
+    jsonEncode(groupal.toMap());
+    const int i = 0;
+    expect(i, 0);
   });
 }

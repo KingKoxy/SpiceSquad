@@ -115,6 +115,7 @@ class MemberList extends ConsumerWidget {
                             ),
                             if (member.isAdmin)
                               Text(
+                                key: const Key("admin"),
                                 AppLocalizations.of(context)!.administrator,
                                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey),
                               ),
@@ -124,6 +125,7 @@ class MemberList extends ConsumerWidget {
                     ),
                     if (member.id != _userId && _isAdmin)
                       PopupMenuButton(
+                        key: const Key("popupMenuButton"),
                         tooltip: "",
                         splashRadius: 24,
                         icon: const Icon(Icons.more_vert),
@@ -131,10 +133,12 @@ class MemberList extends ConsumerWidget {
                           return [
                             member.isAdmin
                                 ? PopupMenuItem(
+                                    key: const Key("removeAdminStatus"),
                                     onTap: () => _removeAdminStatus(ref.read(groupServiceProvider.notifier), member),
                                     child: Text(AppLocalizations.of(context)!.adminActionRemoveAdmin),
                                   )
                                 : PopupMenuItem(
+                                    key: const Key("makeAdmin"),
                                     onTap: () => _makeAdmin(ref.read(groupServiceProvider.notifier), member),
                                     child: Text(AppLocalizations.of(context)!.adminActionMakeAdmin),
                                   ),

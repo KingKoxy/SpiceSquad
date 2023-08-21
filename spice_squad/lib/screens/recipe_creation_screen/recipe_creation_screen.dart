@@ -154,6 +154,7 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                   height: 16,
                 ),
                 TextFormField(
+                  key: const Key("recipeNameField"),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return AppLocalizations.of(context)!.titleEmptyError;
@@ -187,6 +188,7 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                         width: 8,
                       ),
                       TagItem(
+                        key: const Key("veganTag"),
                         image: SpiceSquadIconImages.avocado,
                         name: AppLocalizations.of(context)!.labelVegan,
                         initialActive: _isVegan,
@@ -233,6 +235,7 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                     Expanded(
                       flex: 3,
                       child: TextFormField(
+                        key: const Key("recipeDurationField"),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return AppLocalizations.of(context)!.durationEmptyError;
@@ -307,6 +310,7 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                   height: 10,
                 ),
                 TextFormField(
+                  key: const Key("recipeInstructionsField"),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return AppLocalizations.of(context)!.instructionsEmptyError;
@@ -327,6 +331,7 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
+                    key: const Key("saveRecipeButton"),
                     onPressed: () async {
                       if (widget._formKey.currentState!.validate()) {
                         setState(() {

@@ -56,6 +56,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                 Padding(
                   padding: const EdgeInsets.only(top: 24, right: 24, left: 24),
                   child: TextField(
+                    key: const Key("searchField"),
                     controller: widget._searchController,
                     decoration: InputDecoration(
                       prefixIconColor: Colors.white,

@@ -41,6 +41,7 @@ class _IngredientListState extends State<IngredientList> {
 
   @override
   Widget build(BuildContext context) {
+    print("Building ingredient list");
     return Column(
       children: [
         Row(
@@ -59,6 +60,7 @@ class _IngredientListState extends State<IngredientList> {
                     }
                   }),
                 );
+                print("Add ingredient");
               },
             ),
           ],

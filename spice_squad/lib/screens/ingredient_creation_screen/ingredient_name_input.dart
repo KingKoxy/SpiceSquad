@@ -26,6 +26,7 @@ class _IngredientNameInputState extends ConsumerState<IngredientNameInput> {
     return Column(
       children: [
         TextFormField(
+          key: const Key("ingredientNameInput"),
           validator: (value) {
             if (value == null || value.isEmpty) {
               return AppLocalizations.of(context)!.ingredientNameEmptyError;
