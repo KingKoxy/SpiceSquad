@@ -61,7 +61,7 @@ class LabelList extends StatelessWidget {
             ),
             TagItem(image: SpiceSquadIconImages.islam, name: AppLocalizations.of(context)!.labelHalal),
           ],
-          if (_recipe.isHalal) ...[
+          if (_recipe.isKosher) ...[
             const SizedBox(
               width: 8,
             ),
