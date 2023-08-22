@@ -173,7 +173,7 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
           title: AppLocalizations.of(context)!.renameDialogTitle,
           initialValue: oldName,
           onSave: (String value) {
-            groupService.setGroupName(groupId, value);
+            groupService.setGroupName(groupId, value).then((value) => _refetchGroup());
           },
           validator: (value) {
             if (value == null || value.isEmpty) {

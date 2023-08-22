@@ -90,7 +90,7 @@ class Group {
   Map<String, dynamic> toMap() {
     return {
       "id": id,
-      "name": name,
+      "groupName": name,
     };
   }
 }
