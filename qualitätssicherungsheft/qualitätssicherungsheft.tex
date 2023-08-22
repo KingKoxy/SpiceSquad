@@ -12,4 +12,11 @@
 Zur besseren Lesbarkeit wird in diesem Entwurfsheft das generische Maskulinum verwendet.
 Die in diesem Heft verwendeten Personenbezeichnungen beziehen sich - sofern nicht anders kenntlich gemacht - auf alle Geschlechter.
 \newpage
+\section{Bugs}
+\subsection{Keine Fehlermeldung beim Login mit falschem Passwort}
+%TODO: Lukas muss genauen Fehlergrund und Behebung dokumentieren
+\paragraph*{Beschreibung} Beim Login mit falschem Passwort wird keine Fehlermeldung mehr angezeigt. Dies war jedoch zu einem bestimmten Zeitpunkt noch nicht so.
+\paragraph{Grund} Durch eine Änderung im Backend 
+gibt eine fehlerhafte Anfrage den Code 500, statt wie zuvor den Code 401, zurück. Auf diesen Code wird jedoch nicht geprüft.
+\paragraph{Behebung} Das Backend gibt nun wieder den Code 401 zurück.
 \end{document}
