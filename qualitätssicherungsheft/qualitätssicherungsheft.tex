@@ -30,4 +30,9 @@ gibt eine fehlerhafte Anfrage den Code 500, statt wie zuvor den Code 401, zurüc
 \paragraph{Grund} Der Text ist als Magic-String im Code hartkodiert.
 \paragraph{Behebung} Die Übersetzungen wurden, wie die anderen Texte, in die l10n-Dateien ausgelagert.
 \newpage
+\subsection{Halale Rezepte werden auch als koscher angezeigt}
+\paragraph*{Beschreibung} Rezepte, die halal sind, werden in der Rezept-Detail-Ansicht als koscher angezeigt, sonst jedoch nirgends.
+\paragraph{Grund} In der Liste der Labels wird überprüft, ob ein bestimmtes Label aktiv ist und zeigt gegebenen falls das passende Widget an. Bei der If-Anfrage zum Koscher-Label ist dabei ein Fehler unterlaufen und es wurde auf Halal geprüft.
+\paragraph{Behebung} Die If-Anfrage wurde korrigiert.
+\newpage
 \end{document}
