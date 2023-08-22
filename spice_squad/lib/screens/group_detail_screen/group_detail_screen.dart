@@ -11,6 +11,7 @@ import "package:spice_squad/screens/qr_code_screen.dart";
 import "package:spice_squad/services/group_service.dart";
 import "package:spice_squad/widgets/approval_dialog.dart";
 import "package:spice_squad/widgets/input_dialog.dart";
+import "package:spice_squad/widgets/nav_bar.dart";
 
 /// Screen to display the details of a group
 ///
@@ -20,10 +21,10 @@ class GroupDetailScreen extends ConsumerStatefulWidget {
   static const routeName = "/group-detail";
 
   /// The id of the group to display
-  final String groupId;
+  final String _groupId;
 
   /// Creates a [GroupDetailScreen]
-  const GroupDetailScreen({required this.groupId, super.key});
+  const GroupDetailScreen({required String groupId, super.key}) : _groupId = groupId;
 
   @override
   ConsumerState<GroupDetailScreen> createState() => _GroupDetailScreenState();
@@ -34,7 +35,7 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
 
   @override
   void initState() {
-    _getGroupFuture = ref.read(groupServiceProvider.notifier).getGroupById(widget.groupId);
+    _getGroupFuture = ref.read(groupServiceProvider.notifier).getGroupById(widget._groupId);
     super.initState();
   }
 
@@ -44,6 +45,7 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.groupDetailHeadline),
       ),
+      bottomNavigationBar: const NavBar(currentIndex: 2),
       body: Center(
         child: ref.watch(userServiceProvider).when(
               data: (user) => FutureBuilder(
@@ -220,7 +222,7 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
 
   void _refetchGroup() {
     setState(() {
-      _getGroupFuture = ref.read(groupServiceProvider.notifier).getGroupById(widget.groupId);
+      _getGroupFuture = ref.read(groupServiceProvider.notifier).getGroupById(widget._groupId);
     });
   }
 }

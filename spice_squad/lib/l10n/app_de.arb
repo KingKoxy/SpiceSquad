@@ -157,5 +157,8 @@
   "banningApprovalMessage": "Bist du sicher, dass du den Benutzer \"{userName}\" bannen möchtest?",
   "kickingApprovalTitle": "Benutzer entfernen",
   "kickingApprovalMessage": "Bist du sicher, dass du den Benutzer \"{userName}\" entfernen möchtest?",
-  "discardButtonLabel": "Verwerfen"
+  "discardButtonLabel": "Verwerfen",
+  "tooManyReportsErrorTitle": "Bereits gemeldet",
+  "tooManyReportsErrorMessage": "Dieses Rezept wurde bereits von dir in den letzten 24h gemeldet und wird von den Administratoren geprüft."
+
 }

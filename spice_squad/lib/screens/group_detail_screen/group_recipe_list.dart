@@ -4,7 +4,6 @@ import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:spice_squad/models/group_recipe.dart";
 import "package:spice_squad/providers/service_providers.dart";
-import "package:spice_squad/screens/recipe_creation_screen/recipe_creation_screen.dart";
 import "package:spice_squad/screens/recipe_detail_screen/recipe_detail_screen.dart";
 import "package:spice_squad/services/group_service.dart";
 import "package:spice_squad/widgets/eye_button.dart";
@@ -12,29 +11,32 @@ import "package:spice_squad/widgets/eye_button.dart";
 /// Widget to display a list of [GroupRecipe]s
 class GroupRecipeList extends ConsumerWidget {
   /// The list of [GroupRecipe]s to display
-  final List<GroupRecipe> recipes;
+  final List<GroupRecipe> _recipes;
 
   /// Whether or not the user is admin and can censor recipes
-  final bool isAdmin;
+  final bool _isAdmin;
 
   /// The id of the group the recipes belong to
-  final String groupId;
+  final String _groupId;
 
   /// A callback to refetch the recipes
-  final VoidCallback refetch;
+  final VoidCallback _refetch;
 
   /// Creates a [GroupRecipeList]
   const GroupRecipeList({
-    required this.groupId,
-    required this.recipes,
-    required this.isAdmin,
-    required this.refetch,
+    required String groupId,
+    required List<GroupRecipe> recipes,
+    required bool isAdmin,
+    required void Function() refetch,
     super.key,
-  });
+  })  : _refetch = refetch,
+        _groupId = groupId,
+        _isAdmin = isAdmin,
+        _recipes = recipes;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    recipes.sort((a, b) {
+    _recipes.sort((a, b) {
       if (!a.isCensored && b.isCensored) return 1;
       if (a.isCensored && !b.isCensored) return -1;
       return a.title.toLowerCase().compareTo(b.title.toLowerCase());
@@ -55,14 +57,14 @@ class GroupRecipeList extends ConsumerWidget {
         ),
         Card(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          child: recipes.isNotEmpty
+          child: _recipes.isNotEmpty
               ? ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   padding: EdgeInsets.zero,
-                  itemCount: recipes.length,
+                  itemCount: _recipes.length,
                   itemBuilder: (context, index) {
-                    final recipe = recipes[index];
+                    final recipe = _recipes[index];
                     return InkWell(
                       borderRadius: BorderRadius.circular(16),
                       onTap: () {
@@ -93,7 +95,7 @@ class GroupRecipeList extends ConsumerWidget {
                                 ],
                               ),
                             ),
-                            if (isAdmin)
+                            if (_isAdmin)
                               EyeButton(
                                 open: !recipe.isCensored,
                                 onToggle: () {
@@ -122,6 +124,6 @@ class GroupRecipeList extends ConsumerWidget {
   }
 
   void _toggleCensored(GroupService groupService, GroupRecipe recipe) {
-    groupService.toggleCensoring(recipe, groupId).then((value) => refetch());
+    groupService.toggleCensoring(recipe, _groupId).then((value) => _refetch());
   }
 }

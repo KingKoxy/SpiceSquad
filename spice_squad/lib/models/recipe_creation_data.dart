@@ -1,5 +1,3 @@
-import "dart:typed_data";
-
 import "package:spice_squad/models/difficulty.dart";
 import "package:spice_squad/models/ingredient.dart";
 
@@ -39,7 +37,7 @@ class RecipeCreationData {
   final int defaultPortionAmount;
 
   /// The image of the recipe
-  final Uint8List? image;
+  final String imageUrl;
 
   /// Creates a new recipe creation data
   RecipeCreationData({
@@ -54,7 +52,7 @@ class RecipeCreationData {
     required this.ingredients,
     required this.instructions,
     required this.defaultPortionAmount,
-    this.image,
+    required this.imageUrl,
   });
 
   /// Converts this [RecipeCreationData] to a [Map] object by inserting the values
@@ -71,7 +69,7 @@ class RecipeCreationData {
       "ingredients": ingredients.map<Map<String, dynamic>>((i) => i.toMap()).toList(),
       "instructions": instructions,
       "defaultPortionAmount": defaultPortionAmount,
-      "image": image,
+      "image": imageUrl,
       "isPrivate": false,
     };
   }

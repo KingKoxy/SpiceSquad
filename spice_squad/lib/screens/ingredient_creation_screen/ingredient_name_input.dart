@@ -9,10 +9,10 @@ import "package:spice_squad/providers/repository_providers.dart";
 /// Widget to select the name for an ingredient and shows suggestions
 class IngredientNameInput extends ConsumerStatefulWidget {
   /// The controller that contains the currently selected name
-  final TextEditingController controller;
+  final TextEditingController _controller;
 
   /// Creates a new ingredient name input widget
-  const IngredientNameInput({required this.controller, super.key});
+  const IngredientNameInput({required TextEditingController controller, super.key}) : _controller = controller;
 
   @override
   ConsumerState<IngredientNameInput> createState() => _IngredientNameInputState();
@@ -35,7 +35,7 @@ class _IngredientNameInputState extends ConsumerState<IngredientNameInput> {
             }
             return null;
           },
-          controller: widget.controller,
+          controller: widget._controller,
           decoration: InputDecoration(hintText: AppLocalizations.of(context)!.ingredientNameInputLabel),
           onChanged: (value) {
             setState(() {
@@ -76,7 +76,7 @@ class _IngredientNameInputState extends ConsumerState<IngredientNameInput> {
                       child: InkWell(
                         borderRadius: BorderRadius.circular(10),
                         onTap: () {
-                          widget.controller.text = filteredNames[index];
+                          widget._controller.text = filteredNames[index];
                           setState(() {
                             _searchText = filteredNames[index];
                           });

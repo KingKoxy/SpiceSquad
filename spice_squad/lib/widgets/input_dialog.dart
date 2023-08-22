@@ -4,32 +4,40 @@ import "package:flutter_gen/gen_l10n/app_localizations.dart";
 /// A dialog that gives the user the possibility to enter a text and save it.
 class InputDialog extends StatelessWidget {
   /// The title of the dialog.
-  final String title;
+  final String _title;
 
   /// The callback that is called when the user saves the input.
-  final ValueChanged<String> onSave;
+  final ValueChanged<String> _onSave;
 
   /// The validator for the input.
-  final String? Function(String?)? validator;
+  final String? Function(String?)? _validator;
 
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _controller = TextEditingController();
 
   /// Creates an [InputDialog].
-  InputDialog({required this.title, required this.onSave, super.key, this.validator, initialValue}) {
+  InputDialog({
+    required String title,
+    required void Function(String) onSave,
+    super.key,
+    String? Function(String?)? validator,
+    initialValue,
+  })  : _validator = validator,
+        _onSave = onSave,
+        _title = title {
     _controller.text = initialValue ?? "";
   }
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(title),
+      title: Text(_title),
       content: Form(
         key: _formKey,
         child: TextFormField(
           decoration: InputDecoration(fillColor: Theme.of(context).colorScheme.onSurfaceVariant),
           controller: _controller,
-          validator: validator,
+          validator: _validator,
         ),
       ),
       actions: <Widget>[
@@ -44,7 +52,7 @@ class InputDialog extends StatelessWidget {
           onPressed: () {
             if (_formKey.currentState!.validate()) {
               Navigator.of(context).pop();
-              onSave(_controller.text);
+              _onSave(_controller.text);
             }
           },
         ),

@@ -728,5 +728,13 @@
   "discardButtonLabel": "Discard",
   "@discardButtonLabel": {
     "description": "The label for the discard button"
+  },
+  "tooManyReportsErrorTitle": "Already reported",
+  "@tooManyReportsErrorTitle": {
+    "description": "The title of the error message if the recipe has already been reported by the user in the last 24 hours"
+  },
+  "tooManyReportsErrorMessage": "This recipe has already been reported by you in the last 24 hours.",
+  "@tooManyReportsErrorMessage": {
+    "description": "The error message if the recipe has already been reported by the user in the last 24 hours"
   }
 }

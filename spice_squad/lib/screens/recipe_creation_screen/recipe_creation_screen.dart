@@ -2,12 +2,15 @@ import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:http/http.dart" as http;
 import "package:spice_squad/icons.dart";
 import "package:spice_squad/models/difficulty.dart";
 import "package:spice_squad/models/ingredient.dart";
 import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/models/recipe_creation_data.dart";
+import "package:spice_squad/providers/repository_providers.dart";
 import "package:spice_squad/providers/service_providers.dart";
+import "package:spice_squad/repositories/image_repository.dart";
 import "package:spice_squad/screens/main_screen/main_screen.dart";
 import "package:spice_squad/screens/recipe_creation_screen/difficulty_picker_widget.dart";
 import "package:spice_squad/screens/recipe_creation_screen/image_picker_widget.dart";
@@ -25,10 +28,10 @@ class RecipeCreationScreen extends ConsumerStatefulWidget {
   final _formKey = GlobalKey<FormState>();
 
   /// The recipe to edit if this screen is used for editing
-  final Recipe? recipe;
+  final Recipe? _recipe;
 
   /// Creates a new recipe creation screen
-  RecipeCreationScreen({required this.recipe, super.key});
+  RecipeCreationScreen({required Recipe? recipe, super.key}) : _recipe = recipe;
 
   @override
   ConsumerState<RecipeCreationScreen> createState() => _RecipeCreationScreenState();
@@ -46,23 +49,25 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
   late List<Ingredient> _ingredients;
   late String _instructions;
   late int _defaultPortionAmount;
-  late Uint8List? _image;
+  late Future<Uint8List?>? _imageFuture;
   bool _isLoading = false;
 
   @override
   void initState() {
-    _title = widget.recipe?.title ?? "";
-    _duration = widget.recipe?.duration ?? 30;
-    _difficulty = widget.recipe?.difficulty ?? Difficulty.easy;
-    _isVegetarian = widget.recipe?.isVegetarian ?? false;
-    _isVegan = widget.recipe?.isVegan ?? false;
-    _isGlutenFree = widget.recipe?.isGlutenFree ?? false;
-    _isHalal = widget.recipe?.isHalal ?? false;
-    _isKosher = widget.recipe?.isKosher ?? false;
-    _ingredients = widget.recipe?.ingredients ?? [];
-    _instructions = widget.recipe?.instructions ?? "";
-    _defaultPortionAmount = widget.recipe?.defaultPortionAmount ?? 4;
-    _image = widget.recipe?.image;
+    _title = widget._recipe?.title ?? "";
+    _duration = widget._recipe?.duration ?? 30;
+    _difficulty = widget._recipe?.difficulty ?? Difficulty.easy;
+    _isVegetarian = widget._recipe?.isVegetarian ?? false;
+    _isVegan = widget._recipe?.isVegan ?? false;
+    _isGlutenFree = widget._recipe?.isGlutenFree ?? false;
+    _isHalal = widget._recipe?.isHalal ?? false;
+    _isKosher = widget._recipe?.isKosher ?? false;
+    _ingredients = widget._recipe?.ingredients ?? [];
+    _instructions = widget._recipe?.instructions ?? "";
+    _defaultPortionAmount = widget._recipe?.defaultPortionAmount ?? 4;
+    _imageFuture = widget._recipe?.imageUrl.isEmpty ?? true
+        ? null
+        : http.get(Uri.parse(widget._recipe!.imageUrl)).then((value) => value.bodyBytes);
     super.initState();
   }
 
@@ -76,40 +81,54 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        bottomNavigationBar: widget.recipe == null
+        bottomNavigationBar: widget._recipe == null
             ? const NavBar(
-          currentIndex: 0,
-        )
+                currentIndex: 0,
+              )
             : null,
         appBar: AppBar(
           title: Text(
-            widget.recipe == null
+            widget._recipe == null
                 ? AppLocalizations.of(context)!.createRecipeHeadline
                 : AppLocalizations.of(context)!.editRecipeHeadline,
           ),
-          leading: widget.recipe != null
+          leading: widget._recipe != null
               ? BackButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) =>
-                    AlertDialog(
-                      title: Text(AppLocalizations.of(context)!.saveBeforeAbortEditTitle),
-                      content: Text(AppLocalizations.of(context)!.saveBeforeAbortEditMessage),
-                      actions: [
-                        TextButton(onPressed: () => Navigator.of(context).pop(), child: Text(AppLocalizations.of(
-                            context,)!.cancelButtonLabel,),),
-                        TextButton(onPressed: () {
-                          Navigator.of(context).pop();
-                          Navigator.of(context).pop();
-                        }, child: Text(AppLocalizations.of(context)!.discardButtonLabel),),
-                        TextButton(onPressed: () => saveRecipe(ref.read(recipeServiceProvider.notifier)),
-                            child: Text(AppLocalizations.of(context)!.saveButtonLabel),),
-                      ],
-                    ),
-              );
-            },
-          )
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text(AppLocalizations.of(context)!.saveBeforeAbortEditTitle),
+                        content: Text(AppLocalizations.of(context)!.saveBeforeAbortEditMessage),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: Text(
+                              AppLocalizations.of(
+                                context,
+                              )!
+                                  .cancelButtonLabel,
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(AppLocalizations.of(context)!.discardButtonLabel),
+                          ),
+                          TextButton(
+                            onPressed: () => _saveRecipe(
+                              ref.read(recipeServiceProvider.notifier),
+                              ref.read(imageRepositoryProvider),
+                            ).then((value) => Navigator.of(context).pop()),
+                            child: Text(AppLocalizations.of(context)!.saveButtonLabel),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                )
               : null,
         ),
         body: SingleChildScrollView(
@@ -120,12 +139,16 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ImagePickerWidget(
-                  onChanged: (value) =>
-                      setState(() {
-                        _image = value;
+                FutureBuilder(
+                  future: _imageFuture,
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    return ImagePickerWidget(
+                      onChanged: (value) => setState(() {
+                        _imageFuture = Future.delayed(Duration.zero, () => value);
                       }),
-                  recipeImage: _image,
+                      recipeImage: snapshot.data,
+                    );
+                  },
                 ),
                 const SizedBox(
                   height: 16,
@@ -142,7 +165,9 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                   },
                   initialValue: _title,
                   onChanged: (value) => _title = value,
-                  decoration: InputDecoration(hintText: AppLocalizations.of(context)!.titleInputLabel),
+                  decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context)!.titleInputLabel,
+                  ),
                 ),
                 const SizedBox(
                   height: 16,
@@ -216,7 +241,9 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                         },
                         keyboardType: TextInputType.number,
                         inputFormatters: [
-                          FilteringTextInputFormatter.allow(RegExp(r"[1-9]\d*")),
+                          FilteringTextInputFormatter.allow(
+                            RegExp(r"[1-9]\d*"),
+                          ),
                         ],
                         initialValue: _duration.toString(),
                         textAlign: TextAlign.center,
@@ -227,7 +254,7 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                           hintText: AppLocalizations.of(context)!.durationInputLabel,
                           suffixText: AppLocalizations.of(context)!.durationUnit,
                           prefixIcon:
-                          const Padding(padding: EdgeInsets.all(10), child: ImageIcon(SpiceSquadIconImages.timer)),
+                              const Padding(padding: EdgeInsets.all(10), child: ImageIcon(SpiceSquadIconImages.timer)),
                           prefixIconColor: Colors.white,
                         ),
                       ),
@@ -256,13 +283,13 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                       _defaultPortionAmount = value;
                     });
                   },
-                  initialValue: widget.recipe?.defaultPortionAmount ?? 4,
+                  initialValue: widget._recipe?.defaultPortionAmount ?? 4,
                 ),
                 const SizedBox(
                   height: 16,
                 ),
                 IngredientList(
-                  initialList: widget.recipe?.ingredients ?? [],
+                  initialList: widget._recipe?.ingredients ?? [],
                   onChanged: (List<Ingredient> value) {
                     setState(() {
                       _ingredients = value;
@@ -274,10 +301,7 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                 ),
                 Text(
                   AppLocalizations.of(context)!.instructionsHeadline,
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .headlineMedium,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 const SizedBox(
                   height: 10,
@@ -308,8 +332,9 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                         setState(() {
                           _isLoading = true;
                         });
-                        await saveRecipe(ref.read(recipeServiceProvider.notifier)).then(
-                              (value) => Navigator.of(context).pushReplacementNamed(MainScreen.routeName),
+                        await _saveRecipe(ref.read(recipeServiceProvider.notifier), ref.read(imageRepositoryProvider))
+                            .then(
+                          (value) => Navigator.of(context).pushReplacementNamed(MainScreen.routeName),
                         );
                         setState(() {
                           _isLoading = false;
@@ -318,8 +343,8 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                     },
                     child: _isLoading
                         ? const CircularProgressIndicator(
-                      color: Colors.white,
-                    )
+                            color: Colors.white,
+                          )
                         : Text(AppLocalizations.of(context)!.saveButtonLabel),
                   ),
                 )
@@ -331,10 +356,17 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
     );
   }
 
-  Future<void> saveRecipe(RecipeService recipeService) {
+  Future<void> _saveRecipe(RecipeService recipeService, ImageRepository imageRepository) async {
+    String imageUrl;
+    final Uint8List? image = await _imageFuture;
+    if (widget._recipe?.imageUrl.isNotEmpty ?? false) {
+      imageUrl = await imageRepository.updateImage(widget._recipe!.imageUrl, image);
+    } else {
+      imageUrl = await imageRepository.uploadImage(image);
+    }
     // update recipe
-    if (widget.recipe != null) {
-      final Recipe recipeUploadData = widget.recipe!.copyWith(
+    if (widget._recipe != null) {
+      final Recipe recipeUploadData = widget._recipe!.copyWith(
         title: _title,
         duration: _duration,
         instructions: _instructions,
@@ -345,12 +377,12 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
         isKosher: _isKosher,
         isVegan: _isVegan,
         isVegetarian: _isVegetarian,
-        image: _image,
         difficulty: _difficulty,
-        setImageIfNull: true,
+        imageUrl: imageUrl,
       );
       return recipeService.updateRecipe(recipeUploadData);
     }
+
     // create recipe
     final RecipeCreationData recipeCreationData = RecipeCreationData(
       title: _title,
@@ -363,7 +395,7 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
       isKosher: _isKosher,
       isVegan: _isVegan,
       isVegetarian: _isVegetarian,
-      image: _image,
+      imageUrl: imageUrl,
       difficulty: _difficulty,
     );
     return recipeService.createRecipe(recipeCreationData);

@@ -1,6 +1,6 @@
 import "dart:io";
-import "dart:typed_data";
 
+import "package:cached_network_image/cached_network_image.dart";
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:image_picker/image_picker.dart";
@@ -9,23 +9,25 @@ import "package:spice_squad/services/user_service.dart";
 
 /// Widget for selecting a profile image
 class ProfileImagePicker extends StatelessWidget {
-  /// Initial Profile image to display
-  final Uint8List? profileImage;
+  /// Initial profile image to display
+  final String _profileImageUrl;
 
   /// User service for updating the profile image
-  final UserService userService;
+  final UserService _userService;
 
   /// Creates a new profile image picker
-  const ProfileImagePicker({required this.profileImage, required this.userService, super.key});
+  const ProfileImagePicker({required String profileImage, required UserService userService, super.key})
+      : _userService = userService,
+        _profileImageUrl = profileImage;
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       child: Ink(
-        decoration: profileImage != null
+        decoration: _profileImageUrl.isNotEmpty
             ? BoxDecoration(
                 borderRadius: BorderRadius.circular(20000),
-                image: DecorationImage(image: MemoryImage(profileImage!), fit: BoxFit.cover),
+                image: DecorationImage(image: NetworkImage(_profileImageUrl), fit: BoxFit.cover),
               )
             : BoxDecoration(borderRadius: BorderRadius.circular(20000), color: Theme.of(context).cardColor),
         child: InkWell(
@@ -47,21 +49,6 @@ class ProfileImagePicker extends StatelessWidget {
 
   // Show dialog from bottom to remove or change profile image
   void _selectProfileImage(BuildContext context) {
-    void removeProfileImage() {
-      userService.removeProfileImage();
-      Navigator.of(context).pop();
-    }
-
-    void setProfileImage(ImageSource source) {
-      ImagePicker().pickImage(source: source).then((image) {
-        if (image != null) {
-          final File file = File(image.path);
-          userService.setProfileImage(file);
-          Navigator.of(context).pop();
-        }
-      });
-    }
-
     showGeneralDialog(
       barrierLabel: "showGeneralDialog",
       barrierDismissible: true,
@@ -91,12 +78,14 @@ class ProfileImagePicker extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    if (profileImage != null)
+                    if (_profileImageUrl.isNotEmpty)
                       SizedBox(
                         height: 86,
                         width: 86,
                         child: RawMaterialButton(
-                          onPressed: removeProfileImage,
+                          onPressed: () {
+                            _removeProfileImage().then((value) => Navigator.of(context).pop());
+                          },
                           elevation: 2.0,
                           fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                           padding: const EdgeInsets.all(15.0),
@@ -111,7 +100,7 @@ class ProfileImagePicker extends StatelessWidget {
                       height: 86,
                       width: 86,
                       child: RawMaterialButton(
-                        onPressed: () => setProfileImage(ImageSource.gallery),
+                        onPressed: () => _setProfileImage(ImageSource.gallery).then((_) => Navigator.of(context).pop()),
                         elevation: 2.0,
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),
@@ -126,7 +115,7 @@ class ProfileImagePicker extends StatelessWidget {
                       height: 86,
                       width: 86,
                       child: RawMaterialButton(
-                        onPressed: () => setProfileImage(ImageSource.camera),
+                        onPressed: () => _setProfileImage(ImageSource.camera).then((_) => Navigator.of(context).pop()),
                         elevation: 2.0,
                         fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
                         padding: const EdgeInsets.all(15.0),
@@ -154,5 +143,18 @@ class ProfileImagePicker extends StatelessWidget {
         );
       },
     );
+  }
+
+  Future<void> _removeProfileImage() {
+    return _userService.removeProfileImage();
+  }
+
+  Future<void> _setProfileImage(ImageSource source) {
+    return ImagePicker().pickImage(source: source).then((image) {
+      if (image != null) {
+        final File file = File(image.path);
+        _userService.setProfileImage(file);
+      }
+    });
   }
 }

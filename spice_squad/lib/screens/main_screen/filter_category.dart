@@ -1,4 +1,3 @@
-import "package:flutter/cupertino.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:spice_squad/models/difficulty.dart";
 import "package:spice_squad/models/recipe.dart";
@@ -57,26 +56,26 @@ enum FilterCategory {
   }
 
   /// Returns the string representation of the filter category.
-  String getName(BuildContext context) {
+  String getName(AppLocalizations appLocalizations) {
     switch (this) {
       case FilterCategory.favourite:
-        return AppLocalizations.of(context)!.filterNameFavourite;
+        return appLocalizations.filterNameFavourite;
       case FilterCategory.difficultyEasy:
-        return AppLocalizations.of(context)!.filterNameDifficultyEasy;
+        return appLocalizations.filterNameDifficultyEasy;
       case FilterCategory.difficultyMedium:
-        return AppLocalizations.of(context)!.filterNameDifficultyMedium;
+        return appLocalizations.filterNameDifficultyMedium;
       case FilterCategory.difficultyHard:
-        return AppLocalizations.of(context)!.filterNameDifficultyHard;
+        return appLocalizations.filterNameDifficultyHard;
       case FilterCategory.labelVegetarian:
-        return AppLocalizations.of(context)!.filterNameLabelVegetarian;
+        return appLocalizations.filterNameLabelVegetarian;
       case FilterCategory.labelVegan:
-        return AppLocalizations.of(context)!.filterNameLabelVegan;
+        return appLocalizations.filterNameLabelVegan;
       case FilterCategory.labelGlutenFree:
-        return AppLocalizations.of(context)!.filterNameLabelGlutenFree;
+        return appLocalizations.filterNameLabelGlutenFree;
       case FilterCategory.labelHalal:
-        return AppLocalizations.of(context)!.filterNameLabelHalal;
+        return appLocalizations.filterNameLabelHalal;
       case FilterCategory.labelKosher:
-        return AppLocalizations.of(context)!.filterNameLabelKosher;
+        return appLocalizations.filterNameLabelKosher;
     }
   }
 }

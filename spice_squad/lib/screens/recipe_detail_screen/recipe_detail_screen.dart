@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:marquee/marquee.dart";
+import "package:spice_squad/exceptions/too_many_reports_exception.dart";
 import "package:spice_squad/icons.dart";
 import "package:spice_squad/models/recipe.dart";
 import "package:spice_squad/providers/service_providers.dart";
@@ -20,24 +21,24 @@ class RecipeDetailScreen extends ConsumerStatefulWidget {
   static const routeName = "/recipe-detail";
 
   /// The recipe that is displayed on this screen.
-  final Recipe recipe;
+  final Recipe _recipe;
 
   /// Creates a new recipe detail screen.
-  const RecipeDetailScreen({required this.recipe, super.key});
+  const RecipeDetailScreen({required Recipe recipe, super.key}) : _recipe = recipe;
 
   @override
   ConsumerState<RecipeDetailScreen> createState() => _RecipeDetailScreenState();
 }
 
 class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
-  late int portionAmount;
-  late bool isFavourite;
+  late int _portionAmount;
+  late bool _isFavourite;
 
   @override
   void initState() {
     super.initState();
-    portionAmount = widget.recipe.defaultPortionAmount;
-    isFavourite = widget.recipe.isFavourite;
+    _portionAmount = widget._recipe.defaultPortionAmount;
+    _isFavourite = widget._recipe.isFavourite;
   }
 
   @override
@@ -48,26 +49,26 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
         appBar: AppBar(
           title: LayoutBuilder(
             builder: (context, constraints) =>
-                _willTextOverflow(text: widget.recipe.title, maxWidth: constraints.maxWidth)
+                _willTextOverflow(text: widget._recipe.title, maxWidth: constraints.maxWidth)
                     ? SizedBox(
                         height: 32,
                         child: Marquee(
-                          text: widget.recipe.title,
+                          text: widget._recipe.title,
                           blankSpace: 20.0,
                           pauseAfterRound: const Duration(seconds: 2),
                         ),
                       )
                     : Text(
-                        widget.recipe.title,
+                        widget._recipe.title,
                       ),
           ),
-          actions: widget.recipe.author.id == ref.watch(userServiceProvider).value?.id
+          actions: widget._recipe.author.id == ref.watch(userServiceProvider).value?.id
               ? <Widget>[
                   IconButton(
                     iconSize: 32,
                     splashRadius: 24,
                     onPressed: () =>
-                        Navigator.of(context).pushNamed(RecipeCreationScreen.routeName, arguments: widget.recipe),
+                        Navigator.of(context).pushNamed(RecipeCreationScreen.routeName, arguments: widget._recipe),
                     icon: const ImageIcon(SpiceSquadIconImages.edit),
                   )
                 ]
@@ -85,12 +86,12 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    TagItem(image: SpiceSquadIconImages.person, name: widget.recipe.author.userName),
+                    TagItem(image: SpiceSquadIconImages.person, name: widget._recipe.author.userName),
                     const SizedBox(width: 8),
                     TagItem(
                       image: SpiceSquadIconImages.calendar,
                       name:
-                          "${widget.recipe.uploadDate.day}.${widget.recipe.uploadDate.month}.${widget.recipe.uploadDate.year}",
+                          "${widget._recipe.uploadDate.day}.${widget._recipe.uploadDate.month}.${widget._recipe.uploadDate.year}",
                     ),
                   ],
                 ),
@@ -104,9 +105,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                   color: Theme.of(context).colorScheme.onSurface,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: widget.recipe.image != null
-                        ? Image.memory(
-                            widget.recipe.image!,
+                    child: widget._recipe.imageUrl.isNotEmpty
+                        ? Image.network(
+                            widget._recipe.imageUrl,
                             width: double.infinity,
                             height: 200,
                             fit: BoxFit.cover,
@@ -118,7 +119,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                 ),
               ),
               const SizedBox(height: 16),
-              LabelList(recipe: widget.recipe),
+              LabelList(recipe: widget._recipe),
               const SizedBox(height: 16),
               Row(
                 mainAxisSize: MainAxisSize.max,
@@ -128,25 +129,25 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                     child: PortionAmountField(
                       onChanged: (value) {
                         setState(() {
-                          portionAmount = value;
+                          _portionAmount = value;
                         });
                       },
-                      initialValue: widget.recipe.defaultPortionAmount,
+                      initialValue: widget._recipe.defaultPortionAmount,
                     ),
                   ),
                   const SizedBox(width: 10),
                   Consumer(
                     builder: (context, ref, child) {
                       return FavouriteButton(
-                        value: isFavourite,
+                        value: _isFavourite,
                         onToggle: () {
                           ref.read(recipeServiceProvider.notifier).toggleFavourite(
-                                widget.recipe.copyWith(
-                                  isFavourite: isFavourite,
+                                widget._recipe.copyWith(
+                                  isFavourite: _isFavourite,
                                 ),
                               );
                           setState(() {
-                            isFavourite = !isFavourite;
+                            _isFavourite = !_isFavourite;
                           });
                         },
                       );
@@ -161,8 +162,8 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
               ),
               const SizedBox(height: 10),
               IngredientList(
-                ingredients: widget.recipe.ingredients,
-                amountFactor: portionAmount / widget.recipe.defaultPortionAmount,
+                ingredients: widget._recipe.ingredients,
+                amountFactor: _portionAmount / widget._recipe.defaultPortionAmount,
               ),
               const SizedBox(height: 16),
               Text(
@@ -178,7 +179,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: Text(
-                      widget.recipe.instructions,
+                      widget._recipe.instructions,
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ),
@@ -201,8 +202,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
   }
 
   Future<void> reportRecipe(RecipeService recipeService) async {
-    //TODO: Prevent spamming
-    recipeService.reportRecipe(widget.recipe.id).then(
+    recipeService
+        .reportRecipe(widget._recipe.id)
+        .then(
           (value) => showDialog(
             context: context,
             builder: (context) => SuccessDialog(
@@ -210,7 +212,24 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
               message: AppLocalizations.of(context)!.reportSuccessMessage,
             ),
           ),
+        )
+        .catchError((error, stackTrace) {
+      if (error is TooManyReportsException) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(AppLocalizations.of(context)!.tooManyReportsErrorTitle),
+            content: Text(AppLocalizations.of(context)!.tooManyReportsErrorMessage),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text(AppLocalizations.of(context)!.okActionButton),
+              )
+            ],
+          ),
         );
+      }
+    });
   }
 
   bool _willTextOverflow({required String text, required double maxWidth}) {

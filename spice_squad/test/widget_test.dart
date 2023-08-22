@@ -1,12 +1,6 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:flutter_test/flutter_test.dart";
 import "package:spice_squad/models/difficulty.dart";
 import "package:spice_squad/models/ingredient.dart";
@@ -32,7 +26,7 @@ final Recipe recipeOne = Recipe(
     Ingredient(
       id: "id",
       name: "name",
-      iconId: "iconId",
+      iconUrl: "https://img.icons8.com/?size=64&id=95280&format=png",
       amount: 10.0,
       unit: "g",
     )
@@ -46,7 +40,7 @@ final Recipe recipeOne = Recipe(
 final Recipe recipeTwo = Recipe(
   id: "2",
   title: "vegan halal kosher medium",
-  author: User(id: "id", userName: "userName"),
+  author: User(id: "id", userName: "user"),
   uploadDate: DateTime.now(),
   duration: 2,
   difficulty: Difficulty.medium,
@@ -88,12 +82,17 @@ void main() {
     final portionAmountFieldFinder =
         find.byKey(const ValueKey("portionAmountField"));
 
+    final container = ProviderContainer();
+
     await tester.pumpWidget(
-      MaterialApp(
-        locale: const Locale("de", "DE"),
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        home: RecipeDetailScreen(
-          recipe: recipeOne,
+      UncontrolledProviderScope(
+        container: container,
+        child: MaterialApp(
+          locale: const Locale("de", "DE"),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          home: RecipeDetailScreen(
+            recipe: recipeOne,
+          ),
         ),
       ),
     );

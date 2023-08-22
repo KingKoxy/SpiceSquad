@@ -14,7 +14,7 @@ class GroupRecipe extends Recipe {
           uploadDate: recipe.uploadDate,
           duration: recipe.duration,
           difficulty: recipe.difficulty,
-          image: recipe.image,
+          imageUrl: recipe.imageUrl,
           isVegetarian: recipe.isVegetarian,
           isVegan: recipe.isVegan,
           isGlutenFree: recipe.isGlutenFree,
@@ -28,6 +28,44 @@ class GroupRecipe extends Recipe {
         );
 
   /// Creates a new [GroupRecipe] from the given [map] object by extracting the values
+  ///
+  /// The [map] should have the following structure
+  /// ```dart
+  /// {
+  ///   "is_censored": bool,
+  ///   "recipe": {
+  ///     "id": String,
+  ///     "title": String,
+  ///     "author": {
+  ///       "id": String,
+  ///       "profile_image": String,
+  ///       "user_name": String
+  ///     },
+  ///     "upload_date": DateTime,
+  ///     "duration": int,
+  ///     "difficulty": String,
+  ///     "image": String,
+  ///     "is_vegetarian": bool,
+  ///     "is_vegan": bool,
+  ///     "is_gluten_free": bool,
+  ///     "is_halal": bool,
+  ///     "is_kosher": bool,
+  ///     "ingredients": [
+  ///       {
+  ///         "id": String,
+  ///         "name": String,
+  ///         "icon": String,
+  ///         "amount": double,
+  ///         "unit": String
+  ///       }
+  ///     ],
+  ///     "instructions": String,
+  ///     "default_portions": int,
+  ///     "isFavourite": null | bool,
+  ///     "is_private": null | bool,
+  ///   }
+  /// }
+  /// ```
   factory GroupRecipe.fromMap(Map<String, dynamic> map) {
     return GroupRecipe(
       recipe: Recipe.fromMap(map["recipe"]),

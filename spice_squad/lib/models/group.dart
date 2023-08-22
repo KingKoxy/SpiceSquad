@@ -22,6 +22,59 @@ class Group {
   Group({required this.id, required this.name, required this.groupCode, required this.members, required this.recipes});
 
   /// Creates a new [Group] from the given [map] object by extracting the values
+  ///
+  /// The [map] should have the following structure
+  /// ```dart
+  /// {
+  ///   "id": String,
+  ///   "name": String,
+  ///   "group_code": String,
+  ///   "members": [
+  ///     {
+  ///       "id": String,
+  ///       "profile_image": String,
+  ///       "user_name": String,
+  ///       "is_admin": bool
+  ///     }
+  ///   ],
+  ///   "recipes": [
+  ///     {
+  ///       "is_censored": bool,
+  ///       "recipe": {
+  ///         "id": String,
+  ///         "title": String,
+  ///         "author": {
+  ///           "id": String,
+  ///           "profile_image": String,
+  ///           "user_name": String
+  ///         },
+  ///         "upload_date": DateTime,
+  ///         "duration": int,
+  ///         "difficulty": String,
+  ///         "image": String,
+  ///         "is_vegetarian": bool,
+  ///         "is_vegan": bool,
+  ///         "is_gluten_free": bool,
+  ///         "is_halal": bool,
+  ///         "is_kosher": bool,
+  ///         "ingredients": [
+  ///           {
+  ///             "id": String,
+  ///             "name": String,
+  ///             "icon": String,
+  ///             "amount": double,
+  ///             "unit": String
+  ///           }
+  ///         ],
+  ///         "instructions": String,
+  ///         "default_portions": int,
+  ///         "isFavourite": null | bool,
+  ///         "is_private": null | bool,
+  ///       }
+  ///     }
+  ///   ]
+  /// }
+  /// ```
   factory Group.fromMap(Map<String, dynamic> map) {
     return Group(
       id: map["id"],

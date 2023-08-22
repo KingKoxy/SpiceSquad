@@ -1,12 +1,14 @@
 /// Thrown when a user tries to sign up with an email that is already in use
 class EmailAlreadyInUseError implements ArgumentError {
-  final String _invalidValue;
+  final String _usedEmail;
 
-  /// Creates a new [EmailAlreadyInUseException] with the given [invalidValue]
-  EmailAlreadyInUseError(this._invalidValue);
+  /// Creates a new [EmailAlreadyInUseException]
+  ///
+  /// The [usedEmail] is the email that is already in use
+  EmailAlreadyInUseError({required String usedEmail}) : _usedEmail = usedEmail;
 
   @override
-  get invalidValue => _invalidValue;
+  get invalidValue => _usedEmail;
 
   @override
   get message => "The email \"$invalidValue\" is already in use";

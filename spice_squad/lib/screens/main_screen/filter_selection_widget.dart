@@ -7,13 +7,18 @@ import "package:spice_squad/screens/main_screen/filter_selection_dialog.dart";
 /// Widget that allows the user to select filters.
 class FilterSelectionWidget extends StatelessWidget {
   /// Callback for when the filters are changed.
-  final ValueChanged<List<FilterCategory>> onChanged;
+  final ValueChanged<List<FilterCategory>> _onChanged;
 
   /// The selected filters.
-  final List<FilterCategory> selectedFilters;
+  final List<FilterCategory> _selectedFilters;
 
   /// Creates a new filter selection widget.
-  const FilterSelectionWidget({required this.onChanged, required this.selectedFilters, super.key});
+  const FilterSelectionWidget({
+    required void Function(List<FilterCategory>) onChanged,
+    required List<FilterCategory> selectedFilters,
+    super.key,
+  })  : _selectedFilters = selectedFilters,
+        _onChanged = onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +32,7 @@ class FilterSelectionWidget extends StatelessWidget {
           ),
           const SizedBox(width: 5),
           Text(
-            AppLocalizations.of(context)!.filterSelectionHandle(selectedFilters.length),
+            AppLocalizations.of(context)!.filterSelectionHandle(_selectedFilters.length),
             style: Theme.of(context).textTheme.titleLarge,
           )
         ],
@@ -41,8 +46,8 @@ class FilterSelectionWidget extends StatelessWidget {
       barrierDismissible: true,
       builder: (BuildContext context) {
         return FilterSelectionDialog(
-          onSave: onChanged,
-          initialValue: selectedFilters,
+          onSave: _onChanged,
+          initialValue: _selectedFilters,
         );
       },
     );

@@ -7,26 +7,28 @@ import "package:spice_squad/screens/main_screen/sort_category.dart";
 /// Dialog that allows the user to select a sort.
 class SortSelectionDialog extends StatefulWidget {
   /// Callback for when the sort is saved.
-  final ValueChanged<Sort> onSaved;
+  final ValueChanged<Sort> _onSaved;
 
   /// The initially selected sort.
-  final Sort initialValue;
+  final Sort _initialValue;
 
   /// Creates a new sort selection dialog.
-  const SortSelectionDialog({required this.onSaved, required this.initialValue, super.key});
+  const SortSelectionDialog({required void Function(Sort) onSaved, required Sort initialValue, super.key})
+      : _initialValue = initialValue,
+        _onSaved = onSaved;
 
   @override
   State<SortSelectionDialog> createState() => _SortSelectionDialogState();
 }
 
 class _SortSelectionDialogState extends State<SortSelectionDialog> {
-  late Sort selectedSort;
+  late Sort _selectedSort;
 
   @override
   void initState() {
     super.initState();
     // Initialize the selected sort with the initial value.
-    selectedSort = widget.initialValue;
+    _selectedSort = widget._initialValue;
   }
 
   @override
@@ -47,14 +49,14 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
                 ),
                 onPressed: () {
                   setState(() {
-                    selectedSort = Sort(category: selectedSort.category, ascending: !selectedSort.ascending);
+                    _selectedSort = Sort(category: _selectedSort.category, ascending: !_selectedSort.ascending);
                   });
                 },
                 child: ListTile(
                   title: Row(
                     children: [
                       ImageIcon(
-                        selectedSort.ascending
+                        _selectedSort.ascending
                             ? SpiceSquadIconImages.sortAscending
                             : SpiceSquadIconImages.sortDescending,
                         color: Colors.white,
@@ -63,7 +65,7 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
                         width: 24,
                       ),
                       Text(
-                        selectedSort.ascending
+                        _selectedSort.ascending
                             ? AppLocalizations.of(context)!.ascending
                             : AppLocalizations.of(context)!.descending,
                       ),
@@ -74,14 +76,14 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
             }
             final key = SortCategory.values.elementAt(index - 1);
             return RadioListTile(
-              title: Text(key.getName(context)),
+              title: Text(key.getName(AppLocalizations.of(context)!)),
               value: key,
               onChanged: (value) {
                 setState(() {
-                  selectedSort = Sort(category: value!, ascending: selectedSort.ascending);
+                  _selectedSort = Sort(category: value!, ascending: _selectedSort.ascending);
                 });
               },
-              groupValue: selectedSort.category,
+              groupValue: _selectedSort.category,
             );
           },
         ),
@@ -97,7 +99,7 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
           child: Text(AppLocalizations.of(context)!.saveButtonLabel),
           onPressed: () {
             Navigator.of(context).pop();
-            widget.onSaved(selectedSort);
+            widget._onSaved(_selectedSort);
           },
         ),
       ],

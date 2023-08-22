@@ -1,5 +1,3 @@
-import "dart:typed_data";
-
 import "package:spice_squad/models/difficulty.dart";
 import "package:spice_squad/models/ingredient.dart";
 import "package:spice_squad/models/recipe_creation_data.dart";
@@ -40,10 +38,45 @@ class Recipe extends RecipeCreationData {
     required super.defaultPortionAmount,
     required this.isFavourite,
     required this.isPrivate,
-    super.image,
+    super.imageUrl = "",
   });
 
   /// Creates a new [Recipe] from the given [map] object by extracting the values
+  ///
+  /// The [map] should have the following structure
+  /// ```dart
+  /// {
+  ///   "id": String,
+  ///   "title": String,
+  ///   "author": {
+  ///     "id": String,
+  ///     "profile_image": String
+  ///     "user_name": String
+  ///   },
+  ///   "upload_date": DateTime,
+  ///   "duration": int,
+  ///   "difficulty": String,
+  ///   "image": String,
+  ///   "is_vegetarian": bool,
+  ///   "is_vegan": bool,
+  ///   "is_gluten_free": bool,
+  ///   "is_halal": bool,
+  ///   "is_kosher": bool,
+  ///   "ingredients": [
+  ///     {
+  ///       "id": String,
+  ///       "name": String,
+  ///       "icon": String,
+  ///       "amount": double,
+  ///       "unit": String
+  ///     }
+  ///   ],
+  ///   "instructions": String,
+  ///   "default_portions": int,
+  ///   "isFavourite": null | bool,
+  ///   "is_private": null | bool,
+  /// }
+  ///```
   factory Recipe.fromMap(Map<String, dynamic> map) {
     return Recipe(
       id: map["id"],
@@ -52,7 +85,7 @@ class Recipe extends RecipeCreationData {
       uploadDate: DateTime.parse(map["upload_date"]),
       duration: map["duration"],
       difficulty: Difficulty.fromString(map["difficulty"]),
-      image: map["image"] != null ? Uint8List.fromList(map["image"]["data"].cast<int>()) : null,
+      imageUrl: map["image"] ?? "",
       isVegetarian: map["is_vegetarian"],
       isVegan: map["is_vegan"],
       isGlutenFree: map["is_gluten_free"],
@@ -81,8 +114,7 @@ class Recipe extends RecipeCreationData {
     int? defaultPortionAmount,
     bool? isFavourite,
     bool? isPrivate,
-    Uint8List? image,
-    bool setImageIfNull = false,
+    String? imageUrl,
   }) {
     return Recipe(
       id: id,
@@ -99,7 +131,7 @@ class Recipe extends RecipeCreationData {
       defaultPortionAmount: defaultPortionAmount ?? this.defaultPortionAmount,
       isFavourite: isFavourite ?? this.isFavourite,
       isPrivate: isPrivate ?? this.isPrivate,
-      image: image ?? (setImageIfNull ? null : this.image),
+      imageUrl: imageUrl ?? this.imageUrl,
       author: author,
       uploadDate: uploadDate,
     );

@@ -14,13 +14,13 @@ class GroupCreationScreen extends ConsumerWidget {
   static const routeName = "/group-creation";
 
   /// Whether this screen is shown after the user registered
-  final bool isAfterRegister;
+  final bool _isAfterRegister;
 
   final TextEditingController _groupNameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   /// Creates a new group creation screen
-  GroupCreationScreen({required this.isAfterRegister, super.key});
+  GroupCreationScreen({required bool isAfterRegister, super.key}) : _isAfterRegister = isAfterRegister;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,7 +28,7 @@ class GroupCreationScreen extends ConsumerWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            isAfterRegister
+            _isAfterRegister
                 ? Positioned(
                     top: 16,
                     right: 32,
@@ -68,7 +68,7 @@ class GroupCreationScreen extends ConsumerWidget {
                           SizedBox(
                             width: double.infinity,
                             child: TextFormField(
-                              validator: (value) => _validateGroupName(context, value),
+                              validator: (value) => _validateGroupName(AppLocalizations.of(context)!, value),
                               keyboardType: TextInputType.text,
                               controller: _groupNameController,
                               maxLength: 32,
@@ -89,7 +89,7 @@ class GroupCreationScreen extends ConsumerWidget {
                       child: ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            _createGroup(context, ref.read(groupServiceProvider.notifier), isAfterRegister);
+                            _createGroup(context, ref.read(groupServiceProvider.notifier), _isAfterRegister);
                           }
                         },
                         child: Text(AppLocalizations.of(context)!.createSquadButton),
@@ -101,7 +101,7 @@ class GroupCreationScreen extends ConsumerWidget {
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.of(context)
-                              .pushReplacementNamed(GroupJoiningScreen.routeName, arguments: isAfterRegister);
+                              .pushReplacementNamed(GroupJoiningScreen.routeName, arguments: _isAfterRegister);
                         },
                         child: Text(AppLocalizations.of(context)!.joinSquadButton),
                       ),
@@ -116,12 +116,12 @@ class GroupCreationScreen extends ConsumerWidget {
     );
   }
 
-  String? _validateGroupName(BuildContext context, String? groupCode) {
-    if (groupCode == null || groupCode.isEmpty) {
-      return AppLocalizations.of(context)!.squadNameEmptyError;
+  String? _validateGroupName(AppLocalizations appLocalizations, String? groupName) {
+    if (groupName == null || groupName.isEmpty) {
+      return appLocalizations.squadNameEmptyError;
     }
-    if (groupCode.length > 32) {
-      return AppLocalizations.of(context)!.groupCodeTooLongError;
+    if (groupName.length > 32) {
+      return appLocalizations.groupCodeTooLongError;
     }
     return null;
   }
