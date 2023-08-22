@@ -85,4 +85,12 @@ class Group {
           map["recipes"].map<GroupRecipe>((recipe) => GroupRecipe.fromMap(recipe as Map<String, dynamic>)).toList(),
     );
   }
+
+  /// Converts this [Group] to a [Map] object by inserting the values
+  Map<String, dynamic> toMap() {
+    return {
+      "id": id,
+      "name": name,
+    };
+  }
 }

@@ -124,7 +124,7 @@ class GroupRepository {
         HttpHeaders.contentTypeHeader: "application/json",
         HttpHeaders.authorizationHeader: "${await _userRepository.getToken()}",
       },
-      body: jsonEncode(group),
+      body: jsonEncode(group.toMap()),
     );
     if (response.statusCode != 200) {
       throw HttpStatusException(response);
