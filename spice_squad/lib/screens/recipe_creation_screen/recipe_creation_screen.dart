@@ -121,7 +121,10 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
                             onPressed: () => _saveRecipe(
                               ref.read(recipeServiceProvider.notifier),
                               ref.read(imageRepositoryProvider),
-                            ).then((value) => Navigator.of(context).pop()),
+                            ).then((value) {
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pop();
+                            }),
                             child: Text(AppLocalizations.of(context)!.saveButtonLabel),
                           ),
                         ],
