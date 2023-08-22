@@ -19,4 +19,9 @@ Die in diesem Heft verwendeten Personenbezeichnungen beziehen sich - sofern nich
 \paragraph{Grund} Durch eine Änderung im Backend 
 gibt eine fehlerhafte Anfrage den Code 500, statt wie zuvor den Code 401, zurück. Auf diesen Code wird jedoch nicht geprüft.
 \paragraph{Behebung} Das Backend gibt nun wieder den Code 401 zurück.
+\newpage
+\subsection{Gruppenname kann nicht geändert werden}
+\paragraph*{Beschreibung} Wird versucht den Gruppennamen zu ändern, so bleibt der alte Name bestehen.
+\paragraph{Grund} Beim Konvertieren des neuen Gruppenobjektes zu einer JSON für die Anfrage an das Backend wird ein Fehler geworfen, da eine zusätzliche \texttt{.toMap()} Methode benötigt wird.
+\paragraph{Behebung} Die \texttt{.toMap()} Methode wurde hinzugefügt.
 \end{document}
