@@ -13,7 +13,34 @@ Zur besseren Lesbarkeit wird in diesem Entwurfsheft das generische Maskulinum ve
 Die in diesem Heft verwendeten Personenbezeichnungen beziehen sich - sofern nicht anders kenntlich gemacht - auf alle Geschlechter.
 \newpage
 
+<<<<<<< HEAD
 \section{Umsetzung der Zielbestimmungen des Pflichtenhefts}
+=======
+\section{Überblick}
+In diesem Abschnitt geben wir einen allgemeinen Einblick in unseren Entwicklungsprozess.
+
+\subsection{Lines of Code}
+Das Projekt umfasste zum Zeitpunkt der Einreichung etwa 10.000 Codezeilen. Externe Bibliotheken wurden bei der Zählung der Codezeilen nicht berücksichtigt. 
+\subsection{Planung und Kommunikation in der Phase}
+Wir haben uns bei der Implementierung gegen einen Wochenplan entschieden und stattdessen für ein Projektmanagement in Form von Issue-Tracking.
+Wir haben uns dazu entschieden, da wir uns so besser auf die Aufgaben konzentrieren können, die gerade anstehen.
+Außerdem können wir so besser auf Änderungen im Projekt reagieren und mussten so nicht unseren Plan anpassen, wenn wir mal eine Aufgabe nicht in der geplanten Zeit erledigen konnten.
+Wir haben das ganze verbunden mit wöchentlichen Meetings, in denen wir die Aufgaben für die nächste Woche besprechen und die Aufgaben der letzten Woche reflektieren.
+Zur Planung und Kommunikation haben wir konkret folgenden Tools verwendet:
+\begin{itemize}
+    \item Linear: Zur Verwaltung und Aufteilung der Aufgaben
+    \item Slack: Zur Kommunikation bei Fragen und Problemen
+\end{itemize}
+
+\subsection{Quellcode-Verwaltung}
+Das Projekt wird mit dem verteilten Versionskontrollsystem Git entwickelt. Der Code wird
+auf GitHub gehostet, einem webbasierten Hosting-Dienst für die Versionskontrolle mit Git. GitHub bietet
+verschiedene Funktionen für die Zusammenarbeit, wie z. B. Aufgabenmanagement oder Fehlerverfolgung, und ermöglicht einfache
+Code-Reviews über ihren Pull-Request-Workflow.
+\newpage
+
+\section{Umsetzung der Zielbestimmungen des Pflichtenhefts} \label{sec:changes}
+>>>>>>> origin/Implementierungsheft
 Es wurden alle Muss-, Soll- und Kannkriterien umgesetzt. Die Applikation wurde um die folgenden Features erweitert:
 \begin{itemize}
     \item An sinnvollen Stellen wurden zusätzliche Pop-Up-Fenster eingefügt, die z.B. nach Bestätigung einer Aktion fragen.
@@ -22,6 +49,21 @@ Es wurden alle Muss-, Soll- und Kannkriterien umgesetzt. Die Applikation wurde u
     \item Es ist auch möglich Zutaten nachträglich zu bearbeiten.
     \item Es wurden zahlreiche Fehlermeldungen eingefügt, die angezeigt werden, wenn verschiedene Aktionen fehlschlagen.
 \end{itemize}
+
+\section{Backends aktualisierung mit Docker und Github Actions}
+Wir haben uns im Verlauf der Implementierungsphase dazu entschieden unser Backend mit Docker zu aktualisieren.
+Diese Entscheidung, hat sich als äußerst vorteilhaft erwiesen. Docker ermöglicht uns die Erstellung, Verteilung und Ausführung von Anwendungen in isolierten Containern, was eine konsistente Umgebung für die Ausführung gewährleistet. Dies erleichtert die Skalierbarkeit, Portabilität und Wartung unseres Backends erheblich.
+Wir haben unsere Backend-Anwendung in mehrere Container aufgeteilt, um die Abhängigkeiten zu isolieren und die Skalierbarkeit zu verbessern. Dadurch können wir die Ressourcen effizienter nutzen und eine hohe Verfügbarkeit unserer Dienste sicherstellen.
+So haben wir zum Beispiel einen Container für die Datenbank, einen für die API und einen für den Webserver.
+Zudem haben wir noch einen Container mit Watchtower hinzugefügt, der dafür sorgt, dass die Container immer auf dem neusten Stand sind.
+
+Um unseren Entwicklungsprozess zu optimieren und die Bereitstellung neuer Funktionen und Fehlerkorrekturen zu beschleunigen, haben wir uns für eine automatisierte CI/CD-Lösung entschieden. Dafür nutzen wir Github Actions, um unsere Projekte in einem zentralen Repository zu verwalten und Builds auszulösen.
+
+Für die automatische Aktualisierung unserer Docker-Container haben wir uns für Watchtower entschieden. Watchtower ist ein Dienst, der automatisch Container-Images überwacht und aktualisiert, sobald eine neue Version verfügbar ist. Dadurch können wir sicherstellen, dass unsere Produktionsumgebung stets auf dem neuesten Stand ist und Sicherheitslücken und Fehler behoben werden, ohne manuelle Eingriffe durchführen zu müssen.
+
+Watchtower ist nahtlos in unsere CI/CD-Pipeline integriert, sodass nach jedem erfolgreichen Build die neuesten Container-Images automatisch auf unseren Servern bereitgestellt werden.
+
+Die Implementierung unseres Backends mit Docker und die Integration einer automatisierten CI/CD-Lösung mithilfe von Watchtower und Github Actions haben unseren Entwicklungsprozess erheblich optimiert.
 \newpage
 \section{Änderungen am Entwurf}
 In den folgenden UML-Diagrammen werden abgeänderte Methoden und Attribute blau markiert, entfernte rot und neue grün.
@@ -424,4 +466,125 @@ Das Widget wurde hinzugefügt, um ein Pop-Up-Fenster anzuzeigen, in dem der Nutz
 Die Klasse ist nun ein fConsumerStatefulWidget, da sie auf die Methoden des \texttt{IngredientDataRe\-pository} zugreift.
 \paragraph{\texttt{name}} Das Attribut wurde entfernt.
 \paragraph{\texttt{searchText}} Das Attribut wurde hinzugefügt, um den Suchtext zu verwalten.
+
+\subsection{Änderungen an der Server- und Applicationklasse}
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/uml/server.pdf}
+    \caption{Änderungen an der Server- und Applicationklasse}
+    \label{fig:server}
+\end{figure}
+\paragraph{\texttt{connectToDatabase()}} Die Methode wurde entfernt, da sie nicht mehr benötigt wird.
+
+\paragraph{\texttt{imageRouter: ImageRouter}} Die Attribute wurde hinzugefügt um die ImageRouter-Klasse zu initialisieren.
+
+\subsection{Änderungen an den Routern}
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/uml/routers.pdf}
+    \caption{Änderungen an den Routern}
+    \label{fig:routers}
+\end{figure}
+
+Es wurden sowohl bei dem \texttt{GroupRouter} als auch beim \texttt{AdminUserRouter} folgende Attribute hinzugefügt.
+
+\paragraph{\texttt{checkGroupMemberState: CheckGroupMemberState}} Die Attribute wurde hinzugefügt um die CheckGroupMemberState-Klasse zu initialisieren.
+\paragraph{\texttt{checkMemberStateTarget: any}}
+
+\newpage
+
+\subsection{Änderungen an den Controllern}
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/uml/controller.pdf}
+    \caption{Änderungen an den Controllern}
+    \label{fig:controller}
+\end{figure}
+
+Bei allen Controllerfunktionen wurde das Request-Argument typsicher gemacht, d.h. es ist klar definiert, welche Argumente in head und body übergeben werden.
+Außerdem werden eventuell auftretende Fehler mit der next function an den Errorhandler weitergegeben. Die Klasse \texttt{ImageController} wurde hinzugefügt, um Bilder zu verwalten.
+\texttt{RecipeController} und \texttt{UserController} halten eine Instanz von \texttt{Imagecontroller}
+
+\paragraph{\texttt{AbstractController}} Die Attribute \texttt{pool} und \texttt{database} wurden entfernt. Datenbankanfragen werden nun mithilfe des PrismaClients über das Attribut \texttt{prisma} ausgeführt.
+Außerdem wurden die Attribute \texttt{firebaseAuth} und \texttt{firebaseAdmin} hinzugefügt, um die Authentifizierung mit Firebase zu ermöglichen.
+
+\paragraph{\texttt{UserController}} Die Methode getUser wurde hinzugefügt, um einen Benutzer anhand seines idTokens zu erhalten.
+
+\paragraph{\texttt{AuthentificationController}} Die Methode \texttt{userGetByIdToken} wurde entfernt und durch die Methode \texttt{getUser} im UserController ersetzt.
+
+\paragraph{\texttt{IngredientController}} Die Methode \texttt{ingredientIconGet} wurde hinzugefügt, um alle Icons als URL zu erhalten. Die Methode \texttt{ingredientIconGetById} wurde hinzugefügt, um ein Icon anhand seiner ID als Bytearray zu erhalten.
+
+\paragraph{\texttt{GroupController}} Dieser Controller hält nun Instanzen von Ingredient und Image Controller.
+
+\paragraph{\texttt{ImageController}} Diese Klasse wurde hinzugefügt, um Bilder zu verwalten. Sie enthält die folgenden Methoden:
+\begin{itemize}
+    \item \texttt{createImage(image:UInt8Array)} um ein Bild zu erstellen.
+    \item \texttt{imageGet(req: express.Request<{imageId:string},never,never>, res: express.Response, next: express.NextFunction)} um ein Bild anhand seiner ID zu erhalten.
+    \item \texttt{fromIdtoURL(imageId: string): string} gibt für image id die URL zurück.
+    \item \texttt{fromURLtoId(imageURL: string): string} gibt für image URL die ID zurück.
+    \item \texttt{checkImageParamType(image: UInt8Array|string)} um ein Bild hochzuladen.
+    \item \texttt{deleteImage(req: express.Request<{imageId:string},never,never>, res: express.Response, next: express.NextFunction)} um ein Bild anhand seiner ID zu löschen.
+    \item \texttt{imagePost(req: AuthenticatedRequest<never, never, { image: Uint8Array }>,res: express.Response, next: express.NextFunction): Promise<void>} um ein Bild hochzuladen.
+    \item \texttt{imagePatch(req: AuthenticatedRequest<{ imageId: string }, never, { image: Uint8Array }>, res: express.Response, next: express.NextFunction): Promise<void>} um ein Bild anhand seiner ID zu aktualisieren.
+\end{itemize}
+
+\subsection{Änderungen an der Middleware} Wie auch bei den Controllern, wurden auch bei der Middleware alle Request-Argumente typsicher gemacht. Die Klassen \texttt{AbstractMiddleware}, \texttt{CheckGroupMemberState}, \texttt{SchemaValidator} und \texttt{AuthenticatedRequest} wurden neu hinzugefügt.
+
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/uml/middleware.pdf}
+    \caption{Änderungen an den Middlewareklassen}
+    \label{fig:middleware}
+\end{figure}
+
+\paragraph{\texttt{AbstractMiddleware}} Klasse, von der alle anderen Middlewareklassen erben. Sie enthält einen Constructor und das Attribut \texttt{prisma : PrismaClient} um Datenbankanfragen auszuführen.
+
+\paragraph{\texttt{AuthenticatedRequest}} Interface, das \texttt{express.Request} um das Atrribut \texttt{userId : string} erweitert.
+
+\paragraph{\texttt{CheckGroupMemberState}} Klasse, die überprüft, ob ein Benutzer Mitglied einer Gruppe ist. Dazu wird die Methode \\ \texttt{checkMemberStateTarget(express.Request, express.Response, express.NextFunction)} verwendet.
+
+\paragraph{\texttt{SchemaValidator}} Klasse, die die Requestdaten anhand eines Joi-Schemas validiert. Dazu wird die Methode \texttt{validateRequest(schema: joi.objectSchema)} verwendet.
+Bei der Entwicklung von TypeScript-Anwendungen ist die Dateneingabevalidierung von entscheidender Bedeutung, um die Integrität und Sicherheit unserer Anwendung zu gewährleisten. Die Bibliothek Joi hat sich als eine der beliebtesten und effektivsten Lösungen für die Validierung von Daten in JavaScript erwiesen. Wir haben uns deshalb für diese leistungsstarke Validierungs-Bibliothek entschieden haben.
+Alle Request, die gestellt werden können werden dabei mit Joi validiert. Dabei wird überprüft, ob alle benötigten Felder vorhanden sind und ob die Felder den richtigen Datentyp haben.
+
+Dafür hat jeder Controller ein Joi-Schema, das die Validierung beschreibt. Dieses Schema wird dann in der \texttt{validateRequest}-Middleware verwendet, um die Request zu validieren.
+
+\paragraph{\texttt{CheckAuthorization}} Die Methode \texttt{checkAuthorization} findet nun zusätzlich den Nutzer in der Datenbank und fügt seine Id der Request hinzu. Weitergegeben wird eine \texttt{AuthenticatedRequest}.
+
+\newpage
+
+\subsection{MailBuilder} Die Methode \texttt{buildMail(reciever: string, adminUsername: string, recipeTitle: string, reportedUsername: string, groupName: string): nodemailer.SendMailOptions} erstellt eine zu sendende Mail.
+
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/uml/mailbilder.pdf}
+    \caption{Änderungen am Mailbuilder}
+    \label{fig:mailbuilder}
+\end{figure}
+
+
+\subsection{Database} Table User, Recipe und Ingredient halten nun nur noch die UUID ihres Bildes bzw Icons. Die Bilder und Icons werden in neuen Tables gespeichert.
+
+\paragraph{Image} Neuer Table, in dem Images anhand uuid in Byteform gespeichert werden.
+
+\paragraph{IngredientIcon}  Neuer Table, in dem Icons anhand uuid in Byteform gespeichert werden. Der Table enthält außerdem ein Feld für den Namen des Icons.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/uml/database.pdf}
+    \caption{Änderungen an der Datenbank}
+    \label{fig:database}
+\end{figure}
+\newpage
+
+\section{Grafische Benutzeroberfläche}
+Das Design der grafischen Benutzeroberfläche änderte sich nicht wesentlich von dem, was wir uns im Pflichtenheft überlegt hatten.
+Es kam nur zu kleinen Änderungen, wie sie im Kapitel \ref{sec:changes} beschrieben sind.
+
+\newpage
+
 \end{document}
