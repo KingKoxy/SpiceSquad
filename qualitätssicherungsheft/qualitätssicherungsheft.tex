@@ -16,7 +16,7 @@ Die in diesem Heft verwendeten Personenbezeichnungen beziehen sich - sofern nich
 \subsection{Keine Fehlermeldung beim Login mit falschem Passwort}
 %TODO: Lukas muss genauen Fehlergrund und Behebung dokumentieren
 \paragraph*{Beschreibung} Beim Login mit falschem Passwort wird keine Fehlermeldung mehr angezeigt. Dies war jedoch zu einem bestimmten Zeitpunkt noch nicht so.
-\paragraph{Grund} Durch eine Änderung im Backend 
+\paragraph{Grund} Durch eine Änderung im Backend
 gibt eine fehlerhafte Anfrage den Code 500, statt wie zuvor den Code 401, zurück. Auf diesen Code wird jedoch nicht geprüft.
 \paragraph{Behebung} Das Backend gibt nun wieder den Code 401 zurück.
 \newpage
@@ -34,5 +34,10 @@ gibt eine fehlerhafte Anfrage den Code 500, statt wie zuvor den Code 401, zurüc
 \paragraph*{Beschreibung} Rezepte, die halal sind, werden in der Rezept-Detail-Ansicht als koscher angezeigt, sonst jedoch nirgends.
 \paragraph{Grund} In der Liste der Labels wird überprüft, ob ein bestimmtes Label aktiv ist und zeigt gegebenen falls das passende Widget an. Bei der If-Anfrage zum Koscher-Label ist dabei ein Fehler unterlaufen und es wurde auf Halal geprüft.
 \paragraph{Behebung} Die If-Anfrage wurde korrigiert.
+\newpage
+\subsection{Keine Weiterleitung beim Speichern von Änderungen eines Rezepts}
+\paragraph*{Beschreibung} Drückt man beim Bearbeiten eines Rezepts auf den Zurück-Knopf, so wird ein Dialog angezeigt, der fragt ob abgebrochen, verworfen oder gespeichert werden soll. Drückt man auf Speichern, so werden die Änderungen zwar gespeichert, der Nutzer aber nicht weitergeleitet.
+\paragraph{Grund} Es wurde nur ein \texttt{Navigator.pop()} aufgerufen, welches den Dialog schließt. Es müsste aber noch ein weiteres \texttt{Navigator.pop()} aufgerufen werden, um den Nutzer zurück vorherigen Seite zu leiten.
+\paragraph{Behebung} Es wird nun ein weiteres \texttt{Navigator.pop()} aufgerufen.
 \newpage
 \end{document}
