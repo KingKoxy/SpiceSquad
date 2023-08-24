@@ -249,7 +249,6 @@ export default class GroupController extends AbstractController {
         user_id: req.userId,
       },
     })
-
     if (groupMembers.length == 0) {
       req.statusCode = 409
       next(new Error('Could not left group. User is not in this group'))
@@ -269,7 +268,18 @@ export default class GroupController extends AbstractController {
             },
           })
           .then(async () => {
-            if (await this.checkGroupEmpty(req.params.groupId)) {
+              const groupMembers = await this.prisma.groupMember.findMany({
+                where: {
+                  group_id: req.params.groupId,
+                },
+              })
+
+            if (groupMembers.length == 0) {
+              await this.prisma.group.delete({
+                where: {
+                  id: req.params.groupId,
+                },
+              })
               res.status(200).json({
                 message: 'User was last member of group. User left group and group was deleted.',
               })
@@ -493,6 +503,8 @@ export default class GroupController extends AbstractController {
       },
     })
 
+
+
     if (groupMembers.length == 0) {
       this.prisma.group
         .delete({
@@ -526,6 +538,7 @@ export default class GroupController extends AbstractController {
               },
             })
             .then((groupMembers) => {
+              
               this.prisma.admin
                 .create({
                   data: {
