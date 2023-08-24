@@ -12,4 +12,34 @@
 Zur besseren Lesbarkeit wird in diesem Entwurfsheft das generische Maskulinum verwendet.
 Die in diesem Heft verwendeten Personenbezeichnungen beziehen sich - sofern nicht anders kenntlich gemacht - auf alle Geschlechter.
 \newpage
+
+\section{Gefundene Fehler}
+In diesem Abschnitt werden während der Qualitätssicherungsphase gefundene Fehler dokumentiert.
+
+\subsection{Fehler 1}
+Beschreibung: Server gibt bei Fehler immer 500 zurück. \newline
+Entdeckt durch: Integrationstests \newline
+Fix: Fehler in Errorhandler behoben.
+
+\subsection{Fehler 2}
+Beschreibung: Server gibt bei Erstellen von Gruppe und anschließendem Löschen anschließend an jedem Endpunkt Fehler 502 aus \newline
+Entdeckt durch: Tester Henri Becker \newline
+Fix: 
+
+\section{Tests im Backend}
+Das Backend wurde mit Integrationstests getestet. Die Tests wurden mit dem Framework Mocha geschrieben. 
+Die Tests sind in dem Ordner \textit{test} zu finden. Die Tests können mit dem Befehl \textit{npm test} ausgeführt werden.
+
+\section{Nichtfunktionale Anforderungen}
+\subsection{Änderbarkeit}
+Die Änderbarkeit des Backends wurde durch die Verwendung von TypeScript und der Verwendung von REST-API sichergestellt.
+Durch die Verwendung von Controllern mit dehr niedriger Kopplung ist eine Änderung oder Erweiterung der Funktionalität des Backends einfach möglich.
+
+\subsection{Sicherheit}
+Die Sicherheit des Backends wurde durch die Verwendung von Firebase sichergestellt. 
+Dieses bietet als Google-Service eine sichere Nutzer- und Sessionverwaltung.
+
+
+
+
 \end{document}
