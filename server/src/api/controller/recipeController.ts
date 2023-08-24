@@ -377,7 +377,7 @@ export default class RecipeController extends AbstractController {
         ).map((favourite) => favourite.recipe_id)
 
         //Get all recipes with author from author_id
-        const recipesWithAuthorAndFavourite = await this.formatRecipe(recipes, favouriteIds);
+        const recipesWithAuthorAndFavourite = await Promise.all(await this.formatRecipe(recipes, favouriteIds));
 
 
         // Send the response with the user's recipes
@@ -433,7 +433,7 @@ export default class RecipeController extends AbstractController {
         ).map((favourite) => favourite.recipe_id)
 
         //Get all recipes with author from author_id
-        const recipesWithAuthorAndFavourite = await this.formatRecipe(recipes, favouriteIds);
+        const recipesWithAuthorAndFavourite = await Promise.all(await this.formatRecipe(recipes, favouriteIds));
 
         // Return recipes with author and isFavourite
         res.status(200).json(recipesWithAuthorAndFavourite)
