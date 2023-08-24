@@ -3,12 +3,12 @@
 
 @contentType = application/json
 
-@idToken = eyJhbGciOiJSUzI1NiIsImtpZCI6IjYyM2YzNmM4MTZlZTNkZWQ2YzU0NTkyZTM4ZGFlZjcyZjE1YTBmMTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vc3BpY2VzcXVhZC1mZDMyYSIsImF1ZCI6InNwaWNlc3F1YWQtZmQzMmEiLCJhdXRoX3RpbWUiOjE2OTEwODcyOTQsInVzZXJfaWQiOiJVakdjaXduVnBEYU1hODNyRExTdnZNdWczQkYyIiwic3ViIjoiVWpHY2l3blZwRGFNYTgzckRMU3Z2TXVnM0JGMiIsImlhdCI6MTY5MTA4NzI5NCwiZXhwIjoxNjkxMDkwODk0LCJlbWFpbCI6Imx1a2FzQG1haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImx1a2FzQG1haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.nDuyBNzie3TTc9MhrlHIbaIxDa5qHUck1OlgF3TvVZRxwUXqSvfsmWboZMkTRc96NKYBX4Qhwwg41Kgbx3u5R6FdfBk_Z94dyHo1OL2nyRh5YUvEzH0HD_xjgzRseTT-pkFuXHGCqVj0RuZpXqLREmq9rzEsWGQqk93CZfYzr6lxNrr-V_UdPalDX-ISyv8pcqrDRdv6F1nYXVzb6_lEbl92xiEG0C9BgMJ99ufVmW1sagfJpa_NR6lhe8seEpxp5y9njqDUm6UZ7UIY9c3seUCZQPvSHEsip0ZoqTgIrAqdOdHMAjxKG5sCCei92VZOeuURlyMhopUsOAziDMaP_g
+@idToken = eyJhbGciOiJSUzI1NiIsImtpZCI6IjYzODBlZjEyZjk1ZjkxNmNhZDdhNGNlMzg4ZDJjMmMzYzIzMDJmZGUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vc3BpY2VzcXVhZC1mZDMyYSIsImF1ZCI6InNwaWNlc3F1YWQtZmQzMmEiLCJhdXRoX3RpbWUiOjE2OTI4OTU1OTksInVzZXJfaWQiOiIwVFZoalRFNVpXT1pQNVRDeEtlbTQzM0FSSmgyIiwic3ViIjoiMFRWaGpURTVaV09aUDVUQ3hLZW00MzNBUkpoMiIsImlhdCI6MTY5Mjg5NTU5OSwiZXhwIjoxNjkyODk5MTk5LCJlbWFpbCI6InJhcGhhZWwuemlwcGVyZXJAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbInJhcGhhZWwuemlwcGVyZXJAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.EZO4oF2LSVQPLLYMOANuEeTKkuf9ji2PncRpMFIifHdW4zLytf12KkPghFHxNFTExaK8WOnodVS9mbhBix2Mf9aiEL4rRXpRceUePQ4ne3tENHhN5MExKvMNiDfn0LVzgEpT-f8Fly1MjxDYLtlaWrwpTtcG1BATxMXg89a2Bo6dKcUSLoFWFZGRdTCIiJ5-OratH4Ql90gwXjf5G-fykaSjAkfZf29yFMd2iCHRU8s9cR97zjqXIZmfKRajQnYPu7VfeNQHLe--lPm-BkdlWsf7OY5uPTKXx-_AZOWVXwHwJeflAR0oUm5XHNy9v-3HTM9EtQzJVie0z33hU29T8A
 @refreshToken = eyJhbGciOiJSUzI1NiIsImtpZCI6IjYyM2YzNmM4MTZlZTNkZWQ2YzU0NTkyZTM4ZGFlZjcyZjE1YTBmMTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vc3BpY2VzcXVhZC1mZDMyYSIsImF1ZCI6InNwaWNlc3F1YWQtZmQzMmEiLCJhdXRoX3RpbWUiOjE2OTEwODcyOTQsInVzZXJfaWQiOiJVakdjaXduVnBEYU1hODNyRExTdnZNdWczQkYyIiwic3ViIjoiVWpHY2l3blZwRGFNYTgzckRMU3Z2TXVnM0JGMiIsImlhdCI6MTY5MTA4NzI5NCwiZXhwIjoxNjkxMDkwODk0LCJlbWFpbCI6Imx1a2FzQG1haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImx1a2FzQG1haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.nDuyBNzie3TTc9MhrlHIbaIxDa5qHUck1OlgF3TvVZRxwUXqSvfsmWboZMkTRc96NKYBX4Qhwwg41Kgbx3u5R6FdfBk_Z94dyHo1OL2nyRh5YUvEzH0HD_xjgzRseTT-pkFuXHGCqVj0RuZpXqLREmq9rzEsWGQqk93CZfYzr6lxNrr-V_UdPalDX-ISyv8pcqrDRdv6F1nYXVzb6_lEbl92xiEG0C9BgMJ99ufVmW1sagfJpa_NR6lhe8seEpxp5y9njqDUm6UZ7UIY9c3seUCZQPvSHEsip0ZoqTgIrAqdOdHMAjxKG5sCCei92VZOeuURlyMhopUsOAziDMaP_g
 
-@userName = "Lukas"
-@email = "lukas@mail.com"
-@password = "arischeZuppe"
+@userName = "Raphael"
+@email = "raphael.zipperer@gmail.com"
+@password = "SpiceSquad88"
 
 @groupId = 7fefcaf6-7505-4da9-aa72-17ad77378a4d
 
@@ -140,13 +140,13 @@ Authorization: {{idToken}}
         "ingredients": [
             {
                 "name": "Ingwer",
-                "icon": {{icon}},
+                "icon": "http://localhost:3000" + "/ingredient/icons/" + "57497797-e16b-42f3-895b-2ef4d02ee6bc",
                 "amount": 2,
                 "unit": "kg"
             },
             {
                 "name": "Knoblauch",
-                "icon": {{icon}},
+                "icon": "http://localhost:3000" + "/ingredient/icons/" + "57497797-e16b-42f3-895b-2ef4d02ee6bc",
                 "amount": 1,
                 "unit": "teaspoon"
             }
@@ -251,7 +251,7 @@ Authorization: {{idToken}}
     }
 
 ### Kick user
-PATCH {{host}}/admin/kickUser/{{groupId}}/{{targetId}}
+PATCH {{host}}/admin/kickUser/d3532d1e-636d-4e04-84f7-dfb0dff8a945/6b531fda-55c0-4862-a8d8-c63690f33ea9
 Content-Type: {{contentType}}
 Authorization: {{idToken}}
 

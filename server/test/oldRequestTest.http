@@ -107,19 +107,19 @@ Authorization: {{idToken}}
 
 {
     "title": "Fils de pute",
-    "image": "23",
+    "image": "",
     "duration": "30",
     "difficulty": "easy",
     "ingredients": [
         {
             "name": "Tomato",
-            "icon": "08b685d4-f076-4636-ac85-50225468f38c",
+            "icon": "57497797-e16b-42f3-895b-2ef4d02ee6bc",
             "amount": "2",
             "unit": "pieces"
         },
         {
             "name": "Salt",
-            "icon": "08b685d4-f076-4636-ac85-50225468f38c",
+            "icon": "57497797-e16b-42f3-895b-2ef4d02ee6bc",
             "amount": "1",
             "unit": "teaspoon"
         }

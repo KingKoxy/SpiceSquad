@@ -2,6 +2,7 @@ import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http'; // Import chai-http module
 import Server from '../src/server';
 
+require('./imageRouter.test')
 chai.use(chaiHttp); // Extend chai with chai-http plugin
 
 describe('UserRouter', () => {
