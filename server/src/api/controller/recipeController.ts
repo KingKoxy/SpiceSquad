@@ -75,6 +75,7 @@ export default class RecipeController extends AbstractController {
     next: express.NextFunction
   ): Promise<void> {
     const imageId = req.body.image ? await this.ImageController.fromURLtoId(req.body.image) : null
+    console.log(this.ingredientController.fromURLtoId(req.body.ingredients[0].icon))
     await this.prisma.recipe
       .create({
         data: {
@@ -287,6 +288,58 @@ export default class RecipeController extends AbstractController {
     }
   }
 
+  private async formatRecipe(recipes : {
+    id: string;
+    title: string;
+    author_id: string;
+    duration: number;
+    difficulty: 'EASY' | 'MEDIUM' | 'HARD';
+    instructions: string;
+    is_vegetarian: boolean;
+    is_vegan: boolean;
+    is_gluten_free: boolean;
+    is_kosher: boolean;
+    is_halal: boolean;
+    is_private: boolean;
+    default_portions: number;
+    upload_date: Date;
+    image: string;
+    }[], favouriteIds : String[]) : Promise<any> {
+    return recipes.map(async (recipe) => {
+      const author = await this.prisma.user.findUnique({
+        where: {
+          id: recipe.author_id,
+        },
+      })
+      const ingredients = await this.prisma.ingredient.findMany({
+        where: {
+          recipe_id: recipe.id,
+        },
+      })
+
+      ingredients.forEach((ingredient, favouriteIds) => {
+        ingredient.icon = this.ingredientController.fromIdtoURL(ingredient.icon)
+      })
+
+      // Change date format so that that is only the date and not the time
+      const recipeWithDate = {
+        ...recipe,
+        upload_date: recipe.upload_date.toISOString(),
+        image: recipe.image ? this.ImageController.fromIdtoURL(recipe.image) : '',
+      }
+      delete recipeWithDate.author_id
+
+      author.profile_image = author.profile_image? this.ImageController.fromIdtoURL(author.profile_image) : ''
+
+      return {
+        ...recipeWithDate,
+        author: author,
+        ingredients,
+        isFavourite: favouriteIds.includes(recipe.id),
+      }
+    })
+  }
+
   /**
    * @description This function gets all recipes for a user.
    * @param req AuthenticatedRequest<never,never,never>
@@ -324,41 +377,8 @@ export default class RecipeController extends AbstractController {
         ).map((favourite) => favourite.recipe_id)
 
         //Get all recipes with author from author_id
-        const recipesWithAuthorAndFavourite = await Promise.all(
-          recipes.map(async (recipe) => {
-            const author = await this.prisma.user.findUnique({
-              where: {
-                id: recipe.author_id,
-              },
-            })
-            const ingredients = await this.prisma.ingredient.findMany({
-              where: {
-                recipe_id: recipe.id,
-              },
-            })
+        const recipesWithAuthorAndFavourite = await this.formatRecipe(recipes, favouriteIds);
 
-            ingredients.forEach((ingredient) => {
-              ingredient.icon = this.ingredientController.fromIdtoURL(ingredient.icon)
-            })
-
-            // Change date format so that that is only the date and not the time
-            const recipeWithDate = {
-              ...recipe,
-              upload_date: recipe.upload_date.toISOString(),
-              image: recipe.image ? this.ImageController.fromIdtoURL(recipe.image) : '',
-            }
-            delete recipeWithDate.author_id
-
-            author.profile_image = author.profile_image? this.ImageController.fromIdtoURL(author.profile_image) : ''
-
-            return {
-              ...recipeWithDate,
-              author: author,
-              ingredients,
-              isFavourite: favouriteIds.includes(recipe.id),
-            }
-          })
-        )
 
         // Send the response with the user's recipes
         res.status(200).json(recipesWithAuthorAndFavourite)
@@ -413,40 +433,7 @@ export default class RecipeController extends AbstractController {
         ).map((favourite) => favourite.recipe_id)
 
         //Get all recipes with author from author_id
-        const recipesWithAuthorAndFavourite = await Promise.all(
-          recipes.map(async (recipe) => {
-            const author = await this.prisma.user.findUnique({
-              where: {
-                id: recipe.author_id,
-              },
-            })
-            const ingredients = await this.prisma.ingredient.findMany({
-              where: {
-                recipe_id: recipe.id,
-              },
-            })
-
-            ingredients.forEach((ingredient) => {
-              ingredient.icon = this.ingredientController.fromIdtoURL(ingredient.icon)
-            })
-
-            const recipeWithDate = {
-              ...recipe,
-              upload_date: recipe.upload_date.toISOString(),
-              image: recipe.image ? this.ImageController.fromIdtoURL(recipe.image) : '',
-            }
-            delete recipeWithDate.author_id
-
-            author.profile_image = author.profile_image? this.ImageController.fromIdtoURL(author.profile_image) : ''
-
-            return {
-              ...recipeWithDate,
-              author: author,
-              ingredients,
-              isFavourite: favouriteIds.includes(recipe.id),
-            }
-          })
-        )
+        const recipesWithAuthorAndFavourite = await this.formatRecipe(recipes, favouriteIds);
 
         // Return recipes with author and isFavourite
         res.status(200).json(recipesWithAuthorAndFavourite)
@@ -632,4 +619,6 @@ export default class RecipeController extends AbstractController {
       }
     }
   }
+
+  
 }
