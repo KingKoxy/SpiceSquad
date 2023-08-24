@@ -1,0 +1,90 @@
+config:
+  # This is a test server run by team Artillery
+  # It's designed to be highly scalable
+  target: http://193.196.39.104:3000
+  payload:
+    path: "user.csv"
+    fields:
+      - "email"
+      - "password"
+  phases:
+    - duration: 60
+      arrivalRate: 1
+      rampTo: 5
+      name: Warm up phase
+    - duration: 60
+      arrivalRate: 5
+      rampTo: 15
+      name: Ramp up load
+    - duration: 20
+      arrivalRate: 15
+      rampTo: 25
+      name: Spike phase
+  # Load & configure a couple of useful plugins
+  # https://docs.art/reference/extensions
+  plugins:
+    ensure: {}
+    apdex: {}
+    metrics-by-endpoint: {}
+  apdex:
+    threshold: 1900
+  ensure:
+      thresholds:
+        - http.response_time.p95: 3000
+        - http.response_time.p90: 2950
+scenarios:
+  - flow:
+      - post:
+          url: '/auth/login'
+          json:
+            email: "{{ email }}"
+            password: "12345678"
+          capture:
+            json: "$.idToken"
+            as: "idToken"
+      - get:
+          url: "/recipe"
+          headers:
+            Authorization: "{{ idToken }}"
+      - get:
+          url: "/ingredient/names"
+          headers:
+            Authorization: "{{ idToken }}"
+      - patch:
+          url: "/group/join"
+          headers:
+            Authorization: "{{ idToken }}"
+          json:
+            groupCode: "ABCDEFGH"
+      - post:
+          url: '/recipe'
+          headers:
+            Authorization: "{{ idToken }}"
+          json:
+            title: "Yo-gurt"
+            image: "http://193.196.39.104:3000/image/68a2e423-10a2-4e6d-8740-14337877be68"
+            duration: 30
+            difficulty: "EASY"
+            ingredients:
+              - name: "Ingwer"
+                icon: "http://193.196.39.104:3000/ingredient/icons/57497797-e16b-42f3-895b-2ef4d02ee6bc"
+                amount: 2
+                unit: "kg"
+              - name: "Knoblauch"
+                icon: "http://193.196.39.104:3000/ingredient/icons/57497797-e16b-42f3-895b-2ef4d02ee6bc"
+                amount: 1
+                unit: "teaspoon"
+            instructions: "."
+            isVegetarian: true
+            isVegan: false
+            isGlutenFree: false
+            isKosher: false
+            isHalal: false
+            isPrivate: false
+            defaultPortionAmount: 2
+      - get:
+          url: "/recipe"
+          headers:
+            Authorization: "{{ idToken }}"
+      - get:
+         url: "/image/68a2e423-10a2-4e6d-8740-14337877be68"
