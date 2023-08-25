@@ -12,6 +12,7 @@ class RemoveButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      key: const Key("removeButton"),
       iconSize: 24,
       padding: EdgeInsets.zero,
       onPressed: _onPressed,

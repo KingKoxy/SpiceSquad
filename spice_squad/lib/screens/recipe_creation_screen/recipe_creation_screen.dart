@@ -132,6 +132,7 @@ class _RecipeCreationScreenState extends ConsumerState<RecipeCreationScreen> {
               : null,
         ),
         body: SingleChildScrollView(
+          key: const Key("recipeCreationScreen"),
           physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.all(24),
           child: Form(

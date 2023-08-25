@@ -20,6 +20,7 @@ class FavouriteButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      key: const Key("favouriteButton"),
       padding: EdgeInsets.zero,
       iconSize: 40,
       splashRadius: 32,

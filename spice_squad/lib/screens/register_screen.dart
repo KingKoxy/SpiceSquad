@@ -241,7 +241,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   }
 
   String? _validateEmail(AppLocalizations appLocalizations, String? email) {
-    print("Validate email");
     setState(() {
       _emailError = null;
     });
@@ -256,7 +255,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   }
 
   String? _validateUserName(AppLocalizations appLocalizations, String? userName) {
-    print("Validate username");
     if (userName == null || userName.isEmpty) {
       return appLocalizations.userNameEmptyError;
     }
@@ -267,7 +265,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   }
 
   String? _validatePassword(AppLocalizations appLocalizations, String? password) {
-    print("Validate password");
     if (password == null || password.isEmpty) {
       return appLocalizations.passwordEmptyError;
     }

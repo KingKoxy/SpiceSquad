@@ -41,12 +41,15 @@ class OwnRecipeList extends ConsumerWidget {
         ref.watch(recipeServiceProvider).when(
           data: (recipes) {
             // Filter for own recipes.
-            final ownRecipes = recipes.where((recipe) => recipe.author.id == _userId).toList();
+            final ownRecipes =
+                recipes.where((recipe) => recipe.author.id == _userId).toList();
             ownRecipes.sort(
-              (Recipe a, Recipe b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()),
+              (Recipe a, Recipe b) =>
+                  a.title.toLowerCase().compareTo(b.title.toLowerCase()),
             );
             return Card(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16)),
               child: ownRecipes.isNotEmpty
                   ? ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
@@ -57,10 +60,13 @@ class OwnRecipeList extends ConsumerWidget {
                         return InkWell(
                           borderRadius: BorderRadius.circular(16),
                           onTap: () {
-                            Navigator.of(context).pushNamed(RecipeCreationScreen.routeName, arguments: recipe);
+                            Navigator.of(context).pushNamed(
+                                RecipeCreationScreen.routeName,
+                                arguments: recipe);
                           },
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 8),
+                            padding: const EdgeInsets.only(
+                                top: 8, bottom: 8, left: 16, right: 8),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -69,7 +75,8 @@ class OwnRecipeList extends ConsumerWidget {
                                     recipe.title,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    style: Theme.of(context).textTheme.titleLarge,
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
                                   ),
                                 ),
                                 Row(
@@ -79,16 +86,27 @@ class OwnRecipeList extends ConsumerWidget {
                                       iconSize: 24,
                                       splashRadius: 24,
                                       onPressed: () => Navigator.of(context)
-                                          .pushNamed(PdfRecipeViewPage.routeName, arguments: recipe),
-                                      icon: const ImageIcon(SpiceSquadIconImages.export, size: 24),
+                                          .pushNamed(
+                                              PdfRecipeViewPage.routeName,
+                                              arguments: recipe),
+                                      icon: const ImageIcon(
+                                          SpiceSquadIconImages.export,
+                                          size: 24),
                                     ),
                                     EyeButton(
                                       open: !recipe.isPrivate,
-                                      onToggle: () => _togglePrivate(ref.read(recipeServiceProvider.notifier), recipe),
+                                      onToggle: () => _togglePrivate(
+                                          ref.read(
+                                              recipeServiceProvider.notifier),
+                                          recipe),
                                     ),
                                     RemoveButton(
-                                      onPressed: () =>
-                                          _deleteRecipe(context, ref.read(recipeServiceProvider.notifier), recipe),
+                                      key: Key("remove_recipe_${recipe.title}"),
+                                      onPressed: () => _deleteRecipe(
+                                          context,
+                                          ref.read(
+                                              recipeServiceProvider.notifier),
+                                          recipe),
                                     ),
                                   ],
                                 )
@@ -102,7 +120,10 @@ class OwnRecipeList extends ConsumerWidget {
                       padding: const EdgeInsets.all(16.0),
                       child: Text(
                         AppLocalizations.of(context)!.userHasNoRecipes,
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.grey),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .copyWith(color: Colors.grey),
                       ),
                     ),
             );
@@ -122,13 +143,15 @@ class OwnRecipeList extends ConsumerWidget {
     recipeService.togglePrivate(recipe);
   }
 
-  void _deleteRecipe(BuildContext context, RecipeService recipeService, Recipe recipe) {
+  void _deleteRecipe(
+      BuildContext context, RecipeService recipeService, Recipe recipe) {
     showDialog(
       context: context,
       builder: (context) {
         return ApprovalDialog(
           title: AppLocalizations.of(context)!.deleteRecipeDialogTitle,
-          message: AppLocalizations.of(context)!.deleteRecipeDialogDescription(recipe.title),
+          message: AppLocalizations.of(context)!
+              .deleteRecipeDialogDescription(recipe.title),
           onApproval: () {
             Navigator.of(context).pop();
             recipeService.deleteRecipe(recipe.id);

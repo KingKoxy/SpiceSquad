@@ -81,6 +81,7 @@ class _GroupJoiningScreenState extends ConsumerState<GroupJoiningScreen> {
                           SizedBox(
                             width: double.infinity,
                             child: TextFormField(
+                              key: const Key("groupCodeInput"),
                               maxLength: 8,
                               validator: (value) => _validateGroupCode(AppLocalizations.of(context)!, value),
                               keyboardType: TextInputType.text,
@@ -107,6 +108,7 @@ class _GroupJoiningScreenState extends ConsumerState<GroupJoiningScreen> {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
+                        key: const Key("join_squad_button"),
                         onPressed: () {
                           if (widget._formKey.currentState!.validate()) {
                             _joinGroupByCode(

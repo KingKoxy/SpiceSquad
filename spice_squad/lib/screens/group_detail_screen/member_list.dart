@@ -1,4 +1,3 @@
-import "package:cached_network_image/cached_network_image.dart";
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -143,10 +142,12 @@ class MemberList extends ConsumerWidget {
                                     child: Text(AppLocalizations.of(context)!.adminActionMakeAdmin),
                                   ),
                             PopupMenuItem(
+                              key: const Key("kickUser"),
                               onTap: () => _kickUser(context, ref.read(groupServiceProvider.notifier), member),
                               child: Text(AppLocalizations.of(context)!.adminActionKick),
                             ),
                             PopupMenuItem<void>(
+                              key: const Key("banUser"),
                               onTap: () => _banUser(context, ref.read(groupServiceProvider.notifier), member),
                               child: Text(AppLocalizations.of(context)!.adminActionBan),
                             ),

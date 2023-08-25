@@ -76,6 +76,7 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
             }
             final key = SortCategory.values.elementAt(index - 1);
             return RadioListTile(
+              key: Key(key.getName(AppLocalizations.of(context)!)),
               title: Text(key.getName(AppLocalizations.of(context)!)),
               value: key,
               onChanged: (value) {
@@ -96,6 +97,7 @@ class _SortSelectionDialogState extends State<SortSelectionDialog> {
           },
         ),
         TextButton(
+          key: const Key("saveSortButton"),
           child: Text(AppLocalizations.of(context)!.saveButtonLabel),
           onPressed: () {
             Navigator.of(context).pop();
