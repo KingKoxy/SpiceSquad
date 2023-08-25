@@ -28,6 +28,7 @@ class GroupList extends ConsumerWidget {
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             AddButton(
+              key: const Key("add_group_button"),
               onPressed: () {
                 Navigator.pushNamed(context, GroupJoiningScreen.routeName);
               },
@@ -45,11 +46,13 @@ class GroupList extends ConsumerWidget {
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
               child: groups.isNotEmpty
                   ? ListView.builder(
+                      key: const Key("group_list"),
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: groups.length,
                       itemBuilder: (context, index) {
                         return InkWell(
+                          key: Key("group_${groups[index].name}"),
                           borderRadius: BorderRadius.circular(16),
                           onTap: () {
                             Navigator.of(context).pushNamed(GroupDetailScreen.routeName, arguments: groups[index].id);
@@ -68,6 +71,7 @@ class GroupList extends ConsumerWidget {
                                   ),
                                 ),
                                 RemoveButton(
+                                  key: Key("leave_group_button_${groups[index].name}"),
                                   onPressed: () {
                                     _leaveGroup(context, ref.read(groupServiceProvider.notifier), groups[index]);
                                   },

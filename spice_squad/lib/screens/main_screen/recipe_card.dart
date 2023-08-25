@@ -1,4 +1,3 @@
-import "package:cached_network_image/cached_network_image.dart";
 import "package:flutter/material.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -22,6 +21,7 @@ class RecipeCard extends ConsumerWidget {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: InkWell(
+        key: Key(_recipe.id),
         borderRadius: BorderRadius.circular(16),
         onTap: () => Navigator.of(context).pushNamed(RecipeDetailScreen.routeName, arguments: _recipe),
         child: Padding(

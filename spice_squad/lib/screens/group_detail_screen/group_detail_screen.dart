@@ -24,7 +24,8 @@ class GroupDetailScreen extends ConsumerStatefulWidget {
   final String _groupId;
 
   /// Creates a [GroupDetailScreen]
-  const GroupDetailScreen({required String groupId, super.key}) : _groupId = groupId;
+  const GroupDetailScreen({required String groupId, super.key})
+      : _groupId = groupId;
 
   @override
   ConsumerState<GroupDetailScreen> createState() => _GroupDetailScreenState();
@@ -35,7 +36,8 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
 
   @override
   void initState() {
-    _getGroupFuture = ref.read(groupServiceProvider.notifier).getGroupById(widget._groupId);
+    _getGroupFuture =
+        ref.read(groupServiceProvider.notifier).getGroupById(widget._groupId);
     super.initState();
   }
 
@@ -53,7 +55,8 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData && user != null) {
                     final group = snapshot.data!;
-                    final bool isAdmin = group.members.any((element) => element.isAdmin && element.id == user.id);
+                    final bool isAdmin = group.members.any(
+                        (element) => element.isAdmin && element.id == user.id);
 
                     return ListView(
                       physics: const BouncingScrollPhysics(),
@@ -64,6 +67,7 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
                           children: [
                             isAdmin
                                 ? TextButton(
+                                    key: const Key("renameGroupButton"),
                                     onPressed: () {
                                       _renameGroup(
                                         context,
@@ -99,7 +103,10 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
                                 : AutoSizeText(
                                     group.name,
                                     maxLines: 1,
-                                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.white),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineMedium!
+                                        .copyWith(color: Colors.white),
                                   ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -108,7 +115,9 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
                                   iconSize: 48,
                                   splashRadius: 32,
                                   onPressed: () {
-                                    Navigator.of(context).pushNamed(QRCodeScreen.routeName, arguments: group);
+                                    Navigator.of(context).pushNamed(
+                                        QRCodeScreen.routeName,
+                                        arguments: group,);
                                   },
                                   icon: const ImageIcon(
                                     SpiceSquadIconImages.qrCode,
@@ -118,7 +127,9 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
                                   iconSize: 48,
                                   splashRadius: 32,
                                   onPressed: () {
-                                    _leaveGroup(ref.read(groupServiceProvider.notifier), group);
+                                    _leaveGroup(
+                                        ref.read(groupServiceProvider.notifier),
+                                        group,);
                                   },
                                   icon: const ImageIcon(
                                     SpiceSquadIconImages.leave,
@@ -128,8 +139,13 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
                             ),
                             if (isAdmin)
                               TextButton(
-                                onPressed: () => _deleteGroup(context, ref.read(groupServiceProvider.notifier), group),
-                                child: Text(AppLocalizations.of(context)!.deleteSquadButton),
+                                key: const Key("leave_group_button"),
+                                onPressed: () => _deleteGroup(
+                                    context,
+                                    ref.read(groupServiceProvider.notifier),
+                                    group),
+                                child: Text(AppLocalizations.of(context)!
+                                    .deleteSquadButton),
                               ),
                           ],
                         ),
@@ -165,7 +181,8 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
   }
 
   /// Show a dialog to rename the group with the given [groupId]
-  void _renameGroup(BuildContext context, GroupService groupService, String oldName, String groupId) {
+  void _renameGroup(BuildContext context, GroupService groupService,
+      String oldName, String groupId) {
     showDialog(
       context: context,
       builder: (context) {
@@ -192,7 +209,8 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
       context: context,
       builder: (context) => ApprovalDialog(
         title: AppLocalizations.of(context)!.leaveSquadDialogTitle,
-        message: AppLocalizations.of(context)!.leaveSquadDialogDescription(group.name),
+        message: AppLocalizations.of(context)!
+            .leaveSquadDialogDescription(group.name),
         onApproval: () {
           groupService.leaveGroup(group.id);
           Navigator.of(context).pop();
@@ -203,13 +221,15 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
   }
 
   /// Shows a dialog to confirm the deletion of a group
-  void _deleteGroup(BuildContext context, GroupService groupService, Group group) {
+  void _deleteGroup(
+      BuildContext context, GroupService groupService, Group group) {
     showDialog(
       context: context,
       builder: (context) {
         return ApprovalDialog(
           title: AppLocalizations.of(context)!.deleteSquadDialogTitle,
-          message: AppLocalizations.of(context)!.deleteSquadDialogDescription(group.name),
+          message: AppLocalizations.of(context)!
+              .deleteSquadDialogDescription(group.name),
           onApproval: () {
             groupService.deleteGroup(group.id);
             Navigator.of(context).pop();
@@ -222,7 +242,8 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen> {
 
   void _refetchGroup() {
     setState(() {
-      _getGroupFuture = ref.read(groupServiceProvider.notifier).getGroupById(widget._groupId);
+      _getGroupFuture =
+          ref.read(groupServiceProvider.notifier).getGroupById(widget._groupId);
     });
   }
 }

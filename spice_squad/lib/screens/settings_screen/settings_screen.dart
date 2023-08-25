@@ -29,6 +29,7 @@ class SettingsScreen extends ConsumerWidget {
       appBar: AppBar(
         actions: [
           IconButton(
+            key: const Key("logoutButton"),
             onPressed: () {
               _logout(context, ref.read(userServiceProvider.notifier));
             },
@@ -44,6 +45,7 @@ class SettingsScreen extends ConsumerWidget {
                   return Container();
                 }
                 return ListView(
+                  key: const Key("settings_list"),
                   physics: const BouncingScrollPhysics(),
                   padding: const EdgeInsets.all(24),
                   children: [
@@ -55,6 +57,7 @@ class SettingsScreen extends ConsumerWidget {
                           userService: ref.read(userServiceProvider.notifier),
                         ),
                         TextButton(
+                          key: const Key("renameUserButton"),
                           onPressed: () {
                             _renameUser(context, ref.read(userServiceProvider.notifier), user.userName);
                           },
@@ -83,6 +86,7 @@ class SettingsScreen extends ConsumerWidget {
                           ),
                         ),
                         TextButton(
+                          key: const Key("deleteAccountButton"),
                           onPressed: () {
                             _deleteAccount(context, ref.read(userServiceProvider.notifier));
                           },
@@ -121,6 +125,7 @@ void _renameUser(BuildContext context, UserService userService, String oldName) 
     context: context,
     builder: (context) {
       return InputDialog(
+        key: const Key("usernameField"),
         title: AppLocalizations.of(context)!.renameDialogTitle,
         onSave: (value) => userService.setUserName(value),
         initialValue: oldName,

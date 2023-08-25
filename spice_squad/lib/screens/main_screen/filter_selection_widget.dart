@@ -23,6 +23,7 @@ class FilterSelectionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
+      key: const Key("filterSelectionButton"),
       onPressed: () => _showFilterSelectionDialog(context),
       child: Row(
         children: [

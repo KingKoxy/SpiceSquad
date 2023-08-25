@@ -20,6 +20,7 @@ class SortSelectionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
+      key: const Key("sortSelectionButton"),
       onPressed: () => _showFilterSelectionDialog(context),
       child: Row(
         children: [

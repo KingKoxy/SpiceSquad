@@ -30,7 +30,8 @@ class MainScreen extends ConsumerStatefulWidget {
     List<Recipe> recipes,
     List<FilterCategory> filterCategories,
   ) {
-    return (_MainScreenState().._filterCategories = filterCategories)._filterRecipes(recipes);
+    return (_MainScreenState().._filterCategories = filterCategories)
+        ._filterRecipes(recipes);
   }
 }
 
@@ -56,11 +57,13 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                 Padding(
                   padding: const EdgeInsets.only(top: 24, right: 24, left: 24),
                   child: TextField(
+                    key: const Key("searchField"),
                     controller: widget._searchController,
                     decoration: InputDecoration(
                       prefixIconColor: Colors.white,
                       prefixIcon: const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
                         child: ImageIcon(
                           SpiceSquadIconImages.search,
                           size: 24,
@@ -69,6 +72,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                       suffixIconColor: Colors.white,
                       suffixIcon: widget._searchController.text != ""
                           ? IconButton(
+                              key: const Key("clearSearchButton"),
                               onPressed: () {
                                 setState(() {
                                   _searchText = "";
@@ -78,7 +82,8 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                               icon: const Icon(Icons.highlight_remove_rounded),
                             )
                           : null,
-                      hintText: AppLocalizations.of(context)!.searchInputPlaceholder,
+                      hintText:
+                          AppLocalizations.of(context)!.searchInputPlaceholder,
                     ),
                     onChanged: (value) {
                       setState(() {
@@ -114,7 +119,8 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                 ),
                 //The list of recipes.
                 ref.watch(recipeServiceProvider).when(
-                      data: (recipes) => RecipeList(recipes: _filterRecipes(recipes)),
+                      data: (recipes) =>
+                          RecipeList(recipes: _filterRecipes(recipes)),
                       error: (error, stackTrace) => Text(error.toString()),
                       loading: () => const SizedBox(
                         height: 32,
@@ -133,13 +139,16 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   /// Filters and sorts the given list of recipes according to the current filter and sort options.
   List<Recipe> _filterRecipes(List<Recipe> recipes) {
     recipes = recipes
-        .where((element) => element.title.toLowerCase().contains(_searchText.toLowerCase()))
+        .where((element) =>
+            element.title.toLowerCase().contains(_searchText.toLowerCase()))
         .toList(growable: false);
 
     for (final filter in _filterCategories) {
       recipes = recipes.where(filter.matches).toList(growable: false);
     }
-    recipes.sort((a, b) => (_selectedSort.ascending ? 1 : -1) * _selectedSort.category.compare(a, b));
+    recipes.sort((a, b) =>
+        (_selectedSort.ascending ? 1 : -1) *
+        _selectedSort.category.compare(a, b));
     return recipes;
   }
 }

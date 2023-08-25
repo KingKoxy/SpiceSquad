@@ -68,6 +68,7 @@ class GroupCreationScreen extends ConsumerWidget {
                           SizedBox(
                             width: double.infinity,
                             child: TextFormField(
+                              key: const Key("group_name_field"),
                               validator: (value) => _validateGroupName(AppLocalizations.of(context)!, value),
                               keyboardType: TextInputType.text,
                               controller: _groupNameController,
@@ -87,6 +88,7 @@ class GroupCreationScreen extends ConsumerWidget {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
+                        key: const Key("create_group_button"),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             _createGroup(context, ref.read(groupServiceProvider.notifier), _isAfterRegister);

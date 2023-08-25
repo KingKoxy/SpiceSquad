@@ -21,6 +21,7 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Hero(
+      key: const Key("navBar"),
       tag: "navBar",
       child: Container(
         decoration: BoxDecoration(
@@ -35,7 +36,11 @@ class NavBar extends StatelessWidget {
         ),
         child: BottomNavigationBar(
           currentIndex: _currentIndex,
-          onTap: (index) => {if (index != _currentIndex) Navigator.of(context).pushReplacementNamed(_routes[index])},
+          onTap: (index) {
+            if (index != _currentIndex) {
+              Navigator.of(context).pushReplacementNamed(_routes[index]);
+            }
+          },
           items: const [
             BottomNavigationBarItem(
               icon: ImageIcon(SpiceSquadIconImages.createDocument),

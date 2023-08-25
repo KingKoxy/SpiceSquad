@@ -76,6 +76,7 @@ class _FilterSelectionDialogState extends State<FilterSelectionDialog> {
             }
             final key = _filterMap.keys.elementAt(index - 1);
             return CheckboxListTile(
+              key: Key(key.getName(AppLocalizations.of(context)!)),
               title: Text(key.getName(AppLocalizations.of(context)!)),
               value: _filterMap[key],
               onChanged: (value) {
@@ -95,6 +96,7 @@ class _FilterSelectionDialogState extends State<FilterSelectionDialog> {
           },
         ),
         TextButton(
+          key: const Key("saveFilterButton"),
           child: Text(AppLocalizations.of(context)!.saveButtonLabel),
           onPressed: () {
             Navigator.of(context).pop();

@@ -45,6 +45,7 @@ class _IngredientCreationScreenState extends State<IngredientCreationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print("Building ingredient creation screen");
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.ingredientCreationHeadline),
@@ -80,6 +81,7 @@ class _IngredientCreationScreenState extends State<IngredientCreationScreen> {
                     const SizedBox(width: 10),
                     Expanded(
                       child: TextFormField(
+                        key: const Key("amountInput"),
                         validator: (value) {
                           if (value == null || value.isEmpty || double.tryParse(value) == null) {
                             return AppLocalizations.of(context)!.valueNotANumberError;
@@ -98,6 +100,7 @@ class _IngredientCreationScreenState extends State<IngredientCreationScreen> {
                     const SizedBox(width: 10),
                     Expanded(
                       child: TextFormField(
+                        key: const Key("unitInput"),
                         validator: (value) {
                           if (value != null && value.length > 16) {
                             return AppLocalizations.of(context)!.unitTooLongError;
@@ -116,6 +119,7 @@ class _IngredientCreationScreenState extends State<IngredientCreationScreen> {
                 SizedBox(
                   width: double.maxFinite,
                   child: ElevatedButton(
+                    key: const Key("saveButton"),
                     onPressed: () {
                       // validates all fields
                       if (_iconUrl.isNotEmpty && !widget._formKey.currentState!.validate()) return;

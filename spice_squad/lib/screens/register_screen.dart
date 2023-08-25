@@ -39,6 +39,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
+          key: const Key("registerScroll"),
           physics: const BouncingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.all(32),
@@ -75,6 +76,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       SizedBox(
                         width: double.infinity,
                         child: TextFormField(
+                          key: const Key("userNameField"),
                           autofillHints: const [AutofillHints.newUsername],
                           validator: (value) => _validateUserName(AppLocalizations.of(context)!, value),
                           keyboardType: TextInputType.name,
@@ -93,6 +95,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       SizedBox(
                         width: double.infinity,
                         child: TextFormField(
+                          key: const Key("emailField"),
                           autofillHints: const [AutofillHints.email],
                           textInputAction: TextInputAction.next,
                           validator: (value) => _validateEmail(AppLocalizations.of(context)!, value),
@@ -110,6 +113,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       SizedBox(
                         width: double.infinity,
                         child: TextFormField(
+                          key: const Key("passwordField"),
                           textInputAction: TextInputAction.next,
                           autofillHints: const [AutofillHints.newPassword],
                           validator: (value) => _validatePassword(AppLocalizations.of(context)!, value),
@@ -127,6 +131,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       SizedBox(
                         width: double.infinity,
                         child: TextFormField(
+                          key: const Key("passwordRepeatField"),
                           autofillHints: const [AutofillHints.newPassword],
                           textInputAction: TextInputAction.done,
                           onFieldSubmitted: (value) {
@@ -174,6 +179,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
+                    key: const Key("register"),
                     onPressed: () {
                       if (!_loading && widget._formKey.currentState!.validate()) {
                         _register(
