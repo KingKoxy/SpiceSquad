@@ -1,0 +1,325 @@
+@host = http://localhost:3000
+//@host = https://ravtscheev.com/spicesquad
+
+@contentType = application/json
+
+@idToken = eyJhbGciOiJSUzI1NiIsImtpZCI6IjYzODBlZjEyZjk1ZjkxNmNhZDdhNGNlMzg4ZDJjMmMzYzIzMDJmZGUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vc3BpY2VzcXVhZC1mZDMyYSIsImF1ZCI6InNwaWNlc3F1YWQtZmQzMmEiLCJhdXRoX3RpbWUiOjE2OTI4OTU1OTksInVzZXJfaWQiOiIwVFZoalRFNVpXT1pQNVRDeEtlbTQzM0FSSmgyIiwic3ViIjoiMFRWaGpURTVaV09aUDVUQ3hLZW00MzNBUkpoMiIsImlhdCI6MTY5Mjg5NTU5OSwiZXhwIjoxNjkyODk5MTk5LCJlbWFpbCI6InJhcGhhZWwuemlwcGVyZXJAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbInJhcGhhZWwuemlwcGVyZXJAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.EZO4oF2LSVQPLLYMOANuEeTKkuf9ji2PncRpMFIifHdW4zLytf12KkPghFHxNFTExaK8WOnodVS9mbhBix2Mf9aiEL4rRXpRceUePQ4ne3tENHhN5MExKvMNiDfn0LVzgEpT-f8Fly1MjxDYLtlaWrwpTtcG1BATxMXg89a2Bo6dKcUSLoFWFZGRdTCIiJ5-OratH4Ql90gwXjf5G-fykaSjAkfZf29yFMd2iCHRU8s9cR97zjqXIZmfKRajQnYPu7VfeNQHLe--lPm-BkdlWsf7OY5uPTKXx-_AZOWVXwHwJeflAR0oUm5XHNy9v-3HTM9EtQzJVie0z33hU29T8A
+@refreshToken = eyJhbGciOiJSUzI1NiIsImtpZCI6IjYyM2YzNmM4MTZlZTNkZWQ2YzU0NTkyZTM4ZGFlZjcyZjE1YTBmMTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vc3BpY2VzcXVhZC1mZDMyYSIsImF1ZCI6InNwaWNlc3F1YWQtZmQzMmEiLCJhdXRoX3RpbWUiOjE2OTEwODcyOTQsInVzZXJfaWQiOiJVakdjaXduVnBEYU1hODNyRExTdnZNdWczQkYyIiwic3ViIjoiVWpHY2l3blZwRGFNYTgzckRMU3Z2TXVnM0JGMiIsImlhdCI6MTY5MTA4NzI5NCwiZXhwIjoxNjkxMDkwODk0LCJlbWFpbCI6Imx1a2FzQG1haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImx1a2FzQG1haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.nDuyBNzie3TTc9MhrlHIbaIxDa5qHUck1OlgF3TvVZRxwUXqSvfsmWboZMkTRc96NKYBX4Qhwwg41Kgbx3u5R6FdfBk_Z94dyHo1OL2nyRh5YUvEzH0HD_xjgzRseTT-pkFuXHGCqVj0RuZpXqLREmq9rzEsWGQqk93CZfYzr6lxNrr-V_UdPalDX-ISyv8pcqrDRdv6F1nYXVzb6_lEbl92xiEG0C9BgMJ99ufVmW1sagfJpa_NR6lhe8seEpxp5y9njqDUm6UZ7UIY9c3seUCZQPvSHEsip0ZoqTgIrAqdOdHMAjxKG5sCCei92VZOeuURlyMhopUsOAziDMaP_g
+
+@userName = "Raphael"
+@email = "raphael.zipperer@gmail.com"
+@password = "SpiceSquad88"
+
+@groupId = 7fefcaf6-7505-4da9-aa72-17ad77378a4d
+
+@userId = 8LnkOTK2uqavsL22CqvfywzyFlm2
+
+@recipeId = f7b1bdcf-affc-490c-a5d6-74791096b82f
+
+
+@icon = "http://localhost:3000/ingredient/icons/57497797-e16b-42f3-895b-2ef4d02ee6bc"
+
+@targetId = bfaeb2e4-97e3-407b-a843-c92e4bdd2e2d
+
+@user = { "uid": "cZFFIjSOp6UQzlqS1fEMUdS2iEs2", "email": "test@mail.com", "emailVerified": false, "isAnonymous": false, "providerData": [{ "providerId": "password", "uid": "test@mail.com", "displayName": null, "email": "test@mail.com", "phoneNumber": null, "photoURL": null }], "stsTokenManager": { "refreshToken": "AMf-vBwzX217Dn7TRF4PbV8gTE1-jNDgPCVyfX8kI-1kWkbiMvl2lHokGYOKiuZFPncE_5zktJYUzzLAVHLJKDu7R-Zagc2vWbGMXqFAv0uYu7Q_hHMcvYOxjJ4zBe3OcUEcI7yLGKn9EcoGD5OpF10mZl796y4UO-W35-QlYQjWnGKiHI8xOgPORJx4luBexhMKgJLzPOmJ_Q5Y6Y_xHfu7s-MMQPHjjg", "accessToken": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImE1MWJiNGJkMWQwYzYxNDc2ZWIxYjcwYzNhNDdjMzE2ZDVmODkzMmIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vc3BpY2VzcXVhZC1mZDMyYSIsImF1ZCI6InNwaWNlc3F1YWQtZmQzMmEiLCJhdXRoX3RpbWUiOjE2ODg4ODg3MTcsInVzZXJfaWQiOiJjWkZGSWpTT3A2VVF6bHFTMWZFTVVkUzJpRXMyIiwic3ViIjoiY1pGRklqU09wNlVRemxxUzFmRU1VZFMyaUVzMiIsImlhdCI6MTY4ODg4ODcxNywiZXhwIjoxNjg4ODkyMzE3LCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidGVzdEBtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.WBvQQR2sZPRNfmZRofyE1FN-pQ3G5rJs6gvqrFjEN5RDSZ6kmTWZ0Gv7CocHyQ4fPBWQHRbIu0hJEhWPtsJupTrbPDw5LgAIKiOT2PRKoKbYh7xa1M85WCbfw73r_pGlWQH1kNir4Qkk8y2c69YeuhZRNEncCaL7hLPVIDnXwSegXcpUkKrBBTFisQmL8DN3hfhv7JsheGJ_7R2feCheIJsZGFiaZW_hYfQr49snr5XJrURGG-9cOVQiDksiGqQfSsQI-mg5LGpQbTDbensIrt2tLuJpJ8D2L3aA6CLIaBDvplD-WtrGiRiCUNuDkLuoDAiX-dKTPh7SGD8plPRXug", "expirationTime": 1688892317215 }, "createdAt": "1688742793416", "lastLoginAt": "1688888717186", "apiKey": "AIzaSyACtGR4SgCI8V3iFv2Kc4iUJWhciE4mkgg", "appName": "[DEFAULT]" }
+
+@image = [137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,0,30,0,0,0,30,8,6,0,0,0,59,48,174,162,0,0,0,9,112,72,89,115,0,0,11,19,0,0,11,19,1,0,154,156,24,0,0,1,192,73,68,65,84,120,156,237,215,77,136,78,81,28,199,241,15,106,26,175,133,97,74,44,200,198,194,206,98,178,165,89,136,44,200,218,66,73,217,80,51,108,173,173,101,35,154,36,165,200,74,148,145,119,73,179,20,25,25,98,74,72,228,165,89,161,83,127,117,123,122,238,203,115,159,123,203,194,183,206,230,127,126,247,124,59,231,57,247,60,231,210,28,243,177,7,119,240,70,195,220,198,20,214,118,212,23,224,50,126,71,187,217,180,248,65,12,252,28,43,50,245,195,25,105,106,187,155,22,47,197,195,24,252,76,166,62,149,145,94,192,60,45,176,14,95,241,11,91,162,54,139,39,56,216,150,244,47,39,98,118,167,181,196,46,92,194,59,204,97,6,87,48,30,226,167,24,141,218,171,200,188,141,103,118,214,17,174,198,173,142,13,83,167,165,221,189,170,170,52,5,95,246,48,248,51,236,199,26,12,96,3,142,224,125,244,79,99,168,138,248,70,15,210,115,24,44,152,192,227,200,93,43,147,142,246,184,148,101,12,227,99,100,183,23,5,207,55,44,78,28,143,236,68,81,104,166,5,241,166,200,166,93,159,203,92,11,226,193,200,166,177,115,249,94,83,60,30,75,218,141,161,200,166,177,115,121,81,83,252,26,31,114,198,220,28,217,148,201,229,98,31,226,244,222,118,99,111,100,175,23,137,247,213,20,143,197,114,119,99,34,178,71,139,196,75,240,163,193,205,181,16,159,34,187,177,44,124,178,65,241,88,228,30,85,200,90,137,47,13,136,135,51,179,221,166,34,7,250,20,167,59,216,100,213,115,186,206,14,207,147,158,141,254,217,152,121,79,44,198,189,18,241,162,142,103,150,227,106,244,125,195,86,53,89,134,251,37,255,197,59,226,116,58,20,55,149,84,255,140,17,125,50,128,83,113,185,171,242,187,223,197,122,13,50,18,167,207,207,184,85,28,139,243,121,58,222,130,201,248,146,72,95,20,255,249,119,248,3,207,121,44,182,221,7,154,231,0,0,0,0,73,69,78,68,174,66,96,130]
+
+
+// API-Requests
+
+// AuthentificationController
+
+### Test a not existing route
+GET {{host}}/unknown
+Content-Type: {{contentType}}
+
+### Register new user
+POST {{host}}/auth/register
+Content-Type: {{contentType}}
+
+{
+    "userName": {{userName}},
+    "email": {{email}},
+    "password": {{password}}
+}
+
+### Login user
+POST {{host}}/auth/login
+Content-Type: {{contentType}}
+
+{
+    "email": {{email}},
+    "password": {{password}}
+}
+
+### Reset password
+POST {{host}}/auth/resetPassword
+Content-Type: {{contentType}}
+
+    {
+        "email": "lukasschwarz@mailbox.org"
+    }
+
+### Refresh token
+POST {{host}}/auth/refreshToken
+Content-Type: {{contentType}}
+
+    {
+        "refreshToken": "{{refreshToken}}"
+    }
+
+### Logout user
+POST {{host}}/auth/logout
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+  
+
+// GroupController
+### Create Group
+POST {{host}}/group
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+
+    {
+        "groupName": "Gruppenkuscheln"
+    }
+
+### Delete Group
+DELETE {{host}}/group/{{groupId}}
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+
+### Patch Group
+PATCH {{host}}/group/{{groupId}}
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+
+    {
+        "groupName": "Group with patched group name"
+    }
+
+### Join group
+PATCH {{host}}/group/join
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+
+    {
+        "groupCode": "DITSKQ1H"
+    }
+
+
+### Leave group
+PATCH {{host}}/group/leave/{{groupId}}
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+
+### Get all groups for a user
+GET {{host}}/group
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+
+### Get group by id
+GET {{host}}/group/{{groupId}}
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+
+// RecipeController
+
+//Image is not correctly stored in the database
+### Create recipe
+POST {{host}}/recipe
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+
+    {
+        "title": "Yo-gurt",
+        "image": null,
+        "duration": 30,
+        "difficulty": "EASY",
+        "ingredients": [
+            {
+                "name": "Ingwer",
+                "icon": "http://localhost:3000" + "/ingredient/icons/" + "57497797-e16b-42f3-895b-2ef4d02ee6bc",
+                "amount": 2,
+                "unit": "kg"
+            },
+            {
+                "name": "Knoblauch",
+                "icon": "http://localhost:3000" + "/ingredient/icons/" + "57497797-e16b-42f3-895b-2ef4d02ee6bc",
+                "amount": 1,
+                "unit": "teaspoon"
+            }
+        ],
+        "instructions": ".",
+        "isVegetarian": true,
+        "isVegan": false,
+        "isGlutenFree": false,
+        "isKosher": false,
+        "isHalal": false,
+        "isPrivate": false,
+        "defaultPortionAmount": 2
+
+    }
+
+### Delete recipe
+DELETE {{host}}/recipe/{{recipeId}}
+Content-Type: application/json
+Authorization: {{idToken}}
+
+### Get all recipes for a user
+GET {{host}}/recipe
+Content-Type: application/json
+Authorization: {{idToken}}
+
+### Update recipe
+Patch {{host}}/recipe/{{recipeId}}
+Content-Type: application/json
+Authorization: {{idToken}}
+
+    {
+        "title": "Recipe",
+        "image": "",
+        "duration": 30,
+        "difficulty": "EASY",
+        "ingredients": [
+            {
+                "id": "b733b82a-b1f7-4011-9179-bcab1a6959b9",
+                "name": "Tee",
+                "icon": {{icon}},
+                "amount": 2,
+                "unit": "pieces"
+            },
+            {
+                "id": "d83da118-79ab-4df8-a124-70e1a46400c4",
+                "name": "Tee 2",
+                "icon": {{icon}},
+                "amount": 1,
+                "unit": "teaspoon"
+            },
+            {
+                "id": "",
+                "name": "Tee 4",
+                "icon": {{icon}},
+                "amount": 1,
+                "unit": "teaspoon"
+            }
+        ],
+        "instructions": "Lorem impsum dolor sit amet",
+        "isVegetarian": true,
+        "isVegan": false,
+        "isGlutenFree": false,
+        "isKosher": false,
+        "isHalal": false,
+        "isPrivate": false,
+        "defaultPortionAmount": 2
+
+    }
+
+### Set recipe as favorite
+PATCH {{host}}/recipe/setFavorite/{{recipeId}}
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+
+{
+    "isFavorite": true
+}
+
+### Report recipe
+POST {{host}}/recipe/report/{{recipeId}}
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+
+// AdminController
+### Make Admin
+PATCH {{host}}/admin/makeAdmin/{{groupId}}/{{targetId}}
+Content-Type: application/json
+Authorization: {{idToken}}
+
+### Remove Admin
+PATCH {{host}}/admin/removeAdmin/{{groupId}}/{{targetId}}
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+
+### Censor recipe
+PATCH {{host}}/admin/setCensored/{{groupId}}/{{recipeId}}
+Content-Type: application/json
+Authorization: {{idToken}}
+
+    {
+        "censored": true
+    }
+
+### Kick user
+PATCH {{host}}/admin/kickUser/d3532d1e-636d-4e04-84f7-dfb0dff8a945/6b531fda-55c0-4862-a8d8-c63690f33ea9
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+
+### Ban user
+PATCH {{host}}/admin/banUser/{{groupId}}/{{targetId}}
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+
+
+// UserController
+### Delete user
+DELETE {{host}}/user
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+
+### Update user
+PATCH {{host}}/user/{{userId}}
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+
+    {
+        "userName": "Lukas",
+        "email": "lukas@mail.com",
+        "profileImage": {{image}}
+    }
+
+### Get user by token
+GET {{host}}/user
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+
+
+// IngredientController
+### Get all ingredients
+GET {{host}}/ingredient/names
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+
+### Get ingredient icons
+GET {{host}}/ingredient/icons
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+
+### Get ingredient icon by id
+GET {{host}}/ingredient/icons/57497797-e16b-42f3-895b-2ef4d02ee6bc
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+
+//ImageRouter
+### Get image by id
+GET {{host}}/image/74058f3e-5895-4ad0-91a6-fe4c518c87a8
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+
+### Post image
+POST {{host}}/image
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+
+    {
+        "image": {{image}}
+    }
+
+### Patch Image
+PATCH {{host}}/image/74058f3e-5895-4ad0-91a6-fe4c518c87a8
+Content-Type: {{contentType}}
+Authorization: {{idToken}}
+
+    {
+        "image": {{image}}
+    }

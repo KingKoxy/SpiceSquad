@@ -1,3 +1,10 @@
 *.code-workspace
 /.idea/
+node_modules
+firebase_credentials.json
+*.env
+*.code-workspace
+*.sql
+server/build
+/server/docs/
 .DS_Store

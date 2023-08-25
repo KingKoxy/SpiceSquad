@@ -1,0 +1,12 @@
+# Change {serverdomain} to server domain name or IP address
+{serverdomain} {
+    handle_path /spicesquad/* {
+        uri strip_prefix /spicesquad
+        reverse_proxy spicesquad-backend:3000 {
+        }
+    }
+
+   handle {
+        file_server
+    }
+}

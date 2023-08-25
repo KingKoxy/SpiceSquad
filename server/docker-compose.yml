@@ -1,0 +1,76 @@
+version: '3.9'
+
+services:
+  watchtower:
+        image: containrrr/watchtower
+        restart: unless-stopped
+        container_name: watchtower
+        environment:
+            - WATCHTOWER_POLL_INTERVAL=1800
+            - WATCHTOWER_CLEANUP=true
+            - WATCHTOWER_INCLUDE_RESTARTING_true
+            - WATCHTOWER_INCLUDE_STOPPED=true
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - ./watchtower.json:/config.json
+
+  spicesquad-backend:
+    image: ghcr.io/kingkoxy/spicesquad:spicesquad-backend
+    container_name: spicesquad-backend
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      NODE_ENV: $NODE_ENV
+      SV_PORT: $SV_PORT
+      DATABASE_URL: $DATABASE_URL
+      FIREBASE_API_KEY: $FIREBASE_API_KEY
+      FIREBASE_AUTH_DOMAIN: $FIREBASE_AUTH_DOMAIN
+      FIREBASE_PROJECT_ID: $FIREBASE_PROJECT_ID
+      FIREBASE_STORAGE_BUCKET: $FIREBASE_STORAGE_BUCKET
+      FIREBASE_MESSAGING_SENDER_ID: $FIREBASE_MESSAGING_SENDER_ID
+      FIREBASE_APP_ID: $FIREBASE_APP_ID
+      FIREBASE_PRIVATE_KEY: $FIREBASE_PRIVATE_KEY
+      FIREBASE_CLIENT_EMAIL: $FIREBASE_CLIENT_EMAIL
+      FIREBASE_URL: $FIREBASE_URL
+      EMAIL_HOST: $EMAIL_HOST
+      EMAIL_USER: $EMAIL_USER
+      EMAIL_PASSWORD: $EMAIL_PASSWORD
+    ports: 
+      - '$SV_PORT:$SV_PORT'
+      - '9005:9005'
+    depends_on:
+      - database
+    command: npm run start
+    
+  database:
+    image: postgres:11.5-alpine
+    restart: unless-stopped
+    container_name: postgres
+    env_file: ./.env
+    ports: 
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+      - POSTGRES_DB=$POSTGRES_DB
+    volumes:
+      - db:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  caddy:
+    image: caddy:latest
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - $PWD/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:
+  db:
+    driver: local
