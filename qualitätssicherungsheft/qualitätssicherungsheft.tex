@@ -137,5 +137,39 @@ Jedoch war bei einem versuch mit höheren virtuellen Nutzerzahlen der Server nic
 Der Test hat gezeigt, dass die Anwendung bei einer geringen Anzahl von Nutzern gut funktioniert. Jedoch wäre die Anwendung nach dem obigen Testergebnis nicht für eine große Anzahl von Nutzern ausgelegt. Dies ist aus unserer Sicht vor allem auf die geringe Rechenleistung des Servers zurückzuführen. Wir sind der Meinung, dass die Anwendung bei einer höheren Rechenleistung des Servers auch bei einer höheren Anzahl von Nutzern gut funktionieren würde.
 
 Um diese Aussage zu bestätigen, müsste jedoch ein weiterer Test mit einer höheren Rechenleistung des Servers durchgeführt werden, was uns leider im Rahmen des PSE nicht möglich war.
+\newpage
+
+\section{User Storys aus dem Pflichtenheft}
+
+Im Pflichtenheft haben wir insgesamt 14 Use-Case Beispiele detailliert beschrieben und diese jetzt alle ausgiebig getestet. Wir haben versucht alle Test so weit wie möglich zu automatisieren, sodass es möglich ist bei weiteren Releases der App das Funktionieren der bisherigen Funktionen sicherzustellen. Das Automatisieren wurde mithilfe des Flutter eigenen Packets Integration-Test umgesetzt und auf einem gesondertem Datensatz durchgeführt.
+
+\subsection{⟨UC10⟩ Einloggen und Ausloggen}
+Der Testfall konnte automatisiert werden und der Test wurde erfolgreich durchgeführt. 
+\subsection{⟨UC20⟩ Registrierung und Konto löschen}
+Der Testfall konnte automatisiert werden und der Test wurde erfolgreich durchgeführt.
+\subsection{⟨UC30⟩ Passwort zurücksetzen}
+Der Testfall konnte nicht automatisiert werden, da es keine Funktion gibt die auf einen Mailserver zugreifen kann innerhalb von Integration Tests. Das Use-Case Beispiel wurde per Hand mehrmals durchgeführt und alle Versuche waren erfolgreich.
+\subsection{⟨UC40⟩ Benutzernamen und Profilbild ändern}
+Der Testfall konnte größtenteils automatisiert werden. Das Ändern des Profilbilds war nicht möglich da es noch keine Methode zum übergeben von Dateien bei Integration Test gibt. Der Test wurde erfolgreich durchgeführt für den automatisierten Teil und auch für den Teil der manuell durchgeführt werden musste.
+\subsection{⟨UC50⟩ Rezept erstellen, ändern und löschen}
+Der Testfall konnte automatisiert werden und der Test wurde erfolgreich durchgeführt.
+\subsection{⟨UC60⟩ Rezept suchen, sortieren, filtern, betrachten und favorisieren}
+Der Testfall konnte automatisiert werden und der Test wurde erfolgreich durchgeführt. 
+\subsection{⟨UC70⟩ Rezept auf privat stellen und exportieren}
+Der Testfall konnte nicht automatisiert werden da keine Funktion gibt die Überprüft ob eine Datei heruntergeladen wurde. Das Use-Case Beispiel wurde per Hand mehrmals durchgeführt und alle Versuche waren erfolgreich.
+\subsection{⟨UC80⟩ Gruppe erstellen, Gruppe mit Kürzel beitreten und Gruppe auflösen}
+Der Testfall konnte automatisiert werden und der Test wurde erfolgreich durchgeführt. 
+\subsection{⟨UC90⟩ Gruppe mit QR-Code beitreten und verlassen}
+Der Testfall konnte nicht automatisiert getestet werden da keine Funktion gibt die auf eine Kamera zugreifen kann oder einen QR-Code erkennt. Das Use-Case Beispiel wurde per Hand mehrmals durchgeführt und alle Versuche waren erfolgreich.
+\subsection{⟨UC100⟩ Administrator ernennen und Administratorenstatus entfernen}
+Der Testfall konnte automatisiert werden und der Test wurde erfolgreich durchgeführt.
+\subsection{⟨UC110⟩ Nutzer kicken und Nutzer bannen}
+Der Testfall konnte automatisiert werden und der Test wurde erfolgreich durchgeführt.
+\subsection{⟨UC120⟩ Rezepte verwalten für die Gruppen}
+Der Testfall konnte nicht automatisch getestet werden, da kein Zugriff auf einen Mailserver möglich ist innerhalb von Integration Test um die Report-E-Mails zu lesen. Das Use-Case Beispiel wurde per Hand mehrmals durchgeführt und alle Versuche waren erfolgreich.
+\subsection{⟨UC130⟩ Gruppennamen ändern}
+Der Testfall konnte automatisiert werden und der Test wurde erfolgreich durchgeführt.
+\subsection{⟨UC140⟩ Administrator verlässt die Gruppe}
+Der Testfall konnte automatisiert werden und der Test wurde erfolgreich durchgeführt.
 
 \end{document}
