@@ -1,0 +1,41 @@
+name: Build and Deploy Docker Image
+on:
+    push:
+        branches:
+        - Server
+
+jobs:
+    build-and-deploy:
+        runs-on: ubuntu-latest
+        permissions:
+          contents: read
+          packages: write
+        steps:
+        - name: Set up Git repository
+          uses: actions/checkout@v2
+        - name: Install node v14
+          uses: actions/setup-node@v1
+          with:
+            node-version: 14
+        - name: Install Dependencies
+          run: |
+            cd server
+            npm install
+        - name: Build TypeScript
+          run: |
+            cd server 
+            npm run build
+
+        - name: Login to GitHub Container Registry
+          uses: docker/login-action@v1
+          with:
+            registry: ghcr.io
+            username: ${{ github.repository_owner }}
+            password: ${{ secrets.GITHUB_TOKEN }}
+        - name: Build and Push Docker Image
+          uses: docker/build-push-action@v4
+          with:
+            context: ./server
+            push: true
+            tags: |
+              ghcr.io/kingkoxy/spicesquad:spicesquad-backend

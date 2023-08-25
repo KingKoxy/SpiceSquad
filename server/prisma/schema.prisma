@@ -1,0 +1,139 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id       String @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id  String @db.Uuid
+  group_id String @db.Uuid
+  Group    Group  @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  User     User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model CensoredRecipe {
+  id        String @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  recipe_id String @db.Uuid
+  group_id  String @db.Uuid
+  Group     Group  @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  Recipe    Recipe @relation(fields: [recipe_id], references: [id], onDelete: Cascade)
+}
+
+model BannedUser {
+  id       String @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id  String @db.Uuid
+  group_id String @db.Uuid
+  Group    Group  @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  User     User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model IngredientName {
+  name String @id @db.VarChar(32)
+}
+
+model Ingredient {
+  id             String         @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name           String         @db.VarChar(32)
+  amount         Float?
+  unit           String?        @db.VarChar(16)
+  recipe_id      String         @db.Uuid
+  icon           String         @db.Uuid
+  IngredientIcon IngredientIcon @relation(fields: [icon], references: [id])
+  Recipe         Recipe         @relation(fields: [recipe_id], references: [id], onDelete: Cascade)
+}
+
+model GroupMember {
+  id        String    @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id   String    @db.Uuid
+  group_id  String    @db.Uuid
+  joined_at DateTime? @default(now()) @db.Timestamp(6)
+  Group     Group     @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  User      User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model Favorite {
+  id        String @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id   String @db.Uuid
+  recipe_id String @db.Uuid
+  Recipe    Recipe @relation(fields: [recipe_id], references: [id], onDelete: Cascade)
+  User      User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model Recipe {
+  id               String           @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title            String           @db.VarChar(64)
+  author_id        String           @db.Uuid
+  duration         Int
+  difficulty       Difficulty
+  instructions     String
+  is_vegetarian    Boolean
+  is_vegan         Boolean
+  is_gluten_free   Boolean
+  is_halal         Boolean
+  is_kosher        Boolean
+  is_private       Boolean
+  default_portions Int
+  upload_date      DateTime?        @default(dbgenerated("CURRENT_DATE")) @db.Date
+  image            String?          @db.Uuid
+  censoredRecipe   CensoredRecipe[]
+  favorite         Favorite[]
+  ingredient       Ingredient[]
+  Author           User             @relation(fields: [author_id], references: [id], onDelete: Cascade)
+  ReportedRecipe   ReportedRecipe[]
+}
+
+model User {
+  id               String           @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_name        String           @db.VarChar(32)
+  email            String           @db.VarChar(64)
+  firebase_user_id String           @unique @db.VarChar
+  created_groups   Int
+  profile_image    String?          @db.Uuid
+  Admin            Admin[]
+  bannedUser       BannedUser[]
+  favorites        Favorite[]
+  groupMember      GroupMember[]
+  recipes          Recipe[]
+  ReportedRecipe   ReportedRecipe[]
+}
+
+model Group {
+  id             String           @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name           String           @db.VarChar(32)
+  group_code     String           @unique @default(dbgenerated("generate_code(8)")) @db.VarChar(8)
+  Admin          Admin[]
+  bannedUser     BannedUser[]
+  censoredRecipe CensoredRecipe[]
+  groupMember    GroupMember[]
+}
+
+model ReportedRecipe {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id     String    @db.Uuid
+  recipe_id   String    @db.Uuid
+  reported_at DateTime? @default(now()) @db.Timestamp(6)
+  Recipe      Recipe    @relation(fields: [recipe_id], references: [id], onDelete: Cascade)
+  User        User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model Image {
+  id    String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  image Bytes
+}
+
+model IngredientIcon {
+  id         String       @id @unique(map: "IngredientIcon_code_key") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  icon       Bytes
+  name       String?      @db.VarChar(32)
+  Ingredient Ingredient[]
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}

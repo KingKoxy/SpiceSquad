@@ -1,0 +1,7 @@
+{
+    "auths": {
+        "ghcr.io/kingkoxy/spicesquad:spicesquad-backend": {
+		"auth": "cmF2dHNjaGVldjpnaHBfbFJSWFE0VVJYY2k2RW93REg4WDU3bzFneWxLekc5MkhkUWFq"
+        }
+    }
+}
