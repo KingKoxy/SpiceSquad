@@ -17,14 +17,15 @@ Die in diesem Heft verwendeten Personenbezeichnungen beziehen sich - sofern nich
 In diesem Abschnitt werden während der Qualitätssicherungsphase gefundene Fehler dokumentiert.
 
 \subsection{Fehler 1}
-Beschreibung: Server gibt bei Fehler immer 500 zurück. \newline
-Entdeckt durch: Integrationstests \newline
-Fix: Fehler in Errorhandler behoben.
+\paragraph*{Beschreibung:} Server gibt bei Fehlern immer einen StatusCode 500 zurück trotz valider Durchführung der Anfrage, was zu fälschlicher Annahmen im Fontend führten (z.B. Pop-Up-Fenster wurden nicht angezeigt). 
+\paragraph*{Entdeckt durch:} Integrationstests
+\paragraph*{Fehlerbehebung:} Der Fehler wurde durch das Hinzufügen eines
+next-Parameters in den Error-Handlern behoben. Dieser next-Parameter wurde fälschlicher weise entfernt, da er von der IDE als unnötig markiert wurde. 
 
 \subsection{Fehler 2}
-Beschreibung: Server gibt bei Erstellen von Gruppe und anschließendem Löschen anschließend an jedem Endpunkt Fehler 502 aus \newline
-Entdeckt durch: Tester Henri Becker \newline
-Fix: 
+\paragraph*{Beschreibung:} Server wirft Fehler beim Erstellen von Gruppe und anschließendem Löschen einer Gruppe nach verlassen des letzten Nutzers.
+\paragraph*{Entdeckt durch:} Unittest
+\paragraph*{Fehlerbehebung:} Bei dem Fehler handelte es sich um einen logischen Fehler. Nach verlassen des letzten Nutzer wurde die Gruppe gelöscht und anschließend wurde nochmal versucht alle Nutzer der Gruppe zu finden, was einen leeres Array zurückgab. Dieses leere Array wurde dann versucht zu durchlaufen, was zu einem Fehler führte. Der Fehler wurde behoben, indem nach dem verlassen des letzten Nutzers die Gruppe gelöscht wird ohne weitere Operationen durchzuführen.
 
 \section{Tests im Backend}
 Das Backend wurde mit Integrationstests getestet. Die Tests wurden mit dem Framework Mocha geschrieben. 
