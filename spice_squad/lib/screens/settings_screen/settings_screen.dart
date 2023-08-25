@@ -155,7 +155,10 @@ void _deleteAccount(BuildContext context, UserService userService) {
           userService.deleteAccount().then((value) {
             showDialog(
               context: context,
-              builder: (context) => const SuccessDialog(title: "Konto gelöscht", message: "Dein Konto wurde gelöscht."),
+              builder: (context) => SuccessDialog(
+                title: AppLocalizations.of(context)!.accountDeletionSuccessTitle,
+                message: AppLocalizations.of(context)!.accountDeletionSuccessMessage,
+              ),
             );
           });
         },

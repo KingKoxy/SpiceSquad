@@ -90,10 +90,7 @@ class Group {
   Map<String, dynamic> toMap() {
     return {
       "id": id,
-      "name": name,
-      "group_code": groupCode,
-      "members": members.map((user) => user.toMap()).toList(),
-      "recipes": recipes.map((recipe) => recipe.toMap()).toList(),
+      "groupName": name,
     };
   }
 }
