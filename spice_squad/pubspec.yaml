@@ -3,42 +3,51 @@ description: The Flutter App 'SpiceSquad'.
 
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 99.99.99+99
 
 environment:
   sdk: '>=2.18.5 <3.0.0'
 
 dependencies:
+  auto_size_text: ^3.0.0
+  cached_network_image: ^3.2.3
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  flutter_riverpod: ^2.3.6
+  http: ^1.1.0
+  image: ^4.0.17
+  image_picker: ^1.0.0
+  intl: any
+  jwt_decoder: ^2.0.1
+  marquee: ^2.2.0
+  mobile_scanner: ^3.3.0
+  open_file: ^3.3.2
+  path_provider: ^2.0.15
+  pdf: ^3.10.4
+  printing: ^5.11.0
+  qr_flutter: ^4.1.0
+  share_plus: ^7.0.2
+  shared_preferences: ^2.2.0
 
 dev_dependencies:
+  flutter_launcher_icons: "^0.13.1"
+  flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^2.0.0
-
 flutter:
+  generate: true
   uses-material-design: true
   assets:
     - assets/images/
     - assets/icons/
+    - assets/icons/ingredientIcons/
   fonts:
     - family: Poppins
       fonts:
-        - asset: fonts/poppins/Poppins-ExtraBold.ttf
-          weight: 800
-        - asset: fonts/poppins/Poppins-Bold.ttf
-          weight: 700
         - asset: fonts/poppins/Poppins-SemiBold.ttf
           weight: 600
-        - asset: fonts/poppins/Poppins-Medium.ttf
-          weight: 500
         - asset: fonts/poppins/Poppins-Regular.ttf
           weight: 400
-        - asset: fonts/poppins/Poppins-Light.ttf
-          weight: 300
-        - asset: fonts/poppins/Poppins-ExtraLight.ttf
-          weight: 200
-        - asset: fonts/poppins/Poppins-Thin.ttf
-          weight: 100
