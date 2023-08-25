@@ -40,6 +40,9 @@ export default class AuthenticationController extends AbstractController {
         req.statusCode = 401
         error as Error
         error.message = 'Error logging in user'
+        res.status(401).json({
+          message: 'Error logging in user'
+        })
         next(error)
       })
   }
