@@ -736,5 +736,13 @@
   "tooManyReportsErrorMessage": "This recipe has already been reported by you in the last 24 hours.",
   "@tooManyReportsErrorMessage": {
     "description": "The error message if the recipe has already been reported by the user in the last 24 hours"
+  },
+  "accountDeletionSuccessTitle": "Account deleted",
+  "@accountDeletionSuccessTitle": {
+    "description": "The title of the account deletion success page"
+  },
+  "accountDeletionSuccessMessage": "Your account has been successfully deleted.",
+  "@accountDeletionSuccessMessage": {
+    "description": "The description of the account deletion success page"
   }
 }

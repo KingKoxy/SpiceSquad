@@ -12,6 +12,36 @@
 Zur besseren Lesbarkeit wird in diesem Entwurfsheft das generische Maskulinum verwendet.
 Die in diesem Heft verwendeten Personenbezeichnungen beziehen sich - sofern nicht anders kenntlich gemacht - auf alle Geschlechter.
 \newpage
+\section{Gefundene Fehler}
+\subsection{Keine Fehlermeldung beim Login mit falschem Passwort}
+\paragraph*{Beschreibung} Server gibt bei Fehlern immer einen StatusCode 500 zurück, trotz valider Durchführung der Anfrage, was zu fälschlicher Annahmen im Frontend führten (z.B. Pop-Up-Fenster wurden nicht angezeigt). 
+\paragraph*{Behebung:} Der Fehler wurde durch das Hinzufügen eines
+next-Parameters in den Error-Handlern behoben. Dieser next-Parameter wurde fälschlicher weise entfernt, da er von der IDE als unnötig markiert wurde. 
+\newpage
+\subsection{Gruppenname kann nicht geändert werden}
+\paragraph*{Beschreibung} Wird versucht den Gruppennamen zu ändern, so bleibt der alte Name bestehen.
+\paragraph{Grund} Beim Konvertieren des neuen Gruppenobjektes zu einer JSON für die Anfrage an das Backend wird ein Fehler geworfen, da eine zusätzliche \texttt{.toMap()} Methode benötigt wird.
+\paragraph{Behebung} Die \texttt{.toMap()} Methode wurde zur \texttt{Group}-Klasse im Frontend hinzugefügt.
+\newpage
+\subsection{Fehlende Übersetzung der Konto-Löschen-Dialoge}
+\paragraph*{Beschreibung} Die Dialoge zum Löschen eines Kontos sind nicht auf Englisch übersetzt.
+\paragraph{Grund} Der Text ist als Magic-String im Code hartkodiert.
+\paragraph{Behebung} Die Übersetzungen wurden, wie die anderen Texte, in die l10n-Dateien ausgelagert.
+\newpage
+\subsection{Halale Rezepte werden auch als koscher angezeigt}
+\paragraph*{Beschreibung} Rezepte, die halal sind, werden in der Rezept-Detail-Ansicht als koscher angezeigt, sonst jedoch nirgends.
+\paragraph{Grund} In der Liste der Labels wird überprüft, ob ein bestimmtes Label aktiv ist und zeigt gegebenen falls das passende Widget an. Bei der If-Anfrage zum Koscher-Label ist dabei ein Fehler unterlaufen und es wurde auf Halal geprüft.
+\paragraph{Behebung} Die If-Anfrage wurde korrigiert.
+\newpage
+\subsection{Keine Weiterleitung beim Speichern von Änderungen eines Rezepts}
+\paragraph*{Beschreibung} Drückt man beim Bearbeiten eines Rezepts auf den Zurück-Knopf, so wird ein Dialog angezeigt, der fragt ob abgebrochen, verworfen oder gespeichert werden soll. Drückt man auf Speichern, so werden die Änderungen zwar gespeichert, der Nutzer aber nicht weitergeleitet.
+\paragraph{Grund} Es wurde nur ein \texttt{Navigator.pop()} aufgerufen, welches den Dialog schließt. Es müsste aber noch ein weiteres \texttt{Navigator.pop()} aufgerufen werden, um den Nutzer zurück vorherigen Seite zu leiten.
+\paragraph{Behebung} Es wird nun ein weiteres \texttt{Navigator.pop()} aufgerufen.
+\newpage
+\subsection{Fehler bei Gruppenerstellvorgang}
+\paragraph*{Beschreibung:} Server wirft Fehler beim Erstellen von Gruppe und anschließendem Löschen einer Gruppe nach Verlassen des letzten Nutzers.
+\paragraph*{Fehlerbehebung:} Bei dem Fehler handelte es sich um einen logischen Fehler. Nach Verlassen des letzten Nutzer wurde die Gruppe gelöscht und anschließend wurde nochmal versucht alle Nutzer der Gruppe zu finden, was einen leeres Array zurückgab. Dieses leere Array wurde dann versucht zu durchlaufen, was zu einem Fehler führte. Der Fehler wurde behoben, indem nach dem Verlassen des letzten Nutzers die Gruppe gelöscht wird ohne weitere Operationen durchzuführen.
+\newpage
 
 \section{Gefundene Fehler}
 In diesem Abschnitt werden während der Qualitätssicherungsphase gefundene Fehler dokumentiert.
