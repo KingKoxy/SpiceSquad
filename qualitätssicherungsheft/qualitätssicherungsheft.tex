@@ -27,6 +27,15 @@ next-Parameters in den Error-Handlern behoben. Dieser next-Parameter wurde fäls
 \paragraph*{Entdeckt durch:} Unittest
 \paragraph*{Fehlerbehebung:} Bei dem Fehler handelte es sich um einen logischen Fehler. Nach verlassen des letzten Nutzer wurde die Gruppe gelöscht und anschließend wurde nochmal versucht alle Nutzer der Gruppe zu finden, was einen leeres Array zurückgab. Dieses leere Array wurde dann versucht zu durchlaufen, was zu einem Fehler führte. Der Fehler wurde behoben, indem nach dem verlassen des letzten Nutzers die Gruppe gelöscht wird ohne weitere Operationen durchzuführen.
 
+\section{Auswertung der Umfrageergebnisse}
+In dieser Sektion werden die Umfrageergebnisse ausgewertet. Die Umfrage bestand aus vier Bewertungsfragen (Noten 1-6), drei Textfeldern zu Fehlerangabe und Verbesserungsvorschlägen sowie Angaben zu Alter und Geschlecht der befragten Person.
+
+\subsection{Benutzbarkeit}
+Während einzelne Nutzer Probleme bei der Bedienung der App hatten, bewerteten die meisten Nutzer die Benutzbarkeit positiv. Auch ältere Nutzer hatten meist keine Probleme, sich in der App zurechtzufinden. Die Durchschnittsnote war 1,8.
+
+\subsection{Gestaltung}
+Auch bei der Gestaltung war der Großteil der Nutzer zufrieden. Die Durchschnittsnote war 1,7.
+
 \section{Tests im Backend}
 Das Backend wurde mit Integrationstests getestet. Die Tests wurden mit dem Framework Mocha geschrieben. 
 Die Tests sind in dem Ordner \textit{test} zu finden. Die Tests können mit dem Befehl \textit{npm test} ausgeführt werden.
